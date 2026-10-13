@@ -33,6 +33,7 @@
     ],
     "protected_roots": [
       "crates/*/specs/**",
+      "specs/_closure/**",
       "ci/manifest/**",
       "scripts/**",
       "docs/*-schema.json",
@@ -73,6 +74,6 @@
   },
   "review": {
     "reviewer": "roger-codex-luna6",
-    "reviewed_at": "2026-10-12"
+    "reviewed_at": "2026-10-13"
   }
 }
