@@ -45,6 +45,7 @@
       ".github/**",
       "rust-toolchain.toml",
       "analysis/codesight/**",
+      ".gitignore",
       ".envrc",
       ".mcp.json",
       "README.md",
