@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-005",
+  "kind": "source-artifact",
+  "claim": "Botan's AEAD encrypt path encrypts each message chunk before authenticating it, while decrypt authenticates the ciphertext chunk before decrypting it.",
+  "origin": {
+    "repository": "upstream/botan",
+    "commit": "2a81eef56c96c237e590c27f9a75e60317c9c700",
+    "symbol": "ChaCha20Poly1305_Encryption::process_msg and ChaCha20Poly1305_Decryption::process_msg",
+    "path": "upstream/botan/src/lib/modes/aead/chacha20poly1305/chacha20poly1305.cpp",
+    "content_hash": "sha256:2bb5575c358dd34584184450e125f2425047271b368dbdded6db21ced65fab05",
+    "line_hint": "110-166"
+  },
+  "semantic_disposition": "required",
+  "lifecycle": "accepted",
+  "confidence": "high",
+  "mode": "P"
+}

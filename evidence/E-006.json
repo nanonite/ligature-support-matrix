@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-006",
+  "kind": "test",
+  "claim": "Botan's ChaCha20-Poly1305 vector file includes an RFC 7539 case with key, 96-bit nonce, associated data, plaintext, and expected ciphertext plus tag.",
+  "origin": {
+    "repository": "upstream/botan",
+    "commit": "2a81eef56c96c237e590c27f9a75e60317c9c700",
+    "symbol": "ChaCha20Poly1305 RFC 7539 test vector",
+    "path": "upstream/botan/src/tests/data/aead/chacha20poly1305.vec",
+    "content_hash": "sha256:191f7e9600ffe7d91456e77cb52f9ff1cc1af7cd5d1ae4cad5701d9c7021fcb9",
+    "line_hint": "22-28"
+  },
+  "semantic_disposition": "required",
+  "lifecycle": "accepted",
+  "confidence": "high",
+  "mode": "P"
+}

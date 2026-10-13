@@ -1,0 +1,15 @@
+# Local environment configuration
+/.envrc
+/.mcp.json
+
+# CodeSight-generated query artifacts and source index (keep the explanatory README)
+/analysis/codesight/**
+!/analysis/codesight/README.md
+!/analysis/codesight/.gitkeep
+
+# Botan is maintained as a separate nested upstream checkout; pin is in upstream/upstream-pin.json
+/upstream/botan/
+
+# Rust build products
+/target/
+**/target/

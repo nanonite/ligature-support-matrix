@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.0",
+  "concept": "Poly1305",
+  "kind": "struct",
+  "cluster": "crypto-kani",
+  "english_description": "The scalar Poly1305 one-time authenticator with clamped-key initialization and streaming updates.",
+  "verifier": "kani",
+  "queries": [
+    {
+      "english": "Compute the Poly1305 tag for this one-time key and message.",
+      "rust_sig": "fn compute_tag(&self, key: &[u8; 32], message: &[u8]) -> [u8; 16]",
+      "pure": true,
+      "witness_required": false
+    },
+    {
+      "english": "Compute the Poly1305 tag while splitting the message at this offset.",
+      "rust_sig": "fn compute_tag_chunked(&self, key: &[u8; 32], message: &[u8], split_at: usize) -> Result<[u8; 16], CryptoError>",
+      "pure": true,
+      "witness_required": false
+    }
+  ],
+  "commands": [
+    {
+      "english": "Initialize the Poly1305 state with one 32-byte one-time key.",
+      "rust_sig": "fn set_key(&mut self, key: &[u8; 32]) -> Result<(), CryptoError>"
+    },
+    {
+      "english": "Add the next message bytes to the Poly1305 state.",
+      "rust_sig": "fn update(&mut self, input: &[u8]) -> Result<(), CryptoError>"
+    },
+    {
+      "english": "Finalize the Poly1305 state and return its tag.",
+      "rust_sig": "fn finalize(&mut self) -> Result<[u8; 16], CryptoError>"
+    }
+  ],
+  "constraints": [
+    {
+      "english": "Poly1305 initialization receives exactly one thirty-two-byte key.",
+      "logic": "key.len() == 32",
+      "kind": "precondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "set_key"
+      ],
+      "id": "C001"
+    },
+    {
+      "english": "Successful Poly1305 finalization returns exactly sixteen tag bytes.",
+      "logic": "output.is_err() || output.as_ref().map(|tag| tag.len() == 16).unwrap_or(false)",
+      "kind": "postcondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "finalize"
+      ],
+      "id": "C002"
+    },
+    {
+      "english": "Splitting the same message at a valid offset does not change its tag.",
+      "logic": "compute_tag(key, message) == compute_tag_chunked(key, message, split_at).unwrap()",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "compute_tag_chunked"
+      ],
+      "id": "C003"
+    },
+    {
+      "english": "The chunk split offset is within the supplied message.",
+      "logic": "split_at <= message.len()",
+      "kind": "precondition",
+      "source": "hand",
+      "applies_to": [
+        "compute_tag_chunked"
+      ],
+      "id": "C004"
+    }
+  ],
+  "adversary_table": [
+    {
+      "scenario": "Finalize messages of lengths 0, 1, 15, 16, and 17 bytes.",
+      "violates": "C002",
+      "resolution": "return a sixteen-byte tag for every successful finalization"
+    },
+    {
+      "scenario": "Use a key with high and low bits that must be cleared by clamping.",
+      "violates": "Poly1305 key clamping behavior",
+      "resolution": "apply the RFC clamp before processing message blocks"
+    },
+    {
+      "scenario": "Split messages at offsets around a sixteen-byte boundary.",
+      "violates": "C003",
+      "resolution": "produce the same tag for one-shot and chunked processing"
+    },
+    {
+      "scenario": "Set the split offset beyond the message length.",
+      "violates": "C004",
+      "resolution": "return an error without reading outside the message"
+    }
+  ],
+  "source_references": [
+    {
+      "kind": "reference-implementation",
+      "citation_or_path": "upstream/botan/src/lib/mac/poly1305/poly1305.cpp at 2a81eef56c96c237e590c27f9a75e60317c9c700",
+      "notes": "Scalar initialization, block arithmetic, and finalization; SIMD providers are separate."
+    },
+    {
+      "kind": "paper",
+      "citation_or_path": "RFC 8439 section 2.5",
+      "notes": "Poly1305 one-time authenticator."
+    }
+  ],
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-13"
+  }
+}

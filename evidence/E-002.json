@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-002",
+  "kind": "source-artifact",
+  "claim": "Botan's scalar ChaCha block performs alternating column and diagonal quarter-rounds, adds the original 16-word state, and stores the resulting words little-endian.",
+  "origin": {
+    "repository": "upstream/botan",
+    "commit": "2a81eef56c96c237e590c27f9a75e60317c9c700",
+    "symbol": "ChaCha::chacha",
+    "path": "upstream/botan/src/lib/stream/chacha/chacha.cpp",
+    "content_hash": "sha256:dd49a23d33d75c6ab4e410ec04106a170e3b3aa68d93aee7b54e3c604a85f0ec",
+    "line_hint": "186-230"
+  },
+  "semantic_disposition": "required",
+  "lifecycle": "accepted",
+  "confidence": "high",
+  "mode": "P"
+}

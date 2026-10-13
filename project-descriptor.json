@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "name": "crypto-mixed",
+    "crate_naming_convention": "^crypto-mixed-[a-z]+"
+  },
+  "mode": "port",
+  "closure_kind": "bounded",
+  "port_source": {
+    "repository": "upstream/botan",
+    "language": "cpp",
+    "oracle_build_command": "nix develop ..#crypto-mixed -c bash -lc 'cd upstream/botan && python3 configure.py --with-build-dir=/tmp/crypto-mixed-botan-3.13.0-build && LD_LIBRARY_PATH=/tmp/crypto-mixed-botan-3.13.0-build make -f /tmp/crypto-mixed-botan-3.13.0-build/Makefile -j8 check'"
+  },
+  "crates": [
+    {
+      "crate_dir": "crates/crypto-mixed-core",
+      "contracts_crate": "contracts",
+      "specs_search_root": "crates"
+    }
+  ],
+  "verifier_policy": {
+    "default": "kani"
+  },
+  "compatibility_policy": {
+    "reliance_policy_path": "docs/reliance-policy.md"
+  },
+  "write_set": {
+    "allowed_roots": [
+      "crates/*/src/",
+      "crates/*/tests/",
+      "findings/limitations.jsonl",
+      "PORT-GAPS.md"
+    ],
+    "protected_roots": [
+      "crates/*/specs/**",
+      "ci/manifest/**",
+      "scripts/**",
+      "docs/*-schema.json",
+      "docs/reliance-policy.md",
+      "Cargo.toml",
+      "crates/*/Cargo.toml",
+      "crates/*/build.rs",
+      "tests/harnesses/**",
+      ".github/**",
+      "rust-toolchain.toml",
+      "analysis/codesight/**",
+      ".envrc",
+      ".mcp.json",
+      "README.md",
+      "analysis/upstream/**",
+      "oracle/**",
+      "rust/**",
+      "tools/**",
+      "upstream/**"
+    ]
+  },
+  "gate_integrity": [
+    {
+      "path": ".codex/skills/ligature/SKILL.md"
+    },
+    {
+      "path": ".ligature/schemas/project-state.schema.json"
+    },
+    {
+      "path": ".ligature/schemas/consolidated-check.schema.json"
+    },
+    {
+      "path": "@adjudicator"
+    }
+  ],
+  "llm_backend": {
+    "kind": "manual"
+  },
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-12"
+  }
+}

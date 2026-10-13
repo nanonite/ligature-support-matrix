@@ -1,0 +1,87 @@
+tool:
+  - tool: verus
+    resolved_path: /nix/store/57l94534x07sysi7gjf4zkkpai6cw6vc-verus-tools/bin/verus
+    version_string: "Verus 0.2026.05.24.ecee80a; profile release; platform linux_x86_64; toolchain 1.95.0-x86_64-unknown-linux-gnu"
+  - tool: cargo-verus
+    resolved_path: /nix/store/57l94534x07sysi7gjf4zkkpai6cw6vc-verus-tools/bin/cargo-verus
+    version_string: "cargo verus --version exits 2; cargo verus with no arguments exits 2; cargo verus --help exits 0 and reports the cargo verus subcommand without a version string"
+  - tool: z3
+    resolved_path: /nix/store/21b0cnnf46jyqy9srnnlyi9g9q395qj4-creusot-wrapped/bin/z3
+    version_string: "Z3 version 4.15.3 - 64 bit"
+  - tool: rustc
+    resolved_path: /home/goya/.cargo/bin/rustc
+    version_string: "rustc 1.95.0 (59807616e 2026-04-14)"
+  - tool: cargo-nextest
+    resolved_path: /home/goya/.cargo/bin/cargo-nextest
+    version_string: "cargo-nextest 0.9.133 (65e806bd5 2026-04-14); commit 65e806bd589d12c4341d3696a02a9788bd437c3c; host x86_64-unknown-linux-gnu"
+  - tool: cargo-kani
+    resolved_path: /home/goya/.cargo/bin/cargo-kani
+    version_string: "cargo-kani 0.67.0"
+  - tool: rdb
+    resolved_path: /home/goya/.cargo/bin/rdb
+    version_string: "rdb 0.0.0"
+  - tool: creusot
+    resolved_path: /nix/store/21b0cnnf46jyqy9srnnlyi9g9q395qj4-creusot-wrapped/bin/cargo-creusot
+    version_string: "cargo-creusot 0.12.0-dev; Rust toolchain nightly-2026-04-21; why3find v1.3.0+dev; z3 4.15.3; cvc4 1.8; cvc5 1.3.1"
+  - tool: why3
+    resolved_path: /nix/store/21b0cnnf46jyqy9srnnlyi9g9q395qj4-creusot-wrapped/bin/why3
+    version_string: "Why3 platform, version 1.8.2+git"
+  - tool: alt-ergo
+    resolved_path: /nix/store/21b0cnnf46jyqy9srnnlyi9g9q395qj4-creusot-wrapped/bin/alt-ergo
+    version_string: "v2.6.2"
+toolchain_divergence:
+  finding: "Verus and Creusot coexist without a PATH collision, but invoke different Rust toolchains."
+  shell_rustc:
+    resolved_path: /home/goya/.cargo/bin/rustc
+    version_string: "rustc 1.95.0 (59807616e 2026-04-14); rustup active toolchain 1.95.0-x86_64-unknown-linux-gnu"
+  verus:
+    resolved_path: /nix/store/57l94534x07sysi7gjf4zkkpai6cw6vc-verus-tools/bin/verus
+    version_string: "Verus 0.2026.05.24.ecee80a reports Toolchain: 1.95.0-x86_64-unknown-linux-gnu"
+  creusot:
+    resolved_path: /nix/store/21b0cnnf46jyqy9srnnlyi9g9q395qj4-creusot-wrapped/bin/cargo-creusot
+    version_string: "cargo-creusot 0.12.0-dev reports Rust toolchain nightly-2026-04-21"
+creusot_proof_smoke_test:
+  scratch_source: /tmp/creusot-smoke-crypto/smoke/src/lib.rs
+  source: |
+    use creusot_std::prelude::*;
+
+    #[requires(a@ < i64::MAX@)]
+    #[ensures(result@ == a@ + 1@)]
+    pub fn add_one(a: i64) -> i64 {
+        a + 1
+    }
+  command: cargo creusot
+  full_output: |
+    Updating crates.io index
+    Compiling autocfg v1.5.1
+    Compiling proc-macro2 v1.0.107
+    Compiling unicode-ident v1.0.26
+    Compiling quote v1.0.47
+    Compiling libc v0.2.189
+    Compiling getrandom v0.4.3
+    Compiling cfg-if v1.0.5
+    Compiling num-traits v0.2.19
+    Compiling syn v2.0.119
+    Checking num-integer v0.1.47
+    Checking num-bigint v0.4.8
+    Checking num-rational v0.4.2
+    Checking pearlite-syn v0.12.0-dev (/tmp/creusot-smoke-crypto/smoke/creusot/pearlite-syn)
+    Checking creusot-std-proc v0.12.0-dev (/tmp/creusot-smoke-crypto/smoke/creusot/creusot-std-proc)
+    Checking creusot-std v0.12.0-dev (/tmp/creusot-smoke-crypto/smoke/creusot/creusot-std)
+    Checking smoke v0.1.0 (/tmp/creusot-smoke-crypto/smoke)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 12.25s
+    Proved (2 files) ✔
+  exit_code: 0
+  wall_clock_seconds: 14.256
+  prove_only_command: cargo creusot --only prove
+  prove_only_output: "Proved (2 files) ✔"
+  prove_only_exit_code: 0
+  prove_only_wall_clock_seconds: 0.197
+  artifacts:
+    - verif/smoke_bin/main.coma
+    - verif/smoke_bin/main/proof.json
+    - verif/smoke_rlib/add_one.coma
+    - verif/smoke_rlib/add_one/proof.json
+    - .why3find/
+    - why3find.json
+  artifact_finding: "Creusot generated .coma and proof.json files plus a .why3find cache; no .mlcfg or .why3session was produced."

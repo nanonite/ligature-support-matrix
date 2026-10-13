@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "boundary_id": "cha_cha20_poly1305_encrypt__to__poly1305_finalize",
+  "caller": {
+    "concept": "ChaCha20Poly1305",
+    "method": "encrypt"
+  },
+  "callee": {
+    "concept": "Poly1305",
+    "method": "finalize"
+  },
+  "callee_guarantees": [
+    "Poly1305.C002"
+  ],
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-13"
+  }
+}

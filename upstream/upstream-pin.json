@@ -1,0 +1,30 @@
+{
+  "pilot": "crypto-mixed",
+  "issue": 41,
+  "role": "pinned upstream Botan source for the P3 crypto-mixed port",
+  "repo": "https://github.com/randombit/botan",
+  "clone_path": "crypto-mixed/upstream/botan",
+  "clone_command": "git clone --depth 1 --branch 3.13.0 https://github.com/randombit/botan.git upstream/botan",
+  "commit": "2a81eef56c96c237e590c27f9a75e60317c9c700",
+  "tag": "3.13.0",
+  "commit_date": "2026-08-13T10:11:32-04:00",
+  "commit_subject": "Update for 3.13.0 release",
+  "pin_date": "2026-10-12",
+  "build_system": "Botan configure.py and GNU Make (upstream native build)",
+  "configure_command": "python3 configure.py --with-build-dir=/tmp/crypto-mixed-botan-3.13.0-build",
+  "build_and_test_command": "LD_LIBRARY_PATH=/tmp/crypto-mixed-botan-3.13.0-build make -f /tmp/crypto-mixed-botan-3.13.0-build/Makefile -j8 check",
+  "build_dir": "/tmp/crypto-mixed-botan-3.13.0-build",
+  "test_result": {
+    "total": 4124473,
+    "passed": 4124473,
+    "failed": 0,
+    "summary_line": "Tests complete ran 4124473 tests in 35.37 sec all tests ok"
+  },
+  "artifacts": {
+    "baseline": "crypto-mixed/analysis/upstream/botan-3.13.0-baseline.md",
+    "configure_log": "crypto-mixed/analysis/upstream/botan-3.13.0-configure.log",
+    "test_pass_list": "crypto-mixed/analysis/upstream/botan-3.13.0-make-check-success.log",
+    "combined_attempt_log": "crypto-mixed/analysis/upstream/botan-3.13.0-make-check.log"
+  },
+  "recorded_by": "Chainlink issue 41, 2026-10-12"
+}

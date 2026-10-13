@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "I-CRYPTO-MIXED-001",
+  "caller": {
+    "concept": "ChaCha20Poly1305",
+    "method": "encrypt"
+  },
+  "callee": {
+    "concept": "Poly1305",
+    "method": "finalize"
+  },
+  "edge_class": [
+    "stateful",
+    "error-panic-boundary"
+  ],
+  "eligibility": "boundary-required",
+  "rationale": "AEAD encryption finalizes the Poly1305 transcript and uses its fixed-width tag in the returned ciphertext.",
+  "evidence_links": [
+    "E-005"
+  ],
+  "reliances": [
+    {
+      "obligation_id": "Poly1305.C002",
+      "required_assurance": {
+        "required_claims": [
+          "postcondition-holds"
+        ],
+        "accepted_evidence_kinds": [
+          "kani-bounded-model-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "all accepted AAD and ciphertext byte sequences"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    }
+  ],
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [
+        "default"
+      ],
+      "cfg": []
+    }
+  },
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-13"
+  }
+}

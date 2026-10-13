@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-003",
+  "kind": "source-artifact",
+  "claim": "Botan's Poly1305 initialization zeroes the accumulator, saves the pad, clamps r into radix-2^44/42 limbs, and precomputes powers of r.",
+  "origin": {
+    "repository": "upstream/botan",
+    "commit": "2a81eef56c96c237e590c27f9a75e60317c9c700",
+    "symbol": "poly1305_init",
+    "path": "upstream/botan/src/lib/mac/poly1305/poly1305.cpp",
+    "content_hash": "sha256:d448107f11b0b5a39cc54d2fae48b480650d473bad5107baebe0faf0f2525800",
+    "line_hint": "93-120"
+  },
+  "semantic_disposition": "required",
+  "lifecycle": "accepted",
+  "confidence": "high",
+  "mode": "P"
+}

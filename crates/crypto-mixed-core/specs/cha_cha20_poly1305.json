@@ -1,0 +1,145 @@
+{
+  "schema_version": "1.0",
+  "concept": "ChaCha20Poly1305",
+  "kind": "struct",
+  "cluster": "crypto-kani",
+  "english_description": "The RFC 8439 authenticated-encryption composition of scalar ChaCha20 and Poly1305.",
+  "verifier": "kani",
+  "queries": [
+    {
+      "english": "Return the encrypted length for a plaintext of this size.",
+      "rust_sig": "fn encryption_output_length(&self, plaintext_length: usize) -> Result<usize, CryptoError>",
+      "pure": true,
+      "witness_required": false
+    },
+    {
+      "english": "Return the decrypted length for a ciphertext including its tag.",
+      "rust_sig": "fn decryption_output_length(&self, ciphertext_length: usize) -> Result<usize, CryptoError>",
+      "pure": true,
+      "witness_required": false
+    },
+    {
+      "english": "Report whether this ciphertext and tag authenticate for these inputs.",
+      "rust_sig": "fn verify(&self, key: &[u8; 32], nonce: &[u8; 12], aad: &[u8], ciphertext_and_tag: &[u8]) -> bool",
+      "pure": true,
+      "witness_required": false
+    }
+  ],
+  "commands": [
+    {
+      "english": "Encrypt plaintext and return the ciphertext followed by its authentication tag.",
+      "rust_sig": "fn encrypt(&mut self, key: &[u8; 32], nonce: &[u8; 12], aad: &[u8], plaintext: &[u8]) -> Result<Vec<u8>, CryptoError>"
+    },
+    {
+      "english": "Authenticate ciphertext and return plaintext only when its tag is valid.",
+      "rust_sig": "fn decrypt(&mut self, key: &[u8; 32], nonce: &[u8; 12], aad: &[u8], ciphertext_and_tag: &[u8]) -> Result<Vec<u8>, CryptoError>"
+    }
+  ],
+  "constraints": [
+    {
+      "english": "The plaintext length stays within the RFC 8439 message limit.",
+      "logic": "plaintext.len() <= 274877906880",
+      "kind": "precondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "encrypt"
+      ],
+      "id": "C001"
+    },
+    {
+      "english": "Ciphertext includes a full tag and its message stays within the RFC 8439 limit.",
+      "logic": "ciphertext_and_tag.len() >= 16 && ciphertext_and_tag.len() <= 274877906896",
+      "kind": "precondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "decrypt"
+      ],
+      "id": "C002"
+    },
+    {
+      "english": "Decryption succeeds exactly when the supplied ciphertext and tag authenticate.",
+      "logic": "output.is_ok() == self.verify(key, nonce, aad, ciphertext_and_tag)",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "decrypt"
+      ],
+      "id": "C003"
+    },
+    {
+      "english": "Successful encryption returns the plaintext and one sixteen-byte tag.",
+      "logic": "output.is_err() || output.as_ref().map(|bytes| bytes.len() == plaintext.len() + 16).unwrap_or(false)",
+      "kind": "postcondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "encrypt"
+      ],
+      "id": "C004"
+    },
+    {
+      "english": "Successful decryption returns the ciphertext message without its sixteen-byte tag.",
+      "logic": "output.is_err() || output.as_ref().map(|bytes| bytes.len() + 16 == ciphertext_and_tag.len()).unwrap_or(false)",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "decrypt"
+      ],
+      "id": "C005"
+    }
+  ],
+  "adversary_table": [
+    {
+      "scenario": "Encrypt empty data and data lengths around the sixteen-byte block boundary.",
+      "violates": "C004",
+      "resolution": "append exactly one tag and match the pinned vector"
+    },
+    {
+      "scenario": "Decrypt ciphertext whose authentication tag has one changed bit.",
+      "violates": "C003",
+      "resolution": "return an authentication error and no plaintext"
+    },
+    {
+      "scenario": "Request a message length above the RFC 8439 maximum.",
+      "violates": "C001 or C002",
+      "resolution": "return a length error before counter wrap"
+    },
+    {
+      "scenario": "Run with an optimized Botan provider enabled.",
+      "violates": "scalar-only scope",
+      "resolution": "record provider parity as deferred and make no first-pass SIMD claim"
+    }
+  ],
+  "source_references": [
+    {
+      "kind": "reference-implementation",
+      "citation_or_path": "upstream/botan/src/lib/modes/aead/chacha20poly1305/chacha20poly1305.cpp at 2a81eef56c96c237e590c27f9a75e60317c9c700",
+      "notes": "Encryption/decryption order, output lengths, and message limit."
+    },
+    {
+      "kind": "paper",
+      "citation_or_path": "RFC 8439 section 2.8",
+      "notes": "Authenticated-encryption composition."
+    },
+    {
+      "kind": "oracle-file",
+      "citation_or_path": "upstream/botan/src/tests/data/aead/chacha20poly1305.vec",
+      "notes": "Pinned Botan includes the RFC ChaCha20-Poly1305 test vector."
+    }
+  ],
+  "depends_on": [
+    {
+      "crate": "crypto-mixed-core",
+      "concept": "ChaCha20",
+      "reason": "The AEAD composition uses ChaCha20 to encrypt message bytes and derive the Poly1305 one-time key."
+    },
+    {
+      "crate": "crypto-mixed-core",
+      "concept": "Poly1305",
+      "reason": "The AEAD composition uses Poly1305 to authenticate associated data and ciphertext."
+    }
+  ],
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-13"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "I-CRYPTO-MIXED-002",
+  "caller": {
+    "concept": "ChaCha20Poly1305",
+    "method": "encrypt"
+  },
+  "callee": {
+    "concept": "ChaCha20",
+    "method": "apply_keystream"
+  },
+  "edge_class": [
+    "stateful",
+    "error-panic-boundary",
+    "numeric-domain-boundary"
+  ],
+  "eligibility": "boundary-required",
+  "rationale": "AEAD encryption applies the stream cipher in place and must respect its finite block-counter capacity while preserving the message length.",
+  "evidence_links": [
+    "E-002",
+    "E-005"
+  ],
+  "reliances": [
+    {
+      "obligation_id": "ChaCha20.C002",
+      "required_assurance": {
+        "required_claims": [
+          "postcondition-holds"
+        ],
+        "accepted_evidence_kinds": [
+          "kani-bounded-model-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "all accepted input slice lengths including block boundaries"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    },
+    {
+      "obligation_id": "ChaCha20.C003",
+      "required_assurance": {
+        "required_claims": [
+          "callee-precondition-established"
+        ],
+        "accepted_evidence_kinds": [
+          "kani-bounded-model-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "all plaintext slices up to the RFC 8439 message limit"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    }
+  ],
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [
+        "default"
+      ],
+      "cfg": []
+    }
+  },
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-13"
+  }
+}

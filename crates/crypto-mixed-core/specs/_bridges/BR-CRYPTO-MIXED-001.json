@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "bridge_id": "BR-CRYPTO-MIXED-001",
+  "boundary_id": "cha_cha20_poly1305_encrypt__to__poly1305_set_key",
+  "callee_requirement": "Poly1305.C001",
+  "available_contract_facts": [],
+  "required_local_facts": [
+    {
+      "fact_id": "key_is_32_bytes",
+      "expression": "key.len() == 32"
+    }
+  ],
+  "target_expression": "poly1305_state.set_key(key)",
+  "protocol_class": "pairwise",
+  "bridge_logic": {
+    "bindings": {
+      "key": "&[u8; 32]",
+      "poly1305_state": "Poly1305"
+    },
+    "premises": [
+      "key_is_32_bytes(key)"
+    ],
+    "conclusion": {
+      "obligation_id": "Poly1305.C001"
+    }
+  },
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-13"
+  }
+}

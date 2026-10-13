@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-001",
+  "kind": "source-artifact",
+  "claim": "Botan's scalar ChaCha quarter-round performs four 32-bit additions and XORs with left rotations by 16, 12, 8, and 7 bits, in that order.",
+  "origin": {
+    "repository": "upstream/botan",
+    "commit": "2a81eef56c96c237e590c27f9a75e60317c9c700",
+    "symbol": "chacha_quarter_round",
+    "path": "upstream/botan/src/lib/stream/chacha/chacha.cpp",
+    "content_hash": "sha256:dd49a23d33d75c6ab4e410ec04106a170e3b3aa68d93aee7b54e3c604a85f0ec",
+    "line_hint": "30-43"
+  },
+  "semantic_disposition": "required",
+  "lifecycle": "accepted",
+  "confidence": "high",
+  "mode": "P"
+}
