@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "cluster": "crypto-kani",
+  "closure_kind": "bounded",
+  "work_packages": [
+    "WP-CRYPTO-MIXED-PRIMITIVES-001",
+    "WP-CRYPTO-MIXED-AEAD-001"
+  ],
+  "conditions": {
+    "single_verifier_system": true,
+    "owning_verifier": "kani",
+    "protocol_class_all_pairwise": true,
+    "unresolved_indirect_calls_at_or_above_medium": 0,
+    "generic_callees_type_universal_or_creusot_owned": true,
+    "transitive_assumptions_within_policy": true,
+    "scc_wellfoundedness_discharged": "not-applicable"
+  },
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-13"
+  }
+}
