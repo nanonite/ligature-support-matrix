@@ -28,7 +28,7 @@ authority hash, and `ligature doctor` verifies it. Editing the region
 between the two markers is a managed-file conflict, not a configuration
 change.
 
-<!-- LIGATURE-AUTHORITY-BEGIN sha256:13ba9aa13d48dd9ad8357042635c5d77491b124bb4cc537daec7ce07832dc373 -->
+<!-- LIGATURE-AUTHORITY-BEGIN sha256:a7920dac4b55f1550fad7d990f9f6f8ae7c8a0227d30f879a39982f48ea5cdf6 -->
 
 ## Authority boundary (canonical — do not edit)
 
@@ -179,7 +179,7 @@ progress.
 | `ligature accept-policy --reviewer <name> [--version <name>@<major>.<minor>]` | record a reviewed change to the normative reliance-policy document (`docs/reliance-policy.md`) as the manifest's reviewed base — the explicit accept path for governance drift, analogous to `accept-promotion`. `--version` stamps the document's `Policy version:` marker line (that line and nothing else) and is how the placeholder `init` ships gets replaced; a human checkpoint: ask the human to run it, never run it yourself |
 | `ligature promote-evidence <target>` | mechanically promote a staged evidence draft (`evidence/<id>.json.draft`) to its target and record the move — the Stage 0 promotion path (evidence carries no `review` block, so `approve` cannot promote it; no `--reviewer` needed) |
 | `ligature record-ruling --reviewer <name> --verdict ratified/rejected --artifact <path>…` | record a human ruling over an exact artifact set — the human-ruling gate `accept-promotion` enforces before it will mint a receipt (#82). A human checkpoint: never run it yourself |
-| `ligature record-assurance <work-package> --proof <obligation>=<path>…` | assemble a work package's assurance report from Creusot certificates, Verus JSON, or an exact Kani 0.67 rerun (`--kani-crate` + `--kani-harness`); Kani runs again in G14 and its bounded scope never satisfies a broader manifest scope (#87/#129/#132). Never hand-write that report: each verifier mapping is checked against the manifest and stale source/harness evidence fails closed |
+| `ligature record-assurance <work-package> --proof <obligation>=<path>…` | assemble a work package's assurance report from Creusot certificates, Verus JSON, or an exact Kani 0.67 rerun (`--kani-crate` + `--kani-harness`); Kani resolves the manifest's bare harness to one feature-selected qualified identity, runs it exactly, and repeats the check in G14. Its bounded scope never satisfies a broader manifest scope (#87/#129/#132/#133). Never hand-write that report: each verifier mapping is checked against the manifest and stale source/harness evidence fails closed |
 | `ligature report <report-id>` | generated review projections (ledger, contact sheet); regenerate, do not hand-edit — but `report feature-ledger` refuses (exit 1, file untouched) over a schema-valid assurance report, so run `record-assurance` after it (#88) |
 | `ligature doctor` | capability manifest + installed-file/version diagnostics |
 | `ligature migrate [--upgrade\|--prune\|--force <path>]` | recover from managed-file conflicts and version skew |
