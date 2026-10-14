@@ -1,6 +1,6 @@
 {
   "adjudicator": {
-    "content_hash": "sha256:f90c3815a33a41c98883ee78e9d0d660fcfc698a2ab12f2a92453b1d389a0a2f",
+    "content_hash": "sha256:a37b2210d8ff9853402354d1a6e8b1127ec7bfe78a3bba52a7d36dd0d6e6c53d",
     "kind": "zipapp",
     "platform": {
       "machine": "x86_64",
@@ -9,13 +9,13 @@
     },
     "python": "3.12.3",
     "required_python": "3.10",
-    "version": "1.3.6"
+    "version": "1.3.8"
   },
   "descriptor_path": "project-descriptor.json",
   "files": [
     {
       "authority_hash": null,
-      "base_hash": "sha256:e8b359d6fd9b308c7b39b09a052171165cc55f8e709f65833718ca55c2021172",
+      "base_hash": "sha256:1c03f2693eb17739c821e1b91d5c363743b00e062de17ea1eafdd7690f0e2e89",
       "expected_hash": "sha256:7b74f0dc5f85d468ed6b5dd5d8ede642af0d21e6e147d0d9e8163f5db2abe284",
       "ownership": "user",
       "path": "project-descriptor.json"
@@ -28,9 +28,9 @@
       "path": "docs/reliance-policy.md"
     },
     {
-      "authority_hash": "sha256:bb3e9b419fac228d4ddf6b100f0eddfe42eb536807c9f4713e9f07c0f0228666",
-      "base_hash": "sha256:3a46b15784169b8b2415be6e3eb27ae84d8fe3207e596105af6d19b44fb7de6c",
-      "expected_hash": "sha256:3a46b15784169b8b2415be6e3eb27ae84d8fe3207e596105af6d19b44fb7de6c",
+      "authority_hash": "sha256:13ba9aa13d48dd9ad8357042635c5d77491b124bb4cc537daec7ce07832dc373",
+      "base_hash": "sha256:114f0711b0787af9f013f4ce18fb1ceea9b96a3289752833f7afeb04739821a4",
+      "expected_hash": "sha256:114f0711b0787af9f013f4ce18fb1ceea9b96a3289752833f7afeb04739821a4",
       "ownership": "managed",
       "path": ".codex/skills/ligature/SKILL.md"
     },
@@ -141,8 +141,8 @@
     },
     {
       "authority_hash": null,
-      "base_hash": "sha256:31b9f0459fb000a1337aad8f7f95c1a26efc4274479fc53c0e0fd8cc4cf0ef49",
-      "expected_hash": "sha256:31b9f0459fb000a1337aad8f7f95c1a26efc4274479fc53c0e0fd8cc4cf0ef49",
+      "base_hash": "sha256:3bc885ed8472d21780261cf784f72193de456cec5b09f00433132217312c8316",
+      "expected_hash": "sha256:3bc885ed8472d21780261cf784f72193de456cec5b09f00433132217312c8316",
       "ownership": "managed",
       "path": ".ligature/prompts/stage-3-closure-profile-drafting.md"
     },
@@ -155,12 +155,12 @@
     }
   ],
   "gate_hashes": {
-    ".codex/skills/ligature/SKILL.md": "sha256:3a46b15784169b8b2415be6e3eb27ae84d8fe3207e596105af6d19b44fb7de6c",
+    ".codex/skills/ligature/SKILL.md": "sha256:114f0711b0787af9f013f4ce18fb1ceea9b96a3289752833f7afeb04739821a4",
     ".ligature/schemas/consolidated-check.schema.json": "sha256:410dd4820f6b4ac5110653f2c310e13212eb311cd47e0d6c85ce9b715bbfffcf",
     ".ligature/schemas/project-state.schema.json": "sha256:f38a526bd77fcc0a916351d729bfad95d858ead740ed0268220bb0b833f164bd",
-    "@adjudicator": "sha256:f90c3815a33a41c98883ee78e9d0d660fcfc698a2ab12f2a92453b1d389a0a2f"
+    "@adjudicator": "sha256:a37b2210d8ff9853402354d1a6e8b1127ec7bfe78a3bba52a7d36dd0d6e6c53d"
   },
-  "installed_product_version": "1.3.6",
+  "installed_product_version": "1.3.8",
   "installed_schema_versions": {
     "consolidated-check": "1.0",
     "project-descriptor": "1.0",
@@ -170,6 +170,6 @@
   "installed_skill_version": "1.0",
   "manifest_schema_version": "1.0",
   "mode": "port",
-  "product_version": "1.3.6",
+  "product_version": "1.3.8",
   "project_name": "crypto-mixed"
 }
