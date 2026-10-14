@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "bridge_id": "BR-CRYPTO-MIXED-001",
+  "verifier": "kani",
+  "harness": {
+    "name": "bridge_br_crypto_mixed_001",
+    "language": "rust",
+    "filename": "BR-CRYPTO-MIXED-001.kani.rs",
+    "sha256": "sha256:fc30f6244fd710e267e5fa09e738ae9c98c876fdf950f6743830f83cf3d4d69c"
+  },
+  "dispatch": {
+    "command": [
+      "python3",
+      "crates/crypto-mixed-core/tests/kani_bridge_backend.py",
+      "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/harness/BR-CRYPTO-MIXED-001.kani.rs"
+    ],
+    "exit_code": 0
+  },
+  "record": {
+    "schema_version": "1.0",
+    "claim": {
+      "kind": "callee-precondition-established",
+      "result": "pass"
+    },
+    "evidence": {
+      "kind": "kani-bounded-model-check",
+      "verifier": "kani",
+      "harness": "bridge_br_crypto_mixed_001",
+      "scope": {
+        "input_domain": "the bounded model encoded by Kani harness bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key",
+        "kani_version": "0.67.0",
+        "source_harness": "bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key",
+        "source_harness_sha256": "100d522a90464a0076f449feb82c9cd0cdb267d3eb852ad0b1c766180a7abeef",
+        "harness_hash": "sha256:fc30f6244fd710e267e5fa09e738ae9c98c876fdf950f6743830f83cf3d4d69c"
+      }
+    },
+    "trust": {
+      "assumptions": []
+    },
+    "support": {
+      "status": "supported"
+    },
+    "config": {
+      "features": [
+        "default"
+      ],
+      "target": "x86_64-unknown-linux-gnu",
+      "toolchain": "1.95.0-x86_64-unknown-linux-gnu"
+    }
+  }
+}

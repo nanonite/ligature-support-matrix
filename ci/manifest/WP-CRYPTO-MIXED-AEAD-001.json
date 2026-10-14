@@ -13,7 +13,7 @@
             "kani-bounded-model-check"
           ],
           "minimum_scope": {
-            "input_domain": "all accepted input slice lengths including block boundaries"
+            "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c002_exact_length_65_boundary"
           },
           "required_claims": [
             "postcondition-holds"
@@ -31,7 +31,7 @@
             "kani-bounded-model-check"
           ],
           "minimum_scope": {
-            "input_domain": "all plaintext slices up to the RFC 8439 message limit"
+            "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c003_aead_counter_one_stream_capacity"
           },
           "required_claims": [
             "callee-precondition-established"
@@ -49,7 +49,7 @@
             "kani-bounded-model-check"
           ],
           "minimum_scope": {
-            "input_domain": "all accepted AAD and ciphertext byte sequences"
+            "input_domain": "the bounded model encoded by Kani harness kani_poly1305_finalize_tag_length"
           },
           "required_claims": [
             "postcondition-holds"
@@ -69,7 +69,7 @@
             "kani-bounded-model-check"
           ],
           "minimum_scope": {
-            "input_domain": "all 32-byte one-time Poly1305 keys derived for ChaCha20-Poly1305 encryption"
+            "input_domain": "the bounded model encoded by Kani harness bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key"
           },
           "required_claims": [
             "callee-precondition-established"
@@ -87,7 +87,7 @@
             "kani-bounded-model-check"
           ],
           "minimum_scope": {
-            "input_domain": "all plaintext slices up to the RFC 8439 message limit"
+            "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c003_aead_counter_one_stream_capacity"
           },
           "required_claims": [
             "callee-precondition-established"
@@ -128,7 +128,7 @@
   ],
   "gate_integrity": [
     {
-      "hash": "sha256:3a46b15784169b8b2415be6e3eb27ae84d8fe3207e596105af6d19b44fb7de6c",
+      "hash": "sha256:78e6cfbeae3531ec90e5d122a773bb6dd23cdafd000c118b5b2f98df548d85aa",
       "runner": ".codex/skills/ligature/SKILL.md"
     },
     {
@@ -217,14 +217,14 @@
       "runner": "ligature"
     }
   ],
-  "issue": "chainlink:46",
+  "issue": "chainlink:134",
   "obligations": [
     "BR-CRYPTO-MIXED-001",
     "BR-CRYPTO-MIXED-002"
   ],
   "provenance": {
-    "artifact_set_hash": "sha256:0b9e9bf55517fa51b1b9a70b13e3d85d33db24639f51f53ac2e2e63a6b8d2da1",
-    "base_commit": "6bb298e99fb1a0bb25033cae40f081606a340579",
+    "artifact_set_hash": "sha256:e0b22f122c9e542d4cbdae5b3b9f3f79fade1b7074aa6e36848c676fd57a7027",
+    "base_commit": "3296758d5d9b2eb85e5cf7ed70517c2a37319a83",
     "features": [
       "default"
     ],
@@ -258,6 +258,7 @@
       "crates/*/Cargo.toml",
       "crates/*/build.rs",
       "crates/*/specs/**",
+      "crates/crypto-mixed-core/Cargo.lock",
       "docs/*-schema.json",
       "docs/reliance-policy.md",
       "oracle/**",

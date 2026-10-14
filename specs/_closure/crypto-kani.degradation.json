@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "cluster": "crypto-kani",
+  "failed_conditions": [
+    "generic_callees_type_universal_or_creusot_owned"
+  ],
+  "affected_edges": [
+    "BR-CRYPTO-MIXED-001",
+    "BR-CRYPTO-MIXED-002"
+  ],
+  "ceiling": "per-instantiation",
+  "capability_gap": "CG3",
+  "tracking_issue": "chainlink:135",
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-14"
+  }
+}

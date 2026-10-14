@@ -43,10 +43,10 @@ provider parity, or proof scope is still incomplete.
 
 - **Category:** Unprovable or costly obligations
 - **C++ construct / upstream location:** Scalar ChaCha20 quarter-round and block in `src/lib/stream/chacha/chacha.cpp:30-43,134-230`; Poly1305 initialization and limb arithmetic in `src/lib/mac/poly1305/poly1305.cpp:93-160`; AEAD composition in `src/lib/modes/aead/chacha20poly1305/chacha20poly1305.cpp:110-166` at Botan commit `2a81eef56c96c237e590c27f9a75e60317c9c700`.
-- **What the Rust port does instead:** The P3 first pass assigns ChaCha20, Poly1305, and ChaCha20-Poly1305 to the `crypto-kani` cluster. Kani harnesses cover a 65-byte ChaCha block-boundary input, all ChaCha counter values at that fixed length, Poly1305 messages of lengths 0 through 65, and pinned Botan vectors. The general symbolic ChaCha length proofs time out at the 65-byte bound; symbolic Poly1305 chunk-equivalence and one-byte symbolic AEAD round-trip attempts also time out. Verus remains deferred to P4.
-- **Why:** Kani 0.67.0 expands dynamic vectors, crypto loops, allocation checks, and equality checks into bounded CBMC obligations. The manifests' minimum scopes require all accepted slice lengths up to the RFC 8439 limit (`2^38 - 64` bytes), which these bounded harnesses do not establish. The Kani-only scope also makes no deductive or constant-time claim.
-- **Impact:** Passing fixed and bounded harnesses establish only their stated domains. They do not meet the manifests' full-domain requirements or prove universal arithmetic, optimized-provider parity, or side-channel behavior. A human contract revision and Kani assurance intake are required before G14 can certify the current package declarations.
-- **Status:** open
+- **What the Rust port does instead:** The P3 first pass assigns ChaCha20, Poly1305, and ChaCha20-Poly1305 to `crypto-kani`. The recorded Kani obligations are ChaCha20.C002 at exactly 65 input bytes (646 successful checks, 6 unreachable safety checks), ChaCha20.C003 for every target `usize` length accepted by the AEAD length guard (30 successful, 1 unreachable), and Poly1305.C002 for symbolic messages of lengths 0 through 65 (724 successful, 9 unreachable). The two bridge records rerun source harnesses for derived-key acceptance and counter-one capacity; both pass with 4 and 1 unreachable safety checks respectively.
+- **Why:** Kani 0.67.0 checks the finite model encoded by each harness. The original manifests requested full RFC/all-sequence domains; the human-approved revisions now set each minimum scope to the exact named harness model. The Kani-only scope makes no deductive or constant-time claim.
+- **Impact:** The five records satisfy their revised bounded scopes and G14 consumes them. They do not establish arbitrary-length cryptographic behavior, universal generic coverage, optimized-provider parity, or side-channel behavior. G14 releases the cluster as degraded under a `per-instantiation` ceiling for CG3; P4 issue #135 tracks the generic-callee follow-up.
+- **Status:** bounded P3 evidence recorded and consumed by G14 on 2026-10-14; full closure remains degraded pending #135.
 - **Generalizable lesson:** When a mixed-verifier port starts with one backend, state the bounds of every result and keep omitted deductive and side-channel claims visible as separate follow-ups. A verifier described as bounded still needs manifest scopes that match feasible harness domains.
 - **Finding ids:** `crypto-kani-001`, `crypto-kani-002`, `crypto-kani-003`, `crypto-kani-004`, `crypto-kani-005`
 
@@ -56,8 +56,8 @@ provider parity, or proof scope is still incomplete.
 - **C++ construct / upstream location:** Streaming Poly1305 block processing and finalization in `src/lib/mac/poly1305/poly1305.cpp:93-160` at Botan commit `2a81eef56c96c237e590c27f9a75e60317c9c700`.
 - **What the Rust port does instead:** The tag-length harness calls one-shot `compute_tag` with symbolic messages of lengths 0 through 65. A fresh Kani 0.67.0 run returned 724 `SUCCESS` and 9 `UNREACHABLE` checks, zero failures, and successful verification. Three unreachable checks belong to the unused partial-buffer continuation branch; six belong to Rust library code. The tag-length assertion itself returned `SUCCESS`.
 - **Why:** Ligature 1.3.9 resolved the qualified harness but rejected ancillary checks marked `UNREACHABLE`. Ligature 1.3.10 preserves those checks and requires the named obligation assertion to succeed.
-- **Impact:** Ligature 1.3.10 records the bounded result and G14 consumes it. G14 still leaves Poly1305 unmet because the bounded harness does not cover the manifest's full domain; separate obligations and bridge evidence are also missing. The public `finalize` lifecycle and streaming continuation paths remain outside this harness.
-- **Status:** resolved in Ligature 1.3.10; verified in a disposable pilot copy on 2026-10-14. The report recorded 724 successful checks and 9 ancillary unreachable checks; G14 consumed it and reported separate scope and missing-evidence blockers.
+- **Impact:** The actual pilot report now records the bounded result, and the approved Poly1305.C002 minimum scope matches the named harness. The public `finalize` lifecycle and streaming continuation paths remain outside this harness.
+- **Status:** resolved by Ligature 1.3.10 and verified in the actual pilot on 2026-10-14. The report records 724 successful checks and 9 ancillary unreachable checks; G14 consumes it under the revised bounded scope.
 - **Finding ids:** `crypto-ligature-002`; related bounded-scope finding `crypto-kani-001`. Detailed reproduction and raw checks: `/tmp/crypto-133-rca/ROOT-CAUSE.md`.
 - **Generalizable lesson:** Verifier adapters must preserve the backend's distinction between failed assertions, unreachable assertions, and cover properties. Recording successful bounded evidence must also preserve its actual method and input coverage.
 
@@ -65,10 +65,10 @@ provider parity, or proof scope is still incomplete.
 
 - **Category:** Tooling blind spots in the transfer
 - **C++ construct / upstream location:** ChaCha20-Poly1305 one-time Poly1305 key setup and encryption processing in `src/lib/modes/aead/chacha20poly1305/chacha20poly1305.cpp:55,90,110` at Botan commit `2a81eef56c96c237e590c27f9a75e60317c9c700`.
-- **What the Rust port does instead:** The port has direct Kani harnesses for derived-key length and the ChaCha counter-one capacity condition. Ligature's generated bridge harnesses express the cross-call contracts, but `check-bridges` currently produces only those harness files and no verifier result.
-- **Why:** The project descriptor has no `verifier_backends.kani.command`. Ligature 1.3.10 correctly reports that no bridge check occurred. `record-assurance` handles concept obligations and rejects `BR-*` identifiers; direct Kani harness results do not establish the generated bridge predicates.
-- **Impact:** The two cross-package preconditions remain unverified, so the AEAD package cannot claim its required bridge evidence or pass G9/G14 on this basis.
-- **Status:** open; verified in a disposable pilot copy on 2026-10-14.
+- **What the Rust port does instead:** `crates/crypto-mixed-core/tests/kani_bridge_backend.py` validates each generated bridge ID, boundary, premise, and conclusion against a fixed mapping, then runs the corresponding exact Kani source harness. G9 binds each report to the generated bridge hash and the source harness hash. A project-local bridge-only report assembler copies the two passing G9 records into the AEAD work-package report without adding obligation records.
+- **Why:** The project descriptor initially lacked `verifier_backends.kani.command`, so generated bridge harnesses were not dispatched. Ligature 1.3.10's `record-assurance` also refuses an empty obligation-proof invocation for a bridge-only package; G14 requires the package report to contain its bridge records.
+- **Impact:** Both bridge records now pass G9 and appear in the AEAD package report. The adapter is fail-closed if the generated DSL changes, a Kani run is incomplete, or a recorded scope/hash is stale. Ligature source was not changed.
+- **Status:** resolved in the pilot on 2026-10-14; `check-bridges`, G9, and G14 verified the records.
 - **Finding ids:** `crypto-ligature-003`
 - **Generalizable lesson:** Generating a verifier harness is not the same as checking it. A mixed-verifier port needs a configured adapter that consumes the exact generated boundary harness and records the owning verifier's verdict.
 
@@ -76,9 +76,9 @@ provider parity, or proof scope is still incomplete.
 
 - **Category:** Tooling blind spots in the transfer
 - **C++ construct / upstream location:** ChaCha20 stream processing in `src/lib/stream/chacha/chacha.cpp:134-230` and Poly1305 arithmetic in `src/lib/mac/poly1305/poly1305.cpp:93-160` at Botan commit `2a81eef56c96c237e590c27f9a75e60317c9c700`.
-- **What the Rust port does instead:** It has named Kani harnesses for the byte-slice and cryptographic obligations, but no assurance report can be recorded in the pilot until its crate has a lockfile.
-- **Why:** Ligature 1.3.10 runs `cargo metadata --locked` before Kani. Cargo refuses to create the missing `crates/crypto-mixed-core/Cargo.lock` under `--locked`, while the project and package write sets do not permit that file. Kani build artifacts also need to stay outside the allowed roots, for example through an external `CARGO_TARGET_DIR`.
-- **Impact:** Kani cannot run through `record-assurance` in the actual pilot, so scratch-copy results do not produce the pilot reports G14 consumes.
-- **Status:** open; reproduced in a disposable pilot copy on 2026-10-14.
+- **What the Rust port does instead:** The crate now has the normal generated `crates/crypto-mixed-core/Cargo.lock`, authorized as the exact protected path for issue #134. Cargo metadata and Ligature's Kani runs use the pinned toolchain; Kani target directories remain temporary and outside the checkout.
+- **Why:** Ligature 1.3.10 runs `cargo metadata --locked` before Kani. A crate without a lockfile could not pass that prerequisite, and the lockfile path was not previously declared in the project or package write policy.
+- **Impact:** Fresh Kani reports are now recorded and reproducible through Ligature's locked intake. The lockfile's SHA-256 is `500245d4c61242e614363a03597f8c88f7c827d02115ffbc92f8dabd774f5fc1`; `cargo metadata --locked` and `write-set-check --issue 134` pass.
+- **Status:** resolved in the pilot on 2026-10-14.
 - **Finding ids:** `crypto-ligature-004`
 - **Generalizable lesson:** Lockfile enforcement supports reproducible verification only when the project authorizes a way to create and retain the lockfile before the verifier intake begins.

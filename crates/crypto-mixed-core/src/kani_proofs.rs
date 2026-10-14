@@ -56,6 +56,17 @@ fn kani_chacha20_apply_keystream_output_length() {
 
 #[kani::proof]
 #[kani::unwind(66)]
+fn kani_chacha20_c002_exact_length_65_boundary() {
+    let key: [u8; 32] = kani::any();
+    let nonce: [u8; 12] = kani::any();
+    let input: [u8; 65] = kani::any();
+    let mut stream = ChaCha20::new(key, nonce);
+    let output = stream.apply_keystream(&input).unwrap();
+    assert_eq!(output.len(), input.len());
+}
+
+#[kani::proof]
+#[kani::unwind(66)]
 fn chacha20_apply_keystream_preserves_a_two_block_boundary_length() {
     let key: [u8; 32] = kani::any();
     let nonce: [u8; 12] = kani::any();
@@ -97,6 +108,17 @@ fn kani_chacha20_apply_keystream_capacity() {
     } else {
         let output = stream.apply_keystream(&input).unwrap();
         assert_eq!(output.len(), input.len());
+    }
+}
+
+#[kani::proof]
+fn kani_chacha20_c003_aead_counter_one_stream_capacity() {
+    let requested_length: usize = kani::any();
+    let aead = ChaCha20Poly1305::new();
+    let stream = ChaCha20::with_counter([0; 32], [0; 12], 1);
+
+    if aead.encryption_output_length(requested_length).is_ok() {
+        assert!(requested_length <= stream.bytes_remaining());
     }
 }
 

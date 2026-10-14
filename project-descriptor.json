@@ -21,6 +21,11 @@
   "verifier_policy": {
     "default": "kani"
   },
+  "verifier_backends": {
+    "kani": {
+      "command": "python3 crates/crypto-mixed-core/tests/kani_bridge_backend.py"
+    }
+  },
   "compatibility_policy": {
     "reliance_policy_path": "docs/reliance-policy.md"
   },
@@ -40,6 +45,7 @@
       "docs/reliance-policy.md",
       "Cargo.toml",
       "crates/*/Cargo.toml",
+      "crates/crypto-mixed-core/Cargo.lock",
       "crates/*/build.rs",
       "tests/harnesses/**",
       ".github/**",
@@ -75,6 +81,6 @@
   },
   "review": {
     "reviewer": "roger-codex-luna6",
-    "reviewed_at": "2026-10-13"
+    "reviewed_at": "2026-10-14"
   }
 }

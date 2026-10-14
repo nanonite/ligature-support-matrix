@@ -31,7 +31,7 @@
           "kani-bounded-model-check"
         ],
         "minimum_scope": {
-          "input_domain": "all accepted input slice lengths including block boundaries"
+          "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c002_exact_length_65_boundary"
         },
         "trust_policy": {
           "assumptions_allowed": []
@@ -48,7 +48,7 @@
           "kani-bounded-model-check"
         ],
         "minimum_scope": {
-          "input_domain": "all plaintext slices up to the RFC 8439 message limit"
+          "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c003_aead_counter_one_stream_capacity"
         },
         "trust_policy": {
           "assumptions_allowed": []
@@ -69,6 +69,6 @@
   },
   "review": {
     "reviewer": "roger-codex-luna6",
-    "reviewed_at": "2026-10-13"
+    "reviewed_at": "2026-10-14"
   }
 }

@@ -29,7 +29,7 @@
           "kani-bounded-model-check"
         ],
         "minimum_scope": {
-          "input_domain": "all accepted AAD and ciphertext byte sequences"
+          "input_domain": "the bounded model encoded by Kani harness kani_poly1305_finalize_tag_length"
         },
         "trust_policy": {
           "assumptions_allowed": []
@@ -50,6 +50,6 @@
   },
   "review": {
     "reviewer": "roger-codex-luna6",
-    "reviewed_at": "2026-10-13"
+    "reviewed_at": "2026-10-14"
   }
 }

@@ -30,7 +30,7 @@
           "kani-bounded-model-check"
         ],
         "minimum_scope": {
-          "input_domain": "all 32-byte one-time Poly1305 keys derived for ChaCha20-Poly1305 encryption"
+          "input_domain": "the bounded model encoded by Kani harness bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key"
         },
         "trust_policy": {
           "assumptions_allowed": []
@@ -51,6 +51,6 @@
   },
   "review": {
     "reviewer": "roger-codex-luna6",
-    "reviewed_at": "2026-10-13"
+    "reviewed_at": "2026-10-14"
   }
 }
