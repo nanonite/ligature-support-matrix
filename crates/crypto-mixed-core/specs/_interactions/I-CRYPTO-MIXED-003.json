@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "I-CRYPTO-MIXED-003",
+  "caller": {
+    "concept": "ChaCha20Poly1305",
+    "method": "encrypt"
+  },
+  "callee": {
+    "concept": "Poly1305",
+    "method": "set_key"
+  },
+  "edge_class": [
+    "stateful",
+    "error-panic-boundary"
+  ],
+  "eligibility": "boundary-required",
+  "rationale": "AEAD encryption derives a one-time Poly1305 key from the ChaCha20 stream and initializes Poly1305 before authenticating the message.",
+  "evidence_links": [
+    "E-003",
+    "E-005"
+  ],
+  "reliances": [
+    {
+      "obligation_id": "Poly1305.C001",
+      "required_assurance": {
+        "required_claims": [
+          "callee-precondition-established"
+        ],
+        "accepted_evidence_kinds": [
+          "kani-bounded-model-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "all 32-byte one-time Poly1305 keys derived for ChaCha20-Poly1305 encryption"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    }
+  ],
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [
+        "default"
+      ],
+      "cfg": []
+    }
+  },
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-13"
+  }
+}

@@ -10,3 +10,5 @@
 {"target_path": "crates/crypto-mixed-core/specs/_bridges/BR-CRYPTO-MIXED-002.json", "classification": "new", "reviewer": "roger-codex-luna6", "reviewed_at": "2026-10-13", "validation": "checked", "logged_at": "2026-10-13T17:58:21.309805+00:00"}
 {"target_path": "specs/_promotions/crypto-kani.json", "classification": "generated", "reviewer": "roger-codex-luna6", "reviewed_at": "2026-10-13", "validation": "checked", "logged_at": "2026-10-13T18:30:01.406156+00:00"}
 {"target_path": "specs/_closure/crypto-kani.json", "classification": "new", "reviewer": "roger-codex-luna6", "reviewed_at": "2026-10-13", "validation": "checked", "logged_at": "2026-10-13T23:40:49.183736+00:00"}
+{"target_path": "crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-003.json", "classification": "new", "reviewer": "roger-codex-luna6", "reviewed_at": "2026-10-13", "validation": "checked", "logged_at": "2026-10-14T00:05:04.015515+00:00"}
+{"target_path": "specs/_promotions/crypto-kani.json", "classification": "generated", "reviewer": "roger-codex-luna6", "reviewed_at": "2026-10-13", "validation": "checked", "logged_at": "2026-10-14T00:05:39.688371+00:00"}

@@ -1,0 +1,238 @@
+{
+  "coupling_notes": [
+    "Supplier package for the approved Kani-only P3 pass. Provide the primitive guarantees consumed by the AEAD package before implementing the caller. Verus remains a P4 item; no witness specs are in scope."
+  ],
+  "definition_of_done": {
+    "provided_guarantees": [
+      {
+        "harness": "kani_chacha20_apply_keystream_output_length",
+        "obligation_id": "ChaCha20.C002",
+        "required_assurance": {
+          "accepted_evidence_kinds": [
+            "kani-bounded-model-check"
+          ],
+          "minimum_scope": {
+            "input_domain": "all accepted input slice lengths including block boundaries"
+          },
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "trust_policy": {
+            "assumptions_allowed": []
+          }
+        }
+      },
+      {
+        "harness": "kani_chacha20_apply_keystream_capacity",
+        "obligation_id": "ChaCha20.C003",
+        "required_assurance": {
+          "accepted_evidence_kinds": [
+            "kani-bounded-model-check"
+          ],
+          "minimum_scope": {
+            "input_domain": "all plaintext slices up to the RFC 8439 message limit"
+          },
+          "required_claims": [
+            "callee-precondition-established"
+          ],
+          "trust_policy": {
+            "assumptions_allowed": []
+          }
+        }
+      },
+      {
+        "harness": "kani_poly1305_finalize_tag_length",
+        "obligation_id": "Poly1305.C002",
+        "required_assurance": {
+          "accepted_evidence_kinds": [
+            "kani-bounded-model-check"
+          ],
+          "minimum_scope": {
+            "input_domain": "all accepted AAD and ciphertext byte sequences"
+          },
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "trust_policy": {
+            "assumptions_allowed": []
+          }
+        }
+      }
+    ],
+    "required_guarantees": [],
+    "required_preconditions_to_establish": [],
+    "trusted_assumptions": []
+  },
+  "depends_on": [],
+  "failure_policy": {
+    "forbidden": [
+      "weaken_or_delete_contract",
+      "delete_or_stub_harness",
+      "add_trusted_assumption",
+      "edit_protected_paths",
+      "modify_gate_implementation",
+      "change_features_or_toolchain",
+      "disable_test_registration"
+    ],
+    "missing_callee_guarantee": "raise_change_request(kind=missing_contract)",
+    "obligation_unprovable": "raise_change_request(kind=contract_revision)",
+    "unintended_call_edge": "raise_change_request(kind=interaction_revision)",
+    "unresolved_callsite": "raise_change_request(kind=callsite_unresolved)",
+    "verifier_timeout": "raise_change_request(kind=budget_or_assumption)"
+  },
+  "functions": [
+    "crypto_mixed_core::ChaCha20::apply_keystream",
+    "crypto_mixed_core::ChaCha20::block",
+    "crypto_mixed_core::ChaCha20::bytes_remaining",
+    "crypto_mixed_core::Poly1305::compute_tag",
+    "crypto_mixed_core::Poly1305::compute_tag_chunked",
+    "crypto_mixed_core::Poly1305::finalize",
+    "crypto_mixed_core::Poly1305::set_key",
+    "crypto_mixed_core::Poly1305::update"
+  ],
+  "gate_integrity": [
+    {
+      "hash": "sha256:3a46b15784169b8b2415be6e3eb27ae84d8fe3207e596105af6d19b44fb7de6c",
+      "runner": ".codex/skills/ligature/SKILL.md"
+    },
+    {
+      "hash": "sha256:410dd4820f6b4ac5110653f2c310e13212eb311cd47e0d6c85ce9b715bbfffcf",
+      "runner": ".ligature/schemas/consolidated-check.schema.json"
+    },
+    {
+      "hash": "sha256:f38a526bd77fcc0a916351d729bfad95d858ead740ed0268220bb0b833f164bd",
+      "runner": ".ligature/schemas/project-state.schema.json"
+    },
+    {
+      "hash": "sha256:0b844c7ec904604754e13ba448c5f146cbe4296a7fd617cdfe0085636eb946bd",
+      "runner": "scripts/witness_renderer.py"
+    },
+    {
+      "hash": "sha256:09dc6a9258a9bdab7648d3d8d0588bbb4bf2a096457c950e094964aa8d139854",
+      "runner": "scripts/xml_escape.py"
+    }
+  ],
+  "gates": [
+    {
+      "args": [
+        "validate-interaction"
+      ],
+      "id": "g15",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "gate",
+        "g18"
+      ],
+      "id": "g18",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "gate",
+        "g19"
+      ],
+      "id": "g19",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "validate"
+      ],
+      "id": "g1a",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "validate-interaction"
+      ],
+      "id": "g1b",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "validate-bridge"
+      ],
+      "id": "g2",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "gate",
+        "g20"
+      ],
+      "id": "g20",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "gate",
+        "g9"
+      ],
+      "id": "g9",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "validate-interaction"
+      ],
+      "id": "r2",
+      "runner": "ligature"
+    }
+  ],
+  "issue": "chainlink:46",
+  "obligations": [
+    "ChaCha20.C002",
+    "ChaCha20.C003",
+    "Poly1305.C002"
+  ],
+  "provenance": {
+    "artifact_set_hash": "sha256:0b9e9bf55517fa51b1b9a70b13e3d85d33db24639f51f53ac2e2e63a6b8d2da1",
+    "base_commit": "6bb298e99fb1a0bb25033cae40f081606a340579",
+    "features": [
+      "default"
+    ],
+    "promotion_id": "PROM-CRYPTO-KANI-001",
+    "target": "x86_64-unknown-linux-gnu",
+    "toolchain": "1.95.0-x86_64-unknown-linux-gnu"
+  },
+  "report": {
+    "emit": "ci/results/WP-CRYPTO-MIXED-PRIMITIVES-001.json",
+    "per_obligation_assurance_record": true
+  },
+  "scheduling_rule": "reverse-dependency-order",
+  "schema": "work-package-manifest/1.0",
+  "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001",
+  "write_policy": {
+    "allowed_write_set": [
+      "crates/crypto-mixed-core/src/**",
+      "crates/crypto-mixed-core/tests/**"
+    ],
+    "on_conflict": "raise_change_request",
+    "protected_write_set": [
+      ".envrc",
+      ".github/**",
+      ".gitignore",
+      ".mcp.json",
+      "Cargo.toml",
+      "README.md",
+      "analysis/codesight/**",
+      "analysis/upstream/**",
+      "ci/manifest/**",
+      "crates/*/Cargo.toml",
+      "crates/*/build.rs",
+      "crates/*/specs/**",
+      "docs/*-schema.json",
+      "docs/reliance-policy.md",
+      "oracle/**",
+      "rust-toolchain.toml",
+      "rust/**",
+      "scripts/**",
+      "specs/_closure/**",
+      "tests/harnesses/**",
+      "tools/**",
+      "upstream/**"
+    ]
+  }
+}
