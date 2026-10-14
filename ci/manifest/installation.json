@@ -1,6 +1,6 @@
 {
   "adjudicator": {
-    "content_hash": "sha256:095651fb57140b23d5c8f117a11500701b3778042be08e79f26ee5f1547dc5dd",
+    "content_hash": "sha256:0bd04a86a40e6a922c3f687a0856ae8adba301fabe02bf2a438898acee8622cf",
     "kind": "zipapp",
     "platform": {
       "machine": "x86_64",
@@ -9,7 +9,7 @@
     },
     "python": "3.12.3",
     "required_python": "3.10",
-    "version": "1.3.9"
+    "version": "1.3.10"
   },
   "descriptor_path": "project-descriptor.json",
   "files": [
@@ -28,9 +28,9 @@
       "path": "docs/reliance-policy.md"
     },
     {
-      "authority_hash": "sha256:a7920dac4b55f1550fad7d990f9f6f8ae7c8a0227d30f879a39982f48ea5cdf6",
-      "base_hash": "sha256:fe8d8f8fbcc7b05b2def238e5fb839163090ac0ea90729bdbd65a89f09ef927f",
-      "expected_hash": "sha256:fe8d8f8fbcc7b05b2def238e5fb839163090ac0ea90729bdbd65a89f09ef927f",
+      "authority_hash": "sha256:beb41bc2a4149e6c50b4286f6446a92d28cca4d186a43f9b66700d1671f0915e",
+      "base_hash": "sha256:78e6cfbeae3531ec90e5d122a773bb6dd23cdafd000c118b5b2f98df548d85aa",
+      "expected_hash": "sha256:78e6cfbeae3531ec90e5d122a773bb6dd23cdafd000c118b5b2f98df548d85aa",
       "ownership": "managed",
       "path": ".codex/skills/ligature/SKILL.md"
     },
@@ -155,12 +155,12 @@
     }
   ],
   "gate_hashes": {
-    ".codex/skills/ligature/SKILL.md": "sha256:fe8d8f8fbcc7b05b2def238e5fb839163090ac0ea90729bdbd65a89f09ef927f",
+    ".codex/skills/ligature/SKILL.md": "sha256:78e6cfbeae3531ec90e5d122a773bb6dd23cdafd000c118b5b2f98df548d85aa",
     ".ligature/schemas/consolidated-check.schema.json": "sha256:410dd4820f6b4ac5110653f2c310e13212eb311cd47e0d6c85ce9b715bbfffcf",
     ".ligature/schemas/project-state.schema.json": "sha256:f38a526bd77fcc0a916351d729bfad95d858ead740ed0268220bb0b833f164bd",
-    "@adjudicator": "sha256:095651fb57140b23d5c8f117a11500701b3778042be08e79f26ee5f1547dc5dd"
+    "@adjudicator": "sha256:0bd04a86a40e6a922c3f687a0856ae8adba301fabe02bf2a438898acee8622cf"
   },
-  "installed_product_version": "1.3.9",
+  "installed_product_version": "1.3.10",
   "installed_schema_versions": {
     "consolidated-check": "1.0",
     "project-descriptor": "1.0",
@@ -170,6 +170,6 @@
   "installed_skill_version": "1.0",
   "manifest_schema_version": "1.0",
   "mode": "port",
-  "product_version": "1.3.9",
+  "product_version": "1.3.10",
   "project_name": "crypto-mixed"
 }

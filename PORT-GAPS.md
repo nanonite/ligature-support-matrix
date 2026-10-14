@@ -49,3 +49,14 @@ provider parity, or proof scope is still incomplete.
 - **Status:** open
 - **Generalizable lesson:** When a mixed-verifier port starts with one backend, state the bounds of every result and keep omitted deductive and side-channel claims visible as separate follow-ups. A verifier described as bounded still needs manifest scopes that match feasible harness domains.
 - **Finding ids:** `crypto-kani-001`, `crypto-kani-002`, `crypto-kani-003`, `crypto-kani-004`, `crypto-kani-005`
+
+### Successful bounded verification was blocked by assertion-status intake
+
+- **Category:** Tooling blind spots in the transfer
+- **C++ construct / upstream location:** Streaming Poly1305 block processing and finalization in `src/lib/mac/poly1305/poly1305.cpp:93-160` at Botan commit `2a81eef56c96c237e590c27f9a75e60317c9c700`.
+- **What the Rust port does instead:** The tag-length harness calls one-shot `compute_tag` with symbolic messages of lengths 0 through 65. A fresh Kani 0.67.0 run returned 724 `SUCCESS` and 9 `UNREACHABLE` checks, zero failures, and successful verification. Three unreachable checks belong to the unused partial-buffer continuation branch; six belong to Rust library code. The tag-length assertion itself returned `SUCCESS`.
+- **Why:** Ligature 1.3.9 resolved the qualified harness but rejected ancillary checks marked `UNREACHABLE`. Ligature 1.3.10 preserves those checks and requires the named obligation assertion to succeed.
+- **Impact:** Ligature 1.3.10 records the bounded result and G14 consumes it. G14 still leaves Poly1305 unmet because the bounded harness does not cover the manifest's full domain; separate obligations and bridge evidence are also missing. The public `finalize` lifecycle and streaming continuation paths remain outside this harness.
+- **Status:** resolved in Ligature 1.3.10; verified in a disposable pilot copy on 2026-10-14. The report recorded 724 successful checks and 9 ancillary unreachable checks; G14 consumed it and reported separate scope and missing-evidence blockers.
+- **Finding ids:** `crypto-ligature-002`; related bounded-scope finding `crypto-kani-001`. Detailed reproduction and raw checks: `/tmp/crypto-133-rca/ROOT-CAUSE.md`.
+- **Generalizable lesson:** Verifier adapters must preserve the backend's distinction between failed assertions, unreachable assertions, and cover properties. Recording successful bounded evidence must also preserve its actual method and input coverage.
