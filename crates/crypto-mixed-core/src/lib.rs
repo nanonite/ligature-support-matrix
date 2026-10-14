@@ -1,14 +1,19 @@
-//! `crypto-mixed-core` -- crate source skeleton.
+//! Scalar ChaCha20, Poly1305, and RFC 8439 ChaCha20-Poly1305.
 //!
-//! Scaffolded by `ligature scaffold-crate` (chainlink #115) from the crate
-//! `crates/crypto-mixed-core` this workspace's project descriptor declares.
-//!
-//! This file declares no behaviour: it is the canonical entry point a work
-//! package starts from, and the port itself is implemented through the
-//! ordinary worker/human path -- a Stage 7 work-package manifest, the
-//! validators and the gates -- never by the scaffolder.
-//!
-//! Once it exists it is never rewritten. `<crate>/src/` is inside
-//! `allowed_roots`, so its content belongs to the implementing agent, and a
-//! scaffold that overwrote an implementation would be the tool's version of
-//! the hand-edit this command exists to replace.
+//! This crate implements the bounded P3 subset selected for Botan 3.13.0:
+//! 256-bit keys, 96-bit nonces, 20-round ChaCha, and byte-slice AEAD inputs.
+//! SIMD providers, XChaCha, legacy nonce modes, and constant-time claims are
+//! outside this port's scope.
+
+mod aead;
+mod chacha20;
+mod error;
+mod poly1305;
+
+#[cfg(kani)]
+mod kani_proofs;
+
+pub use aead::ChaCha20Poly1305;
+pub use chacha20::ChaCha20;
+pub use error::CryptoError;
+pub use poly1305::Poly1305;
