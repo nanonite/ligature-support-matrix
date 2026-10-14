@@ -60,3 +60,25 @@ provider parity, or proof scope is still incomplete.
 - **Status:** resolved in Ligature 1.3.10; verified in a disposable pilot copy on 2026-10-14. The report recorded 724 successful checks and 9 ancillary unreachable checks; G14 consumed it and reported separate scope and missing-evidence blockers.
 - **Finding ids:** `crypto-ligature-002`; related bounded-scope finding `crypto-kani-001`. Detailed reproduction and raw checks: `/tmp/crypto-133-rca/ROOT-CAUSE.md`.
 - **Generalizable lesson:** Verifier adapters must preserve the backend's distinction between failed assertions, unreachable assertions, and cover properties. Recording successful bounded evidence must also preserve its actual method and input coverage.
+
+### Generated Kani bridge harnesses are not run without a configured backend
+
+- **Category:** Tooling blind spots in the transfer
+- **C++ construct / upstream location:** ChaCha20-Poly1305 one-time Poly1305 key setup and encryption processing in `src/lib/modes/aead/chacha20poly1305/chacha20poly1305.cpp:55,90,110` at Botan commit `2a81eef56c96c237e590c27f9a75e60317c9c700`.
+- **What the Rust port does instead:** The port has direct Kani harnesses for derived-key length and the ChaCha counter-one capacity condition. Ligature's generated bridge harnesses express the cross-call contracts, but `check-bridges` currently produces only those harness files and no verifier result.
+- **Why:** The project descriptor has no `verifier_backends.kani.command`. Ligature 1.3.10 correctly reports that no bridge check occurred. `record-assurance` handles concept obligations and rejects `BR-*` identifiers; direct Kani harness results do not establish the generated bridge predicates.
+- **Impact:** The two cross-package preconditions remain unverified, so the AEAD package cannot claim its required bridge evidence or pass G9/G14 on this basis.
+- **Status:** open; verified in a disposable pilot copy on 2026-10-14.
+- **Finding ids:** `crypto-ligature-003`
+- **Generalizable lesson:** Generating a verifier harness is not the same as checking it. A mixed-verifier port needs a configured adapter that consumes the exact generated boundary harness and records the owning verifier's verdict.
+
+### Locked Kani intake needs an approved lockfile path
+
+- **Category:** Tooling blind spots in the transfer
+- **C++ construct / upstream location:** ChaCha20 stream processing in `src/lib/stream/chacha/chacha.cpp:134-230` and Poly1305 arithmetic in `src/lib/mac/poly1305/poly1305.cpp:93-160` at Botan commit `2a81eef56c96c237e590c27f9a75e60317c9c700`.
+- **What the Rust port does instead:** It has named Kani harnesses for the byte-slice and cryptographic obligations, but no assurance report can be recorded in the pilot until its crate has a lockfile.
+- **Why:** Ligature 1.3.10 runs `cargo metadata --locked` before Kani. Cargo refuses to create the missing `crates/crypto-mixed-core/Cargo.lock` under `--locked`, while the project and package write sets do not permit that file. Kani build artifacts also need to stay outside the allowed roots, for example through an external `CARGO_TARGET_DIR`.
+- **Impact:** Kani cannot run through `record-assurance` in the actual pilot, so scratch-copy results do not produce the pilot reports G14 consumes.
+- **Status:** open; reproduced in a disposable pilot copy on 2026-10-14.
+- **Finding ids:** `crypto-ligature-004`
+- **Generalizable lesson:** Lockfile enforcement supports reproducible verification only when the project authorizes a way to create and retain the lockfile before the verifier intake begins.
