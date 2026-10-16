@@ -1,0 +1,2024 @@
+# Date Creusot Pilot
+Pilot: HowardHinnant/date
+Owning verifier: Creusot
+Intended closure_kind: deductive
+
+## Current Ligature binary: 1.3.11 (2026-10-14)
+
+`tools/ligature/ligature.pyz` is **Ligature 1.3.11**, bundle SHA-256
+`446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f`
+(`version --verify` succeeds; `tools/ligature/SHA256SUMS` records the same
+bundle). Its attested content hash is
+`sha256:5f6e9d41af35a0ee219316b1d740547c84f8ccb8666afe21b3452bb638f1c2b8`,
+from clean source commit
+`cdac78c21b6c32800b668b8fa2e17270f771d78c`. The installation pin already names
+1.3.11, so no upgrade was needed; `doctor` exits 0 and reports the installation
+current.
+
+The user-owned descriptor remains `present-invalid`: `write_set.allowed_roots`
+pattern `docs/*.md` overlaps protected `docs/reliance-policy.md`. Live
+`check --json` exits 5, and both live `gate-g14` and `gate-r1-g16` stop at this
+descriptor error. A scratch-only normalized copy was used to inspect the gates;
+the full per-finding overlay, bucket changes, captured observations, and
+operator decisions are in
+[`analysis/ligature/reverify-VERDICTS.md`](analysis/ligature/reverify-VERDICTS.md).
+The current scope cuts and grouped port limitations are summarized in
+[`PORT-GAPS.md`](PORT-GAPS.md).
+
+The 1.2.0 sections below are historical measurements and remain labeled as such.
+
+## Historical v1.2.0 upgrade status (2026-10-01, chainlink #103)
+
+At the 2026-10-01 measurement, `tools/ligature/ligature.pyz` held **Ligature 1.2.0**
+(sha256:`9c921eeb1bbb858c0041e49f07cf5d06988eb798ba60b9207f7576cba430637c`;
+`sha256sum -c SHA256SUMS` -> `ligature.pyz: OK`); it was installed that day and
+brought current with `migrate --upgrade`. `doctor` exited 0 and
+`gate_integrity.state` was `pinned`. 1.2.0 closed epic `#1` `#96`-`#102`, and one of those fixes — CG3 now
+reads every declared `depends_on` (`#100`) — **exposed a real manifest defect in
+this pilot that every earlier version silently ignored.**
+
+### What 1.2.0 exposed, and what was fixed (chainlink #103)
+
+`ci/manifest/WP-DATE-CREUSOT.json` declared `depends_on: ["WP-DATE-CREUSOT-CORE"]`.
+No such work package exists anywhere in this workspace. `WP-DATE-CREUSOT-CORE` is
+the **cluster** name (see `specs/_closure/date-creusot-core.json`, `"cluster":
+"date-creusot-core"`), not a work-package id — the cluster name was written into
+the `depends_on` field by mistake. Under 1.1.1 CG3 ignored declared `depends_on`
+entirely, so the typo was inert. Under 1.2.0 the gate follows the declared
+dependency, cannot read it, and correctly fails closed:
+
+    [G14/error] [generic_callees_type_universal_or_creusot_owned] a declared
+    depends_on names WP-DATE-CREUSOT-CORE, which resolves to no schema-valid
+    work-package manifest in this workspace -- a declared dependency the gate
+    cannot read is exactly where a Kani-owned generic callee could sit, so it
+    fails closed rather than out of scope (CG3, chainlink #93)
+
+Three fields were changed, under explicit operator authorization, and **only**
+these three:
+
+1. `depends_on` -> `[]`. This pilot has exactly **one** work package
+   (`WP-DATE-CREUSOT`, which owns all seven functions and all five obligations),
+   so there is no other work package to depend on. Declaring itself would be the
+   same self-reference that `#87` removed from `required_guarantees`.
+2. `gate_integrity` hashes for `scripts/witness_renderer.py` and
+   `scripts/xml_escape.py` -> the real installed sha256s
+   (`0b844c7e…46bd`, `09dc6a92…854`). These were 1.0-era placeholders
+   (`sha256:000…0`) written when no pilot root had a `scripts/` directory at all.
+   ligature 1.1+ `init`/`migrate` installs both as managed files, so the real
+   hashes now exist and G13 verifies them. This retires the pilot-side workaround
+   that epic `#1` `#83` documented; that issue's own 2026-09-30 re-verification had
+   already returned VERDICT: FIXED on the ligature side (`init` installs the scripts).
+3. The `coupling_notes` entry describing the placeholder zero hashes -> rewritten
+   to describe the real hash-pinning, no longer a 1.0 workaround.
+
+Result on the live root: **`gate-g14` exits 0** with `closure_kind=deductive` and
+CG3 now reported `[G14/info] … VERIFIED from artifact data, not taken on
+declaration`. `check --json` lands back on exactly its 1.1.1 baseline —
+`{'info': 16, 'high': 5}`, and 1.2.0 had pushed it to `{'info': 15, 'high': 6}`
+before the fix, because CG3 became a `high` blocker — with `change_request_stubs`
+now `[]` and no findings added or lost otherwise. The 5 remaining high findings are
+exactly the `r1-g16` ones the operator runbook below clears. `validate-closure`,
+`gate-g18`, `gate-g19`, `gate-g20`, `write-set-check` and `doctor` are
+**byte-identical** before and after.
+
+### The one thing that did NOT become clean: `validate-work-package` still exits 1
+
+> **SUPERSEDED 2026-10-02 by chainlink `#105` — this section now exits 0.**
+> `validate-work-package` was the *last* non-zero command in this pilot and it no
+> longer is. The G13 overlap was cleared by an operator-authorized narrowing of two
+> protected globs, in both files. See "G13 RESOLVED" immediately below; the analysis
+> in this section is kept as the record of how the overlap was characterized before
+> the decision.
+
+    $ python3 tools/ligature/ligature.pyz validate-work-package ci/manifest/WP-DATE-CREUSOT.json ; echo $?
+    FAIL: 1 finding(s)
+      - [G13/error] ci/manifest/WP-DATE-CREUSOT.json: allowed_write_set overlaps
+        protected_write_set: 'rust/*/src/' overlaps protected '**/Cargo.toml'; …
+
+This is **not** a 1.2.0 regression and **not** covered by the #103 authorization.
+It is the pre-existing `date-ligature-034` finding (logged against ligature 1.0.0,
+severity `friction`): the overlap is latent in `project-descriptor.json` itself —
+`write_set.allowed_roots` carries `rust/*/src/` and `rust/*/tests/` while
+`write_set.protected_roots` carries `**/Cargo.toml` and `**/build.rs`, and the
+manifest's `write_policy` is a faithful copy of it. Clearing it needs either a
+`project-descriptor.json` edit (a protected root, forbidden by WORKER-CONTRACT §3)
+or a `write_policy` narrowing that would **misrepresent the descriptor**, which is
+precisely what `date-ligature-034`'s recorded workaround says not to do. It was
+therefore left alone on purpose. Probed on a scratch copy: the check is doing real
+glob reasoning, not naive matching — narrowing `allowed_write_set` to
+`rust/*/src/**/*.rs` silences the `Cargo.toml` overlap but *still* trips
+`**/build.rs`, because `*.rs` matches `build.rs`. So no pattern the pilot would
+plausibly want is disjoint from the descriptor's protected set under 1.2.0.
+
+### G13 RESOLVED: the protected globs are narrowed to where those files live (chainlink #105, 2026-10-02)
+
+`date-ligature-034` is **cleared**. The operator chose Option A on 2026-10-01 and
+authorized exactly four string substitutions — `'**/Cargo.toml'` -> `'rust/*/Cargo.toml'`
+and `'**/build.rs'` -> `'rust/*/build.rs'`, in **both**
+`project-descriptor.json` `write_set.protected_roots` and
+`ci/manifest/WP-DATE-CREUSOT.json` `write_policy.protected_write_set`, so the two
+stay byte-faithful to each other. No other field of either file was touched, and no
+workspace-root `Cargo.toml` was added because **none exists** in this pilot root
+(`ls date-creusot/` has no `Cargo.toml`; the crate manifests are
+`rust/date-creusot-core/Cargo.toml` and `oracle/rust-check/Cargo.toml`).
+
+Before (baseline, this root, ligature 1.2.0):
+
+    $ python3 tools/ligature/ligature.pyz validate-work-package ci/manifest/WP-DATE-CREUSOT.json ; echo $?
+    FAIL: 1 finding(s)
+      - [G13/error] ci/manifest/WP-DATE-CREUSOT.json: allowed_write_set overlaps
+        protected_write_set: 'rust/*/src/' overlaps protected '**/Cargo.toml';
+        'rust/*/src/' overlaps protected '**/build.rs'; 'rust/*/tests/' overlaps
+        protected '**/Cargo.toml'; 'rust/*/tests/' overlaps protected '**/build.rs'
+    1
+
+After, on the live root:
+
+    $ python3 tools/ligature/ligature.pyz validate-work-package ci/manifest/WP-DATE-CREUSOT.json ; echo $?
+    INFO: 2 non-blocking finding(s)
+      - [10.1/info] … provenance.promotion_id 'PROM-DATE-CREUSOT-CORE-001' cannot be
+        resolved against a real promotion receipt yet -- chainlink #15 (detached
+        promotion receipt) is not implemented
+      - [10.1/info] … "every owned function's source path is covered by
+        allowed_write_set" is not checked -- functions[] are Rust module paths with no
+        schema-computable mapping to a file path without searching real crate source,
+        which this workspace doesn't have
+    OK: work package manifest passes G1a and §10.1 checks
+    0
+
+Both remaining `10.1/info` lines are pre-existing "not implemented / not checked"
+notices, not findings about this pilot's content, and they are byte-identical to the
+baseline's.
+
+**Why narrowing the protected side is the right fix and not a fudge.** G13 is doing
+correct glob reasoning: `**/Cargo.toml` really can name a file under `rust/*/src/`
+(put a `Cargo.toml` in a crate's `src/` and it matches both globs). The problem is
+not the matcher's arithmetic, it is that the glob was *wider than the fact*. Cargo
+manifests and build scripts are crate-root files. `rust/*/Cargo.toml` still names
+`rust/date-creusot-core/Cargo.toml` — the only crate manifest in the verified crate
+tree — and `rust/*/build.rs` names nothing today (no `build.rs` exists anywhere in
+this pilot root) while staying correct for the day one appears.
+
+**Nothing measurable was lost.** `write-set-check` is the only command that prints
+protected-root coverage, and it still reports the crate manifest as protected:
+
+    $ python3 tools/ligature/ligature.pyz write-set-check ; echo $?
+    protected_roots: rust/*/specs/**, ci/manifest/**, scripts/**, docs/*-schema.json,
+      docs/reliance-policy.md, rust/*/Cargo.toml, rust/*/build.rs, tests/harnesses/**,
+      .github/**, rust-toolchain.toml
+    write set: clean
+      protected (not product-managed): rust/date-creusot-core/Cargo.toml
+    0
+
+`doctor` (exit 0), `gate-g14` (exit 0, `closure_kind=deductive`), `validate-closure`,
+`gate-g18`, `gate-g19`, `gate-g20` and `status` are unchanged, and `check --json` is
+**byte-identical** before and after: 21 findings, `{'info': 16, 'high': 5}`, all 5
+high still `r1-g16`, `result.conditions: ["blocking_findings"]`, `change_request_stubs:
+[]`. Every top-level key of the JSON compares equal.
+
+### Historical coverage note: narrowed protected globs
+
+The operator's premise was that "Cargo.toml/build.rs only exist at crate roots", so
+nothing real would be left unprotected. That is true for the **verified crate tree**
+and false for the **whole pilot root**: `oracle/rust-check/Cargo.toml` is a real,
+existing Cargo manifest that `**/Cargo.toml` used to protect and
+`rust/*/Cargo.toml` does not. Demonstrated by probe on a throwaway copy of this root
+(temporary edit to the manifest's `allowed_write_set` only, since reverted):
+
+    # narrowed globs, 'oracle/rust-check/Cargo.toml' added to allowed_write_set
+    OK: work package manifest passes G1a and §10.1 checks        -> exit 0
+
+    # same manifest, protected_write_set restored to '**/Cargo.toml'
+    FAIL: 1 finding(s)
+      - [G13/error] … allowed_write_set overlaps protected_write_set: …;
+        'oracle/rust-check/Cargo.toml' overlaps protected '**/Cargo.toml'
+
+So the old glob was protecting that file and the new one is not. It is still
+*accounted for* (the `oracle/**` allowed root covers it, which is why
+`write-set-check` stays `clean`) and `write-set-check` never treated a protected
+root as a violation class anyway (`date-ligature-049`), so no gate changes — but
+the authority boundary is genuinely one file narrower. **This was not fixed here
+because it was not authorized**: the operator's authorization named the two glob
+substitutions plus "a workspace-root `Cargo.toml` **only if one exists**", and there
+is no workspace-root `Cargo.toml`. Adding `'oracle/rust-check/Cargo.toml'` (or
+`'oracle/**/Cargo.toml'`) to both protected sets is a one-line follow-up the
+operator may want to authorize; it is logged as `date-creusot-062`.
+
+## Operator runbook: clearing the 5 `r1-g16` `absent from I` findings (chainlink #95, 2026-09-30)
+
+**This is the section to act on if you only read one.** It supersedes nothing —
+the `SUPERSEDED` banners below still govern the older 1.0/1.1.0 claims — but it
+covers the one open `check --json` failure this pilot has.
+
+### The failure being cleared
+
+    $ python3 tools/ligature/ligature.pyz check --json ; echo $?
+    # result: {"conditions": ["blocking_findings"], "exit_code": 1}
+    # severities: {'info': 16, 'high': 5}          <- all 5 high are r1-g16
+    1
+
+All five high findings are the same rule: a definite direct call across concepts
+with no declared interaction. They are real calls, not extractor artefacts
+(`extract-c-static` reports `11 discovered, 11 resolved, 0 unresolved`):
+
+| callsite | edge | source |
+|---|---|---|
+| `CS-YEARMONTHDAY-OK-001` | `YearMonthDay.ok` -> `Year.ok` | `rust/date-creusot-core/src/year_month_day.rs:834` |
+| `CS-YEARMONTHDAY-OK-002` | `YearMonthDay.ok` -> `Month.ok` | `…/year_month_day.rs:835` |
+| `CS-YEARMONTHDAYLAST-OK-001` | `YearMonthDayLast.ok` -> `Year.ok` | `…/year_month_day_last.rs:160` |
+| `CS-YEARMONTHDAYLAST-OK-002` | `YearMonthDayLast.ok` -> `Month.ok` | `…/year_month_day_last.rs:160` |
+| `CS-YEARMONTHDAYLAST-DAY-001` | `YearMonthDayLast.day` -> `Year.is_leap` | `…/year_month_day_last.rs:184` |
+
+Epic `#1` `#91` reported in September 2026 (against ligature 1.1.0) that there
+is **no worker-reachable resolution**: declaring an interaction needed a
+protected-root write plus three human checkpoints. Chainlink `#94` re-ran that
+repro under 1.1.1 and found two of its three walls down. **Chainlink `#95`
+re-derived it again, end to end, and the result is that the route is now fully
+mapped and half of it is already on this root as staged drafts.** The whole
+sequence below was executed on an `rsync` scratch copy of this root; measured
+result at the end: **`check --json` exits 0, `conditions: []`, 16 info findings,
+the same 16 as today.**
+
+### What is already on this root, staged and unapproved
+
+`#95` ran the worker-reachable part and stopped. These ten files are
+`.draft` only — no `review` block, nothing promoted, nothing in
+`ci/results/review_log.jsonl`:
+
+    rust/date-creusot-core/specs/_boundaries/year_month_day_ok__to__year_ok.json.draft
+    rust/date-creusot-core/specs/_boundaries/year_month_day_ok__to__month_ok.json.draft
+    rust/date-creusot-core/specs/_boundaries/year_month_day_last_ok__to__year_ok.json.draft
+    rust/date-creusot-core/specs/_boundaries/year_month_day_last_ok__to__month_ok.json.draft
+    rust/date-creusot-core/specs/_boundaries/year_month_day_last_day__to__year_is_leap.json.draft
+    rust/date-creusot-core/specs/_interactions/I-year-month-day-ok-to-year-ok.json.draft
+    rust/date-creusot-core/specs/_interactions/I-year-month-day-ok-to-month-ok.json.draft
+    rust/date-creusot-core/specs/_interactions/I-year-month-day-last-ok-to-year-ok.json.draft
+    rust/date-creusot-core/specs/_interactions/I-year-month-day-last-ok-to-month-ok.json.draft
+    rust/date-creusot-core/specs/_interactions/I-year-month-day-last-day-to-year-is-leap.json.draft
+
+Each one was produced by `ligature.pyz draft 3` and each passed the binary's own
+immediate G1a/G1b check (`OK: generated draft passes G1a/G1b immediate checks`).
+**Read them before approving them** — one design decision in them is a judgment
+call, and it is called out under "What is in these drafts" below.
+
+**Read this before you run anything:** the five interaction `.draft` files are
+currently reported as five `medium` `G1a` findings by `validate-interaction`
+(`'review' is a required property`), which is why `check --json` right now says
+`conditions: ["blocking_findings", "human_decision_required"]` with
+`{'medium': 5, 'info': 16, 'high': 5}`. That is the tool's own behaviour for a
+staged interaction draft, not a defect in the drafts — `draft` itself reports
+them as passing. `approve` consumes the `.draft`, so **step 2 below removes those
+five findings in the same step that clears the five high ones.** Filed upstream
+as epic `#1` `#97`; see `findings/limitations.jsonl` `date-ligature-100`.
+
+### Step 0 — see what you are approving
+
+    cd date-creusot
+    for f in rust/date-creusot-core/specs/_boundaries/*.draft \
+             rust/date-creusot-core/specs/_interactions/*.draft; do
+      echo "=== $f"; cat "$f"
+    done
+
+    # Optional, and the thing a reviewer should actually do: check each cited
+    # obligation id exists in the pilot's own obligation inventory, and check
+    # the port by hand against the Creusot proof.
+    grep -o '"id": "[A-Za-z]*\.[A-Z0-9]*"' analysis/ligature/constraint-ids.json | sort -u
+    grep -n 'Constraint ' rust/date-creusot-core/src/{year,month,year_month_day,year_month_day_last}.rs
+
+### Step 1 — approve the 5 boundary contracts FIRST
+
+Order matters and is not cosmetic: `approve` of a `boundary-required`
+interaction is refused with an `R2` error unless its boundary contract is already
+promoted. Measured:
+
+    $ python3 tools/ligature/ligature.pyz approve \
+        rust/date-creusot-core/specs/_interactions/I-year-month-day-last-day-to-year-is-leap.json \
+        --reviewer probe --reviewed-at 2026-09-30
+    error: …draft fails validation, refusing to promote to …json:
+      - [R2/error] …: eligibility is boundary-required but no boundary contract for
+        this edge and no reviewed exemption covers interaction_id
+        'I-year-month-day-last-day-to-year-is-leap' (plan.md gate table §12: R2 --
+        eligible I edge with no boundary and no reviewed exemption blocks promotion)
+
+So, from `date-creusot/`, with **your own name** and **today's date**:
+
+    for b in year_month_day_ok__to__year_ok \
+             year_month_day_ok__to__month_ok \
+             year_month_day_last_ok__to__year_ok \
+             year_month_day_last_ok__to__month_ok \
+             year_month_day_last_day__to__year_is_leap ; do
+      python3 tools/ligature/ligature.pyz approve \
+        "rust/date-creusot-core/specs/_boundaries/${b}.json" \
+        --reviewer "<your name>" --reviewed-at "<YYYY-MM-DD>"
+    done
+
+Expected: five lines of `approved: … (new) by <your name> at <date>`, exit 0 each.
+
+### Step 2 — approve the 5 interactions
+
+    for i in I-year-month-day-ok-to-year-ok \
+             I-year-month-day-ok-to-month-ok \
+             I-year-month-day-last-ok-to-year-ok \
+             I-year-month-day-last-ok-to-month-ok \
+             I-year-month-day-last-day-to-year-is-leap ; do
+      python3 tools/ligature/ligature.pyz approve \
+        "rust/date-creusot-core/specs/_interactions/${i}.json" \
+        --reviewer "<your name>" --reviewed-at "<YYYY-MM-DD>"
+    done
+
+Expected: five more `approved: … (new) by <your name> at <date>`, exit 0 each.
+If you skip step 1 you get `[R2/error] …` on every one of these instead.
+
+### Step 3 — check the gate. This is the step that fixes the failure.
+
+    python3 tools/ligature/ligature.pyz gate-r1-g16 ; echo $?
+    python3 tools/ligature/ligature.pyz check --json ; echo $?
+
+Expected, exactly as measured on a scratch copy of this root:
+
+    all discovered call sites resolved (11 discovered, 11 checked against I)
+    OK: R1 and G16 pass
+    0
+    …
+    "result":{"conditions":[],"exit_code":0}
+    0
+
+`11 checked against I` (was `6`) and `0` blocking (was `5`). The 16 `info`
+findings are unchanged — the new interactions declare
+`realization.config_scope.features: []`, matching what the extractor actually
+observed, so they contribute **no** new `R1/info` noise. (The two *existing*
+interactions that declare `features: ["default"]` are the source of the two
+`declares features=['default'] cfg=[], observed under features=[] cfg=[]` infos;
+that is pre-existing and out of scope here.)
+
+**`check --json` exits 0 at this point. Steps 4 and 5 are not needed to clear the
+failure** — they are needed to make the ten new artifacts *normative*, i.e.
+members of the cluster's promotion receipt. Skipping them leaves ten promoted
+`.json` files outside `specs/_promotions/date-creusot-core.json`, which is a
+real but different inconsistency. Do them in the same sitting.
+
+### Step 4 — record the human ruling over the exact accepted set
+
+`accept-promotion` is mechanically gated on a `ratified` ruling covering every
+accepted artifact at its current content (`--reviewer` has no default and is
+documented as never LLM-supplied). The accepted set is the 24 paths already in
+the receipt **plus** the ten new ones, and it must include
+`docs/reliance-policy.md` — omitting the policy document is refused outright:
+
+    $ python3 tools/ligature/ligature.pyz accept-promotion date-creusot-core \
+        --reviewer <you> --policy-path docs/reliance-policy.md \
+        --artifact <the 10 new paths>
+    error: policy_path 'docs/reliance-policy.md' must itself be one of the accepted artifacts
+
+Build the list from the current receipt so it cannot drift, then extend it:
+
+    cd date-creusot
+    python3 - <<'PY' > /tmp/accepted-args.txt
+    import json
+    rec = json.load(open("specs/_promotions/date-creusot-core.json"))
+    paths = [m["path"] for m in rec["artifact_manifest"]]
+    # I-year-month-day-last-to-year-month-day-last-new.json is promoted on disk and
+    # has a review_log entry, but the 2026-09-26 receipt predates it; add it here or
+    # leave it out -- both are consistent, only the second matches the old receipt.
+    paths.append("rust/date-creusot-core/specs/_interactions/"
+                 "I-year-month-day-last-to-year-month-day-last-new.json")
+    for b in ["year_month_day_ok__to__year_ok", "year_month_day_ok__to__month_ok",
+              "year_month_day_last_ok__to__year_ok",
+              "year_month_day_last_ok__to__month_ok",
+              "year_month_day_last_day__to__year_is_leap"]:
+        paths.append(f"rust/date-creusot-core/specs/_boundaries/{b}.json")
+    for i in ["I-year-month-day-ok-to-year-ok", "I-year-month-day-ok-to-month-ok",
+              "I-year-month-day-last-ok-to-year-ok",
+              "I-year-month-day-last-ok-to-month-ok",
+              "I-year-month-day-last-day-to-year-is-leap"]:
+        paths.append(f"rust/date-creusot-core/specs/_interactions/{i}.json")
+    print("\n".join(paths))
+    PY
+    # 35 paths: 1 policy + 9 boundaries + 10 interactions + 15 evidence
+    ARGS=(); while read -r p; do ARGS+=(--artifact "$p"); done < /tmp/accepted-args.txt
+
+    python3 tools/ligature/ligature.pyz record-ruling \
+      --reviewer "<your name>" --verdict ratified "${ARGS[@]}" --ruled-at "<YYYY-MM-DD>"
+    # recorded ruling: ratified over 35 artifact(s)
+
+Fold **ruling 1** (the eight unauthorized `review` blocks, `stage-3-decisions.md`
+§9.1) into this same ruling: the accepted set above contains all eight of those
+artifacts, so one `record-ruling` over the 35 paths settles ruling 1 as well. Do
+it as a single command rather than two, so the receipt and the ruling cannot
+disagree.
+
+### Step 5 — accept the promotion
+
+    python3 tools/ligature/ligature.pyz accept-promotion date-creusot-core \
+      --reviewer "<your name>" --accepted-at "<YYYY-MM-DD>" \
+      --policy-path docs/reliance-policy.md "${ARGS[@]}"
+    # accepted: specs/_promotions/date-creusot-core.json
+
+Ruling 2 (the 15 evidence records promoted by hand `mv`) is *not* settled by this
+and cannot be: the evidence files are byte-identical to the bodies in
+`analysis/ligature/draft-responses/`, and the tool's own answer is now
+`promote-evidence`, not `mv`. See `date-ligature-020` and ruling 2 below.
+
+### Step 6 — final verification
+
+    for c in "check --json" "gate-r1-g16" "gate-g14" "validate" \
+             "validate-interaction" "validate-closure" "validate-callsites" \
+             "doctor" "write-set-check"; do
+      python3 tools/ligature/ligature.pyz $c >/dev/null 2>&1
+      echo "  $c -> EXIT=$?"
+    done
+
+Expected: **every one of those is `EXIT=0`**, including `check --json` and
+`gate-r1-g16`. That is the measured end state of the full sequence on a scratch
+copy. `gate-g9` and `gate-g18/g19/g20` remain `not-applicable` (no bridges, no
+witnesses) and must not be reported as passing.
+
+### What is in these drafts, and the one judgment call
+
+Every interaction is `edge_class: ["numeric-domain-boundary"]` ->
+`eligibility: "boundary-required"`, `protocol_class: "pairwise"`,
+`realization.requirement: "required"`, target `x86_64-unknown-linux-gnu`.
+`eligibility` is never hand-set — it is computed from `edge_class` by
+`validate-interaction`'s own rule and a disagreement is rejected, so a hand-set
+`"inform"` here would not pass. The class is the honest one: all five callees are
+numeric field-domain or leap predicates whose result the caller's return value
+is decided by.
+
+**All five boundary contracts have `"callee_guarantees": []`.** That is
+`stage-3-boundary-drafting.md`'s own prescribed handling, not a shortcut: the
+callee concepts are `Year` and `Month`, and `analysis/ligature/constraint-ids.json`
+declares no `Year.*` or `Month.*` constraint. The template says "do not invent
+one and do not reference that constraint. Omit it from `callee_guarantees`
+rather than fabricate an id." The alternative — hand-placing a concept spec to
+get real ids — is a `protected_roots` write and is forbidden
+(`WORKER-CONTRACT.md` §0.0). The tool accepts the empty list, and the empty list
+is what a human should scrutinise at this step.
+
+**The judgment call: which obligation each interaction relies on.**
+
+| interaction | `reliances[0].obligation_id` | how good a match is it for the callee |
+|---|---|---|
+| `I-year-month-day-ok-to-year-ok` | `YearMonthDayLast.C2` | **direct.** C2's statement *is* `Year::ok`'s postcondition: "`year::ok()` rejects exactly one value, -32768". The port's own `src/year.rs:46` annotates the method with "Constraint YearMonthDayLast.C2". |
+| `I-year-month-day-last-ok-to-year-ok` | `YearMonthDayLast.C2` | **direct**, same reason. |
+| `I-year-month-day-last-day-to-year-is-leap` | `YearMonthDayLast.C1` | **direct.** C1's statement embeds the leap rule verbatim: "February replaced by 29 exactly when `year::is_leap()`, i.e. `y % 4 == 0 && (y % 100 != 0 || y % 400 == 0)`". |
+| `I-year-month-day-ok-to-month-ok` | `YearMonthDayLast.C1` | **proxy — review this one.** There is no registered `Month.*` constraint. C1 is the only obligation that pins the month domain ("for months 1..12"), and C1 is `day()`'s postcondition, not `Month::ok`'s. |
+| `I-year-month-day-last-ok-to-month-ok` | `YearMonthDayLast.C1` | **proxy — same caveat.** |
+
+The two proxy citations are the weakest thing in this batch. `Month::ok`'s real
+postcondition is `result == (1 <= self.0@ && self.0@ <= 12)`, stated in
+`src/month.rs:51` and in evidence `E-12`, but **not** in any obligation with a
+stable id. The template's rule for that case is explicit: if every real
+obligation for a `boundary-required` edge lacks a stable id, *do not emit the
+interaction at all* — output nothing so the caller surfaces it to a human. A
+worker cannot close that gap, because closing it means adding a `Month.C1`
+constraint, which means a promoted concept spec, which is not authorable
+(`WORKER-CONTRACT.md` §0.0; `date-ligature-095`). **If you disagree with the
+proxy citation, reject these two drafts rather than approving them, and the
+remaining three still clear three of the five findings.**
+
+### The two things only a human can still clear after steps 1–6
+
+1. **The five `approve`/`record-ruling`/`accept-promotion` checkpoints
+   themselves.** Authority boundary 2 of `.codex/skills/ligature/SKILL.md`.
+   `#95` did not cross any of them, on this root or on any scratch copy it left
+   behind. They were exercised on scratch copies only, under a throwaway
+   reviewer name, and those copies are in `/tmp`.
+2. **Ruling 3 (constraint ids are an unratified deviation), which this batch is
+   now coupled to.** `stage-3-decisions.md` §3.1 offers Option A (ratify
+   `constraint-ids.json` as a recorded deviation) or Option B (strip the ids).
+   The five existing boundary contracts and interactions cite 5 ids; the eight
+   others — including **`YearMonthDayLast.C2`** — are cited by nothing. These ten
+   new drafts cite `YearMonthDayLast.C2` for the first time anywhere in the spec
+   tree. **Under Option B the two `-> Year.ok` interactions lose their `reliances`
+   and are un-draftable, and `CS-YEARMONTHDAY-OK-001` and
+   `CS-YEARMONTHDAYLAST-OK-001` come back as blocking findings.** Ratify
+   Option A, or do steps 1–3 for the three `YearMonthDayLast.C1` edges only and
+   leave the other two as a known, documented remainder. Do not do step 3 and
+   then change your mind about ruling 3.
+
+## Authoring path, re-derived against ligature 1.1.1 (chainlink #94, 2026-09-30)
+
+Every statement in this file written against ligature **1.0.0** (sha256
+`0ffe6e0e…`) or **1.1.0** (sha256 `ede2514e…`) about what `ligature.pyz` *can*
+author, promote or gate is now **superseded** by the binary below
+(sha256 `3edfd03c…`, `sha256sum -c SHA256SUMS` -> `ligature.pyz: OK`, `version`
+-> `ligature 1.1.1`, content hash `sha256:172a87a8…`). Each stale statement is
+marked in place with a **SUPERSEDED** banner and left as history; this section
+is the current truth. The one thing that is *not* superseded is the three
+outstanding human rulings (ruling 1, 2, 3) — those are about this project's
+own artifacts, not about the tool.
+
+All probes below ran on `rsync` scratch copies under `/tmp`, never on this root.
+`approve`, `promote-evidence`, `record-ruling`, `accept-promotion` and
+`accept-policy` were exercised **only** on those copies.
+
+### What 1.1.1 added: 9 draft templates, not 3
+
+The template set is discoverable from an installed file — read
+`.ligature/prompts/`. It is not discoverable from `draft --help`, which only
+says `template_name  e.g. evidence-intake, boundary-drafting`, and
+`draft`'s stage argument is still a closed `{0,3}` enum, so there is no other
+stage to search:
+
+| template | stage | installed prompt | required `--var`s (in the order the binary asks for them) |
+|---|---|---|---|
+| `evidence-intake` | **0** | `stage-0-evidence-intake.md` | `source_material`, `project_descriptor` (+ `prior_artifact`, `finding`) |
+| `boundary-drafting` | 3 | `stage-3-boundary-drafting.md` | `callee_concept`, `callee_method`, `caller_spec`, `callee_spec`, `reliance_policy`, `caller_concept_snake`, `callee_concept_snake` (+ `prior_artifact`, `finding`) |
+| `interaction-drafting` | 3 | `stage-3-interaction-drafting.md` | `target_triple`, `caller_concept`, `caller_method`, `callee_concept`, `callee_method`, `caller_spec`, `callee_spec`, `interaction_id` (+ `prior_artifact`, `finding`) |
+| `concept-to-code` | 3 | `stage-3-concept-to-code.md` | `concept`, `cluster`, `verifier`, `source_material` (+ `prior_artifact`, `finding`) |
+| `bridge-drafting` | 3 | `stage-3-bridge-drafting.md` | `bridge_id`, `boundary_id`, `caller_spec`, `callee_spec`, `boundary_contract`, `callee_requirement` (+ `prior_artifact`, `finding`) |
+| `witness-drafting` | 3 | `stage-3-witness-drafting.md` | `witness_id`, `concept`, `query`, `concept_spec` (+ `prior_artifact`, `finding`) |
+| `exemption-drafting` | 3 | `stage-3-exemption-drafting.md` | `interaction_id`, `interaction` (+ `prior_artifact`, `finding`) |
+| `protocol-debt-drafting` | 3 | `stage-3-protocol-debt-drafting.md` | `interaction_id`, `interaction` (+ `prior_artifact`, `finding`) |
+| `conflict-resolution-drafting` | 3 | `stage-3-conflict-resolution-drafting.md` | `conflict_id`, `evidence_records` (+ `prior_artifact`, `finding`) |
+
+**How to get this list without guessing:** the binary reports the *next*
+required var by name and exits 1, one at a time —
+
+```
+$ ligature.pyz draft 3 concept-to-code <target>
+error: template /tmp/ligature-data-XXXXXX/prompts/stage-3-concept-to-code.md references undefined variable {{concept}}
+EXIT=1
+```
+
+— so the var set is enumerable by iteration. Do **not** guess a template name
+against a path outside a declared crate first: the target check runs before the
+template check, so the error you get is about the *path*, and tells you nothing
+about whether the template exists.
+
+### The exact commands P1 would need for g9 and g18–g20
+
+Crate is `rust/date-creusot-core`; the workspace root is this directory. Every
+target path below is the one the binary's own error message enumerates
+("this pipeline only validates … concept specs at
+`<crate_dir>/specs/<snake_case(concept)>.json` …"). Note the asymmetry:
+concept specs are **flat** under `specs/`, everything else is in a
+`_`-prefixed subdirectory.
+
+**Step 1 — one concept spec per concept. Unblocks G2+, `select-pilot-cluster`
+and the witness `approve` below.** `snake_case` uses concept-to-code's own
+rule, not a naive one (`YearMonthDay` -> `year_month_day`).
+
+```
+# Weekday
+ligature.pyz draft 3 concept-to-code rust/date-creusot-core/specs/weekday.json \
+  --var concept=Weekday --var cluster=date-creusot-core --var verifier=creusot \
+  --var source_material=rust/date-creusot-core/src/weekday.rs \
+  --var prior_artifact=none --var finding=none  < analysis/ligature/draft-responses/weekday.json
+# -> "OK: generated draft passes G1a/G1b immediate checks"
+#    staged draft: rust/date-creusot-core/specs/weekday.json.draft
+
+# YearMonthDay
+ligature.pyz draft 3 concept-to-code rust/date-creusot-core/specs/year_month_day.json \
+  --var concept=YearMonthDay --var cluster=date-creusot-core --var verifier=creusot \
+  --var source_material=rust/date-creusot-core/src/year_month_day.rs \
+  --var prior_artifact=none --var finding=none  < analysis/ligature/draft-responses/year_month_day.json
+
+# YearMonthDayLast
+ligature.pyz draft 3 concept-to-code rust/date-creusot-core/specs/year_month_day_last.json \
+  --var concept=YearMonthDayLast --var cluster=date-creusot-core --var verifier=creusot \
+  --var source_material=rust/date-creusot-core/src/year_month_day_last.rs \
+  --var prior_artifact=none --var finding=none  < analysis/ligature/draft-responses/year_month_day_last.json
+```
+
+Constraint ids (`C001`, …) become tool-emitted rather than hand-declared
+(`analysis/ligature/constraint-ids.json` can then be retired), which is the
+second-order effect the `#79` comment identified.
+
+> **STOP HERE — concept specs cannot be promoted in 1.1.1.** Measured:
+>
+> ```
+> $ ligature.pyz approve rust/date-creusot-core/specs/weekday.json --reviewer <name> --reviewed-at <date>
+> error: no validator recognizes target rust/date-creusot-core/specs/weekday.json -- this pipeline only validates boundary contracts at <crate_dir>/specs/_boundaries/*.json, interactions at …/_interactions/*.json, exemptions at …/_exemptions/*.json, protocol-debt records at …/_protocol_debt/*.json, bridges at …/_bridges/*.json, witnesses at …/_witnesses/*.json, and conflict-resolution records at specs/_conflicts/*.json (workspace-level) today. Evidence records at evidence/*.json (workspace-level) are a valid draft target but are never approved …
+> EXIT=1
+> ```
+>
+> `approve`'s dispatcher has no concept-spec branch, and there is no
+> `promote-concept` verb. So the staged `.draft` is the furthest a concept spec
+> can go, `crates[].specs_search_root` never resolves, G2+ stays
+> `applies_to unverifiable`, and the witness `approve` in Step 3 keeps failing
+> on G2. `stage-3-concept-to-code.md` itself says "concept specs are not routed
+> through this pipeline's `approve`", so this is documented behaviour — but the
+> combination (a draftable artifact type with no promotion path, on which two
+> other gates depend) is the same class of defect as `#78` was for evidence.
+> Recorded as `date-ligature-096`.
+
+**Step 2 — one bridge spec per call site, to make `g9` non-`not-applicable`.**
+`bridge_id` must match `^BR-[A-Z][A-Z0-9-]*-[0-9]{3}$` and equal the filename
+stem; `boundary_id` must resolve to a real promoted boundary in the same crate
+(G2, at approve time); `callee_requirement` must be one of that boundary's own
+`callee_guarantees` and must equal `bridge_logic.conclusion.obligation_id`.
+
+```
+ligature.pyz draft 3 bridge-drafting \
+  rust/date-creusot-core/specs/_bridges/BR-IWEEKDAY-C2-001.json \
+  --var bridge_id=BR-IWEEKDAY-C2-001 \
+  --var boundary_id=iso_week_weekday__to__weekday_iso_encoding \
+  --var caller_spec=rust/date-creusot-core/specs/iso_week.json \
+  --var callee_spec=rust/date-creusot-core/specs/weekday.json \
+  --var boundary_contract=rust/date-creusot-core/specs/_boundaries/iso_week_weekday__to__weekday_iso_encoding.json \
+  --var callee_requirement=Weekday.C2 \
+  --var prior_artifact=none --var finding=none  < analysis/ligature/draft-responses/BR-IWEEKDAY-C2-001.json
+```
+
+**Step 3 — one witness spec per `witness_required: true` query, to make g18/g19/g20
+non-`not-applicable`.** The filename stem is **not** free: it must be
+`<snake_case(concept)>.<query>` (`weekday.weekday_number`), and `witness_id`
+must be unique workspace-wide and is deliberately *not* derived from it.
+
+```
+ligature.pyz draft 3 witness-drafting \
+  rust/date-creusot-core/specs/_witnesses/weekday.weekday_number.json \
+  --var witness_id=W-WEEKDAY-WEEKDAYNUMBER-001 \
+  --var concept=Weekday --var query=weekday_number \
+  --var concept_spec=rust/date-creusot-core/specs/weekday.json \
+  --var prior_artifact=none --var finding=none  < analysis/ligature/draft-responses/W-WEEKDAY-WEEKDAYNUMBER-001.json
+```
+
+**Step 4 — human checkpoints. NOT run, NOT to be run by a worker.** Promotion
+of a bridge or a witness spec is `approve`, which is a human review; Stage 4.5
+then needs a `ratified` human ruling recorded by `record-ruling` before
+`accept-promotion` will mint a receipt. The commands are named here so the
+sequence is not rediscovered later:
+
+```
+# human: review the staged draft, then
+ligature.pyz approve rust/date-creusot-core/specs/_bridges/BR-IWEEKDAY-C2-001.json --reviewer <human> --reviewed-at <date>
+ligature.pyz approve rust/date-creusot-core/specs/_witnesses/weekday.weekday_number.json --reviewer <human> --reviewed-at <date>
+# human: record a ruling over the exact accepted set
+ligature.pyz record-ruling --reviewer <human> --verdict ratified \
+  --artifact rust/date-creusot-core/specs/_bridges/BR-IWEEKDAY-C2-001.json
+ligature.pyz accept-promotion date-creusot-core --reviewer <human> \
+  --artifact rust/date-creusot-core/specs/_bridges/BR-IWEEKDAY-C2-001.json
+```
+
+> **`gate-g9` will crash at Step 4.** Once one bridge is promoted,
+> `check-bridges` and `gate-g9` both die with an unhandled `ValueError` in the
+> default invocation (`--workspace` defaulting to `.`). Filed as epic `#1`
+> **`#96`**; workaround is to pass an absolute `--workspace`, which is how the
+> G9 finding surfaces correctly. Do not conclude "G9 passed" from a clean exit.
+
+### Stage 0: evidence promotion is a real command now, not `mv`
+
+Supersedes the hand-`mv` exception in `docs/evidence-promotion-exception.md`
+*as a procedure* (the ratification of the existing 15 files at their existing
+hashes is a separate human decision and is unchanged):
+
+```
+ligature.pyz draft 0 evidence-intake evidence/E-16.json \
+  --var source_material="<upstream path + symbol>" \
+  --var project_descriptor=project-descriptor.json \
+  --var prior_artifact=none --var finding=none  < analysis/ligature/draft-responses/E-16.json
+# -> "OK: generated draft passes G1a/G1b immediate checks"
+ligature.pyz promote-evidence evidence/E-16.json
+# -> "promoted: evidence/E-16.json"   EXIT=0
+```
+
+`promote-evidence` takes the **target**, not the `.draft`, takes no `--reviewer`
+(it is mechanical, not a human checkpoint), and needs no audit entry. A staged
+draft is also visible to `check` as a first-class pending action, which was the
+half of `#78` that `check next` used to omit:
+
+```
+"next_action": {"action_id": "promote-evidence",
+  "command": "ligature promote-evidence <abs>/evidence/E-99.json",
+  "description": "staged evidence draft E-99.json.draft is pending promotion; run `ligature promote-evidence …` to make it a real evidence record",
+  "kind": "automated-command"}
+```
+
+### Stage 4.5: `accept-promotion` is gated on a human ruling
+
+Supersedes this file's earlier "**`#14`'s `accept-promotion` must not run before
+rulings 1 and 2 land**", which was a *social* constraint on an unguarded
+command. 1.1.1 enforces it mechanically — epic `#1` `#81` is fixed, and this is
+the strongest new guarantee in the upgrade:
+
+```
+$ ligature.pyz accept-promotion date-creusot-core --reviewer probe --artifact docs/reliance-policy.md --artifact evidence/E-1.json
+error: refusing to mint a promotion receipt: no complete human ruling covers this accepted set (Stage 4.5 is gated on an explicit `record-ruling` verdict for every artifact):
+  - no human ruling log at ci/results/human_rulings.jsonl -- none of the 2 artifact(s) about to be promoted has been ruled on: docs/reliance-policy.md, evidence/E-1.json; record the ruling first with `record-ruling --reviewer <name> --verdict ratified|rejected --artifact <path> [--artifact <path> …]`
+EXIT=1
+
+$ ligature.pyz record-ruling --reviewer <human> --verdict ratified --artifact docs/reliance-policy.md --artifact evidence/E-1.json
+recorded ruling: ratified over 2 artifact(s)          EXIT=0
+```
+
+Three properties measured, all fail-closed:
+
+- **rejected is enforced** — a `rejected` ruling blocks promotion by name:
+  `evidence/E-2.json: a human ruling REJECTED this artifact (ruled by 'probe-human' at '2026-09-30')`.
+- **rulings are hash-pinned to the exact content** — a ruling taken over
+  `sha256:6df5baf9…`, then a one-field edit to `confidence`, then re-accept:
+  `evidence/E-2.json: the ratified ruling was recorded over a different version of this artifact (ruled 'sha256:6df5baf9…', current 'sha256:e0dedb99…') -- re-run `record-ruling` after the change`.
+- **a ruling is not self-service** — `--reviewer` has no default and is
+  documented as "the named human making the ruling -- no default, no
+  LLM-supplied value". That is a normative instruction, not a technical
+  control; a worker that runs it can still mint a `ratified` verdict.
+
+### Two descriptor changes that alter how this project's config must be written
+
+- `closure_kind` is now a **top-level descriptor field** (enum
+  `['deductive', 'bounded', 'partial']`), so this project's intended closure
+  kind no longer needs the `analysis/ligature/closure-intent.json` side record.
+  It does not need to be declared: `specs/_closure/date-creusot-core.json`
+  already carries `closure_kind`, and `gate-g14` reads that. Declaring it
+  top-level is now *valid* but redundant.
+- Schema violations are now **diagnosed at property level**, naming the JSON
+  path and the permitted alternatives, and `check` carries a `next_action` for
+  them (1.0/1.1.0 reported `present-invalid` with `findings: []` and
+  `next_action: null`, and `doctor` stayed exit 0):
+
+  ```
+  gate integrity: unknown -- project descriptor is present but invalid: $: unexpected property 'zzz_not_a_real_field'; permitted: closure_kind, compatibility_policy, crates, gate_integrity, llm_backend, mode, port_source, project, review, schema_version, verifier_backends, verifier_policy, witness_backend, write_set
+  ```
+
+  `doctor` exits 2 and names the file: `user-owned  project-descriptor.json  schema: invalid (see check for detail)`.
+
+- `write_set` is enforced and its `protected_roots` are still **not** a
+  violation class (epic `#1` `#90` unchanged, re-verified on 1.1.1): a stray
+  `ci/manifest/PROBE.json` and a stray
+  `rust/date-creusot-core/specs/_interactions/I-PROBE.json` both still report
+  `write set: clean`, exit 0. Only a file outside every pattern is a violation.
+
+### What did *not* change
+
+`gate-r1-g16`'s five `absent from I` errors, `check --json`'s exit 1 with
+`['blocking_findings']` and 21 findings, `gate-g14` exit 0, the
+`record-assurance` five-flag command, the `#92` refusal, and
+`write-set-check`'s protected-root inversion are all unchanged and re-measured,
+not assumed. `report feature-ledger` still refuses (exit 1) because
+`report.emit` is `ci/results/feature_ledger.json` and `record-assurance` writes
+there too — moving `report.emit` is still a `ci/manifest/**` protected-root
+write, which `write-set-check` does not catch and the installed `SKILL.md`
+forbids.
+
+## v1.1.1 upgrade status (2026-09-29, chainlink #93)
+
+`tools/ligature/ligature.pyz` now holds **ligature 1.1.1**
+(sha256:`3edfd03cd4e6dee30139c48e7921abcf338cb279ff2eb4e4d0bba9a44725deb4`, copied
+verbatim from the upstream release; `sha256sum -c SHA256SUMS` -> `ligature.pyz: OK`).
+It was first dropped in without `migrate --upgrade` (half-migrated, see below). **The
+operator ran `migrate --upgrade` on 2026-09-30**, so the install is now current:
+`doctor` exits 0, `gate_integrity.state` is `pinned`, and `check --json` exits 1 with the
+same 5 high `r1-g16` findings it had under 1.1.0. The one thing #93 was asked to check, the `#92` report/assurance path
+collision, is **fixed**: `report feature-ledger` now refuses to overwrite a
+schema-valid assurance report, exits 1, and writes nothing, so `gate-g14` is 0 before
+and after it. Verdicts on the three findings it backs, plus two new ones, are in the
+*"1.1.1 verdict ledger"* section; the obsolete 1.1.0 ordering trap is preserved below
+as a historical record under a **RESOLVED in ligature 1.1.1** banner.
+
+## v1.1.0 upgrade status (2026-09-29)
+
+`tools/ligature/ligature.pyz` was upgraded from v1.0.0
+(sha256:`0ffe6e0eeba3cf329228b9ce3e8f0d576458b6b2a9aec48e43f60a016f9afc4f`) to
+v1.1.0 (sha256:`ede2514e9070a628b30fe3a0a3ead9e81574ac041f692b7c498a7fb88bd0883f`)
+via `migrate --upgrade`. All 16 defects this pilot escalated to
+`ligature-workspace` chainlink (mirrored there as #72–#87, filed from this
+project's own epic #1 subissues) were independently re-verified against this
+real pilot tree — not just trusted from the upstream CHANGELOG — and are
+**confirmed fixed**. Full verification record: `date-ligature-046` and
+`date-ligature-047` in `findings/limitations.jsonl`. Every "chainlink #NN"
+reference below is now historical: it documents the v1.0 defect that was
+found and escalated, and is annotated **FIXED in v1.1.0** where resolved.
+Two genuinely open items remain, both real proof gaps rather than tool
+defects — see "Open proof gap" below and the SCC well-foundedness note in
+`gate-g14`'s output.
+
+**Update (chainlink #89, after the paragraph above):** **both of those are now
+closed, and `gate-g14` and `validate-closure` both exit 0.** The SCC item was a
+self-referential bug in our own work-package manifest (`#87`); the last proof
+gap, the `round_trip` lemma, was closed by `#88`; and the 6 unresolved
+medium-risk call sites that were the remaining `gate-g14` blocker were
+**resolved** (not risk-tiered, not waived) by `#89`. See the historical
+closure-state evidence at the bottom of this file.
+
+**Update (chainlink #87, after the paragraph above):** the "SCC
+well-foundedness" item is **no longer open** — it was a self-referential bug
+in our own hand-authored `ci/manifest/WP-DATE-CREUSOT.json`, not a proof gap,
+and is fixed. At that point, only **one** genuine open proof gap remained
+(the `round_trip` lemma, chainlink `#88`). See the historical closure-state
+evidence at the bottom of this file
+and `date-ligature-048` in `findings/limitations.jsonl`.
+
+One new, minor friction item surfaced during the upgrade itself: `write_set`
+enforcement (new in v1.1, closes the old "not enforced by anything" gap
+below) required widening this project's own `project-descriptor.json`
+`write_set.allowed_roots` twice, because our real directory footprint
+(`target/`, `verif/`, `.why3find/`, `analysis/`, `findings/`, `oracle/`,
+`tools/`, `upstream/`, etc.) is much larger than the two-glob default v1.0
+shipped. That's a gap in *our* descriptor, not a ligature defect — `check`
+correctly flagged it, and it's now clean (`write-set-check` reports 0
+violations).
+Machine-readable pre-implementation decision: `analysis/ligature/closure-intent.json`
+The tool itself cannot hold that decision pre-code: descriptor schema 1.0
+rejects `closure_kind` in every position it can be put (including inside
+`verifier_policy`, whose values are all verifier names) and models
+`closure_kind` only per cluster (chainlink #72, #73, #75). Evidence:
+`analysis/ligature/init-check.txt`.
+
+**FIXED in v1.1.0**: `project-descriptor.schema.json` gained an optional
+top-level `closure_kind` field (`deductive`/`bounded`/`partial`), and
+`status --json` echoes it back as `descriptor.closure_kind`. `gate-g14`
+still recomputes per-cluster closure from evidence rather than trusting the
+declaration, by design.
+
+Upstream pin: `179a6b921ccd6179b5b04dce812a89f71a51b4df` (HowardHinnant/date
+v3.0.5). `port_source.commit` is not an accepted descriptor key, so the pin
+lives in `analysis/ligature/closure-intent.json` rather than in
+`project-descriptor.json` (chainlink #72).
+
+**Proof gap, RESOLVED (chainlink `#88`).** This paragraph originally read
+"**Open proof gap, deferred:** `YearMonthDay::round_trip` is not fully proved
+(`vc_round_trip`, 5/7 sub-goals) … deliberately not tracked as a chainlink
+issue right now". That is no longer accurate: `#88` wrote and proved the
+hand-written exactness lemmas reproducing the Neri–Schneider correctness
+argument for Hinnant's era arithmetic, and `cargo creusot` now reports
+`Proved (93 files) ✔` with `vc_round_trip` at 5/5 sub-goals, 0 unproved. See
+"The `round_trip` lemma" at the bottom of this file and
+[`FUTURE-WORK-round-trip-proof.md`](FUTURE-WORK-round-trip-proof.md).
+(`date-creusot-038` fixed, `date-creusot-039` resolved by `date-creusot-059`,
+in `findings/limitations.jsonl`.)
+
+Crate root: `rust/`, per the plan's layout and `.mcp.json`'s
+`CODESIGHT_ALLOWED_ROOTS`. `init --mode port` ships `crates/` defaults for
+`crates[].crate_dir`, `crates[].specs_search_root` and
+`write_set.allowed_roots` / `protected_roots`; this root corrects them to
+`rust/`. The tool does not validate descriptor paths, so nothing else would
+have caught it (chainlink #74; `date-ligature-009`).
+
+**Partially addressed in v1.1.0**: `doctor` now validates the descriptor
+against schema and exits 2 on an invalid one rather than reporting
+`installation: current` (chainlink #74's `doctor`-blindness half). Path
+validity within an otherwise-valid descriptor (e.g. a `crate_dir` that
+doesn't exist) was not part of any of the 16 escalations and was not
+re-tested here; treat that specific sub-case as unverified rather than fixed.
+
+Verifier policy: `verifier_policy.default` is `"creusot"`. That field is the one
+descriptor field v1.0 does validate, and its accepted value domain is exactly
+`creusot | verus | kani` — case-sensitive, no composition syntax. 64 distinct
+candidates were tested; the other 61 are all rejected. No command in the v1.0
+surface echoes the effective verifier policy back (the word `verifier` appears
+in `doctor` only as static prose in its implementation-status listing), and a
+second or supporting verifier cannot be expressed at all: an
+extra key inside `verifier_policy` holding a second verifier name is accepted
+and then silently discarded. Do not put a second verifier name in this
+descriptor believing it is read (chainlink #75; `date-ligature-010`,
+`date-ligature-011`, `date-ligature-012`).
+
+**FIXED in v1.1.0**: `verifier_policy` schema gained an explicit `supporting`
+array for a second/supporting verifier, replacing the silently-discarded
+arbitrary-key accident, and `status --json` now echoes the effective policy
+as `descriptor.verifier_policy` (confirmed directly: our own status output
+now reports `{'clusters': {}, 'default': 'creusot', 'supporting': []}`).
+
+Verifying this root's integrity: `check --json` exiting 0 is **not** an
+integrity statement. It has no installation or gate-integrity gate, so it
+stays 0 while a `gate_integrity`-pinned file is edited or deleted, and it also
+stays 0 when the *descriptor itself* empties `gate_integrity` (status then says
+`unknown`) or points an entry at a path the manifest never recorded (status then
+says `drifted`) — `check --json` exits 0 in both cases. Gate on all three of
+`check --json` exit 0, `status --json` `gate_integrity.state == "pinned"`, and
+`doctor` reporting `installation: current` (chainlink #74; `date-ligature-005`,
+`date-ligature-014`). The `@adjudicator` entry in the descriptor's
+`gate_integrity` list is a real sentinel recorded in
+`ci/manifest/installation.json`'s `gate_hashes`; it is documented nowhere, and
+replacing it with the path of the binary yields `drifted`.
+
+**FIXED in v1.1.0**: `check --json` now consumes the installation/gate-
+integrity signal. Reproduced the issue's own tamper repro (append to the
+gate-pinned `SKILL.md` in a disposable copy): `check --json` now exits 5 with
+a `gate-integrity`/`hash drift` finding naming the exact file, `doctor` exits
+1 reporting `skill authority hash: drifted`, and `status --json` reports
+`installation_manifest.state: drifted` — all three previously reported clean
+through this exact scenario.
+
+The write set is **not** enforced by anything. No v1.0 command reports a file
+outside `write_set.allowed_roots` or inside `protected_roots` — verified by
+creating `rust/rogue/evil.rs`, `rust/rogue/notes.txt` and `docs/evil.md` in a
+scratch copy and getting `check` exit 0, `status` clean and `doctor` silent —
+and the strings `write_set`, `allowed_roots` and `protected_roots` appear in
+none of the files `init` generates, including the hash-pinned skill. So
+`allowed_roots: ["rust/*/src/", "rust/*/tests/"]` and the protected list are
+documentation, not a boundary. For the rest of this pilot, keep the boundary
+by hand: `upstream/date` is read-only at its pinned commit (check with
+`git -C upstream/date status --porcelain`), and specs, `ci/manifest/**`,
+`docs/reliance-policy.md` and the toolchain files are not hand-edited
+(chainlink #76; `date-ligature-013`).
+
+**FIXED in v1.1.0**: new `ligature write-set-check [--json]` enforces
+`write_set` for real, with `status --json`/`check --json` carrying the
+verdict. The old `rust/rogue/evil.rs` repro now produces a real high-severity
+`write-set` finding and `check` exit 1. Applying this to our own tree
+required two rounds of widening `allowed_roots` (our v1.0-era descriptor only
+declared `rust/*/src/` and `rust/*/tests/`, far narrower than our actual
+footprint) — `write-set-check` is now clean.
+
+`docs/reliance-policy.md` cannot be drift-checked by the tool either: the
+ownership manifest records `base_hash`/`expected_hash` for it and neither is
+ever compared, so the governance document can be edited — including its own
+resolution table — with `doctor`, `check` and `status` all reporting healthy.
+Only a *deleted* policy file is noticed, and only as one `MISSING` line in
+`doctor`. Version it by hand: the file's own `## Change history` table and its
+`Policy version: <name>@<major>.<minor>` line, which
+`ligature accept-promotion --policy-path` is the documented consumer of at
+Stage 4.5 (`compatibility_policy.reliance_policy_path` in the descriptor is not
+consulted by anything). Chainlink #77; `date-ligature-015`, `date-ligature-016`.
+
+**FIXED in v1.1.0**: new `ligature accept-policy --reviewer <name>` explicitly
+records a reviewed edit's hash as the new `base_hash`; an unaccepted edit now
+makes `doctor`/`status` report `DRIFTED` and `check` fail with a high-severity
+`policy-drift` finding. `compatibility_policy.reliance_policy_path` is now
+validated and consumed. Used directly on this root: a prior legitimate edit
+to `docs/reliance-policy.md` was formally ratified via `accept-policy`,
+recording `sha256:d81e6628a1a89e7fd3c2536b7762d445bede2f1ed0f7e7588630ed233323e70b`
+as the new accepted base.
+
+## Stages 0–3 (chainlink #13) — INCOMPLETE, and NOTHING in it is settled
+
+**Do not treat Stages 0–3 as delivered, and do not treat any part of it as
+settled.** The chainlink reviewer rejected the first two attempts at this issue.
+**Nothing** here has an agreed standing: three human rulings are outstanding and
+one third of the work is upstream-blocked. The table below is the single source
+of truth — an earlier revision of this file contradicted itself by calling the
+evidence records "the only part not contingent on a human decision" in prose
+while the table said the opposite.
+
+| artifact | path | n | agreed standing |
+|---|---|---|---|
+| evidence | `evidence/E-1.json` … `E-15.json` | 15 | **UNRATIFIED — ruling 2** (§5.2, #78): promoted by a hand `mv`; **SUPERSEDED as to the tool's capability** — 1.1.1 ships `promote-evidence`, so the hand `mv` is no longer the only path; the *ratification* of these 15 files at these hashes is still outstanding and is not affected |
+| boundary contract | `rust/date-creusot-core/specs/_boundaries/*.json` | 4 | **UNRATIFIED — rulings 1 and 3** (§9.1, §3.1) |
+| interaction | `rust/date-creusot-core/specs/_interactions/*.json` | 4 | **UNRATIFIED — rulings 1 and 3** (§9.1, §3.1) |
+| concept / bridge / witness | — | **0** | **upstream-blocked** (§6, #79) — not authorable in ligature v1.0. **SUPERSEDED by ligature 1.1.1**: all three now have `draft` templates and stage cleanly; see "Authoring path, re-derived against ligature 1.1.1 (chainlink #94)" below. The count is still 0 because nothing has been promoted, not because nothing can be authored |
+
+> **History (kept deliberately).** The v1.0 claim in the last two rows was
+> written against `ligature 1.0.0` (sha256 `0ffe6e0e…`) and was accurate then:
+> `draft` shipped three templates and no verb drove
+> `vendor/concept-to-code`. Under **1.1.1** (sha256 `3edfd03c…`) that is no
+> longer true — see the #94 section. Nothing below has been deleted; each stale
+> 1.0/1.1.0 statement is marked in place with a **SUPERSEDED** banner.
+
+The three rulings: **(1)** the eight `review` blocks (§9.1), **(2)** the 15
+evidence records' promotion by `mv` (§5.2, #78), **(3)** the 5 hand-declared
+constraint ids (§3.1). **#14's `accept-promotion` must not run before rulings 1
+and 2 land** — it reads the eight `review` blocks into a promotion receipt.
+
+`draft` is the whole authoring loop, because `llm_backend.kind` is `manual`: it
+renders the stage prompt to stdout, prints `--- paste the model's JSON-only
+response, then EOF (ctrl-D) ---`, reads the response from **stdin**, and runs
+real G1a/G1b against the real schema before staging `<target>.draft`. So the
+agent is the model, and every artifact here was schema-checked by the binary,
+not asserted.
+
+### Re-running the driver — read this before running it
+
+**Do not run the driver in this root.** It is not needed: the artifacts are
+already here, and the three rulings below are about *this tree as it stands*.
+The driver exists so the run is reproducible and auditable, not so it can be
+re-run casually. What an unflagged run actually does was measured, not assumed:
+
+    nix develop ..#date-creusot -c bash -lc \
+      'cd date-creusot && bash analysis/ligature/stage-0-3.sh'      # NO flag
+
+| starting state | promotes | leaves behind | `check --json` result |
+|---|---|---|---|
+| empty tree | nothing | 15 evidence + 8 spec `.draft`, 0 audit lines | `exit_code=1 conditions=['blocking_findings', 'human_decision_required']` |
+| **already promoted (this root)** | **nothing** | **8 spec `.draft`**, audit log unchanged | **`exit_code=3 conditions=['human_decision_required']`** (was 0) |
+
+**An unflagged run is neither a checkpoint crossing nor a clean no-op.** It
+promotes nothing — the guard is verified in both directions — but the `draft`
+steps still stage their output, and a staged `.draft` is a *blocking* finding.
+On this root specifically it would leave 8 fresh staged drafts in
+`rust/date-creusot-core/specs/{_boundaries,_interactions}/` and drop `check`
+from exit 0 to exit 3. The promoted `.json` files are not touched (measured:
+`evidence/E-1.json` byte-identical, `review_log.jsonl` unchanged, 0 `approved:`
+outputs), so the undo is just:
+
+    rm -f rust/date-creusot-core/specs/*/*.draft && \
+      python3 tools/ligature/ligature.pyz check          # back to exit 0
+
+An earlier revision of this file called the driver "re-runnable end to end" and
+warned only that a re-run "re-crosses both promotion checkpoints". Both halves
+were wrong: it does not re-cross them, and it is not clean. The warning now
+states the measured behaviour. The conditions are quoted from `check --json`
+rather than inferred from the exit code — an earlier revision of this table said
+case one was `blocking_findings` alone, dropping the `human_decision_required`
+that the staged interaction drafts also raise.
+
+**The flagged form is the ratify procedure, not a re-run** — it is ruling 1 and
+ruling 2 below, and it should only be used by a human who has read the
+artifacts:
+
+    LIGATURE_HUMAN_APPROVAL=1 bash analysis/ligature/stage-0-3.sh
+
+Its real output is `analysis/ligature/stage-0-3-transcript.txt`; every response
+body it feeds in is kept verbatim in `analysis/ligature/draft-responses/`.
+> **SUPERSEDED under ligature 1.1.1 (chainlink #94).** True of 1.0.0/1.1.0,
+> false of 1.1.1: `draft` now ships **nine** templates, not three, and
+> `stage-3-concept-to-code.md` *is* the verb that drives the bundled
+> `vendor/concept-to-code`. The driver above is simply a 1.0-era script and has
+> not been extended. Kept as the historical record of why these artifacts are
+> absent from this root.
+
+Concepts, bridges and witnesses are not here and cannot be: `draft` ships
+exactly three templates (`evidence-intake`, `boundary-drafting`,
+`interaction-drafting`) out of the seven artifact types `approve` itself calls
+recognized, and no verb drives the bundled `vendor/concept-to-code`. Chainlink
+#79.
+
+### The three things a human must rule on
+
+Numbering below matches the table above, `stage-3-decisions.md`
+(§9 = ruling 1, §5 = ruling 2, §3 = ruling 3), `attempt-log.md` and the
+chainlink routing comment. All three are `###` headings so none can be
+skipped or misread by position.
+
+### Ruling 1 — the eight `review` blocks are UNAUTHORIZED
+
+They were written by an
+unattended agent running `approve --reviewer chainlink-reviewer`, which
+violates the hash-pinned canonical authority text in
+`.codex/skills/ligature/SKILL.md` ("Human approval remains human", "Do not
+cross an approve/promote checkpoint on your own", "Never infer or synthesize an
+approval"). Disclosure is not authorization, and no agent can ratify a human
+checkpoint. `ci/results/review_log.jsonl` holds the 8 matching audit lines.
+**#14's `accept-promotion` must not run before this is settled** — it reads
+these blocks into a promotion receipt. Ratify/reject commands:
+`analysis/ligature/stage-3-decisions.md` §9.1; `date-ligature-027`.
+
+**FIXED in v1.1.0** (this is exactly what closed #14, mechanically): new
+`ligature record-ruling --reviewer <name> --verdict ratified|rejected
+--artifact <path>` plus a hard human-ruling gate inside `accept-promotion`
+that refuses (exit 1, naming the exact fix) unless every artifact in the
+accepted set has a matching ruling. Reproduced directly in a disposable
+copy: `accept-promotion` on unrelated artifacts with zero rulings recorded
+now fails with "no complete human ruling covers this accepted set" rather
+than minting a receipt. A separate review-provenance check (matching
+`review` blocks against `ci/results/review_log.jsonl`) was also added but
+cannot by itself distinguish an agent's own sanctioned-path run from a
+human's — the ruling gate is what actually closes the gap this section
+describes.
+
+### Ruling 2 — the 15 evidence records were promoted by `mv`, not by the tool
+
+`draft` stages `evidence/E-<n>.json.draft`; `approve` refuses evidence by design
+("they carry no review block, so `approve()` cannot promote them"), and a staged
+`.draft` is a *blocking* finding for `validate-evidence` and `check`. So the move
+to the target path **is** the promotion, and it is a hand step. The files are
+byte-identical to the bodies in `draft-responses/` (15 of 15, `cmp`), so a human
+can see exactly what was moved, and `analysis/ligature/draft-responses/` is the
+undo source if this ruling goes the other way.
+`analysis/ligature/stage-3-decisions.md` §5.1–5.3; `date-ligature-020`;
+chainlink #78. **This ruling was omitted from attempt 2's routing comment; the
+reviewer was right that it belongs in the inventory.**
+
+**FIXED in v1.1.0** (historical note — this pilot's own promotion already
+happened by hand `mv`, and that history stands as the record of what
+occurred): new `ligature promote-evidence <target>` is now the tool-owned
+mechanical promotion path — it re-validates the staged `.draft`, atomically
+renames it, and records the move in `ci/results/evidence_promotions.jsonl`.
+A future pilot's evidence stage no longer needs a hand `mv`.
+
+### Ruling 3 — the 5 constraint ids are an UNRATIFIED DEVIATION
+
+The 5 constraint ids in those artifacts. `.ligature/prompts/stage-3-boundary-drafting.md:55-61` says "do not invent one
+… Omit it from `callee_guarantees` rather than fabricate an id", and
+`stage-3-interaction-drafting.md:126-141` says to emit nothing rather than
+fabricate. This pilot declared 13 ids in
+`analysis/ligature/constraint-ids.json` and shipped 5, because concept-to-code
+— the only producer of such ids — has no verb in v1.0 (#79) *(SUPERSEDED:
+`stage-3-concept-to-code.md` exists in 1.1.1, so the ids are authorable; what
+is still missing is any way to **promote** the resulting concept spec, so
+`crates[].specs_search_root` still resolves to nothing and G2+ cannot be
+positively verified)*, so following the
+prompt yields a vacuous reliance layer. Every id is a line-for-line
+restatement of a named source range, so they are not arbitrary, but they are
+not tool-emitted and the prompt forbids producing them. Per #80 the tool can
+verify none of them, and per `date-ligature-028` it checks only an id's shape,
+never its attribution. Accept-as-deviation vs re-draft-empty, with commands:
+`analysis/ligature/stage-3-decisions.md` §3.1; `date-ligature-029`.
+
+### A fourth, upstream-blocked gap
+
+> **SUPERSEDED under ligature 1.1.1 (chainlink #94): the *authoring* blocker is
+> gone, the *promotion* blocker is not.** 1.1.1 ships `stage-3-bridge-drafting.md`
+> and `stage-3-witness-drafting.md`, so bridges and witnesses are authorable
+> and the exact commands are in "Authoring path, re-derived against ligature
+> 1.1.1" below. Two real walls remain, both measured, and neither is closed by
+> this root's own work: a **concept spec has no promotion path at all** (there
+> is no `approve` target for it and no `promote-*` verb, so a drafted concept
+> spec is stuck at `<target>.draft`), and `gate-g9` currently crashes when a
+> promoted bridge exists (epic `#1` **`#96`**). See `date-ligature-095`…`-099`.
+> The 1.0 text is kept below as the historical record.
+
+`check` reports `gate g9: not-applicable -- no bridge specifications present`
+and `g18`/`g19`/`g20: not-applicable -- no witness specifications present`,
+because #79 leaves bridges and witnesses with no producer. #14 and #16 have
+nothing to gate there. This cannot be fixed in the pilot.
+
+### Other ordering constraints for chainlink #14
+
+A `boundary-required` interaction cannot be promoted until a boundary contract
+for the same edge is promoted (R2), and neither stage prompt nor `check next`
+says so. Every promoted boundary contract carries permanent
+`[info] G2+: '<id>': applies_to unverifiable -- no --specs-search-root given`
+findings, because no command accepts `--specs-search-root` and
+`crates[0].specs_search_root` is read by nothing — so a correct constraint id
+and a dangling one are indistinguishable in every reachable command. Chainlink
+#80; `date-ligature-022`, `date-ligature-025`, `date-ligature-028`.
+
+**FIXED in v1.1.0, with a caveat**: the boundary-contract check now reads
+`crates[].specs_search_root` from the descriptor (confirmed: the `check`
+finding's reason string changed from the old blanket "no --specs-search-root
+given" to a per-concept resolution attempt, e.g. `'Weekday.C3': applies_to
+unverifiable -- no spec file under specs_search_root declares concept
+'Weekday'`), and a genuinely dangling id is now raised to `error` severity
+instead of `info`. The caveat: our own constraints stay `info`-level
+"unverifiable" because this project has no per-concept spec-declaration file
+under `rust/` at all — that's the pre-existing, separate concept-to-code gap
+(#79 above), not a regression of this fix. `applies_to` would positively
+resolve a correct id and flag a dangling one the moment a concept-declaring
+spec file exists; we never produced one because nothing in v1.0 or v1.1
+authors them.
+
+`docs/exit-code-contract.md`, which the plan points at for recording non-zero
+exits, does not exist anywhere. The only machine-readable exit contract the
+binary has is `check --json`'s own `result` object; `date-ligature-023` and
+`analysis/ligature/stage-3-decisions.md` §8.
+
+## Historical closure-state evidence (first measured under v1.1.0)
+
+`record-assurance` was run against the 5 real, fully-proved Creusot
+certificates in `rust/date-creusot-core/verif/` (Weekday.C1: 1 proved goal,
+Weekday.C2: 1, Weekday.C3: 1, YearMonthDay.C2: 61, YearMonthDayLast.C1: 15).
+
+**The `Weekday.C2 <-> Weekday.C3` "SCC well-foundedness cycle" is RESOLVED, and
+it was never a proof gap.** `ci/manifest/WP-DATE-CREUSOT.json` was
+hand-authored at Stage 7 before the generator existed
+(`date-ligature-032`). Ligature 1.2.2 now provides
+`generate-work-package` for new manifests from a structured plan and issue
+grant; it does not retroactively repair this self-reference or authorize a
+worker to edit `ci/manifest/**`.
+listed Weekday.C2/C3 in *both* `provided_guarantees` (this work package
+**proves** them) and `required_guarantees` with `"assume_during_check": true`
+(this work package **assumes** them as preconditions). That is a work package
+assuming its own output as its own input — circular reasoning declared in the
+manifest, which `gate-g14`/CG6 is right to refuse ("mutual satisfaction is not
+soundness"). `WP-DATE-CREUSOT` is the only work package in this crate, so there
+is no external callee for it to require those obligations from; the list was
+almost certainly copied from
+`rust/date-creusot-core/specs/_boundaries/iso_week_weekday__to__weekday_iso_encoding.json`'s
+`callee_guarantees` (legitimately *`IsoWeek::weekday`'s* reliance on
+*`date::weekday::iso_encoding`*) without noticing that in a single-work-package
+crate the callee **is** this work package. Both VCs were individually proved
+all along (1/1 each).
+
+Fix applied: `definition_of_done.required_guarantees` is now `[]`
+(`provided_guarantees` and all 5 proof certificates untouched). After it,
+`gate-g14` reports **zero** `scc_wellfoundedness_discharged` findings, and
+`specs/_closure/date-creusot-core.json` needed **no** edit — with no cycle left
+there is nothing to discharge, so the recomputed value is
+`'not-applicable'`, which is what the profile already declared (checked by
+experiment, not assumed: `true` and `false` are both now rejected by G17).
+`check --json` went 32 → 30 findings with 0 added. Full record:
+`date-ligature-048` in `findings/limitations.jsonl`; chainlink `#87`.
+
+`gate-g14` still exited 1 after that fix, for reasons that have nothing to do
+with the SCC item — both now resolved by chainlink `#89`:
+
+1. **The 6 unresolved medium+ risk call sites**
+   (`unresolved_indirect_calls_at_or_above_medium`, read from `gate_r1_g16`) —
+   **RESOLVED** by chainlink `#89`. These 6 were never a real dispatch risk:
+   every one was a *field-access-then-call* spelling (`self.year.ok()`) that the
+   coarse-syntactic C_static extractor cannot type-resolve, so it reported
+   `possible-dispatch` at the `extractor-default` medium tier, which G16 refuses
+   to let pass unexamined. They were **resolved, not risk-tiered**: no
+   `risk_tier` was moved, no `risk_review` block was synthesised, and
+   `ci/results/c_static/rust_date-creusot-core.json` was regenerated by
+   `extract-c-static`, never hand-edited. The fix is a call-spelling change in
+   the port — `Year::ok(&self.year)` / `Month::ok(&self.month)` /
+   `YearMonthDayLast::day(&self.last())` / `Year::is_leap(&self.year)` — because
+   `associated-path-call` is one of the extractor's own declared
+   `coverage_scope.supported_call_forms` and field-access-then-call is not.
+   `Year`/`Month` are plain structs and `ok`/`is_leap`/`day` are inherent
+   methods, so no dispatch is dynamic: this changes how the call is *spelled*,
+   not the call graph it describes. See `date-creusot-052`.
+   Note the `#24` inside gate-g14's message text is ligature's own
+   cross-reference, **not** this project's issue #24 (which is the P2
+   swisstable-verus epic); read it as "the count gate r1-g16 already
+   computed, not recomputed here".
+2. **`validate-closure` also failed**, on the same 6 call sites:
+   `unresolved_indirect_calls_at_or_above_medium` was declared as not holding
+   but no degradation record for `date-creusot-core` covered it (the
+   degradation-record schema has no authoring path — `date-ligature-040`).
+   **Also resolved** by chainlink `#89`, and by the *right* route: the count is
+   now genuinely `0`, so the profile declares `0` and no degradation record is
+   needed at all. Nothing was waived.
+
+**`gate-g14` and `validate-closure` now both exit 0.** `gate-g14` reports
+`OK: 1 cluster(s) close under their declared profile` and `validate-closure`
+reports `OK: all closure artifacts pass G1a/G1b and G17 profile/record
+consistency`. The closure profile is still `closure_kind: deductive` and it
+now *matches*.
+
+**What chainlink `#89` did not do, and why.** Resolving those 6 call sites moved
+the pilot from 6 medium "awaiting a human risk decision" findings to 5
+**new** high-severity R1 findings, and left `gate-r1-g16` at exit 1:
+
+```
+[R1/error] CS-YEARMONTHDAY-OK-001:         realized call YearMonthDay.ok -> Year.ok is absent from I
+[R1/error] CS-YEARMONTHDAY-OK-002:         realized call YearMonthDay.ok -> Month.ok is absent from I
+[R1/error] CS-YEARMONTHDAYLAST-OK-001:     realized call YearMonthDayLast.ok -> Year.ok is absent from I
+[R1/error] CS-YEARMONTHDAYLAST-OK-002:     realized call YearMonthDayLast.ok -> Month.ok is absent from I
+[R1/error] CS-YEARMONTHDAYLAST-DAY-001:    realized call YearMonthDayLast.day -> Year.is_leap is absent from I
+```
+
+This is **not** a regression, and it is not a disguised pass — it is strictly
+more information than before. Those 5 edges are real cross-concept calls that
+the pre-fix extractor could not see at all; R1 is now naming them exactly, and
+each needs a declared interaction to clear. The artifacts can be staged
+through the sanctioned draft path; the remaining work is **human review and
+normative promotion**, not a missing protected-write command. An interaction
+lives in `<crate_dir>/specs/_interactions/`, which this project's descriptor
+lists in `write_set.protected_roots` (`rust/*/specs/**`), and even if written
+it is a normative artifact whose review block, review-log entry, human ruling
+and promotion receipt all come from `approve` / `record-ruling` /
+`accept-promotion` — human checkpoints the agent must not cross. The five
+missing interactions remain unresolved on the live root. Recorded as
+`date-ligature-050` and escalated to epic `#1`. One pre-existing *info* finding
+is corrected in the other direction: `I-year-month-day-ok-to-year-month-day-last-day`
+used to be reported as "intent without realization" because the call was
+invisible to the extractor, and now **matches** the realized call
+`CS-YEARMONTHDAY-OK-003`, so a declared interaction that looked unrealized is
+verified as realized.
+
+Historical under 1.2.0: `write-set-check` **could not detect a write into a
+`protected_roots` path** and reported clean for probe files in `ci/manifest/`
+and the specs tree. This was escalated as `date-ligature-049` / epic `#1`
+`#90`. Ligature 1.2.2 changes this behavior: an ungranted protected write is
+a blocking violation. Do not use the old probe result as current behavior.
+
+### Process disclosure for the `#89` work (recorded here deliberately)
+
+The `#89` resolutions above — the call-spelling change, the regenerated C_static
+report, and both escalations (`date-ligature-049`/`#90` and
+`date-ligature-050`/`#91`) — were produced by a worker that **broke
+WORKER-CONTRACT §1 partway through the session**: it unzipped the pinned
+`tools/ligature/ligature.pyz` into `/tmp` to read the C_static extractor's
+call-form classification rules, before it had gone back and re-read §1. §1 calls
+that *"the most commonly violated rule in this workspace"* and says plainly
+*"Never unzip or inspect the contents of `ligature.pyz` itself."*
+
+Recorded here because the escalations are the record a human acts on, and because
+that unzip is directly load-bearing for `#91` in particular: understanding *why*
+R1 classifies a call the way it does was not purely black-box. The worker's first
+drafts of `#90` and `#91` carried an unqualified
+`BLACK-BOX RULE OBSERVED: no source inspection; ligature.pyz was never unzipped
+or read`, which was **false**; a reviewer caught the contradiction and both
+descriptions were corrected in place on 2026-09-29 (`#89` attempt 2).
+
+What the disclosure does and does not affect:
+
+- **Unchanged:** every command, exit code, gate output and proof result above.
+  All are reproducible from the quoted commands, and a reviewer independently
+  re-ran `extract-c-static` on a scratch copy and got
+  `ci/results/c_static/rust_date-creusot-core.json` byte-identically
+  (md5 `f308dc2f…`, 11 discovered / 11 resolved / 0 unresolved), which is what
+  establishes the report was regenerated rather than hand-edited.
+- **Unchanged:** write safety. Every probe file was created in a `/tmp` scratch
+  copy and deleted; the unzip wrote nothing into this pilot root. No file under
+  `ci/manifest/**` or `rust/date-creusot-core/specs/**` was created or modified at
+  any point in this session.
+- **Weakened:** the *analysis* in `#91` should be treated as needing a clean-room
+  re-derivation before it is authoritative upstream, by a worker who has not read
+  the `.pyz`. The observable behaviour any fix has to satisfy is unaffected.
+
+Plus **no genuine open proof gap** remains in this pilot's own work:
+
+`cargo creusot` was re-run after the chainlink `#89` call-spelling change and
+still reports `Proved (93 files) ✔`, with **all 93 `proof.json` byte-identical**
+to before it. The regenerated `.coma` files differ only in line-number span
+annotations plus one SSA temp per explicit `&self.field` borrow — the emitted
+obligations are unchanged, and `oracle/rust-check` `cargo test --release` still
+reports `143 passed; 0 failed`, including the two leap-boundary cases
+(`upstream_test_ymd_ok_2000_02_29_0001`, `upstream_test_ymd_ok_2100_02_29_0001`)
+that exercise the changed `ok()` / `is_leap()` bodies. `record-assurance
+WP-DATE-CREUSOT` re-run against the same five certificates rewrote
+`ci/results/feature_ledger.json` **byte-identically**.
+
+*Documentation drift observed while re-verifying, **now fixed in `#88`'s
+follow-up** (it was flagged here as belonging to `#88`'s record): the
+"270/270 leaf goals" figure quoted in the `round_trip` paragraph below and in
+`FUTURE-WORK-round-trip-proof.md` did not reproduce against the current
+`why3find.json`, which carries a size-bounded `profile` array
+(`rust/date-creusot-core/.why3find` and `why3find.json` mtime 2026-09-29
+15:59). Counting leaf goals in the current certificates gives **202**, not 270.
+Both documents now say 93 proof files / 126 `vc_*`+`refines` goals / 202 proved
+SMT calls / 0 unproved. The `Proved (93 files) ✔` result itself was never in
+question and is what every gate reads.
+
+3. **The `round_trip` lemma** (`vc_round_trip`, `YearMonthDay`) — **RESOLVED**
+   by chainlink `#88`. `cargo creusot` now reports `Proved (93 files) ✔` —
+   93 proof files, 126 `vc_*`/`refines` goals, 202 proved SMT calls, 0
+   unproved — with `vc_round_trip` at 5/5 sub-goals, each closed by `alt-ergo`
+   in under 20 ms, at the *default* `why3find.json` budget. The
+   Neri–Schneider exactness lemmas the deferred work asked for
+   (`year_of_era_from_doe_exact`, `month_day_from_doy_exact`, `era_of_days`,
+   `civil_parts`, `doe_bounds`) are written and proved, and the
+   goal then closed. What actually turned out to be blocking was *not* a hard
+   search problem: `to_days_bounded`, the function `round_trip` calls, stated
+   only the *range* of the day count and never the `days_from_civil` identity
+   its own one-line body computes, which made the emitted obligation genuinely
+   unprovable rather than merely hard. See
+   `FUTURE-WORK-round-trip-proof.md` and the `date-creusot-039` resolution
+   record (`date-creusot-059`) in `findings/limitations.jsonl`. Note this was
+   never a `gate-g14` blocker in the first place — `round_trip` is not one of
+   the manifest's five obligations.
+
+`date-ligature-045` (the earlier finding that recorded the SCC cycle as a
+`blocker` needing "a well-foundedness proof") and the 2026-09-28 user DECISION
+on chainlink `#18` are both **superseded on this point**: no well-foundedness
+proof is needed, because there was never a cycle — only a manifest that
+declared one. `gate-g14` is behaving correctly; this was our bug, not a
+ligature defect, so nothing was escalated to epic `#1`.
+
+## Stage 8C (chainlink #18) — gate-g14 matches the declared closure_kind, and the re-verification
+
+`gate-g14` exits **0** and the closure profile's `closure_kind: deductive` is
+now genuinely matched — not declared, matched. That criterion had been open
+since the first Stage 8C attempt; this section records how it was reached and,
+just as importantly, the ordering trap that nearly hid it.
+
+### The Stage 8C command set, in the order it must be run
+
+```
+$ python3 tools/ligature/ligature.pyz validate-closure   ; echo $?   -> 0
+OK: all closure artifacts pass G1a/G1b and G17 profile/record consistency (1 discovered)
+$ python3 tools/ligature/ligature.pyz gate-g14            ; echo $?   -> 0
+cluster 'date-creusot-core' closes: closure_kind=deductive, 1 work package(s),
+  0 obligation(s) in the transitive closure, 0 cycle(s) discharged
+OK: 1 cluster(s) close under their declared profile, 0 released under an accepted degradation record
+$ python3 tools/ligature/ligature.pyz gate-g18            ; echo $?   -> 0
+OK (nothing to check: no declared witness_required features discovered under .)
+$ python3 tools/ligature/ligature.pyz gate-g19            ; echo $?   -> 0
+OK (nothing to check: no witness specs discovered under .)
+$ python3 tools/ligature/ligature.pyz gate-g20            ; echo $?   -> 0
+OK (nothing to check: no witness specs discovered under .)
+$ python3 tools/ligature/ligature.pyz write-set-check     ; echo $?   -> 0
+write set: clean
+$ python3 tools/ligature/ligature.pyz doctor              ; echo $?   -> 0
+```
+
+> **SUPERSEDED as to the cause (chainlink #94).** The *reason* recorded below —
+"no authoring path in ligature v1.1.0" — is false for 1.1.1: `witness-drafting`
+and `bridge-drafting` both ship and stage cleanly. The gates still pass
+trivially, but now because **nothing has been promoted**, and the binding
+constraint has moved: a witness spec's `approve` fails
+`[G2/error] no concept spec under the search root declares concept 'Weekday'`,
+and under 1.2.1 a concept spec could not be promoted. Ligature 1.2.2 closes
+that tool gap, but no concept-spec content or human promotion was performed
+by this rollout. The historical exit codes and counts below are not a
+current 1.2.2 measurement.
+
+`gate-g18`/`g19`/`g20` still pass **trivially**: there are no witness specs at
+all, because bridges and witnesses have no authoring path in ligature v1.1.0
+(epic `#1` `#79`). `report pilot-cluster` exits **2** ("No eligible candidate
+cluster — every candidate was excluded"), for the same reason: no concept specs
+exist. Neither is a pass in any meaningful sense, and neither is a failure
+either. `report contact-sheet` still exits 0 and writes
+`docs/witnesses/_contact_sheet.svg` (vacuously, 0 declared features).
+`report feature-ledger` no longer does: on a tree where `ci/results/feature_ledger.json`
+holds the assurance report it now **refuses at exit 1** — see the next subsection,
+which supersedes the 1.1.0 behaviour recorded there.
+
+`gate-r1-g16` is the one gate command still at a non-zero exit, and it is **not** part
+of the closure gate: five `absent from I` errors, awaiting a human ruling, blocked
+by `date-ligature-050` / epic `#1` `#91`. `check --json` is consequently non-zero
+while the cluster itself closes — but **its exit code and finding count changed with
+the 1.1.1 binary swap and must be re-derived, not quoted from here**: under 1.1.0 it
+was exit 1 / `['blocking_findings']` / 21 findings; under 1.1.1 (with the install
+half-migrated, see `date-ligature-057`) it is
+
+```
+$ python3 tools/ligature/ligature.pyz check --json | jq -c '.result'
+{"conditions":["blocking_findings","gate_integrity_failed"],"exit_code":5}
+```
+
+with 22 findings (16 `info`, 6 `high`) — the extra one being the high-severity
+`mechanized-gate` `gate-integrity` finding for the `@adjudicator` content-hash drift.
+
+### The trap: `report feature-ledger` destroys the evidence `gate-g14` reads
+
+> **RESOLVED in ligature 1.1.1.** Everything in this subsection describes 1.1.0
+> (`ede2514e...`). Under 1.1.1 (`3edfd03c...`) `report feature-ledger` and
+> `generate-feature-ledger` **refuse** to write over a schema-valid assurance report,
+> exit 1, and leave the file byte-identical, so `gate-g14` stays at 0. Re-verified
+> under chainlink `#93`; the run is in `date-ligature-054`. Read this as the record
+> of what the defect *was*, not of what to expect.
+
+Running the Stage 8C report commands *before* the gates breaks the closure gate.
+It happened to the live pilot root during this issue, on the documented order:
+
+```
+$ md5sum ci/results/feature_ledger.json
+463583d9eda1ed0292800703bf2835cf  ci/results/feature_ledger.json
+$ python3 tools/ligature/ligature.pyz gate-g14 ; echo $?        -> 0
+$ python3 tools/ligature/ligature.pyz report feature-ledger    -> wrote ci/results/feature_ledger.json (0 declared features)
+$ md5sum ci/results/feature_ledger.json
+c8571e0944ad0eaefb60adf3a194bbea  ci/results/feature_ledger.json
+$ python3 tools/ligature/ligature.pyz gate-g14 ; echo $?        -> 1
+cluster 'date-creusot-core' is BLOCKED: closure not established
+  - [G14/error] WP-DATE-CREUSOT: assurance report ci/results/feature_ledger.json is not schema-valid: 'work_package' is a required property
+  - [G14/error] Weekday.C1: ... recorded no achieved assurance for it
+  ... (5 obligations, then generic_callees: "no achieved assurance record at all for WP-DATE-CREUSOT")
+```
+
+`report feature-ledger` and `record-assurance` both write
+`ci/results/feature_ledger.json` — the work-package manifest's `report.emit` names
+that one path for both — with mutually incompatible schemas. The report command
+prints no warning that it overwrote anything. `record-assurance` does warn, and
+names the remedy:
+
+> point the manifest's `report.emit` at a free `ci/results/*.json` path (e.g.
+> `ci/results/<work-package>.json`) to separate the two artifacts
+
+which is not available to an agent: `report.emit` lives in
+`ci/manifest/WP-DATE-CREUSOT.json`, and `ci/manifest/**` is in
+`write_set.protected_roots`, which the hash-pinned SKILL.md authority boundary 5
+forbids ("never write into `protected_roots`", glossing protected_roots as
+"CI manifests"). The rule that blocks the fix is also not enforced —
+Under 1.2.0, write-set-check reported a file dropped into ci/manifest/ as
+state: clean (date-ligature-049, epic #1 #90). Ligature 1.2.2 now reports an
+ungranted protected write as a blocking violation.
+
+**Rule under ligature 1.1.0 (SUPERSEDED — see the next subsection): run
+`report feature-ledger` *before* `record-assurance`, never after.** If `gate-g14`
+suddenly said `is not schema-valid: 'work_package' is a required property` or
+`recorded no achieved assurance`, you had to re-run `record-assurance` before
+concluding anything about the closure. Under 1.1.1 that cannot happen. The full
+five-flag `record-assurance` command, unchanged by the upgrade, and still the
+pilot's canonical-state generator:
+
+```
+python3 tools/ligature/ligature.pyz record-assurance WP-DATE-CREUSOT \
+  --proof Weekday.C1=rust/date-creusot-core/verif/date_creusot_core_rlib/weekday/weekday_from_days \
+  --proof Weekday.C2=rust/date-creusot-core/verif/date_creusot_core_rlib/weekday/impl_Weekday/c_encoding \
+  --proof Weekday.C3=rust/date-creusot-core/verif/date_creusot_core_rlib/weekday/impl_Weekday/iso_encoding \
+  --proof YearMonthDay.C2=rust/date-creusot-core/verif/date_creusot_core_rlib/year_month_day/impl_YearMonthDay/from_days \
+  --proof YearMonthDayLast.C1=rust/date-creusot-core/verif/date_creusot_core_rlib/year_month_day_last/impl_YearMonthDayLast/day
+```
+
+It is exactly reversible: the restored file is byte-identical
+(`md5 463583d9eda1ed0292800703bf2835cf`). `date-ligature-051` and
+`date-ligature-052` record this; escalated as epic `#1` **`#92`**.
+
+### Re-verified under ligature 1.1.1 (chainlink #93): the collision is refused, not silent
+
+`tools/ligature/ligature.pyz` is now 1.1.1 (`3edfd03c...`, `sha256sum -c
+SHA256SUMS` -> `ligature.pyz: OK`). The same five-command sequence, re-run on a
+clean rsync copy of this pilot **and on the live pilot root**:
+
+```
+$ md5sum ci/results/feature_ledger.json
+463583d9eda1ed0292800703bf2835cf  ci/results/feature_ledger.json
+$ python3 tools/ligature/ligature.pyz gate-g14 ; echo "EXIT=$?"
+cluster 'date-creusot-core' closes: closure_kind=deductive, 1 work package(s), ...
+OK: 1 cluster(s) close under their declared profile, 0 released under an accepted degradation record
+EXIT=0
+$ python3 tools/ligature/ligature.pyz report feature-ledger ; echo "EXIT=$?"
+error: refusing to overwrite the assurance report at ci/results/feature_ledger.json (work package 'WP-DATE-CREUSOT'): `report feature-ledger` and `record-assurance` must not share one path -- run `record-assurance` after `report feature-ledger` so the report is recorded last, or point the manifest's report.emit at a free ci/results/*.json path (e.g. ci/results/<work-package>.json) to separate the two artifacts
+EXIT=1
+$ md5sum ci/results/feature_ledger.json
+463583d9eda1ed0292800703bf2835cf  ci/results/feature_ledger.json
+$ python3 tools/ligature/ligature.pyz gate-g14 ; echo "EXIT=$?"
+OK: 1 cluster(s) close under their declared profile, 0 released under an accepted degradation record
+EXIT=0
+```
+
+The file is untouched, `gate-g14` never leaves 0, and the six errors are gone.
+`record-assurance` with all five `--proof` flags still restores
+`md5 463583d9eda1ed0292800703bf2835cf` and `gate-g14` exit 0, exactly as before.
+
+What 1.1.1 delivered is #92's *second* suggested fix direction: the refusal is
+**schema-validity-based, not string-based**. A file at the path holding only
+`{"work_package": "WP-OTHER"}` is not schema-valid and is still overwritten at exit 0;
+a schema-valid assurance-report shape is refused at exit 1 and the message names the
+*other* work package's id, so the guard keys on the artifact kind, not on this
+manifest. `generate-feature-ledger` — the other writer of the same path — is covered
+by the identical refusal.
+
+**Rule for anyone running Stage 8C again, here or in P2/P3 (1.1.1 and later): run
+`record-assurance` last.** That is now the tool's own stated condition for not
+getting the refusal, so the order is documented rather than folklore. If you *do* see
+the refusal, nothing is broken: the assurance report is intact and `gate-g14` still
+passes — you do **not** need to re-run `record-assurance` to recover; the five-flag
+command is the block above.
+
+### Re-verification, 2026-10-01, ligature 1.2.0 — 95 `repro_cmd`s, 0 skipped
+
+**This is the current section. Everything below it down to the next `##` heading
+is the 1.1.1-era record and is kept as history; both are labelled.**
+
+The binary moved **twice** while this pilot was open, so every earlier number in
+this README is stale:
+
+| when | version | sha256 | `doctor` |
+|---|---|---|---|
+| 2026-09-29 | 1.1.0 | `ede2514e…` | exit 0 |
+| 2026-09-30 | 1.1.1 | `3edfd03c…` | exit 0 |
+| 2026-10-01 22:18 | **1.2.0** | `9c921eeb1bbb858c0041e49f07cf5d06988eb798ba60b9207f7576cba430637c` | exit 0, `adjudicator pin: pinned` |
+
+The 1.2.0 install re-pinned `ci/manifest/installation.json` at 22:23, so the
+migration was done — `doctor` is clean, `status` reports `installation manifest:
+current` and `gate integrity: pinned`, and no `migrate --upgrade` is outstanding.
+
+**Stage 8C under 1.2.0** (full transcript, verbatim, in
+`analysis/ligature/stage8c-transcript.txt`):
+
+```
+validate-closure   exit 0   OK: all closure artifacts pass G1a/G1b and G17 profile/record consistency (1 discovered)
+gate-g14           exit 0   cluster 'date-creusot-core' closes: closure_kind=deductive, 1 work package(s),
+                              0 obligation(s) in the transitive closure, 0 cycle(s) discharged
+gate-g18/19/20     exit 0   OK (nothing to check: no declared witness_required features discovered under .)
+write-set-check    exit 0   write set: clean
+doctor             exit 0   adjudicator pin: pinned
+gate-r1-g16        exit 1   FAIL: 5 blocking finding(s)   <- the 5 'absent from I' edges, pre-existing
+report pilot-cluster   exit 2   No eligible candidate cluster -- every candidate was excluded
+report contact-sheet   exit 0   wrote docs/witnesses/_contact_sheet.svg (0 declared features)
+report feature-ledger  exit 1   error: refusing to overwrite the assurance report at
+                                  ci/results/feature_ledger.json (work package 'WP-DATE-CREUSOT')
+check --json       exit 1   {'conditions': ['blocking_findings'], 'exit_code': 1}, 21 findings
+                                5 high (all r1-g16) + 16 info, 0 medium
+status                      cluster date-creusot-core: closes (closure_kind=deductive)
+                            obligations: 5 declared, 0 with an unmet required dimension
+```
+
+Declared vs computed, explicitly:
+
+| | |
+|---|---|
+| `specs/_closure/date-creusot-core.json` | `closure_kind: deductive` |
+| `analysis/ligature/closure-intent.json`, this README | `deductive` |
+| what `gate-g14` **computes** from artifacts | `closure_kind=deductive`, 0 errors |
+
+**The `check --json` shape changed under 1.2.0 and this is the current expected
+pending state, not a regression.** 1.1.1 gave 26 findings (5 high + 5 medium + 16
+info) with conditions `[blocking_findings, human_decision_required]`, because
+`validate-interaction` collected the five staged `<target>.json.draft` files and
+made each one a medium finding. 1.2.0 fixed that (epic #1 **#97**), so the five
+medium findings and the `human_decision_required` condition are gone. What remains
+is **5 high r1-g16 `absent from I`** — the real, pre-existing gap (`#95` staged
+drafts for it; `date-ligature-050`; epic #1 **#91**) — plus 16 info, of which 6
+are the permanent G2+ `applies_to unverifiable` from `date-ligature-022`.
+
+**Re-verification: 95/95 `repro_cmd`s executed, 0 skipped.** Harness
+`analysis/ligature/reverify.py --slow`; table `analysis/ligature/reverify-VERDICTS.md`
+(+ `.json` twin, + `verdicts-8c.py` which renders both from a hand-assigned table
+and *refuses* to render with a gap, so an under-covering overlay cannot be mistaken
+for a complete one).
+
+| bucket | n |
+|---|---:|
+| RESOLVED (no longer reproduces) | 25 |
+| STILL REPRODUCES | 23 |
+| MATCH (reproduces as recorded) | 18 |
+| PARTLY RESOLVED | 4 |
+| SUPERSEDED (state moved on under another issue) | 3 |
+| CHANGED (same substance, different mechanism) | 3 |
+| NOT-RUNNABLE (the `repro_cmd` is dead as written) | 4 |
+| NOT-RUNNABLE(ENV) (the nix dev shell will not build) | 15 |
+
+Two bucket definitions matter and were the whole point of re-deriving:
+
+- **NOT-RUNNABLE** — the recorded command cannot run: a literal `<path-…>` or
+  `...` placeholder, a `/tmp` script that no longer exists, or a path in another
+  agent's scratch dir. Six are catalogued in `date-creusot-053`; **two of them
+  mutate tracked artifacts in place** (`date-ligature-041` leaves
+  `specs/_closure/date-creusot-core.json` with `closure_kind: "degraded"`,
+  `date-ligature-047` rewrites `ci/results/feature_ledger.json`) and one empties
+  the descriptor (`date-ligature-024`), so a fresh agent must not run them against
+  the live pilot. The harness rsyncs to a scratch root and resets it before every
+  single command for that reason.
+- **NOT-RUNNABLE(ENV)** — the command *ran* and the environment failed before
+  reaching the tool under test. All 15 are `cargo creusot` / `cargo nextest`: the
+  pinned dev shell no longer builds, because `cvc5-1.3.1` fetches
+  `CoCoALib-0.99800-trace.patch` from a `refs/heads/main` URL that now 404s, so
+  `CoCoALib → cvc5 → creusot-why3 → creusot-wrapped → nix-shell-env` all fail.
+  Filed as `date-creusot-060`. **This is not a verdict on those findings** — it is
+  a statement that the pilot can no longer *regenerate* its proof evidence. The
+  existing `rust/date-creusot-core/verif/**/proof.json` certificates are on disk and
+  `gate-g14` reads them, so closure is unaffected; but nothing new can be proved
+  until the shell is repaired, and `flake.nix` must not be edited to work around it
+  (WORKER-CONTRACT §3 — report on epic #2).
+
+**The harness itself had two defects that made the previous passes unsound, both
+now fixed** (`date-ligature-102`):
+
+1. **cwd routing** matched the bare substring `date-creusot`, which also matches
+   the crate name `date-creusot-core` and the nix flake ref `…#date-creusot`. Five
+   repros ran from the *workspace* root, where `rust/`, `tools/ligature/` and `ci/`
+   do not exist: `date-ligature-047` died with `can't open file
+   <scratch>/ws/tools/ligature/ligature.pyz` and four nix repros with `cd:
+   rust/date-creusot-core: No such file or directory`. Both look like broken
+   findings; neither was. This is `date-creusot-054`, recorded last session and
+   deliberately not fixed then — right when the table was a convenience, wrong now
+   that the table had to be rebuilt anyway.
+2. **baseline content** excluded `analysis/codesight/index/`, so both `tool: mcp`
+   repros failed with `Repository not indexed` — a harness artefact that would have
+   been mis-recorded as a codesight regression. It also now symlinks `.venv/`
+   instead of copying it 89M twice, because the scratch root lives on a filesystem
+   several chainlink loops fill up at once (this one hit ENOSPC twice).
+
+**Read the verdict table before consuming `findings/limitations.jsonl` for a
+go/no-go.** 25 of its lines describe v1.0.0/1.1.x behaviour that no longer
+exists. The file is append-only by workspace convention, so resolved findings were
+not edited in place; the table is the overlay. **None of the 30 still-live
+findings blocks `gate-g14`.**
+
+Three verdicts moved to RESOLVED *because of 1.2.0*, and they are the reason the
+expected `check --json` state above is 21 findings rather than 26:
+
+- `date-ligature-094` — epic #1 **#96** is fixed. `gate-g9` with a promoted bridge
+  reports a real `[G9/error]` instead of an unhandled `ValueError`.
+- `date-ligature-100` — epic #1 **#97** is fixed, as the `check --json` shape shows.
+- `date-ligature-031` — `accept-promotion` is now gated on `record-ruling`:
+  `error: refusing to mint a promotion receipt: no complete human ruling covers
+  this accepted set`, naming the uncovered artifacts and the command that fixes
+  it. That is the second of that finding's two acceptable fixes, and it is real.
+
+Two new findings this session, both escalated:
+
+- **`date-ligature-101`** (blocker) — `approve`, `approve-pair` and
+  `approve-exemption-pair` crash with an unhandled `FileNotFoundError` when the
+  target has no `.draft` sibling, *including* for an already-promoted target and
+  for a path that does not exist. The identical condition in `promote-evidence`
+  has a one-line diagnostic, so this is a missing guard, not a design choice.
+  Reproduced on 1.1.1 and 1.2.0 alike. → epic #1 **#106**.
+- **`date-ligature-102`** (friction) — the harness fixes above.
+
+### Re-verification: all 70 `repro_cmd`s, from a clean copy (SUPERSEDED — the 1.1.1-era pass, kept as history)
+
+> **SUPERSEDED by the section above.** These counts are over the 70 findings that
+> existed on 2026-09-29, measured on ligature 1.1.0. The ledger now holds 95
+> findings and the binary is 1.2.0. `reverify-VERDICTS-2026-09-29-1.1.0.md` is
+> this table's own archived copy.
+
+`analysis/ligature/reverify.py` re-runs every `repro_cmd` in
+`findings/limitations.jsonl`; `analysis/ligature/reverify-VERDICTS.md` is the
+per-finding verdict table with the evidence line for each. Verdict counts over
+all 70:
+
+| bucket | n |
+|---|---:|
+| RESOLVED (no longer reproduces) | 32 |
+| STILL REPRODUCES | 22 |
+| MATCH (reproduces as recorded) | 7 |
+| PARTLY RESOLVED | 3 |
+| SUPERSEDED (state moved on under another issue) | 2 |
+| CHANGED (same substance, different mechanism) | 1 |
+| NOT RUNNABLE / NOT REPRODUCED | 3 |
+
+**Read the verdict table before consuming `findings/limitations.jsonl` for a
+go/no-go.** 32 of its 70 lines describe v1.0.0 behaviour that no longer exists.
+The file is append-only by workspace convention, so resolved findings were not
+edited in place; the table is the overlay. The 22 still-live findings are
+descriptor/report authoring and traceability gaps that v1.1.0 did not touch —
+**none of them blocks `gate-g14`**.
+
+Nine of the resolutions are closure-relevant, and they are the reason the
+acceptance criterion is met: `date-ligature-039` (`gate-g14` exit 1 → 0),
+`-041` (the `closure_kind` enum is now `['deductive', 'bounded', 'partial']`),
+`-043` (`generic_callees` is now *VERIFIED from artifact data, not taken on
+declaration*), `-042`, `-045`, and all seven creusot proof gaps
+(`date-creusot-001, 035, 036, 037, 038, 039, 041` — `cargo creusot` prints
+`Proved (93 files)` for every variant, and `cargo nextest run --profile ci`
+reports `143 tests run: 143 passed, 0 skipped`).
+
+The harness exists because the findings file needed one: **five of the 70
+`repro_cmd`s do not run as written, and two of those would corrupt the live pilot
+if run there.** `date-ligature-041` leaves
+`specs/_closure/date-creusot-core.json` with `closure_kind: "degraded"`;
+`date-ligature-047` rewrites `ci/results/feature_ledger.json`; `date-ligature-024`
+has a `json.dump`/`json.dumps` bug that empties the descriptor; `date-ligature-037`
+and `-046` carry literal placeholders; `date-ligature-032`/`-033`/`-034` name the
+pre-rename `ci/manifest/work-package.json`. So the harness rsyncs the workspace to
+a scratch root and **resets it to the baseline before every single command**, and
+the live pilot is never written to. Recorded as `date-creusot-053`; supersedes
+`date-ligature-044`, whose own repro pointed at a session-local `/tmp` script
+that no longer exists.
+
+### The 1.1.1 install is half-migrated — read this before trusting `doctor`/`check`
+
+> **RESOLVED 2026-09-30 by the operator.** `migrate --upgrade` ran on this root and exited 0.
+> It rewrote only `ci/manifest/installation.json` (version 1.1.1, `@adjudicator` pinned
+> to `sha256:172a87a8…`) and `.codex/skills/ligature/SKILL.md` (new authority hash; the
+> `report` row now documents the #88 refusal). Nothing under `scripts/**`, the flake
+> files, `project-descriptor.json` or `WP-DATE-CREUSOT.json` changed (md5-checked). After the
+> migrate: `doctor` exit 0, `status --json` `gate_integrity.state` = `pinned`, `check --json`
+> exit 1 with 5 high `r1-g16` findings (identical to the 1.1.0 baseline), and `gate-g14` exit 0.
+> The #92 refusal was re-checked on the migrated install: `report feature-ledger` exits 1
+> and leaves the file untouched (md5 `463583d9…cf`), and `gate-g14` exits 0 before and after.
+> The text below is kept as the historical record.
+
+The binary was swapped to 1.1.1 but `ligature.pyz migrate --upgrade` was never run, so
+`ci/manifest/installation.json` still records `installed_product_version: "1.1.0"` and
+pins `@adjudicator` at 1.1.0's content hash while the running binary reports 1.1.1's.
+Consequences, reproduced verbatim on this root:
+
+```
+$ jq -r '.installed_product_version, .gate_hashes["@adjudicator"]' ci/manifest/installation.json
+1.1.0
+sha256:29958eae2961d585dc19770b537a773c083d94315315113582df5d8f7ab8dc14
+$ python3 tools/ligature/ligature.pyz status --json | jq -c '.gate_integrity, .installation_manifest'
+{"details":"@adjudicator: content hash drift (pinned sha256:29958eae..., running sha256:172a87a8...)","state":"drifted"}
+{"installed_product_version":"1.1.0",...,"state":"upgradable"}
+$ python3 tools/ligature/ligature.pyz doctor > /dev/null ; echo "doctor exit=$?"
+doctor exit=1
+$ python3 tools/ligature/ligature.pyz check --json | jq -c '.result'
+{"conditions":["blocking_findings","gate_integrity_failed"],"exit_code":5}
+$ python3 tools/ligature/ligature.pyz gate-g14 | tail -1
+OK: 1 cluster(s) close under their declared profile, 0 released under an accepted degradation record
+```
+
+This is **not** a ligature defect — it is correct version-skew detection with a
+documented remedy (`migrate --upgrade`). It was deliberately left alone by chainlink
+`#93`, whose scope was re-verification and whose constraints forbid changing the
+binary: `migrate --upgrade` rewrites hash-pinned gate-integrity files
+(`.codex/skills/ligature/SKILL.md`, which `doctor` also lists as
+`upgrade`) and may touch `scripts/**`, a protected root, so it is an **operator
+decision**. **Consequence for this document:** every exit code and finding count
+quoted from the 1.1.0 runbooks above is stale until that migration is done and the
+numbers are re-derived from `check --json`. `gate-g14` is unaffected throughout.
+Recorded as `date-ligature-057`.
+
+### 1.1.1 verdict ledger (chainlink #93)
+
+Re-verified against the pinned 1.1.1 binary on scratch rsync copies, then confirmed on
+the live root. `findings/limitations.jsonl` is append-only, so the original lines are
+untouched and each verdict is a new line:
+
+| finding | subject | 1.1.1 verdict | new line |
+|---|---|---|---|
+| `date-ligature-051` | the collision destroys the assurance report | **RESOLVED** — `report feature-ledger` refuses at exit 1, writes nothing, `gate-g14` stays 0 | `date-ligature-054` |
+| `date-ligature-052` | the remedy is a protected-root write | **PARTLY RESOLVED** — the separating remedy is unchanged and still forbidden, but the refusal now also names a worker-reachable way out (run `record-assurance` last) | `date-ligature-055` |
+| `date-ligature-047` | the same collision from the `record-assurance` side | **PARTLY RESOLVED** — `record-assurance`'s warning text is byte-unchanged and still exit 0, but its "would replace this report in turn" is no longer true: that direction is now refused | `date-ligature-056` |
+| `date-ligature-049` (epic `#1` `#90`) | `write-set-check` could not see a protected-root write | **FIXED in 1.2.2** — ungranted protected writes are blocking violations; the old probe is historical |
+| — | the 1.1.1 install is half-migrated (`@adjudicator` pin drift) | **NEW** | `date-ligature-057` |
+| — | the re-verification harness cannot run `date-ligature-047`'s own `repro_cmd` | **NEW** | `date-creusot-054` |
+
+`date-ligature-049` was re-probed directly, with a control:
+
+```
+$ printf '{}' > ci/manifest/PROBE.json && python3 tools/ligature/ligature.pyz write-set-check ; echo "exit=$?"
+write set: clean
+...
+details: write set is clean -- every file is accounted for by allowed_roots, protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location; 1 file(s) inside protected roots are not product-managed (audit only)
+  protected (not product-managed): rust/date-creusot-core/Cargo.toml
+exit=0
+$ printf '{}' > rogue-probe.json && python3 tools/ligature/ligature.pyz write-set-check ; echo "exit=$?"
+write set: violations
+...
+  violation: rogue-probe.json: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+exit=1
+```
+
+The checker works; its protected-root semantics are what is inverted — identical output
+with and without the stray file in `ci/manifest/`, byte for byte. So epic `#1` `#90`
+and the "the fix that the boundary blocks is not itself enforced" half of `#92` both
+remain open under 1.1.1.
+
+### Scope of this issue
+
+`flake.nix` / `flake.lock` unmodified (`md5 8a3fdb4742c8aa8488ea889413611fa3` and
+`md5 f4bf5566bd4b89f6a6db076eb937f83d`, unchanged from #87 and #89).
+`project-descriptor.json` untouched (`md5 4cc5901a80c66accb37c54dd7f46d408`).
+No `ligature.pyz init`, `draft`, `approve` or later pipeline stage was run — only
+`status`, `check`, `doctor`, `write-set-check`, `validate-closure`, `validate-evidence`,
+`validate-work-package`, `gate-g14`, `gate-g18/19/20`, `gate-r1-g16`,
+`extract-c-static`, `report`, `record-assurance`, `approve` (inside a throwaway
+copy, as one finding's own repro), and `validate-*`. Nothing was written under
+`ci/manifest/**` or `rust/date-creusot-core/specs/**`. No `git init`, `git commit`
+or `git stash`; the workspace is not a repo and `upstream/date` is clean. Only the
+pilot's own root was touched. Black-box rule honoured throughout: only
+`<pilot>/tools/ligature/ligature.pyz` was invoked, `sha256sum -c SHA256SUMS`
+verified first, and the `.pyz` was never unzipped or read.
+
+Nix shell: date-creusot
+Plan: /home/goya/.claude/plans/based-on-this-preliminary-gleaming-salamander.md
+
+### Scope of chainlink #93 (ligature 1.1.1 re-verification)
+
+- `flake.nix` / `flake.lock` unmodified — `md5 8a3fdb4742c8aa8488ea889413611fa3` and
+  `md5 f4bf5566bd4b89f6a6db076eb937f83d`, re-checked after the run.
+- `ci/manifest/**` unmodified — `md5 b30792f40aed1c7d58de20db9d58f456`
+  (`installation.json`) and `md5 6a0de0fac2de3a9efcb93d32c8af2fd1`
+  (`WP-DATE-CREUSOT.json`), re-checked after the run. `report.emit` was **not**
+  touched: the collision is fixed by the tool refusing, so no protected-root write
+  was needed and none was made.
+- `tools/ligature/ligature.pyz` unmodified — `md5 74a96e304a44cf83211182c64f9860f0`,
+  `sha256sum -c SHA256SUMS` -> `ligature.pyz: OK`, `version` -> `ligature 1.1.1`.
+- `project-descriptor.json` untouched (`md5 4cc5901a80c66accb37c54dd7f46d408`);
+  `.codex/skills/ligature/SKILL.md` untouched
+  (`md5 d5ea47544e8327b3fc780806af7e1365`).
+- The live pilot root was **not written to at all**: every `record-assurance`,
+  `report` and `write-set-check` probe ran on `rsync` scratch copies under
+  `/home/goya/storage/_scratch/`, and `find . -newermt '-3 hours'` over the live
+  root reports only the five `tools/ligature/*` files the operator placed. The only
+  live-root commands were read-only (`sha256sum`, `version`, `gate-g14`, `report
+  feature-ledger` — which refused without writing — `status`, `check`, `doctor`,
+  `gate-r1-g16`, `write-set-check`, `jq`).
+- Pilot left in a **gate-g14-passing** state: `gate-g14` exit 0, `ci/results/feature_ledger.json`
+  `md5 463583d9eda1ed0292800703bf2835cf` (unchanged from before the issue).
+- No `ligature.pyz init`, `draft`, `approve`, `migrate`, or `promote-*` was run.
+  No `git init`, `git commit` or `git stash`; the workspace is not a repo.
+- Only this pilot's root was touched; `swisstable-verus/` and `crypto-mixed/` were
+  not read or written, and neither has been checked for the same half-migrated
+  install (see `date-ligature-057`'s `revisit_trigger`).
+- Black-box rule honoured throughout: only
+  `<pilot>/tools/ligature/ligature.pyz` was invoked, `sha256sum -c SHA256SUMS`
+  verified first, `--help` and command output and generated files were the only
+  sources, the `.pyz` was never unzipped or read, and
+  `/home/goya/agent-workspace/ligature-workspace/` was never opened.
+- `findings/limitations.jsonl`: **append-only** — the first 74 lines are
+  byte-identical to the pre-issue file (`md5 c427a5a4db156a184bbf1628e72c2514`);
+  5 lines appended (`date-ligature-054`…`-057`, `date-creusot-054`), all 79 lines
+  re-validated against `findings-schema.md` (field set, field order, `int`
+  `exit_code`, `severity` enum, `tool` enum, unique ids).
+- `analysis/ligature/reverify.py`: `PROBES` extended with the 4 new `date-ligature-*`
+  ids so the harness labels them. Every one of the 4 new entries then re-runs from a
+  clean scratch copy as `CANDIDATE-MATCH` with `exit_match` true:
+
+  ```
+  [CANDIDATE-MATCH] date-ligature-054      exit=1 recorded=1 probe='refusing to overwrite the assurance report'
+  [CANDIDATE-MATCH] date-ligature-055      exit=1 recorded=1 probe='refusing to overwrite the assurance report'
+  [CANDIDATE-MATCH] date-ligature-056      exit=0 recorded=0 probe='held a generated feature ledger'
+  [CANDIDATE-MATCH] date-ligature-057      exit=1 recorded=1 probe='adjudicator pin: mismatch'
+  ```
+
+  The three original #92 findings re-run the same way: `date-ligature-051` no longer
+  reproduces (its own `repro_cmd` now aborts at the refusal, exit 1),
+  `date-ligature-052` still matches, and `date-ligature-049` still reproduces
+  (`violations` absent, `write set: clean`).
+- The harness's cwd heuristic is **not** fixed here — see `date-creusot-054`. Changing
+  it would re-label every entry of the hand-assigned verdict table, which belongs to
+  the `date-creusot-053` follow-up, not to this issue.
+
+## Epic #1 re-verification against ligature 1.2.0 (chainlink #104, 2026-10-02)
+
+All 18 still-open epic-`#1` escalations (`#71`-`#86`, `#90`, `#91`) were
+re-run against **ligature 1.2.0**
+(sha256 `9c921eeb1bbb858c0041e49f07cf5d06988eb798ba60b9207f7576cba430637c`), each
+on a fresh `rsync` scratch copy reset from the live root. **14 FIXED, `#72` MOSTLY
+FIXED, `#79` SUBSTANTIALLY FIXED, `#91` PARTLY FIXED, `#90` STILL PRESENT.**
+Closure is the operator's; per-issue evidence is in the comments on those issues.
+
+### What changed relative to the 1.1.1 verdicts (#94 / #95)
+
+**Nothing new was fixed among the open set**, except that 1.2.0's `#100` remedy
+finally lands inside `#85`: CG3 now reads every declared `depends_on`, and all
+three legs that defeated the 1.1.1 verdict (c114's C5 / B7 / B2) now fail closed at
+`gate-g14` exit 1, naming the offending record. A Kani-owned work package reached
+through a `depends_on` is caught where 1.1.1 certified it `VERIFIED` at exit 0
+and never mentioned the dependency.
+
+**Two 1.1.1 residuals are now fixed**, which is worth recording because they were
+open when #94 closed:
+
+- `#77` — normative-policy drift now reaches `check --json` as a `high`
+  `policy-drift` finding. Under 1.1.1 a drifted `docs/reliance-policy.md` was
+  invisible to `check`, so a consumer reading only `check` could not tell a clean
+  tree from a drifted policy document. `base_hash` is enforced, with
+  `accept-policy --reviewer <name>` as the sanctioned advance.
+- `#78` — a staged `<target>.json.draft` is now **inert**:
+  `validate-evidence` skips it (exit 0, 15 discovered) and `check --json` reports
+  no finding about it, so the 1.0 blocking-finding symptom is gone even before
+  `promote-evidence` runs. `check` also names the pending promotion as a
+  first-class `next_action`.
+- `#72` — `status` now distinguishes `descriptor.state: "absent"` from
+  `"present-invalid"`, with distinct `gate_integrity` messages.
+
+### What got WORSE, and must not be lost
+
+- **`#75` REGRESSED.** `verifier_policy.fallback` was **rejected** under 1.1.1 and
+  is **`present-valid`** under 1.2.0, joining `zzz_not_a_real_key` and `defualt`
+  as a silently-accepted spelling of a second verifier. `supporting` (which must be
+  an **array**) is the one real key. So a workspace can declare
+  `{"default":"verus","supporting":["kani"],"fallback":"creusot"}`, get a clean
+  `present-valid`, and get no indication which part is read. **Verified by
+  one-line regression:** `1.1.1: fallback -> present-invalid / 1.2.0: fallback ->
+  present-valid`.
+- **Historical status at 1.2.0:** `#90` was unchanged across 1.1.0, 1.1.1
+  and 1.2.0. Ligature 1.2.2 fixes this false negative; the old reproduction
+  below is retained as evidence, not current behavior.
+
+### Historical `#90` reproduction under 1.2.0: protected roots were not violations
+
+Writing three files, all inside `write_set.protected_roots` and all outside
+`write_set.allowed_roots`:
+
+    printf '{}' > ci/manifest/PROBE.json
+    printf '{}' > rust/date-creusot-core/specs/_interactions/I-PROBE.json
+    printf '{}' > rust/date-creusot-core/specs/_boundaries/PROBE.json
+    python3 tools/ligature/ligature.pyz write-set-check
+    write set: clean
+    EXIT=0
+
+Output is **byte-identical** to the run with no probe files present, and
+`write-set-check --json` gives `{"state": "clean", "violations": []}`. The
+command's own `details` string names the cause:
+
+    every file is accounted for by allowed_roots, protected_roots, the ownership
+    manifest, a declared crate's specs/ tree, or a canonical pipeline location
+
+Control, to show the class boundary is exactly where `#90` says — the same content
+placed where nothing accounts for it **is** a violation:
+
+    mkdir -p rust/rogue && printf 'x
+' > rust/rogue/evil.rs
+    write set: violations
+      violation: rust/rogue/evil.rs: outside every allowed_roots pattern and not
+        accounted for by protected_roots, the ownership manifest, a declared crate's
+        specs/ tree, or a canonical pipeline location
+    EXIT=1
+
+**This pilot's own 10 protected globs** (`rust/*/specs/**`, `ci/manifest/**`,
+`scripts/**`, `docs/*-schema.json`, `docs/reliance-policy.md`, `rust/*/Cargo.toml`,
+`rust/*/build.rs`, `tests/harnesses/**`, `.github/**`, `rust-toolchain.toml`) are
+all load-bearing for the pipeline's guarantees. The statement that none were
+detectable describes 1.2.0 only; 1.2.2 enforces protected writes unless the
+matching issue grant is consumed with write-set-check --issue N.
+(The `Cargo.toml`/`build.rs` pair was `**/Cargo.toml` / `**/build.rs` until chainlink
+`#105` narrowed them on 2026-10-02 — see "G13 RESOLVED" above. That narrowing does
+not weaken this conclusion: the narrowed `rust/*/Cargo.toml` still protects
+`rust/date-creusot-core/Cargo.toml`, which `write-set-check` reports by name. Note
+also the standing advice immediately below still applies — *do not* narrow
+`protected_roots` to hide a `write-set-check` false negative. `#105` narrowed them
+for a different and unrelated reason: to clear a real G13 overlap error, not to
+make a false negative disappear.)
+
+### Why this got sharper under 1.2.0, not softer
+
+`write-set-check` is now consumed by `check --json` as a real `high` finding, so
+an *outside-the-write-set* violation is loud there too:
+
+    gate_id 'write-set', severity 'high', authority 'mechanized-gate',
+      provenance 'scripts/write_set.py:check_write_set', subject 'probe-outside-any-root.txt'
+
+That is a genuine improvement — and it widens the contrast. An agent reading
+`check --json` as evidence of authority-boundary-5 compliance now sees a clean
+gate for a write into `rust/*/specs/**` or `ci/manifest/**`, while a write outside
+every pattern would have been reported. `doctor` never mentions a protected-root
+write at all; `status --json` and `check --json` mention two of the three probes
+only as *content* findings from the specs validators (`'review' is a required
+property`), which is a different check noticing an invalid file, not a boundary
+signal. `ci/manifest/PROBE.json` is named by no command.
+
+**Practical consequence for this pilot, and the standing workaround:** to detect a
+protected-root write today, check the protected globs yourself — `write-set-check`
+will not do it. **Do not** narrow `protected_roots` in the descriptor to make the
+false negative go away; that changes the boundary being checked. This also means
+`#91`'s "wall 1" is unenforced and `#86`'s note about repointing
+`report.emit` at `ci/results/<work-package>.json` is an undetectable
+protected-root write.
+
+### `#91` PARTLY FIXED: walls 1 and 2 down, wall 3 is the open design question
+
+The 5 `absent from I` findings are unchanged (`6 checked against I`, 5 blocking,
+`check --json` `{'info': 16, 'high': 5}`). Walls 1 (location) and 2 (promotion) are
+down — the sanctioned `draft 3 interaction-drafting` / `boundary-drafting` path
+works without a protected-root write, and the operator runbook below reaches
+`gate-r1-g16` exit 0 / `check --json` exit 0 on a scratch copy with the 16
+`info` findings unchanged. **Wall 3 is unchanged: R1 still has no severity between
+"declared in I" and `R1/error`**, so resolving a call site still makes the call
+graph strictly more informative and the gate strictly less satisfied. The only
+suggested fix direction with real design content left is that missing rung.
+
+### The binding constraint underneath `#79` and `#91`
+
+A concept spec is draftable (`draft 3 concept-to-code`) but **not promotable** —
+`approve` has no branch for it and no `promote-*` verb covers it. So
+`crates[].specs_search_root` resolves to nothing, G2+ stays
+`applies_to unverifiable -- no spec file under specs_search_root declares concept
+'Weekday'`, and G18/G19/G20 have no input. Do **not** hand-write a concept spec
+into `rust/<crate>/specs/` to route around it: that is a `protected_roots` write
+and the installed `SKILL.md` forbids it. This is also why `Month::ok` has no
+stable constraint id for the two `-> Month.ok` interactions to cite (`#91`).
+
+### Smaller open residuals, in one place
+
+- `#72`/`#75` — a meaningless key and a misspelled real field give a
+  **byte-identical** `unexpected property '<the key you typed>'` signature; the tool
+  cannot say "you misspelled a real field". An unknown key inside
+  `verifier_policy` is still silently accepted.
+- `#77` — `expected_hash` is still recorded-but-never-compared for both user-owned
+  files (`base_hash` **is** enforced).
+- `#79` — the draftable-kind set is still not discoverable from `draft --help`
+  (2 examples, 9 templates); required vars are still reported one at a time.
+- `#80` — no command accepts `--specs-search-root`; the descriptor field is the
+  working route. A dangling constraint id **is** a real error now (`validate` exit 1).
+- `#74`/`#76` — `check --json` has no `gate_integrity` or `write_set`
+  top-level key; the information is only in `result.conditions` / `findings`.
+
+### Roll-up
+
+Recorded as `date-creusot-061` in `findings/limitations.jsonl` (append-only:
+94 -> 95 lines, the original 311412 bytes still hash to their own md5).

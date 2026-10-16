@@ -1,0 +1,8 @@
+{
+  "profile": [],
+  "proofs": {
+    "Coma": {
+      "vc_century_of_era_year": { "prover": "alt-ergo", "time": 0.011 }
+    }
+  }
+}

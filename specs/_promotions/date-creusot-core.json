@@ -1,0 +1,111 @@
+{
+  "schema": "promotion-receipt/1.0",
+  "promotion_id": "PROM-DATE-CREUSOT-CORE-001",
+  "cluster": "date-creusot-core",
+  "reviewer": "chainlink-reviewer",
+  "policy_version": "date-creusot-reliance-policy@1.0",
+  "schema_versions": {
+    "boundary": "1.0",
+    "interaction": "1.0",
+    "evidence": "1.0"
+  },
+  "accepted_at": "2026-09-26",
+  "artifact_manifest": [
+    {
+      "path": "docs/reliance-policy.md",
+      "hash": "sha256:d81e6628a1a89e7fd3c2536b7762d445bede2f1ed0f7e7588630ed233323e70b"
+    },
+    {
+      "path": "rust/date-creusot-core/specs/_boundaries/iso_week_weekday__to__weekday_iso_encoding.json",
+      "hash": "sha256:1b7a47aa1ac9fe67d86be004232c2eaadd4ab657b9e70e90fa9a36b468ad9db1"
+    },
+    {
+      "path": "rust/date-creusot-core/specs/_boundaries/year_month_day_ok__to__year_month_day_last_day.json",
+      "hash": "sha256:24ec335ce20967e9af4a0d1465d1fc7db96488864ebd5658c295c067f826f9a6"
+    },
+    {
+      "path": "rust/date-creusot-core/specs/_boundaries/year_month_day_to_days__to__weekday_weekday_from_days.json",
+      "hash": "sha256:9a51c2494de4eaab8d476bc45bfb5c427d7abe4272861b30d04c288ccddcbed0"
+    },
+    {
+      "path": "rust/date-creusot-core/specs/_boundaries/year_month_day_to_days__to__year_month_day_from_days.json",
+      "hash": "sha256:21d97b8d744e74fa79be41e5e77f64bd1c157844250c8d0806602125002a3fa8"
+    },
+    {
+      "path": "rust/date-creusot-core/specs/_interactions/I-iso-week-weekday-to-weekday-iso-encoding.json",
+      "hash": "sha256:e941e1786d2a651a42b79473e50ae59bfb6d9c2a40f0c7455746e43048555baa"
+    },
+    {
+      "path": "rust/date-creusot-core/specs/_interactions/I-year-month-day-ok-to-year-month-day-last-day.json",
+      "hash": "sha256:b9b2ab9ae6c5328b9352d9cea52f9afa2f39b385f29ec93abf87837dd957cfa6"
+    },
+    {
+      "path": "rust/date-creusot-core/specs/_interactions/I-year-month-day-to-days-to-weekday-weekday-from-days.json",
+      "hash": "sha256:48e7439b691062f503d77a71fa9c5cc31d94d02d385eb994a3e412884df57533"
+    },
+    {
+      "path": "rust/date-creusot-core/specs/_interactions/I-year-month-day-to-days-to-year-month-day-from-days.json",
+      "hash": "sha256:7330259a6dc8868bd2be303f77a990aec7e04e49344a84183946c4520ea6cc4b"
+    },
+    {
+      "path": "evidence/E-1.json",
+      "hash": "sha256:42c52f37afa4f484e547b5c6217c6723882e4f074a6b58e369cf8b4b399dc2f1"
+    },
+    {
+      "path": "evidence/E-2.json",
+      "hash": "sha256:6df5baf9868cbb858600cd678a9bce57fe52931284377f2fc237a8ff547f5fd4"
+    },
+    {
+      "path": "evidence/E-3.json",
+      "hash": "sha256:41d2e505349c97ff34c5ef9424ceb957c25094b6de93a5dca2d4f199d6d3ecda"
+    },
+    {
+      "path": "evidence/E-4.json",
+      "hash": "sha256:691740c45b48108a8b1a47dce799cee065af62aea8291f27a4a4a566f0f531bf"
+    },
+    {
+      "path": "evidence/E-5.json",
+      "hash": "sha256:4d1d20ea74e8cd413840d9b18854301787220c1309483167406a93c113eb7a54"
+    },
+    {
+      "path": "evidence/E-6.json",
+      "hash": "sha256:4ee4ae13443bc82f18bd654a52baa0857cb996a10f06e2fb598a0e12830f744e"
+    },
+    {
+      "path": "evidence/E-7.json",
+      "hash": "sha256:4dcb751eb1bffa1d94d23019aefa506423585978d6069d435b915090f1effae9"
+    },
+    {
+      "path": "evidence/E-8.json",
+      "hash": "sha256:ea68d19c297ab2f3fd8a3c1811ad9988fd9077c8a88a7e50e04f7da11d8d3b0e"
+    },
+    {
+      "path": "evidence/E-9.json",
+      "hash": "sha256:a1bd780e8ea0720b9621144b75be02f687d6e4033f36492c529e57e1d9ec7cc4"
+    },
+    {
+      "path": "evidence/E-10.json",
+      "hash": "sha256:c5cafb40514cec1b008e11ac2e521eb47ff5237301ab82a3f44727c1dab0fab1"
+    },
+    {
+      "path": "evidence/E-11.json",
+      "hash": "sha256:28fb4ddda138f58bb8a8823c2e9289b7a20b4db2c2db57e92cdb41edeaf60f33"
+    },
+    {
+      "path": "evidence/E-12.json",
+      "hash": "sha256:38adc7e7a5ebb6b347251d54ff771219c96c55aff03eebdc573d657cba13f370"
+    },
+    {
+      "path": "evidence/E-13.json",
+      "hash": "sha256:beee09c8df5255958c1adbaada1775fa23d49bdd039cf5d9f585e6ba31f6aa2f"
+    },
+    {
+      "path": "evidence/E-14.json",
+      "hash": "sha256:441b90744b25970060003b289460682d4de3c4c8419c4570eb73c029f424690b"
+    },
+    {
+      "path": "evidence/E-15.json",
+      "hash": "sha256:9b268fc0d0b81c719688d7bfbd2e8a5f30767d8b90dff50dbe1399d90f53452d"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/day.rs" 28 4 28 38 *)
+
+(* <day::Day as std::cmp::PartialEq> *)
+
+let%span sday = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/day.rs" 27 14 27 45
+let%span sday'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/day.rs" 55 20 55 27
+let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 36 8 36 28
+let%span scmp = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/std/cmp.rs" 14 26 14 75
+
+use creusot.int.UInt8
+
+type t_Day = { f0: UInt8.t }
+
+function deep_model_Day [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/day.rs" 54 4 54 44] (self: t_Day) : int
+ = [%#sday'0] UInt8.t'int self.f0
+
+function deep_model_ref_Day [@inline:trivial] (self: t_Day) : int = [%#smodel] deep_model_Day self
+
+meta "rewrite_def" function deep_model_ref_Day
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+goal refines: forall self_: t_Day, rhs: t_Day. forall result: bool. ([%#sday] result
+        = (UInt8.t'int self_.f0 = UInt8.t'int rhs.f0))
+      -> ([%#scmp] result = (deep_model_ref_Day self_ = deep_model_ref_Day rhs))

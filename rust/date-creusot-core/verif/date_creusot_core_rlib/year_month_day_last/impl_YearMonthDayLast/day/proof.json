@@ -1,0 +1,9 @@
+{
+  "profile": [],
+  "proofs": {
+    "Coma": {
+      "vc_day": { "prover": "alt-ergo", "time": 0.064 },
+      "vc_is_leap": { "prover": "alt-ergo", "time": 0.005 }
+    }
+  }
+}

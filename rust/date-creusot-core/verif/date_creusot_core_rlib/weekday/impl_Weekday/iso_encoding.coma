@@ -1,0 +1,28 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 105 4 105 42 *)
+
+(* weekday::Weekday *)
+
+let%span sweekday = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 106 21 106 22
+let%span sweekday'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 107 12 107 13
+let%span sweekday'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 104 14 104 65
+
+use creusot.int.UInt8
+use creusot.prelude.Any
+
+type t_Weekday = { f0: UInt8.t }
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let iso_encoding [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 105 4 105 42]
+  (self: t_Weekday) (return (x: UInt8.t)) = (! bb0
+  [ bb0 = s0
+    [ s0 = [ &_4 <- self.f0 = ([%#sweekday] (0: UInt8.t)) ] s1
+    | s1 = any [ br0 -> {_4 = false} (! bb2) | br1 -> {_4} (! bb1) ] ]
+  | bb1 = s0 [ s0 = [ &_ret <- [%#sweekday'0] (7: UInt8.t) ] s1 | s1 = return {_ret} ]
+  | bb2 = s0 [ s0 = [ &_ret <- self.f0 ] s1 | s1 = return {_ret} ] ]
+  [ & _ret: UInt8.t = Any.any_l () | & self: t_Weekday = self | & _4: bool = Any.any_l () ])
+  [ return (result: UInt8.t) -> {[@stop_split] [@expl:iso_encoding ensures] [%#sweekday'1] UInt8.t'int result
+    = (if UInt8.t'int self.f0 = 0 then 7 else UInt8.t'int self.f0)}
+    (! return {result}) ]

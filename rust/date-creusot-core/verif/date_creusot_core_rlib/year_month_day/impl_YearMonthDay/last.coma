@@ -1,0 +1,41 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 801 4 801 48 *)
+
+(* year_month_day::YearMonthDay *)
+
+let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 802 8 802 52
+let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 800 14 800 80
+let%span syear_month_day_last = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 146 14 146 70
+
+use creusot.int.Int16
+use creusot.int.UInt8
+use creusot.prelude.Any
+
+type t_Year = { f0: Int16.t }
+
+type t_Month = { f0'0: UInt8.t }
+
+type t_Day = { f0'1: UInt8.t }
+
+type t_YearMonthDay = { year: t_Year; month: t_Month; day: t_Day }
+
+type t_YearMonthDayLast = { year'0: t_Year; month'0: t_Month }
+
+let new (year'1: t_Year) (month'1: t_Month) (return (x: t_YearMonthDayLast)) = any
+  [ return (result: t_YearMonthDayLast) ->
+  {[@stop_split] [@expl:new ensures] [%#syear_month_day_last] Int16.to_int result.year'0.f0 = Int16.to_int year'1.f0
+    /\ UInt8.t'int result.month'0.f0'0 = UInt8.t'int month'1.f0'0}
+    (! return {result}) ]
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let last [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 801 4 801 48]
+  (self: t_YearMonthDay) (return (x: t_YearMonthDayLast)) = (! bb0
+  [ bb0 = s0
+    [ s0 = new [%#syear_month_day] {self.year} {self.month} (fun (_x: t_YearMonthDayLast) -> [ &_ret <- _x ] s1)
+    | s1 = return {_ret} ] ] [ & _ret: t_YearMonthDayLast = Any.any_l () | & self: t_YearMonthDay = self ])
+  [ return (result: t_YearMonthDayLast) ->
+  {[@stop_split] [@expl:last ensures] [%#syear_month_day'0] Int16.to_int result.year'0.f0 = Int16.to_int self.year.f0
+    /\ UInt8.t'int result.month'0.f0'0 = UInt8.t'int self.month.f0'0}
+    (! return {result}) ]

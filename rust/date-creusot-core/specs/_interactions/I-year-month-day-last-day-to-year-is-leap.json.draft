@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "I-year-month-day-last-day-to-year-is-leap",
+  "caller": {
+    "concept": "YearMonthDayLast",
+    "method": "day"
+  },
+  "callee": {
+    "concept": "Year",
+    "method": "is_leap"
+  },
+  "edge_class": [
+    "numeric-domain-boundary"
+  ],
+  "eligibility": "boundary-required",
+  "rationale": "The Gregorian month length the caller returns is decided entirely by the callee's leap rule for February, so an error in the callee silently changes 28 to 29 or back for a whole class of years while every other month in the table is unaffected.",
+  "evidence_links": [
+    "E-5",
+    "E-9",
+    "E-14"
+  ],
+  "reliances": [
+    {
+      "obligation_id": "YearMonthDayLast.C1",
+      "required_assurance": {
+        "required_claims": [
+          "postcondition-holds"
+        ],
+        "accepted_evidence_kinds": [
+          "creusot-deductive-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "year in [-32767, 32767], month in [1, 12], day in [1, 31], days::rep is a 32-bit int"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    }
+  ],
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [],
+      "cfg": []
+    }
+  }
+}

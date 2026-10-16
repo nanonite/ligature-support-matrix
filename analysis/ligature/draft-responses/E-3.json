@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-3",
+  "kind": "source-artifact",
+  "claim": "date::weekday::weekday_from_days(z) returns the day of week in [0,6] with 0 = Sunday, written as the two-branch expression z >= -4 ? (u+4) % 7 : u % 7 over u = (unsigned)z because C++ division truncates toward zero, so the negative branch is required for the mathematical modulo to come out right; date::weekday::iso_encoding() is the same value with 0 mapped to 7, giving the ISO 8601 Monday=1..Sunday=7 numbering.",
+  "origin": {
+    "repository": "https://github.com/HowardHinnant/date.git",
+    "commit": "179a6b921ccd6179b5b04dce812a89f71a51b4df",
+    "symbol": "date::weekday::weekday_from_days",
+    "path": "include/date/date.h",
+    "content_hash": "sha256:8c295bc53964ec02fa99ef10816c190a4c34fdcbf1ce2dcc8e451a29932f9d2c",
+    "line_hint": "1826-1832"
+  },
+  "semantic_disposition": "required",
+  "lifecycle": "accepted",
+  "confidence": "high",
+  "mode": "P"
+}

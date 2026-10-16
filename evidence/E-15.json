@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-15",
+  "kind": "observed-behavior",
+  "claim": "operator sys_days() is a total function with no ok() guard, and the era arithmetic normalizes an out-of-range day to the first of the following month rather than rejecting it: 1900-02-29, which has ok() == false, maps to -25508, the same epoch day count as 1900-03-01, and 2023-02-29, also ok() == false, maps to 19417, the same count as 2023-03-01; the round trip therefore fails on exactly the two invalid samples of the E-14 set, 16 of 18 identical and 2 of 18 not. A port that rejects an invalid date where this one normalizes it is not behaviorally equivalent on this input class.",
+  "origin": {
+    "repository": "https://github.com/HowardHinnant/date.git",
+    "commit": "179a6b921ccd6179b5b04dce812a89f71a51b4df",
+    "symbol": "date::year_month_day::operator sys_days (total, unguarded) / from_days normalization",
+    "path": "include/date/date.h",
+    "content_hash": "sha256:8c295bc53964ec02fa99ef10816c190a4c34fdcbf1ce2dcc8e451a29932f9d2c",
+    "line_hint": "2995-3001"
+  },
+  "semantic_disposition": "bug-compat",
+  "lifecycle": "accepted",
+  "confidence": "high",
+  "mode": "P"
+}

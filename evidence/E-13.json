@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-13",
+  "kind": "observed-behavior",
+  "claim": "Measured against the pinned header with g++ 14.3.0 at -std=c++20: the epoch instant 1970-01-01 has date::weekday c_encoding 4 (Thursday); z = -4 and z = 3 both have c_encoding 0 (Sunday) and iso_week::weekday 7; z = -5 has c_encoding 6 and iso_week 6; z = -1 has c_encoding 3; z = 4 has c_encoding 1. So the two weekday encodings agree on every instant except where date::weekday is 0, and there iso_week is 7, with the branch boundary of weekday_from_days falling exactly at z = -4 as the source predicts.",
+  "origin": {
+    "repository": "https://github.com/HowardHinnant/date.git",
+    "commit": "179a6b921ccd6179b5b04dce812a89f71a51b4df",
+    "symbol": "analysis/ligature/evidence-probe.cpp (z = 0, -1, -4, -5, 3, 4)",
+    "path": "include/date/date.h",
+    "content_hash": "sha256:8c295bc53964ec02fa99ef10816c190a4c34fdcbf1ce2dcc8e451a29932f9d2c",
+    "line_hint": "1826-1890"
+  },
+  "semantic_disposition": "required",
+  "lifecycle": "accepted",
+  "confidence": "high",
+  "mode": "P"
+}

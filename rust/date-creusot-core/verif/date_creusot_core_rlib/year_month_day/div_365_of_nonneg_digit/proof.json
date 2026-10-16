@@ -1,0 +1,8 @@
+{
+  "profile": [],
+  "proofs": {
+    "Coma": {
+      "vc_div_365_of_nonneg_digit": { "prover": "alt-ergo", "time": 0.008 }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "concept": "Year",
+  "kind": "struct",
+  "cluster": "date-creusot-core",
+  "english_description": "A signed calendar year with the Gregorian validity and leap-year queries used by the supported date subset.",
+  "verifier": "creusot",
+  "queries": [
+    {
+      "english": "Whether the stored year lies in the supported signed-short domain.",
+      "rust_sig": "fn ok(&self) -> bool",
+      "pure": true,
+      "witness_required": false
+    },
+    {
+      "english": "Whether the stored year satisfies the Gregorian leap-year rule.",
+      "rust_sig": "fn is_leap(&self) -> bool",
+      "pure": true,
+      "witness_required": false
+    }
+  ],
+  "commands": [],
+  "constraints": [
+    {
+      "english": "ok() is true exactly when the stored signed 16-bit year is not -32768.",
+      "logic": "self.0 != i16::MIN",
+      "kind": "postcondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "ok"
+      ],
+      "id": "C001"
+    },
+    {
+      "english": "is_leap() follows the Gregorian divisible-by-four, century, and divisible-by-four-hundred rule.",
+      "logic": "self.0 % 4 == 0 && (self.0 % 100 != 0 || self.0 % 400 == 0)",
+      "kind": "postcondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "is_leap"
+      ],
+      "id": "C002"
+    }
+  ],
+  "adversary_table": [
+    {
+      "scenario": "The reserved signed-short value -32768 is passed to ok().",
+      "violates": "Year.C001",
+      "resolution": "Return false because -32768 is outside the supported year domain."
+    },
+    {
+      "scenario": "The century year 1900 is classified as a leap year.",
+      "violates": "Year.C002",
+      "resolution": "Return false because 1900 is divisible by 100 but not by 400."
+    }
+  ],
+  "source_references": [
+    {
+      "kind": "reference-implementation",
+      "citation_or_path": "upstream/date/include/date/date.h:401-427, 1697-1713",
+      "notes": "Pinned C++ representation, supported year bounds, ok(), and Gregorian is_leap() implementation; supported by accepted E-5 and E-12."
+    },
+    {
+      "kind": "other",
+      "citation_or_path": "rust/date-creusot-core/src/year.rs",
+      "notes": "Creusot implementation and ensures clauses for Year::ok and Year::is_leap."
+    }
+  ],
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-16"
+  }
+}

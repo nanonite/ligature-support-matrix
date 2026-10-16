@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-11",
+  "kind": "requirement",
+  "claim": "Every function in the subset is constexpr at C++14 level (CONSTCD14) with no C++20-only or library-only construct in the era arithmetic, weekday_from_days, ok() or the month-length table, and CONSTCD11 is used only for leaf accessors; a port can therefore be required to expose these as Rust const fn, and any evidence the tool records about them is compile-time evidence about a different language from the Creusot proof of the runtime function.",
+  "origin": {
+    "repository": "https://github.com/HowardHinnant/date.git",
+    "commit": "179a6b921ccd6179b5b04dce812a89f71a51b4df",
+    "symbol": "CONSTCD14 / CONSTCD11 annotations across the subset",
+    "path": "include/date/date.h",
+    "content_hash": "sha256:8c295bc53964ec02fa99ef10816c190a4c34fdcbf1ce2dcc8e451a29932f9d2c",
+    "line_hint": "2976-3017"
+  },
+  "semantic_disposition": "required",
+  "lifecycle": "accepted",
+  "confidence": "medium",
+  "mode": "P"
+}

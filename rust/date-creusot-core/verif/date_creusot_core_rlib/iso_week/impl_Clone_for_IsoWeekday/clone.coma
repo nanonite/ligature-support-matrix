@@ -1,0 +1,18 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 66 9 66 14 *)
+
+(* <iso_week::IsoWeekday as std::clone::Clone> *)
+
+use creusot.int.UInt8
+use creusot.prelude.Any
+
+type t_IsoWeekday = { f0: UInt8.t }
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let clone_IsoWeekday [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 66 9 66 14]
+  (self: t_IsoWeekday) (return (x: t_IsoWeekday)) = (! bb0
+  [ bb0 = s0 [ s0 = [ &_ret <- self ] s1 | s1 = return {_ret} ] ]
+  [ & _ret: t_IsoWeekday = Any.any_l () | & self: t_IsoWeekday = self ])
+  [ return (result: t_IsoWeekday) -> (! return {result}) ]

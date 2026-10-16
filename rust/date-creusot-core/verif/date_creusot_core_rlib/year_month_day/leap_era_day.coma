@@ -1,0 +1,77 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 269 0 269 47 *)
+
+let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 266 11 267 51
+let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 268 10 268 63
+let%span syear_month_day'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 225 10 225 50
+let%span syear_month_day'2 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 230 10 230 54
+let%span syear_month_day'3 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 235 10 235 54
+let%span syear_month_day'4 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 226 39 226 41
+let%span syear_month_day'5 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 231 41 231 43
+let%span syear_month_day'6 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 236 41 236 43
+
+use int.ComputerDivision
+use int.Int
+
+function div_4_era_shift [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 226 0 226 38] (x: int) (e: int) : ()
+ = [%#syear_month_day'4] ()
+
+axiom div_4_era_shift_spec: forall x: int, e: int. [%#syear_month_day'1] (ComputerDivision.mod (x - 400 * e) 4 = 0)
+    = (ComputerDivision.mod x 4 = 0)
+
+function div_100_era_shift [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 231 0 231 40] (x: int) (e: int) : ()
+ = [%#syear_month_day'5] ()
+
+axiom div_100_era_shift_spec: forall x: int, e: int. [%#syear_month_day'2] (ComputerDivision.mod (x - 400 * e) 100 = 0)
+    = (ComputerDivision.mod x 100 = 0)
+
+function div_400_era_shift [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 236 0 236 40] (x: int) (e: int) : ()
+ = [%#syear_month_day'6] ()
+
+axiom div_400_era_shift_spec: forall x: int, e: int. [%#syear_month_day'3] (ComputerDivision.mod (x - 400 * e) 400 = 0)
+    = (ComputerDivision.mod x 400 = 0)
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+constant y : int
+
+constant yoe : int
+
+constant era : int
+
+function leap_era_day [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 269 0 269 47] (y: int) (yoe: int) (era: int) : ()
+
+goal vc_leap_era_day: ([%#syear_month_day] 0 <= yoe
+    /\ yoe <= 399
+    /\ y = yoe + 1 + 400 * era
+    /\ ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0))
+  -> ([@stop_split] [@expl:div_4_era_shift ensures] [%#syear_month_day'1] (ComputerDivision.mod (y - 1 - 400 * era) 4
+      = 0)
+    = (ComputerDivision.mod (y - 1) 4 = 0))
+  -> (let _ = div_4_era_shift (y
+  - 1) era in ([@stop_split] [@expl:div_100_era_shift ensures] [%#syear_month_day'2] (ComputerDivision.mod (y
+        - 400 * era) 100
+      = 0)
+    = (ComputerDivision.mod y 100 = 0))
+  -> (let _ = div_100_era_shift y era in ([@stop_split] [@expl:div_400_era_shift ensures] [%#syear_month_day'3] (ComputerDivision.mod (y
+        - 400 * era) 400
+      = 0)
+    = (ComputerDivision.mod y 400 = 0))
+  -> (let _ = div_400_era_shift y era in if yoe = 99 then
+    [@stop_split] [@expl:leap_era_day ensures] [%#syear_month_day'0] ComputerDivision.mod yoe 4 = 3
+    /\ yoe <> 99 /\ yoe <> 199 /\ yoe <> 299
+  else
+    if yoe = 199 then
+      [@stop_split] [@expl:leap_era_day ensures] [%#syear_month_day'0] ComputerDivision.mod yoe 4 = 3
+      /\ yoe <> 99 /\ yoe <> 199 /\ yoe <> 299
+    else
+      if yoe = 299 then
+        [@stop_split] [@expl:leap_era_day ensures] [%#syear_month_day'0] ComputerDivision.mod yoe 4 = 3
+        /\ yoe <> 99 /\ yoe <> 199 /\ yoe <> 299
+      else
+        [@stop_split] [@expl:leap_era_day ensures] [%#syear_month_day'0] ComputerDivision.mod yoe 4 = 3
+        /\ yoe <> 99 /\ yoe <> 199 /\ yoe <> 299
+    
+  
+  )))

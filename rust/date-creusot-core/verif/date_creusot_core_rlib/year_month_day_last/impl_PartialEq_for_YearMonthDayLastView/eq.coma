@@ -1,0 +1,37 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 99 4 99 36 *)
+
+(* <year_month_day_last::YearMonthDayLastView as std::cmp::PartialEq> *)
+
+let%span syear_month_day_last = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 100 8 100 29
+let%span syear_month_day_last'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 100 33 100 56
+let%span syear_month_day_last'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 100 8 100 56
+let%span syear_month_day_last'2 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 95 14 98 5
+let%span sint = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/logic/int.rs" 260 14 260 41
+
+use creusot.prelude.Any
+
+type t_YearMonthDayLastView = { year: int; month: int }
+
+let eq_Int (self: int) (other: int) (return (x: bool)) = any
+  [ return (result: bool) -> {[@stop_split] [@expl:eq ensures] [%#sint] result = (self = other)} (! return {result}) ]
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let eq_YearMonthDayLastView [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 99 4 99 36]
+  (self: t_YearMonthDayLastView) (rhs: t_YearMonthDayLastView) (return (x: bool)) = (! bb0
+  [ bb0 = s0
+    [ s0 = eq_Int [%#syear_month_day_last] {self.year} {rhs.year} (fun (_x: bool) -> [ &_6 <- _x ] s1)
+    | s1 = any [ br0 -> {_6 = false} (! bb3) | br1 -> {_6} (! bb2) ] ]
+  | bb2 = s0
+    [ s0 = eq_Int [%#syear_month_day_last'0] {self.month} {rhs.month} (fun (_x: bool) -> [ &_ret <- _x ] s1)
+    | s1 = return {_ret} ]
+  | bb3 = s0 [ s0 = [ &_ret <- [%#syear_month_day_last'1] false ] s1 | s1 = return {_ret} ] ]
+  [ & _ret: bool = Any.any_l ()
+  | & self: t_YearMonthDayLastView = self
+  | & rhs: t_YearMonthDayLastView = rhs
+  | & _6: bool = Any.any_l () ])
+  [ return (result: bool) -> {[@stop_split] [@expl:eq ensures] [%#syear_month_day_last'2] result
+    = (self.year = rhs.year /\ self.month = rhs.month)}
+    (! return {result}) ]

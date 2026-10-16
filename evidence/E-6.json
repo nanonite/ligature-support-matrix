@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-6",
+  "kind": "requirement",
+  "claim": "Both era-arithmetic functions are guarded by the same two static_asserts, requiring numeric_limits<unsigned>::digits >= 18 and numeric_limits<int>::digits >= 20, so the port must reject any target whose int or unsigned is narrower than 32 bits; the guards are about intermediate headroom for doe = yoe*365 + yoe/4 - yoe/100 + doy, not about the result overflowing.",
+  "origin": {
+    "repository": "https://github.com/HowardHinnant/date.git",
+    "commit": "179a6b921ccd6179b5b04dce812a89f71a51b4df",
+    "symbol": "date::year_month_day::to_days",
+    "path": "include/date/date.h",
+    "content_hash": "sha256:8c295bc53964ec02fa99ef10816c190a4c34fdcbf1ce2dcc8e451a29932f9d2c",
+    "line_hint": "2981-2984"
+  },
+  "semantic_disposition": "required",
+  "lifecycle": "accepted",
+  "confidence": "high",
+  "mode": "P"
+}

@@ -1,0 +1,10 @@
+{
+  "profile": [],
+  "proofs": {
+    "Coma": {
+      "vc_eq_Month": { "prover": "alt-ergo", "time": 0.005 },
+      "vc_eq_Year": { "prover": "alt-ergo", "time": 0.005 },
+      "vc_eq_YearMonthDayLast": { "prover": "alt-ergo", "time": 0.012 }
+    }
+  }
+}

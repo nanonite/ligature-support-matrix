@@ -1,0 +1,1257 @@
+# Ligature init and descriptor check evidence
+
+Recorded: 2026-09-25
+Pilot: date-creusot
+Working directory: date-creusot/
+Pinned artifact: tools/ligature/ligature.pyz
+Artifact SHA-256: 0ffe6e0eeba3cf329228b9ce3e8f0d576458b6b2a9aec48e43f60a016f9afc4f
+
+The pilot had no Rust implementation before initialization: `rust/` contained
+only `.gitkeep`, and no `project-descriptor.json` existed. The unchanged
+`.gitkeep` mtime is recorded below.
+
+## Init
+
+Command:
+
+```text
+python3 tools/ligature/ligature.pyz init --mode port
+```
+
+Output:
+
+```text
+installation: current
+mode: port  project: date-creusot
+     create  .codex/skills/ligature/SKILL.md
+     create  .ligature/prompts/stage-0-evidence-intake.md
+     create  .ligature/prompts/stage-3-boundary-drafting.md
+     create  .ligature/prompts/stage-3-interaction-drafting.md
+     create  .ligature/schemas/consolidated-check.schema.json
+     create  .ligature/schemas/project-state.schema.json
+     create  docs/reliance-policy.md
+     create  project-descriptor.json
+ownership manifest: ci/manifest/installation.json
+```
+
+## Descriptor completion
+
+`port_source.repository` is the actual HowardHinnant/date repository.
+`port_source.oracle_build_command` now uses the issue #10 configure flags and
+the real upstream `testit` target, not a nonexistent `oracle` target:
+
+```text
+nix develop ..#date-creusot -c bash -lc 'cmake -S upstream/date -B /tmp/date-creusot-date-v3.0.5-build-gcc -DENABLE_DATE_TESTING=ON -DBUILD_TZ_LIB=ON -DUSE_SYSTEM_TZ_DB=ON -DCMAKE_CXX_STANDARD=20 -DCMAKE_CXX_COMPILER=g++ && cmake --build /tmp/date-creusot-date-v3.0.5-build-gcc --target testit'
+```
+
+`upstream/date/CMakeLists.txt:240` defines
+`add_custom_target( testit COMMAND ${CMAKE_CTEST_COMMAND} )`.
+
+The configure half was re-run successfully; raw output tail:
+
+```text
+# date: USE_SYSTEM_TZ_DB ON
+# date: MANUAL_TZ_DB OFF
+# date: USE_TZ_DB_IN_DOT OFF
+# date: BUILD_SHARED_LIBS OFF
+# date: ENABLE_DATE_TESTING ON
+# date: DISABLE_STRING_VIEW OFF
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Configuring done (1.4s)
+-- Generating done (0.1s)
+-- Build files have been written to: /tmp/date-creusot-date-v3.0.5-build-gcc
+```
+
+## Pinned commit probe
+
+`git -C upstream/date rev-parse HEAD` returned:
+
+```text
+179a6b921ccd6179b5b04dce812a89f71a51b4df
+```
+
+Adding `"commit": "179a6b921ccd6179b5b04dce812a89f71a51b4df"` inside
+`port_source` was tested. Command:
+
+```text
+python3 tools/ligature/ligature.pyz status --json
+```
+
+Raw output, exit code 0:
+
+```json
+{"artifacts":[{"artifact_id":"installation","content_hash":"sha256:eb4615003a07f43ef2fffe52fa2dc7c58004b0852b44a942be14c652fe6fccce","kind":"work-package","lifecycle":"invalid","path":"ci/manifest/installation.json"}],"binary_identity":{"content_hash":"sha256:74898f6b9feef0d6759d1a81c84692559eab36515a65492ea1697c0187f54adb","verified":"true","version":"1.0.0"},"change_requests":[],"clusters":[],"descriptor":{"mode":null,"path":"project-descriptor.json","schema_version":null,"state":"present-invalid"},"gate_integrity":{"details":"no project descriptor present","state":"unknown"},"generated_observations":{"feature_ledger_generated_at":null,"witness_summaries":[]},"human_decisions":[],"installation_manifest":{"installed_product_version":"1.0.0","installed_schema_versions":{"consolidated-check":"1.0","project-descriptor":"1.0","project-state":"1.0","skill":"1.0"},"state":"current"},"obligations":[],"open_findings":[],"product":{"name":"ligature","version":"1.0.0"},"schema_version":"1.0"}
+```
+
+The descriptor schema therefore rejected `port_source.commit` and gave no
+property-level diagnostic. The key was removed to restore a valid descriptor;
+the pinned commit is recorded in this file and in
+`analysis/ligature/closure-intent.json`. The limitation is logged as
+`date-ligature-002` in `findings/limitations.jsonl`.
+
+## Pre-implementation closure intent
+
+Machine-readable decision file: `analysis/ligature/closure-intent.json`.
+
+```json
+{
+  "schema_version": "1.0",
+  "project": "date-creusot",
+  "decision_stage": "pre-implementation",
+  "verifier_policy": {
+    "default": "creusot"
+  },
+  "closure_kind": "deductive",
+  "port_source": {
+    "repository": "https://github.com/HowardHinnant/date.git",
+    "commit": "179a6b921ccd6179b5b04dce812a89f71a51b4df"
+  },
+  "implementation_present": false,
+  "recorded_at": "2026-09-25"
+}
+```
+
+Proof that this task wrote the decision before any implementation:
+
+```text
+2026-09-25 10:20:17.427847471 -0500  analysis/ligature/closure-intent.json
+2026-09-25 10:20:19.955848169 -0500  README.md
+2026-09-25 10:20:12.097846242 -0500  project-descriptor.json
+2026-09-25 10:21:09.080876131 -0500  docs/reliance-policy.md
+2026-09-25 10:20:46.270859810 -0500  findings/limitations.jsonl
+2026-09-24 12:47:20.453102299 -0500  rust/.gitkeep
+```
+
+## Reliance policy
+
+`docs/reliance-policy.md` no longer contains template placeholders. Its exact
+parser-visible line is:
+
+```text
+Policy version: date-creusot-reliance-policy@1.0
+```
+
+Local validation output:
+
+```text
+closure-intent.json: deductive/creusot recorded; reliance-policy.md: no placeholders and one well-formed Policy version
+```
+
+## Version
+
+Command:
+
+```text
+python3 tools/ligature/ligature.pyz version
+```
+
+Output:
+
+```text
+ligature 1.0.0
+  adjudicator: zipapp (attested: true)
+  content hash: sha256:74898f6b9feef0d6759d1a81c84692559eab36515a65492ea1697c0187f54adb
+  bundle: 82 file(s)
+  bundled schemas: 27
+  required python: >= 3.10 (running 3.12.3)
+  platform: Linux/x86_64 (required: any)
+  artifact: /home/goya/storage/full-ligature-port-workspace/date-creusot/tools/ligature/ligature.pyz
+  source: b005c606dc35d45fbf7028443d496e12001ed722 (clean working tree)
+```
+
+## Final status
+
+Command:
+
+```text
+python3 tools/ligature/ligature.pyz status --json
+```
+
+Exit code: 0
+
+Raw output:
+
+```json
+{"artifacts":[{"artifact_id":"installation","content_hash":"sha256:eb4615003a07f43ef2fffe52fa2dc7c58004b0852b44a942be14c652fe6fccce","kind":"work-package","lifecycle":"invalid","path":"ci/manifest/installation.json"}],"binary_identity":{"content_hash":"sha256:74898f6b9feef0d6759d1a81c84692559eab36515a65492ea1697c0187f54adb","verified":"true","version":"1.0.0"},"change_requests":[],"clusters":[],"descriptor":{"mode":"port","path":"project-descriptor.json","schema_version":"1.0","state":"present-valid"},"gate_integrity":{"details":"4 gate path(s) match the installed manifest","state":"pinned"},"generated_observations":{"feature_ledger_generated_at":null,"witness_summaries":[]},"human_decisions":[],"installation_manifest":{"installed_product_version":"1.0.0","installed_schema_versions":{"consolidated-check":"1.0","project-descriptor":"1.0","project-state":"1.0","skill":"1.0"},"state":"current"},"obligations":[],"open_findings":[],"product":{"name":"ligature","version":"1.0.0"},"schema_version":"1.0"}
+```
+
+The `artifacts[0].lifecycle: "invalid"` entry is a real tool finding, not a
+clean result. It is the C.1 ownership-manifest/work-package collision tracked by
+chainlink #55 and recorded as `date-ligature-001` in
+`findings/limitations.jsonl`. The same status JSON simultaneously reports
+`installation_manifest.state: "current"`.
+
+## Final check
+
+Command:
+
+```text
+python3 tools/ligature/ligature.pyz check --json
+```
+
+Exit code: 0
+
+Raw output:
+
+```json
+{"change_request_stubs":[],"findings":[],"gates":[{"gate_id":"r1-g16","outcome":"blocked","reason":"no C_static reports at ci/results/c_static/ -- run extract-c-static first"},{"gate_id":"g9","outcome":"not-applicable","reason":"no bridge specifications present in this workspace"},{"gate_id":"g14","outcome":"not-applicable","reason":"no closure profiles present"},{"gate_id":"g18","outcome":"not-applicable","reason":"no witness specifications present"},{"gate_id":"g19","outcome":"not-applicable","reason":"no witness specifications present"},{"gate_id":"g20","outcome":"not-applicable","reason":"no witness specifications present"}],"mutated_workspace":false,"next_action":{"action_id":"refresh-c-static","command":"ligature extract-c-static --target <target-triple>","description":"no C_static reports at ci/results/c_static/ -- run extract-c-static first","kind":"automated-command"},"result":{"conditions":[],"exit_code":0},"schema_version":"1.0"}
+```
+
+`check` reports no consolidated-gate finding and exits 0. R1-G16 remains
+expectedly blocked before implementation. G14 remains not-applicable because
+no pipeline closure profile exists yet; the pre-implementation intent is the
+separate `analysis/ligature/closure-intent.json` record above.
+
+## Workspace-root integrity
+
+Before and after this follow-up, from the workspace root:
+
+```text
+8a3fdb4742c8aa8488ea889413611fa3  flake.nix
+f4bf5566bd4b89f6a6db076eb937f83d  flake.lock
+```
+
+## Re-verification pass (2026-09-25, follow-up)
+
+Independent re-run of the recorded checks, then a descriptor-schema probe
+matrix for `closure_kind`. The descriptor was backed up to
+`/tmp/opencode/pd.orig.json` and restored byte-identically after each probe:
+
+```text
+7c0da995956d87e7325d500eab757599b03cb494c2f88bbe358fb54410a50b14  project-descriptor.json  (before)
+7c0da995956d87e7325d500eab757599b03cb494c2f88bbe358fb54410a50b14  project-descriptor.json  (after)
+```
+
+`status --json`, `check --json` and `doctor` reproduce byte-for-byte the
+"Final status" and "Final check" sections above; `rust/` still holds only
+`.gitkeep`, so no implementation exists and the closure intent below is
+still pre-implementation.
+
+### closure_kind declaration probe
+
+The plan's per-pilot step 1 requires the intended `closure_kind` to be set
+alongside `verifier_policy.default` before any code exists. `init` offers no
+such switch:
+
+```text
+$ python3 tools/ligature/ligature.pyz init --help
+usage: ligature.pyz init [-h] --mode {greenfield,port} [--name NAME]
+
+options:
+  -h, --help            show this help message and exit
+  --mode {greenfield,port}
+  --name NAME           project name (defaults to the workspace directory
+                        name)
+```
+
+and the descriptor schema 1.0 accepts none of the four probed shapes. Each row
+below was written into `project-descriptor.json`, then read back with
+`status --json` and `check --json`; the file was restored after every probe:
+
+| added key | `status.descriptor.state` | `check --json` exit | `check` conditions | `check` next_action |
+| --- | --- | --- | --- | --- |
+| (none, baseline) | `present-valid` | 0 | `[]` | `refresh-c-static` |
+| top-level `"closure_kind": "deductive"` | `present-invalid` | 2 | `["invalid_input"]` | `null` |
+| `verifier_policy.closure_kind: "deductive"` | `present-invalid` | 2 | `["invalid_input"]` | `null` |
+| top-level `"closure": {"kind": "deductive"}` | `present-invalid` | 2 | `["invalid_input"]` | `null` |
+| `verifier_policy.closure_kinds: ["deductive"]` | `present-invalid` | 2 | `["invalid_input"]` | `null` |
+
+With any of them present, `status` additionally reports
+`gate_integrity: {"details": "no project descriptor present", "state":
+"unknown"}` and nulls `descriptor.mode` and `descriptor.schema_version` —
+even though the file is present, readable and otherwise unchanged. No output
+from `status`, `check` or `doctor` names the rejected property or lists the
+permitted alternatives. This is recorded as `date-ligature-003` in
+`findings/limitations.jsonl`; the `port_source.commit` case remains
+`date-ligature-002`. Because the schema cannot carry `closure_kind`, the
+pre-implementation declaration of intent is the `analysis/ligature/closure-intent.json`
+side record quoted above (`verifier_policy.default: creusot`,
+`closure_kind: deductive`, `implementation_present: false`), mirrored in
+`README.md`.
+
+### C.1 evidence from the tool's own generated schema
+
+`init` generates `.ligature/schemas/project-state.schema.json` into this root,
+so it is readable here as a tool-produced file (no source inspection, no
+unzipping). Its `artifact` definition is what makes the `status`
+misclassification in `date-ligature-001` a defect rather than a display quirk:
+
+```json
+"kind": {
+  "type": "string",
+  "minLength": 1,
+  "description": "One of docs/cli-contract.md \u00a72's artifact-kind values, e.g. 'boundary', 'interaction', 'bridge'."
+}
+```
+
+and, for the lifecycle value the tool actually emits:
+
+```json
+"'unknown' is for a status run that could not determine lifecycle ... -- distinct from 'invalid', which means status COULD check it and it failed."
+```
+
+So `kind: "work-package"` on `ci/manifest/installation.json` means the tool
+applied Stage 7 work-package validation to its own installation ownership
+manifest and declared that it failed, in the same run that reports
+`installation_manifest.state: "current"` and a `doctor` run that reports
+`installation: current`, and immediately after an `init` that printed
+`ownership manifest: ci/manifest/installation.json`. The human-readable form
+gives no reason either:
+
+```text
+$ python3 tools/ligature/ligature.pyz status
+ligature 1.0.0 -- project state
+descriptor: present-valid (project-descriptor.json)
+installation manifest: current
+gate integrity: pinned -- 4 gate path(s) match the installed manifest
+artifacts (1): invalid=1
+obligations: 0 declared, 0 with an unmet required dimension
+open findings: 0
+human decisions pending: 0
+change requests: 0
+```
+
+This is chainlink #55's C.1 collision; the upstream report is #71.
+
+## Second re-verification pass (2026-09-25, attempt 3)
+
+Purpose: close the one open question the first probe matrix left — whether the
+four rejected `closure_kind` spellings were rejected because the schema has a
+*differently named* field, or because the descriptor schema is closed to
+unknown properties everywhere. Answer: the latter, provably, and `doctor` is
+blind to the whole condition.
+
+### Closed-world probe matrix
+
+Method: the descriptor was copied to `/tmp/opencode/pd.orig.json`, one shape was
+injected at a time, and `status --json`, `check --json` and `doctor` were run
+per shape; the file was restored after every probe. Before/after:
+
+```text
+7c0da995956d87e7325d500eab757599b03cb494c2f88bbe358fb54410a50b14  project-descriptor.json  (before)
+7c0da995956d87e7325d500eab757599b03cb494c2f88bbe358fb54410a50b14  project-descriptor.json  (after)
+```
+
+(Restoring rewrote the file, so its mtime is now this attempt's; the sha256 is
+unchanged, which is the claim that matters. `rust/.gitkeep` still carries its
+original `2026-09-24 12:47:20` mtime and `rust/` still holds nothing else, so
+the pre-implementation ordering recorded above is unaffected.)
+
+| injected shape | `descriptor.state` | `gate_integrity` | `check` exit | `check` conditions | `check` findings | `check` next_action | `doctor` exit |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| none (baseline) | `present-valid` | `pinned` | 0 | `[]` | `[]` | `refresh-c-static` | 0 |
+| top-level `"closure_kind"` | `present-invalid` | `unknown` | 2 | `["invalid_input"]` | `[]` | `null` | 0 |
+| `verifier_policy.closure_kind` | `present-invalid` | `unknown` | 2 | `["invalid_input"]` | `[]` | `null` | 0 |
+| top-level `"closure": {"kind"}` | `present-invalid` | `unknown` | 2 | `["invalid_input"]` | `[]` | `null` | 0 |
+| `verifier_policy.closure_kinds: []` | `present-invalid` | `unknown` | 2 | `["invalid_input"]` | `[]` | `null` | 0 |
+| top-level `"closure_profile": {cluster,kind}` | `present-invalid` | `unknown` | 2 | `["invalid_input"]` | `[]` | `null` | 0 |
+| top-level `"closure_profiles": [{cluster,kind}]` | `present-invalid` | `unknown` | 2 | `["invalid_input"]` | `[]` | `null` | 0 |
+| top-level `"closure": {"default_kind"}` | `present-invalid` | `unknown` | 2 | `["invalid_input"]` | `[]` | `null` | 0 |
+| top-level `"intended_closure_kind"` | `present-invalid` | `unknown` | 2 | `["invalid_input"]` | `[]` | `null` | 0 |
+| top-level `"assurance": {"closure_kind"}` | `present-invalid` | `unknown` | 2 | `["invalid_input"]` | `[]` | `null` | 0 |
+| `verifier_policy.closure_kind_default` | `present-invalid` | `unknown` | 2 | `["invalid_input"]` | `[]` | `null` | 0 |
+| **CONTROL** top-level `"zzz_not_a_real_field": 1` | `present-invalid` | `unknown` | 2 | `["invalid_input"]` | `[]` | `null` | 0 |
+| **CONTROL** `port_source.pinned_commit` | `present-invalid` | `unknown` | 2 | `["invalid_input"]` | `[]` | `null` | 0 |
+| **CONTROL** top-level `"commit"` | `present-invalid` | `unknown` | 2 | `["invalid_input"]` | `[]` | `null` | 0 |
+
+The control row is the load-bearing one: a deliberately meaningless key produces
+a signature **byte-identical** to every plausible `closure_kind` spelling. The
+descriptor schema is therefore closed to unknown properties at every level, and
+the tool cannot distinguish "you misspelled a real field" from "this concept is
+not declarable here" — the two cases a user most needs told apart. This upgrades
+`date-ligature-003` / chainlink #72 from "four spellings were refused" to
+"the field does not exist in any spelling, and the refusal is undiagnosable".
+The same control also generalizes `date-ligature-002`: it is not
+`port_source` specifically that lacks a pinned-revision field.
+
+### `doctor` does not see the invalid descriptor at all
+
+With top-level `"closure_kind": "deductive"` in place, `doctor` exits **0** and
+reports a completely healthy installation — while `check --json` in the same
+workspace is fail-closed at exit 2 and `status` reports `present-invalid` plus
+`"no project descriptor present"`:
+
+```text
+Installation:
+  installation: current
+  mode: port  project: date-creusot
+  skill authority hash: verified
+    unchanged  .codex/skills/ligature/SKILL.md
+    ...
+    user-owned  docs/reliance-policy.md
+    user-owned  project-descriptor.json
+Executable attestation:
+  ligature 1.0.0
+    ...
+  adjudicator pin: pinned -- running executable matches the recorded adjudicator
+```
+
+`doctor` names `project-descriptor.json` in its own inventory — as `user-owned`,
+the exact file that is invalid — and never validates its content. So of the three
+diagnostics, `check` is fail-closed, `status` is contradictory
+(`present-invalid` next to `installation_manifest.state: current`), and `doctor`
+is silent. Recorded as `date-ligature-004`; upstream report #73.
+
+### Where `closure_kind` actually lives in v1.0
+
+The tool's own `init`-generated `.ligature/schemas/project-state.schema.json`
+(a file the tool wrote into this root, so readable here without inspecting the
+bundle) puts `closure_kind` in exactly one place — a per-cluster record:
+
+```json
+"cluster": {
+  "type": "object",
+  "required": ["cluster", "closure_kind", "state", "limitations"],
+  "additionalProperties": false,
+  "properties": {
+    "cluster": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "closure_kind": { "type": "string", "enum": ["deductive", "bounded", "unknown"] },
+    "state": { "type": "string", "enum": ["closes", "degraded", "blocked", "unknown"] },
+    "limitations": { "type": "array", "items": { "type": "string" } }
+  }
+}
+```
+
+`status` reports `"clusters": []` before implementation, and a cluster cannot
+exist before a work package does. `check` independently confirms there is
+nothing else to find: `"g14": {"outcome": "not-applicable", "reason": "no
+closure profiles present"}`. So in v1.0 the intended `closure_kind` has no
+pre-code home at all — not in `init` (`--mode`/`--name` only), not in the closed
+descriptor, and not in the state model until a cluster exists. The plan's
+per-pilot step 1 ("set the intended `closure_kind` before any code exists")
+therefore cannot be satisfied through the tool, and the declaration of intent
+remains the side record `analysis/ligature/closure-intent.json` plus
+`README.md`, unreadable by the tool at G14 time. A pre-written closure profile
+file is *conceivably* discoverable by directory convention the way
+`_interactions/` and `_bridges/` are, but confirming that would mean creating
+Stage 8C artifacts ahead of this issue's position in the graph (§3), and
+`validate-closure` / `gate-g14` take no arguments at all
+(`usage: ligature.pyz validate-closure [-h]`) — they read only the descriptor.
+
+### Final state re-confirmed this pass
+
+`status` (exit 0), `check --json` (exit 0) and `doctor` (exit 0) reproduce the
+"Final status" / "Final check" sections above byte-for-byte. `check next` names
+the single next action:
+
+```text
+next action: [refresh-c-static] ligature extract-c-static --target <target-triple>
+```
+
+`upstream/date` is still at `179a6b921ccd6179b5b04dce812a89f71a51b4df` with a
+clean `git status --porcelain`; `rust/` still holds only `.gitkeep`;
+`docs/reliance-policy.md` still has zero placeholder matches and its one
+parser-visible line `Policy version: date-creusot-reliance-policy@1.0`;
+`flake.nix` / `flake.lock` md5 are unchanged from the values recorded above.
+
+---
+
+## Attempt 4 — integrity-gate probing and the `crates/` → `rust/` correction
+
+Prior passes re-ran `status` / `check` / `doctor` against this root and found
+the C.1 artifact collision (#71) and the closed descriptor schema (#72, #73).
+This pass did two things they did not.
+
+### 1. Clean-room `init --mode port` as the reference point
+
+Rather than only reading this root's state, I ran `init --mode port` in an
+empty scratch directory with the same pinned pyz and diffed the generated
+template against the filled descriptor. That turns "is the descriptor filled?"
+into a question with an answer.
+
+`init` writes exactly eight files:
+
+```text
+installation: current
+mode: port  project: dc-clean
+     create  .codex/skills/ligature/SKILL.md
+     create  .ligature/prompts/stage-0-evidence-intake.md
+     create  .ligature/prompts/stage-3-boundary-drafting.md
+     create  .ligature/prompts/stage-3-interaction-drafting.md
+     create  .ligature/schemas/consolidated-check.schema.json
+     create  .ligature/schemas/project-state.schema.json
+     create  docs/reliance-policy.md
+     create  project-descriptor.json
+ownership manifest: ci/manifest/installation.json
+```
+
+Note what is *not* there: `schemas/project-descriptor.schema.json` is listed by
+`doctor` as a bundled schema (`schemas/project-descriptor.schema.json: 1.0`)
+and by `installation_manifest.installed_schema_versions` as
+`"project-descriptor": "1.0"`, but `init` does not install it into
+`.ligature/schemas/`. The one schema that governs the only user-authored file
+in the workspace is the one schema a user cannot read. That is the upstream
+root cause behind #72 and #73, and it is now stated in #74's description.
+
+### 2. The P0 descriptor-placeholder gate, and what it does not cover
+
+The shipped template is *not* a valid P0 state. On a pristine `init`:
+
+```text
+check exit=1  conditions=['blocking_findings', 'human_decision_required']  findings=1
+[P0/high/human-decision-pending] project descriptor is still the init template:
+  review.reviewer, port_source.repository, verifier_policy.default still hold
+  the shipped example-fixture value(s); replace them with real project values
+  before running any stage (chainlink #67)
+status human_decisions=[('P0','pending')]  open_findings=1
+```
+
+A twelve-case matrix over that gate (each case re-read with both `check` and
+`status`) shows it is per-field and not buggy in the suppression sense:
+
+| case | fields still at fixture | check exit | finding names |
+| --- | --- | --- | --- |
+| M0 | all three | 1 | reviewer, repository, verifier |
+| M1 | reviewer, repository, verifier | 1 | repository |
+| M2 | reviewer, verifier | 1 | reviewer |
+| M3 | reviewer, repository | 1 | (none — verifier is `verus`) |
+| M5 | verifier only (reviewer+repository filled) | 0 | — |
+| M6 | reviewer, repository | 1 | reviewer |
+| M7 | reviewer | 1 | repository |
+| M8 | none | 0 | — |
+| M9 | verifier only, set back to `creusot` | 0 | — |
+| M10 | `verifier_policy.default: "CREUSOT"` | 2 | — (schema-invalid) |
+
+M9 is the useful one: the shipped `verifier_policy.default` is already
+`"creusot"`, so for this Creusot-owned pilot the *correct* value is
+byte-identical to the fixture, and P0 neither objects nor can be satisfied by
+editing it. P2 and P3 must hand-edit it.
+
+**The gap is coverage, not correctness.** `port_source.oracle_build_command`
+ships the fixture value `cmake --build build --target oracle` and is never named
+by P0. Verified: reviewer + repository filled, `oracle_build_command` left at
+the fixture value → `check` exit 0, `findings: []`. A workspace can clear P0
+still carrying a placeholder oracle build command. Recorded as
+`date-ligature-008`.
+
+### 3. Descriptor paths are not validated at all — and one of them was wrong
+
+`crates[].crate_dir`, `crates[].specs_search_root` and
+`write_set.allowed_roots` are accepted verbatim. All of the following give
+`check` exit 0, `findings: []`, `status.descriptor.state: present-valid`,
+`gate_integrity: pinned`:
+
+- `crate_dir: "crates/dc-clean-core"` pointing at a directory that does not
+  exist (this is the shipped default);
+- `crate_dir: "/nonexistent/absolute/path-elsewhere"`, an absolute path that
+  escapes the project root;
+- `allowed_roots: ["**"]`, i.e. a write set that permits everything.
+
+That matters here, because the filled descriptor had carried `init`'s
+`crates/` defaults —
+
+```json
+"crates": [{"crate_dir": "crates/date-creusot-core", "contracts_crate": "contracts", "specs_search_root": "crates"}],
+"write_set": {"allowed_roots": ["crates/*/src/", "crates/*/tests/"],
+              "protected_roots": ["crates/*/specs/**", ...]}
+```
+
+— while three independent sources say the Rust workspace is `rust/`:
+
+- the master plan's layout diagram: `rust/    the Cargo workspace for the port`;
+- on disk: `rust/.gitkeep` exists, `crates/` does not exist at all;
+- `.mcp.json` already pins `CODESIGHT_ALLOWED_ROOTS` to `upstream` + `rust`
+  (set up and approved in issue #11, now closed).
+
+So the descriptor's write-set boundary and spec-discovery root pointed at a
+directory that does not exist, and no command in the v1.0 surface noticed.
+`write_set.allowed_roots` is the enforcement boundary for the implementation
+write set and `specs_search_root` is where `draft` will search for specs, so
+this would have been inherited silently by issues #13, #15 and #16.
+
+**Correction applied** (this issue is the designated "fill
+`project-descriptor.json`" issue, and the plan's layout is authoritative):
+
+```diff
+-      "crate_dir": "crates/date-creusot-core",
++      "crate_dir": "rust/date-creusot-core",
+       "contracts_crate": "contracts",
+-      "specs_search_root": "crates"
++      "specs_search_root": "rust"
+-      "crates/*/src/",
+-      "crates/*/tests/"
++      "rust/*/src/",
++      "rust/*/tests/"
+-      "crates/*/specs/**",
++      "rust/*/specs/**",
+```
+
+`init`'s own shape is preserved (`<root>/<project>-core`, with the crate dir
+holding `src/`, `tests/` and `specs/`); only the root name moves. Re-validated
+after the edit, all in this pass:
+
+```text
+descriptor: {"mode":"port","path":"project-descriptor.json","schema_version":"1.0","state":"present-valid"}
+gate_integrity: {"details":"4 gate path(s) match the installed manifest","state":"pinned"}
+installation_manifest.state: current   open_findings: []   human_decisions: []
+check --json exit 0, findings [], conditions []
+doctor: installation: current, six managed files unchanged, two user-owned
+descriptor sha256 7c0da995956d87e7325d500eab757599b03cb494c2f88bbe358fb54410a50b14
+              -> 77d596826d294db21f28772ef3ea4b7d682ffabbd4a63e9a205fae2eb75f66b9
+```
+
+Recorded as `date-ligature-009`. The alternative — renaming `rust/` to
+`crates/` to match the template — was rejected: it contradicts the plan and
+would invalidate the closed-and-approved `.mcp.json` allowed roots.
+
+### 4. NEW: `check --json` has no installation/gate-integrity gate
+
+`gate_integrity` *does* detect content tampering, and `doctor` *does* report
+it. The consolidated check does not care. Appending 19 bytes to
+`.codex/skills/ligature/SKILL.md` — a `gate_integrity`-pinned path and the only
+file in `ci/manifest/installation.json` carrying an `authority_hash`:
+
+```text
+before: 5456 bytes  sha256 48da18cfb97b1e269863a81c73697e38a65f664d1fc55731837017d61310ddd2
+after:  5475 bytes  sha256 6a8e5415af071d784315ecc21551126ad7701b38485361277789ff668a1527b1
+manifest expected_hash:  sha256:48da18cf...   authority_hash: sha256:3969326...
+
+status --json  gate_integrity = {"details":".codex/skills/ligature/SKILL.md: hash drift","state":"drifted"}
+doctor         installation: conflict
+                 skill authority hash: verified
+                   CONFLICT  .codex/skills/ligature/SKILL.md
+check --json    exit 0, findings [], conditions []
+               next_action only the unrelated refresh-c-static hint
+```
+
+Deleting a pinned gate file is the same story: `gate_integrity` reports
+`missing`, `doctor` reports `installation: drifted` / `MISSING`, `check --json`
+exits 0.
+
+This is the plan-critical one. The master plan's verification section is
+"`ligature.pyz check` exits 0 at the end of each pilot, or its failure is itself
+a recorded finding", and per-pilot step 3 is to run `check` after every step.
+As shipped, that exit code cannot report a modified gate definition, a modified
+skill authority file, or a missing gate schema. Escalated as #74;
+`date-ligature-005`.
+
+Two contradictions fall out of the same experiment:
+
+- `doctor` prints `skill authority hash: verified` on the line directly above
+  `CONFLICT .codex/skills/ligature/SKILL.md`, for the file whose
+  `authority_hash` that line attests. Only the inventory line reacts to the
+  edit. `date-ligature-006`, severity `blocker`.
+- `status.installation_manifest.state` stays `"current"` through tamper,
+  deletion and missing-hash while `doctor` says `conflict` / `drifted`.
+  `date-ligature-007`. Same contradiction family as #71 and #73.
+
+Corrected mid-pass: an earlier filter of `doctor`'s output in this session's
+first probe dropped the `CONFLICT` lines, which briefly looked like `doctor`
+being blind too. It is not; only the `skill authority hash` summary line is.
+
+### 5. State of the deliverable at the end of this pass
+
+- `init --mode port` ran in this root in the prior pass; re-verified here
+  against a clean-room `init` (section 1) and the descriptor diffed field by
+  field against the shipped template.
+- `project-descriptor.json` filled and valid; `verifier_policy.default:
+  "creusot"` set before any code exists (`rust/` still contains only
+  `.gitkeep`).
+- Intended `closure_kind: deductive` recorded pre-implementation in
+  `analysis/ligature/closure-intent.json` and `README.md`; the tool cannot hold
+  it (#72, #73), and the pin for the reason is `implementation_present: false`.
+- The pinned upstream revision `179a6b921ccd6179b5b04dce812a89f71a51b4df`
+  cannot live in the descriptor either (`port_source.commit` is rejected,
+  `date-ligature-002`); it is recorded in `closure-intent.json` instead. This
+  root's `upstream/date` is at that commit with a clean `git status --porcelain`.
+- `check` output recorded above; `rust/` still holds only `.gitkeep`.
+
+### Commands run this pass, for the record
+
+Diagnostics only — `init` (in a scratch root), `version`, `status --json`,
+`check --json`, `doctor`, `--help`. No `draft`, `approve`, `approve-pair`,
+`validate*`, `gate*` or `report`. Tamper experiments were run in
+`/tmp/opencode/dc-clean` and `/tmp/opencode/dc-repro` (a copy of this root),
+never against this root's installed files; this root's `doctor` reports
+`installation: current` with all six managed files `unchanged` after the pass.
+
+---
+
+## Attempt 5 — the one descriptor object that is *open*, and the value domain nobody can see
+
+The deliverable was re-verified unchanged before any probing (see "Attempt 5 —
+deliverable state" below). This pass did not re-run the previous probes; it
+characterised the part of the descriptor schema that three earlier passes had
+summarised as simply "closed", which turned out to be wrong in one place, and
+in that place the error is load-bearing for two of the three pilots.
+
+All probing was done in a copy of this root at `/tmp/opencode/dc-a5`
+(`tar --exclude=./upstream`), never against this root's descriptor. The golden
+copy is sha256 `77d596826d294db21f28772ef3ea4b7d682ffabbd4a63e9a205fae2eb75f66b9`
+and every probe restores it; this root's `project-descriptor.json` was never
+opened for writing.
+
+### 1. `verifier_policy` is the only open object in the descriptor
+
+Every other object rejects an unknown key. `verifier_policy` does not:
+
+| mutation (on top of the filled descriptor)          | `status` descriptor |
+|-----------------------------------------------------|---------------------|
+| top-level `zzz_not_a_real_key: "kani"`               | present-invalid     |
+| `project.zzz`, `port_source.zzz`, `port_source.commit` | present-invalid  |
+| `crates[0].zzz`                                     | present-invalid     |
+| `compatibility_policy.zzz`, `write_set.zzz`         | present-invalid     |
+| `review.zzz`, `llm_backend.zzz`, `gate_integrity.zzz` | present-invalid   |
+| **`verifier_policy.zzz_not_a_real_key: "kani"`**     | **present-valid**   |
+| **`verifier_policy` with two unknown keys, both enum members** | **present-valid** |
+
+So the model is not "`verifier_policy` has an allowed key list". It is
+"`verifier_policy` accepts arbitrary keys, and *every value in it* — known key
+or not — must be a member of a small enum". Confirmed both directions:
+
+    verifier_policy.zzz = "kani"   -> present-valid
+    verifier_policy.yyy = "nope"   -> present-invalid   (the unknown value is what fails)
+
+The openness is not a total no-op: deleting `default` while keeping only a
+misspelled `defualt` does fail, so `default` is genuinely required.
+
+The consequence is a silent-acceptance hazard. This descriptor is valid and
+`check` exits 0, and the misspelled key is indistinguishable from a real one:
+
+    "verifier_policy": { "default": "creusot", "defualt": "kani" }
+    -> descriptor {'mode': 'port', ..., 'state': 'present-valid'}
+
+### 2. The value domain is exactly `creusot | verus | kani`, and it is invisible
+
+64 distinct candidate values were tested against `verifier_policy.default` — the
+union of both earlier sweeps, de-duplicated. Exactly three are accepted; the
+other 61 are `present-invalid`, including several that look like the same tool.
+Values with leading or trailing whitespace are quoted so they are unambiguous:
+
+    accepted (3)   creusot  verus  kani
+    rejected (61)  Creusot CREUSOT creusot-rust verus-verifier kani-verifier
+                   creusot_verus creusot+verus verus+kani cvc5 prusti z3 leus cbmc
+                   smt none unknown coq lean isabelle chibicc aig foo bar verifier
+                   rust cargo 0 'creusot ' ' creusot' creusot. CreuSot kani-0.1
+                   verus-0.1 creusot-0.1 verus-verus verus_rust smtbmc karr stakker
+                   viper eran lola mathcomp why3 stack aiger abc yices z3str
+                   boolector cvc4 sby symbiyosys verus-rust rust-verus creusot2
+                   kani2 Verus Kani 'verus ' ' kani'
+
+64 = 3 accepted + 61 rejected, and the enumeration above is those 61 with no
+duplicates. Case-sensitive, exact, no composition, no whitespace tolerance.
+
+What the user sees when the value is wrong is the least actionable output the
+tool has:
+
+    $ python3 tools/ligature/ligature.pyz status            # verifier_policy.default = "creusot-rust"
+    ligature 1.0.0 -- project state
+    descriptor: present-invalid (project-descriptor.json)
+    installation manifest: current
+    gate integrity: unknown -- no project descriptor present
+    artifacts (1): invalid=1
+    ...
+    exit 0
+
+    $ python3 tools/ligature/ligature.pyz status --json      # exit 0
+    "descriptor": {"mode":null,"path":"project-descriptor.json","schema_version":null,"state":"present-invalid"}
+    "gate_integrity": {"details":"no project descriptor present","state":"unknown"}
+
+    $ python3 tools/ligature/ligature.pyz check --json       # exit 2
+    {"findings":[],"gates":[ ... all six "not-applicable -- no valid project descriptor" ],
+     "next_action":null,"result":{"conditions":["invalid_input"],"exit_code":2}}
+
+    $ python3 tools/ligature/ligature.pyz doctor             # exit 0
+    Installation:
+      installation: current
+      mode: port  project: date-creusot
+      ...
+        user-owned  project-descriptor.json
+
+Three separate misreports in one failure: the field is not named, the permitted
+values are not listed, and the descriptor is reported as *absent* when it is
+present and one value is wrong. `doctor` (chainlink #73) again says nothing —
+this time for a bad *value* rather than a bad key. `date-ligature-010`,
+severity **blocker**.
+
+The **effective verifier policy is never echoed by any command**: `status --json`
+and `check --json` contain zero occurrences of the string `verifier` in either
+the valid or the invalid case, and no command reports what
+`verifier_policy.default` resolved to. `doctor` does contain the word twice, but
+both hits are static prose in its implementation-status listing — "verifier
+dispatch" in the `check-bridges` line and "from a real verifier run" in the 8A
+block — not a reading of this workspace's policy:
+
+    $ python3 tools/ligature/ligature.pyz doctor | grep -ci verifier
+    2                      # identical with a valid and with an invalid descriptor
+    $ python3 tools/ligature/ligature.pyz status --json | grep -ci verifier
+    0
+    $ python3 tools/ligature/ligature.pyz check  --json | grep -ci verifier
+    0
+
+### 3. There is no way to express a second or supporting verifier
+
+Every shape for composing verifiers is rejected:
+
+    verifier_policy.verifiers: ["verus","kani"]  -> present-invalid
+    verifier_policy.additional: ["kani"]         -> present-invalid
+    verifier_policy.per_kind: {arith: creusot, io: kani} -> present-invalid
+    top-level verifiers: ["verus","kani"]        -> present-invalid
+    top-level verifiers: {default: verus, extra: kani} -> present-invalid
+    verifier_policy.default: "verus+kani"        -> present-invalid
+
+The one thing that *is* accepted is the accident from §1: an arbitrary extra key
+holding a second enum member. And that is discarded silently.
+
+    "verifier_policy": {"default": "verus", "supporting": "kani", "fallback": "creusot"}
+    status --json -> descriptor present-valid, gate_integrity pinned
+    check  --json -> exit 0, findings []
+    occurrences of "kani" in status --json : 0
+    occurrences of "kani" in check  --json : 0
+    occurrences of "kani" in doctor        : 0   (the one "creusot" hit in doctor
+                                                 is the project name date-creusot)
+
+So a workspace can declare Kani as supporting evidence in its descriptor, get a
+clean `present-valid` and a clean `check` exit 0, and receive no indication that
+nothing will ever read the declaration. This is the epic's own probe — "Kani
+supporting evidence inside a deductive cluster -> expect G17 + degradation
+record path" — and it is the P3 crypto-mixed setup (verus + kani in one
+workspace). Neither can be expressed in the descriptor. `date-ligature-012`,
+severity **blocker**.
+
+### 4. Why this refines, rather than repeats, #72/#73
+
+Attempt 2 concluded "the descriptor schema is closed" from four rejected
+`closure_kind` shapes. That conclusion is right at the top level and wrong
+inside `verifier_policy`, and the distinction matters in both directions:
+
+- it does **not** reopen the `closure_kind` question — `verifier_policy.closure_kind
+  = "deductive"` is rejected, because every value in that object must be a
+  verifier name. The `closure-intent.json` side record is still the only
+  pre-code home, and §"Where closure_kind actually lives in v1.0" above stands;
+- it does establish the real shape of the problem, which is sharper than
+  "closed and undisclosed": one object is *deliberately* open, and the thing
+  hidden behind that openness is a value domain, not a key set. A user who
+  discovers the openness would reasonably conclude that arbitrary keys work,
+  and would then get silent acceptance for a typo and silent discard for a
+  second verifier.
+
+Filed as chainlink #75.
+
+### 5. Attempt 5 — deliverable state
+
+Re-verified in this session, unchanged, in this root:
+
+    $ (cd tools/ligature && sha256sum -c SHA256SUMS)
+    ligature.pyz: OK
+    $ python3 tools/ligature/ligature.pyz version | head -1
+    ligature 1.0.0
+
+    $ python3 tools/ligature/ligature.pyz status --json            # exit 0
+    "descriptor": {"mode":"port","path":"project-descriptor.json","schema_version":"1.0","state":"present-valid"}
+    "gate_integrity": {"details":"4 gate path(s) match the installed manifest","state":"pinned"}
+    "installation_manifest": {"state":"current", ...}
+    "human_decisions": [],  "open_findings": [],  "clusters": []
+    "artifacts": [{"artifact_id":"installation",...,"kind":"work-package","lifecycle":"invalid",
+                   "path":"ci/manifest/installation.json"}]        <- known #71
+
+    $ python3 tools/ligature/ligature.pyz check --json             # exit 0
+    "findings": [], "result": {"conditions": [], "exit_code": 0}
+    gates: r1-g16 blocked (no C_static reports); g9/g14/g18/g19/g20 not-applicable
+    next_action: refresh-c-static
+
+    $ python3 tools/ligature/ligature.pyz doctor                    # exit 0
+    installation: current
+    skill authority hash: verified
+      unchanged  .codex/skills/ligature/SKILL.md
+      unchanged  .ligature/prompts/stage-0-evidence-intake.md
+      unchanged  .ligature/prompts/stage-3-boundary-drafting.md
+      unchanged  .ligature/prompts/stage-3-interaction-drafting.md
+      unchanged  .ligature/schemas/consolidated-check.schema.json
+      unchanged  .ligature/schemas/project-state.schema.json
+      user-owned  docs/reliance-policy.md
+      user-owned  project-descriptor.json
+
+`rust/` still holds only `.gitkeep`, so `analysis/ligature/closure-intent.json`'s
+`implementation_present: false` is still genuinely pre-implementation, and both
+`verifier_policy.default: "creusot"` and `closure_kind: "deductive"` remain
+fixed before any code exists. `verifier_policy.default` is the enum value the
+probe above shows to be the only correct choice for this pilot.
+
+### 6. Commands run this pass, for the record
+
+Diagnostics, this root: `version`, `status`, `status --json`, `check --json`,
+`doctor`, `sha256sum -c SHA256SUMS`.
+Probing, `/tmp/opencode/dc-a5` only: `status`, `status --json`, `check --json`,
+`doctor` over mutated copies of the descriptor, all restored. No `draft`,
+`approve`, `approve-pair`, `validate*`, `gate*` or `report`. No `init` in this
+root. Nothing under `swisstable-verus/` or `crypto-mixed/` was read or written.
+
+---
+
+## Attempt 6 — two corrections to Attempt 5, found by review
+
+Reviewer reproduced the substance of Attempt 5 independently and confirmed the
+load-bearing claim (`verifier_policy` is the only open object; the value domain
+is exactly `creusot | verus | kani`; all four `closure_kind` shapes still
+rejected). It also found two checkable claims in this file that were wrong. Both
+were wrong in the same way — a number or a negative asserted more confidently
+than the evidence behind it — and both are corrected here.
+
+### Correction 1 — `doctor` does contain the word `verifier`
+
+Attempt 5 §2 asserted:
+
+> The string `verifier` appears nowhere in `status --json`, `check --json` or
+> `doctor`, in the valid case or the invalid case.
+
+False for `doctor`. Re-measured in a copy of this root at `/tmp/opencode/dc-fix`:
+
+    $ python3 tools/ligature/ligature.pyz doctor | grep -ci verifier
+    2                      # identical with a valid and with an invalid descriptor
+    $ python3 tools/ligature/ligature.pyz doctor | grep -in verifier
+    1: ... check-bridges (Stage 8A bridge harness generation + verifier dispatch, chainlink #47) ...
+    7: ... What is missing is the runner that emits a work package's OBLIGATION records from a real verifier run ...
+
+Both hits are static prose in doctor's implementation-status listing — the same
+two lines in both descriptor states, so neither is a reading of this workspace.
+`status --json` and `check --json` do return 0, in both states.
+
+    $ python3 tools/ligature/ligature.pyz status --json | grep -ci verifier   -> 0
+    $ python3 tools/ligature/ligature.pyz check  --json | grep -ci verifier   -> 0
+
+The claim that actually matters is unchanged and is now the load-bearing one: no
+command in the v1.0 surface reports the effective verifier policy, i.e. nothing
+ever echoes what `verifier_policy.default` resolved to. The negative was the
+wrong way to say it, and it was falsifiable in five seconds by the recipient of
+the escalation. Corrected in §2 above, in `README.md`, in `findings/limitations.jsonl`
+`date-ligature-010`, and in the chainlink #75 description (updated in place).
+
+### Correction 2 — the candidate count did not match the enumeration
+
+Attempt 5 claimed "66 candidate values were tested" in this file, in `README.md`
+("63 other candidates all rejected"), in `date-ligature-010`, and in the #75
+escalation. None of those matched the matrix printed beneath them, which named 57
+rejected values and listed `cvc4` twice. The two sweeps had been run separately
+(38 + 29 entries) and their union was never taken, so the "66" was the sum of
+two overlapping lists rather than a count of distinct values tested.
+
+Re-run as a single de-duplicated sweep over the union of both lists, with the
+result asserted to round-trip:
+
+    union of the two earlier lists, order-preserving, de-duplicated
+      = 64 distinct values
+    accepted = ['creusot', 'verus', 'kani']            (3)
+    rejected = 61 values, enumeration verified to round-trip
+               against the sweep output with no token split or duplicate
+    64 = 3 + 61
+
+The corrected matrix is in §2 above. Nothing about the *result* changed: the
+domain is still exactly `creusot | verus | kani`, case-sensitive, with no
+composition syntax and no whitespace tolerance. Only the arithmetic around it was
+wrong.
+
+The old matrix in the #12 comment also named `verus-verus-rust`, which was never
+tested in either sweep — a transcription artefact, not a real candidate. It is
+absent from the corrected enumeration for that reason as well as by arithmetic.
+
+### What was not changed
+
+`project-descriptor.json` was not touched: sha256
+`77d596826d294db21f28772ef3ea4b7d682ffabbd4a63e9a205fae2eb75f66b9`, still
+`present-valid`, still the correct value for this pilot. No new probing beyond
+re-measuring `doctor | grep -ci verifier` and re-running the value sweep, both in
+`/tmp/opencode/dc-fix`. `rust/` still holds only `.gitkeep`.
+
+## Attempt 6 — what the descriptor *declares* versus what v1.0 *reads*
+
+Attempts 2–5 each re-verified the deliverable and each probed one corner of
+the descriptor (closure_kind, the closed schema, the P0 gate, the value domain
+of `verifier_policy`). This pass did the remaining corners at once: every
+declaration in the descriptor was broken one at a time in a scratch copy and
+the whole read-only surface re-read. Six real defects came out of it, one of
+them in a file this pilot owns (fixed), and two are new escalations.
+
+All tampering below happened in `/tmp/opencode/dc-a6` (a copy of this root)
+or in per-case scratch roots. This root's installed files were never modified,
+which is why §"Attempt 6 verification" shows `doctor` still reporting every
+managed file `unchanged`.
+
+### 1. Declaration-consumption matrix: 16 single-variable descriptor edits
+
+`status --json` + `check --json` after each edit. `check` exit 0 unless noted.
+
+| # | edit | descriptor.state | check | notes |
+| --- | --- | --- | --- | --- |
+| A0 | none (filled descriptor) | present-valid | 0 | baseline |
+| A1 | `reliance_policy_path` -> `docs/no-such-policy.md` | present-valid | 0 | path never resolved |
+| A2 | `reliance_policy_path` -> `/etc/hostname` | present-valid | 0 | **outside the project root, accepted** |
+| A3 | `compatibility_policy` removed | present-invalid | **2** | object is required, its field is inert |
+| A4 | `write_set.protected_roots` -> `[]` | present-valid | 0 | all protections dropped, nothing objects |
+| A5 | `write_set.allowed_roots` -> `["**"]` | present-valid | 0 | write-everything accepted |
+| A6 | `write_set` removed | present-invalid | **2** | required, unconsumed |
+| A7 | `crate_naming_convention` -> `"^(unclosed["` | present-valid | 0 | not even a valid regex |
+| A8 | `llm_backend.kind` -> `"openai"` | present-invalid | **2** | closed enum, undisclosed (§4) |
+| A9 | `review.reviewed_at` -> `"not-a-date"` | present-invalid | **2** | strict `YYYY-MM-DD` (§4) |
+| A10 | `gate_integrity` -> 1 real path | present-valid | 0 | "1 gate path(s) match" — count is descriptor-driven |
+| A11 | `gate_integrity` -> `[{"path":"@nonsense"}]` | present-valid | 0 | **gate_integrity `drifted`, check 0** (§2) |
+| A12 | `gate_integrity` -> `[]` | present-valid | 0 | **gate_integrity `unknown`, check 0** (§2) |
+| A13 | `port_source.language` -> `"rust"` | present-valid | 0 | unvalidated |
+| A14 | `mode` -> `"greenfield"` | present-invalid | **2** | |
+| A15 | `oracle_build_command` -> `""` | present-valid | 0 | empty oracle command accepted |
+
+Verbatim from the A11 case:
+
+    gate_integrity {'details': '@nonsense: no recorded hash', 'state': 'drifted'}
+    check {'conditions': [], 'exit_code': 0} findings=[]
+
+and from A12:
+
+    gate_integrity {'details': 'descriptor declares no gate_integrity paths', 'state': 'unknown'}
+    check {'conditions': [], 'exit_code': 0} findings=[]
+
+### 2. `check` cannot see gate integrity, and this time no file is touched
+
+Attempt 4 established this by appending 19 bytes to a pinned file
+(`date-ligature-005`, escalation #74). The matrix above reproduces it *from
+the descriptor alone*, which is worse: the declaration that is supposed to
+define the gate-integrity boundary can be emptied, or pointed at a path the
+manifest never recorded, and the plan's own verification criterion —
+"`check` exits 0" — still passes.
+
+    gate_integrity path form                     status.gate_integrity
+    ------------------------------------------   --------------------------------------------
+    "tools/ligature/ligature.pyz"                drifted  "no recorded hash"
+    "ci/manifest/installation.json"              drifted  "no recorded hash"
+    "project-descriptor.json"                    drifted  "no recorded hash"
+    "docs/reliance-policy.md"                    drifted  "no recorded hash"
+    "upstream/date"                              drifted  "no recorded hash"
+    "docs/nope.md"                               drifted  "no recorded hash"
+    "@nonsense"                                  drifted  "no recorded hash"
+    "@adjudicator"                               pinned    "1 gate path(s) match"
+    the same real path listed twice              pinned    "2 gate path(s) match"
+
+Two things fall out. First, `@adjudicator` is a real sentinel — it is recorded
+in `ci/manifest/installation.json`:
+
+    "gate_hashes": {
+      ".codex/skills/ligature/SKILL.md": "sha256:48da18cf...",
+      ".ligature/schemas/consolidated-check.schema.json": "sha256:e1a79a15...",
+      ".ligature/schemas/project-state.schema.json": "sha256:cf55cf6c...",
+      "@adjudicator": "sha256:74898f6b9feef0d6759d1a81c84692559eab36515a65492ea1697c0187f54adb"
+    }
+
+— and it is documented nowhere: not in any `--help`, not in the installed skill,
+not in any installed schema. A user who "corrects" it to the path of the binary
+gets `drifted`. Second, a path with no recorded hash is reported as *drift*, the
+same word used for genuine content drift, so a typo and a tampered gate are
+indistinguishable in `status`. Recorded as `date-ligature-014`; filed onto #74.
+
+### 3. The write set is read by nothing at all
+
+`write_set` is the only thing this descriptor says keeps the implementation
+inside `rust/*/src/` and `rust/*/tests/` and away from the pinned
+`upstream/date` checkout, `ci/manifest/**` and the specs. In the scratch copy,
+with `allowed_roots` at its filled value, three files were created outside it:
+
+    rust/rogue/evil.rs
+    rust/rogue/notes.txt
+    docs/evil.md
+
+    check --json   exit 0  {'conditions': [], 'exit_code': 0}  findings []
+    status --json  {'state': 'present-valid'}  gate_integrity pinned  open_findings []
+    doctor         (grep -icE 'write|allowed|protected|rogue' -> 0)
+
+Nothing in the agent-facing surface mentions it either:
+
+    $ grep -rn -i "write_set\|allowed_roots\|protected_roots" .codex .ligature
+    (no matches)
+
+The installed skill (`SKILL.md`, hash-pinned authority region) never says the
+write set exists, and neither do the three stage prompts. So for #15
+(implement the port) there is no guardrail and no instruction. I could not
+test whether a *writing* command (`draft`, `approve`) refuses an out-of-set
+write, because those are ahead of this issue in the chainlink graph; the
+escalation says so explicitly rather than claiming more than was measured.
+Recorded as `date-ligature-013`, severity blocker, filed as a new escalation.
+
+### 4. Two more undisclosed closed domains, same shape as `verifier_policy`
+
+Attempt 5 mapped `verifier_policy` (#75). The same probe applied to the rest
+of the descriptor finds two more, both rejected with a bare `exit 2` and
+`findings: []`:
+
+    llm_backend.kind      manual 0 | claude 0 | codex 0 | anthropic 2 | openai 2 | gpt 2
+                         llm 2 | agent 2 | human 2 | none 2 | local 2 | external 2
+                         MANUAL 2 | claude-code 2 | claude_code 2 | cursor 2 | copilot 2
+                         gemini 2 | ollama 2 | openai-compatible 2 | claude-sonnet 2
+                         default 2
+
+So the domain is exactly `{manual, claude, codex}`: the field selects an
+*agent harness*, not a model. Nothing says so.
+
+    review.reviewed_at   2026-09-25 0 | 2026-9-25 2 | 2026/09/25 2 | 25-09-2026 2
+                         2026-09-25T10:00:00Z 2 | Sept 25 2026 2 | "" 2 | absent 2
+
+Strict `YYYY-MM-DD`; the ISO-8601 *datetime* is rejected. Meanwhile the field
+P0 actually gates on, `review.reviewer`, is any non-empty string: `alice`,
+`a b`, `1970-01-01` and `A. Reviewer <a@b.c>` are all `present-valid`, and only
+`""` is rejected. Recorded as `date-ligature-017`.
+
+### 5. The standing governance document cannot be drift-checked (C.6, answered)
+
+`ci/manifest/installation.json` records a hash for the policy:
+
+    "path": "docs/reliance-policy.md",
+    "base_hash":     "sha256:32a19a145bbdc83c36bfd96f096490aa5968a2d04aa46bf7e1e15e0a6f049eae",
+    "expected_hash": "sha256:32a19a145bbdc83c36bfd96f096490aa5968a2d04aa46bf7e1e15e0a6f049eae",
+    "ownership": "user"
+
+Neither hash is ever compared. The legitimately filled document hashes to
+`d81e6628...` — it has never matched — and `doctor` reports
+`user-owned  docs/reliance-policy.md` with no conflict. Appending an
+unreviewed rule that contradicts the document's own fixed resolution table:
+
+    printf '\n## Unreviewed change\n\nWeaken the resolution rule: adversary cases MAY now be guarantees.\n' >> docs/reliance-policy.md
+
+gives, in the scratch copy:
+
+    24f1615f...  docs/reliance-policy.md            <- hash changed
+    manifest expected_hash: sha256:32a19a14...       <- unchanged, never compared
+      installation: current
+        user-owned  docs/reliance-policy.md         <- no CONFLICT
+    check {'conditions': [], 'exit_code': 0} findings []
+    status present-valid current []                  <- open_findings empty
+
+Deleting the file is the only case anything reacts to, and only `doctor`
+notices:
+
+    MISSING  docs/reliance-policy.md      (check exit 0, status installation current)
+
+`doctor` takes no options at all, and `migrate --force` is documented for
+*managed* files ("explicitly overwrite one managed file"), so there is no v1.0
+way to ask whether a user-owned normative document has changed. This is the
+plan's C.6 re-check answered negatively in advance; evidence filed on #60.
+Recorded as `date-ligature-015`, severity blocker, filed as a new escalation.
+
+### 6. The descriptor's policy pointer and the real consumer are disconnected
+
+`compatibility_policy.reliance_policy_path` is required (A3) and inert (A1,
+A2 — it accepts a path outside the project root). The actual consumer is a
+flag, and it says so itself:
+
+    $ ligature.pyz accept-promotion --help
+      --policy-path POLICY_PATH
+                          workspace-relative path to the accepted policy
+                          document (e.g. docs/reliance-policy.md) -- must itself
+                          be one of --artifact; its own 'Policy version:
+                          <name>@<major>.<minor>' line is read to compute
+                          policy_version
+
+Nothing checks that the flag names the file the descriptor declares. The parse
+itself is unreachable before Stage 4.5 — `accept-promotion` fails earlier with
+`could not compute schema_versions from the accepted artifact set` — so the
+line's exact form cannot be verified in this issue; that belongs to #14.
+Recorded as `date-ligature-016`.
+
+### 7. The tool's own Stage 3 prompt cites a file `init` never creates
+
+    $ sed -n '26,30p' .ligature/prompts/stage-3-boundary-drafting.md
+    - `{{reliance_policy}}` — this project's `docs/reliance-policy.md` (copied
+      from `docs/reliance-policy.template.md`), resolution rule included.
+
+Clean-room `init --mode port` re-run this pass, in an empty directory:
+
+    installation: current
+    mode: port  project: dc-clean6
+         create  .codex/skills/ligature/SKILL.md
+         create  .ligature/prompts/stage-0-evidence-intake.md
+         create  .ligature/prompts/stage-3-boundary-drafting.md
+         create  .ligature/prompts/stage-3-interaction-drafting.md
+         create  .ligature/schemas/consolidated-check.schema.json
+         create  .ligature/schemas/project-state.schema.json
+         create  docs/reliance-policy.md
+         create  project-descriptor.json
+    ownership manifest: ci/manifest/installation.json
+
+    $ find . -name "*template*" | wc -l
+    0
+
+`{{reliance_policy}}` is the input Stage 3 applies the resolution rule from, so
+this is a live hazard for #13 rather than a cosmetic one. Recorded as
+`date-ligature-018`.
+
+### 8. A real defect in this pilot's own files, found and fixed
+
+`docs/reliance-policy.md` — a file this pilot owns and `doctor` classifies as
+`user-owned` — asserted:
+
+    The `Policy version:` line above is parsed by
+    `scripts/generate_promotion_receipt.py` to compute a promotion receipt's
+    `policy_version` field (chainlink #45).
+
+There is no `scripts/` directory in this root, no ligature command installs
+one, and the real consumer is `accept-promotion --policy-path` (see §6). An
+earlier attempt wrote a claim it had not verified, into the one document whose
+`Policy version:` line the binary will actually parse at Stage 4.5.
+
+Fixed in this pass: the paragraph now names the command and its flag, quotes
+the syntax the tool's own `--help` documents, states that the descriptor field
+is not consulted, and points at the two unverified parts. A change-history row
+records the correction and why the version was deliberately *not* bumped (the
+resolution table and project-specific rules are unchanged, so `policy_version`
+stays `date-creusot-reliance-policy@1.0`).
+
+    before  sha256 4a92db717aa90a532ebecd88efe4874a40dfe745134177d3c9a9a13e45b635ec
+    after   sha256 d81e6628a1a89e7fd3c2536b7762d445bede2f1ed0f7e7588630ed233323e70b
+
+### 9. Attempt 6 verification (this pilot root, untouched)
+
+    $ (cd tools/ligature && sha256sum -c SHA256SUMS)
+    ligature.pyz: OK
+
+    $ python3 tools/ligature/ligature.pyz version | head -1
+    ligature 1.0.0
+
+    $ python3 tools/ligature/ligature.pyz status --json
+    descriptor            {'mode': 'port', 'path': 'project-descriptor.json',
+                           'schema_version': '1.0', 'state': 'present-valid'}
+    gate_integrity        {'details': '4 gate path(s) match the installed manifest',
+                           'state': 'pinned'}
+    installation_manifest current
+    human_decisions []  open_findings []
+    artifacts[0]         ci/manifest/installation.json work-package invalid  <- known #71
+
+    $ python3 tools/ligature/ligature.pyz check --json
+    result {'conditions': [], 'exit_code': 0}   findings []
+    gates  r1-g16 blocked | g9, g14, g18, g19, g20 not-applicable
+    next   refresh-c-static
+
+    $ python3 tools/ligature/ligature.pyz doctor
+    installation: current
+    skill authority hash: verified
+      unchanged  .codex/skills/ligature/SKILL.md
+      unchanged  .ligature/prompts/stage-0-evidence-intake.md
+      unchanged  .ligature/prompts/stage-3-boundary-drafting.md
+      unchanged  .ligature/prompts/stage-3-interaction-drafting.md
+      unchanged  .ligature/schemas/consolidated-check.schema.json
+      unchanged  .ligature/schemas/project-state.schema.json
+      user-owned  docs/reliance-policy.md
+      user-owned  project-descriptor.json
+
+`rust/` still holds only `.gitkeep`, so `closure-intent.json`'s
+`implementation_present: false` is still genuinely pre-implementation, and
+`verifier_policy.default: creusot` + the intended `closure_kind: deductive` are
+both still fixed before any code exists. `upstream/date` is at
+`179a6b921ccd6179b5b04dce812a89f71a51b4df`, `git status --porcelain` empty.
+
+### 10. Commands run this pass, for the record
+
+    python3 tools/ligature/ligature.pyz version
+    python3 tools/ligature/ligature.pyz status --json
+    python3 tools/ligature/ligature.pyz check --json
+    python3 tools/ligature/ligature.pyz check next
+    python3 tools/ligature/ligature.pyz doctor
+    python3 tools/ligature/ligature.pyz doctor --help
+    python3 tools/ligature/ligature.pyz status --help
+    python3 tools/ligature/ligature.pyz check --help
+    python3 tools/ligature/ligature.pyz migrate --help
+    python3 tools/ligature/ligature.pyz accept-promotion --help
+    python3 tools/ligature/ligature.pyz init --mode port        (in /tmp only)
+    # 16 single-variable descriptor edits + 2 value-domain matrices + a
+    # gate_integrity path-form matrix, each re-read with status and check
+    # (scripts in /tmp/opencode/probe*.py; all tampering in /tmp copies)
+    # the six repro_cmd of date-ligature-013..018, each executed and its
+    # output pasted above or in the findings ledger

@@ -1,0 +1,231 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 145 0 145 54 *)
+
+let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 131 11 131 94
+let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 133 4 133 51
+
+use int.ComputerDivision
+use int.Int
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+constant h : int
+
+constant u : int
+
+constant r : int
+
+constant doy : int
+
+function era_quotients [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 145 0 145 54] (h: int) (u: int) (r: int) (doy: int) : ()
+
+goal vc_era_quotients: ([%#syear_month_day] 0 <= h
+    /\ h <= 3 /\ 0 <= u /\ u <= 24 /\ 0 <= r /\ r <= 3 /\ 0 <= doy /\ doy <= 365)
+  -> (let c = 24 * h + u + 365 * r + doy in if c < 1460 then
+    [@stop_split] [@expl:era_quotients ensures] [%#syear_month_day'0] let doe = 36524 * h + 1461 * u + 365 * r
+    + doy in let c'0 = 24 * h + u + 365 * r + doy in if c'0 < 1460 then
+      ComputerDivision.div doe 1460 = 25 * h + u
+      /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
+    else
+      if not (u = 24 /\ r = 3 /\ doy = 365) then
+        ComputerDivision.div doe 1460 = 25 * h + u + 1
+        /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
+      else
+        if h = 3 then
+          ComputerDivision.div doe 1460 = 25 * h + u + 1
+          /\ ComputerDivision.div doe 36524 = h + 1 /\ ComputerDivision.div doe 146096 = 1
+        else
+          ComputerDivision.div doe 1460 = 25 * h + u + 1
+          /\ ComputerDivision.div doe 36524 = h + 1 /\ ComputerDivision.div doe 146096 = 0
+      
+    
+  
+  else
+    if u = 24 then
+      if r = 3 then
+        if not doy = 365 then
+          [@stop_split] [@expl:era_quotients ensures] [%#syear_month_day'0] let doe = 36524 * h + 1461 * u + 365 * r
+          + doy in let c'0 = 24 * h + u + 365 * r + doy in if c'0 < 1460 then
+            ComputerDivision.div doe 1460 = 25 * h + u
+            /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
+          else
+            if not (u = 24 /\ r = 3 /\ doy = 365) then
+              ComputerDivision.div doe 1460 = 25 * h + u + 1
+              /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
+            else
+              if h = 3 then
+                ComputerDivision.div doe 1460 = 25 * h + u + 1
+                /\ ComputerDivision.div doe 36524 = h + 1 /\ ComputerDivision.div doe 146096 = 1
+              else
+                ComputerDivision.div doe 1460 = 25 * h + u + 1
+                /\ ComputerDivision.div doe 36524 = h + 1 /\ ComputerDivision.div doe 146096 = 0
+            
+          
+        
+        else
+          if h = 3 then
+            [@stop_split] [@expl:era_quotients ensures] [%#syear_month_day'0] let doe = 36524 * h + 1461 * u + 365 * r
+            + doy in let c'0 = 24 * h + u + 365 * r + doy in if c'0 < 1460 then
+              ComputerDivision.div doe 1460 = 25 * h + u
+              /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
+            else
+              if not (u = 24 /\ r = 3 /\ doy = 365) then
+                ComputerDivision.div doe 1460 = 25 * h + u + 1
+                /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
+              else
+                if h = 3 then
+                  ComputerDivision.div doe 1460 = 25 * h + u + 1
+                  /\ ComputerDivision.div doe 36524 = h + 1 /\ ComputerDivision.div doe 146096 = 1
+                else
+                  ComputerDivision.div doe 1460 = 25 * h + u + 1
+                  /\ ComputerDivision.div doe 36524 = h + 1 /\ ComputerDivision.div doe 146096 = 0
+              
+            
+          
+          else
+            [@stop_split] [@expl:era_quotients ensures] [%#syear_month_day'0] let doe = 36524 * h + 1461 * u + 365 * r
+            + doy in let c'0 = 24 * h + u + 365 * r + doy in if c'0 < 1460 then
+              ComputerDivision.div doe 1460 = 25 * h + u
+              /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
+            else
+              if not (u = 24 /\ r = 3 /\ doy = 365) then
+                ComputerDivision.div doe 1460 = 25 * h + u + 1
+                /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
+              else
+                if h = 3 then
+                  ComputerDivision.div doe 1460 = 25 * h + u + 1
+                  /\ ComputerDivision.div doe 36524 = h + 1 /\ ComputerDivision.div doe 146096 = 1
+                else
+                  ComputerDivision.div doe 1460 = 25 * h + u + 1
+                  /\ ComputerDivision.div doe 36524 = h + 1 /\ ComputerDivision.div doe 146096 = 0
+              
+            
+          
+        
+      
+      else
+        if not false then
+          [@stop_split] [@expl:era_quotients ensures] [%#syear_month_day'0] let doe = 36524 * h + 1461 * u + 365 * r
+          + doy in let c'0 = 24 * h + u + 365 * r + doy in if c'0 < 1460 then
+            ComputerDivision.div doe 1460 = 25 * h + u
+            /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
+          else
+            if not (u = 24 /\ r = 3 /\ doy = 365) then
+              ComputerDivision.div doe 1460 = 25 * h + u + 1
+              /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
+            else
+              if h = 3 then
+                ComputerDivision.div doe 1460 = 25 * h + u + 1
+                /\ ComputerDivision.div doe 36524 = h + 1 /\ ComputerDivision.div doe 146096 = 1
+              else
+                ComputerDivision.div doe 1460 = 25 * h + u + 1
+                /\ ComputerDivision.div doe 36524 = h + 1 /\ ComputerDivision.div doe 146096 = 0
+            
+          
+        
+        else
+          if h = 3 then
+            [@stop_split] [@expl:era_quotients ensures] [%#syear_month_day'0] let doe = 36524 * h + 1461 * u + 365 * r
+            + doy in let c'0 = 24 * h + u + 365 * r + doy in if c'0 < 1460 then
+              ComputerDivision.div doe 1460 = 25 * h + u
+              /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
+            else
+              if not (u = 24 /\ r = 3 /\ doy = 365) then
+                ComputerDivision.div doe 1460 = 25 * h + u + 1
+                /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
+              else
+                if h = 3 then
+                  ComputerDivision.div doe 1460 = 25 * h + u + 1
+                  /\ ComputerDivision.div doe 36524 = h + 1 /\ ComputerDivision.div doe 146096 = 1
+                else
+                  ComputerDivision.div doe 1460 = 25 * h + u + 1
+                  /\ ComputerDivision.div doe 36524 = h + 1 /\ ComputerDivision.div doe 146096 = 0
+              
+            
+          
+          else
+            [@stop_split] [@expl:era_quotients ensures] [%#syear_month_day'0] let doe = 36524 * h + 1461 * u + 365 * r
+            + doy in let c'0 = 24 * h + u + 365 * r + doy in if c'0 < 1460 then
+              ComputerDivision.div doe 1460 = 25 * h + u
+              /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
+            else
+              if not (u = 24 /\ r = 3 /\ doy = 365) then
+                ComputerDivision.div doe 1460 = 25 * h + u + 1
+                /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
+              else
+                if h = 3 then
+                  ComputerDivision.div doe 1460 = 25 * h + u + 1
+                  /\ ComputerDivision.div doe 36524 = h + 1 /\ ComputerDivision.div doe 146096 = 1
+                else
+                  ComputerDivision.div doe 1460 = 25 * h + u + 1
+                  /\ ComputerDivision.div doe 36524 = h + 1 /\ ComputerDivision.div doe 146096 = 0
+              
+            
+          
+        
+      
+    
+    else
+      if not false then
+        [@stop_split] [@expl:era_quotients ensures] [%#syear_month_day'0] let doe = 36524 * h + 1461 * u + 365 * r
+        + doy in let c'0 = 24 * h + u + 365 * r + doy in if c'0 < 1460 then
+          ComputerDivision.div doe 1460 = 25 * h + u
+          /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
+        else
+          if not (u = 24 /\ r = 3 /\ doy = 365) then
+            ComputerDivision.div doe 1460 = 25 * h + u + 1
+            /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
+          else
+            if h = 3 then
+              ComputerDivision.div doe 1460 = 25 * h + u + 1
+              /\ ComputerDivision.div doe 36524 = h + 1 /\ ComputerDivision.div doe 146096 = 1
+            else
+              ComputerDivision.div doe 1460 = 25 * h + u + 1
+              /\ ComputerDivision.div doe 36524 = h + 1 /\ ComputerDivision.div doe 146096 = 0
+          
+        
+      
+      else
+        if h = 3 then
+          [@stop_split] [@expl:era_quotients ensures] [%#syear_month_day'0] let doe = 36524 * h + 1461 * u + 365 * r
+          + doy in let c'0 = 24 * h + u + 365 * r + doy in if c'0 < 1460 then
+            ComputerDivision.div doe 1460 = 25 * h + u
+            /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
+          else
+            if not (u = 24 /\ r = 3 /\ doy = 365) then
+              ComputerDivision.div doe 1460 = 25 * h + u + 1
+              /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
+            else
+              if h = 3 then
+                ComputerDivision.div doe 1460 = 25 * h + u + 1
+                /\ ComputerDivision.div doe 36524 = h + 1 /\ ComputerDivision.div doe 146096 = 1
+              else
+                ComputerDivision.div doe 1460 = 25 * h + u + 1
+                /\ ComputerDivision.div doe 36524 = h + 1 /\ ComputerDivision.div doe 146096 = 0
+            
+          
+        
+        else
+          [@stop_split] [@expl:era_quotients ensures] [%#syear_month_day'0] let doe = 36524 * h + 1461 * u + 365 * r
+          + doy in let c'0 = 24 * h + u + 365 * r + doy in if c'0 < 1460 then
+            ComputerDivision.div doe 1460 = 25 * h + u
+            /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
+          else
+            if not (u = 24 /\ r = 3 /\ doy = 365) then
+              ComputerDivision.div doe 1460 = 25 * h + u + 1
+              /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
+            else
+              if h = 3 then
+                ComputerDivision.div doe 1460 = 25 * h + u + 1
+                /\ ComputerDivision.div doe 36524 = h + 1 /\ ComputerDivision.div doe 146096 = 1
+              else
+                ComputerDivision.div doe 1460 = 25 * h + u + 1
+                /\ ComputerDivision.div doe 36524 = h + 1 /\ ComputerDivision.div doe 146096 = 0
+            
+          
+        
+      
+    
+  
+  )

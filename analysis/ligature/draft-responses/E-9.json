@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-9",
+  "kind": "test",
+  "claim": "Upstream asserts the Gregorian leap-century rule as compile-time constants: (2000/feb/29).ok() and (2100/feb/28).ok() hold while (2000/feb/30).ok() and (2100/feb/29).ok() do not, and it asserts the day-count arithmetic across the February boundary, sys_days(2100/feb/28) + days{1} == sys_days(2100/mar/1), sys_days(2000/mar/1) - sys_days(2000/feb/28) == days{2} and sys_days(2100/mar/1) - sys_days(2100/feb/28) == days{1}; these four are the direct upstream oracle cases for the era arithmetic's February handling.",
+  "origin": {
+    "repository": "https://github.com/HowardHinnant/date.git",
+    "commit": "179a6b921ccd6179b5b04dce812a89f71a51b4df",
+    "symbol": "date::year_month_day (ok / sys_days round trip)",
+    "path": "test/date_test/year_month_day.pass.cpp",
+    "content_hash": "sha256:4ae733ed5657564b64365b799b83b24753a56ee793d8f4af4fdb19fe1802e37b",
+    "line_hint": "208-216"
+  },
+  "semantic_disposition": "required",
+  "lifecycle": "accepted",
+  "confidence": "high",
+  "mode": "P"
+}

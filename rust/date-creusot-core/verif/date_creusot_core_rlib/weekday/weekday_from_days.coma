@@ -1,0 +1,71 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 40 0 40 44 *)
+
+let%span slib = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/lib.rs" 52 10 52 35
+let%span slib'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/lib.rs" 54 4 54 19
+let%span sweekday = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 41 19 41 20
+let%span sweekday'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 41 7 41 21
+let%span sweekday'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 41 24 41 25
+let%span sweekday'2 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 41 6 41 26
+let%span sweekday'3 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 41 29 41 30
+let%span sweekday'4 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 41 5 41 31
+let%span sweekday'5 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 41 34 41 35
+let%span sweekday'6 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 41 4 41 36
+let%span sweekday'7 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 39 10 39 40
+
+use creusot.int.Int32
+use creusot.int.Int64
+use creusot.prelude.Bool
+use creusot.int.UInt8
+use creusot.prelude.Any
+use int.EuclideanDivision
+use int.Int
+
+function euclid_mod7 [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/lib.rs" 53 0 53 33] (a: int) : int
+ = [%#slib'0] EuclideanDivision.mod a 7
+
+axiom euclid_mod7_spec: forall a: int [euclid_mod7 a]. [%#slib] euclid_mod7 a >= 0 /\ euclid_mod7 a < 7
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let weekday_from_days [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 40 0 40 44]
+  (z: Int32.t) (return (x: UInt8.t)) = (! bb0
+  [ bb0 = s0
+    [ s0 = [ &_8 <- Int64.of_int (Int32.to_int z) ] s1
+    | s1 = Int64.add [%#sweekday'0] {_8} {[%#sweekday] (4: Int64.t)} (fun (_x: Int64.t) -> [ &_7 <- _x ] s2)
+    | s2 = [ &_10 <- ([%#sweekday'1] (7: Int64.t)) = ([%#sweekday'2] (0: Int64.t)) ] s3
+    | s3 = {[@expl:remainder by zero] [%#sweekday'2] not _10} s4
+    | s4 = [ &_11 <- ([%#sweekday'1] (7: Int64.t)) = ([%#sweekday'2] (-1: Int64.t)) ] s5
+    | s5 = [ &_12 <- _7 = ([%#sweekday'2] (-9223372036854775808: Int64.t)) ] s6
+    | s6 = [ &_13 <- Bool.bw_and _11 _12 ] s7
+    | s7 = {[@expl:Rem overflow] [%#sweekday'2] not _13} s8
+    | s8 = Int64.rem [%#sweekday'2] {_7} {[%#sweekday'1] (7: Int64.t)} (fun (_x: Int64.t) -> [ &_6 <- _x ] s9)
+    | s9 = Int64.add [%#sweekday'4] {_6} {[%#sweekday'3] (7: Int64.t)} (fun (_x: Int64.t) -> [ &_5 <- _x ] s10)
+    | s10 = [ &_14 <- ([%#sweekday'5] (7: Int64.t)) = ([%#sweekday'6] (0: Int64.t)) ] s11
+    | s11 = {[@expl:remainder by zero] [%#sweekday'6] not _14} s12
+    | s12 = [ &_15 <- ([%#sweekday'5] (7: Int64.t)) = ([%#sweekday'6] (-1: Int64.t)) ] s13
+    | s13 = [ &_16 <- _5 = ([%#sweekday'6] (-9223372036854775808: Int64.t)) ] s14
+    | s14 = [ &_17 <- Bool.bw_and _15 _16 ] s15
+    | s15 = {[@expl:Rem overflow] [%#sweekday'6] not _17} s16
+    | s16 = Int64.rem [%#sweekday'6] {_5} {[%#sweekday'5] (7: Int64.t)} (fun (_x: Int64.t) -> [ &_4 <- _x ] s17)
+    | s17 = [ &_ret <- UInt8.of_int (Int64.to_int _4) ] s18
+    | s18 = return {_ret} ] ]
+  [ & _ret: UInt8.t = Any.any_l ()
+  | & z: Int32.t = z
+  | & _4: Int64.t = Any.any_l ()
+  | & _5: Int64.t = Any.any_l ()
+  | & _6: Int64.t = Any.any_l ()
+  | & _7: Int64.t = Any.any_l ()
+  | & _8: Int64.t = Any.any_l ()
+  | & _10: bool = Any.any_l ()
+  | & _11: bool = Any.any_l ()
+  | & _12: bool = Any.any_l ()
+  | & _13: bool = Any.any_l ()
+  | & _14: bool = Any.any_l ()
+  | & _15: bool = Any.any_l ()
+  | & _16: bool = Any.any_l ()
+  | & _17: bool = Any.any_l () ])
+  [ return (result: UInt8.t) -> {[@stop_split] [@expl:weekday_from_days ensures] [%#sweekday'7] UInt8.t'int result
+    = euclid_mod7 (Int32.to_int z + 4)}
+    (! return {result}) ]

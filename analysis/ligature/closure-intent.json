@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "project": "date-creusot",
+  "decision_stage": "pre-implementation",
+  "verifier_policy": {
+    "default": "creusot"
+  },
+  "closure_kind": "deductive",
+  "port_source": {
+    "repository": "https://github.com/HowardHinnant/date.git",
+    "commit": "179a6b921ccd6179b5b04dce812a89f71a51b4df"
+  },
+  "implementation_present": false,
+  "recorded_at": "2026-09-25"
+}

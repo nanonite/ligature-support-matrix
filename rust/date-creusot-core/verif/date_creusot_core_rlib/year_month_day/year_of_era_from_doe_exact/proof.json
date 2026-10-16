@@ -1,0 +1,8 @@
+{
+  "profile": [],
+  "proofs": {
+    "Coma": {
+      "vc_year_of_era_from_doe_exact": { "prover": "z3", "time": 0.057 }
+    }
+  }
+}

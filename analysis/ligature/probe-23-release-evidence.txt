@@ -1,0 +1,389 @@
+
+====================================================================================================
+## PART 1 -- the release state: every command's real opinion of it
+
+--- $ ligature.pyz validate-closure   EXIT=0
+OK: all closure artifacts pass G1a/G1b and G17 profile/record consistency (2 discovered)
+--- $ ligature.pyz gate-g14   EXIT=0
+cluster 'date-creusot-core' does NOT close: degraded under an accepted degradation record (declared closure_kind=bounded)
+  - [G14/degraded] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is declared as true, but this closure's artifacts cannot verify it: the closure's own achieved records include ['kani-bounded-model-check'] results, and Kani verifies generics per monomorphization -- whether every generic callee is type-universal or creusot-owned needs type information no artifact in this pipeline carries (CG3). That is a capability gap, not a checked condition (plan.md §3): an unverifiable declaration is never a free pass, and releasing this cluster needs a degradation record naming this condition with a tracking issue -- accepted as degradation under ceiling 'per-instantiation' (chainlink:23)
+closure is a per-cluster property with a kind; this gate never asserts a pipeline-wide guarantee (plan.md §4)
+OK: 0 cluster(s) close under their declared profile, 1 released under an accepted degradation record
+--- $ ligature.pyz status   EXIT=0
+cluster date-creusot-core: degraded (closure_kind=bounded) limitations=['generic_callees_type_universal_or_creusot_owned']
+--- $ ligature.pyz status --json   EXIT=0
+{
+  "clusters": [
+    {
+      "closure_kind": "bounded",
+      "cluster": "date-creusot-core",
+      "limitations": [
+        "generic_callees_type_universal_or_creusot_owned"
+      ],
+      "state": "degraded"
+    }
+  ],
+  "open_findings": [
+    {
+      "dedup_key": "002de5c24991f4034f54dfa2571bb049",
+      "gate_id": "r1-g16",
+      "severity": "high",
+      "subject": "ci/results/c_static/rust_date-creusot-core.json",
+      "summary": "CS-YEARMONTHDAY-OK-001: realized call YearMonthDay.ok -> Year.ok is absent from I -- a definite direct call across concepts must be a declared interaction (its eligibility cannot even be computed while it has no edge_class)"
+    },
+    {
+      "dedup_key": "008f84e3694a759021cbfd229126bb87",
+      "gate_id": "write-set",
+      "severity": "high",
+      "subject": "rust/date-creusot-core/creusot/pearlite-syn/tests/debug.rs",
+      "summary": "outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location"
+    },
+    {
+      "dedup_key": "0804002a97022eec9f617d158a64bb78",
+      "gate_id": "write-set",
+      "severity": "high",
+      "subject": "rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/invariant.rs",
+      "summary": "outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location"
+    },
+    {
+      "dedup_key": "08d7ee9e6a3c47382b603e8c293c9ef1",
+      "gate_id": "G2+",
+      "severity": "info",
+      "subject": "rust/date-creusot-core/specs/_boundaries/year_month_day_to_days__to__weekday_weekday_from_days.json",
+      "summary": "'Weekday.C1': applies_to unverifiable -- no spec file under specs_search_root declares concept 'Weekday'"
+    },
+    {
+      "dedup_key": "0970a395039d2f77d8be04edab6070ab",
+      "gate_id": "write-set",
+      "severity": "high",
+      "subject": "rust/date-creusot-core/creusot/creus
+--- $ ligature.pyz check --json   EXIT=1
+{
+  "conditions": [
+    "blocking_findings",
+    "human_decision_required"
+  ],
+  "exit_code": 1
+}
+  g14-ish: {"gate_id": "g14", "outcome": "executed"}
+--- $ ligature.pyz gate g14   EXIT=0
+cluster 'date-creusot-core' does NOT close: degraded under an accepted degradation record (declared closure_kind=bounded)
+  - [G14/degraded] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is declared as true, but this closure's artifacts cannot verify it: the closure's own achieved records include ['kani-bounded-model-check'] results, and Kani verifies generics per monomorphization -- whether every generic callee is type-universal or creusot-owned needs type information no artifact in this pipeline carries (CG3). That is a capability gap, not a checked condition (plan.md §3): an unverifiable declaration is never a free pass, and releasing this cluster needs a degradation record naming this condition with a tracking issue -- accepted as degradation under ceiling 'per-instantiation' (chainlink:23)
+closure is a per-cluster property with a kind; this gate never asserts a pipeline-wide guarantee (plan.md §4)
+OK: 0 cluster(s) close under their declared profile, 1 released under an accepted degradation record
+--- $ ligature.pyz doctor   EXIT=0
+Implemented: draft (Stage 0/3), approve (checkpoint), approve-pair (transactional interaction + protocol-debt checkpoint), approve-exemption-pair (transactional interaction + exemption checkpoint, R2's exemption bootstrap), validate (Stage 4 G1a/G1b/G2+), validate-interaction (Stage 4 G1a/G1b + computed eligibility + G15 + R2), validate-exemption (Stage 4 G1a/G1b naming + G2 interaction cross-reference), validate-protocol-debt (Stage 4 G1a/G1b + interaction cross-reference), validate-bridge (Stage 4 G1a/G1b/G2 over bridge specifications, chainlink #22), validate-evidence (Stage 4 G1a/G1b, workspace-level), validate-conflict-resolution (Stage 4 G1a/G1b/G11, workspace-level), validate-work-package (Stage 7 schema + §10.1, standalone), validate-promotion (Stage 4.5 schema + §7.1, standalone), accept-promotion (Stage 4.5's own generator, chainlink #45), extract-c-static (Stage 8A's coarse syntactic C_static extractor, chainlink #24), validate-callsites (Stage 8A G1a/G1b over C_static reports, workspace-level), gate-r1-g16 (Stage 8A R1 reconciliation + G16 risk-tiered unresolved policy; exit 3 means a human risk decision is outstanding), render-witness (dispatch a canonical result through the renderer contract, chainlink #28), validate-witness (G1a/G1b/G2 over witness specs + canonical results, chainlink #27), validate-gold-set (G1a/G1b over human gold sets, chainlink #26), measure-gold-set (precision/recall/omission against a human gold set, chainlink #26), check-bridges (Stage 8A bridge harness generation + verifier dispatch, chainlink #47), gate-g9 (Stage 8A bridge-check verification against a recompilation of the promoted bridge), validate-closure (Stage 8C G1a/G1b + G17 over closure profiles and degradation records), gate-g14 (Stage 8C release closure over the transitive assurance graph, per cluster, with the CG6 well-foundedness discharge, chainlink #25), gate-g18 (Stage 4 witness coverage over the declared witness_required feature set, chainlink #29), gate-g19 (Stage 8A/CI witness determinism: regenerate, compare value_hash, never render_hash, chainlink #30), gate-g20 (Stage 4.5 degeneracy: must-vary vs constant, fixture-family/coverage_region consistency, warn -- block at promotion if unresolved, chainlink #31), generate-feature-ledger (Stage 4.5 generated projection over G18/G19/G20, implementation_observed vs assurance_status never merged, chainlink #34), generate-contact-sheet (Stage 4.5 review surface with the ∃-witness evidence banner, traffic-light witness/determinism/degeneracy columns kept visually distinct from a never-green assurance_status/closure_kind column, chainlink #32), select-pilot-cluster (plan.md §14 mechanized, verifier-agnostic first-pilot-cluster ranking, chainlink #4), write-set-check (read-only write-set conformance: files outside allowed_roots and inside protected_roots relative to the project descriptor, chainlink #77), accept-policy (record a reviewed change to the normative reliance-policy document, chainlink #78), promote-evidence (mechanically promote a staged evidence draft to its target and record the move -- the Stage 0 promotion path approve() cannot provide, chainlink #79), record-assurance (assemble a work package's assurance report from verifier proof certificates -- the achieved side gate-g14 reads, chainlink #87)
+Not yet implemented:
+  - G4/G5 evidence tracing/grounding: not yet implemented -- required/bug-compat evidence tracing to nothing (G4) and ungrounded obligations (G5) both need cross-referencing interaction evidence_links (#16) to evidence ids (#20), which exist individually but aren't cross-referenced against each other yet
+  - emission: M3's I-schema is now complete (#16-#20); emission (Stage 5) itself is still not built
+  - attach: M3's I-schema is now complete (#16-#20); attach (Stage 6) itself is still not built
+  - manifest generation: #14's schema+validator exist (`validate-work-package`); M3's I-schema is now complete (#16-#20), but the generator that reads promoted I/O and emits a manifest from it is still not built
+  - 8A: partly implemented -- C_static extraction and R1/G16 are real (#24), bridge harness generation, verifier dispatch and G9 are real (#47: check-bridges, gate-g9), and per-obligation assurance records have a record schema (#23) plus the report container G14 reads (#25). What is missing is the runner that emits a work package's OBLIGATION records from a real verifier run; bridge records now have one (ci/results/bridge_checks/), and no verifier backend is configured in this repository, so nothing here dispatches for real
+  - 8B: #26 (M4)
+Installation:
+  installation: current
+  mode: port  project: date-creusot
+  skill authority hash: verified
+    unchanged  .codex/skills/ligature/SKILL.md
+    unchanged  .ligature/prompts/stage-0-evidence-intake.md
+    unchanged  .ligature/prompts/stage-3-boundary-drafting.md
+    unchanged  .ligature/prompts/stage-3-bridge-drafting.md
+    unchanged  .ligature/prompts/stage-3-concept-to-code.md
+    unchanged  .ligature/prompts/stage-3-conflict-resolution-drafting.md
+    unchanged  .ligature/prompts/stage-3-exemption-drafting.md
+    unchanged  .ligature/prompts/stage-3-interaction-drafting.md
+    unchanged  .ligature/prompts/stage-3-protocol-debt-drafting.md
+    unchanged  .ligature/prompts/stage-3-witness-drafting.md
+    unchanged  .ligature/schemas/consolidated-check.schema.json
+    unchanged  .ligature/schemas/project-descriptor.schema.json
+    unchanged  .ligature/schemas/project-state.schema.json
+    user-owned  docs/reliance-policy.md
+    user-owned  project-descriptor.json  schema: valid
+    unchanged  schemas/project-descriptor.schema.json
+    unchanged  scripts/witness_renderer.py
+    unchanged  scripts/xml_escape.py
+Executable attestation:
+  ligature 1.1.1
+    adjudicator: zipapp (attested: true)
+    content hash: sha256:172a87a8be8406d625b57b1aa96dc8cb76756e615983d8da70aa298892964558
+    bundle: 94 file(s)
+    bundled schemas: 27
+    required python: >= 3.10 (running 3.12.3)
+    platform: Linux/x86_64 (required: any)
+    artifact: /tmp/opencode/p23/work2/tools/ligature/ligature.pyz
+    source: d20760071e0082989425591274d32344074d0819 (clean working tree)
+    bundled schemas:
+      docs/achieved-assurance-schema.json: 1.0
+      docs/assumption-registry-schema.json: 1.0
+      docs/assurance-report-schema.json: 1.0
+      docs/boundary-contract-schema.json: 1.0
+      docs/bridge-check-schema.json: 1.0
+      docs/bridge-schema.json: 1.0
+      docs/callsite-schema.json: 1.0
+      docs/closure-profile-schema.json: 1.0
+      docs/concept-to-code-constraint-id-schema.json: unknown
+      docs/concept-to-code-witness-required-schema.json: unknown
+      docs/conflict-resolution-schema.json: 1.0
+      docs/degradation-record-schema.json: 1.0
+      docs/evidence-schema.json: 1.0
+      docs/exemption-schema.json: 1.0
+      docs/feature-ledger-schema.json: 1.0
+      docs/gold-set-measurement-schema.json: 1.0
+      docs/gold-set-schema.json: 1.0
+      docs/interaction-schema.json: 1.0
+      docs/promotion-receipt-schema.json: unknown
+      docs/protocol-debt-schema.json: 1.0
+      docs/witness-result-schema.json: 1.0
+      docs/witness-spec-schema.json: 1.0
+      docs/work-package-manifest-schema.json: unknown
+      schemas/consolidated-check.schema.json: 1.0
+      schemas/project-descriptor.schema.json: 1.0
+      schemas/project-state.schema.json: 1.0
+      vendor/concept-to-code/schemas/spec.schema.json: 1.0
+  adjudicator pin: pinned -- running executable matches the recorded adjudicator
+--- $ ligature.pyz write-set-check   EXIT=1
+write set: violations
+descriptor: present-valid (project-descriptor.json)
+allowed_roots: rust/*/src/, rust/*/tests/, rust/*/target/**, rust/*/verif/**, rust/*/.why3find/**, rust/*/why3find.json, rust/*/.cargo/**, rust/*/Cargo.lock, analysis/**, findings/**, oracle/**, tools/**, specs/_closure/**, specs/_promotions/**, README.md, FUTURE-WORK-round-trip-proof.md, .envrc, .mcp.json, rust/.gitkeep, upstream/**, docs/*.md
+protected_roots: rust/*/specs/**, ci/manifest/**, scripts/**, docs/*-schema.json, docs/reliance-policy.md, **/Cargo.toml, **/build.rs, tests/harnesses/**, .github/**, rust-toolchain.toml
+details: 131 write-set violation(s): rust/date-creusot-core/creusot/Cargo.lock, rust/date-creusot-core/creusot/creusot-std-proc/src/common.rs, rust/date-creusot-core/creusot/creusot-std-proc/src/creusot.rs, rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/derive.rs, rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/derive/clone.rs, rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/derive/deep_model.rs, rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/derive/default.rs, rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/derive/partial_eq.rs, rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/doc.rs, rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/erasure.rs (+121 more); 5 file(s) inside protected roots are not product-managed (audit only)
+  violation: rust/date-creusot-core/creusot/Cargo.lock: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std-proc/src/common.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std-proc/src/creusot.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/derive.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/derive/clone.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/derive/deep_model.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/derive/default.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/derive/partial_eq.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/doc.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/erasure.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/extern_spec.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/extern_spec/display.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/invariant.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/logic.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/pretyping.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/proof.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std-proc/src/creusot/specs.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std-proc/src/dummy.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std-proc/src/ghost.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std-proc/src/lib.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/cell.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/cell/permcell.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/cell/predcell.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/ghost.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/ghost/fn_ghost.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/ghost/invariant.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/ghost/lifetime_logic.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/ghost/perm.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/ghost/resource.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/ghost/resource/auth.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/ghost/shared.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/invariant.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/lib.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/fmap.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/fset.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/id.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/int.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/mapping.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/ops.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/ops/arithmetic.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/ord.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/ra.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/ra/agree.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/ra/auth.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/ra/excl.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/ra/fmap.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/ra/int.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/ra/nat.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/ra/option.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/ra/positive.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/ra/positive_real.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/ra/prod.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/ra/sum.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/ra/update.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/ra/view.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/real.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/seq.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/set.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/logic/well_founded.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/model.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/peano.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/resolve.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/snapshot.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/array.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/bool.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/borrow.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/boxed.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/cell.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/char.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/clone.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/cmp.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/collections/hash_map.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/collections/hash_set.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/convert.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/default.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/deque.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/fmt.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/hint.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/intrinsics.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/io.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/iter.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/iter/cloned.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/iter/copied.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/iter/empty.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/iter/enumerate.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/iter/filter.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/iter/filter_map.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/iter/fuse.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/iter/map.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/iter/map_inv.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/iter/once.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/iter/range.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/iter/repeat.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/iter/rev.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/iter/skip.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/iter/take.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/iter/zip.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/mem.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/num.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/ops.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/option.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/panicking.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/ptr.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/ptr/nonnull.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/range.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/rc.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/result.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/slice.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/string.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/sync.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/sync/atomic.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/sync/atomic_sc.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/sync/committer.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/sync/fence.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/sync/view.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/thread.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/time.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/tuples.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/std/vec.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/src/stubs.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/creusot-std/tests/compile_test.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/pearlite-syn/src/lib.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/pearlite-syn/src/macros.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/pearlite-syn/src/print.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/pearlite-syn/src/term.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/pearlite-syn/tests/debug.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/pearlite-syn/tests/macros.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/pearlite-syn/tests/macros/debug.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  violation: rust/date-creusot-core/creusot/pearlite-syn/tests/test_term.rs: outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+  protected (not product-managed): rust/date-creusot-core/Cargo.toml
+  protected (not product-managed): rust/date-creusot-core/creusot/Cargo.toml
+  protected (not product-managed): rust/date-creusot-core/creusot/creusot-std-proc/Cargo.toml
+  protected (not product-managed): rust/date-creusot-core/creusot/creusot-std/Cargo.toml
+  protected (not product-managed): rust/date-creusot-core/creusot/pearlite-syn/Cargo.toml
+
+====================================================================================================
+## PART 2 -- authoring path: what a degradation record must contain, one error message at a time
+
+[filename is the only accepted one: <cluster>.degradation.json]
+    $ ligature.pyz validate-closure   EXIT=0
+    (no finding on the record itself)
+
+[failed_conditions removed]
+    $ ligature.pyz validate-closure   EXIT=1
+    - [G1a/error] specs/_closure/date-creusot-core.degradation.json: 'failed_conditions' is a required property
+
+[failed_conditions names a condition key outside the closed enum]
+    $ ligature.pyz validate-closure   EXIT=1
+    - [G1a/error] specs/_closure/date-creusot-core.degradation.json: 'not_a_condition' is not one of ['single_verifier_system', 'owning_verifier', 'protocol_class_all_pairwise', 'unresolved_indirect_calls_at_or_above_medium', 'generic_callees_type_universal_or_creusot_owned', 'transitive_assumptions_within_policy', 'scc_wellfoundedness_discharged']
+
+[failed_conditions is an empty array]
+    $ ligature.pyz validate-closure   EXIT=1
+    - [G1a/error] specs/_closure/date-creusot-core.degradation.json: [] is too short
+
+[affected_edges removed]
+    $ ligature.pyz validate-closure   EXIT=1
+    - [G1a/error] specs/_closure/date-creusot-core.degradation.json: 'affected_edges' is a required property
+
+[affected_edges empty]
+    $ ligature.pyz validate-closure   EXIT=1
+    - [G1a/error] specs/_closure/date-creusot-core.degradation.json: [] is too short
+
+[ceiling removed]
+    $ ligature.pyz validate-closure   EXIT=1
+    - [G1a/error] specs/_closure/date-creusot-core.degradation.json: 'ceiling' is a required property
+
+[ceiling outside the enum]
+    $ ligature.pyz validate-closure   EXIT=1
+    - [G1a/error] specs/_closure/date-creusot-core.degradation.json: 'none' is not one of ['documented', 'tested', 'harness-tested', 'assumed', 'per-instantiation', 'human-risk-acceptance']
+
+[every ceiling the enum does allow (each must pass G1a unchanged)]
+    $ ligature.pyz validate-closure   EXIT=0
+    (no finding on the record itself)
+
+[tracking_issue removed]
+    $ ligature.pyz validate-closure   EXIT=1
+    - [G1a/error] specs/_closure/date-creusot-core.degradation.json: 'tracking_issue' is a required property
+
+[tracking_issue is not <tracker>:<id> (this is the shape check)]
+    $ ligature.pyz validate-closure   EXIT=1
+    - [G1a/error] specs/_closure/date-creusot-core.degradation.json: 'plain text' does not match '^[a-z]+:[A-Za-z0-9_.-]+$'
+
+[tracking_issue names an issue that does not exist (never checked)]
+    $ ligature.pyz validate-closure   EXIT=0
+    (no finding on the record itself)
+
+[review.reviewer empty]
+    $ ligature.pyz validate-closure   EXIT=1
+    - [G1a/error] specs/_closure/date-creusot-core.degradation.json: '' is too short
+
+[review.reviewed_at is not a date]
+    $ ligature.pyz validate-closure   EXIT=1
+    - [G1a/error] specs/_closure/date-creusot-core.degradation.json: 'yesterday' is not a 'date'
+    - [G1a/error] specs/_closure/date-creusot-core.degradation.json: 'yesterday' does not match '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'
+
+[one unexpected key]
+    $ ligature.pyz validate-closure   EXIT=1
+    - [G1a/error] specs/_closure/date-creusot-core.degradation.json: Additional properties are not allowed ('surprise' was unexpected)
+
+[cluster disagrees with the filename]
+    $ ligature.pyz validate-closure   EXIT=1
+    - [G1b/error] specs/_closure/date-creusot-core.degradation.json: degradation record declares cluster 'date-creusot-core-core', but its filename says 'date-creusot-core'
+
+
+====================================================================================================
+## PART 2b -- the profile/record agreement rule, both directions
+
+[record names the condition CG3 itself recomputed as unverifiable -> honoured]
+--- $ ligature.pyz validate-closure   EXIT=0
+OK: all closure artifacts pass G1a/G1b and G17 profile/record consistency (2 discovered)
+--- $ ligature.pyz gate-g14   EXIT=0
+cluster 'date-creusot-core' does NOT close: degraded under an accepted degradation record (declared closure_kind=bounded)
+  - [G14/degraded] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is declared as true, but this closure's artifacts cannot verify it: the closure's own achieved records include ['kani-bounded-model-check'] results, and Kani verifies generics per monomorphization -- whether every generic callee is type-universal or creusot-owned needs type information no artifact in this pipeline carries (CG3). That is a capability gap, not a checked condition (plan.md §3): an unverifiable declaration is never a free pass, and releasing this cluster needs a degradation record naming this condition with a tracking issue -- accepted as degradation under ceiling 'per-instantiation' (chainlink:23)
+closure is a per-cluster property with a kind; this gate never asserts a pipeline-wide guarantee (plan.md §4)
+OK: 0 cluster(s) close under their declared profile, 1 released under an accepted degradation record
+
+[record names a condition the profile declares as holding -> stale excuse]
+--- $ ligature.pyz validate-closure   EXIT=1
+FAIL: 1 finding(s)
+  - [G17/error] specs/_closure/date-creusot-core.degradation.json: failed_conditions names 'transitive_assumptions_within_policy', but cluster 'date-creusot-core''s closure profile declares that condition as holding -- a stale excuse keeps a closed gap reading as degraded
+--- $ ligature.pyz gate-g14   EXIT=1
+cluster 'date-creusot-core' is BLOCKED: closure not established
+  - [G14/error] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is declared as true, but this closure's artifacts cannot verify it: the closure's own achieved records include ['kani-bounded-model-check'] results, and Kani verifies generics per monomorphization -- whether every generic callee is type-universal or creusot-owned needs type information no artifact in this pipeline carries (CG3). That is a capability gap, not a checked condition (plan.md §3): an unverifiable declaration is never a free pass, and releasing this cluster needs a degradation record naming this condition with a tracking issue
+closure is a per-cluster property with a kind; this gate never asserts a pipeline-wide guarantee (plan.md §4)
+FAIL: 1 cluster(s) blocked, 0 not blocked
+
+[record names CG3 on the healthy creusot cluster, where it is VERIFIED (chainlink #86's exception)]
+--- $ ligature.pyz validate-closure   EXIT=0
+OK: all closure artifacts pass G1a/G1b and G17 profile/record consistency (2 discovered)
+--- $ ligature.pyz gate-g14   EXIT=1
+cluster 'date-creusot-core' is BLOCKED: closure not established
+  - [G14/info] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is VERIFIED from artifact data, not taken on declaration: every work package in the closure has a recorded achievement and none of them is a Kani result (['creusot-deductive-check']) -- with no per-monomorphization assurance anywhere in the closure, no generic callee it rests on is Kani-owned (CG3, plan.md §3)
+  - [G14/error] date-creusot-core: the cluster's degradation record still names 'generic_callees_type_universal_or_creusot_owned' in failed_conditions, but this closure's own records verify the condition -- a stale tracking record keeps a closed gap reading as degraded; remove it and shut the tracking issue (chainlink:23)
+closure is a per-cluster property with a kind; this gate never asserts a pipeline-wide guarantee (plan.md §4)
+FAIL: 1 cluster(s) blocked, 0 not blocked
+
+====================================================================================================
+probe-23 part 2 complete

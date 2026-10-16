@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-8",
+  "kind": "source-artifact",
+  "claim": "The only representational difference between date::weekday and iso_week::weekday is the pair to_iso_encoding(z) = z != 0 ? z : 7 and from_iso_encoding(u) = u != 7 ? u : 0, which are mutual inverses on [0,7] and are used by the two converting constructors iso_week::weekday(date::weekday) and operator date::weekday(); iso_week::weekday::ok() is 1 <= wd_ && wd_ <= 7, so 0 is not a representable iso_week weekday at all.",
+  "origin": {
+    "repository": "https://github.com/HowardHinnant/date.git",
+    "commit": "179a6b921ccd6179b5b04dce812a89f71a51b4df",
+    "symbol": "iso_week::weekday::to_iso_encoding / from_iso_encoding",
+    "path": "include/date/iso_week.h",
+    "content_hash": "sha256:fe6e7668dcb78b95afa38b1f7ba20758c304c60b9eae32268cc3a652ebe44caf",
+    "line_hint": "422-436"
+  },
+  "semantic_disposition": "required",
+  "lifecycle": "accepted",
+  "confidence": "high",
+  "mode": "P"
+}

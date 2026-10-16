@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "I-year-month-day-ok-to-year-month-day-last-day",
+  "caller": {"concept": "YearMonthDay", "method": "ok"},
+  "callee": {"concept": "YearMonthDayLast", "method": "day"},
+  "edge_class": ["numeric-domain-boundary"],
+  "eligibility": "boundary-required",
+  "rationale": "Validity of a day number is decided entirely by the month-length table the callee returns, and the one non-obvious entry, February, is decided by a leap rule the callee computes from the year, so an error in the callee silently admits or rejects whole classes of dates.",
+  "evidence_links": ["E-4", "E-5", "E-9", "E-14"],
+  "reliances": [
+    {
+      "obligation_id": "YearMonthDayLast.C1",
+      "required_assurance": {
+        "required_claims": ["postcondition-holds"],
+        "accepted_evidence_kinds": ["creusot-deductive-check"],
+        "minimum_scope": {"input_domain": "year in [-32767, 32767], month in [1, 12], day in [1, 31], days::rep is a 32-bit int"},
+        "trust_policy": {"assumptions_allowed": []}
+      }
+    }
+  ],
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {"target": "x86_64-unknown-linux-gnu", "features": ["default"], "cfg": []}
+  }
+}

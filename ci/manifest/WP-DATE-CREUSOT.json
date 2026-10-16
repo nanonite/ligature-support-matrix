@@ -1,0 +1,202 @@
+{
+  "schema": "work-package-manifest/1.0",
+  "work_package": "WP-DATE-CREUSOT",
+  "issue": "chainlink:14",
+  "depends_on": [],
+  "coupling_notes": [
+    "Era arithmetic (days_from_civil/civil_from_days) couples to weekday computation through the days-from-epoch representation shared by date::year_month_day::to_days and date::weekday::weekday_from_days.",
+    "ISO week encoding couples to Weekday::iso_encoding through the 0-to-7 Sunday re-encoding (iso_week::weekday::weekday_from_days agrees with date::weekday::iso_encoding for every z).",
+    "All five obligations require creusot-deductive-check evidence; the promoted interactions' trust policy allows no assumptions, so trusted_assumptions is empty.",
+    "gate_integrity entries for scripts/witness_renderer.py and scripts/xml_escape.py carry the real sha256 of the ligature-managed witness renderer and its direct helper as installed by ligature 1.1+ init/migrate; the ligature 1.0-era placeholder zero hashes are gone and G13 verifies these two hashes against the installed files.",
+    "provenance.artifact_set_hash is the sha256 of the Stage 4.5 promotion receipt file specs/_promotions/date-creusot-core.json, the machine-readable record of the accepted artifact set."
+  ],
+  "scheduling_rule": "reverse-dependency-order",
+  "functions": [
+    "date::year_month_day::to_days",
+    "date::year_month_day::from_days",
+    "date::weekday::weekday_from_days",
+    "date::weekday::iso_encoding",
+    "iso_week::weekday::weekday_from_days",
+    "date::year_month_day::ok",
+    "date::year_month_day::last_day"
+  ],
+  "obligations": [
+    "Weekday.C1",
+    "Weekday.C2",
+    "Weekday.C3",
+    "YearMonthDay.C2",
+    "YearMonthDayLast.C1"
+  ],
+  "provenance": {
+    "base_commit": "179a6b921ccd6179b5b04dce812a89f71a51b4df",
+    "promotion_id": "PROM-DATE-CREUSOT-CORE-001",
+    "artifact_set_hash": "sha256:891099b32cb08bd2ac6bf8137cc019a7c3f6fffaec786618aedf1ef0ba9511b7",
+    "toolchain": "rustc/cargo-creusot/why3",
+    "target": "x86_64-unknown-linux-gnu",
+    "features": [
+      "default"
+    ]
+  },
+  "gate_integrity": [
+    {
+      "runner": "scripts/witness_renderer.py",
+      "hash": "sha256:0b844c7ec904604754e13ba448c5f146cbe4296a7fd617cdfe0085636eb946bd"
+    },
+    {
+      "runner": "scripts/xml_escape.py",
+      "hash": "sha256:09dc6a9258a9bdab7648d3d8d0588bbb4bf2a096457c950e094964aa8d139854"
+    }
+  ],
+  "write_policy": {
+    "allowed_write_set": [
+      "rust/*/src/",
+      "rust/*/tests/"
+    ],
+    "protected_write_set": [
+      "rust/*/specs/**",
+      "ci/manifest/**",
+      "scripts/**",
+      "docs/reliance-policy.md",
+      "docs/*-schema.json",
+      "rust/*/Cargo.toml",
+      "rust/*/build.rs",
+      ".github/**",
+      "rust-toolchain.toml",
+      "tests/harnesses/**"
+    ],
+    "on_conflict": "raise_change_request"
+  },
+  "definition_of_done": {
+    "provided_guarantees": [
+      {
+        "obligation_id": "Weekday.C1",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "creusot-deductive-check"
+          ]
+        },
+        "harness": "creusot"
+      },
+      {
+        "obligation_id": "Weekday.C2",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "creusot-deductive-check"
+          ]
+        },
+        "harness": "creusot"
+      },
+      {
+        "obligation_id": "Weekday.C3",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "creusot-deductive-check"
+          ]
+        },
+        "harness": "creusot"
+      },
+      {
+        "obligation_id": "YearMonthDay.C2",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "creusot-deductive-check"
+          ]
+        },
+        "harness": "creusot"
+      },
+      {
+        "obligation_id": "YearMonthDayLast.C1",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "creusot-deductive-check"
+          ]
+        },
+        "harness": "creusot"
+      }
+    ],
+    "required_preconditions_to_establish": [],
+    "required_guarantees": [],
+    "trusted_assumptions": []
+  },
+  "gates": [
+    {
+      "id": "g1a",
+      "runner": "ligature",
+      "args": [
+        "validate"
+      ]
+    },
+    {
+      "id": "g1b",
+      "runner": "ligature",
+      "args": [
+        "validate-interaction"
+      ]
+    },
+    {
+      "id": "g15",
+      "runner": "ligature",
+      "args": [
+        "validate-interaction"
+      ]
+    },
+    {
+      "id": "r2",
+      "runner": "ligature",
+      "args": [
+        "validate-interaction"
+      ]
+    },
+    {
+      "id": "g18",
+      "runner": "ligature",
+      "args": [
+        "gate",
+        "g18"
+      ]
+    },
+    {
+      "id": "g19",
+      "runner": "ligature",
+      "args": [
+        "gate",
+        "g19"
+      ]
+    },
+    {
+      "id": "g20",
+      "runner": "ligature",
+      "args": [
+        "gate",
+        "g20"
+      ]
+    }
+  ],
+  "failure_policy": {
+    "verifier_timeout": "raise_change_request(kind=timeout)",
+    "obligation_unprovable": "raise_change_request(kind=change_request)",
+    "missing_callee_guarantee": "raise_change_request(kind=change_request)",
+    "unintended_call_edge": "raise_change_request(kind=change_request)",
+    "unresolved_callsite": "raise_change_request(kind=change_request)",
+    "forbidden": []
+  },
+  "report": {
+    "emit": "ci/results/feature_ledger.json",
+    "per_obligation_assurance_record": true
+  }
+}

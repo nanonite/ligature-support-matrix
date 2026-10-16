@@ -1,0 +1,11 @@
+{
+  "profile": [],
+  "proofs": {
+    "Coma": {
+      "vc_month_day_from_doy_exact_30": {
+        "prover": "alt-ergo",
+        "time": 0.075
+      }
+    }
+  }
+}

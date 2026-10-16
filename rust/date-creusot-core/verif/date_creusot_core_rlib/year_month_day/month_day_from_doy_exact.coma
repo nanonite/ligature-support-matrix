@@ -1,0 +1,262 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 371 0 371 55 *)
+
+let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 368 11 369 58
+let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 370 10 370 60
+let%span syear_month_day'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 414 11 415 24
+let%span syear_month_day'2 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 416 10 416 102
+let%span syear_month_day'3 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 451 11 452 58
+let%span syear_month_day'4 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 453 10 453 66
+let%span syear_month_day'5 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 436 11 436 74
+let%span syear_month_day'6 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 437 10 437 71
+let%span syear_month_day'7 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 51 11 51 33
+let%span syear_month_day'8 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 52 10 52 76
+let%span syear_month_day'9 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 54 4 54 33
+let%span syear_month_day'10 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 208 4 208 63
+let%span syear_month_day'11 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 422 8 429 9
+let%span syear_month_day'12 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 454 52 454 54
+let%span syear_month_day'13 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 440 8 444 9
+let%span syear_month_day_last = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 40 10 50 1
+
+use int.ComputerDivision
+use int.Int
+
+function month_length [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 51 0 51 42] (m: int) (y: int) : int
+
+axiom month_length_spec: forall m: int, y: int [month_length m y]. [%#syear_month_day_last] month_length m y
+    = (if m = 2 then
+      if ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0) then
+        29
+      else
+        28
+    
+    else
+      if m = 4 \/ m = 6 \/ m = 9 \/ m = 11 then
+        30
+      else
+        if m = 1 \/ m = 3 \/ m = 5 \/ m = 7 \/ m = 8 \/ m = 10 \/ m = 12 then 31 else 0
+    
+    )
+
+type tup2_Int_Int = { f0: int; f1: int }
+
+function month_day_from_doy [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 53 0 53 49] (doy: int) : tup2_Int_Int
+ = [%#syear_month_day'9] let mp = ComputerDivision.div (5 * doy + 2) 153 in let d = doy
+    - ComputerDivision.div (153 * mp + 2) 5
+  + 1 in let m = if mp < 10 then mp + 3 else mp - 9 in { f0 = m; f1 = d }
+
+axiom month_day_from_doy_spec: forall doy: int [month_day_from_doy doy]. ([%#syear_month_day'7] doy >= 0 /\ doy <= 365)
+    -> ([%#syear_month_day'8] (month_day_from_doy doy).f0 >= 1
+    /\ (month_day_from_doy doy).f0 <= 12 /\ (month_day_from_doy doy).f1 >= 1 /\ (month_day_from_doy doy).f1 <= 31)
+
+function doy_from_civil [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 207 0 207 44] (m: int) (d: int) : int
+ = [%#syear_month_day'10] ComputerDivision.div (153 * (if m > 2 then m - 3 else m + 9) + 2) 5 + d - 1
+
+function month_day_from_doy_exact_31 [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 417 0 417 51] (mp: int) (d: int) : ()
+ = [%#syear_month_day'11] if mp = 0 then
+    ()
+  else
+    if mp = 2 then
+      ()
+    else
+      if mp = 4 then () else if mp = 5 then () else if mp = 7 then () else if mp = 9 then () else ()
+  
+
+
+axiom month_day_from_doy_exact_31_spec: forall mp: int, d: int. ([%#syear_month_day'1] (mp = 0
+        \/ mp = 2 \/ mp = 4 \/ mp = 5 \/ mp = 7 \/ mp = 9 \/ mp = 10)
+      /\ 1 <= d /\ d <= 31)
+    -> ([%#syear_month_day'2] month_day_from_doy (ComputerDivision.div (153 * mp + 2) 5 + d - 1)
+    = { f0 = (if mp < 10 then mp + 3 else mp - 9); f1 = d })
+
+function month_day_from_doy_exact_feb [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 454 0 454 51] (y: int) (d: int) : ()
+ = [%#syear_month_day'12] ()
+
+axiom month_day_from_doy_exact_feb_spec: forall y: int, d: int. ([%#syear_month_day'3] 1 <= d /\ d <= month_length 2 y)
+    -> ([%#syear_month_day'4] month_day_from_doy (ComputerDivision.div (153 * 11 + 2) 5 + d - 1) = { f0 = 2; f1 = d })
+
+function month_day_from_doy_exact_30 [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 438 0 438 51] (mp: int) (d: int) : ()
+ = [%#syear_month_day'13] if mp = 1 then () else if mp = 3 then () else if mp = 6 then () else ()
+
+axiom month_day_from_doy_exact_30_spec: forall mp: int, d: int. ([%#syear_month_day'5] (mp = 1
+        \/ mp = 3 \/ mp = 6 \/ mp = 8)
+      /\ 1 <= d /\ d <= 30)
+    -> ([%#syear_month_day'6] month_day_from_doy (ComputerDivision.div (153 * mp + 2) 5 + d - 1)
+    = { f0 = mp + 3; f1 = d })
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+constant y : int
+
+constant m : int
+
+constant d : int
+
+function month_day_from_doy_exact [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 371 0 371 55] (y: int) (m: int) (d: int) : ()
+
+goal vc_month_day_from_doy_exact: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <= d /\ d <= month_length m y)
+  -> (if m = 1 then
+    ([@stop_split] [@expl:month_day_from_doy_exact_31 requires] [%#syear_month_day'1] (10 = 0
+        \/ 10 = 2 \/ 10 = 4 \/ 10 = 5 \/ 10 = 7 \/ 10 = 9 \/ 10 = 10)
+      /\ 1 <= d /\ d <= 31)
+    /\ (([@stop_split] [@expl:month_day_from_doy_exact_31 ensures] [%#syear_month_day'2] month_day_from_doy (ComputerDivision.div (153
+              * 10
+            + 2) 5
+          + d
+        - 1)
+      = { f0 = (if 10 < 10 then 10 + 3 else 10 - 9); f1 = d })
+    -> (let _ = month_day_from_doy_exact_31 10 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+    = { f0 = m; f1 = d }))
+  else
+    if m = 2 then
+      ([@stop_split] [@expl:month_day_from_doy_exact_feb requires] [%#syear_month_day'3] 1 <= d
+        /\ d <= month_length 2 y)
+      /\ (([@stop_split] [@expl:month_day_from_doy_exact_feb ensures] [%#syear_month_day'4] month_day_from_doy (ComputerDivision.div (153
+                * 11
+              + 2) 5
+            + d
+          - 1)
+        = { f0 = 2; f1 = d })
+      -> (let _ = month_day_from_doy_exact_feb y d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+      = { f0 = m; f1 = d }))
+    else
+      if m = 3 then
+        ([@stop_split] [@expl:month_day_from_doy_exact_31 requires] [%#syear_month_day'1] (0 = 0
+            \/ 0 = 2 \/ 0 = 4 \/ 0 = 5 \/ 0 = 7 \/ 0 = 9 \/ 0 = 10)
+          /\ 1 <= d /\ d <= 31)
+        /\ (([@stop_split] [@expl:month_day_from_doy_exact_31 ensures] [%#syear_month_day'2] month_day_from_doy (ComputerDivision.div (153
+                  * 0
+                + 2) 5
+              + d
+            - 1)
+          = { f0 = (if 0 < 10 then 0 + 3 else 0 - 9); f1 = d })
+        -> (let _ = month_day_from_doy_exact_31 0 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+        = { f0 = m; f1 = d }))
+      else
+        if m = 4 then
+          ([@stop_split] [@expl:month_day_from_doy_exact_30 requires] [%#syear_month_day'5] (1 = 1
+              \/ 1 = 3 \/ 1 = 6 \/ 1 = 8)
+            /\ 1 <= d /\ d <= 30)
+          /\ (([@stop_split] [@expl:month_day_from_doy_exact_30 ensures] [%#syear_month_day'6] month_day_from_doy (ComputerDivision.div (153
+                    * 1
+                  + 2) 5
+                + d
+              - 1)
+            = { f0 = 1 + 3; f1 = d })
+          -> (let _ = month_day_from_doy_exact_30 1 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+          = { f0 = m; f1 = d }))
+        else
+          if m = 5 then
+            ([@stop_split] [@expl:month_day_from_doy_exact_31 requires] [%#syear_month_day'1] (2 = 0
+                \/ 2 = 2 \/ 2 = 4 \/ 2 = 5 \/ 2 = 7 \/ 2 = 9 \/ 2 = 10)
+              /\ 1 <= d /\ d <= 31)
+            /\ (([@stop_split] [@expl:month_day_from_doy_exact_31 ensures] [%#syear_month_day'2] month_day_from_doy (ComputerDivision.div (153
+                      * 2
+                    + 2) 5
+                  + d
+                - 1)
+              = { f0 = (if 2 < 10 then 2 + 3 else 2 - 9); f1 = d })
+            -> (let _ = month_day_from_doy_exact_31 2 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+            = { f0 = m; f1 = d }))
+          else
+            if m = 6 then
+              ([@stop_split] [@expl:month_day_from_doy_exact_30 requires] [%#syear_month_day'5] (3 = 1
+                  \/ 3 = 3 \/ 3 = 6 \/ 3 = 8)
+                /\ 1 <= d /\ d <= 30)
+              /\ (([@stop_split] [@expl:month_day_from_doy_exact_30 ensures] [%#syear_month_day'6] month_day_from_doy (ComputerDivision.div (153
+                        * 3
+                      + 2) 5
+                    + d
+                  - 1)
+                = { f0 = 3 + 3; f1 = d })
+              -> (let _ = month_day_from_doy_exact_30 3 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+              = { f0 = m; f1 = d }))
+            else
+              if m = 7 then
+                ([@stop_split] [@expl:month_day_from_doy_exact_31 requires] [%#syear_month_day'1] (4 = 0
+                    \/ 4 = 2 \/ 4 = 4 \/ 4 = 5 \/ 4 = 7 \/ 4 = 9 \/ 4 = 10)
+                  /\ 1 <= d /\ d <= 31)
+                /\ (([@stop_split] [@expl:month_day_from_doy_exact_31 ensures] [%#syear_month_day'2] month_day_from_doy (ComputerDivision.div (153
+                          * 4
+                        + 2) 5
+                      + d
+                    - 1)
+                  = { f0 = (if 4 < 10 then 4 + 3 else 4 - 9); f1 = d })
+                -> (let _ = month_day_from_doy_exact_31 4 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+                = { f0 = m; f1 = d }))
+              else
+                if m = 8 then
+                  ([@stop_split] [@expl:month_day_from_doy_exact_31 requires] [%#syear_month_day'1] (5 = 0
+                      \/ 5 = 2 \/ 5 = 4 \/ 5 = 5 \/ 5 = 7 \/ 5 = 9 \/ 5 = 10)
+                    /\ 1 <= d /\ d <= 31)
+                  /\ (([@stop_split] [@expl:month_day_from_doy_exact_31 ensures] [%#syear_month_day'2] month_day_from_doy (ComputerDivision.div (153
+                            * 5
+                          + 2) 5
+                        + d
+                      - 1)
+                    = { f0 = (if 5 < 10 then 5 + 3 else 5 - 9); f1 = d })
+                  -> (let _ = month_day_from_doy_exact_31 5 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+                  = { f0 = m; f1 = d }))
+                else
+                  if m = 9 then
+                    ([@stop_split] [@expl:month_day_from_doy_exact_30 requires] [%#syear_month_day'5] (6 = 1
+                        \/ 6 = 3 \/ 6 = 6 \/ 6 = 8)
+                      /\ 1 <= d /\ d <= 30)
+                    /\ (([@stop_split] [@expl:month_day_from_doy_exact_30 ensures] [%#syear_month_day'6] month_day_from_doy (ComputerDivision.div (153
+                              * 6
+                            + 2) 5
+                          + d
+                        - 1)
+                      = { f0 = 6 + 3; f1 = d })
+                    -> (let _ = month_day_from_doy_exact_30 6 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+                    = { f0 = m; f1 = d }))
+                  else
+                    if m = 10 then
+                      ([@stop_split] [@expl:month_day_from_doy_exact_31 requires] [%#syear_month_day'1] (7 = 0
+                          \/ 7 = 2 \/ 7 = 4 \/ 7 = 5 \/ 7 = 7 \/ 7 = 9 \/ 7 = 10)
+                        /\ 1 <= d /\ d <= 31)
+                      /\ (([@stop_split] [@expl:month_day_from_doy_exact_31 ensures] [%#syear_month_day'2] month_day_from_doy (ComputerDivision.div (153
+                                * 7
+                              + 2) 5
+                            + d
+                          - 1)
+                        = { f0 = (if 7 < 10 then 7 + 3 else 7 - 9); f1 = d })
+                      -> (let _ = month_day_from_doy_exact_31 7 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+                      = { f0 = m; f1 = d }))
+                    else
+                      if m = 11 then
+                        ([@stop_split] [@expl:month_day_from_doy_exact_30 requires] [%#syear_month_day'5] (8 = 1
+                            \/ 8 = 3 \/ 8 = 6 \/ 8 = 8)
+                          /\ 1 <= d /\ d <= 30)
+                        /\ (([@stop_split] [@expl:month_day_from_doy_exact_30 ensures] [%#syear_month_day'6] month_day_from_doy (ComputerDivision.div (153
+                                  * 8
+                                + 2) 5
+                              + d
+                            - 1)
+                          = { f0 = 8 + 3; f1 = d })
+                        -> (let _ = month_day_from_doy_exact_30 8 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+                        = { f0 = m; f1 = d }))
+                      else
+                        ([@stop_split] [@expl:month_day_from_doy_exact_31 requires] [%#syear_month_day'1] (9 = 0
+                            \/ 9 = 2 \/ 9 = 4 \/ 9 = 5 \/ 9 = 7 \/ 9 = 9 \/ 9 = 10)
+                          /\ 1 <= d /\ d <= 31)
+                        /\ (([@stop_split] [@expl:month_day_from_doy_exact_31 ensures] [%#syear_month_day'2] month_day_from_doy (ComputerDivision.div (153
+                                  * 9
+                                + 2) 5
+                              + d
+                            - 1)
+                          = { f0 = (if 9 < 10 then 9 + 3 else 9 - 9); f1 = d })
+                        -> (let _ = month_day_from_doy_exact_31 9 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+                        = { f0 = m; f1 = d }))
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+  )

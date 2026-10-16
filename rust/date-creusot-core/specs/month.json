@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "concept": "Month",
+  "kind": "struct",
+  "cluster": "date-creusot-core",
+  "english_description": "A calendar month stored as an unsigned byte with the supported Gregorian month range.",
+  "verifier": "creusot",
+  "queries": [
+    {
+      "english": "Whether the stored month is within the supported calendar range.",
+      "rust_sig": "fn ok(&self) -> bool",
+      "pure": true,
+      "witness_required": false
+    }
+  ],
+  "commands": [],
+  "constraints": [
+    {
+      "english": "ok() is true exactly when the stored month is between 1 and 12 inclusive.",
+      "logic": "1 <= self.0 && self.0 <= 12",
+      "kind": "postcondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "ok"
+      ],
+      "id": "C001"
+    }
+  ],
+  "adversary_table": [
+    {
+      "scenario": "The unsigned-byte value zero is passed to ok().",
+      "violates": "Month.C001",
+      "resolution": "Return false because zero is outside the month range."
+    },
+    {
+      "scenario": "The unsigned-byte value thirteen is passed to ok().",
+      "violates": "Month.C001",
+      "resolution": "Return false because thirteen is outside the month range."
+    }
+  ],
+  "source_references": [
+    {
+      "kind": "reference-implementation",
+      "citation_or_path": "upstream/date/include/date/date.h:363-381, 1570",
+      "notes": "Pinned C++ month representation and ok() range check, supported by accepted E-12."
+    },
+    {
+      "kind": "other",
+      "citation_or_path": "rust/date-creusot-core/src/month.rs",
+      "notes": "Creusot Month::ok contract and implementation."
+    }
+  ],
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-16"
+  }
+}

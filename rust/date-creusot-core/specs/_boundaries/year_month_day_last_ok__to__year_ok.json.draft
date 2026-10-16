@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "boundary_id": "year_month_day_last_ok__to__year_ok",
+  "caller": {
+    "concept": "YearMonthDayLast",
+    "method": "ok"
+  },
+  "callee": {
+    "concept": "Year",
+    "method": "ok"
+  },
+  "callee_guarantees": []
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-2",
+  "kind": "source-artifact",
+  "claim": "date::year_month_day::from_days() is the exact inverse of to_days(): it decomposes an epoch day count into a 146097-day era, a day-of-era, a year-of-era, a day-of-year and a month index, and rebuilds the date; it is the algorithm the plan names civil_from_days, and it is a private member reachable only through the year_month_day(sys_days) and year_month_day(local_days) constructors.",
+  "origin": {
+    "repository": "https://github.com/HowardHinnant/date.git",
+    "commit": "179a6b921ccd6179b5b04dce812a89f71a51b4df",
+    "symbol": "date::year_month_day::from_days",
+    "path": "include/date/date.h",
+    "content_hash": "sha256:8c295bc53964ec02fa99ef10816c190a4c34fdcbf1ce2dcc8e451a29932f9d2c",
+    "line_hint": "3090-3109"
+  },
+  "semantic_disposition": "required",
+  "lifecycle": "accepted",
+  "confidence": "high",
+  "mode": "P"
+}

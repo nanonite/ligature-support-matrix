@@ -1,0 +1,6 @@
+{
+  "profile": [],
+  "proofs": {
+    "Coma": { "vc_era_quotients": { "prover": "z3", "time": 0.031 } }
+  }
+}

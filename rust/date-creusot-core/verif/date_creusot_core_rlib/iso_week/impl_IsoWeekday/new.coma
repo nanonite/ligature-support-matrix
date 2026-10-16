@@ -1,0 +1,22 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 91 4 91 42 *)
+
+(* iso_week::IsoWeekday *)
+
+let%span siso_week = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 90 14 90 30
+
+use creusot.int.UInt8
+use creusot.prelude.Any
+
+type t_IsoWeekday = { f0: UInt8.t }
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let new [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 91 4 91 42]
+  (wd: UInt8.t) (return (x: t_IsoWeekday)) = (! bb0
+  [ bb0 = s0 [ s0 = [ &_ret <- { f0 = wd } ] s1 | s1 = return {_ret} ] ]
+  [ & _ret: t_IsoWeekday = Any.any_l () | & wd: UInt8.t = wd ])
+  [ return (result: t_IsoWeekday) -> {[@stop_split] [@expl:new ensures] [%#siso_week] UInt8.t'int result.f0
+    = UInt8.t'int wd}
+    (! return {result}) ]

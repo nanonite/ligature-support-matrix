@@ -1,0 +1,3 @@
+/home/goya/storage/full-ligature-port-workspace/date-creusot/oracle/build/CMakeFiles/oracle_driver.dir
+/home/goya/storage/full-ligature-port-workspace/date-creusot/oracle/build/CMakeFiles/edit_cache.dir
+/home/goya/storage/full-ligature-port-workspace/date-creusot/oracle/build/CMakeFiles/rebuild_cache.dir

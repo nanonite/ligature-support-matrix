@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-7",
+  "kind": "source-artifact",
+  "claim": "iso_week::weekday::weekday_from_days(z) returns the ISO 8601 weekday in [1,7] with Monday = 1 and Sunday = 7, computed as to_iso_encoding applied to the same base day number date::weekday uses, with the negative branch spelled differently, z >= -4 ? (z+4) % 7 : (z+5) % 7 + 6, and yielding the same ISO weekday as date::weekday::iso_encoding for every z.",
+  "origin": {
+    "repository": "https://github.com/HowardHinnant/date.git",
+    "commit": "179a6b921ccd6179b5b04dce812a89f71a51b4df",
+    "symbol": "iso_week::weekday::weekday_from_days",
+    "path": "include/date/iso_week.h",
+    "content_hash": "sha256:fe6e7668dcb78b95afa38b1f7ba20758c304c60b9eae32268cc3a652ebe44caf",
+    "line_hint": "438-445"
+  },
+  "semantic_disposition": "required",
+  "lifecycle": "accepted",
+  "confidence": "high",
+  "mode": "P"
+}

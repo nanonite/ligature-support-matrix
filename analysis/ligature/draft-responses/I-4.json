@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "I-iso-week-weekday-to-weekday-iso-encoding",
+  "caller": {"concept": "IsoWeek", "method": "weekday"},
+  "callee": {"concept": "Weekday", "method": "iso_encoding"},
+  "edge_class": ["numeric-domain-boundary", "pure-data-type-reference"],
+  "eligibility": "boundary-required",
+  "rationale": "The converting constructor from date::weekday to iso_week::weekday changes only the representation, 0 becoming 7, so the caller's whole correctness rests on the callee's 0-to-7 mapping and on the fact that no other value is altered.",
+  "evidence_links": ["E-7", "E-8", "E-10", "E-13"],
+  "reliances": [
+    {
+      "obligation_id": "Weekday.C3",
+      "required_assurance": {
+        "required_claims": ["postcondition-holds"],
+        "accepted_evidence_kinds": ["creusot-deductive-check"],
+        "minimum_scope": {"input_domain": "year in [-32767, 32767], month in [1, 12], day in [1, 31], days::rep is a 32-bit int"},
+        "trust_policy": {"assumptions_allowed": []}
+      }
+    },
+    {
+      "obligation_id": "Weekday.C2",
+      "required_assurance": {
+        "required_claims": ["postcondition-holds"],
+        "accepted_evidence_kinds": ["creusot-deductive-check"],
+        "minimum_scope": {"input_domain": "year in [-32767, 32767], month in [1, 12], day in [1, 31], days::rep is a 32-bit int"},
+        "trust_policy": {"assumptions_allowed": []}
+      }
+    }
+  ],
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {"target": "x86_64-unknown-linux-gnu", "features": ["default"], "cfg": []}
+  }
+}

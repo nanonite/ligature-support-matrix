@@ -1,0 +1,9 @@
+{
+  "profile": [],
+  "proofs": {
+    "Coma": {
+      "vc_to_days": { "prover": "alt-ergo", "time": 0.006 },
+      "vc_to_days_bounded": { "prover": "alt-ergo", "time": 0.198 }
+    }
+  }
+}

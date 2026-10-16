@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-12",
+  "kind": "requirement",
+  "claim": "The input domain of the whole subset is fixed by the C++ type widths, not by the caller: date::year holds a short so year::min() is -32767, year::max() is 32767 and year::ok() rejects exactly the one value -32768, date::month and date::day hold unsigned char so month is 1..12 and day is 1..31, and the result type days::rep is a 32-bit int, over which to_days() stays within [-12687428, 11248737] and cannot overflow; every Creusot obligation in this cluster is therefore bounded by year in [-32767, 32767].",
+  "origin": {
+    "repository": "https://github.com/HowardHinnant/date.git",
+    "commit": "179a6b921ccd6179b5b04dce812a89f71a51b4df",
+    "symbol": "date::year (representation and ok) / date::year::min / date::year::max",
+    "path": "include/date/date.h",
+    "content_hash": "sha256:8c295bc53964ec02fa99ef10816c190a4c34fdcbf1ce2dcc8e451a29932f9d2c",
+    "line_hint": "401-427"
+  },
+  "semantic_disposition": "required",
+  "lifecycle": "accepted",
+  "confidence": "high",
+  "mode": "P"
+}

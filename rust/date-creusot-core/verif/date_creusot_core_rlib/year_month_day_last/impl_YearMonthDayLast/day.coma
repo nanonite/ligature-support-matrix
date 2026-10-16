@@ -1,0 +1,154 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 182 4 182 34 *)
+
+(* year_month_day_last::YearMonthDayLast *)
+
+let%span syear = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 67 8 67 82
+let%span syear_month_day_last = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 184 19 184 44
+let%span syear_month_day_last'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 185 16 185 17
+let%span syear_month_day_last'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 186 26 186 28
+let%span syear_month_day_last'2 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 186 38 186 40
+let%span syear_month_day_last'3 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 187 23 187 24
+let%span syear_month_day_last'4 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 187 33 187 34
+let%span syear_month_day_last'5 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 187 43 187 44
+let%span syear_month_day_last'6 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 187 53 187 55
+let%span syear_month_day_last'7 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 188 16 188 18
+let%span syear_month_day_last'8 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 189 23 189 24
+let%span syear_month_day_last'9 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 189 33 189 34
+let%span syear_month_day_last'10 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 189 43 189 44
+let%span syear_month_day_last'11 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 189 53 189 54
+let%span syear_month_day_last'12 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 189 63 189 64
+let%span syear_month_day_last'13 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 189 73 189 75
+let%span syear_month_day_last'14 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 189 84 189 86
+let%span syear_month_day_last'15 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 190 16 190 18
+let%span syear_month_day_last'16 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 192 16 192 18
+let%span syear_month_day_last'17 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 180 15 180 56
+let%span syear_month_day_last'18 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 181 14 181 68
+let%span syear_month_day_last'19 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 40 10 50 1
+let%span syear_month_day_last'20 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 52 4 64 5
+
+use creusot.int.Int16
+use creusot.int.UInt8
+use int.ComputerDivision
+use creusot.prelude.Any
+use int.Int
+
+type t_Year = { f0: Int16.t }
+
+type t_Month = { f0'0: UInt8.t }
+
+type t_YearMonthDayLast = { year: t_Year; month: t_Month }
+
+let is_leap (self: t_Year) (return (x: bool)) = any
+  [ return (result: bool) -> {[@stop_split] [@expl:is_leap ensures] [%#syear] result
+    = (ComputerDivision.mod (Int16.to_int self.f0) 4 = 0
+    /\ (ComputerDivision.mod (Int16.to_int self.f0) 100 <> 0 \/ ComputerDivision.mod (Int16.to_int self.f0) 400 = 0))}
+    (! return {result}) ]
+
+type t_Day = { f0'1: UInt8.t }
+
+function month_length [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 51 0 51 42] (m: int) (y: int) : int
+ = [%#syear_month_day_last'20] if m = 2 then
+    if ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0) then
+      29
+    else
+      28
+  
+  else
+    if m = 4 \/ m = 6 \/ m = 9 \/ m = 11 then
+      30
+    else
+      if m = 1 \/ m = 3 \/ m = 5 \/ m = 7 \/ m = 8 \/ m = 10 \/ m = 12 then 31 else 0
+  
+
+
+axiom month_length_spec: forall m: int, y: int [month_length m y]. [%#syear_month_day_last'19] month_length m y
+    = (if m = 2 then
+      if ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0) then
+        29
+      else
+        28
+    
+    else
+      if m = 4 \/ m = 6 \/ m = 9 \/ m = 11 then
+        30
+      else
+        if m = 1 \/ m = 3 \/ m = 5 \/ m = 7 \/ m = 8 \/ m = 10 \/ m = 12 then 31 else 0
+    
+    )
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let day [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 182 4 182 34]
+  (self: t_YearMonthDayLast) (return (x: t_Day)) = {[@stop_split] [@expl:day requires] [%#syear_month_day_last'17] 1
+    <= UInt8.t'int self.month.f0'0
+  /\ UInt8.t'int self.month.f0'0 <= 12}
+  (! bb0
+  [ bb0 = s0
+    [ s0 = [ &m <- self.month.f0'0 ] s1
+    | s1 = [ &_9 <- self.year ] s2
+    | s2 = is_leap [%#syear_month_day_last] {_9} (fun (_x: bool) -> [ &leap <- _x ] s3)
+    | s3 = [ &_10 <- m = ([%#syear_month_day_last'0] (2: UInt8.t)) ] s4
+    | s4 = any [ br0 -> {_10 = false} (! bb6) | br1 -> {_10} (! bb2) ] ]
+  | bb2 = any [ br0 -> {leap = false} (! bb4) | br1 -> {leap} (! bb3) ]
+  | bb3 = s0 [ s0 = [ &_12 <- [%#syear_month_day_last'1] (29: UInt8.t) ] s1 | s1 = bb5 ]
+  | bb4 = s0 [ s0 = [ &_12 <- [%#syear_month_day_last'2] (28: UInt8.t) ] s1 | s1 = bb5 ]
+  | bb5 = s0 [ s0 = [ &_ret <- { f0'1 = _12 } ] s1 | s1 = return {_ret} ]
+  | bb6 = s0
+    [ s0 = [ &_14 <- m = ([%#syear_month_day_last'3] (4: UInt8.t)) ] s1
+    | s1 = any [ br0 -> {_14 = false} (! bb8) | br1 -> {_14} (! bb14) ] ]
+  | bb8 = s0
+    [ s0 = [ &_16 <- m = ([%#syear_month_day_last'4] (6: UInt8.t)) ] s1
+    | s1 = any [ br0 -> {_16 = false} (! bb10) | br1 -> {_16} (! bb14) ] ]
+  | bb10 = s0
+    [ s0 = [ &_18 <- m = ([%#syear_month_day_last'5] (9: UInt8.t)) ] s1
+    | s1 = any [ br0 -> {_18 = false} (! bb12) | br1 -> {_18} (! bb14) ] ]
+  | bb12 = s0
+    [ s0 = [ &_20 <- m = ([%#syear_month_day_last'6] (11: UInt8.t)) ] s1
+    | s1 = any [ br0 -> {_20 = false} (! bb15) | br1 -> {_20} (! bb14) ] ]
+  | bb14 = s0 [ s0 = [ &_ret <- { f0'1 = ([%#syear_month_day_last'7] (30: UInt8.t)) } ] s1 | s1 = return {_ret} ]
+  | bb15 = s0
+    [ s0 = [ &_22 <- m = ([%#syear_month_day_last'8] (1: UInt8.t)) ] s1
+    | s1 = any [ br0 -> {_22 = false} (! bb17) | br1 -> {_22} (! bb29) ] ]
+  | bb17 = s0
+    [ s0 = [ &_24 <- m = ([%#syear_month_day_last'9] (3: UInt8.t)) ] s1
+    | s1 = any [ br0 -> {_24 = false} (! bb19) | br1 -> {_24} (! bb29) ] ]
+  | bb19 = s0
+    [ s0 = [ &_26 <- m = ([%#syear_month_day_last'10] (5: UInt8.t)) ] s1
+    | s1 = any [ br0 -> {_26 = false} (! bb21) | br1 -> {_26} (! bb29) ] ]
+  | bb21 = s0
+    [ s0 = [ &_28 <- m = ([%#syear_month_day_last'11] (7: UInt8.t)) ] s1
+    | s1 = any [ br0 -> {_28 = false} (! bb23) | br1 -> {_28} (! bb29) ] ]
+  | bb23 = s0
+    [ s0 = [ &_30 <- m = ([%#syear_month_day_last'12] (8: UInt8.t)) ] s1
+    | s1 = any [ br0 -> {_30 = false} (! bb25) | br1 -> {_30} (! bb29) ] ]
+  | bb25 = s0
+    [ s0 = [ &_32 <- m = ([%#syear_month_day_last'13] (10: UInt8.t)) ] s1
+    | s1 = any [ br0 -> {_32 = false} (! bb27) | br1 -> {_32} (! bb29) ] ]
+  | bb27 = s0
+    [ s0 = [ &_34 <- m = ([%#syear_month_day_last'14] (12: UInt8.t)) ] s1
+    | s1 = any [ br0 -> {_34 = false} (! bb30) | br1 -> {_34} (! bb29) ] ]
+  | bb29 = s0 [ s0 = [ &_ret <- { f0'1 = ([%#syear_month_day_last'15] (31: UInt8.t)) } ] s1 | s1 = return {_ret} ]
+  | bb30 = s0 [ s0 = [ &_ret <- { f0'1 = ([%#syear_month_day_last'16] (29: UInt8.t)) } ] s1 | s1 = return {_ret} ] ]
+  [ & _ret: t_Day = Any.any_l ()
+  | & self: t_YearMonthDayLast = self
+  | & m: UInt8.t = Any.any_l ()
+  | & leap: bool = Any.any_l ()
+  | & _9: t_Year = Any.any_l ()
+  | & _10: bool = Any.any_l ()
+  | & _12: UInt8.t = Any.any_l ()
+  | & _14: bool = Any.any_l ()
+  | & _16: bool = Any.any_l ()
+  | & _18: bool = Any.any_l ()
+  | & _20: bool = Any.any_l ()
+  | & _22: bool = Any.any_l ()
+  | & _24: bool = Any.any_l ()
+  | & _26: bool = Any.any_l ()
+  | & _28: bool = Any.any_l ()
+  | & _30: bool = Any.any_l ()
+  | & _32: bool = Any.any_l ()
+  | & _34: bool = Any.any_l () ])
+  [ return (result: t_Day) -> {[@stop_split] [@expl:day ensures] [%#syear_month_day_last'18] UInt8.t'int result.f0'1
+    = month_length (UInt8.t'int self.month.f0'0) (Int16.to_int self.year.f0)}
+    (! return {result}) ]

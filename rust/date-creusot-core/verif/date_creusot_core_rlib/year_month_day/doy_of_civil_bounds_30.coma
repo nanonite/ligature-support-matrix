@@ -1,0 +1,24 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 340 0 340 46 *)
+
+let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 335 11 335 74
+let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 337 4 337 41
+
+use int.ComputerDivision
+use int.Int
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+constant mp : int
+
+constant d : int
+
+function doy_of_civil_bounds_30 [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 340 0 340 46] (mp: int) (d: int) : ()
+
+goal vc_doy_of_civil_bounds_30: ([%#syear_month_day] (mp = 1 \/ mp = 3 \/ mp = 6 \/ mp = 8) /\ 1 <= d /\ d <= 30)
+  -> ([@stop_split] [@expl:doy_of_civil_bounds_30 ensures] [%#syear_month_day'0] let doy = ComputerDivision.div (153
+        * mp
+      + 2) 5
+    + d
+  - 1 in 0 <= doy /\ doy <= 364)

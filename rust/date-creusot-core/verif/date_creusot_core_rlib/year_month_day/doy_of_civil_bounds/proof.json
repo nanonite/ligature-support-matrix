@@ -1,0 +1,6 @@
+{
+  "profile": [],
+  "proofs": {
+    "Coma": { "vc_doy_of_civil_bounds": { "prover": "z3", "time": 0.018 } }
+  }
+}

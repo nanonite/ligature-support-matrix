@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "boundary_id": "iso_week_weekday__to__weekday_iso_encoding",
+  "caller": {
+    "concept": "IsoWeek",
+    "method": "weekday"
+  },
+  "callee": {
+    "concept": "Weekday",
+    "method": "iso_encoding"
+  },
+  "callee_guarantees": [
+    "Weekday.C2",
+    "Weekday.C3"
+  ]
+}

@@ -1,0 +1,4 @@
+# Generated Codesight MCP query results and source index.
+analysis/codesight/*
+!analysis/codesight/README.md
+!analysis/codesight/.gitkeep

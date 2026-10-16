@@ -1,0 +1,24 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 20 0 20 41 *)
+
+let%span siso_week = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 21 12 21 13
+let%span siso_week'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 22 8 22 9
+let%span siso_week'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 19 10 19 51
+
+use creusot.int.UInt8
+use creusot.prelude.Any
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let to_iso_encoding [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 20 0 20 41]
+  (z: UInt8.t) (return (x: UInt8.t)) = (! bb0
+  [ bb0 = s0
+    [ s0 = [ &_4 <- z = ([%#siso_week] (0: UInt8.t)) ] s1
+    | s1 = any [ br0 -> {_4 = false} (! bb2) | br1 -> {_4} (! bb1) ] ]
+  | bb1 = s0 [ s0 = [ &_ret <- [%#siso_week'0] (7: UInt8.t) ] s1 | s1 = return {_ret} ]
+  | bb2 = s0 [ s0 = [ &_ret <- z ] s1 | s1 = return {_ret} ] ]
+  [ & _ret: UInt8.t = Any.any_l () | & z: UInt8.t = z | & _4: bool = Any.any_l () ])
+  [ return (result: UInt8.t) -> {[@stop_split] [@expl:to_iso_encoding ensures] [%#siso_week'1] UInt8.t'int result
+    = (if UInt8.t'int z = 0 then 7 else UInt8.t'int z)}
+    (! return {result}) ]

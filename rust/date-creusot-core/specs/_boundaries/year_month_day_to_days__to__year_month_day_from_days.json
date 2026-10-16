@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "boundary_id": "year_month_day_to_days__to__year_month_day_from_days",
+  "caller": {
+    "concept": "YearMonthDay",
+    "method": "to_days"
+  },
+  "callee": {
+    "concept": "YearMonthDay",
+    "method": "from_days"
+  },
+  "callee_guarantees": [
+    "YearMonthDay.C2"
+  ],
+  "review": {
+    "reviewer": "chainlink-reviewer",
+    "reviewed_at": "2026-09-25"
+  }
+}

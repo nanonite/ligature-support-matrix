@@ -1,0 +1,11 @@
+upstream_test_name,case_ids,nextest_test_name,coverage_status
+date_test_pass_year_month_day_test,upstream-test-civil-from-days-1969-12-31-0001;upstream-test-civil-from-days-2015-08-09-0001;upstream-test-civil-from-days-day-point-0001;upstream-test-civil-from-days-day-point-0002;upstream-test-days-from-civil-1969-12-31-0001;upstream-test-days-from-civil-2015-08-09-0001;upstream-test-days-from-civil-day-point-0001;upstream-test-days-from-civil-day-point-0002;upstream-test-days-from-civil-day-point-0003;upstream-test-days-from-civil-day-point-0004;upstream-test-days-from-civil-day-point-0005;upstream-test-weekday-from-days-day-point-0001;upstream-test-weekday-from-days-day-point-0002;upstream-test-weekday-from-days-day-point-0003;upstream-test-ymd-ok-2000-02-29-0001;upstream-test-ymd-ok-2000-02-30-0001;upstream-test-ymd-ok-2100-02-28-0001;upstream-test-ymd-ok-2100-02-29-0001,upstream_test_civil_from_days_1969_12_31_0001;upstream_test_civil_from_days_2015_08_09_0001;upstream_test_civil_from_days_day_point_0001;upstream_test_civil_from_days_day_point_0002;upstream_test_days_from_civil_1969_12_31_0001;upstream_test_days_from_civil_2015_08_09_0001;upstream_test_days_from_civil_day_point_0001;upstream_test_days_from_civil_day_point_0002;upstream_test_days_from_civil_day_point_0003;upstream_test_days_from_civil_day_point_0004;upstream_test_days_from_civil_day_point_0005;upstream_test_weekday_from_days_day_point_0001;upstream_test_weekday_from_days_day_point_0002;upstream_test_weekday_from_days_day_point_0003;upstream_test_ymd_ok_2000_02_29_0001;upstream_test_ymd_ok_2000_02_30_0001;upstream_test_ymd_ok_2100_02_28_0001;upstream_test_ymd_ok_2100_02_29_0001,mapped
+date_test_pass_weekday_test,,,unmapped
+date_test_pass_weekday_indexed_test,,,unmapped
+date_test_pass_weekday_last_test,,,unmapped
+date_test_pass_year_month_day_last_test,,,unmapped
+date_test_pass_last_test,,,unmapped
+date_test_pass_op_div_year_month_day_test,,,unmapped
+iso_week_pass_weekday_test,,,unmapped
+iso_week_pass_weeknum_weekday_test,,,unmapped
+iso_week_pass_year_weeknum_weekday_test,,,unmapped

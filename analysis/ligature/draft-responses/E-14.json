@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-14",
+  "kind": "observed-behavior",
+  "claim": "Measured over an 18-case deterministic sample spanning the epoch, the z >= -4 branch boundary, both 400-year era boundaries (1600-01-01 = -135140, 1599-12-31 = -135141), the leap-century cases and both ends of the year domain: of the 18 cases 16 satisfy ok() and all 16 round-trip exactly through sys_days, year_month_day{-32767,1,1} maps to -12687428 and year_month_day{32767,12,31} maps to 11248737, and year(1,1,1) maps to -719162, confirming the epoch offset of 719468 days from 0000-03-01.",
+  "origin": {
+    "repository": "https://github.com/HowardHinnant/date.git",
+    "commit": "179a6b921ccd6179b5b04dce812a89f71a51b4df",
+    "symbol": "analysis/ligature/evidence-probe.cpp (E-14 sample loop)",
+    "path": "include/date/date.h",
+    "content_hash": "sha256:8c295bc53964ec02fa99ef10816c190a4c34fdcbf1ce2dcc8e451a29932f9d2c",
+    "line_hint": "2976-3109"
+  },
+  "semantic_disposition": "required",
+  "lifecycle": "accepted",
+  "confidence": "high",
+  "mode": "P"
+}

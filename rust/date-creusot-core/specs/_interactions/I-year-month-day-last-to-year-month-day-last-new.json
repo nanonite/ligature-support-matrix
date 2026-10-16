@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "I-year-month-day-last-to-year-month-day-last-new",
+  "caller": {
+    "concept": "YearMonthDay",
+    "method": "last"
+  },
+  "callee": {
+    "concept": "YearMonthDayLast",
+    "method": "new"
+  },
+  "edge_class": [
+    "pure-data-type-reference"
+  ],
+  "eligibility": "inform",
+  "rationale": "YearMonthDay::last constructs a YearMonthDayLast from its own year and month fields to expose the month-length query; the constructor stores both fields verbatim, a pure data-type construction with no computational dependency beyond field transfer.",
+  "evidence_links": [
+    "E-4",
+    "E-5"
+  ],
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [
+        "default"
+      ],
+      "cfg": []
+    }
+  },
+  "review": {
+    "reviewer": "chainlink-reviewer",
+    "reviewed_at": "2026-09-27"
+  }
+}

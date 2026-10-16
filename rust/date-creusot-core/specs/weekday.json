@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "concept": "Weekday",
+  "kind": "struct",
+  "cluster": "date-creusot-core",
+  "english_description": "A weekday with the date library C encoding and its ISO 8601 representation.",
+  "verifier": "creusot",
+  "queries": [
+    {
+      "english": "Whether the stored weekday is within the seven-day encoding range.",
+      "rust_sig": "fn ok(&self) -> bool",
+      "pure": true,
+      "witness_required": false
+    },
+    {
+      "english": "The C encoding of this weekday with Sunday represented by zero.",
+      "rust_sig": "fn c_encoding(&self) -> u8",
+      "pure": true,
+      "witness_required": false
+    },
+    {
+      "english": "The ISO encoding of this weekday with Sunday represented by seven.",
+      "rust_sig": "fn iso_encoding(&self) -> u8",
+      "pure": true,
+      "witness_required": false
+    }
+  ],
+  "commands": [],
+  "constraints": [
+    {
+      "english": "weekday_from_days(z) is the Euclidean remainder of z plus four modulo seven and returns a value from zero through six.",
+      "logic": "result == ((z + 4) % 7 + 7) % 7 && result <= 6",
+      "kind": "postcondition",
+      "source": "oracle-doc",
+      "id": "C001"
+    },
+    {
+      "english": "The C encoding uses zero for Sunday and values one through six for Monday through Saturday.",
+      "logic": "self.0@ <= 6",
+      "kind": "postcondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "ok",
+        "c_encoding"
+      ],
+      "id": "C002"
+    },
+    {
+      "english": "iso_encoding maps C encoding zero to seven and preserves nonzero weekday encodings.",
+      "logic": "result == (if self.0@ == 0 { 7 } else { self.0@ })",
+      "kind": "postcondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "iso_encoding"
+      ],
+      "id": "C003"
+    }
+  ],
+  "adversary_table": [
+    {
+      "scenario": "The epoch day count zero is decoded as a day other than Thursday.",
+      "violates": "Weekday.C001",
+      "resolution": "Return C encoding four for the epoch Thursday."
+    },
+    {
+      "scenario": "Sunday's C encoding zero is returned as ISO encoding zero.",
+      "violates": "Weekday.C003",
+      "resolution": "Return ISO encoding seven for Sunday."
+    }
+  ],
+  "source_references": [
+    {
+      "kind": "reference-implementation",
+      "citation_or_path": "upstream/date/include/date/date.h:1826-1832, 1876-1890",
+      "notes": "Pinned weekday-from-days formula, range check, C encoding, and ISO conversion; observed cases are accepted in E-13."
+    },
+    {
+      "kind": "other",
+      "citation_or_path": "rust/date-creusot-core/src/weekday.rs",
+      "notes": "Creusot contracts for weekday_from_days, ok, c_encoding, and iso_encoding."
+    }
+  ],
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-16"
+  }
+}

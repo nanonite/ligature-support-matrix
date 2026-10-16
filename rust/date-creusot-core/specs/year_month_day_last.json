@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "concept": "YearMonthDayLast",
+  "kind": "struct",
+  "cluster": "date-creusot-core",
+  "english_description": "A year and month pair whose day query returns that Gregorian month's final day.",
+  "verifier": "creusot",
+  "queries": [
+    {
+      "english": "Whether the stored year and month are both valid.",
+      "rust_sig": "fn ok(&self) -> bool",
+      "pure": true,
+      "witness_required": false
+    },
+    {
+      "english": "The final day number for the stored month and year.",
+      "rust_sig": "fn day(&self) -> Day",
+      "pure": true,
+      "witness_required": false
+    }
+  ],
+  "commands": [],
+  "constraints": [
+    {
+      "english": "For a valid month, day() equals the Gregorian month length and February has 29 days exactly in leap years.",
+      "logic": "result.0@ == month_length(self.month.0@, self.year.0@)",
+      "kind": "postcondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "day"
+      ],
+      "id": "C001"
+    },
+    {
+      "english": "ok() is true exactly when the stored year and month each satisfy their own validity predicate.",
+      "logic": "result == (self.year.ok() && self.month.ok())",
+      "kind": "postcondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "ok"
+      ],
+      "id": "C002"
+    }
+  ],
+  "adversary_table": [
+    {
+      "scenario": "February in a non-leap century year returns day twenty-nine.",
+      "violates": "YearMonthDayLast.C001",
+      "resolution": "Return twenty-eight for February 1900 and other non-leap century years."
+    },
+    {
+      "scenario": "An invalid year or month is reported as a valid year-month pair.",
+      "violates": "YearMonthDayLast.C002",
+      "resolution": "Return false when either component fails its validity predicate."
+    }
+  ],
+  "source_references": [
+    {
+      "kind": "reference-implementation",
+      "citation_or_path": "upstream/date/include/date/date.h:752-778, 2740-2776",
+      "notes": "Pinned year_month_day_last data model, month-length table, leap-year branch, and ok(); the accepted contract and examples are recorded in E-5 and E-12."
+    },
+    {
+      "kind": "other",
+      "citation_or_path": "rust/date-creusot-core/src/year_month_day_last.rs",
+      "notes": "Creusot contracts for YearMonthDayLast::day and YearMonthDayLast::ok."
+    }
+  ],
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-16"
+  }
+}

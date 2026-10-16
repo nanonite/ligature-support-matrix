@@ -1,0 +1,71 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/month.rs" 18 22 18 27 *)
+
+(* <month::Month as std::fmt::Debug> *)
+
+let%span sfmt = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/std/fmt.rs" 80 20 80 24
+let%span sfmt'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/std/fmt.rs" 78 19 78 23
+let%span sinvariant = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/invariant.rs" 93 20 93 44
+let%span smonth = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/month.rs" 18 22 18 27
+
+use creusot.int.UInt8
+use creusot.prelude.MutBorrow
+use creusot.prelude.Any
+
+type t_Month = { f0: UInt8.t }
+
+type dyn_Debug
+
+function dyn_Debug_of_ref_u8 (x: UInt8.t) : dyn_Debug
+
+type t_Formatter
+
+predicate inv_Formatter (_1: t_Formatter)
+
+type t_Result_unit_Error = Ok () | Err ()
+
+predicate invariant_refmut_Formatter [@inline:trivial] (self: MutBorrow.t t_Formatter) =
+  [%#sinvariant] inv_Formatter self.current /\ inv_Formatter self.final
+
+meta "rewrite_def" predicate invariant_refmut_Formatter
+
+predicate inv_refmut_Formatter [@inline:trivial] (_1: MutBorrow.t t_Formatter) = invariant_refmut_Formatter _1
+
+meta "rewrite_def" predicate inv_refmut_Formatter
+
+let debug_tuple_field1_finish (self_: MutBorrow.t t_Formatter) (name: string) (value1: dyn_Debug)
+  (return (x: t_Result_unit_Error)) =
+{[@stop_split] [@expl:debug_tuple_field1_finish 'self_' type invariant] [%#sfmt] inv_refmut_Formatter self_}
+  any [ return (result: t_Result_unit_Error) -> (! return {result}) ]
+
+predicate resolve_refmut_Formatter [@inline:trivial] (_1: MutBorrow.t t_Formatter) = _1.final = _1.current
+
+meta "rewrite_def" predicate resolve_refmut_Formatter
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let fmt_Month [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/month.rs" 18 22 18 27]
+  (self: t_Month) (f: MutBorrow.t t_Formatter) (return (x: t_Result_unit_Error)) =
+{[@stop_split] [@expl:fmt 'f' type invariant] [%#smonth] inv_refmut_Formatter f}
+  (! bb0
+  [ bb0 = s0
+    [ s0 = [ &_5 <- [%#smonth] "Month" ] s1
+    | s1 = [ &_8 <- self.f0 ] s2
+    | s2 = [ &_6 <- dyn_Debug_of_ref_u8 _8 ] s3
+    | s3 = MutBorrow.borrow_final <t_Formatter> {f.current} {MutBorrow.get_id f}
+        (fun (_bor: MutBorrow.t t_Formatter) ->
+          [ &_3 <- _bor ] -{inv_Formatter _bor.final}-
+          [ &f <- { f with current = _bor.final } ] s4)
+      [ _ck -> (! {[@expl:type invariant] inv_Formatter f.current} any) ]
+    | s4 = debug_tuple_field1_finish [%#smonth] {_3} {_5} {_6} (fun (_x: t_Result_unit_Error) -> [ &_ret <- _x ] s5)
+    | s5 = s6 [ _ck -> (! {[@expl:type invariant] inv_refmut_Formatter f} any) ]
+    | s6 = -{resolve_refmut_Formatter f}- s7
+    | s7 = return {_ret} ] ]
+  [ & _ret: t_Result_unit_Error = Any.any_l ()
+  | & self: t_Month = self
+  | & f: MutBorrow.t t_Formatter = f
+  | & _3: MutBorrow.t t_Formatter = Any.any_l ()
+  | & _5: string = Any.any_l ()
+  | & _6: dyn_Debug = Any.any_l ()
+  | & _8: UInt8.t = Any.any_l () ]) [ return (result: t_Result_unit_Error) -> (! return {result}) ]

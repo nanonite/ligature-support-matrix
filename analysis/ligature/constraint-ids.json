@@ -1,0 +1,129 @@
+{
+  "schema_version": "1.0",
+  "project": "date-creusot",
+  "stage": "stage-3",
+  "declared_by": "chainlink issue #13 worker",
+  "declared_at": "2026-09-25",
+  "provenance": "DECLARED BY THIS PILOT, not emitted by a tool. See analysis/ligature/stage-3-decisions.md section 3 for why, and chainlink subissue #79 for the upstream gap.",
+  "id_shape": "^[A-Z][A-Za-z0-9]*\\.[A-Z][0-9]+$",
+  "id_shape_source": "ligature.pyz draft 3 boundary-drafting, G1a on callee_guarantees items (rejected value and pattern quoted in stage-3-decisions.md section 3)",
+  "constraints": [
+    {
+      "id": "Weekday.C1",
+      "concept": "Weekday",
+      "kind": "postcondition",
+      "statement": "date::weekday::weekday_from_days(z) is in [0,6] and equals (z + 4) mod 7 under mathematical (Euclidean) modulo, for every int z; the two-branch spelling z >= -4 ? (u+4) % 7 : u % 7 with u = (unsigned)z exists only to work around C++ truncating division, and the two branches agree exactly on that.",
+      "source": "include/date/date.h",
+      "line_hint": "1826-1832",
+      "evidence": ["E-1", "E-3", "E-13"]
+    },
+    {
+      "id": "Weekday.C2",
+      "concept": "Weekday",
+      "kind": "invariant",
+      "statement": "date::weekday encodes Sunday as 0 and the weekdays as 1..6 (weekday::c_encoding(), include/date/date.h:1878-1883), and the epoch instant 1970-01-01 encodes as 4 (Thursday).",
+      "source": "include/date/date.h",
+      "line_hint": "1876-1890",
+      "evidence": ["E-3", "E-13"]
+    },
+    {
+      "id": "Weekday.C3",
+      "concept": "Weekday",
+      "kind": "postcondition",
+      "statement": "date::weekday::iso_encoding() is the ISO 8601 weekday (Monday=1 .. Sunday=7) and equals c_encoding() except that 0 is mapped to 7.",
+      "source": "include/date/date.h",
+      "line_hint": "1885-1890",
+      "evidence": ["E-3", "E-13"]
+    },
+    {
+      "id": "YearMonthDay.C1",
+      "concept": "YearMonthDay",
+      "kind": "postcondition",
+      "statement": "year_month_day::to_days() (reached publicly through operator sys_days()) returns the exact count of days from 1970-01-01 to the proleptic Gregorian date, computed as era*146097 + doe - 719468 with era = (y >= 0 ? y : y-399)/400, y already decremented by 1 for January and February, and doe = yoe*365 + yoe/4 - yoe/100 + doy.",
+      "source": "include/date/date.h",
+      "line_hint": "2976-2993",
+      "evidence": ["E-1", "E-12", "E-14"]
+    },
+    {
+      "id": "YearMonthDay.C2",
+      "concept": "YearMonthDay",
+      "kind": "postcondition",
+      "statement": "year_month_day::from_days() (reached publicly through year_month_day(sys_days)) is the exact inverse of to_days() on every ok() input: year_month_day{sys_days{ymd}} == ymd if and only if ymd.ok().",
+      "source": "include/date/date.h",
+      "line_hint": "3090-3109",
+      "evidence": ["E-2", "E-14"]
+    },
+    {
+      "id": "YearMonthDay.C3",
+      "concept": "YearMonthDay",
+      "kind": "postcondition",
+      "statement": "year_month_day::ok() is true exactly when year().ok() && month().ok() && day{1} <= day() <= (year()/month()/last).day().",
+      "source": "include/date/date.h",
+      "line_hint": "3009-3017",
+      "evidence": ["E-4", "E-14"]
+    },
+    {
+      "id": "YearMonthDay.C4",
+      "concept": "YearMonthDay",
+      "kind": "postcondition",
+      "statement": "operator sys_days() is total and is NOT guarded by ok(): an ok()==false year_month_day still yields an epoch day count, and the era arithmetic normalizes an out-of-range day to the first day of the following month. 1900-02-29 and 1900-03-01 both map to -25508; 2023-02-29 maps to 19417, the same value as 2023-03-01.",
+      "source": "include/date/date.h",
+      "line_hint": "2995-3001",
+      "evidence": ["E-14"]
+    },
+    {
+      "id": "YearMonthDay.C5",
+      "concept": "YearMonthDay",
+      "kind": "invariant",
+      "statement": "Over the representable year domain year in [-32767, 32767] the value produced by to_days() stays within [-12687428, 11248737] and therefore never overflows days::rep, which is a 32-bit int on every supported target. The two static_asserts in to_days()/from_days() are portability guards against 16-bit int/unsigned, not overflow guards on this domain.",
+      "source": "include/date/date.h",
+      "line_hint": "2981-2984",
+      "evidence": ["E-6", "E-12", "E-14"]
+    },
+    {
+      "id": "YearMonthDay.C6",
+      "concept": "YearMonthDay",
+      "kind": "invariant",
+      "statement": "to_days() and from_days() are the only places the era arithmetic appears, both are private members, and both are declared CONSTCD14 while every function they call (year::is_leap, weekday_from_days) is CONSTCD11.",
+      "source": "include/date/date.h",
+      "line_hint": "726-728",
+      "evidence": ["E-1", "E-2", "E-11"]
+    },
+    {
+      "id": "YearMonthDayLast.C1",
+      "concept": "YearMonthDayLast",
+      "kind": "postcondition",
+      "statement": "year_month_day_last::day() returns the Gregorian month length: 31,28,31,30,31,30,31,31,30,31,30,31 for months 1..12, with February replaced by 29 exactly when year::is_leap(), i.e. y % 4 == 0 && (y % 100 != 0 || y % 400 == 0).",
+      "source": "include/date/date.h",
+      "line_hint": "2739-2754",
+      "evidence": ["E-5", "E-14"]
+    },
+    {
+      "id": "YearMonthDayLast.C2",
+      "concept": "YearMonthDayLast",
+      "kind": "postcondition",
+      "statement": "date::year holds a short, so year::min() == -32767, year::max() == 32767, and year::ok() rejects exactly one value, -32768. The representable year domain for every calendar function in the subset is therefore [-32767, 32767].",
+      "source": "include/date/date.h",
+      "line_hint": "401-427",
+      "evidence": ["E-12"]
+    },
+    {
+      "id": "IsoWeek.C1",
+      "concept": "IsoWeek",
+      "kind": "postcondition",
+      "statement": "iso_week::weekday::weekday_from_days(z) is in [1,7] with Monday=1 .. Sunday=7, and equals to_iso_encoding of the same base expression date::weekday uses. Its two-branch spelling is z >= -4 ? (z+4) % 7 : (z+5) % 7 + 6, which differs from the date::weekday spelling in the negative branch yet yields the same ISO weekday.",
+      "source": "include/date/iso_week.h",
+      "line_hint": "438-445",
+      "evidence": ["E-7", "E-13"]
+    },
+    {
+      "id": "IsoWeek.C2",
+      "concept": "IsoWeek",
+      "kind": "invariant",
+      "statement": "to_iso_encoding(z) = z != 0 ? z : 7 and from_iso_encoding(u) = u != 7 ? u : 0 are mutual inverses on [0,7]; this pair is the only difference in representation between date::weekday and iso_week::weekday, and the conversion is total in both directions.",
+      "source": "include/date/iso_week.h",
+      "line_hint": "422-436",
+      "evidence": ["E-7", "E-8", "E-13"]
+    }
+  ]
+}

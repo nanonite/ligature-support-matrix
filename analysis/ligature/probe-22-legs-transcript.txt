@@ -1,0 +1,233 @@
+====================================================================================================
+### A0: baseline (no mutation)
+--- $ ligature.pyz gate-g14   EXIT=0
+    CG3> - [G14/info] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is VERIFIED from artifact data, not taken on declaration: every work package in the closure has a recorded achievement and none of them is a Kani result (['creusot-deductive-check']) -- with no per-monomorphization assurance anywhere in the closure, no generic callee it rests on is Kani-owned (CG3, plan.md §3)
+--- $ ligature.pyz validate-closure   EXIT=0
+    CG3> (no CG3 line emitted)
+--- $ ligature.pyz status   EXIT=0
+    CG3> cluster date-creusot-core: closes (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+    status> cluster date-creusot-core: closes (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+
+====================================================================================================
+### B1: delete ALL 5 achieved-assurance records
+--- $ ligature.pyz gate-g14   EXIT=1
+    CG3> - [G14/error] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is declared as true, but this closure's artifacts cannot verify it: no achieved assurance record at all for WP-DATE-CREUSOT -- until every work package in the closure has recorded evidence, a Kani result nobody wrote down cannot be ruled out. That is a capability gap, not a checked condition (plan.md §3): an unverifiable declaration is never a free pass, and releasing this cluster needs a degradation record naming this condition with a tracking issue
+    other> - [G14/error] Weekday.C1: WP-DATE-CREUSOT provides this obligation but recorded no achieved assurance for it -- record one from this work package's proof certificates with `ligature record-assurance WP-DATE-CREUSOT --proof Weekday.C1=<path>`
+    other> - [G14/error] Weekday.C2: WP-DATE-CREUSOT provides this obligation but recorded no achieved assurance for it -- record one from this work package's proof certificates with `ligature record-assurance WP-DATE-CREUSOT --proof Weekday.C2=<path>`
+    other> - [G14/error] Weekday.C3: WP-DATE-CREUSOT provides this obligation but recorded no achieved assurance for it -- record one from this work package's proof certificates with `ligature record-assurance WP-DATE-CREUSOT --proof Weekday.C3=<path>`
+    other> - [G14/error] YearMonthDay.C2: WP-DATE-CREUSOT provides this obligation but recorded no achieved assurance for it -- record one from this work package's proof certificates with `ligature record-assurance WP-DATE-CREUSOT --proof YearMonthDay.C2=<path>`
+    other> - [G14/error] YearMonthDayLast.C1: WP-DATE-CREUSOT provides this obligation but recorded no achieved assurance for it -- record one from this work package's proof certificates with `ligature record-assurance WP-DATE-CREUSOT --proof YearMonthDayLast.C1=<path>`
+--- $ ligature.pyz validate-closure   EXIT=0
+    CG3> (no CG3 line emitted)
+--- $ ligature.pyz status   EXIT=0
+    CG3> cluster date-creusot-core: blocked (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+    status> cluster date-creusot-core: blocked (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+
+====================================================================================================
+### B2: delete 1 of 5 achieved-assurance records (Weekday.C1)
+--- $ ligature.pyz gate-g14   EXIT=1
+    CG3> - [G14/info] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is VERIFIED from artifact data, not taken on declaration: every work package in the closure has a recorded achievement and none of them is a Kani result (['creusot-deductive-check']) -- with no per-monomorphization assurance anywhere in the closure, no generic callee it rests on is Kani-owned (CG3, plan.md §3)
+    other> - [G14/error] Weekday.C1: WP-DATE-CREUSOT provides this obligation but recorded no achieved assurance for it -- record one from this work package's proof certificates with `ligature record-assurance WP-DATE-CREUSOT --proof Weekday.C1=<path>`
+--- $ ligature.pyz validate-closure   EXIT=0
+    CG3> (no CG3 line emitted)
+--- $ ligature.pyz status   EXIT=0
+    CG3> cluster date-creusot-core: blocked (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+    status> cluster date-creusot-core: blocked (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+
+====================================================================================================
+### B3: conditions.CG3 declared false
+--- $ ligature.pyz gate-g14   EXIT=1
+    CG3> - [G17/error] date-creusot-core: conditions.generic_callees_type_universal_or_creusot_owned is declared as False but the computed closure says True -- conditions are recomputed, never stored-and-trusted
+--- $ ligature.pyz validate-closure   EXIT=1
+    CG3> - [G17/error] specs/_closure/date-creusot-core.json: condition 'generic_callees_type_universal_or_creusot_owned' is declared as not holding, but no degradation record for cluster 'date-creusot-core' covers it -- an undeclared degradation
+--- $ ligature.pyz status   EXIT=0
+    CG3> (no CG3 line emitted)
+    status> cluster date-creusot-core: blocked (closure_kind=deductive)
+
+====================================================================================================
+### B4: conditions.CG3 key removed from the profile
+--- $ ligature.pyz gate-g14   EXIT=1
+    CG3> (no CG3 line emitted)
+    other> - [G14/error] /tmp/opencode/p22/work/specs/_closure/date-creusot-core.json: ignored as invalid and excluded from closure computation -- run `pipeline.py validate-closure` for the detailed finding(s) that invalidated it
+--- $ ligature.pyz validate-closure   EXIT=1
+    CG3> - [G1a/error] specs/_closure/date-creusot-core.json: 'generic_callees_type_universal_or_creusot_owned' is a required property
+--- $ ligature.pyz status   EXIT=0
+    CG3> (no CG3 line emitted)
+    status> cluster date-creusot-core: unknown (closure_kind=deductive)
+
+====================================================================================================
+### B5: conditions.CG3 declared as the string "yes"
+--- $ ligature.pyz gate-g14   EXIT=1
+    CG3> (no CG3 line emitted)
+    other> - [G14/error] /tmp/opencode/p22/work/specs/_closure/date-creusot-core.json: ignored as invalid and excluded from closure computation -- run `pipeline.py validate-closure` for the detailed finding(s) that invalidated it
+--- $ ligature.pyz validate-closure   EXIT=1
+    CG3> (no CG3 line emitted)
+--- $ ligature.pyz status   EXIT=0
+    CG3> (no CG3 line emitted)
+    status> cluster date-creusot-core: unknown (closure_kind=deductive)
+
+====================================================================================================
+### B6: all 5 records relabelled kani-bounded-model-check (deductive)
+--- $ ligature.pyz gate-g14   EXIT=1
+    CG3> - [G14/error] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is declared as true, but this closure's artifacts cannot verify it: the closure's own achieved records include ['kani-bounded-model-check'] results, and Kani verifies generics per monomorphization -- whether every generic callee is type-universal or creusot-owned needs type information no artifact in this pipeline carries (CG3). That is a capability gap, not a checked condition (plan.md §3): an unverifiable declaration is never a free pass, and releasing this cluster needs a degradation record naming this condition with a tracking issue
+    other> - [G14/error] Weekday.C1: WP-DATE-CREUSOT's own provided guarantee is not met by what it achieved: evidence.kind 'kani-bounded-model-check' is not among required_profile.accepted_evidence_kinds ['creusot-deductive-check']
+    other> - [G14/error] Weekday.C2: WP-DATE-CREUSOT's own provided guarantee is not met by what it achieved: evidence.kind 'kani-bounded-model-check' is not among required_profile.accepted_evidence_kinds ['creusot-deductive-check']
+    other> - [G14/error] Weekday.C3: WP-DATE-CREUSOT's own provided guarantee is not met by what it achieved: evidence.kind 'kani-bounded-model-check' is not among required_profile.accepted_evidence_kinds ['creusot-deductive-check']
+    other> - [G14/error] YearMonthDay.C2: WP-DATE-CREUSOT's own provided guarantee is not met by what it achieved: evidence.kind 'kani-bounded-model-check' is not among required_profile.accepted_evidence_kinds ['creusot-deductive-check']
+    other> - [G14/error] YearMonthDayLast.C1: WP-DATE-CREUSOT's own provided guarantee is not met by what it achieved: evidence.kind 'kani-bounded-model-check' is not among required_profile.accepted_evidence_kinds ['creusot-deductive-check']
+    other> - [G17/error] date-creusot-core: conditions.owning_verifier is declared as 'creusot' but the computed closure says 'kani' -- conditions are recomputed, never stored-and-trusted
+    other> - [G17/error] date-creusot-core: closure_kind is 'deductive' but the transitive closure contains ['kani-bounded-model-check'] -- a bounded result anywhere in the closure makes the cluster's guarantee bounded (plan.md §4)
+--- $ ligature.pyz validate-closure   EXIT=0
+    CG3> (no CG3 line emitted)
+--- $ ligature.pyz status   EXIT=0
+    CG3> cluster date-creusot-core: blocked (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+    status> cluster date-creusot-core: blocked (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+
+====================================================================================================
+### B7: all 5 records relabelled verus-deductive-check
+--- $ ligature.pyz gate-g14   EXIT=1
+    CG3> - [G14/info] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is VERIFIED from artifact data, not taken on declaration: every work package in the closure has a recorded achievement and none of them is a Kani result (['verus-deductive-check']) -- with no per-monomorphization assurance anywhere in the closure, no generic callee it rests on is Kani-owned (CG3, plan.md §3)
+    other> - [G14/error] Weekday.C1: WP-DATE-CREUSOT's own provided guarantee is not met by what it achieved: evidence.kind 'verus-deductive-check' is not among required_profile.accepted_evidence_kinds ['creusot-deductive-check']
+    other> - [G14/error] Weekday.C2: WP-DATE-CREUSOT's own provided guarantee is not met by what it achieved: evidence.kind 'verus-deductive-check' is not among required_profile.accepted_evidence_kinds ['creusot-deductive-check']
+    other> - [G14/error] Weekday.C3: WP-DATE-CREUSOT's own provided guarantee is not met by what it achieved: evidence.kind 'verus-deductive-check' is not among required_profile.accepted_evidence_kinds ['creusot-deductive-check']
+    other> - [G14/error] YearMonthDay.C2: WP-DATE-CREUSOT's own provided guarantee is not met by what it achieved: evidence.kind 'verus-deductive-check' is not among required_profile.accepted_evidence_kinds ['creusot-deductive-check']
+    other> - [G14/error] YearMonthDayLast.C1: WP-DATE-CREUSOT's own provided guarantee is not met by what it achieved: evidence.kind 'verus-deductive-check' is not among required_profile.accepted_evidence_kinds ['creusot-deductive-check']
+    other> - [G17/error] date-creusot-core: conditions.owning_verifier is declared as 'creusot' but the computed closure says 'verus' -- conditions are recomputed, never stored-and-trusted
+--- $ ligature.pyz validate-closure   EXIT=0
+    CG3> (no CG3 line emitted)
+--- $ ligature.pyz status   EXIT=0
+    CG3> cluster date-creusot-core: blocked (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+    status> cluster date-creusot-core: blocked (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+
+====================================================================================================
+### B8: Kani-owned BOUNDED cluster (5 records kani, closure_kind=bounded)
+--- $ ligature.pyz gate-g14   EXIT=1
+    CG3> - [G14/error] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is declared as true, but this closure's artifacts cannot verify it: the closure's own achieved records include ['kani-bounded-model-check'] results, and Kani verifies generics per monomorphization -- whether every generic callee is type-universal or creusot-owned needs type information no artifact in this pipeline carries (CG3). That is a capability gap, not a checked condition (plan.md §3): an unverifiable declaration is never a free pass, and releasing this cluster needs a degradation record naming this condition with a tracking issue
+--- $ ligature.pyz validate-closure   EXIT=0
+    CG3> (no CG3 line emitted)
+--- $ ligature.pyz status   EXIT=0
+    CG3> cluster date-creusot-core: blocked (closure_kind=bounded) limitations=['generic_callees_type_universal_or_creusot_owned']
+    status> cluster date-creusot-core: blocked (closure_kind=bounded) limitations=['generic_callees_type_universal_or_creusot_owned']
+
+====================================================================================================
+### B9: 1 of 5 records kani, rest creusot (deductive)
+--- $ ligature.pyz gate-g14   EXIT=1
+    CG3> - [G14/error] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is declared as true, but this closure's artifacts cannot verify it: the closure's own achieved records include ['kani-bounded-model-check'] results, and Kani verifies generics per monomorphization -- whether every generic callee is type-universal or creusot-owned needs type information no artifact in this pipeline carries (CG3). That is a capability gap, not a checked condition (plan.md §3): an unverifiable declaration is never a free pass, and releasing this cluster needs a degradation record naming this condition with a tracking issue
+    other> - [G14/error] YearMonthDay.C2: WP-DATE-CREUSOT's own provided guarantee is not met by what it achieved: evidence.kind 'kani-bounded-model-check' is not among required_profile.accepted_evidence_kinds ['creusot-deductive-check']
+    other> - [G17/error] date-creusot-core: conditions.single_verifier_system is declared as True but the computed closure says False -- conditions are recomputed, never stored-and-trusted
+    other> - [G17/error] date-creusot-core: closure_kind is 'deductive' but the transitive closure contains ['kani-bounded-model-check'] -- a bounded result anywhere in the closure makes the cluster's guarantee bounded (plan.md §4)
+    other> - [G14/error] [single_verifier_system] date-creusot-core: the transitive closure spans more than one verifier system (['creusot-deductive-check', 'kani-bounded-model-check']) -- cross-verifier composition has no soundness theorem (CG1)
+--- $ ligature.pyz validate-closure   EXIT=0
+    CG3> (no CG3 line emitted)
+--- $ ligature.pyz status   EXIT=0
+    CG3> cluster date-creusot-core: blocked (closure_kind=deductive) limitations=['single_verifier_system', 'generic_callees_type_universal_or_creusot_owned']
+    status> cluster date-creusot-core: blocked (closure_kind=deductive) limitations=['single_verifier_system', 'generic_callees_type_universal_or_creusot_owned']
+
+====================================================================================================
+### B10: declare a generic callee in the ledger (type_universal: false)
+--- $ ligature.pyz gate-g14   EXIT=1
+    CG3> - [G14/error] WP-DATE-CREUSOT: assurance report ci/results/feature_ledger.json is not schema-valid: Additional properties are not allowed ('generic_callees' was unexpected)
+    CG3> - [G14/error] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is declared as true, but this closure's artifacts cannot verify it: no achieved assurance record at all for WP-DATE-CREUSOT -- until every work package in the closure has recorded evidence, a Kani result nobody wrote down cannot be ruled out. That is a capability gap, not a checked condition (plan.md §3): an unverifiable declaration is never a free pass, and releasing this cluster needs a degradation record naming this condition with a tracking issue
+    other> - [G14/error] Weekday.C1: WP-DATE-CREUSOT provides this obligation but recorded no achieved assurance for it -- record one from this work package's proof certificates with `ligature record-assurance WP-DATE-CREUSOT --proof Weekday.C1=<path>`
+    other> - [G14/error] Weekday.C2: WP-DATE-CREUSOT provides this obligation but recorded no achieved assurance for it -- record one from this work package's proof certificates with `ligature record-assurance WP-DATE-CREUSOT --proof Weekday.C2=<path>`
+    other> - [G14/error] Weekday.C3: WP-DATE-CREUSOT provides this obligation but recorded no achieved assurance for it -- record one from this work package's proof certificates with `ligature record-assurance WP-DATE-CREUSOT --proof Weekday.C3=<path>`
+    other> - [G14/error] YearMonthDay.C2: WP-DATE-CREUSOT provides this obligation but recorded no achieved assurance for it -- record one from this work package's proof certificates with `ligature record-assurance WP-DATE-CREUSOT --proof YearMonthDay.C2=<path>`
+    other> - [G14/error] YearMonthDayLast.C1: WP-DATE-CREUSOT provides this obligation but recorded no achieved assurance for it -- record one from this work package's proof certificates with `ligature record-assurance WP-DATE-CREUSOT --proof YearMonthDayLast.C1=<path>`
+--- $ ligature.pyz validate-closure   EXIT=0
+    CG3> (no CG3 line emitted)
+--- $ ligature.pyz status   EXIT=0
+    CG3> cluster date-creusot-core: blocked (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+    status> cluster date-creusot-core: blocked (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+
+====================================================================================================
+### B11: declare a generic callee in the work-package manifest
+--- $ ligature.pyz gate-g14   EXIT=1
+    CG3> - [G14/error] /tmp/opencode/p22/work/ci/manifest/WP-DATE-CREUSOT.json: manifest is not schema-valid (Additional properties are not allowed ('generic_callees' was unexpected)) -- run `pipeline.py validate-work-package` on it; it takes no part in any closure until it passes
+    CG3> - [G14/error] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is declared as true, but this closure's artifacts cannot verify it: the closure itself contains no work package at all. That is a capability gap, not a checked condition (plan.md §3): an unverifiable declaration is never a free pass, and releasing this cluster needs a degradation record naming this condition with a tracking issue
+    other> - [G14/error] WP-DATE-CREUSOT: cluster 'date-creusot-core' names this work package, but no valid manifest for it was found in /tmp/opencode/p22/work/ci/manifest
+--- $ ligature.pyz validate-closure   EXIT=0
+    CG3> (no CG3 line emitted)
+--- $ ligature.pyz status   EXIT=0
+    CG3> cluster date-creusot-core: blocked (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+    status> cluster date-creusot-core: blocked (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+
+====================================================================================================
+### B12: WP manifest accepts BOTH creusot and kani kinds; record is creusot
+--- $ ligature.pyz gate-g14   EXIT=0
+    CG3> - [G14/info] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is VERIFIED from artifact data, not taken on declaration: every work package in the closure has a recorded achievement and none of them is a Kani result (['creusot-deductive-check']) -- with no per-monomorphization assurance anywhere in the closure, no generic callee it rests on is Kani-owned (CG3, plan.md §3)
+--- $ ligature.pyz validate-closure   EXIT=0
+    CG3> (no CG3 line emitted)
+--- $ ligature.pyz status   EXIT=0
+    CG3> cluster date-creusot-core: closes (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+    status> cluster date-creusot-core: closes (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+
+====================================================================================================
+### C1: Kani-owned generic-callee WP NOT named by the closure profile
+--- $ ligature.pyz gate-g14   EXIT=0
+    CG3> - [G14/info] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is VERIFIED from artifact data, not taken on declaration: every work package in the closure has a recorded achievement and none of them is a Kani result (['creusot-deductive-check']) -- with no per-monomorphization assurance anywhere in the closure, no generic callee it rests on is Kani-owned (CG3, plan.md §3)
+--- $ ligature.pyz validate-closure   EXIT=0
+    CG3> (no CG3 line emitted)
+--- $ ligature.pyz status   EXIT=0
+    CG3> cluster date-creusot-core: closes (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+    status> cluster date-creusot-core: closes (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+
+====================================================================================================
+### C2: control: that Kani-owned generic-callee WP IS named by the closure
+--- $ ligature.pyz gate-g14   EXIT=1
+    CG3> - [G14/error] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is declared as true, but this closure's artifacts cannot verify it: the closure's own achieved records include ['kani-bounded-model-check'] results, and Kani verifies generics per monomorphization -- whether every generic callee is type-universal or creusot-owned needs type information no artifact in this pipeline carries (CG3). That is a capability gap, not a checked condition (plan.md §3): an unverifiable declaration is never a free pass, and releasing this cluster needs a degradation record naming this condition with a tracking issue
+    other> - [G17/error] date-creusot-core: conditions.single_verifier_system is declared as True but the computed closure says False -- conditions are recomputed, never stored-and-trusted
+    other> - [G17/error] date-creusot-core: closure_kind is 'deductive' but the transitive closure contains ['kani-bounded-model-check'] -- a bounded result anywhere in the closure makes the cluster's guarantee bounded (plan.md §4)
+    other> - [G14/error] [single_verifier_system] date-creusot-core: the transitive closure spans more than one verifier system (['creusot-deductive-check', 'kani-bounded-model-check']) -- cross-verifier composition has no soundness theorem (CG1)
+--- $ ligature.pyz validate-closure   EXIT=0
+    CG3> (no CG3 line emitted)
+--- $ ligature.pyz status   EXIT=0
+    CG3> cluster date-creusot-core: blocked (closure_kind=deductive) limitations=['single_verifier_system', 'generic_callees_type_universal_or_creusot_owned']
+    status> cluster date-creusot-core: blocked (closure_kind=deductive) limitations=['single_verifier_system', 'generic_callees_type_universal_or_creusot_owned']
+
+====================================================================================================
+### C3: records say verifier=kani/harness=kani, kind=exhaustive-model-check
+--- $ ligature.pyz gate-g14   EXIT=1
+    CG3> - [G14/error] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is declared as true, but this closure's artifacts cannot verify it: the closure itself contains no work package at all. That is a capability gap, not a checked condition (plan.md §3): an unverifiable declaration is never a free pass, and releasing this cluster needs a degradation record naming this condition with a tracking issue
+    other> - [G14/error] /tmp/opencode/p22/work/ci/manifest/WP-DATE-CREUSOT.json: manifest is not schema-valid ('exhaustive-model-check' is not one of ['kani-bounded-model-check', 'creusot-deductive-check', 'verus-deductive-check']) -- run `pipeline.py validate-work-package` on it; it takes no part in any closure until it passes
+    other> - [G14/error] WP-DATE-CREUSOT: cluster 'date-creusot-core' names this work package, but no valid manifest for it was found in /tmp/opencode/p22/work/ci/manifest
+--- $ ligature.pyz validate-closure   EXIT=0
+    CG3> (no CG3 line emitted)
+--- $ ligature.pyz status   EXIT=0
+    CG3> cluster date-creusot-core: blocked (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+    status> cluster date-creusot-core: blocked (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+
+====================================================================================================
+### C4: Kani-owned BOUNDED cluster, kind string 'bounded-model-checking' (no 'kani')
+--- $ ligature.pyz gate-g14   EXIT=1
+    CG3> - [G14/error] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is declared as true, but this closure's artifacts cannot verify it: the closure itself contains no work package at all. That is a capability gap, not a checked condition (plan.md §3): an unverifiable declaration is never a free pass, and releasing this cluster needs a degradation record naming this condition with a tracking issue
+    other> - [G14/error] /tmp/opencode/p22/work/ci/manifest/WP-DATE-CREUSOT.json: manifest is not schema-valid ('bounded-model-checking' is not one of ['kani-bounded-model-check', 'creusot-deductive-check', 'verus-deductive-check']) -- run `pipeline.py validate-work-package` on it; it takes no part in any closure until it passes
+    other> - [G14/error] WP-DATE-CREUSOT: cluster 'date-creusot-core' names this work package, but no valid manifest for it was found in /tmp/opencode/p22/work/ci/manifest
+--- $ ligature.pyz validate-closure   EXIT=0
+    CG3> (no CG3 line emitted)
+--- $ ligature.pyz status   EXIT=0
+    CG3> cluster date-creusot-core: blocked (closure_kind=bounded) limitations=['generic_callees_type_universal_or_creusot_owned']
+    status> cluster date-creusot-core: blocked (closure_kind=bounded) limitations=['generic_callees_type_universal_or_creusot_owned']
+
+====================================================================================================
+### C5: Creusot WP depends_on a Kani-owned generic-callee WP (not in closure list)
+--- $ ligature.pyz gate-g14   EXIT=0
+    CG3> - [G14/info] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is VERIFIED from artifact data, not taken on declaration: every work package in the closure has a recorded achievement and none of them is a Kani result (['creusot-deductive-check']) -- with no per-monomorphization assurance anywhere in the closure, no generic callee it rests on is Kani-owned (CG3, plan.md §3)
+--- $ ligature.pyz validate-closure   EXIT=0
+    CG3> (no CG3 line emitted)
+--- $ ligature.pyz status   EXIT=0
+    CG3> cluster date-creusot-core: closes (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+    status> cluster date-creusot-core: closes (closure_kind=deductive) limitations=['generic_callees_type_universal_or_creusot_owned']
+
+====================================================================================================
+### C6: Kani-owned record in bridge_records instead of obligation_records
+--- $ ligature.pyz gate-g14   EXIT=1
+    CG3> - [G14/error] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is declared as true, but this closure's artifacts cannot verify it: the closure's own achieved records include ['kani-bounded-model-check'] results, and Kani verifies generics per monomorphization -- whether every generic callee is type-universal or creusot-owned needs type information no artifact in this pipeline carries (CG3). That is a capability gap, not a checked condition (plan.md §3): an unverifiable declaration is never a free pass, and releasing this cluster needs a degradation record naming this condition with a tracking issue
+    other> - [G17/error] date-creusot-core: conditions.single_verifier_system is declared as True but the computed closure says False -- conditions are recomputed, never stored-and-trusted
+    other> - [G17/error] date-creusot-core: closure_kind is 'deductive' but the transitive closure contains ['kani-bounded-model-check'] -- a bounded result anywhere in the closure makes the cluster's guarantee bounded (plan.md §4)
+    other> - [G14/error] [single_verifier_system] date-creusot-core: the transitive closure spans more than one verifier system (['creusot-deductive-check', 'kani-bounded-model-check']) -- cross-verifier composition has no soundness theorem (CG1)
+--- $ ligature.pyz validate-closure   EXIT=0
+    CG3> (no CG3 line emitted)
+--- $ ligature.pyz status   EXIT=0
+    CG3> cluster date-creusot-core: blocked (closure_kind=deductive) limitations=['single_verifier_system', 'generic_callees_type_universal_or_creusot_owned']
+    status> cluster date-creusot-core: blocked (closure_kind=deductive) limitations=['single_verifier_system', 'generic_callees_type_universal_or_creusot_owned']
+

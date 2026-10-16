@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-10",
+  "kind": "test",
+  "claim": "Upstream pins the iso_week::weekday representation with compile-time constants: weekday{0u}.ok() is false while weekday{1u} through weekday{7u} are all ok(), and both converting directions are asserted to exist, is_convertible<date::weekday, iso_week::weekday> and is_convertible<iso_week::weekday, date::weekday>; this is the upstream test that makes 0 an invalid ISO weekday and therefore the reason the 0/7 re-encoding cannot be dropped.",
+  "origin": {
+    "repository": "https://github.com/HowardHinnant/date.git",
+    "commit": "179a6b921ccd6179b5b04dce812a89f71a51b4df",
+    "symbol": "iso_week::weekday (ok / conversions)",
+    "path": "test/iso_week/weekday.pass.cpp",
+    "content_hash": "sha256:27c2f992cba20a9568f214a5d736cfc3b37100cc27b2210cbe52d5fb8076270b",
+    "line_hint": "88-105"
+  },
+  "semantic_disposition": "required",
+  "lifecycle": "accepted",
+  "confidence": "high",
+  "mode": "P"
+}

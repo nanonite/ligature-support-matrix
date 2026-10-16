@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.0",
+  "concept": "YearMonthDay",
+  "kind": "struct",
+  "cluster": "date-creusot-core",
+  "english_description": "A proleptic Gregorian date with validity, day-count conversion, and a bounded round-trip query.",
+  "verifier": "creusot",
+  "queries": [
+    {
+      "english": "Whether the year, month, and day form a valid Gregorian date.",
+      "rust_sig": "fn ok(&self) -> bool",
+      "pure": true,
+      "witness_required": false
+    },
+    {
+      "english": "The epoch day count produced by the total civil-date conversion.",
+      "rust_sig": "fn to_days(&self) -> Days",
+      "pure": true,
+      "witness_required": false
+    },
+    {
+      "english": "The day count produced within the supported date-subset range.",
+      "rust_sig": "fn to_days_bounded(&self) -> Days",
+      "pure": true,
+      "witness_required": false
+    },
+    {
+      "english": "Whether converting this valid date to days and back preserves every field.",
+      "rust_sig": "fn round_trip(&self) -> bool",
+      "pure": true,
+      "witness_required": false
+    }
+  ],
+  "commands": [],
+  "constraints": [
+    {
+      "english": "to_days returns the proleptic Gregorian day-count formula for the stored year, month, and day without requiring ok().",
+      "logic": "result.0@ == days_from_civil(self.year.0@, self.month.0@, self.day.0@)",
+      "kind": "postcondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "to_days",
+        "to_days_bounded"
+      ],
+      "id": "C001"
+    },
+    {
+      "english": "For every valid date in the supported year, month, and day domain, round_trip reconstructs the original year, month, and day fields.",
+      "logic": "result == (civil_from_days(days_from_civil(self.year.0@, self.month.0@, self.day.0@)).year == self.year.0@ && civil_from_days(days_from_civil(self.year.0@, self.month.0@, self.day.0@)).month == self.month.0@ && civil_from_days(days_from_civil(self.year.0@, self.month.0@, self.day.0@)).day == self.day.0@)",
+      "kind": "postcondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "round_trip"
+      ],
+      "id": "C002"
+    },
+    {
+      "english": "ok() is true exactly when the year and month are valid and the day is between one and that month's Gregorian length.",
+      "logic": "result == (self.year.0@ != -32768 && 1 <= self.month.0@ && self.month.0@ <= 12 && 1 <= self.day.0@ && self.day.0@ <= month_length(self.month.0@, self.year.0@))",
+      "kind": "postcondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "ok"
+      ],
+      "id": "C003"
+    },
+    {
+      "english": "For supported year inputs, to_days_bounded stays within the signed 32-bit day-count interval.",
+      "logic": "-12687428 <= result.0@ && result.0@ <= 11248737",
+      "kind": "postcondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "to_days_bounded"
+      ],
+      "id": "C005"
+    }
+  ],
+  "adversary_table": [
+    {
+      "scenario": "A valid leap-day date is converted to days and back with a changed field.",
+      "violates": "YearMonthDay.C002",
+      "resolution": "Preserve the exact year, month, and day for every valid input date."
+    },
+    {
+      "scenario": "February 30 is rejected before the total to_days conversion runs.",
+      "violates": "YearMonthDay.C001",
+      "resolution": "Keep conversion total and compute the reference civil day-count formula."
+    },
+    {
+      "scenario": "The largest supported year produces a day count outside the 32-bit interval.",
+      "violates": "YearMonthDay.C005",
+      "resolution": "Return a representable day count within the declared bounds."
+    }
+  ],
+  "source_references": [
+    {
+      "kind": "reference-implementation",
+      "citation_or_path": "upstream/date/include/date/date.h:696-729",
+      "notes": "Pinned year_month_day data model, ok(), sys_days conversion, and to_days/from_days declarations; supported by accepted E-1, E-2, E-4, E-12, and E-15."
+    },
+    {
+      "kind": "oracle-file",
+      "citation_or_path": "upstream/date/test/date_test/year_month_day.pass.cpp",
+      "notes": "Accepted E-9 supplies direct round-trip and leap-century cases; accepted E-14 records bounded domain endpoints."
+    },
+    {
+      "kind": "other",
+      "citation_or_path": "rust/date-creusot-core/src/year_month_day.rs",
+      "notes": "Creusot ensures for round_trip, to_days, to_days_bounded, from_days, and ok; C002 records intended scope and is not evidence that a fresh proof passed."
+    }
+  ],
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-16"
+  }
+}

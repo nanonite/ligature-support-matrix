@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-1",
+  "kind": "source-artifact",
+  "claim": "date::year_month_day::to_days() returns the exact number of days from 1970-01-01 to the proleptic Gregorian date held by the object, computed as era*146097 + doe - 719468 after decrementing the year for January and February; it is the algorithm the plan names days_from_civil, and it is a private member reachable only through operator sys_days() and operator local_days().",
+  "origin": {
+    "repository": "https://github.com/HowardHinnant/date.git",
+    "commit": "179a6b921ccd6179b5b04dce812a89f71a51b4df",
+    "symbol": "date::year_month_day::to_days",
+    "path": "include/date/date.h",
+    "content_hash": "sha256:8c295bc53964ec02fa99ef10816c190a4c34fdcbf1ce2dcc8e451a29932f9d2c",
+    "line_hint": "2976-2993"
+  },
+  "semantic_disposition": "required",
+  "lifecycle": "accepted",
+  "confidence": "high",
+  "mode": "P"
+}

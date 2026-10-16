@@ -1,0 +1,8 @@
+{
+  "profile": [],
+  "proofs": {
+    "Coma": {
+      "vc_civil_round_trip_holds": { "prover": "alt-ergo", "time": 0.011 }
+    }
+  }
+}

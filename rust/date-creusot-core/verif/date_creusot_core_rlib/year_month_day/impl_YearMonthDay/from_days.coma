@@ -1,0 +1,365 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 925 4 925 52 *)
+
+(* year_month_day::YearMonthDay *)
+
+let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 926 23 926 29
+let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 926 16 926 29
+let%span syear_month_day'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 927 26 927 27
+let%span syear_month_day'2 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 927 45 927 51
+let%span syear_month_day'3 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 927 41 927 51
+let%span syear_month_day'4 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 927 56 927 62
+let%span syear_month_day'5 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 927 18 927 62
+let%span syear_month_day'6 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 928 28 928 34
+let%span syear_month_day'7 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 928 22 928 34
+let%span syear_month_day'8 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 928 18 928 34
+let%span syear_month_day'9 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 929 31 929 35
+let%span syear_month_day'10 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 929 25 929 35
+let%span syear_month_day'11 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 929 19 929 35
+let%span syear_month_day'12 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 929 44 929 49
+let%span syear_month_day'13 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 929 38 929 49
+let%span syear_month_day'14 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 929 19 929 49
+let%span syear_month_day'15 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 929 58 929 64
+let%span syear_month_day'16 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 929 52 929 64
+let%span syear_month_day'17 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 929 18 929 65
+let%span syear_month_day'18 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 929 68 929 71
+let%span syear_month_day'19 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 929 18 929 71
+let%span syear_month_day'20 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 930 28 930 31
+let%span syear_month_day'21 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 930 22 930 31
+let%span syear_month_day'22 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 930 16 930 31
+let%span syear_month_day'23 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 931 25 931 28
+let%span syear_month_day'24 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 931 25 931 34
+let%span syear_month_day'25 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 931 43 931 44
+let%span syear_month_day'26 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 931 37 931 44
+let%span syear_month_day'27 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 931 25 931 44
+let%span syear_month_day'28 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 931 53 931 56
+let%span syear_month_day'29 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 931 47 931 56
+let%span syear_month_day'30 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 931 24 931 57
+let%span syear_month_day'31 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 931 18 931 57
+let%span syear_month_day'32 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 932 18 932 19
+let%span syear_month_day'33 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 932 18 932 25
+let%span syear_month_day'34 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 932 28 932 29
+let%span syear_month_day'35 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 932 17 932 30
+let%span syear_month_day'36 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 932 33 932 36
+let%span syear_month_day'37 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 932 17 932 36
+let%span syear_month_day'38 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 933 23 933 26
+let%span syear_month_day'39 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 933 23 933 31
+let%span syear_month_day'40 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 933 34 933 35
+let%span syear_month_day'41 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 933 22 933 36
+let%span syear_month_day'42 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 933 39 933 40
+let%span syear_month_day'43 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 933 22 933 40
+let%span syear_month_day'44 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 933 16 933 40
+let%span syear_month_day'45 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 933 43 933 44
+let%span syear_month_day'46 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 933 16 933 44
+let%span syear_month_day'47 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 934 24 934 26
+let%span syear_month_day'48 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 934 34 934 35
+let%span syear_month_day'49 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 934 29 934 35
+let%span syear_month_day'50 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 934 50 934 51
+let%span syear_month_day'51 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 934 45 934 51
+let%span syear_month_day'52 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 936 36 936 37
+let%span syear_month_day'53 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 936 40 936 41
+let%span syear_month_day'54 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 936 51 936 52
+let%span syear_month_day'55 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 936 23 936 55
+let%span syear_month_day'56 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 920 15 920 54
+let%span syear_month_day'57 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 922 8 922 39
+let%span syear_month_day'58 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 1011 4 1011 23
+let%span syear_month_day'59 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 64 11 64 36
+let%span syear_month_day'60 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 66 4 68 62
+let%span syear_month_day'61 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 71 4 71 57
+let%span syear_month_day'62 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 51 11 51 33
+let%span syear_month_day'63 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 52 10 52 76
+let%span syear_month_day'64 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 54 4 54 33
+
+use creusot.int.Int32
+use creusot.prelude.Bool
+use creusot.int.Int16
+use creusot.int.UInt8
+use creusot.prelude.Any
+use int.ComputerDivision
+use int.Int
+
+type t_Days = { f0: Int32.t }
+
+type t_Year = { f0'0: Int16.t }
+
+type t_Month = { f0'1: UInt8.t }
+
+type t_Day = { f0'2: UInt8.t }
+
+type t_YearMonthDay = { year: t_Year; month: t_Month; day: t_Day }
+
+type t_CivilView = { year'0: int; month'0: int; day'0: int }
+
+function year_of_era_from_doe [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 70 0 70 44] (doe: int) : int
+ = [%#syear_month_day'61] ComputerDivision.div (doe - ComputerDivision.div doe 1460 + ComputerDivision.div doe 36524
+  - ComputerDivision.div doe 146096) 365
+
+axiom year_of_era_from_doe_spec: forall doe: int [year_of_era_from_doe doe]. ([%#syear_month_day'59] doe >= 0
+      /\ doe <= 146096)
+    -> ([%#syear_month_day'60] year_of_era_from_doe doe >= 0
+    /\ year_of_era_from_doe doe <= 399
+    /\ doe
+        - (365 * year_of_era_from_doe doe + ComputerDivision.div (year_of_era_from_doe doe) 4
+        - ComputerDivision.div (year_of_era_from_doe doe) 100)
+      >= 0
+    /\ doe
+      - (365 * year_of_era_from_doe doe + ComputerDivision.div (year_of_era_from_doe doe) 4
+      - ComputerDivision.div (year_of_era_from_doe doe) 100)
+    <= 365)
+
+type tup2_Int_Int = { f0'3: int; f1'3: int }
+
+function month_day_from_doy [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 53 0 53 49] (doy: int) : tup2_Int_Int
+ = [%#syear_month_day'64] let mp = ComputerDivision.div (5 * doy + 2) 153 in let d = doy
+    - ComputerDivision.div (153 * mp + 2) 5
+  + 1 in let m = if mp < 10 then mp + 3 else mp - 9 in { f0'3 = m; f1'3 = d }
+
+axiom month_day_from_doy_spec: forall doy: int [month_day_from_doy doy]. ([%#syear_month_day'62] doy >= 0 /\ doy <= 365)
+    -> ([%#syear_month_day'63] (month_day_from_doy doy).f0'3 >= 1
+    /\ (month_day_from_doy doy).f0'3 <= 12 /\ (month_day_from_doy doy).f1'3 >= 1 /\ (month_day_from_doy doy).f1'3 <= 31)
+
+function civil_from_days [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 1010 0 1010 43] (z: int) : t_CivilView
+ = [%#syear_month_day'58] let z'0 = z + 719468 in let era = ComputerDivision.div (if z'0 >= 0 then
+    z'0
+  else
+    z'0 - 146096
+  ) 146097 in let doe = z'0 - era * 146097 in let yoe = year_of_era_from_doe doe in let y = yoe
+  + era * 400 in let doy = doe
+  - (365 * yoe + ComputerDivision.div yoe 4
+  - ComputerDivision.div yoe 100) in let {f0'3 = m; f1'3 = d} = month_day_from_doy doy in let y'0 = y
+  + (if m <= 2 then 1 else 0) in { year'0 = y'0; month'0 = m; day'0 = d }
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let from_days [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 925 4 925 52]
+  (dp: t_Days) (return (x: t_YearMonthDay)) =
+{[@stop_split] [@expl:from_days requires] [%#syear_month_day'56] Int32.to_int dp.f0 >= - 12687428
+  /\ Int32.to_int dp.f0 <= 11248737}
+  (! bb0
+  [ bb0 = s0
+    [ s0 = Int32.add [%#syear_month_day'0] {dp.f0} {[%#syear_month_day] (719468: Int32.t)}
+        (fun (_x: Int32.t) -> [ &z <- _x ] s1)
+    | s1 = [ &_10 <- Int32.ge z ([%#syear_month_day'1] (0: Int32.t)) ] s2
+    | s2 = any [ br0 -> {_10 = false} (! bb2) | br1 -> {_10} (! bb1) ] ]
+  | bb1 = s0 [ s0 = [ &_9 <- z ] s1 | s1 = bb3 ]
+  | bb2 = s0
+    [ s0 = Int32.sub [%#syear_month_day'3] {z} {[%#syear_month_day'2] (146096: Int32.t)}
+        (fun (_x: Int32.t) -> [ &_9 <- _x ] s1)
+    | s1 = bb3 ]
+  | bb3 = s0
+    [ s0 = [ &_13 <- ([%#syear_month_day'4] (146097: Int32.t)) = ([%#syear_month_day'5] (0: Int32.t)) ] s1
+    | s1 = {[@expl:division by zero] [%#syear_month_day'5] not _13} s2
+    | s2 = [ &_14 <- ([%#syear_month_day'4] (146097: Int32.t)) = ([%#syear_month_day'5] (-1: Int32.t)) ] s3
+    | s3 = [ &_15 <- _9 = ([%#syear_month_day'5] (-2147483648: Int32.t)) ] s4
+    | s4 = [ &_16 <- Bool.bw_and _14 _15 ] s5
+    | s5 = {[@expl:Div overflow] [%#syear_month_day'5] not _16} s6
+    | s6 = Int32.div [%#syear_month_day'5] {_9} {[%#syear_month_day'4] (146097: Int32.t)}
+        (fun (_x: Int32.t) -> [ &era <- _x ] s7)
+    | s7 = Int32.mul [%#syear_month_day'7] {era} {[%#syear_month_day'6] (146097: Int32.t)}
+        (fun (_x: Int32.t) -> [ &_19 <- _x ] s8)
+    | s8 = Int32.sub [%#syear_month_day'8] {z} {_19} (fun (_x: Int32.t) -> [ &doe <- _x ] s9)
+    | s9 = [ &_27 <- doe ] s10
+    | s10 = [ &_28 <- ([%#syear_month_day'9] (1460: Int32.t)) = ([%#syear_month_day'10] (0: Int32.t)) ] s11
+    | s11 = {[@expl:division by zero] [%#syear_month_day'10] not _28} s12
+    | s12 = [ &_29 <- ([%#syear_month_day'9] (1460: Int32.t)) = ([%#syear_month_day'10] (-1: Int32.t)) ] s13
+    | s13 = [ &_30 <- _27 = ([%#syear_month_day'10] (-2147483648: Int32.t)) ] s14
+    | s14 = [ &_31 <- Bool.bw_and _29 _30 ] s15
+    | s15 = {[@expl:Div overflow] [%#syear_month_day'10] not _31} s16
+    | s16 = Int32.div [%#syear_month_day'10] {_27} {[%#syear_month_day'9] (1460: Int32.t)}
+        (fun (_x: Int32.t) -> [ &_26 <- _x ] s17)
+    | s17 = Int32.sub [%#syear_month_day'11] {doe} {_26} (fun (_x: Int32.t) -> [ &_24 <- _x ] s18)
+    | s18 = [ &_33 <- doe ] s19
+    | s19 = [ &_34 <- ([%#syear_month_day'12] (36524: Int32.t)) = ([%#syear_month_day'13] (0: Int32.t)) ] s20
+    | s20 = {[@expl:division by zero] [%#syear_month_day'13] not _34} s21
+    | s21 = [ &_35 <- ([%#syear_month_day'12] (36524: Int32.t)) = ([%#syear_month_day'13] (-1: Int32.t)) ] s22
+    | s22 = [ &_36 <- _33 = ([%#syear_month_day'13] (-2147483648: Int32.t)) ] s23
+    | s23 = [ &_37 <- Bool.bw_and _35 _36 ] s24
+    | s24 = {[@expl:Div overflow] [%#syear_month_day'13] not _37} s25
+    | s25 = Int32.div [%#syear_month_day'13] {_33} {[%#syear_month_day'12] (36524: Int32.t)}
+        (fun (_x: Int32.t) -> [ &_32 <- _x ] s26)
+    | s26 = Int32.add [%#syear_month_day'14] {_24} {_32} (fun (_x: Int32.t) -> [ &_23 <- _x ] s27)
+    | s27 = [ &_39 <- doe ] s28
+    | s28 = [ &_40 <- ([%#syear_month_day'15] (146096: Int32.t)) = ([%#syear_month_day'16] (0: Int32.t)) ] s29
+    | s29 = {[@expl:division by zero] [%#syear_month_day'16] not _40} s30
+    | s30 = [ &_41 <- ([%#syear_month_day'15] (146096: Int32.t)) = ([%#syear_month_day'16] (-1: Int32.t)) ] s31
+    | s31 = [ &_42 <- _39 = ([%#syear_month_day'16] (-2147483648: Int32.t)) ] s32
+    | s32 = [ &_43 <- Bool.bw_and _41 _42 ] s33
+    | s33 = {[@expl:Div overflow] [%#syear_month_day'16] not _43} s34
+    | s34 = Int32.div [%#syear_month_day'16] {_39} {[%#syear_month_day'15] (146096: Int32.t)}
+        (fun (_x: Int32.t) -> [ &_38 <- _x ] s35)
+    | s35 = Int32.sub [%#syear_month_day'17] {_23} {_38} (fun (_x: Int32.t) -> [ &_22 <- _x ] s36)
+    | s36 = [ &_44 <- ([%#syear_month_day'18] (365: Int32.t)) = ([%#syear_month_day'19] (0: Int32.t)) ] s37
+    | s37 = {[@expl:division by zero] [%#syear_month_day'19] not _44} s38
+    | s38 = [ &_45 <- ([%#syear_month_day'18] (365: Int32.t)) = ([%#syear_month_day'19] (-1: Int32.t)) ] s39
+    | s39 = [ &_46 <- _22 = ([%#syear_month_day'19] (-2147483648: Int32.t)) ] s40
+    | s40 = [ &_47 <- Bool.bw_and _45 _46 ] s41
+    | s41 = {[@expl:Div overflow] [%#syear_month_day'19] not _47} s42
+    | s42 = Int32.div [%#syear_month_day'19] {_22} {[%#syear_month_day'18] (365: Int32.t)}
+        (fun (_x: Int32.t) -> [ &yoe <- _x ] s43)
+    | s43 = Int32.mul [%#syear_month_day'21] {era} {[%#syear_month_day'20] (400: Int32.t)}
+        (fun (_x: Int32.t) -> [ &_50 <- _x ] s44)
+    | s44 = Int32.add [%#syear_month_day'22] {yoe} {_50} (fun (_x: Int32.t) -> [ &y <- _x ] s45)
+    | s45 = Int32.mul [%#syear_month_day'24] {[%#syear_month_day'23] (365: Int32.t)} {yoe}
+        (fun (_x: Int32.t) -> [ &_56 <- _x ] s46)
+    | s46 = [ &_59 <- yoe ] s47
+    | s47 = [ &_60 <- ([%#syear_month_day'25] (4: Int32.t)) = ([%#syear_month_day'26] (0: Int32.t)) ] s48
+    | s48 = {[@expl:division by zero] [%#syear_month_day'26] not _60} s49
+    | s49 = [ &_61 <- ([%#syear_month_day'25] (4: Int32.t)) = ([%#syear_month_day'26] (-1: Int32.t)) ] s50
+    | s50 = [ &_62 <- _59 = ([%#syear_month_day'26] (-2147483648: Int32.t)) ] s51
+    | s51 = [ &_63 <- Bool.bw_and _61 _62 ] s52
+    | s52 = {[@expl:Div overflow] [%#syear_month_day'26] not _63} s53
+    | s53 = Int32.div [%#syear_month_day'26] {_59} {[%#syear_month_day'25] (4: Int32.t)}
+        (fun (_x: Int32.t) -> [ &_58 <- _x ] s54)
+    | s54 = Int32.add [%#syear_month_day'27] {_56} {_58} (fun (_x: Int32.t) -> [ &_55 <- _x ] s55)
+    | s55 = [ &_65 <- yoe ] s56
+    | s56 = [ &_66 <- ([%#syear_month_day'28] (100: Int32.t)) = ([%#syear_month_day'29] (0: Int32.t)) ] s57
+    | s57 = {[@expl:division by zero] [%#syear_month_day'29] not _66} s58
+    | s58 = [ &_67 <- ([%#syear_month_day'28] (100: Int32.t)) = ([%#syear_month_day'29] (-1: Int32.t)) ] s59
+    | s59 = [ &_68 <- _65 = ([%#syear_month_day'29] (-2147483648: Int32.t)) ] s60
+    | s60 = [ &_69 <- Bool.bw_and _67 _68 ] s61
+    | s61 = {[@expl:Div overflow] [%#syear_month_day'29] not _69} s62
+    | s62 = Int32.div [%#syear_month_day'29] {_65} {[%#syear_month_day'28] (100: Int32.t)}
+        (fun (_x: Int32.t) -> [ &_64 <- _x ] s63)
+    | s63 = Int32.sub [%#syear_month_day'30] {_55} {_64} (fun (_x: Int32.t) -> [ &_54 <- _x ] s64)
+    | s64 = Int32.sub [%#syear_month_day'31] {doe} {_54} (fun (_x: Int32.t) -> [ &doy <- _x ] s65)
+    | s65 = Int32.mul [%#syear_month_day'33] {[%#syear_month_day'32] (5: Int32.t)} {doy}
+        (fun (_x: Int32.t) -> [ &_72 <- _x ] s66)
+    | s66 = Int32.add [%#syear_month_day'35] {_72} {[%#syear_month_day'34] (2: Int32.t)}
+        (fun (_x: Int32.t) -> [ &_71 <- _x ] s67)
+    | s67 = [ &_74 <- ([%#syear_month_day'36] (153: Int32.t)) = ([%#syear_month_day'37] (0: Int32.t)) ] s68
+    | s68 = {[@expl:division by zero] [%#syear_month_day'37] not _74} s69
+    | s69 = [ &_75 <- ([%#syear_month_day'36] (153: Int32.t)) = ([%#syear_month_day'37] (-1: Int32.t)) ] s70
+    | s70 = [ &_76 <- _71 = ([%#syear_month_day'37] (-2147483648: Int32.t)) ] s71
+    | s71 = [ &_77 <- Bool.bw_and _75 _76 ] s72
+    | s72 = {[@expl:Div overflow] [%#syear_month_day'37] not _77} s73
+    | s73 = Int32.div [%#syear_month_day'37] {_71} {[%#syear_month_day'36] (153: Int32.t)}
+        (fun (_x: Int32.t) -> [ &mp <- _x ] s74)
+    | s74 = Int32.mul [%#syear_month_day'39] {[%#syear_month_day'38] (153: Int32.t)} {mp}
+        (fun (_x: Int32.t) -> [ &_83 <- _x ] s75)
+    | s75 = Int32.add [%#syear_month_day'41] {_83} {[%#syear_month_day'40] (2: Int32.t)}
+        (fun (_x: Int32.t) -> [ &_82 <- _x ] s76)
+    | s76 = [ &_85 <- ([%#syear_month_day'42] (5: Int32.t)) = ([%#syear_month_day'43] (0: Int32.t)) ] s77
+    | s77 = {[@expl:division by zero] [%#syear_month_day'43] not _85} s78
+    | s78 = [ &_86 <- ([%#syear_month_day'42] (5: Int32.t)) = ([%#syear_month_day'43] (-1: Int32.t)) ] s79
+    | s79 = [ &_87 <- _82 = ([%#syear_month_day'43] (-2147483648: Int32.t)) ] s80
+    | s80 = [ &_88 <- Bool.bw_and _86 _87 ] s81
+    | s81 = {[@expl:Div overflow] [%#syear_month_day'43] not _88} s82
+    | s82 = Int32.div [%#syear_month_day'43] {_82} {[%#syear_month_day'42] (5: Int32.t)}
+        (fun (_x: Int32.t) -> [ &_81 <- _x ] s83)
+    | s83 = Int32.sub [%#syear_month_day'44] {doy} {_81} (fun (_x: Int32.t) -> [ &_79 <- _x ] s84)
+    | s84 = Int32.add [%#syear_month_day'46] {_79} {[%#syear_month_day'45] (1: Int32.t)}
+        (fun (_x: Int32.t) -> [ &d <- _x ] s85)
+    | s85 = [ &_90 <- Int32.lt mp ([%#syear_month_day'47] (10: Int32.t)) ] s86
+    | s86 = any [ br0 -> {_90 = false} (! bb23) | br1 -> {_90} (! bb22) ] ]
+  | bb22 = s0
+    [ s0 = Int32.add [%#syear_month_day'49] {mp} {[%#syear_month_day'48] (3: Int32.t)}
+        (fun (_x: Int32.t) -> [ &m <- _x ] s1)
+    | s1 = bb24 ]
+  | bb23 = s0
+    [ s0 = Int32.sub [%#syear_month_day'51] {mp} {[%#syear_month_day'50] (9: Int32.t)}
+        (fun (_x: Int32.t) -> [ &m <- _x ] s1)
+    | s1 = bb24 ]
+  | bb24 = s0
+    [ s0 = [ &_99 <- Int32.le m ([%#syear_month_day'52] (2: Int32.t)) ] s1
+    | s1 = any [ br0 -> {_99 = false} (! bb26) | br1 -> {_99} (! bb25) ] ]
+  | bb25 = s0 [ s0 = [ &_98 <- [%#syear_month_day'53] (1: Int32.t) ] s1 | s1 = bb27 ]
+  | bb26 = s0 [ s0 = [ &_98 <- [%#syear_month_day'54] (0: Int32.t) ] s1 | s1 = bb27 ]
+  | bb27 = s0
+    [ s0 = Int32.add [%#syear_month_day'55] {y} {_98} (fun (_x: Int32.t) -> [ &_96 <- _x ] s1)
+    | s1 = [ &_95 <- Int16.of_int (Int32.to_int _96) ] s2
+    | s2 = [ &_94 <- { f0'0 = _95 } ] s3
+    | s3 = [ &_102 <- UInt8.of_int (Int32.to_int m) ] s4
+    | s4 = [ &_101 <- { f0'1 = _102 } ] s5
+    | s5 = [ &_105 <- UInt8.of_int (Int32.to_int d) ] s6
+    | s6 = [ &_104 <- { f0'2 = _105 } ] s7
+    | s7 = [ &_ret <- { year = _94; month = _101; day = _104 } ] s8
+    | s8 = return {_ret} ] ]
+  [ & _ret: t_YearMonthDay = Any.any_l ()
+  | & dp: t_Days = dp
+  | & z: Int32.t = Any.any_l ()
+  | & era: Int32.t = Any.any_l ()
+  | & _9: Int32.t = Any.any_l ()
+  | & _10: bool = Any.any_l ()
+  | & _13: bool = Any.any_l ()
+  | & _14: bool = Any.any_l ()
+  | & _15: bool = Any.any_l ()
+  | & _16: bool = Any.any_l ()
+  | & doe: Int32.t = Any.any_l ()
+  | & _19: Int32.t = Any.any_l ()
+  | & yoe: Int32.t = Any.any_l ()
+  | & _22: Int32.t = Any.any_l ()
+  | & _23: Int32.t = Any.any_l ()
+  | & _24: Int32.t = Any.any_l ()
+  | & _26: Int32.t = Any.any_l ()
+  | & _27: Int32.t = Any.any_l ()
+  | & _28: bool = Any.any_l ()
+  | & _29: bool = Any.any_l ()
+  | & _30: bool = Any.any_l ()
+  | & _31: bool = Any.any_l ()
+  | & _32: Int32.t = Any.any_l ()
+  | & _33: Int32.t = Any.any_l ()
+  | & _34: bool = Any.any_l ()
+  | & _35: bool = Any.any_l ()
+  | & _36: bool = Any.any_l ()
+  | & _37: bool = Any.any_l ()
+  | & _38: Int32.t = Any.any_l ()
+  | & _39: Int32.t = Any.any_l ()
+  | & _40: bool = Any.any_l ()
+  | & _41: bool = Any.any_l ()
+  | & _42: bool = Any.any_l ()
+  | & _43: bool = Any.any_l ()
+  | & _44: bool = Any.any_l ()
+  | & _45: bool = Any.any_l ()
+  | & _46: bool = Any.any_l ()
+  | & _47: bool = Any.any_l ()
+  | & y: Int32.t = Any.any_l ()
+  | & _50: Int32.t = Any.any_l ()
+  | & doy: Int32.t = Any.any_l ()
+  | & _54: Int32.t = Any.any_l ()
+  | & _55: Int32.t = Any.any_l ()
+  | & _56: Int32.t = Any.any_l ()
+  | & _58: Int32.t = Any.any_l ()
+  | & _59: Int32.t = Any.any_l ()
+  | & _60: bool = Any.any_l ()
+  | & _61: bool = Any.any_l ()
+  | & _62: bool = Any.any_l ()
+  | & _63: bool = Any.any_l ()
+  | & _64: Int32.t = Any.any_l ()
+  | & _65: Int32.t = Any.any_l ()
+  | & _66: bool = Any.any_l ()
+  | & _67: bool = Any.any_l ()
+  | & _68: bool = Any.any_l ()
+  | & _69: bool = Any.any_l ()
+  | & mp: Int32.t = Any.any_l ()
+  | & _71: Int32.t = Any.any_l ()
+  | & _72: Int32.t = Any.any_l ()
+  | & _74: bool = Any.any_l ()
+  | & _75: bool = Any.any_l ()
+  | & _76: bool = Any.any_l ()
+  | & _77: bool = Any.any_l ()
+  | & d: Int32.t = Any.any_l ()
+  | & _79: Int32.t = Any.any_l ()
+  | & _81: Int32.t = Any.any_l ()
+  | & _82: Int32.t = Any.any_l ()
+  | & _83: Int32.t = Any.any_l ()
+  | & _85: bool = Any.any_l ()
+  | & _86: bool = Any.any_l ()
+  | & _87: bool = Any.any_l ()
+  | & _88: bool = Any.any_l ()
+  | & m: Int32.t = Any.any_l ()
+  | & _90: bool = Any.any_l ()
+  | & _94: t_Year = Any.any_l ()
+  | & _95: Int16.t = Any.any_l ()
+  | & _96: Int32.t = Any.any_l ()
+  | & _98: Int32.t = Any.any_l ()
+  | & _99: bool = Any.any_l ()
+  | & _101: t_Month = Any.any_l ()
+  | & _102: UInt8.t = Any.any_l ()
+  | & _104: t_Day = Any.any_l ()
+  | & _105: UInt8.t = Any.any_l () ])
+  [ return (result: t_YearMonthDay) ->
+  {[@stop_split] [@expl:from_days ensures] [%#syear_month_day'57] let c = civil_from_days (Int32.to_int dp.f0) in Int16.to_int result.year.f0'0
+      = c.year'0
+    /\ UInt8.t'int result.month.f0'1 = c.month'0 /\ UInt8.t'int result.day.f0'2 = c.day'0}
+    (! return {result}) ]

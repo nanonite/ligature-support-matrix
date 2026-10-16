@@ -1,0 +1,21 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 251 0 251 31 *)
+
+let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 247 4 247 58
+
+use int.ComputerDivision
+use int.Int
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+constant y0 : int
+
+function yoe_of_era_year [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 251 0 251 31] (y0: int) : ()
+
+goal vc_yoe_of_era_year:
+  [@stop_split] [@expl:yoe_of_era_year ensures] [%#syear_month_day] let era = ComputerDivision.div (if y0 >= 0 then
+    y0
+  else
+    y0 - 399
+  ) 400 in let yoe = y0 - era * 400 in 0 <= yoe /\ yoe <= 399

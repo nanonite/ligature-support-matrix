@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "boundary_id": "year_month_day_to_days__to__weekday_weekday_from_days",
+  "caller": {
+    "concept": "YearMonthDay",
+    "method": "to_days"
+  },
+  "callee": {
+    "concept": "Weekday",
+    "method": "weekday_from_days"
+  },
+  "callee_guarantees": [
+    "Weekday.C1",
+    "Weekday.C2"
+  ]
+}

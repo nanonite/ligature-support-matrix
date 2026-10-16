@@ -1,0 +1,62 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 907 4 907 47 *)
+
+(* year_month_day::YearMonthDay *)
+
+let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 908 8 908 22
+let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 901 8 903 52
+let%span syear_month_day'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 905 14 905 61
+let%span syear_month_day'2 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 906 14 906 84
+let%span syear_month_day'3 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 869 14 869 84
+let%span syear_month_day'4 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 38 4 38 43
+
+use creusot.int.Int16
+use creusot.int.UInt8
+use creusot.int.Int32
+use int.ComputerDivision
+use creusot.prelude.Any
+use int.Int
+
+type t_Year = { f0: Int16.t }
+
+type t_Month = { f0'0: UInt8.t }
+
+type t_Day = { f0'1: UInt8.t }
+
+type t_YearMonthDay = { year: t_Year; month: t_Month; day: t_Day }
+
+type t_Days = { f0'2: Int32.t }
+
+function days_from_civil [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 37 0 37 53] (y: int) (m: int) (d: int) : int
+ = [%#syear_month_day'4] let y'0 = y - (if m <= 2 then 1 else 0) in let era = ComputerDivision.div (if y'0 >= 0 then
+    y'0
+  else
+    y'0 - 399
+  ) 400 in let yoe = y'0 - era * 400 in let doy = ComputerDivision.div (153 * (if m > 2 then m - 3 else m + 9) + 2) 5
+    + d
+  - 1 in let doe = yoe * 365 + ComputerDivision.div yoe 4 - ComputerDivision.div yoe 100 + doy in era * 146097 + doe
+  - 719468
+
+let to_days (self: t_YearMonthDay) (return (x: t_Days)) = any
+  [ return (result: t_Days) -> {[@stop_split] [@expl:to_days ensures] [%#syear_month_day'3] Int32.to_int result.f0'2
+    = days_from_civil (Int16.to_int self.year.f0) (UInt8.t'int self.month.f0'0) (UInt8.t'int self.day.f0'1)}
+    (! return {result}) ]
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let to_days_bounded [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 907 4 907 47]
+  (self: t_YearMonthDay) (return (x: t_Days)) =
+{[@stop_split] [@expl:to_days_bounded requires] [%#syear_month_day'0] Int16.to_int self.year.f0 <> - 32768
+  /\ 1 <= UInt8.t'int self.month.f0'0
+  /\ UInt8.t'int self.month.f0'0 <= 12 /\ 1 <= UInt8.t'int self.day.f0'1 /\ UInt8.t'int self.day.f0'1 <= 31}
+  (! bb0
+  [ bb0 = s0 [ s0 = to_days [%#syear_month_day] {self} (fun (_x: t_Days) -> [ &_ret <- _x ] s1) | s1 = return {_ret} ] ]
+  [ & _ret: t_Days = Any.any_l () | & self: t_YearMonthDay = self ])
+  [ return (result: t_Days) ->
+  {[@stop_split] [@expl:to_days_bounded ensures] ([@stop_split] [@expl:to_days_bounded ensures #0] [%#syear_month_day'1] Int32.to_int result.f0'2
+        >= - 12687428
+      /\ Int32.to_int result.f0'2 <= 11248737)
+    /\ ([@stop_split] [@expl:to_days_bounded ensures #1] [%#syear_month_day'2] Int32.to_int result.f0'2
+    = days_from_civil (Int16.to_int self.year.f0) (UInt8.t'int self.month.f0'0) (UInt8.t'int self.day.f0'1))}
+    (! return {result}) ]

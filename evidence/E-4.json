@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-4",
+  "kind": "source-artifact",
+  "claim": "date::year_month_day::ok() is true exactly when year().ok() and month().ok() hold and day() lies between 1 and the last day of that month, where the last day is obtained by forming year()/month()/last and calling year_month_day_last::day(); it is the only validity predicate in the subset and is not a precondition of the sys_days conversions.",
+  "origin": {
+    "repository": "https://github.com/HowardHinnant/date.git",
+    "commit": "179a6b921ccd6179b5b04dce812a89f71a51b4df",
+    "symbol": "date::year_month_day::ok",
+    "path": "include/date/date.h",
+    "content_hash": "sha256:8c295bc53964ec02fa99ef10816c190a4c34fdcbf1ce2dcc8e451a29932f9d2c",
+    "line_hint": "3009-3017"
+  },
+  "semantic_disposition": "required",
+  "lifecycle": "accepted",
+  "confidence": "high",
+  "mode": "P"
+}

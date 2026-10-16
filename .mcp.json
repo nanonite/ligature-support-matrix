@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "codesight": {
+      "type": "stdio",
+      "command": "/home/goya/storage/full-ligature-port-workspace/tools/codesight-mcp/.venv/bin/codesight-mcp",
+      "args": [],
+      "env": {
+        "CODE_INDEX_PATH": "/home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/codesight/index",
+        "CODESIGHT_ALLOWED_ROOTS": "/home/goya/storage/full-ligature-port-workspace/date-creusot/upstream:/home/goya/storage/full-ligature-port-workspace/date-creusot/rust"
+      }
+    }
+  }
+}

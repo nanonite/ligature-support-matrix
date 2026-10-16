@@ -1,0 +1,27 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 31 4 31 38 *)
+
+(* <year::Year as std::cmp::PartialEq> *)
+
+let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 36 8 36 28
+let%span syear = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 30 14 30 45
+let%span syear'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 85 20 85 27
+let%span scmp = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/std/cmp.rs" 14 26 14 75
+
+use creusot.int.Int16
+
+type t_Year = { f0: Int16.t }
+
+function deep_model_Year [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 84 4 84 44] (self: t_Year) : int
+ = [%#syear'0] Int16.to_int self.f0
+
+function deep_model_ref_Year [@inline:trivial] (self: t_Year) : int = [%#smodel] deep_model_Year self
+
+meta "rewrite_def" function deep_model_ref_Year
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+goal refines: forall self_: t_Year, rhs: t_Year. forall result: bool. ([%#syear] result
+        = (Int16.to_int self_.f0 = Int16.to_int rhs.f0))
+      -> ([%#scmp] result = (deep_model_ref_Year self_ = deep_model_ref_Year rhs))

@@ -1,0 +1,184 @@
+# Stage 8C command transcript
+# chainlink #18 | pilot date-creusot/ | ligature 1.2.0 | 2026-10-01
+# Re-derived end to end after the 1.1.1 -> 1.2.0 binary swap (sha256 3edfd03c... -> 9c921eeb...).
+
+$ (cd tools/ligature && sha256sum -c SHA256SUMS)
+ligature.pyz: OK
+
+$ cat tools/ligature/SHA256SUMS
+9c921eeb1bbb858c0041e49f07cf5d06988eb798ba60b9207f7576cba430637c  ligature.pyz
+
+$ python3 tools/ligature/ligature.pyz version | head -1
+ligature 1.2.0
+
+$ python3 tools/ligature/ligature.pyz version | tail -4
+  required python: >= 3.10 (running 3.12.3)
+  platform: Linux/x86_64 (required: any)
+  artifact: /home/goya/storage/full-ligature-port-workspace/date-creusot/tools/ligature/ligature.pyz
+  source: b5f267694f6ba9f172499d94611116b87537b925 (DIRTY working tree, uncommitted-state sha256:909c511c750a84fb47f10b325861ff2ee7aaa1d0dc238227b4643788f32f4ccb)
+
+$ python3 tools/ligature/ligature.pyz validate-closure
+OK: all closure artifacts pass G1a/G1b and G17 profile/record consistency (1 discovered)
+EXIT=0
+
+$ python3 tools/ligature/ligature.pyz gate-g14
+cluster 'date-creusot-core' closes: closure_kind=deductive, 1 work package(s), 0 obligation(s) in the transitive closure, 0 cycle(s) discharged
+  - [G14/info] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is VERIFIED from artifact data, not taken on declaration: every obligation and bridge in the closure AND its declared depends_on dependencies has a recorded achievement, the closure's own records are ['creusot-deductive-check'], and every other achieved record and declared guarantee harness in this workspace's work-package manifests and ledgers is creusot-owned as well -- with no non-creusot assurance anywhere those artifacts can name, no generic callee this cluster declares a dependency on is Kani-owned (CG3, plan.md §3, chainlink #93)
+closure is a per-cluster property with a kind; this gate never asserts a pipeline-wide guarantee (plan.md §4)
+OK: 1 cluster(s) close under their declared profile, 0 released under an accepted degradation record
+EXIT=0
+
+$ python3 tools/ligature/ligature.pyz gate-g18
+OK (nothing to check: no declared witness_required features discovered under .)
+EXIT=0
+
+$ python3 tools/ligature/ligature.pyz gate-g19
+OK (nothing to check: no witness specs discovered under .)
+EXIT=0
+
+$ python3 tools/ligature/ligature.pyz gate-g20
+OK (nothing to check: no witness specs discovered under .)
+EXIT=0
+
+$ python3 tools/ligature/ligature.pyz write-set-check
+write set: clean
+descriptor: present-valid (project-descriptor.json)
+allowed_roots: rust/*/src/, rust/*/tests/, rust/*/target/**, rust/*/verif/**, rust/*/.why3find/**, rust/*/why3find.json, rust/*/.cargo/**, rust/*/Cargo.lock, analysis/**, findings/**, oracle/**, tools/**, specs/_closure/**, specs/_promotions/**, README.md, FUTURE-WORK-round-trip-proof.md, .envrc, .mcp.json, rust/.gitkeep, upstream/**, docs/*.md
+protected_roots: rust/*/specs/**, ci/manifest/**, scripts/**, docs/*-schema.json, docs/reliance-policy.md, **/Cargo.toml, **/build.rs, tests/harnesses/**, .github/**, rust-toolchain.toml
+details: write set is clean -- every file is accounted for by allowed_roots, protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location; 1 file(s) inside protected roots are not product-managed (audit only)
+  protected (not product-managed): rust/date-creusot-core/Cargo.toml
+EXIT=0
+
+$ python3 tools/ligature/ligature.pyz doctor
+Implemented: draft (Stage 0/3), approve (checkpoint), approve-pair (transactional interaction + protocol-debt checkpoint), approve-exemption-pair (transactional interaction + exemption checkpoint, R2's exemption bootstrap), validate (Stage 4 G1a/G1b/G2+), validate-interaction (Stage 4 G1a/G1b + computed eligibility + G15 + R2), validate-exemption (Stage 4 G1a/G1b naming + G2 interaction cross-reference), validate-protocol-debt (Stage 4 G1a/G1b + interaction cross-reference), validate-bridge (Stage 4 G1a/G1b/G2 over bridge specifications, chainlink #22), validate-evidence (Stage 4 G1a/G1b, workspace-level), validate-conflict-resolution (Stage 4 G1a/G1b/G11, workspace-level), validate-work-package (Stage 7 schema + §10.1, standalone), validate-promotion (Stage 4.5 schema + §7.1, standalone), accept-promotion (Stage 4.5's own generator, chainlink #45), extract-c-static (Stage 8A's coarse syntactic C_static extractor, chainlink #24), validate-callsites (Stage 8A G1a/G1b over C_static reports, workspace-level), gate-r1-g16 (Stage 8A R1 reconciliation + G16 risk-tiered unresolved policy; exit 3 means a human risk decision is outstanding), render-witness (dispatch a canonical result through the renderer contract, chainlink #28), validate-witness (G1a/G1b/G2 over witness specs + canonical results, chainlink #27), validate-gold-set (G1a/G1b over human gold sets, chainlink #26), measure-gold-set (precision/recall/omission against a human gold set, chainlink #26), check-bridges (Stage 8A bridge harness generation + verifier dispatch, chainlink #47), gate-g9 (Stage 8A bridge-check verification against a recompilation of the promoted bridge), validate-closure (Stage 8C G1a/G1b + G17 over closure profiles and degradation records), gate-g14 (Stage 8C release closure over the transitive assurance graph, per cluster, with the CG6 well-foundedness discharge, chainlink #25), gate-g18 (Stage 4 witness coverage over the declared witness_required feature set, chainlink #29), gate-g19 (Stage 8A/CI witness determinism: regenerate, compare value_hash, never render_hash, chainlink #30), gate-g20 (Stage 4.5 degeneracy: must-vary vs constant, fixture-family/coverage_region consistency, warn -- block at promotion if unresolved, chainlink #31), generate-feature-ledger (Stage 4.5 generated projection over G18/G19/G20, implementation_observed vs assurance_status never merged, chainlink #34), generate-contact-sheet (Stage 4.5 review surface with the ∃-witness evidence banner, traffic-light witness/determinism/degeneracy columns kept visually distinct from a never-green assurance_status/closure_kind column, chainlink #32), select-pilot-cluster (plan.md §14 mechanized, verifier-agnostic first-pilot-cluster ranking, chainlink #4), write-set-check (read-only write-set conformance: files outside allowed_roots and inside protected_roots relative to the project descriptor, chainlink #77), accept-policy (record a reviewed change to the normative reliance-policy document, chainlink #78), promote-evidence (mechanically promote a staged evidence draft to its target and record the move -- the Stage 0 promotion path approve() cannot provide, chainlink #79), record-assurance (assemble a work package's assurance report from verifier proof certificates -- the achieved side gate-g14 reads, chainlink #87)
+Not yet implemented:
+  - G4/G5 evidence tracing/grounding: not yet implemented -- required/bug-compat evidence tracing to nothing (G4) and ungrounded obligations (G5) both need cross-referencing interaction evidence_links (#16) to evidence ids (#20), which exist individually but aren't cross-referenced against each other yet
+  - emission: M3's I-schema is now complete (#16-#20); emission (Stage 5) itself is still not built
+  - attach: M3's I-schema is now complete (#16-#20); attach (Stage 6) itself is still not built
+  - manifest generation: #14's schema+validator exist (`validate-work-package`); M3's I-schema is now complete (#16-#20), but the generator that reads promoted I/O and emits a manifest from it is still not built
+  - 8A: partly implemented -- C_static extraction and R1/G16 are real (#24), bridge harness generation, verifier dispatch and G9 are real (#47: check-bridges, gate-g9), and per-obligation assurance records have a record schema (#23) plus the report container G14 reads (#25). What is missing is the runner that emits a work package's OBLIGATION records from a real verifier run; bridge records now have one (ci/results/bridge_checks/), and no verifier backend is configured in this repository, so nothing here dispatches for real
+  - 8B: #26 (M4)
+Installation:
+  installation: current
+  mode: port  project: date-creusot
+  skill authority hash: verified
+    unchanged  .codex/skills/ligature/SKILL.md
+    unchanged  .ligature/prompts/stage-0-evidence-intake.md
+    unchanged  .ligature/prompts/stage-3-boundary-drafting.md
+    unchanged  .ligature/prompts/stage-3-bridge-drafting.md
+    unchanged  .ligature/prompts/stage-3-concept-to-code.md
+    unchanged  .ligature/prompts/stage-3-conflict-resolution-drafting.md
+    unchanged  .ligature/prompts/stage-3-exemption-drafting.md
+    unchanged  .ligature/prompts/stage-3-interaction-drafting.md
+    unchanged  .ligature/prompts/stage-3-protocol-debt-drafting.md
+    unchanged  .ligature/prompts/stage-3-witness-drafting.md
+    unchanged  .ligature/schemas/consolidated-check.schema.json
+    unchanged  .ligature/schemas/project-descriptor.schema.json
+    unchanged  .ligature/schemas/project-state.schema.json
+    user-owned  docs/reliance-policy.md
+    user-owned  project-descriptor.json  schema: valid
+    unchanged  schemas/project-descriptor.schema.json
+    unchanged  scripts/witness_renderer.py
+    unchanged  scripts/xml_escape.py
+Executable attestation:
+  ligature 1.2.0
+    adjudicator: zipapp (attested: true)
+    content hash: sha256:f4ce4be09ad856b13299d3b5f3b047a3276d14d988a17ffc97301f0c69fd693c
+    bundle: 95 file(s)
+    bundled schemas: 27
+    required python: >= 3.10 (running 3.12.3)
+    platform: Linux/x86_64 (required: any)
+    artifact: /home/goya/storage/full-ligature-port-workspace/date-creusot/tools/ligature/ligature.pyz
+    source: b5f267694f6ba9f172499d94611116b87537b925 (DIRTY working tree, uncommitted-state sha256:909c511c750a84fb47f10b325861ff2ee7aaa1d0dc238227b4643788f32f4ccb)
+    bundled schemas:
+      docs/achieved-assurance-schema.json: 1.0
+      docs/assumption-registry-schema.json: 1.0
+      docs/assurance-report-schema.json: 1.0
+      docs/boundary-contract-schema.json: 1.0
+      docs/bridge-check-schema.json: 1.0
+      docs/bridge-schema.json: 1.0
+      docs/callsite-schema.json: 1.0
+      docs/closure-profile-schema.json: 1.0
+      docs/concept-to-code-constraint-id-schema.json: unknown
+      docs/concept-to-code-witness-required-schema.json: unknown
+      docs/conflict-resolution-schema.json: 1.0
+      docs/degradation-record-schema.json: 1.0
+      docs/evidence-schema.json: 1.0
+      docs/exemption-schema.json: 1.0
+      docs/feature-ledger-schema.json: 1.0
+      docs/gold-set-measurement-schema.json: 1.0
+      docs/gold-set-schema.json: 1.0
+      docs/interaction-schema.json: 1.0
+      docs/promotion-receipt-schema.json: unknown
+      docs/protocol-debt-schema.json: 1.0
+      docs/witness-result-schema.json: 1.0
+      docs/witness-spec-schema.json: 1.0
+      docs/work-package-manifest-schema.json: unknown
+      schemas/consolidated-check.schema.json: 1.0
+      schemas/project-descriptor.schema.json: 1.0
+      schemas/project-state.schema.json: 1.0
+      vendor/concept-to-code/schemas/spec.schema.json: 1.0
+  adjudicator pin: pinned -- running executable matches the recorded adjudicator
+EXIT=0
+
+$ python3 tools/ligature/ligature.pyz gate-r1-g16
+INFO: 9 non-blocking finding(s)
+  - [R1/info] /home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json: CS-YEARMONTHDAY-LAST-001: interaction 'I-year-month-day-last-to-year-month-day-last-new' declares features=['default'] cfg=[], observed under features=[] cfg=[]
+  - [R1/info] /home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json: CS-YEARMONTHDAY-OK-003: interaction 'I-year-month-day-ok-to-year-month-day-last-day' declares features=['default'] cfg=[], observed under features=[] cfg=[]
+  - [R1/info] /home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json: CS-YEARMONTHDAY-OK-004: intra-concept call YearMonthDay::ok -> last is an internal helper, ignored unless architecturally eligible
+  - [R1/info] /home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json: CS-YEARMONTHDAY-TO-DAYS-BOUNDED-001: intra-concept call YearMonthDay::to_days_bounded -> to_days is an internal helper, ignored unless architecturally eligible
+  - [R1/info] /home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json: CS-YEARMONTHDAY-ROUND-TRIP-001: intra-concept call YearMonthDay::round_trip -> from_days is an internal helper, ignored unless architecturally eligible
+  - [R1/info] /home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json: CS-YEARMONTHDAY-ROUND-TRIP-002: intra-concept call YearMonthDay::round_trip -> to_days_bounded is an internal helper, ignored unless architecturally eligible
+  - [R1/info] /home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json: interaction 'I-iso-week-weekday-to-weekday-iso-encoding' (IsoWeek.weekday -> Weekday.iso_encoding) has no realized call in this observation -- intent without realization, not a coverage failure
+  - [R1/info] /home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json: interaction 'I-year-month-day-to-days-to-weekday-weekday-from-days' (YearMonthDay.to_days -> Weekday.weekday_from_days) has no realized call in this observation -- intent without realization, not a coverage failure
+  - [R1/info] /home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json: interaction 'I-year-month-day-to-days-to-year-month-day-from-days' (YearMonthDay.to_days -> YearMonthDay.from_days) has no realized call in this observation -- intent without realization, not a coverage failure
+all discovered call sites resolved (11 discovered, 6 checked against I)
+FAIL: 5 blocking finding(s)
+  - [R1/error] /home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json: CS-YEARMONTHDAY-OK-001: realized call YearMonthDay.ok -> Year.ok is absent from I -- a definite direct call across concepts must be a declared interaction (its eligibility cannot even be computed while it has no edge_class)
+  - [R1/error] /home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json: CS-YEARMONTHDAY-OK-002: realized call YearMonthDay.ok -> Month.ok is absent from I -- a definite direct call across concepts must be a declared interaction (its eligibility cannot even be computed while it has no edge_class)
+  - [R1/error] /home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json: CS-YEARMONTHDAYLAST-OK-001: realized call YearMonthDayLast.ok -> Year.ok is absent from I -- a definite direct call across concepts must be a declared interaction (its eligibility cannot even be computed while it has no edge_class)
+  - [R1/error] /home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json: CS-YEARMONTHDAYLAST-OK-002: realized call YearMonthDayLast.ok -> Month.ok is absent from I -- a definite direct call across concepts must be a declared interaction (its eligibility cannot even be computed while it has no edge_class)
+  - [R1/error] /home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json: CS-YEARMONTHDAYLAST-DAY-001: realized call YearMonthDayLast.day -> Year.is_leap is absent from I -- a definite direct call across concepts must be a declared interaction (its eligibility cannot even be computed while it has no edge_class)
+EXIT=1
+
+$ python3 tools/ligature/ligature.pyz report pilot-cluster
+EXIT=2
+  - [PILOT/error] I-year-month-day-to-days-to-weekday-weekday-from-days: caller concept 'YearMonthDay' does not resolve to any genuinely valid, unambiguous concept spec -- excluded from every cluster's edge count
+  - [PILOT/error] I-year-month-day-to-days-to-year-month-day-from-days: callee concept 'YearMonthDay' does not resolve to any genuinely valid, unambiguous concept spec -- excluded from every cluster's edge count
+  - [PILOT/error] I-year-month-day-to-days-to-year-month-day-from-days: caller concept 'YearMonthDay' does not resolve to any genuinely valid, unambiguous concept spec -- excluded from every cluster's edge count
+No eligible candidate cluster -- every candidate was excluded (see reasons above).
+
+$ python3 tools/ligature/ligature.pyz report contact-sheet
+EXIT=0
+wrote docs/witnesses/_contact_sheet.svg (0 declared features -- nothing to check)
+
+$ python3 tools/ligature/ligature.pyz report feature-ledger
+EXIT=1
+error: refusing to overwrite the assurance report at ci/results/feature_ledger.json (work package 'WP-DATE-CREUSOT'): `report feature-ledger` and `record-assurance` must not share one path -- run `record-assurance` after `report feature-ledger` so the report is recorded last, or point the manifest's report.emit at a free ci/results/*.json path (e.g. ci/results/<work-package>.json) to separate the two artifacts
+
+$ md5sum ci/results/feature_ledger.json
+463583d9eda1ed0292800703bf2835cf  ci/results/feature_ledger.json
+
+$ python3 tools/ligature/ligature.pyz check --json > check.json ; echo EXIT=$?
+EXIT=1
+  result: {"conditions": ["blocking_findings"], "exit_code": 1}
+  findings: 21 {'info': 16, 'high': 5} {'G2+': 6, 'g14': 1, 'r1-g16': 14}
+  gates: [{"gate_id": "r1-g16", "outcome": "executed"}, {"gate_id": "g9", "outcome": "not-applicable", "reason": "no bridge specifications present in this workspace"}, {"gate_id": "g14", "outcome": "executed"}, {"gate_id": "g18", "outcome": "not-applicable", "reason": "no witness specifications present"}, {"gate_id": "g19", "outcome": "not-applicable", "reason": "no witness specifications present"}, {"gate_id": "g20", "outcome": "not-applicable", "reason": "no witness specifications present"}]
+  next_action: {"action_id": "author-interaction", "command": "ligature draft interaction ci/results/c_static/rust_date-creusot-core.json", "description": "CS-YEARMONTHDAY-LAST-001: interaction 'I-year-month-day-las
+    high r1-g16 | CS-YEARMONTHDAY-OK-001: realized call YearMonthDay.ok -> Year.ok is absent from I -- a definite direct call across conce
+    high r1-g16 | CS-YEARMONTHDAYLAST-OK-001: realized call YearMonthDayLast.ok -> Year.ok is absent from I -- a definite direct call acro
+    high r1-g16 | CS-YEARMONTHDAYLAST-OK-002: realized call YearMonthDayLast.ok -> Month.ok is absent from I -- a definite direct call acr
+    high r1-g16 | CS-YEARMONTHDAY-OK-002: realized call YearMonthDay.ok -> Month.ok is absent from I -- a definite direct call across conc
+    high r1-g16 | CS-YEARMONTHDAYLAST-DAY-001: realized call YearMonthDayLast.day -> Year.is_leap is absent from I -- a definite direct ca
+
+$ python3 tools/ligature/ligature.pyz status
+ligature 1.2.0 -- project state
+descriptor: present-valid (project-descriptor.json)
+installation manifest: current
+gate integrity: pinned -- 4 gate path(s) match the installed manifest
+artifacts (28): promoted=23, validated=5
+obligations: 5 declared, 0 with an unmet required dimension
+cluster date-creusot-core: closes (closure_kind=deductive)
+open findings: 21
+  - [high] r1-g16: CS-YEARMONTHDAY-OK-001: realized call YearMonthDay.ok -> Year.ok is absent from I -- a definite direct call across concepts must be a declared interaction (its eligibility cannot even be computed while it has no edge_class)
+  - [info] G2+: 'Weekday.C1': applies_to unverifiable -- no spec file under specs_search_root declares concept 'Weekday'
