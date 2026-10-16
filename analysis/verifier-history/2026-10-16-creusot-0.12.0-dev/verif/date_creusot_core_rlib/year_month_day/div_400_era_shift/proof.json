@@ -1,0 +1,8 @@
+{
+  "profile": [],
+  "proofs": {
+    "Coma": {
+      "vc_div_400_era_shift": { "prover": "alt-ergo", "time": 0.021 }
+    }
+  }
+}

@@ -1,10 +1,15 @@
 (* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 114 0 114 36 *)
 
+let%span sord = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/logic/ord.rs" 34 8 34 21
 let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 112 11 112 33
 let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 113 10 113 37
 
 use int.ComputerDivision
 use int.Int
+
+predicate ge_log_Int [@inline:trivial] (self: int) (other: int) = [%#sord] other <= self
+
+meta "rewrite_def" predicate ge_log_Int
 
 meta "compute_max_steps" 1000000
 
@@ -14,6 +19,6 @@ constant yoe : int
 
 function century_of_era_year [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 114 0 114 36] (yoe: int) : ()
 
-goal vc_century_of_era_year: ([%#syear_month_day] yoe >= 0 /\ yoe <= 399)
+goal vc_century_of_era_year: ([%#syear_month_day] ge_log_Int yoe 0 /\ yoe <= 399)
   -> ([@stop_split] [@expl:century_of_era_year ensures] [%#syear_month_day'0] ComputerDivision.div yoe 100
   = ComputerDivision.div (ComputerDivision.div yoe 4) 25)

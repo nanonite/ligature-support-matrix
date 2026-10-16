@@ -2,7 +2,7 @@
 
 (* <year_month_day::YearMonthDay as std::cmp::PartialEq> *)
 
-let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 36 8 36 28
+let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 37 8 37 28
 let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 771 14 771 65
 let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 785 20 785 99
 let%span scmp = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/std/cmp.rs" 14 26 14 75
@@ -34,6 +34,6 @@ meta "compute_max_steps" 1000000
 
 meta "select_lsinst" "all"
 
-goal refines: forall self_: t_YearMonthDay, rhs: t_YearMonthDay. forall result: bool. ([%#syear_month_day] result
-        = (deep_model_ref_YearMonthDay self_ = deep_model_ref_YearMonthDay rhs))
-      -> ([%#scmp] result = (deep_model_ref_YearMonthDay self_ = deep_model_ref_YearMonthDay rhs))
+goal refines: forall self: t_YearMonthDay, other: t_YearMonthDay. forall result: bool. ([%#syear_month_day] result
+        = (deep_model_ref_YearMonthDay self = deep_model_ref_YearMonthDay other))
+      -> ([%#scmp] result = (deep_model_ref_YearMonthDay self = deep_model_ref_YearMonthDay other))

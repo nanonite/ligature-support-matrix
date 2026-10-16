@@ -1,0 +1,127 @@
+{
+  "work_package": "WP-DATE-CREUSOT",
+  "issue": "chainlink:138",
+  "cluster": "date-creusot-core",
+  "functions": [
+    "date_creusot_core::weekday::weekday_from_days",
+    "date_creusot_core::weekday::Weekday::c_encoding",
+    "date_creusot_core::weekday::Weekday::iso_encoding",
+    "date_creusot_core::iso_week::weekday_from_days",
+    "date_creusot_core::year_month_day::YearMonthDay::to_days",
+    "date_creusot_core::year_month_day::YearMonthDay::to_days_bounded",
+    "date_creusot_core::year_month_day::YearMonthDay::from_days",
+    "date_creusot_core::year_month_day::YearMonthDay::round_trip",
+    "date_creusot_core::year_month_day::YearMonthDay::ok",
+    "date_creusot_core::year_month_day::YearMonthDay::last",
+    "date_creusot_core::year_month_day_last::YearMonthDayLast::new",
+    "date_creusot_core::year_month_day_last::YearMonthDayLast::ok",
+    "date_creusot_core::year_month_day_last::YearMonthDayLast::day",
+    "date_creusot_core::year::Year::ok",
+    "date_creusot_core::year::Year::is_leap",
+    "date_creusot_core::month::Month::ok"
+  ],
+  "depends_on": [],
+  "coupling_notes": [
+    "This approved scope contains exactly nine unique obligations: Weekday.C001, Weekday.C002, Weekday.C003, YearMonthDay.C002 (from_days), YearMonthDay.C007 (round_trip), YearMonthDayLast.C001, Year.C001, Year.C002, and Month.C001.",
+    "YearMonthDay.C002 remains the from_days claim. YearMonthDay.C007 is a separate postcondition for round_trip; the two mappings are not interchangeable.",
+    "The three callee guarantees are Year.C001, Year.C002, and Month.C001, derived from the approved interactions. No additional assumptions are authorized; trusted_assumptions must remain empty.",
+    "The existing accepted interaction reliances all retain their reviewed minimum_scope verbatim: year in [-32767, 32767], month in [1, 12], day in [1, 31], and days::rep is a 32-bit int. C007 keeps the source contract precondition ok_logic(); this scope declaration does not widen that contract or assert proof success.",
+    "All selected obligations use Creusot. The exact canonical assurance output is ci/results/WP-DATE-CREUSOT.json; the feature ledger remains ci/results/feature_ledger.json."
+  ],
+  "provided_obligations": [
+    "Weekday.C001",
+    "Weekday.C002",
+    "Weekday.C003",
+    "YearMonthDay.C002",
+    "YearMonthDay.C007",
+    "YearMonthDayLast.C001",
+    "Year.C001",
+    "Year.C002",
+    "Month.C001"
+  ],
+  "required_obligations": [],
+  "bridges": [],
+  "assumptions": [],
+  "harnesses": {
+    "Weekday.C001": "creusot",
+    "Weekday.C002": "creusot",
+    "Weekday.C003": "creusot",
+    "YearMonthDay.C002": "creusot",
+    "YearMonthDay.C007": "creusot",
+    "YearMonthDayLast.C001": "creusot",
+    "Year.C001": "creusot",
+    "Year.C002": "creusot",
+    "Month.C001": "creusot"
+  },
+  "gates": [
+    {
+      "id": "g1a",
+      "runner": "ligature",
+      "args": [
+        "validate"
+      ]
+    },
+    {
+      "id": "g1b",
+      "runner": "ligature",
+      "args": [
+        "validate-interaction"
+      ]
+    },
+    {
+      "id": "g15",
+      "runner": "ligature",
+      "args": [
+        "validate-interaction"
+      ]
+    },
+    {
+      "id": "r2",
+      "runner": "ligature",
+      "args": [
+        "validate-interaction"
+      ]
+    },
+    {
+      "id": "g18",
+      "runner": "ligature",
+      "args": [
+        "gate",
+        "g18"
+      ]
+    },
+    {
+      "id": "g19",
+      "runner": "ligature",
+      "args": [
+        "gate",
+        "g19"
+      ]
+    },
+    {
+      "id": "g20",
+      "runner": "ligature",
+      "args": [
+        "gate",
+        "g20"
+      ]
+    }
+  ],
+  "scheduling_rule": "reverse-dependency-order",
+  "allowed_write_set": [
+    "rust/*/src/",
+    "rust/*/tests/"
+  ],
+  "protected_write_set": [
+    "rust/*/specs/**",
+    "ci/manifest/**",
+    "scripts/**",
+    "docs/reliance-policy.md",
+    "docs/*-schema.json",
+    "rust/*/Cargo.toml",
+    "rust/*/build.rs",
+    ".github/**",
+    "rust-toolchain.toml",
+    "tests/harnesses/**"
+  ]
+}

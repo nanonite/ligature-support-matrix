@@ -1,0 +1,12 @@
+[package]
+name = "date-creusot-core"
+version = "0.1.0"
+edition = "2021"
+description = "Rust port of the HowardHinnant/date calendar subset (days_from_civil, civil_from_days, weekday, year_month_day validity, ISO week) with Creusot annotations"
+license = "MIT"
+
+[dependencies]
+creusot-std = "0.12.0-dev"
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(creusot)'] }

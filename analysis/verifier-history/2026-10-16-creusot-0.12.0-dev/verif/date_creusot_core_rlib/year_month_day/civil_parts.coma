@@ -1,0 +1,346 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 552 0 552 42 *)
+
+let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 543 11 544 58
+let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 546 4 546 46
+let%span syear_month_day'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 247 4 247 58
+let%span syear_month_day'2 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 286 11 287 58
+let%span syear_month_day'3 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 289 4 289 35
+let%span syear_month_day'4 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 266 11 267 51
+let%span syear_month_day'5 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 268 10 268 63
+let%span syear_month_day'6 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 208 4 208 63
+let%span syear_month_day'7 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 99 4 101 82
+let%span syear_month_day'8 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 251 32 251 34
+let%span syear_month_day'9 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 294 8 318 9
+let%span syear_month_day'10 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 270 4 270 31
+let%span syear_month_day'11 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 325 11 326 24
+let%span syear_month_day'12 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 328 4 328 41
+let%span syear_month_day'13 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 331 47 331 49
+let%span syear_month_day'14 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 345 11 345 72
+let%span syear_month_day'15 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 347 4 347 41
+let%span syear_month_day'16 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 353 8 355 9
+let%span syear_month_day'17 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 335 11 335 74
+let%span syear_month_day'18 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 337 4 337 41
+let%span syear_month_day'19 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 340 47 340 49
+let%span syear_month_day'20 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 225 10 225 50
+let%span syear_month_day'21 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 226 39 226 41
+let%span syear_month_day'22 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 230 10 230 54
+let%span syear_month_day'23 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 231 41 231 43
+let%span syear_month_day'24 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 235 10 235 54
+let%span syear_month_day'25 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 236 41 236 43
+let%span syear_month_day_last = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 40 10 50 1
+
+use int.ComputerDivision
+use int.Int
+
+function month_length [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 51 0 51 42] (m: int) (y: int) : int
+
+axiom month_length_spec: forall m: int, y: int [month_length m y]. [%#syear_month_day_last] month_length m y
+    = (if m = 2 then
+      if ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0) then
+        29
+      else
+        28
+    
+    else
+      if m = 4 \/ m = 6 \/ m = 9 \/ m = 11 then
+        30
+      else
+        if m = 1 \/ m = 3 \/ m = 5 \/ m = 7 \/ m = 8 \/ m = 10 \/ m = 12 then 31 else 0
+    
+    )
+
+function doy_from_civil [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 207 0 207 44] (m: int) (d: int) : int
+ = [%#syear_month_day'6] ComputerDivision.div (153 * (if m > 2 then m - 3 else m + 9) + 2) 5 + d - 1
+
+predicate valid_era_day [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 98 0 98 48] (yoe: int) (doy: int) =
+  [%#syear_month_day'7] 0 <= doy
+  /\ doy <= 365 /\ (doy <= 364 \/ ComputerDivision.mod yoe 4 = 3 /\ yoe <> 99 /\ yoe <> 199 /\ yoe <> 299)
+
+function yoe_of_era_year [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 251 0 251 31] (y0: int) : ()
+ = [%#syear_month_day'8] ()
+
+axiom yoe_of_era_year_spec: forall y0: int. [%#syear_month_day'1] let era = ComputerDivision.div (if y0 >= 0 then
+      y0
+    else
+      y0 - 399
+    ) 400 in let yoe = y0 - era * 400 in 0 <= yoe /\ yoe <= 399
+
+function doy_of_civil_bounds_31 [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 331 0 331 46] (mp: int) (d: int) : ()
+ = [%#syear_month_day'13] ()
+
+axiom doy_of_civil_bounds_31_spec: forall mp: int, d: int. ([%#syear_month_day'11] (mp = 0
+        \/ mp = 2 \/ mp = 4 \/ mp = 5 \/ mp = 7 \/ mp = 9 \/ mp = 10)
+      /\ 1 <= d /\ d <= 31)
+    -> ([%#syear_month_day'12] let doy = ComputerDivision.div (153 * mp + 2) 5 + d - 1 in 0 <= doy /\ doy <= 364)
+
+function doy_of_civil_bounds_feb [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 351 0 351 46] (y: int) (d: int) : ()
+ = [%#syear_month_day'16] if ComputerDivision.mod y 4 = 0
+  /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0) then
+    ()
+  else
+    ()
+
+
+axiom doy_of_civil_bounds_feb_spec: forall y: int, d: int. ([%#syear_month_day'14] 1 <= d /\ d <= month_length 2 y)
+    -> ([%#syear_month_day'15] let doy = ComputerDivision.div (153 * 11 + 2) 5 + d - 1 in 0 <= doy
+    /\ doy <= 365
+    /\ (doy <= 364
+    \/ d = 29 /\ ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0)))
+
+function doy_of_civil_bounds_30 [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 340 0 340 46] (mp: int) (d: int) : ()
+ = [%#syear_month_day'19] ()
+
+axiom doy_of_civil_bounds_30_spec: forall mp: int, d: int. ([%#syear_month_day'17] (mp = 1
+        \/ mp = 3 \/ mp = 6 \/ mp = 8)
+      /\ 1 <= d /\ d <= 30)
+    -> ([%#syear_month_day'18] let doy = ComputerDivision.div (153 * mp + 2) 5 + d - 1 in 0 <= doy /\ doy <= 364)
+
+function doy_of_civil_bounds [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 292 0 292 50] (y: int) (m: int) (d: int) : ()
+ = [%#syear_month_day'9] if m = 1 then
+    let _ = doy_of_civil_bounds_31 10 d in ()
+  else
+    if m = 2 then
+      let _ = doy_of_civil_bounds_feb y d in ()
+    else
+      if m = 3 then
+        let _ = doy_of_civil_bounds_31 0 d in ()
+      else
+        if m = 4 then
+          let _ = doy_of_civil_bounds_30 1 d in ()
+        else
+          if m = 5 then
+            let _ = doy_of_civil_bounds_31 2 d in ()
+          else
+            if m = 6 then
+              let _ = doy_of_civil_bounds_30 3 d in ()
+            else
+              if m = 7 then
+                let _ = doy_of_civil_bounds_31 4 d in ()
+              else
+                if m = 8 then
+                  let _ = doy_of_civil_bounds_31 5 d in ()
+                else
+                  if m = 9 then
+                    let _ = doy_of_civil_bounds_30 6 d in ()
+                  else
+                    if m = 10 then
+                      let _ = doy_of_civil_bounds_31 7 d in ()
+                    else
+                      if m = 11 then
+                        let _ = doy_of_civil_bounds_30 8 d in ()
+                      else
+                        let _ = doy_of_civil_bounds_31 9 d in ()
+                    
+                  
+                
+              
+            
+          
+        
+      
+    
+  
+
+
+axiom doy_of_civil_bounds_spec: forall y: int, m: int, d: int. ([%#syear_month_day'2] 1 <= m
+      /\ m <= 12 /\ 1 <= d /\ d <= month_length m y)
+    -> ([%#syear_month_day'3] let doy = doy_from_civil m d in 0 <= doy /\ doy <= 365 /\ (doy <= 364 \/ m = 2))
+
+function div_4_era_shift [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 226 0 226 38] (x: int) (e: int) : ()
+ = [%#syear_month_day'21] ()
+
+axiom div_4_era_shift_spec: forall x: int, e: int. [%#syear_month_day'20] (ComputerDivision.mod (x - 400 * e) 4 = 0)
+    = (ComputerDivision.mod x 4 = 0)
+
+function div_100_era_shift [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 231 0 231 40] (x: int) (e: int) : ()
+ = [%#syear_month_day'23] ()
+
+axiom div_100_era_shift_spec: forall x: int, e: int. [%#syear_month_day'22] (ComputerDivision.mod (x - 400 * e) 100 = 0)
+    = (ComputerDivision.mod x 100 = 0)
+
+function div_400_era_shift [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 236 0 236 40] (x: int) (e: int) : ()
+ = [%#syear_month_day'25] ()
+
+axiom div_400_era_shift_spec: forall x: int, e: int. [%#syear_month_day'24] (ComputerDivision.mod (x - 400 * e) 400 = 0)
+    = (ComputerDivision.mod x 400 = 0)
+
+function leap_era_day [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 269 0 269 47] (y: int) (yoe: int) (era: int) : ()
+ = [%#syear_month_day'10] let _ = div_4_era_shift (y
+  - 1) era in let _ = div_100_era_shift y era in let _ = div_400_era_shift y era in if yoe = 99 then
+    ()
+  else
+    if yoe = 199 then () else if yoe = 299 then () else ()
+
+
+axiom leap_era_day_spec: forall y: int, yoe: int, era: int. ([%#syear_month_day'4] 0 <= yoe
+      /\ yoe <= 399
+      /\ y = yoe + 1 + 400 * era
+      /\ ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0))
+    -> ([%#syear_month_day'5] ComputerDivision.mod yoe 4 = 3 /\ yoe <> 99 /\ yoe <> 199 /\ yoe <> 299)
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+constant y : int
+
+constant m : int
+
+constant d : int
+
+function civil_parts [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 552 0 552 42] (y: int) (m: int) (d: int) : ()
+
+goal vc_civil_parts: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <= d /\ d <= month_length m y)
+  -> (if m <= 2 then
+    let y0 = y - 1 in if y0 >= 0 then
+      let era = ComputerDivision.div y0 400 in let yoe = y0
+      - era
+      * 400 in let doy = doy_from_civil m d in ([@stop_split] [@expl:yoe_of_era_year ensures] [%#syear_month_day'1] let era'0 = ComputerDivision.div (if y0
+        >= 0 then
+          y0
+        else
+          y0 - 399
+        ) 400 in let yoe'0 = y0 - era'0 * 400 in 0 <= yoe'0 /\ yoe'0 <= 399)
+      -> (let _ = yoe_of_era_year y0 in ([@stop_split] [@expl:doy_of_civil_bounds requires] [%#syear_month_day'2] 1 <= m
+        /\ m <= 12 /\ 1 <= d /\ d <= month_length m y)
+      /\ (([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'3] let doy'0 = doy_from_civil m d in 0
+          <= doy'0
+        /\ doy'0 <= 365 /\ (doy'0 <= 364 \/ m = 2))
+      -> (let _ = doy_of_civil_bounds y m d in if doy = 365 then
+        ([@stop_split] [@expl:leap_era_day requires] [%#syear_month_day'4] 0 <= yoe
+          /\ yoe <= 399
+          /\ y = yoe + 1 + 400 * era
+          /\ ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0))
+        /\ (([@stop_split] [@expl:leap_era_day ensures] [%#syear_month_day'5] ComputerDivision.mod yoe 4 = 3
+          /\ yoe <> 99 /\ yoe <> 199 /\ yoe <> 299)
+        -> (let _ = leap_era_day y yoe era in [@stop_split] [@expl:civil_parts ensures] [%#syear_month_day'0] let y0'0 = y
+        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if y0'0 >= 0 then
+          y0'0
+        else
+          y0'0 - 399
+        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy'0 = doy_from_civil m d in 0 <= yoe'0
+        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy'0))
+      else
+        [@stop_split] [@expl:civil_parts ensures] [%#syear_month_day'0] let y0'0 = y
+        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if y0'0 >= 0 then
+          y0'0
+        else
+          y0'0 - 399
+        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy'0 = doy_from_civil m d in 0 <= yoe'0
+        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy'0
+      )))
+    else
+      let era = ComputerDivision.div (y0 - 399) 400 in let yoe = y0
+      - era
+      * 400 in let doy = doy_from_civil m d in ([@stop_split] [@expl:yoe_of_era_year ensures] [%#syear_month_day'1] let era'0 = ComputerDivision.div (if y0
+        >= 0 then
+          y0
+        else
+          y0 - 399
+        ) 400 in let yoe'0 = y0 - era'0 * 400 in 0 <= yoe'0 /\ yoe'0 <= 399)
+      -> (let _ = yoe_of_era_year y0 in ([@stop_split] [@expl:doy_of_civil_bounds requires] [%#syear_month_day'2] 1 <= m
+        /\ m <= 12 /\ 1 <= d /\ d <= month_length m y)
+      /\ (([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'3] let doy'0 = doy_from_civil m d in 0
+          <= doy'0
+        /\ doy'0 <= 365 /\ (doy'0 <= 364 \/ m = 2))
+      -> (let _ = doy_of_civil_bounds y m d in if doy = 365 then
+        ([@stop_split] [@expl:leap_era_day requires] [%#syear_month_day'4] 0 <= yoe
+          /\ yoe <= 399
+          /\ y = yoe + 1 + 400 * era
+          /\ ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0))
+        /\ (([@stop_split] [@expl:leap_era_day ensures] [%#syear_month_day'5] ComputerDivision.mod yoe 4 = 3
+          /\ yoe <> 99 /\ yoe <> 199 /\ yoe <> 299)
+        -> (let _ = leap_era_day y yoe era in [@stop_split] [@expl:civil_parts ensures] [%#syear_month_day'0] let y0'0 = y
+        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if y0'0 >= 0 then
+          y0'0
+        else
+          y0'0 - 399
+        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy'0 = doy_from_civil m d in 0 <= yoe'0
+        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy'0))
+      else
+        [@stop_split] [@expl:civil_parts ensures] [%#syear_month_day'0] let y0'0 = y
+        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if y0'0 >= 0 then
+          y0'0
+        else
+          y0'0 - 399
+        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy'0 = doy_from_civil m d in 0 <= yoe'0
+        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy'0
+      )))
+  
+  else
+    let y0 = y - 0 in if y0 >= 0 then
+      let era = ComputerDivision.div y0 400 in let yoe = y0
+      - era
+      * 400 in let doy = doy_from_civil m d in ([@stop_split] [@expl:yoe_of_era_year ensures] [%#syear_month_day'1] let era'0 = ComputerDivision.div (if y0
+        >= 0 then
+          y0
+        else
+          y0 - 399
+        ) 400 in let yoe'0 = y0 - era'0 * 400 in 0 <= yoe'0 /\ yoe'0 <= 399)
+      -> (let _ = yoe_of_era_year y0 in ([@stop_split] [@expl:doy_of_civil_bounds requires] [%#syear_month_day'2] 1 <= m
+        /\ m <= 12 /\ 1 <= d /\ d <= month_length m y)
+      /\ (([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'3] let doy'0 = doy_from_civil m d in 0
+          <= doy'0
+        /\ doy'0 <= 365 /\ (doy'0 <= 364 \/ m = 2))
+      -> (let _ = doy_of_civil_bounds y m d in if doy = 365 then
+        ([@stop_split] [@expl:leap_era_day requires] [%#syear_month_day'4] 0 <= yoe
+          /\ yoe <= 399
+          /\ y = yoe + 1 + 400 * era
+          /\ ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0))
+        /\ (([@stop_split] [@expl:leap_era_day ensures] [%#syear_month_day'5] ComputerDivision.mod yoe 4 = 3
+          /\ yoe <> 99 /\ yoe <> 199 /\ yoe <> 299)
+        -> (let _ = leap_era_day y yoe era in [@stop_split] [@expl:civil_parts ensures] [%#syear_month_day'0] let y0'0 = y
+        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if y0'0 >= 0 then
+          y0'0
+        else
+          y0'0 - 399
+        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy'0 = doy_from_civil m d in 0 <= yoe'0
+        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy'0))
+      else
+        [@stop_split] [@expl:civil_parts ensures] [%#syear_month_day'0] let y0'0 = y
+        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if y0'0 >= 0 then
+          y0'0
+        else
+          y0'0 - 399
+        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy'0 = doy_from_civil m d in 0 <= yoe'0
+        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy'0
+      )))
+    else
+      let era = ComputerDivision.div (y0 - 399) 400 in let yoe = y0
+      - era
+      * 400 in let doy = doy_from_civil m d in ([@stop_split] [@expl:yoe_of_era_year ensures] [%#syear_month_day'1] let era'0 = ComputerDivision.div (if y0
+        >= 0 then
+          y0
+        else
+          y0 - 399
+        ) 400 in let yoe'0 = y0 - era'0 * 400 in 0 <= yoe'0 /\ yoe'0 <= 399)
+      -> (let _ = yoe_of_era_year y0 in ([@stop_split] [@expl:doy_of_civil_bounds requires] [%#syear_month_day'2] 1 <= m
+        /\ m <= 12 /\ 1 <= d /\ d <= month_length m y)
+      /\ (([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'3] let doy'0 = doy_from_civil m d in 0
+          <= doy'0
+        /\ doy'0 <= 365 /\ (doy'0 <= 364 \/ m = 2))
+      -> (let _ = doy_of_civil_bounds y m d in if doy = 365 then
+        ([@stop_split] [@expl:leap_era_day requires] [%#syear_month_day'4] 0 <= yoe
+          /\ yoe <= 399
+          /\ y = yoe + 1 + 400 * era
+          /\ ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0))
+        /\ (([@stop_split] [@expl:leap_era_day ensures] [%#syear_month_day'5] ComputerDivision.mod yoe 4 = 3
+          /\ yoe <> 99 /\ yoe <> 199 /\ yoe <> 299)
+        -> (let _ = leap_era_day y yoe era in [@stop_split] [@expl:civil_parts ensures] [%#syear_month_day'0] let y0'0 = y
+        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if y0'0 >= 0 then
+          y0'0
+        else
+          y0'0 - 399
+        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy'0 = doy_from_civil m d in 0 <= yoe'0
+        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy'0))
+      else
+        [@stop_split] [@expl:civil_parts ensures] [%#syear_month_day'0] let y0'0 = y
+        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if y0'0 >= 0 then
+          y0'0
+        else
+          y0'0 - 399
+        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy'0 = doy_from_civil m d in 0 <= yoe'0
+        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy'0
+      )))
+  
+  )

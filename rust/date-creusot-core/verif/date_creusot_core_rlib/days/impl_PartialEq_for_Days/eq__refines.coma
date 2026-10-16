@@ -4,7 +4,7 @@
 
 let%span sdays = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/days.rs" 25 14 25 65
 let%span sdays'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/days.rs" 38 20 38 27
-let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 36 8 36 28
+let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 37 8 37 28
 let%span scmp = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/std/cmp.rs" 14 26 14 75
 
 use creusot.int.Int32
@@ -22,6 +22,6 @@ meta "compute_max_steps" 1000000
 
 meta "select_lsinst" "all"
 
-goal refines: forall self_: t_Days, rhs: t_Days. forall result: bool. ([%#sdays] result
-        = (deep_model_ref_Days self_ = deep_model_ref_Days rhs))
-      -> ([%#scmp] result = (deep_model_ref_Days self_ = deep_model_ref_Days rhs))
+goal refines: forall self: t_Days, other: t_Days. forall result: bool. ([%#sdays] result
+        = (deep_model_ref_Days self = deep_model_ref_Days other))
+      -> ([%#scmp] result = (deep_model_ref_Days self = deep_model_ref_Days other))

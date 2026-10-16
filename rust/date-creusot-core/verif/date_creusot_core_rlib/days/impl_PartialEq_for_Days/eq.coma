@@ -4,7 +4,7 @@
 
 let%span sdays = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/days.rs" 25 14 25 65
 let%span sdays'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/days.rs" 38 20 38 27
-let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 36 8 36 28
+let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 37 8 37 28
 
 use creusot.int.Int32
 use creusot.prelude.Any

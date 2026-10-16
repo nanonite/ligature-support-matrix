@@ -1,10 +1,15 @@
 (* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 203 0 203 38 *)
 
+let%span sord = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/logic/ord.rs" 34 8 34 21
 let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 198 11 198 36
 let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 200 4 200 31
 
 use int.ComputerDivision
 use int.Int
+
+predicate ge_log_Int [@inline:trivial] (self: int) (other: int) = [%#sord] other <= self
+
+meta "rewrite_def" predicate ge_log_Int
 
 meta "compute_max_steps" 1000000
 
@@ -18,4 +23,4 @@ function era_of_days [#"/home/goya/storage/full-ligature-port-workspace/date-cre
 
 goal vc_era_of_days: ([%#syear_month_day] 0 <= doe /\ doe <= 146096)
   -> ([@stop_split] [@expl:era_of_days ensures] [%#syear_month_day'0] let z = era * 146097
-  + doe in ComputerDivision.div (if z >= 0 then z else z - 146096) 146097 = era)
+  + doe in ComputerDivision.div (if ge_log_Int z 0 then z else z - 146096) 146097 = era)

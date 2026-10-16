@@ -2,7 +2,7 @@
 
 (* <month::Month as std::cmp::PartialEq> *)
 
-let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 36 8 36 28
+let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 37 8 37 28
 let%span smonth = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/month.rs" 27 14 27 45
 let%span smonth'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/month.rs" 69 20 69 27
 let%span scmp = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/std/cmp.rs" 14 26 14 75
@@ -22,6 +22,6 @@ meta "compute_max_steps" 1000000
 
 meta "select_lsinst" "all"
 
-goal refines: forall self_: t_Month, rhs: t_Month. forall result: bool. ([%#smonth] result
-        = (UInt8.t'int self_.f0 = UInt8.t'int rhs.f0))
-      -> ([%#scmp] result = (deep_model_ref_Month self_ = deep_model_ref_Month rhs))
+goal refines: forall self: t_Month, other: t_Month. forall result: bool. ([%#smonth] result
+        = (UInt8.t'int self.f0 = UInt8.t'int other.f0))
+      -> ([%#scmp] result = (deep_model_ref_Month self = deep_model_ref_Month other))

@@ -1,0 +1,81 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 55 0 55 44 *)
+
+let%span siso_week = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 56 27 56 28
+let%span siso_week'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 56 15 56 29
+let%span siso_week'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 56 32 56 33
+let%span siso_week'2 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 56 14 56 34
+let%span siso_week'3 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 56 37 56 38
+let%span siso_week'4 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 56 13 56 39
+let%span siso_week'5 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 56 42 56 43
+let%span siso_week'6 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 56 12 56 44
+let%span siso_week'7 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 57 4 57 22
+let%span siso_week'8 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 52 4 52 32
+let%span siso_week'9 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 19 10 19 51
+let%span slib = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/lib.rs" 52 10 52 35
+let%span slib'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/lib.rs" 54 4 54 19
+
+use creusot.int.Int32
+use creusot.int.Int64
+use creusot.prelude.Bool
+use creusot.int.UInt8
+use creusot.prelude.Any
+use int.EuclideanDivision
+use int.Int
+
+let to_iso_encoding (z: UInt8.t) (return (x: UInt8.t)) = any
+  [ return (result: UInt8.t) -> {[@stop_split] [@expl:to_iso_encoding ensures] [%#siso_week'9] UInt8.t'int result
+    = (if UInt8.t'int z = 0 then 7 else UInt8.t'int z)}
+    (! return {result}) ]
+
+function euclid_mod7 [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/lib.rs" 53 0 53 33] (a: int) : int
+ = [%#slib'0] EuclideanDivision.mod a 7
+
+axiom euclid_mod7_spec: forall a: int [euclid_mod7 a]. [%#slib] euclid_mod7 a >= 0 /\ euclid_mod7 a < 7
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let weekday_from_days [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 55 0 55 44]
+  (z: Int32.t) (return (x: UInt8.t)) = (! bb0
+  [ bb0 = s0
+    [ s0 = [ &_9 <- Int64.of_int (Int32.to_int z) ] s1
+    | s1 = Int64.add [%#siso_week'0] {_9} {[%#siso_week] (4: Int64.t)} (fun (_x: Int64.t) -> [ &_8 <- _x ] s2)
+    | s2 = [ &_11 <- ([%#siso_week'1] (7: Int64.t)) = ([%#siso_week'2] (0: Int64.t)) ] s3
+    | s3 = {[@expl:remainder by zero] [%#siso_week'2] not _11} s4
+    | s4 = [ &_12 <- ([%#siso_week'1] (7: Int64.t)) = ([%#siso_week'2] (-1: Int64.t)) ] s5
+    | s5 = [ &_13 <- _8 = ([%#siso_week'2] (-9223372036854775808: Int64.t)) ] s6
+    | s6 = [ &_14 <- Bool.bw_and _12 _13 ] s7
+    | s7 = {[@expl:Rem overflow] [%#siso_week'2] not _14} s8
+    | s8 = Int64.rem [%#siso_week'2] {_8} {[%#siso_week'1] (7: Int64.t)} (fun (_x: Int64.t) -> [ &_7 <- _x ] s9)
+    | s9 = Int64.add [%#siso_week'4] {_7} {[%#siso_week'3] (7: Int64.t)} (fun (_x: Int64.t) -> [ &_6 <- _x ] s10)
+    | s10 = [ &_15 <- ([%#siso_week'5] (7: Int64.t)) = ([%#siso_week'6] (0: Int64.t)) ] s11
+    | s11 = {[@expl:remainder by zero] [%#siso_week'6] not _15} s12
+    | s12 = [ &_16 <- ([%#siso_week'5] (7: Int64.t)) = ([%#siso_week'6] (-1: Int64.t)) ] s13
+    | s13 = [ &_17 <- _6 = ([%#siso_week'6] (-9223372036854775808: Int64.t)) ] s14
+    | s14 = [ &_18 <- Bool.bw_and _16 _17 ] s15
+    | s15 = {[@expl:Rem overflow] [%#siso_week'6] not _18} s16
+    | s16 = Int64.rem [%#siso_week'6] {_6} {[%#siso_week'5] (7: Int64.t)} (fun (_x: Int64.t) -> [ &_5 <- _x ] s17)
+    | s17 = [ &m <- UInt8.of_int (Int64.to_int _5) ] s18
+    | s18 = to_iso_encoding [%#siso_week'7] {m} (fun (_x: UInt8.t) -> [ &_ret <- _x ] s19)
+    | s19 = return {_ret} ] ]
+  [ & _ret: UInt8.t = Any.any_l ()
+  | & z: Int32.t = z
+  | & m: UInt8.t = Any.any_l ()
+  | & _5: Int64.t = Any.any_l ()
+  | & _6: Int64.t = Any.any_l ()
+  | & _7: Int64.t = Any.any_l ()
+  | & _8: Int64.t = Any.any_l ()
+  | & _9: Int64.t = Any.any_l ()
+  | & _11: bool = Any.any_l ()
+  | & _12: bool = Any.any_l ()
+  | & _13: bool = Any.any_l ()
+  | & _14: bool = Any.any_l ()
+  | & _15: bool = Any.any_l ()
+  | & _16: bool = Any.any_l ()
+  | & _17: bool = Any.any_l ()
+  | & _18: bool = Any.any_l () ])
+  [ return (result: UInt8.t) ->
+  {[@stop_split] [@expl:weekday_from_days ensures] [%#siso_week'8] let m = euclid_mod7 (Int32.to_int z
+    + 4) in UInt8.t'int result = (if m = 0 then 7 else m)}
+    (! return {result}) ]

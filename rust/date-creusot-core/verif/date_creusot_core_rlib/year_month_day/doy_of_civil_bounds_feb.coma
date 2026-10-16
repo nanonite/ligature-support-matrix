@@ -35,45 +35,11 @@ constant d : int
 function doy_of_civil_bounds_feb [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 351 0 351 46] (y: int) (d: int) : ()
 
 goal vc_doy_of_civil_bounds_feb: ([%#syear_month_day] 1 <= d /\ d <= month_length 2 y)
-  -> (if ComputerDivision.mod y 4 = 0 then
-    if ComputerDivision.mod y 100 <> 0 then
-      [@stop_split] [@expl:doy_of_civil_bounds_feb ensures] [%#syear_month_day'0] let doy = ComputerDivision.div (153
-            * 11
-          + 2) 5
-        + d
-      - 1 in 0 <= doy
-      /\ doy <= 365
-      /\ (doy <= 364
-      \/ d = 29 /\ ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0))
-    else
-      if ComputerDivision.mod y 400 = 0 then
-        [@stop_split] [@expl:doy_of_civil_bounds_feb ensures] [%#syear_month_day'0] let doy = ComputerDivision.div (153
-              * 11
-            + 2) 5
-          + d
-        - 1 in 0 <= doy
-        /\ doy <= 365
-        /\ (doy <= 364
-        \/ d = 29
-        /\ ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0))
-      else
-        [@stop_split] [@expl:doy_of_civil_bounds_feb ensures] [%#syear_month_day'0] let doy = ComputerDivision.div (153
-              * 11
-            + 2) 5
-          + d
-        - 1 in 0 <= doy
-        /\ doy <= 365
-        /\ (doy <= 364
-        \/ d = 29
-        /\ ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0))
-    
-  
-  else
-    [@stop_split] [@expl:doy_of_civil_bounds_feb ensures] [%#syear_month_day'0] let doy = ComputerDivision.div (153 * 11
-        + 2) 5
-      + d
-    - 1 in 0 <= doy
-    /\ doy <= 365
-    /\ (doy <= 364
-    \/ d = 29 /\ ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0))
-  )
+  -> ([@stop_split] [@expl:doy_of_civil_bounds_feb ensures] [%#syear_month_day'0] let doy = ComputerDivision.div (153
+        * 11
+      + 2) 5
+    + d
+  - 1 in 0 <= doy
+  /\ doy <= 365
+  /\ (doy <= 364
+  \/ d = 29 /\ ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0)))

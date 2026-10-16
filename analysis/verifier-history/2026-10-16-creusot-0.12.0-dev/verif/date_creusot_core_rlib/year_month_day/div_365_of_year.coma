@@ -1,0 +1,20 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 175 0 175 38 *)
+
+let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 173 11 173 39
+let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 174 10 174 34
+
+use int.ComputerDivision
+use int.Int
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+constant r : int
+
+constant e : int
+
+function div_365_of_year [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 175 0 175 38] (r: int) (e: int) : ()
+
+goal vc_div_365_of_year: ([%#syear_month_day] r >= 0 /\ 0 <= e /\ e <= 364)
+  -> ([@stop_split] [@expl:div_365_of_year ensures] [%#syear_month_day'0] ComputerDivision.div (365 * r + e) 365 = r)

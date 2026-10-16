@@ -2,7 +2,20 @@
   "schema_version": "1.0",
   "cluster": "date-creusot-core",
   "closure_kind": "deductive",
-  "work_packages": ["WP-DATE-CREUSOT"],
+  "work_packages": [
+    "WP-DATE-CREUSOT"
+  ],
+  "expected_obligations": [
+    "Month.C001",
+    "Weekday.C001",
+    "Weekday.C002",
+    "Weekday.C003",
+    "Year.C001",
+    "Year.C002",
+    "YearMonthDay.C002",
+    "YearMonthDay.C007",
+    "YearMonthDayLast.C001"
+  ],
   "conditions": {
     "single_verifier_system": true,
     "owning_verifier": "creusot",
@@ -12,5 +25,8 @@
     "transitive_assumptions_within_policy": true,
     "scc_wellfoundedness_discharged": "not-applicable"
   },
-  "review": {"reviewer": "chainlink-worker", "reviewed_at": "2026-09-29"}
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-16"
+  }
 }

@@ -4,7 +4,7 @@
   "crate_dir": "rust/date-creusot-core",
   "coverage_scope": {
     "extractor": "coarse-syntactic-callgraph",
-    "extractor_version": "0.1.0",
+    "extractor_version": "0.2.0",
     "extractor_backing": "syntactic",
     "supported_call_forms": [
       "associated-path-call",
@@ -21,7 +21,9 @@
   },
   "config_scope": {
     "target": "x86_64-unknown-linux-gnu",
-    "features": [],
+    "features": [
+      "default"
+    ],
     "cfg": []
   },
   "attribution_scope": {
@@ -56,14 +58,15 @@
       "source": {
         "path": "rust/date-creusot-core/src/year_month_day.rs",
         "symbol": "YearMonthDay::last",
-        "line": 804,
+        "line": 802,
         "syntax_hash": "sha256:646df70e3d2f054a4b9ac874ae7051a8e47c03aa4e27b31e9946a2fb2e8b6747"
       },
       "callee": {
         "concept": "YearMonthDayLast",
         "method": "new"
       },
-      "risk_tier_source": "not-applicable"
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "general"
     },
     {
       "callsite_id": "CS-YEARMONTHDAY-OK-001",
@@ -75,17 +78,44 @@
       "source": {
         "path": "rust/date-creusot-core/src/year_month_day.rs",
         "symbol": "YearMonthDay::ok",
-        "line": 834,
+        "line": 832,
         "syntax_hash": "sha256:a929df506bf338f82bac79834c493fda3369a88cb7cc224a5a356a0f677d921f"
       },
       "callee": {
         "concept": "Year",
         "method": "ok"
       },
-      "risk_tier_source": "not-applicable"
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "value-domain-inquiry",
+      "callee_shape_evidence": {
+        "syntax_hash": "sha256:949fef3de525b1505b665e24dc97da5985a4961dd7a3521c57001713d14c88b0"
+      }
     },
     {
       "callsite_id": "CS-YEARMONTHDAY-OK-002",
+      "call_class": "definite-direct-call",
+      "caller": {
+        "concept": "YearMonthDay",
+        "method": "ok"
+      },
+      "source": {
+        "path": "rust/date-creusot-core/src/year_month_day.rs",
+        "symbol": "YearMonthDay::ok",
+        "line": 833,
+        "syntax_hash": "sha256:a929df506bf338f82bac79834c493fda3369a88cb7cc224a5a356a0f677d921f"
+      },
+      "callee": {
+        "concept": "Month",
+        "method": "ok"
+      },
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "value-domain-inquiry",
+      "callee_shape_evidence": {
+        "syntax_hash": "sha256:8f0acc98b2d91b2b79f7e98b210b4318725928ec055dd8c985ba46e65352bf07"
+      }
+    },
+    {
+      "callsite_id": "CS-YEARMONTHDAY-OK-003",
       "call_class": "definite-direct-call",
       "caller": {
         "concept": "YearMonthDay",
@@ -98,29 +128,11 @@
         "syntax_hash": "sha256:a929df506bf338f82bac79834c493fda3369a88cb7cc224a5a356a0f677d921f"
       },
       "callee": {
-        "concept": "Month",
-        "method": "ok"
-      },
-      "risk_tier_source": "not-applicable"
-    },
-    {
-      "callsite_id": "CS-YEARMONTHDAY-OK-003",
-      "call_class": "definite-direct-call",
-      "caller": {
-        "concept": "YearMonthDay",
-        "method": "ok"
-      },
-      "source": {
-        "path": "rust/date-creusot-core/src/year_month_day.rs",
-        "symbol": "YearMonthDay::ok",
-        "line": 837,
-        "syntax_hash": "sha256:a929df506bf338f82bac79834c493fda3369a88cb7cc224a5a356a0f677d921f"
-      },
-      "callee": {
         "concept": "YearMonthDayLast",
         "method": "day"
       },
-      "risk_tier_source": "not-applicable"
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "general"
     },
     {
       "callsite_id": "CS-YEARMONTHDAY-OK-004",
@@ -132,14 +144,15 @@
       "source": {
         "path": "rust/date-creusot-core/src/year_month_day.rs",
         "symbol": "YearMonthDay::ok",
-        "line": 837,
+        "line": 835,
         "syntax_hash": "sha256:a929df506bf338f82bac79834c493fda3369a88cb7cc224a5a356a0f677d921f"
       },
       "callee": {
         "concept": "YearMonthDay",
         "method": "last"
       },
-      "risk_tier_source": "not-applicable"
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "general"
     },
     {
       "callsite_id": "CS-YEARMONTHDAY-TO-DAYS-BOUNDED-001",
@@ -151,14 +164,15 @@
       "source": {
         "path": "rust/date-creusot-core/src/year_month_day.rs",
         "symbol": "YearMonthDay::to_days_bounded",
-        "line": 910,
+        "line": 908,
         "syntax_hash": "sha256:7455abe84172bb79f9221c6927cfef4ca5292d26d68e76e8d57eaa6058d3ba12"
       },
       "callee": {
         "concept": "YearMonthDay",
         "method": "to_days"
       },
-      "risk_tier_source": "not-applicable"
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "general"
     },
     {
       "callsite_id": "CS-YEARMONTHDAY-ROUND-TRIP-001",
@@ -170,14 +184,15 @@
       "source": {
         "path": "rust/date-creusot-core/src/year_month_day.rs",
         "symbol": "YearMonthDay::round_trip",
-        "line": 986,
+        "line": 984,
         "syntax_hash": "sha256:f88b1e41526251f9cfeac6881081af3f8372949062388a5a65a269a80d628fe5"
       },
       "callee": {
         "concept": "YearMonthDay",
         "method": "from_days"
       },
-      "risk_tier_source": "not-applicable"
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "general"
     },
     {
       "callsite_id": "CS-YEARMONTHDAY-ROUND-TRIP-002",
@@ -189,14 +204,15 @@
       "source": {
         "path": "rust/date-creusot-core/src/year_month_day.rs",
         "symbol": "YearMonthDay::round_trip",
-        "line": 986,
+        "line": 984,
         "syntax_hash": "sha256:f88b1e41526251f9cfeac6881081af3f8372949062388a5a65a269a80d628fe5"
       },
       "callee": {
         "concept": "YearMonthDay",
         "method": "to_days_bounded"
       },
-      "risk_tier_source": "not-applicable"
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "general"
     },
     {
       "callsite_id": "CS-YEARMONTHDAYLAST-OK-001",
@@ -215,7 +231,11 @@
         "concept": "Year",
         "method": "ok"
       },
-      "risk_tier_source": "not-applicable"
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "value-domain-inquiry",
+      "callee_shape_evidence": {
+        "syntax_hash": "sha256:949fef3de525b1505b665e24dc97da5985a4961dd7a3521c57001713d14c88b0"
+      }
     },
     {
       "callsite_id": "CS-YEARMONTHDAYLAST-OK-002",
@@ -234,7 +254,11 @@
         "concept": "Month",
         "method": "ok"
       },
-      "risk_tier_source": "not-applicable"
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "value-domain-inquiry",
+      "callee_shape_evidence": {
+        "syntax_hash": "sha256:8f0acc98b2d91b2b79f7e98b210b4318725928ec055dd8c985ba46e65352bf07"
+      }
     },
     {
       "callsite_id": "CS-YEARMONTHDAYLAST-DAY-001",
@@ -253,7 +277,11 @@
         "concept": "Year",
         "method": "is_leap"
       },
-      "risk_tier_source": "not-applicable"
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "value-domain-inquiry",
+      "callee_shape_evidence": {
+        "syntax_hash": "sha256:51d58671842b8bea4c1ef1d7e0b9768911e9a100d0999a7234ae36170c5b5bdb"
+      }
     }
   ],
   "callsite_coverage": {

@@ -1,5 +1,7 @@
 (* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 371 0 371 55 *)
 
+let%span sord = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/logic/ord.rs" 34 8 34 21
+let%span sord'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/logic/ord.rs" 22 8 22 20
 let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 368 11 369 58
 let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 370 10 370 60
 let%span syear_month_day'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 414 11 415 24
@@ -39,17 +41,27 @@ axiom month_length_spec: forall m: int, y: int [month_length m y]. [%#syear_mont
 
 type tup2_Int_Int = { f0: int; f1: int }
 
+predicate ge_log_Int [@inline:trivial] (self: int) (other: int) = [%#sord] other <= self
+
+meta "rewrite_def" predicate ge_log_Int
+
 function month_day_from_doy [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 53 0 53 49] (doy: int) : tup2_Int_Int
  = [%#syear_month_day'9] let mp = ComputerDivision.div (5 * doy + 2) 153 in let d = doy
     - ComputerDivision.div (153 * mp + 2) 5
   + 1 in let m = if mp < 10 then mp + 3 else mp - 9 in { f0 = m; f1 = d }
 
-axiom month_day_from_doy_spec: forall doy: int [month_day_from_doy doy]. ([%#syear_month_day'7] doy >= 0 /\ doy <= 365)
-    -> ([%#syear_month_day'8] (month_day_from_doy doy).f0 >= 1
-    /\ (month_day_from_doy doy).f0 <= 12 /\ (month_day_from_doy doy).f1 >= 1 /\ (month_day_from_doy doy).f1 <= 31)
+axiom month_day_from_doy_spec: forall doy: int [month_day_from_doy doy]. ([%#syear_month_day'7] ge_log_Int doy 0
+      /\ doy <= 365)
+    -> ([%#syear_month_day'8] ge_log_Int (month_day_from_doy doy).f0 1
+    /\ (month_day_from_doy doy).f0 <= 12
+    /\ ge_log_Int (month_day_from_doy doy).f1 1 /\ (month_day_from_doy doy).f1 <= 31)
+
+predicate gt_log_Int [@inline:trivial] (self: int) (other: int) = [%#sord'0] other < self
+
+meta "rewrite_def" predicate gt_log_Int
 
 function doy_from_civil [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 207 0 207 44] (m: int) (d: int) : int
- = [%#syear_month_day'10] ComputerDivision.div (153 * (if m > 2 then m - 3 else m + 9) + 2) 5 + d - 1
+ = [%#syear_month_day'10] ComputerDivision.div (153 * (if gt_log_Int m 2 then m - 3 else m + 9) + 2) 5 + d - 1
 
 function month_day_from_doy_exact_31 [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 417 0 417 51] (mp: int) (d: int) : ()
  = [%#syear_month_day'11] if mp = 0 then
@@ -106,7 +118,7 @@ goal vc_month_day_from_doy_exact: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <=
           + d
         - 1)
       = { f0 = (if 10 < 10 then 10 + 3 else 10 - 9); f1 = d })
-    -> (let _ = month_day_from_doy_exact_31 10 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+    -> ([@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
     = { f0 = m; f1 = d }))
   else
     if m = 2 then
@@ -118,7 +130,7 @@ goal vc_month_day_from_doy_exact: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <=
             + d
           - 1)
         = { f0 = 2; f1 = d })
-      -> (let _ = month_day_from_doy_exact_feb y d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+      -> ([@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
       = { f0 = m; f1 = d }))
     else
       if m = 3 then
@@ -131,7 +143,7 @@ goal vc_month_day_from_doy_exact: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <=
               + d
             - 1)
           = { f0 = (if 0 < 10 then 0 + 3 else 0 - 9); f1 = d })
-        -> (let _ = month_day_from_doy_exact_31 0 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+        -> ([@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
         = { f0 = m; f1 = d }))
       else
         if m = 4 then
@@ -144,7 +156,7 @@ goal vc_month_day_from_doy_exact: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <=
                 + d
               - 1)
             = { f0 = 1 + 3; f1 = d })
-          -> (let _ = month_day_from_doy_exact_30 1 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+          -> ([@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
           = { f0 = m; f1 = d }))
         else
           if m = 5 then
@@ -157,7 +169,7 @@ goal vc_month_day_from_doy_exact: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <=
                   + d
                 - 1)
               = { f0 = (if 2 < 10 then 2 + 3 else 2 - 9); f1 = d })
-            -> (let _ = month_day_from_doy_exact_31 2 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+            -> ([@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
             = { f0 = m; f1 = d }))
           else
             if m = 6 then
@@ -170,7 +182,7 @@ goal vc_month_day_from_doy_exact: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <=
                     + d
                   - 1)
                 = { f0 = 3 + 3; f1 = d })
-              -> (let _ = month_day_from_doy_exact_30 3 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+              -> ([@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
               = { f0 = m; f1 = d }))
             else
               if m = 7 then
@@ -183,7 +195,7 @@ goal vc_month_day_from_doy_exact: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <=
                       + d
                     - 1)
                   = { f0 = (if 4 < 10 then 4 + 3 else 4 - 9); f1 = d })
-                -> (let _ = month_day_from_doy_exact_31 4 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+                -> ([@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
                 = { f0 = m; f1 = d }))
               else
                 if m = 8 then
@@ -196,7 +208,7 @@ goal vc_month_day_from_doy_exact: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <=
                         + d
                       - 1)
                     = { f0 = (if 5 < 10 then 5 + 3 else 5 - 9); f1 = d })
-                  -> (let _ = month_day_from_doy_exact_31 5 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+                  -> ([@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
                   = { f0 = m; f1 = d }))
                 else
                   if m = 9 then
@@ -209,7 +221,7 @@ goal vc_month_day_from_doy_exact: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <=
                           + d
                         - 1)
                       = { f0 = 6 + 3; f1 = d })
-                    -> (let _ = month_day_from_doy_exact_30 6 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+                    -> ([@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
                     = { f0 = m; f1 = d }))
                   else
                     if m = 10 then
@@ -222,7 +234,7 @@ goal vc_month_day_from_doy_exact: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <=
                             + d
                           - 1)
                         = { f0 = (if 7 < 10 then 7 + 3 else 7 - 9); f1 = d })
-                      -> (let _ = month_day_from_doy_exact_31 7 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+                      -> ([@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
                       = { f0 = m; f1 = d }))
                     else
                       if m = 11 then
@@ -235,7 +247,7 @@ goal vc_month_day_from_doy_exact: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <=
                               + d
                             - 1)
                           = { f0 = 8 + 3; f1 = d })
-                        -> (let _ = month_day_from_doy_exact_30 8 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+                        -> ([@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
                         = { f0 = m; f1 = d }))
                       else
                         ([@stop_split] [@expl:month_day_from_doy_exact_31 requires] [%#syear_month_day'1] (9 = 0
@@ -247,7 +259,7 @@ goal vc_month_day_from_doy_exact: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <=
                               + d
                             - 1)
                           = { f0 = (if 9 < 10 then 9 + 3 else 9 - 9); f1 = d })
-                        -> (let _ = month_day_from_doy_exact_31 9 d in [@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
+                        -> ([@stop_split] [@expl:month_day_from_doy_exact ensures] [%#syear_month_day'0] month_day_from_doy (doy_from_civil m d)
                         = { f0 = m; f1 = d }))
                     
                   

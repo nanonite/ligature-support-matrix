@@ -1,0 +1,39 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 772 4 772 38 *)
+
+(* <year_month_day::YearMonthDay as std::cmp::PartialEq> *)
+
+let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 36 8 36 28
+let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 771 14 771 65
+let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 785 20 785 99
+let%span scmp = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/std/cmp.rs" 14 26 14 75
+
+use creusot.int.Int16
+use creusot.int.UInt8
+
+type t_Year = { f0: Int16.t }
+
+type t_Month = { f0'0: UInt8.t }
+
+type t_Day = { f0'1: UInt8.t }
+
+type t_YearMonthDay = { year: t_Year; month: t_Month; day: t_Day }
+
+type t_YearMonthDayView = { year'0: int; month'0: int; day'0: int }
+
+function deep_model_YearMonthDay [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 784 4 784 43] (self: t_YearMonthDay) : t_YearMonthDayView
+ = [%#syear_month_day'0] { year'0 = Int16.to_int self.year.f0;
+                           month'0 = UInt8.t'int self.month.f0'0;
+                           day'0 = UInt8.t'int self.day.f0'1 }
+
+function deep_model_ref_YearMonthDay [@inline:trivial] (self: t_YearMonthDay) : t_YearMonthDayView =
+  [%#smodel] deep_model_YearMonthDay self
+
+meta "rewrite_def" function deep_model_ref_YearMonthDay
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+goal refines: forall self_: t_YearMonthDay, rhs: t_YearMonthDay. forall result: bool. ([%#syear_month_day] result
+        = (deep_model_ref_YearMonthDay self_ = deep_model_ref_YearMonthDay rhs))
+      -> ([%#scmp] result = (deep_model_ref_YearMonthDay self_ = deep_model_ref_YearMonthDay rhs))

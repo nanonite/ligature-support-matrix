@@ -1,0 +1,50 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 159 4 159 34 *)
+
+(* year_month_day_last::YearMonthDayLast *)
+
+let%span smonth = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/month.rs" 51 14 51 55
+let%span syear = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 48 14 48 43
+let%span syear_month_day_last = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 160 8 160 28
+let%span syear_month_day_last'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 160 32 160 54
+let%span syear_month_day_last'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 160 8 160 54
+
+use creusot.int.Int16
+use creusot.int.UInt8
+use creusot.prelude.Any
+use int.Int
+
+type t_Year = { f0: Int16.t }
+
+type t_Month = { f0'0: UInt8.t }
+
+type t_YearMonthDayLast = { year: t_Year; month: t_Month }
+
+let ok (self: t_Year) (return (x: bool)) = any
+  [ return (result: bool) -> {[@stop_split] [@expl:ok ensures] [%#syear] result = (Int16.to_int self.f0 <> - 32768)}
+    (! return {result}) ]
+
+let ok'0 (self: t_Month) (return (x: bool)) = any
+  [ return (result: bool) -> {[@stop_split] [@expl:ok ensures] [%#smonth] result
+    = (1 <= UInt8.t'int self.f0'0 /\ UInt8.t'int self.f0'0 <= 12)}
+    (! return {result}) ]
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let ok'1 [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 159 4 159 34]
+  (self: t_YearMonthDayLast) (return (x: bool)) = (! bb0
+  [ bb0 = s0
+    [ s0 = [ &_4 <- self.year ] s1
+    | s1 = ok [%#syear_month_day_last] {_4} (fun (_x: bool) -> [ &_2 <- _x ] s2)
+    | s2 = any [ br0 -> {_2 = false} (! bb3) | br1 -> {_2} (! bb2) ] ]
+  | bb2 = s0
+    [ s0 = [ &_6 <- self.month ] s1
+    | s1 = ok'0 [%#syear_month_day_last'0] {_6} (fun (_x: bool) -> [ &_ret <- _x ] s2)
+    | s2 = return {_ret} ]
+  | bb3 = s0 [ s0 = [ &_ret <- [%#syear_month_day_last'1] false ] s1 | s1 = return {_ret} ] ]
+  [ & _ret: bool = Any.any_l ()
+  | & self: t_YearMonthDayLast = self
+  | & _2: bool = Any.any_l ()
+  | & _4: t_Year = Any.any_l ()
+  | & _6: t_Month = Any.any_l () ]) [ return (result: bool) -> (! return {result}) ]

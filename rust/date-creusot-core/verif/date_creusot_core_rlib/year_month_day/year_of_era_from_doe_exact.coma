@@ -1,5 +1,6 @@
 (* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 506 0 506 53 *)
 
+let%span sord = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/logic/ord.rs" 34 8 34 21
 let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 504 11 504 60
 let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 505 10 505 64
 let%span syear_month_day'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 112 11 112 33
@@ -26,6 +27,10 @@ let%span syear_month_day'20 = "/home/goya/storage/full-ligature-port-workspace/d
 use int.ComputerDivision
 use int.Int
 
+predicate ge_log_Int [@inline:trivial] (self: int) (other: int) = [%#sord] other <= self
+
+meta "rewrite_def" predicate ge_log_Int
+
 predicate valid_era_day [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 98 0 98 48] (yoe: int) (doy: int) =
   [%#syear_month_day'11] 0 <= doy
   /\ doy <= 365 /\ (doy <= 364 \/ ComputerDivision.mod yoe 4 = 3 /\ yoe <> 99 /\ yoe <> 199 /\ yoe <> 299)
@@ -34,14 +39,13 @@ function year_of_era_from_doe [#"/home/goya/storage/full-ligature-port-workspace
  = [%#syear_month_day'14] ComputerDivision.div (doe - ComputerDivision.div doe 1460 + ComputerDivision.div doe 36524
   - ComputerDivision.div doe 146096) 365
 
-axiom year_of_era_from_doe_spec: forall doe: int [year_of_era_from_doe doe]. ([%#syear_month_day'12] doe >= 0
+axiom year_of_era_from_doe_spec: forall doe: int [year_of_era_from_doe doe]. ([%#syear_month_day'12] ge_log_Int doe 0
       /\ doe <= 146096)
-    -> ([%#syear_month_day'13] year_of_era_from_doe doe >= 0
+    -> ([%#syear_month_day'13] ge_log_Int (year_of_era_from_doe doe) 0
     /\ year_of_era_from_doe doe <= 399
-    /\ doe
-        - (365 * year_of_era_from_doe doe + ComputerDivision.div (year_of_era_from_doe doe) 4
-        - ComputerDivision.div (year_of_era_from_doe doe) 100)
-      >= 0
+    /\ ge_log_Int (doe
+      - (365 * year_of_era_from_doe doe + ComputerDivision.div (year_of_era_from_doe doe) 4
+      - ComputerDivision.div (year_of_era_from_doe doe) 100)) 0
     /\ doe
       - (365 * year_of_era_from_doe doe + ComputerDivision.div (year_of_era_from_doe doe) 4
       - ComputerDivision.div (year_of_era_from_doe doe) 100)
@@ -53,7 +57,7 @@ function era_year_start [#"/home/goya/storage/full-ligature-port-workspace/date-
 function century_of_era_year [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 114 0 114 36] (yoe: int) : ()
  = [%#syear_month_day'16] ()
 
-axiom century_of_era_year_spec: forall yoe: int. ([%#syear_month_day'1] yoe >= 0 /\ yoe <= 399)
+axiom century_of_era_year_spec: forall yoe: int. ([%#syear_month_day'1] ge_log_Int yoe 0 /\ yoe <= 399)
     -> ([%#syear_month_day'2] ComputerDivision.div yoe 100 = ComputerDivision.div (ComputerDivision.div yoe 4) 25)
 
 function era_quotients [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 145 0 145 54] (h: int) (u: int) (r: int) (doy: int) : ()
@@ -87,19 +91,19 @@ axiom era_quotients_spec: forall h: int, u: int, r: int, doy: int. ([%#syear_mon
 function div_365_of_nonneg_digit [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 168 0 168 46] (k: int) (w: int) : ()
  = [%#syear_month_day'18] ()
 
-axiom div_365_of_nonneg_digit_spec: forall k: int, w: int. ([%#syear_month_day'5] k >= 0 /\ w >= 0)
+axiom div_365_of_nonneg_digit_spec: forall k: int, w: int. ([%#syear_month_day'5] ge_log_Int k 0 /\ ge_log_Int w 0)
     -> ([%#syear_month_day'6] ComputerDivision.div (365 * k + w) 365 = k + ComputerDivision.div w 365)
 
 function div_365_of_year [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 175 0 175 38] (r: int) (e: int) : ()
  = [%#syear_month_day'19] ()
 
-axiom div_365_of_year_spec: forall r: int, e: int. ([%#syear_month_day'7] r >= 0 /\ 0 <= e /\ e <= 364)
+axiom div_365_of_year_spec: forall r: int, e: int. ([%#syear_month_day'7] ge_log_Int r 0 /\ 0 <= e /\ e <= 364)
     -> ([%#syear_month_day'8] ComputerDivision.div (365 * r + e) 365 = r)
 
 function div_365_of_era_end [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 184 0 184 33] (k: int) : ()
  = [%#syear_month_day'20] ()
 
-axiom div_365_of_era_end_spec: forall k: int. ([%#syear_month_day'9] k >= 1)
+axiom div_365_of_era_end_spec: forall k: int. ([%#syear_month_day'9] ge_log_Int k 1)
     -> ([%#syear_month_day'10] ComputerDivision.div (365 * k - 1) 365 = k - 1)
 
 meta "compute_max_steps" 1000000
@@ -112,18 +116,15 @@ constant doy : int
 
 function year_of_era_from_doe_exact [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 506 0 506 53] (yoe: int) (doy: int) : ()
 
-goal vc_year_of_era_from_doe_exact: ([%#syear_month_day] yoe >= 0 /\ yoe <= 399 /\ valid_era_day yoe doy)
-  -> (let q = ComputerDivision.div yoe 4 in let r = ComputerDivision.mod yoe 4 in let h = ComputerDivision.div q 25 in let u = ComputerDivision.mod q 25 in let c = 24
-        * h
-      + u
-    + 365 * r
-  + doy in ([@stop_split] [@expl:century_of_era_year requires] [%#syear_month_day'1] yoe >= 0 /\ yoe <= 399)
+goal vc_year_of_era_from_doe_exact: ([%#syear_month_day] ge_log_Int yoe 0 /\ yoe <= 399 /\ valid_era_day yoe doy)
+  -> (let q = ComputerDivision.div yoe 4 in let r = ComputerDivision.mod yoe 4 in let h = ComputerDivision.div q 25 in let u = ComputerDivision.mod q 25 in ([@stop_split] [@expl:century_of_era_year requires] [%#syear_month_day'1] ge_log_Int yoe 0
+    /\ yoe <= 399)
   /\ (([@stop_split] [@expl:century_of_era_year ensures] [%#syear_month_day'2] ComputerDivision.div yoe 100
     = ComputerDivision.div (ComputerDivision.div yoe 4) 25)
-  -> (let _ = century_of_era_year yoe in ([@stop_split] [@expl:era_quotients requires] [%#syear_month_day'3] 0 <= h
+  -> ([@stop_split] [@expl:era_quotients requires] [%#syear_month_day'3] 0 <= h
     /\ h <= 3 /\ 0 <= u /\ u <= 24 /\ 0 <= r /\ r <= 3 /\ 0 <= doy /\ doy <= 365)
   /\ (([@stop_split] [@expl:era_quotients ensures] [%#syear_month_day'4] let doe = 36524 * h + 1461 * u + 365 * r
-    + doy in let c'0 = 24 * h + u + 365 * r + doy in if c'0 < 1460 then
+    + doy in let c = 24 * h + u + 365 * r + doy in if c < 1460 then
       ComputerDivision.div doe 1460 = 25 * h + u
       /\ ComputerDivision.div doe 36524 = h /\ ComputerDivision.div doe 146096 = 0
     else
@@ -140,48 +141,45 @@ goal vc_year_of_era_from_doe_exact: ([%#syear_month_day] yoe >= 0 /\ yoe <= 399 
       
     
     )
-  -> (let _ = era_quotients h u r doy in if c < 1460 then
-    ([@stop_split] [@expl:div_365_of_nonneg_digit requires] [%#syear_month_day'5] 4 * q >= 0 /\ 365 * r + doy >= 0)
+  -> (if 24 * h + u + 365 * r + doy < 1460 then
+    ([@stop_split] [@expl:div_365_of_nonneg_digit requires] [%#syear_month_day'5] ge_log_Int (4 * q) 0
+      /\ ge_log_Int (365 * r + doy) 0)
     /\ (([@stop_split] [@expl:div_365_of_nonneg_digit ensures] [%#syear_month_day'6] ComputerDivision.div (365 * 4 * q
           + 365 * r
         + doy) 365
       = 4 * q + ComputerDivision.div (365 * r + doy) 365)
-    -> (let _ = div_365_of_nonneg_digit (4 * q) (365 * r
-    + doy) in ([@stop_split] [@expl:div_365_of_year requires] [%#syear_month_day'7] r >= 0 /\ 0 <= doy /\ doy <= 364)
+    -> ([@stop_split] [@expl:div_365_of_year requires] [%#syear_month_day'7] ge_log_Int r 0 /\ 0 <= doy /\ doy <= 364)
     /\ (([@stop_split] [@expl:div_365_of_year ensures] [%#syear_month_day'8] ComputerDivision.div (365 * r + doy) 365
       = r)
-    -> (let _ = div_365_of_year r doy in [@stop_split] [@expl:year_of_era_from_doe_exact ensures] [%#syear_month_day'0] year_of_era_from_doe (era_year_start yoe
+    -> ([@stop_split] [@expl:year_of_era_from_doe_exact ensures] [%#syear_month_day'0] year_of_era_from_doe (era_year_start yoe
       + doy)
-    = yoe))))
+    = yoe)))
   else
     if u = 24 then
       if r = 3 then
         if not doy = 365 then
-          ([@stop_split] [@expl:div_365_of_nonneg_digit requires] [%#syear_month_day'5] 4 * q >= 0
-            /\ 365 * r + doy - 1 >= 0)
+          ([@stop_split] [@expl:div_365_of_nonneg_digit requires] [%#syear_month_day'5] ge_log_Int (4 * q) 0
+            /\ ge_log_Int (365 * r + doy - 1) 0)
           /\ (([@stop_split] [@expl:div_365_of_nonneg_digit ensures] [%#syear_month_day'6] ComputerDivision.div (365 * 4
                 * q
               + (365 * r + doy - 1)) 365
             = 4 * q + ComputerDivision.div (365 * r + doy - 1) 365)
-          -> (let _ = div_365_of_nonneg_digit (4 * q) (365 * r + doy
-          - 1) in ([@stop_split] [@expl:div_365_of_year requires] [%#syear_month_day'7] r >= 0
+          -> ([@stop_split] [@expl:div_365_of_year requires] [%#syear_month_day'7] ge_log_Int r 0
             /\ 0 <= doy - 1 /\ doy - 1 <= 364)
           /\ (([@stop_split] [@expl:div_365_of_year ensures] [%#syear_month_day'8] ComputerDivision.div (365 * r
               + (doy - 1)) 365
             = r)
-          -> (let _ = div_365_of_year r (doy
-          - 1) in [@stop_split] [@expl:year_of_era_from_doe_exact ensures] [%#syear_month_day'0] year_of_era_from_doe (era_year_start yoe
+          -> ([@stop_split] [@expl:year_of_era_from_doe_exact ensures] [%#syear_month_day'0] year_of_era_from_doe (era_year_start yoe
             + doy)
-          = yoe))))
+          = yoe)))
         else
           if h = 3 then
-            ([@stop_split] [@expl:div_365_of_era_end requires] [%#syear_month_day'9] 4 * q + 4 >= 1)
+            ([@stop_split] [@expl:div_365_of_era_end requires] [%#syear_month_day'9] ge_log_Int (4 * q + 4) 1)
             /\ (([@stop_split] [@expl:div_365_of_era_end ensures] [%#syear_month_day'10] ComputerDivision.div (365
                   * (4 * q + 4)
                 - 1) 365
               = 4 * q + 4 - 1)
-            -> (let _ = div_365_of_era_end (4 * q
-            + 4) in [@stop_split] [@expl:year_of_era_from_doe_exact ensures] [%#syear_month_day'0] year_of_era_from_doe (era_year_start yoe
+            -> ([@stop_split] [@expl:year_of_era_from_doe_exact ensures] [%#syear_month_day'0] year_of_era_from_doe (era_year_start yoe
               + doy)
             = yoe))
           else
@@ -192,31 +190,28 @@ goal vc_year_of_era_from_doe_exact: ([%#syear_month_day] yoe >= 0 /\ yoe <= 399 
       
       else
         if not false then
-          ([@stop_split] [@expl:div_365_of_nonneg_digit requires] [%#syear_month_day'5] 4 * q >= 0
-            /\ 365 * r + doy - 1 >= 0)
+          ([@stop_split] [@expl:div_365_of_nonneg_digit requires] [%#syear_month_day'5] ge_log_Int (4 * q) 0
+            /\ ge_log_Int (365 * r + doy - 1) 0)
           /\ (([@stop_split] [@expl:div_365_of_nonneg_digit ensures] [%#syear_month_day'6] ComputerDivision.div (365 * 4
                 * q
               + (365 * r + doy - 1)) 365
             = 4 * q + ComputerDivision.div (365 * r + doy - 1) 365)
-          -> (let _ = div_365_of_nonneg_digit (4 * q) (365 * r + doy
-          - 1) in ([@stop_split] [@expl:div_365_of_year requires] [%#syear_month_day'7] r >= 0
+          -> ([@stop_split] [@expl:div_365_of_year requires] [%#syear_month_day'7] ge_log_Int r 0
             /\ 0 <= doy - 1 /\ doy - 1 <= 364)
           /\ (([@stop_split] [@expl:div_365_of_year ensures] [%#syear_month_day'8] ComputerDivision.div (365 * r
               + (doy - 1)) 365
             = r)
-          -> (let _ = div_365_of_year r (doy
-          - 1) in [@stop_split] [@expl:year_of_era_from_doe_exact ensures] [%#syear_month_day'0] year_of_era_from_doe (era_year_start yoe
+          -> ([@stop_split] [@expl:year_of_era_from_doe_exact ensures] [%#syear_month_day'0] year_of_era_from_doe (era_year_start yoe
             + doy)
-          = yoe))))
+          = yoe)))
         else
           if h = 3 then
-            ([@stop_split] [@expl:div_365_of_era_end requires] [%#syear_month_day'9] 4 * q + 4 >= 1)
+            ([@stop_split] [@expl:div_365_of_era_end requires] [%#syear_month_day'9] ge_log_Int (4 * q + 4) 1)
             /\ (([@stop_split] [@expl:div_365_of_era_end ensures] [%#syear_month_day'10] ComputerDivision.div (365
                   * (4 * q + 4)
                 - 1) 365
               = 4 * q + 4 - 1)
-            -> (let _ = div_365_of_era_end (4 * q
-            + 4) in [@stop_split] [@expl:year_of_era_from_doe_exact ensures] [%#syear_month_day'0] year_of_era_from_doe (era_year_start yoe
+            -> ([@stop_split] [@expl:year_of_era_from_doe_exact ensures] [%#syear_month_day'0] year_of_era_from_doe (era_year_start yoe
               + doy)
             = yoe))
           else
@@ -228,31 +223,28 @@ goal vc_year_of_era_from_doe_exact: ([%#syear_month_day] yoe >= 0 /\ yoe <= 399 
     
     else
       if not false then
-        ([@stop_split] [@expl:div_365_of_nonneg_digit requires] [%#syear_month_day'5] 4 * q >= 0
-          /\ 365 * r + doy - 1 >= 0)
+        ([@stop_split] [@expl:div_365_of_nonneg_digit requires] [%#syear_month_day'5] ge_log_Int (4 * q) 0
+          /\ ge_log_Int (365 * r + doy - 1) 0)
         /\ (([@stop_split] [@expl:div_365_of_nonneg_digit ensures] [%#syear_month_day'6] ComputerDivision.div (365 * 4
               * q
             + (365 * r + doy - 1)) 365
           = 4 * q + ComputerDivision.div (365 * r + doy - 1) 365)
-        -> (let _ = div_365_of_nonneg_digit (4 * q) (365 * r + doy
-        - 1) in ([@stop_split] [@expl:div_365_of_year requires] [%#syear_month_day'7] r >= 0
+        -> ([@stop_split] [@expl:div_365_of_year requires] [%#syear_month_day'7] ge_log_Int r 0
           /\ 0 <= doy - 1 /\ doy - 1 <= 364)
         /\ (([@stop_split] [@expl:div_365_of_year ensures] [%#syear_month_day'8] ComputerDivision.div (365 * r
             + (doy - 1)) 365
           = r)
-        -> (let _ = div_365_of_year r (doy
-        - 1) in [@stop_split] [@expl:year_of_era_from_doe_exact ensures] [%#syear_month_day'0] year_of_era_from_doe (era_year_start yoe
+        -> ([@stop_split] [@expl:year_of_era_from_doe_exact ensures] [%#syear_month_day'0] year_of_era_from_doe (era_year_start yoe
           + doy)
-        = yoe))))
+        = yoe)))
       else
         if h = 3 then
-          ([@stop_split] [@expl:div_365_of_era_end requires] [%#syear_month_day'9] 4 * q + 4 >= 1)
+          ([@stop_split] [@expl:div_365_of_era_end requires] [%#syear_month_day'9] ge_log_Int (4 * q + 4) 1)
           /\ (([@stop_split] [@expl:div_365_of_era_end ensures] [%#syear_month_day'10] ComputerDivision.div (365
                 * (4 * q + 4)
               - 1) 365
             = 4 * q + 4 - 1)
-          -> (let _ = div_365_of_era_end (4 * q
-          + 4) in [@stop_split] [@expl:year_of_era_from_doe_exact ensures] [%#syear_month_day'0] year_of_era_from_doe (era_year_start yoe
+          -> ([@stop_split] [@expl:year_of_era_from_doe_exact ensures] [%#syear_month_day'0] year_of_era_from_doe (era_year_start yoe
             + doy)
           = yoe))
         else
@@ -262,4 +254,4 @@ goal vc_year_of_era_from_doe_exact: ([%#syear_month_day] yoe >= 0 /\ yoe <= 399 
       
     
   
-  )))))
+  ))))

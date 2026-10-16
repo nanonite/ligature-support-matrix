@@ -1,2 +1,4 @@
 [patch.crates-io]
+# `creusot` is the share output from the exact revision pinned in
+# analysis/verification/workspace-root-flake/flake.lock.
 creusot-std = { path = "creusot/creusot-std" }

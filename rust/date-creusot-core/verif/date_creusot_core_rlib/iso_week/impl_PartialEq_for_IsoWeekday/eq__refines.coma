@@ -2,7 +2,7 @@
 
 (* <iso_week::IsoWeekday as std::cmp::PartialEq> *)
 
-let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 36 8 36 28
+let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 37 8 37 28
 let%span siso_week = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 70 14 70 65
 let%span siso_week'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 83 20 83 27
 let%span scmp = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/std/cmp.rs" 14 26 14 75
@@ -22,6 +22,6 @@ meta "compute_max_steps" 1000000
 
 meta "select_lsinst" "all"
 
-goal refines: forall self_: t_IsoWeekday, rhs: t_IsoWeekday. forall result: bool. ([%#siso_week] result
-        = (deep_model_ref_IsoWeekday self_ = deep_model_ref_IsoWeekday rhs))
-      -> ([%#scmp] result = (deep_model_ref_IsoWeekday self_ = deep_model_ref_IsoWeekday rhs))
+goal refines: forall self: t_IsoWeekday, other: t_IsoWeekday. forall result: bool. ([%#siso_week] result
+        = (deep_model_ref_IsoWeekday self = deep_model_ref_IsoWeekday other))
+      -> ([%#scmp] result = (deep_model_ref_IsoWeekday self = deep_model_ref_IsoWeekday other))

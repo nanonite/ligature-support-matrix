@@ -2,6 +2,8 @@
 
 (* year_month_day::YearMonthDay *)
 
+let%span sord = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/logic/ord.rs" 34 8 34 21
+let%span sord'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/logic/ord.rs" 22 8 22 20
 let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 871 56 871 57
 let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 871 60 871 61
 let%span syear_month_day'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 871 71 871 72
@@ -63,12 +65,22 @@ type t_YearMonthDay = { year: t_Year; month: t_Month; day: t_Day }
 
 type t_Days = { f0'2: Int32.t }
 
+predicate ge_log_Int [@inline:trivial] (self: int) (other: int) = [%#sord] other <= self
+
+meta "rewrite_def" predicate ge_log_Int
+
+predicate gt_log_Int [@inline:trivial] (self: int) (other: int) = [%#sord'0] other < self
+
+meta "rewrite_def" predicate gt_log_Int
+
 function days_from_civil [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 37 0 37 53] (y: int) (m: int) (d: int) : int
- = [%#syear_month_day'40] let y'0 = y - (if m <= 2 then 1 else 0) in let era = ComputerDivision.div (if y'0 >= 0 then
+ = [%#syear_month_day'40] let y'0 = y
+  - (if m <= 2 then 1 else 0) in let era = ComputerDivision.div (if ge_log_Int y'0 0 then
     y'0
   else
     y'0 - 399
-  ) 400 in let yoe = y'0 - era * 400 in let doy = ComputerDivision.div (153 * (if m > 2 then m - 3 else m + 9) + 2) 5
+  ) 400 in let yoe = y'0 - era * 400 in let doy = ComputerDivision.div (153 * (if gt_log_Int m 2 then m - 3 else m + 9)
+      + 2) 5
     + d
   - 1 in let doe = yoe * 365 + ComputerDivision.div yoe 4 - ComputerDivision.div yoe 100 + doy in era * 146097 + doe
   - 719468

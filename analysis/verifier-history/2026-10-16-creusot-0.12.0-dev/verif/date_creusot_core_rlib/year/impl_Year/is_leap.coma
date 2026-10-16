@@ -1,0 +1,91 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 69 4 69 39 *)
+
+(* year::Year *)
+
+let%span syear = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 70 17 70 18
+let%span syear'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 70 8 70 18
+let%span syear'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 70 22 70 23
+let%span syear'2 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 70 37 70 40
+let%span syear'3 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 70 28 70 40
+let%span syear'4 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 70 44 70 45
+let%span syear'5 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 70 27 70 67
+let%span syear'6 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 70 58 70 61
+let%span syear'7 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 70 49 70 61
+let%span syear'8 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 70 65 70 66
+let%span syear'9 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 70 8 70 67
+let%span syear'10 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 67 8 67 82
+
+use creusot.int.Int16
+use creusot.prelude.Bool
+use creusot.prelude.Any
+use int.ComputerDivision
+
+type t_Year = { f0: Int16.t }
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let is_leap [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 69 4 69 39]
+  (self: t_Year) (return (x: bool)) = (! bb0
+  [ bb0 = s0
+    [ s0 = [ &_6 <- self.f0 ] s1
+    | s1 = [ &_7 <- ([%#syear] (4: Int16.t)) = ([%#syear'0] (0: Int16.t)) ] s2
+    | s2 = {[@expl:remainder by zero] [%#syear'0] not _7} s3
+    | s3 = [ &_8 <- ([%#syear] (4: Int16.t)) = ([%#syear'0] (-1: Int16.t)) ] s4
+    | s4 = [ &_9 <- _6 = ([%#syear'0] (-32768: Int16.t)) ] s5
+    | s5 = [ &_10 <- Bool.bw_and _8 _9 ] s6
+    | s6 = {[@expl:Rem overflow] [%#syear'0] not _10} s7
+    | s7 = Int16.rem [%#syear'0] {_6} {[%#syear] (4: Int16.t)} (fun (_x: Int16.t) -> [ &_5 <- _x ] s8)
+    | s8 = [ &_4 <- _5 = ([%#syear'1] (0: Int16.t)) ] s9
+    | s9 = any [ br0 -> {_4 = false} (! bb4) | br1 -> {_4} (! bb3) ] ]
+  | bb3 = s0
+    [ s0 = [ &_13 <- self.f0 ] s1
+    | s1 = [ &_14 <- ([%#syear'2] (100: Int16.t)) = ([%#syear'3] (0: Int16.t)) ] s2
+    | s2 = {[@expl:remainder by zero] [%#syear'3] not _14} s3
+    | s3 = [ &_15 <- ([%#syear'2] (100: Int16.t)) = ([%#syear'3] (-1: Int16.t)) ] s4
+    | s4 = [ &_16 <- _13 = ([%#syear'3] (-32768: Int16.t)) ] s5
+    | s5 = [ &_17 <- Bool.bw_and _15 _16 ] s6
+    | s6 = {[@expl:Rem overflow] [%#syear'3] not _17} s7
+    | s7 = Int16.rem [%#syear'3] {_13} {[%#syear'2] (100: Int16.t)} (fun (_x: Int16.t) -> [ &_12 <- _x ] s8)
+    | s8 = [ &_11 <- _12 <> ([%#syear'4] (0: Int16.t)) ] s9
+    | s9 = any [ br0 -> {_11 = false} (! bb8) | br1 -> {_11} (! bb7) ] ]
+  | bb7 = s0 [ s0 = [ &_ret <- [%#syear'5] true ] s1 | s1 = return {_ret} ]
+  | bb8 = s0
+    [ s0 = [ &_19 <- self.f0 ] s1
+    | s1 = [ &_20 <- ([%#syear'6] (400: Int16.t)) = ([%#syear'7] (0: Int16.t)) ] s2
+    | s2 = {[@expl:remainder by zero] [%#syear'7] not _20} s3
+    | s3 = [ &_21 <- ([%#syear'6] (400: Int16.t)) = ([%#syear'7] (-1: Int16.t)) ] s4
+    | s4 = [ &_22 <- _19 = ([%#syear'7] (-32768: Int16.t)) ] s5
+    | s5 = [ &_23 <- Bool.bw_and _21 _22 ] s6
+    | s6 = {[@expl:Rem overflow] [%#syear'7] not _23} s7
+    | s7 = Int16.rem [%#syear'7] {_19} {[%#syear'6] (400: Int16.t)} (fun (_x: Int16.t) -> [ &_18 <- _x ] s8)
+    | s8 = [ &_ret <- _18 = ([%#syear'8] (0: Int16.t)) ] s9
+    | s9 = return {_ret} ]
+  | bb4 = s0 [ s0 = [ &_ret <- [%#syear'9] false ] s1 | s1 = return {_ret} ] ]
+  [ & _ret: bool = Any.any_l ()
+  | & self: t_Year = self
+  | & _4: bool = Any.any_l ()
+  | & _5: Int16.t = Any.any_l ()
+  | & _6: Int16.t = Any.any_l ()
+  | & _7: bool = Any.any_l ()
+  | & _8: bool = Any.any_l ()
+  | & _9: bool = Any.any_l ()
+  | & _10: bool = Any.any_l ()
+  | & _11: bool = Any.any_l ()
+  | & _12: Int16.t = Any.any_l ()
+  | & _13: Int16.t = Any.any_l ()
+  | & _14: bool = Any.any_l ()
+  | & _15: bool = Any.any_l ()
+  | & _16: bool = Any.any_l ()
+  | & _17: bool = Any.any_l ()
+  | & _18: Int16.t = Any.any_l ()
+  | & _19: Int16.t = Any.any_l ()
+  | & _20: bool = Any.any_l ()
+  | & _21: bool = Any.any_l ()
+  | & _22: bool = Any.any_l ()
+  | & _23: bool = Any.any_l () ])
+  [ return (result: bool) -> {[@stop_split] [@expl:is_leap ensures] [%#syear'10] result
+    = (ComputerDivision.mod (Int16.to_int self.f0) 4 = 0
+    /\ (ComputerDivision.mod (Int16.to_int self.f0) 100 <> 0 \/ ComputerDivision.mod (Int16.to_int self.f0) 400 = 0))}
+    (! return {result}) ]

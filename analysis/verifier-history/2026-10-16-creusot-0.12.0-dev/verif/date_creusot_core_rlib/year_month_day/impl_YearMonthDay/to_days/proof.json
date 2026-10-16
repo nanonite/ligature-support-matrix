@@ -1,0 +1,4 @@
+{
+  "profile": [],
+  "proofs": { "Coma": { "vc_to_days": { "prover": "z3", "time": 0.06 } } }
+}

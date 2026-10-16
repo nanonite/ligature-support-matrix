@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "I-year-month-day-last-day-to-year-is-leap",
+  "caller": {
+    "concept": "YearMonthDayLast",
+    "method": "day"
+  },
+  "callee": {
+    "concept": "Year",
+    "method": "is_leap"
+  },
+  "edge_class": [
+    "numeric-domain-boundary"
+  ],
+  "eligibility": "boundary-required",
+  "rationale": "YearMonthDayLast::day selects February's length using Year::is_leap, so the returned month length depends on the callee's Gregorian leap-year rule.",
+  "evidence_links": [
+    "E-5",
+    "E-9",
+    "E-14"
+  ],
+  "reliances": [
+    {
+      "obligation_id": "Year.C002",
+      "required_assurance": {
+        "required_claims": [
+          "postcondition-holds"
+        ],
+        "accepted_evidence_kinds": [
+          "creusot-deductive-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "year in [-32767, 32767], month in [1, 12], day in [1, 31], days::rep is a 32-bit int"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    }
+  ],
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [],
+      "cfg": []
+    }
+  },
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-16"
+  }
+}

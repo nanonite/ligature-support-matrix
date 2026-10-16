@@ -13,7 +13,7 @@
     "numeric-domain-boundary"
   ],
   "eligibility": "boundary-required",
-  "rationale": "Validity of a day number is decided entirely by the month-length table the callee returns, and the one non-obvious entry, February, is decided by a leap rule the callee computes from the year, so an error in the callee silently admits or rejects whole classes of dates.",
+  "rationale": "The caller's valid-day check depends on the month length returned by YearMonthDayLast::day, including February's leap-year branch.",
   "evidence_links": [
     "E-4",
     "E-5",
@@ -22,7 +22,7 @@
   ],
   "reliances": [
     {
-      "obligation_id": "YearMonthDayLast.C1",
+      "obligation_id": "YearMonthDayLast.C001",
       "required_assurance": {
         "required_claims": [
           "postcondition-holds"
@@ -44,14 +44,12 @@
     "requirement": "required",
     "config_scope": {
       "target": "x86_64-unknown-linux-gnu",
-      "features": [
-        "default"
-      ],
+      "features": [],
       "cfg": []
     }
   },
   "review": {
-    "reviewer": "chainlink-reviewer",
-    "reviewed_at": "2026-09-25"
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-16"
   }
 }

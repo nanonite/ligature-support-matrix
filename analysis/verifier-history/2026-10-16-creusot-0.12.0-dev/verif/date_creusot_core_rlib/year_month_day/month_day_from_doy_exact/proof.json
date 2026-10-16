@@ -1,0 +1,8 @@
+{
+  "profile": [],
+  "proofs": {
+    "Coma": {
+      "vc_month_day_from_doy_exact": { "prover": "z3", "time": 0.069 }
+    }
+  }
+}

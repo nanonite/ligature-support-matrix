@@ -1,0 +1,22 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 31 4 31 38 *)
+
+(* <year::Year as std::cmp::PartialEq> *)
+
+let%span syear = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 30 14 30 45
+
+use creusot.int.Int16
+use creusot.prelude.Any
+
+type t_Year = { f0: Int16.t }
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let eq_Year [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 31 4 31 38]
+  (self: t_Year) (other: t_Year) (return (x: bool)) = (! bb0
+  [ bb0 = s0 [ s0 = [ &_ret <- self.f0 = other.f0 ] s1 | s1 = return {_ret} ] ]
+  [ & _ret: bool = Any.any_l () | & self: t_Year = self | & other: t_Year = other ])
+  [ return (result: bool) -> {[@stop_split] [@expl:eq ensures] [%#syear] result
+    = (Int16.to_int self.f0 = Int16.to_int other.f0)}
+    (! return {result}) ]

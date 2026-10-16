@@ -13,7 +13,7 @@
     "numeric-domain-boundary"
   ],
   "eligibility": "boundary-required",
-  "rationale": "to_days and from_days are the two halves of one bijection between a proleptic Gregorian date and an epoch day count, so the pair is the deductive core of the cluster and neither half is trustworthy on its own across this edge.",
+  "rationale": "The forward and inverse civil-date conversions form the round-trip pair for valid dates, so the call depends on the approved YearMonthDay.C002 inverse relation.",
   "evidence_links": [
     "E-1",
     "E-2",
@@ -22,7 +22,7 @@
   ],
   "reliances": [
     {
-      "obligation_id": "YearMonthDay.C2",
+      "obligation_id": "YearMonthDay.C002",
       "required_assurance": {
         "required_claims": [
           "postcondition-holds"
@@ -44,14 +44,12 @@
     "requirement": "required",
     "config_scope": {
       "target": "x86_64-unknown-linux-gnu",
-      "features": [
-        "default"
-      ],
+      "features": [],
       "cfg": []
     }
   },
   "review": {
-    "reviewer": "chainlink-reviewer",
-    "reviewed_at": "2026-09-25"
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-16"
   }
 }

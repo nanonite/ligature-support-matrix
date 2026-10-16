@@ -13,7 +13,7 @@
     "numeric-domain-boundary"
   ],
   "eligibility": "boundary-required",
-  "rationale": "The epoch day count produced by the 400-year era decomposition is the only input date::weekday takes, and it crosses into a modular domain where C++ truncating division forces a second, differently written formula, so the caller is correct only if the callee's two branches agree with mathematical modulo for every day count the era domain can produce.",
+  "rationale": "The caller's epoch day count enters the callee's modular weekday domain, whose two C++ branches must agree with Euclidean modulo and the Sunday-zero encoding.",
   "evidence_links": [
     "E-1",
     "E-3",
@@ -23,7 +23,7 @@
   ],
   "reliances": [
     {
-      "obligation_id": "Weekday.C1",
+      "obligation_id": "Weekday.C001",
       "required_assurance": {
         "required_claims": [
           "postcondition-holds"
@@ -40,7 +40,7 @@
       }
     },
     {
-      "obligation_id": "Weekday.C2",
+      "obligation_id": "Weekday.C002",
       "required_assurance": {
         "required_claims": [
           "postcondition-holds"
@@ -62,14 +62,12 @@
     "requirement": "required",
     "config_scope": {
       "target": "x86_64-unknown-linux-gnu",
-      "features": [
-        "default"
-      ],
+      "features": [],
       "cfg": []
     }
   },
   "review": {
-    "reviewer": "chainlink-reviewer",
-    "reviewed_at": "2026-09-25"
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-16"
   }
 }

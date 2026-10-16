@@ -1,0 +1,25 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 49 4 49 34 *)
+
+(* year::Year *)
+
+let%span syear = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 50 18 50 26
+let%span syear'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 48 14 48 43
+
+use creusot.int.Int16
+use creusot.prelude.Any
+use int.Int
+
+type t_Year = { f0: Int16.t }
+
+constant const_MIN: Int16.t = (-32768: Int16.t)
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let ok [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 49 4 49 34]
+  (self: t_Year) (return (x: bool)) = (! bb0
+  [ bb0 = s0 [ s0 = [ &_ret <- self.f0 <> ([%#syear] const_MIN) ] s1 | s1 = return {_ret} ] ]
+  [ & _ret: bool = Any.any_l () | & self: t_Year = self ])
+  [ return (result: bool) -> {[@stop_split] [@expl:ok ensures] [%#syear'0] result = (Int16.to_int self.f0 <> - 32768)}
+    (! return {result}) ]

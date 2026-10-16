@@ -1,5 +1,7 @@
 (* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 624 0 624 61 *)
 
+let%span sord = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/logic/ord.rs" 34 8 34 21
+let%span sord'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/logic/ord.rs" 22 8 22 20
 let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 617 11 618 58
 let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 619 10 619 16
 let%span syear_month_day'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 621 4 621 54
@@ -103,18 +105,21 @@ axiom month_length_spec: forall m: int, y: int [month_length m y]. [%#syear_mont
 
 type t_CivilView = { year: int; month: int; day: int }
 
+predicate ge_log_Int [@inline:trivial] (self: int) (other: int) = [%#sord] other <= self
+
+meta "rewrite_def" predicate ge_log_Int
+
 function year_of_era_from_doe [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 70 0 70 44] (doe: int) : int
  = [%#syear_month_day'9] ComputerDivision.div (doe - ComputerDivision.div doe 1460 + ComputerDivision.div doe 36524
   - ComputerDivision.div doe 146096) 365
 
-axiom year_of_era_from_doe_spec: forall doe: int [year_of_era_from_doe doe]. ([%#syear_month_day'7] doe >= 0
+axiom year_of_era_from_doe_spec: forall doe: int [year_of_era_from_doe doe]. ([%#syear_month_day'7] ge_log_Int doe 0
       /\ doe <= 146096)
-    -> ([%#syear_month_day'8] year_of_era_from_doe doe >= 0
+    -> ([%#syear_month_day'8] ge_log_Int (year_of_era_from_doe doe) 0
     /\ year_of_era_from_doe doe <= 399
-    /\ doe
-        - (365 * year_of_era_from_doe doe + ComputerDivision.div (year_of_era_from_doe doe) 4
-        - ComputerDivision.div (year_of_era_from_doe doe) 100)
-      >= 0
+    /\ ge_log_Int (doe
+      - (365 * year_of_era_from_doe doe + ComputerDivision.div (year_of_era_from_doe doe) 4
+      - ComputerDivision.div (year_of_era_from_doe doe) 100)) 0
     /\ doe
       - (365 * year_of_era_from_doe doe + ComputerDivision.div (year_of_era_from_doe doe) 4
       - ComputerDivision.div (year_of_era_from_doe doe) 100)
@@ -127,12 +132,14 @@ function month_day_from_doy [#"/home/goya/storage/full-ligature-port-workspace/d
     - ComputerDivision.div (153 * mp + 2) 5
   + 1 in let m = if mp < 10 then mp + 3 else mp - 9 in { f0 = m; f1 = d }
 
-axiom month_day_from_doy_spec: forall doy: int [month_day_from_doy doy]. ([%#syear_month_day'10] doy >= 0 /\ doy <= 365)
-    -> ([%#syear_month_day'11] (month_day_from_doy doy).f0 >= 1
-    /\ (month_day_from_doy doy).f0 <= 12 /\ (month_day_from_doy doy).f1 >= 1 /\ (month_day_from_doy doy).f1 <= 31)
+axiom month_day_from_doy_spec: forall doy: int [month_day_from_doy doy]. ([%#syear_month_day'10] ge_log_Int doy 0
+      /\ doy <= 365)
+    -> ([%#syear_month_day'11] ge_log_Int (month_day_from_doy doy).f0 1
+    /\ (month_day_from_doy doy).f0 <= 12
+    /\ ge_log_Int (month_day_from_doy doy).f1 1 /\ (month_day_from_doy doy).f1 <= 31)
 
 function civil_from_days [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 1010 0 1010 43] (z: int) : t_CivilView
- = [%#syear_month_day'4] let z'0 = z + 719468 in let era = ComputerDivision.div (if z'0 >= 0 then
+ = [%#syear_month_day'4] let z'0 = z + 719468 in let era = ComputerDivision.div (if ge_log_Int z'0 0 then
     z'0
   else
     z'0 - 146096
@@ -142,18 +149,24 @@ function civil_from_days [#"/home/goya/storage/full-ligature-port-workspace/date
   - ComputerDivision.div yoe 100) in let {f0 = m; f1 = d} = month_day_from_doy doy in let y'0 = y
   + (if m <= 2 then 1 else 0) in { year = y'0; month = m; day = d }
 
+predicate gt_log_Int [@inline:trivial] (self: int) (other: int) = [%#sord'0] other < self
+
+meta "rewrite_def" predicate gt_log_Int
+
 function days_from_civil [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 37 0 37 53] (y: int) (m: int) (d: int) : int
- = [%#syear_month_day'5] let y'0 = y - (if m <= 2 then 1 else 0) in let era = ComputerDivision.div (if y'0 >= 0 then
+ = [%#syear_month_day'5] let y'0 = y
+  - (if m <= 2 then 1 else 0) in let era = ComputerDivision.div (if ge_log_Int y'0 0 then
     y'0
   else
     y'0 - 399
-  ) 400 in let yoe = y'0 - era * 400 in let doy = ComputerDivision.div (153 * (if m > 2 then m - 3 else m + 9) + 2) 5
+  ) 400 in let yoe = y'0 - era * 400 in let doy = ComputerDivision.div (153 * (if gt_log_Int m 2 then m - 3 else m + 9)
+      + 2) 5
     + d
   - 1 in let doe = yoe * 365 + ComputerDivision.div yoe 4 - ComputerDivision.div yoe 100 + doy in era * 146097 + doe
   - 719468
 
 function doy_from_civil [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 207 0 207 44] (m: int) (d: int) : int
- = [%#syear_month_day'13] ComputerDivision.div (153 * (if m > 2 then m - 3 else m + 9) + 2) 5 + d - 1
+ = [%#syear_month_day'13] ComputerDivision.div (153 * (if gt_log_Int m 2 then m - 3 else m + 9) + 2) 5 + d - 1
 
 predicate valid_era_day [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 98 0 98 48] (yoe: int) (doy: int) =
   [%#syear_month_day'29] 0 <= doy
@@ -162,7 +175,8 @@ predicate valid_era_day [#"/home/goya/storage/full-ligature-port-workspace/date-
 function yoe_of_era_year [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 251 0 251 31] (y0: int) : ()
  = [%#syear_month_day'31] ()
 
-axiom yoe_of_era_year_spec: forall y0: int. [%#syear_month_day'30] let era = ComputerDivision.div (if y0 >= 0 then
+axiom yoe_of_era_year_spec:
+  forall y0: int. [%#syear_month_day'30] let era = ComputerDivision.div (if ge_log_Int y0 0 then
       y0
     else
       y0 - 399
@@ -282,7 +296,8 @@ axiom leap_era_day_spec: forall y: int, yoe: int, era: int. ([%#syear_month_day'
     -> ([%#syear_month_day'36] ComputerDivision.mod yoe 4 = 3 /\ yoe <> 99 /\ yoe <> 199 /\ yoe <> 299)
 
 function civil_parts [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 552 0 552 42] (y: int) (m: int) (d: int) : ()
- = [%#syear_month_day'16] let y0 = y - (if m <= 2 then 1 else 0) in let era = ComputerDivision.div (if y0 >= 0 then
+ = [%#syear_month_day'16] let y0 = y
+  - (if m <= 2 then 1 else 0) in let era = ComputerDivision.div (if ge_log_Int y0 0 then
     y0
   else
     y0 - 399
@@ -297,7 +312,8 @@ function civil_parts [#"/home/goya/storage/full-ligature-port-workspace/date-cre
 
 axiom civil_parts_spec: forall y: int, m: int, d: int. ([%#syear_month_day'14] 1 <= m
       /\ m <= 12 /\ 1 <= d /\ d <= month_length m y)
-    -> ([%#syear_month_day'15] let y0 = y - (if m <= 2 then 1 else 0) in let era = ComputerDivision.div (if y0 >= 0 then
+    -> ([%#syear_month_day'15] let y0 = y
+    - (if m <= 2 then 1 else 0) in let era = ComputerDivision.div (if ge_log_Int y0 0 then
       y0
     else
       y0 - 399
@@ -307,16 +323,16 @@ axiom civil_parts_spec: forall y: int, m: int, d: int. ([%#syear_month_day'14] 1
 function doe_bounds [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 640 0 640 37] (yoe: int) (doy: int) : ()
  = [%#syear_month_day'19] ()
 
-axiom doe_bounds_spec: forall yoe: int, doy: int. ([%#syear_month_day'17] yoe >= 0
-      /\ yoe <= 399 /\ doy >= 0 /\ doy <= 365)
+axiom doe_bounds_spec: forall yoe: int, doy: int. ([%#syear_month_day'17] ge_log_Int yoe 0
+      /\ yoe <= 399 /\ ge_log_Int doy 0 /\ doy <= 365)
     -> ([%#syear_month_day'18] let doe = yoe * 365 + ComputerDivision.div yoe 4 - ComputerDivision.div yoe 100
-    + doy in doe >= 0 /\ doe <= 146096)
+    + doy in ge_log_Int doe 0 /\ doe <= 146096)
 
 function era_of_days [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 203 0 203 38] (era: int) (doe: int) : ()
  = [%#syear_month_day'22] ()
 
 axiom era_of_days_spec: forall era: int, doe: int. ([%#syear_month_day'20] 0 <= doe /\ doe <= 146096)
-    -> ([%#syear_month_day'21] let z = era * 146097 + doe in ComputerDivision.div (if z >= 0 then
+    -> ([%#syear_month_day'21] let z = era * 146097 + doe in ComputerDivision.div (if ge_log_Int z 0 then
         z
       else
         z - 146096
@@ -329,7 +345,7 @@ function era_year_start [#"/home/goya/storage/full-ligature-port-workspace/date-
 function century_of_era_year [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 114 0 114 36] (yoe: int) : ()
  = [%#syear_month_day'41] ()
 
-axiom century_of_era_year_spec: forall yoe: int. ([%#syear_month_day'39] yoe >= 0 /\ yoe <= 399)
+axiom century_of_era_year_spec: forall yoe: int. ([%#syear_month_day'39] ge_log_Int yoe 0 /\ yoe <= 399)
     -> ([%#syear_month_day'40] ComputerDivision.div yoe 100 = ComputerDivision.div (ComputerDivision.div yoe 4) 25)
 
 function era_quotients [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 145 0 145 54] (h: int) (u: int) (r: int) (doy: int) : ()
@@ -363,19 +379,19 @@ axiom era_quotients_spec: forall h: int, u: int, r: int, doy: int. ([%#syear_mon
 function div_365_of_nonneg_digit [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 168 0 168 46] (k: int) (w: int) : ()
  = [%#syear_month_day'47] ()
 
-axiom div_365_of_nonneg_digit_spec: forall k: int, w: int. ([%#syear_month_day'45] k >= 0 /\ w >= 0)
+axiom div_365_of_nonneg_digit_spec: forall k: int, w: int. ([%#syear_month_day'45] ge_log_Int k 0 /\ ge_log_Int w 0)
     -> ([%#syear_month_day'46] ComputerDivision.div (365 * k + w) 365 = k + ComputerDivision.div w 365)
 
 function div_365_of_year [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 175 0 175 38] (r: int) (e: int) : ()
  = [%#syear_month_day'50] ()
 
-axiom div_365_of_year_spec: forall r: int, e: int. ([%#syear_month_day'48] r >= 0 /\ 0 <= e /\ e <= 364)
+axiom div_365_of_year_spec: forall r: int, e: int. ([%#syear_month_day'48] ge_log_Int r 0 /\ 0 <= e /\ e <= 364)
     -> ([%#syear_month_day'49] ComputerDivision.div (365 * r + e) 365 = r)
 
 function div_365_of_era_end [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 184 0 184 33] (k: int) : ()
  = [%#syear_month_day'53] ()
 
-axiom div_365_of_era_end_spec: forall k: int. ([%#syear_month_day'51] k >= 1)
+axiom div_365_of_era_end_spec: forall k: int. ([%#syear_month_day'51] ge_log_Int k 1)
     -> ([%#syear_month_day'52] ComputerDivision.div (365 * k - 1) 365 = k - 1)
 
 function year_of_era_from_doe_exact [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 506 0 506 53] (yoe: int) (doy: int) : ()
@@ -394,7 +410,7 @@ function year_of_era_from_doe_exact [#"/home/goya/storage/full-ligature-port-wor
   
 
 
-axiom year_of_era_from_doe_exact_spec: forall yoe: int, doy: int. ([%#syear_month_day'23] yoe >= 0
+axiom year_of_era_from_doe_exact_spec: forall yoe: int, doy: int. ([%#syear_month_day'23] ge_log_Int yoe 0
       /\ yoe <= 399 /\ valid_era_day yoe doy)
     -> ([%#syear_month_day'24] year_of_era_from_doe (era_year_start yoe + doy) = yoe)
 
@@ -482,7 +498,8 @@ axiom month_day_from_doy_exact_spec: forall y: int, m: int, d: int. ([%#syear_mo
     -> ([%#syear_month_day'27] month_day_from_doy (doy_from_civil m d) = { f0 = m; f1 = d })
 
 function days_civil_round_trip [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 588 0 588 52] (y: int) (m: int) (d: int) : ()
- = [%#syear_month_day'6] let y0 = y - (if m <= 2 then 1 else 0) in let era = ComputerDivision.div (if y0 >= 0 then
+ = [%#syear_month_day'6] let y0 = y
+  - (if m <= 2 then 1 else 0) in let era = ComputerDivision.div (if ge_log_Int y0 0 then
     y0
   else
     y0 - 399
@@ -514,7 +531,7 @@ goal vc_civil_round_trip_holds: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <= d
   /\ (([@stop_split] [@expl:days_civil_round_trip ensures] [%#syear_month_day'3] let c'0 = civil_from_days (days_from_civil y m d) in c'0.year
       = y
     /\ c'0.month = m /\ c'0.day = d)
-  -> (let _ = days_civil_round_trip y m d in if c.year = y then
+  -> (if c.year = y then
     if c.month = m then
       let result = c.day
       = d in [@stop_split] [@expl:civil_round_trip_holds ensures] ([@stop_split] [@expl:civil_round_trip_holds ensures #0] [%#syear_month_day'0] result)

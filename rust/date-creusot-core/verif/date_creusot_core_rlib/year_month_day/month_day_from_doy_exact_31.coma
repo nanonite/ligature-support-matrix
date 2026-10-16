@@ -1,5 +1,6 @@
 (* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 417 0 417 51 *)
 
+let%span sord = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/logic/ord.rs" 34 8 34 21
 let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 414 11 415 24
 let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 416 10 416 102
 let%span syear_month_day'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 51 11 51 33
@@ -11,14 +12,20 @@ use int.Int
 
 type tup2_Int_Int = { f0: int; f1: int }
 
+predicate ge_log_Int [@inline:trivial] (self: int) (other: int) = [%#sord] other <= self
+
+meta "rewrite_def" predicate ge_log_Int
+
 function month_day_from_doy [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 53 0 53 49] (doy: int) : tup2_Int_Int
  = [%#syear_month_day'3] let mp = ComputerDivision.div (5 * doy + 2) 153 in let d = doy
     - ComputerDivision.div (153 * mp + 2) 5
   + 1 in let m = if mp < 10 then mp + 3 else mp - 9 in { f0 = m; f1 = d }
 
-axiom month_day_from_doy_spec: forall doy: int [month_day_from_doy doy]. ([%#syear_month_day'1] doy >= 0 /\ doy <= 365)
-    -> ([%#syear_month_day'2] (month_day_from_doy doy).f0 >= 1
-    /\ (month_day_from_doy doy).f0 <= 12 /\ (month_day_from_doy doy).f1 >= 1 /\ (month_day_from_doy doy).f1 <= 31)
+axiom month_day_from_doy_spec: forall doy: int [month_day_from_doy doy]. ([%#syear_month_day'1] ge_log_Int doy 0
+      /\ doy <= 365)
+    -> ([%#syear_month_day'2] ge_log_Int (month_day_from_doy doy).f0 1
+    /\ (month_day_from_doy doy).f0 <= 12
+    /\ ge_log_Int (month_day_from_doy doy).f1 1 /\ (month_day_from_doy doy).f1 <= 31)
 
 meta "compute_max_steps" 1000000
 
@@ -33,63 +40,9 @@ function month_day_from_doy_exact_31 [#"/home/goya/storage/full-ligature-port-wo
 goal vc_month_day_from_doy_exact_31: ([%#syear_month_day] (mp = 0
       \/ mp = 2 \/ mp = 4 \/ mp = 5 \/ mp = 7 \/ mp = 9 \/ mp = 10)
     /\ 1 <= d /\ d <= 31)
-  -> (if mp = 0 then
-    [@stop_split] [@expl:month_day_from_doy_exact_31 ensures] [%#syear_month_day'0] month_day_from_doy (ComputerDivision.div (153
-            * mp
-          + 2) 5
-        + d
-      - 1)
-    = { f0 = (if mp < 10 then mp + 3 else mp - 9); f1 = d }
-  else
-    if mp = 2 then
-      [@stop_split] [@expl:month_day_from_doy_exact_31 ensures] [%#syear_month_day'0] month_day_from_doy (ComputerDivision.div (153
-              * mp
-            + 2) 5
-          + d
-        - 1)
-      = { f0 = (if mp < 10 then mp + 3 else mp - 9); f1 = d }
-    else
-      if mp = 4 then
-        [@stop_split] [@expl:month_day_from_doy_exact_31 ensures] [%#syear_month_day'0] month_day_from_doy (ComputerDivision.div (153
-                * mp
-              + 2) 5
-            + d
-          - 1)
-        = { f0 = (if mp < 10 then mp + 3 else mp - 9); f1 = d }
-      else
-        if mp = 5 then
-          [@stop_split] [@expl:month_day_from_doy_exact_31 ensures] [%#syear_month_day'0] month_day_from_doy (ComputerDivision.div (153
-                  * mp
-                + 2) 5
-              + d
-            - 1)
-          = { f0 = (if mp < 10 then mp + 3 else mp - 9); f1 = d }
-        else
-          if mp = 7 then
-            [@stop_split] [@expl:month_day_from_doy_exact_31 ensures] [%#syear_month_day'0] month_day_from_doy (ComputerDivision.div (153
-                    * mp
-                  + 2) 5
-                + d
-              - 1)
-            = { f0 = (if mp < 10 then mp + 3 else mp - 9); f1 = d }
-          else
-            if mp = 9 then
-              [@stop_split] [@expl:month_day_from_doy_exact_31 ensures] [%#syear_month_day'0] month_day_from_doy (ComputerDivision.div (153
-                      * mp
-                    + 2) 5
-                  + d
-                - 1)
-              = { f0 = (if mp < 10 then mp + 3 else mp - 9); f1 = d }
-            else
-              [@stop_split] [@expl:month_day_from_doy_exact_31 ensures] [%#syear_month_day'0] month_day_from_doy (ComputerDivision.div (153
-                      * mp
-                    + 2) 5
-                  + d
-                - 1)
-              = { f0 = (if mp < 10 then mp + 3 else mp - 9); f1 = d }
-          
-        
-      
-    
-  
-  )
+  -> ([@stop_split] [@expl:month_day_from_doy_exact_31 ensures] [%#syear_month_day'0] month_day_from_doy (ComputerDivision.div (153
+          * mp
+        + 2) 5
+      + d
+    - 1)
+  = { f0 = (if mp < 10 then mp + 3 else mp - 9); f1 = d })

@@ -2,7 +2,7 @@
 
 (* <weekday::Weekday as std::cmp::PartialEq> *)
 
-let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 36 8 36 28
+let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 37 8 37 28
 let%span sweekday = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 54 14 54 65
 let%span sweekday'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 67 20 67 27
 

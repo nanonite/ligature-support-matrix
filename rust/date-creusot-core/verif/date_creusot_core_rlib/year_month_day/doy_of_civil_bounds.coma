@@ -1,5 +1,6 @@
 (* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 292 0 292 50 *)
 
+let%span sord = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/logic/ord.rs" 22 8 22 20
 let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 286 11 287 58
 let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 289 4 289 35
 let%span syear_month_day'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 325 11 326 24
@@ -34,8 +35,12 @@ axiom month_length_spec: forall m: int, y: int [month_length m y]. [%#syear_mont
     
     )
 
+predicate gt_log_Int [@inline:trivial] (self: int) (other: int) = [%#sord] other < self
+
+meta "rewrite_def" predicate gt_log_Int
+
 function doy_from_civil [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 207 0 207 44] (m: int) (d: int) : int
- = [%#syear_month_day'7] ComputerDivision.div (153 * (if m > 2 then m - 3 else m + 9) + 2) 5 + d - 1
+ = [%#syear_month_day'7] ComputerDivision.div (153 * (if gt_log_Int m 2 then m - 3 else m + 9) + 2) 5 + d - 1
 
 function doy_of_civil_bounds_31 [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 331 0 331 46] (mp: int) (d: int) : ()
  = [%#syear_month_day'8] ()
@@ -88,8 +93,7 @@ goal vc_doy_of_civil_bounds: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <= d /\
           + 2) 5
         + d
       - 1 in 0 <= doy /\ doy <= 364)
-    -> (let _ = doy_of_civil_bounds_31 10 d in [@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
-      <= doy
+    -> ([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0 <= doy
     /\ doy <= 365 /\ (doy <= 364 \/ m = 2)))
   else
     if m = 2 then
@@ -103,7 +107,7 @@ goal vc_doy_of_civil_bounds: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <= d /\
         /\ (doy <= 364
         \/ d = 29
         /\ ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0)))
-      -> (let _ = doy_of_civil_bounds_feb y d in [@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
+      -> ([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
         <= doy
       /\ doy <= 365 /\ (doy <= 364 \/ m = 2)))
     else
@@ -116,7 +120,7 @@ goal vc_doy_of_civil_bounds: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <= d /\
               + 2) 5
             + d
           - 1 in 0 <= doy /\ doy <= 364)
-        -> (let _ = doy_of_civil_bounds_31 0 d in [@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
+        -> ([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
           <= doy
         /\ doy <= 365 /\ (doy <= 364 \/ m = 2)))
       else
@@ -129,7 +133,7 @@ goal vc_doy_of_civil_bounds: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <= d /\
                 + 2) 5
               + d
             - 1 in 0 <= doy /\ doy <= 364)
-          -> (let _ = doy_of_civil_bounds_30 1 d in [@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
+          -> ([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
             <= doy
           /\ doy <= 365 /\ (doy <= 364 \/ m = 2)))
         else
@@ -142,7 +146,7 @@ goal vc_doy_of_civil_bounds: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <= d /\
                   + 2) 5
                 + d
               - 1 in 0 <= doy /\ doy <= 364)
-            -> (let _ = doy_of_civil_bounds_31 2 d in [@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
+            -> ([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
               <= doy
             /\ doy <= 365 /\ (doy <= 364 \/ m = 2)))
           else
@@ -155,7 +159,7 @@ goal vc_doy_of_civil_bounds: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <= d /\
                     + 2) 5
                   + d
                 - 1 in 0 <= doy /\ doy <= 364)
-              -> (let _ = doy_of_civil_bounds_30 3 d in [@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
+              -> ([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
                 <= doy
               /\ doy <= 365 /\ (doy <= 364 \/ m = 2)))
             else
@@ -168,7 +172,7 @@ goal vc_doy_of_civil_bounds: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <= d /\
                       + 2) 5
                     + d
                   - 1 in 0 <= doy /\ doy <= 364)
-                -> (let _ = doy_of_civil_bounds_31 4 d in [@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
+                -> ([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
                   <= doy
                 /\ doy <= 365 /\ (doy <= 364 \/ m = 2)))
               else
@@ -181,7 +185,7 @@ goal vc_doy_of_civil_bounds: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <= d /\
                         + 2) 5
                       + d
                     - 1 in 0 <= doy /\ doy <= 364)
-                  -> (let _ = doy_of_civil_bounds_31 5 d in [@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
+                  -> ([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
                     <= doy
                   /\ doy <= 365 /\ (doy <= 364 \/ m = 2)))
                 else
@@ -194,7 +198,7 @@ goal vc_doy_of_civil_bounds: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <= d /\
                           + 2) 5
                         + d
                       - 1 in 0 <= doy /\ doy <= 364)
-                    -> (let _ = doy_of_civil_bounds_30 6 d in [@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
+                    -> ([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
                       <= doy
                     /\ doy <= 365 /\ (doy <= 364 \/ m = 2)))
                   else
@@ -207,7 +211,7 @@ goal vc_doy_of_civil_bounds: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <= d /\
                             + 2) 5
                           + d
                         - 1 in 0 <= doy /\ doy <= 364)
-                      -> (let _ = doy_of_civil_bounds_31 7 d in [@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
+                      -> ([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
                         <= doy
                       /\ doy <= 365 /\ (doy <= 364 \/ m = 2)))
                     else
@@ -220,7 +224,7 @@ goal vc_doy_of_civil_bounds: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <= d /\
                               + 2) 5
                             + d
                           - 1 in 0 <= doy /\ doy <= 364)
-                        -> (let _ = doy_of_civil_bounds_30 8 d in [@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
+                        -> ([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
                           <= doy
                         /\ doy <= 365 /\ (doy <= 364 \/ m = 2)))
                       else
@@ -232,7 +236,7 @@ goal vc_doy_of_civil_bounds: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <= d /\
                               + 2) 5
                             + d
                           - 1 in 0 <= doy /\ doy <= 364)
-                        -> (let _ = doy_of_civil_bounds_31 9 d in [@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
+                        -> ([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'0] let doy = doy_from_civil m d in 0
                           <= doy
                         /\ doy <= 365 /\ (doy <= 364 \/ m = 2)))
                     

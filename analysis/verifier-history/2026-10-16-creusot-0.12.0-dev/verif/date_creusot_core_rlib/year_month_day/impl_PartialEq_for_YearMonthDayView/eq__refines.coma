@@ -1,0 +1,29 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 742 4 742 36 *)
+
+(* <year_month_day::YearMonthDayView as std::cmp::PartialEq> *)
+
+let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 36 8 36 28
+let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 737 14 741 5
+let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 727 8 727 12
+let%span scmp = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/std/cmp.rs" 14 26 14 75
+
+type t_YearMonthDayView = { year: int; month: int; day: int }
+
+function deep_model_YearMonthDayView [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 726 4 726 43] [@inline:trivial] (self: t_YearMonthDayView) : t_YearMonthDayView
+ = [%#syear_month_day'0] self
+
+meta "rewrite_def" function deep_model_YearMonthDayView
+
+function deep_model_ref_YearMonthDayView [@inline:trivial] (self: t_YearMonthDayView) : t_YearMonthDayView =
+  [%#smodel] deep_model_YearMonthDayView self
+
+meta "rewrite_def" function deep_model_ref_YearMonthDayView
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+goal refines:
+  forall self_: t_YearMonthDayView, rhs: t_YearMonthDayView. forall result: bool. ([%#syear_month_day] result
+        = (self_.year = rhs.year /\ self_.month = rhs.month /\ self_.day = rhs.day))
+      -> ([%#scmp] result = (deep_model_ref_YearMonthDayView self_ = deep_model_ref_YearMonthDayView rhs))

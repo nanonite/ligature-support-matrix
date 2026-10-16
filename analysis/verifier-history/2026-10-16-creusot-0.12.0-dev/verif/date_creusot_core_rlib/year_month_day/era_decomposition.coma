@@ -1,0 +1,53 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 674 0 674 56 *)
+
+let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 667 11 667 78
+let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 669 4 669 46
+let%span syear_month_day'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 38 4 38 43
+
+use int.ComputerDivision
+use int.Int
+
+function days_from_civil [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 37 0 37 53] (y: int) (m: int) (d: int) : int
+ = [%#syear_month_day'1] let y'0 = y - (if m <= 2 then 1 else 0) in let era = ComputerDivision.div (if y'0 >= 0 then
+    y'0
+  else
+    y'0 - 399
+  ) 400 in let yoe = y'0 - era * 400 in let doy = ComputerDivision.div (153 * (if m > 2 then m - 3 else m + 9) + 2) 5
+    + d
+  - 1 in let doe = yoe * 365 + ComputerDivision.div yoe 4 - ComputerDivision.div yoe 100 + doy in era * 146097 + doe
+  - 719468
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+constant y : int
+
+constant m : int
+
+constant d : int
+
+predicate era_decomposition [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 674 0 674 56] (y: int) (m: int) (d: int)
+
+goal vc_era_decomposition: ([%#syear_month_day] y >= - 32767 /\ y <= 32767 /\ m >= 1 /\ m <= 12 /\ d >= 1 /\ d <= 31)
+  -> (let z = days_from_civil y m d + 719468 in if z >= 0 then
+    let era = ComputerDivision.div z 146097 in let doe = z - era * 146097 in if doe >= 0 then
+      [@stop_split] [@expl:era_decomposition ensures] [%#syear_month_day'0] let z'0 = days_from_civil y m d
+      + 719468 in let era'0 = ComputerDivision.div (if z'0 >= 0 then z'0 else z'0 - 146096) 146097 in let doe'0 = z'0
+      - era'0 * 146097 in doe'0 >= 0 /\ doe'0 <= 146096
+    else
+      [@stop_split] [@expl:era_decomposition ensures] [%#syear_month_day'0] let z'0 = days_from_civil y m d
+      + 719468 in let era'0 = ComputerDivision.div (if z'0 >= 0 then z'0 else z'0 - 146096) 146097 in let doe'0 = z'0
+      - era'0 * 146097 in doe'0 >= 0 /\ doe'0 <= 146096
+  
+  else
+    let era = ComputerDivision.div (z - 146096) 146097 in let doe = z - era * 146097 in if doe >= 0 then
+      [@stop_split] [@expl:era_decomposition ensures] [%#syear_month_day'0] let z'0 = days_from_civil y m d
+      + 719468 in let era'0 = ComputerDivision.div (if z'0 >= 0 then z'0 else z'0 - 146096) 146097 in let doe'0 = z'0
+      - era'0 * 146097 in doe'0 >= 0 /\ doe'0 <= 146096
+    else
+      [@stop_split] [@expl:era_decomposition ensures] [%#syear_month_day'0] let z'0 = days_from_civil y m d
+      + 719468 in let era'0 = ComputerDivision.div (if z'0 >= 0 then z'0 else z'0 - 146096) 146097 in let doe'0 = z'0
+      - era'0 * 146097 in doe'0 >= 0 /\ doe'0 <= 146096
+  
+  )

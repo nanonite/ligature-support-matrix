@@ -10,11 +10,11 @@
     "method": "weekday_from_days"
   },
   "callee_guarantees": [
-    "Weekday.C1",
-    "Weekday.C2"
+    "Weekday.C001",
+    "Weekday.C002"
   ],
   "review": {
-    "reviewer": "chainlink-reviewer",
-    "reviewed_at": "2026-09-25"
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-16"
   }
 }

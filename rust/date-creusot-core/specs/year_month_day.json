@@ -45,14 +45,14 @@
       "id": "C001"
     },
     {
-      "english": "For every valid date in the supported year, month, and day domain, round_trip reconstructs the original year, month, and day fields.",
-      "logic": "result == (civil_from_days(days_from_civil(self.year.0@, self.month.0@, self.day.0@)).year == self.year.0@ && civil_from_days(days_from_civil(self.year.0@, self.month.0@, self.day.0@)).month == self.month.0@ && civil_from_days(days_from_civil(self.year.0@, self.month.0@, self.day.0@)).day == self.day.0@)",
+      "english": "from_days returns the Gregorian year, month, and day recovered from its input epoch-day count.",
+      "logic": "result.year.0@ == civil_from_days(dp.0@).year && result.month.0@ == civil_from_days(dp.0@).month && result.day.0@ == civil_from_days(dp.0@).day",
       "kind": "postcondition",
       "source": "oracle-doc",
+      "id": "C002",
       "applies_to": [
-        "round_trip"
-      ],
-      "id": "C002"
+        "from_days"
+      ]
     },
     {
       "english": "ok() is true exactly when the year and month are valid and the day is between one and that month's Gregorian length.",
@@ -73,13 +73,23 @@
         "to_days_bounded"
       ],
       "id": "C005"
+    },
+    {
+      "english": "For a valid supported date, round_trip returns true exactly when converting the date to an epoch-day count and back preserves its year, month, and day.",
+      "logic": "result == (civil_from_days(days_from_civil(self.year.0@, self.month.0@, self.day.0@)).year == self.year.0@ && civil_from_days(days_from_civil(self.year.0@, self.month.0@, self.day.0@)).month == self.month.0@ && civil_from_days(days_from_civil(self.year.0@, self.month.0@, self.day.0@)).day == self.day.0@)",
+      "kind": "postcondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "round_trip"
+      ],
+      "id": "C007"
     }
   ],
   "adversary_table": [
     {
-      "scenario": "A valid leap-day date is converted to days and back with a changed field.",
+      "scenario": "A bounded epoch-day input is decoded into a different civil year, month, or day.",
       "violates": "YearMonthDay.C002",
-      "resolution": "Preserve the exact year, month, and day for every valid input date."
+      "resolution": "Return the exact year, month, and day computed by civil_from_days for that input."
     },
     {
       "scenario": "February 30 is rejected before the total to_days conversion runs.",
@@ -90,6 +100,11 @@
       "scenario": "The largest supported year produces a day count outside the 32-bit interval.",
       "violates": "YearMonthDay.C005",
       "resolution": "Return a representable day count within the declared bounds."
+    },
+    {
+      "scenario": "A valid leap-day date converts to an epoch day and returns with one field changed.",
+      "violates": "YearMonthDay.C007",
+      "resolution": "Return true only when the recovered year, month, and day equal the original fields."
     }
   ],
   "source_references": [
@@ -106,7 +121,7 @@
     {
       "kind": "other",
       "citation_or_path": "rust/date-creusot-core/src/year_month_day.rs",
-      "notes": "Creusot ensures for round_trip, to_days, to_days_bounded, from_days, and ok; C002 records intended scope and is not evidence that a fresh proof passed."
+      "notes": "Creusot ensures for from_days (C002) and round_trip (C007); these declarations specify intended scope and do not assert that a fresh proof has passed."
     }
   ],
   "review": {

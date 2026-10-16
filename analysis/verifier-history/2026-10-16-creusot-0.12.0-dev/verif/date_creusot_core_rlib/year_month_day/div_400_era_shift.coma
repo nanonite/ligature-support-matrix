@@ -1,0 +1,21 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 236 0 236 40 *)
+
+let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 235 10 235 54
+
+use int.ComputerDivision
+use int.Int
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+constant x : int
+
+constant e : int
+
+function div_400_era_shift [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 236 0 236 40] (x: int) (e: int) : ()
+
+goal vc_div_400_era_shift: [@stop_split] [@expl:div_400_era_shift ensures] [%#syear_month_day] (ComputerDivision.mod (x
+      - 400 * e) 400
+    = 0)
+  = (ComputerDivision.mod x 400 = 0)

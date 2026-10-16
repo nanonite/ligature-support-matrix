@@ -1,0 +1,36 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 125 4 125 38 *)
+
+(* <year_month_day_last::YearMonthDayLast as std::cmp::PartialEq> *)
+
+let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 36 8 36 28
+let%span syear_month_day_last = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 124 14 124 65
+let%span syear_month_day_last'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 138 20 138 85
+let%span scmp = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/std/cmp.rs" 14 26 14 75
+
+use creusot.int.Int16
+use creusot.int.UInt8
+
+type t_Year = { f0: Int16.t }
+
+type t_Month = { f0'0: UInt8.t }
+
+type t_YearMonthDayLast = { year: t_Year; month: t_Month }
+
+type t_YearMonthDayLastView = { year'0: int; month'0: int }
+
+function deep_model_YearMonthDayLast [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day_last.rs" 137 4 137 47] (self: t_YearMonthDayLast) : t_YearMonthDayLastView
+ = [%#syear_month_day_last'0] { year'0 = Int16.to_int self.year.f0; month'0 = UInt8.t'int self.month.f0'0 }
+
+function deep_model_ref_YearMonthDayLast [@inline:trivial] (self: t_YearMonthDayLast) : t_YearMonthDayLastView =
+  [%#smodel] deep_model_YearMonthDayLast self
+
+meta "rewrite_def" function deep_model_ref_YearMonthDayLast
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+goal refines:
+  forall self_: t_YearMonthDayLast, rhs: t_YearMonthDayLast. forall result: bool. ([%#syear_month_day_last] result
+        = (deep_model_ref_YearMonthDayLast self_ = deep_model_ref_YearMonthDayLast rhs))
+      -> ([%#scmp] result = (deep_model_ref_YearMonthDayLast self_ = deep_model_ref_YearMonthDayLast rhs))

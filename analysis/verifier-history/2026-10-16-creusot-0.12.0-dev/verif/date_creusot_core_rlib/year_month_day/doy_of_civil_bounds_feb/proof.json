@@ -1,0 +1,8 @@
+{
+  "profile": [],
+  "proofs": {
+    "Coma": {
+      "vc_doy_of_civil_bounds_feb": { "prover": "alt-ergo", "time": 0.017 }
+    }
+  }
+}

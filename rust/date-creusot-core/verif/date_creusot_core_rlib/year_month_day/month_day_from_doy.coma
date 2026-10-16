@@ -1,5 +1,6 @@
 (* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 53 0 53 49 *)
 
+let%span sord = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/logic/ord.rs" 34 8 34 21
 let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 51 11 51 33
 let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 52 10 52 76
 
@@ -7,6 +8,10 @@ use int.ComputerDivision
 use int.Int
 
 type tup2_Int_Int = { f0: int; f1: int }
+
+predicate ge_log_Int [@inline:trivial] (self: int) (other: int) = [%#sord] other <= self
+
+meta "rewrite_def" predicate ge_log_Int
 
 meta "compute_max_steps" 1000000
 
@@ -16,16 +21,9 @@ constant doy : int
 
 function month_day_from_doy [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 53 0 53 49] (doy: int) : tup2_Int_Int
 
-goal vc_month_day_from_doy: ([%#syear_month_day] doy >= 0 /\ doy <= 365)
-  -> (let mp = ComputerDivision.div (5 * doy + 2) 153 in let d = doy - ComputerDivision.div (153 * mp + 2) 5
-  + 1 in if mp < 10 then
-    let m = mp + 3 in let result = { f0 = m;
-                                     f1 = d } in [@stop_split] [@expl:month_day_from_doy ensures] [%#syear_month_day'0] result.f0
-      >= 1
-    /\ result.f0 <= 12 /\ result.f1 >= 1 /\ result.f1 <= 31
-  else
-    let m = mp - 9 in let result = { f0 = m;
-                                     f1 = d } in [@stop_split] [@expl:month_day_from_doy ensures] [%#syear_month_day'0] result.f0
-      >= 1
-    /\ result.f0 <= 12 /\ result.f1 >= 1 /\ result.f1 <= 31
-  )
+goal vc_month_day_from_doy: ([%#syear_month_day] ge_log_Int doy 0 /\ doy <= 365)
+  -> (let result = let mp = ComputerDivision.div (5 * doy + 2) 153 in let d = doy
+    - ComputerDivision.div (153 * mp + 2) 5
+  + 1 in let m = if mp < 10 then mp + 3 else mp - 9 in { f0 = m;
+                                                         f1 = d } in [@stop_split] [@expl:month_day_from_doy ensures] [%#syear_month_day'0] ge_log_Int result.f0 1
+  /\ result.f0 <= 12 /\ ge_log_Int result.f1 1 /\ result.f1 <= 31)

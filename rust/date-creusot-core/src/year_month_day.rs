@@ -910,8 +910,8 @@ impl YearMonthDay {
 
     /// `year_month_day::from_days(dp)` — the exact inverse of `to_days()`.
     ///
-    /// Constraint YearMonthDay.C2: `from_days` is the exact inverse of
-    /// `to_days()` on every `ok()` input.
+    /// Constraint YearMonthDay.C2: `from_days` returns the civil fields
+    /// recovered from its bounded epoch-day input.
     ///
     /// The precondition scopes the day count to the range `to_days` produces
     /// over the valid year domain. Outside it the C++ has signed-overflow UB
@@ -939,8 +939,8 @@ impl YearMonthDay {
         }
     }
 
-    /// The round trip `from_days(to_days(self)) == self`, the statement of
-    /// constraint YearMonthDay.C2 as a single provable obligation.
+    /// The round trip `from_days(to_days(self)) == self`, recorded separately
+    /// as constraint YearMonthDay.C007 so C2 remains mapped to `from_days`.
     ///
     /// The postcondition is stated over the logic functions
     /// (`days_from_civil`/`civil_from_days`) rather than the program

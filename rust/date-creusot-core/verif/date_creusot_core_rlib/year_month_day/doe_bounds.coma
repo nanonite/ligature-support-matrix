@@ -1,10 +1,15 @@
 (* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 640 0 640 37 *)
 
+let%span sord = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/logic/ord.rs" 34 8 34 21
 let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 635 11 635 59
 let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 637 4 637 52
 
 use int.ComputerDivision
 use int.Int
+
+predicate ge_log_Int [@inline:trivial] (self: int) (other: int) = [%#sord] other <= self
+
+meta "rewrite_def" predicate ge_log_Int
 
 meta "compute_max_steps" 1000000
 
@@ -16,7 +21,7 @@ constant doy : int
 
 function doe_bounds [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 640 0 640 37] (yoe: int) (doy: int) : ()
 
-goal vc_doe_bounds: ([%#syear_month_day] yoe >= 0 /\ yoe <= 399 /\ doy >= 0 /\ doy <= 365)
+goal vc_doe_bounds: ([%#syear_month_day] ge_log_Int yoe 0 /\ yoe <= 399 /\ ge_log_Int doy 0 /\ doy <= 365)
   -> ([@stop_split] [@expl:doe_bounds ensures] [%#syear_month_day'0] let doe = yoe * 365 + ComputerDivision.div yoe 4
     - ComputerDivision.div yoe 100
-  + doy in doe >= 0 /\ doe <= 146096)
+  + doy in ge_log_Int doe 0 /\ doe <= 146096)

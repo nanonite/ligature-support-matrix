@@ -49,16 +49,13 @@ goal vc_leap_era_day: ([%#syear_month_day] 0 <= yoe
   -> ([@stop_split] [@expl:div_4_era_shift ensures] [%#syear_month_day'1] (ComputerDivision.mod (y - 1 - 400 * era) 4
       = 0)
     = (ComputerDivision.mod (y - 1) 4 = 0))
-  -> (let _ = div_4_era_shift (y
-  - 1) era in ([@stop_split] [@expl:div_100_era_shift ensures] [%#syear_month_day'2] (ComputerDivision.mod (y
-        - 400 * era) 100
+  -> ([@stop_split] [@expl:div_100_era_shift ensures] [%#syear_month_day'2] (ComputerDivision.mod (y - 400 * era) 100
       = 0)
     = (ComputerDivision.mod y 100 = 0))
-  -> (let _ = div_100_era_shift y era in ([@stop_split] [@expl:div_400_era_shift ensures] [%#syear_month_day'3] (ComputerDivision.mod (y
-        - 400 * era) 400
+  -> ([@stop_split] [@expl:div_400_era_shift ensures] [%#syear_month_day'3] (ComputerDivision.mod (y - 400 * era) 400
       = 0)
     = (ComputerDivision.mod y 400 = 0))
-  -> (let _ = div_400_era_shift y era in if yoe = 99 then
+  -> (if yoe = 99 then
     [@stop_split] [@expl:leap_era_day ensures] [%#syear_month_day'0] ComputerDivision.mod yoe 4 = 3
     /\ yoe <> 99 /\ yoe <> 199 /\ yoe <> 299
   else
@@ -74,4 +71,4 @@ goal vc_leap_era_day: ([%#syear_month_day] 0 <= yoe
         /\ yoe <> 99 /\ yoe <> 199 /\ yoe <> 299
     
   
-  )))
+  )

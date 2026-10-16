@@ -3,7 +3,7 @@
 (* <year_month_day::YearMonthDay as std::cmp::PartialEq> *)
 
 let%span sday = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/day.rs" 27 14 27 45
-let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 36 8 36 28
+let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 37 8 37 28
 let%span smonth = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/month.rs" 27 14 27 45
 let%span syear = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 30 14 30 45
 let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 773 8 773 31

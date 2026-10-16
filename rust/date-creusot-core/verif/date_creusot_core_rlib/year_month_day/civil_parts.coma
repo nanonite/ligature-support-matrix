@@ -1,5 +1,7 @@
 (* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 552 0 552 42 *)
 
+let%span sord = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/logic/ord.rs" 34 8 34 21
+let%span sord'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/logic/ord.rs" 22 8 22 20
 let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 543 11 544 58
 let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 546 4 546 46
 let%span syear_month_day'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 247 4 247 58
@@ -49,8 +51,16 @@ axiom month_length_spec: forall m: int, y: int [month_length m y]. [%#syear_mont
     
     )
 
+predicate ge_log_Int [@inline:trivial] (self: int) (other: int) = [%#sord] other <= self
+
+meta "rewrite_def" predicate ge_log_Int
+
+predicate gt_log_Int [@inline:trivial] (self: int) (other: int) = [%#sord'0] other < self
+
+meta "rewrite_def" predicate gt_log_Int
+
 function doy_from_civil [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 207 0 207 44] (m: int) (d: int) : int
- = [%#syear_month_day'6] ComputerDivision.div (153 * (if m > 2 then m - 3 else m + 9) + 2) 5 + d - 1
+ = [%#syear_month_day'6] ComputerDivision.div (153 * (if gt_log_Int m 2 then m - 3 else m + 9) + 2) 5 + d - 1
 
 predicate valid_era_day [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 98 0 98 48] (yoe: int) (doy: int) =
   [%#syear_month_day'7] 0 <= doy
@@ -59,7 +69,8 @@ predicate valid_era_day [#"/home/goya/storage/full-ligature-port-workspace/date-
 function yoe_of_era_year [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 251 0 251 31] (y0: int) : ()
  = [%#syear_month_day'8] ()
 
-axiom yoe_of_era_year_spec: forall y0: int. [%#syear_month_day'1] let era = ComputerDivision.div (if y0 >= 0 then
+axiom yoe_of_era_year_spec:
+  forall y0: int. [%#syear_month_day'1] let era = ComputerDivision.div (if ge_log_Int y0 0 then
       y0
     else
       y0 - 399
@@ -192,155 +203,151 @@ function civil_parts [#"/home/goya/storage/full-ligature-port-workspace/date-cre
 
 goal vc_civil_parts: ([%#syear_month_day] 1 <= m /\ m <= 12 /\ 1 <= d /\ d <= month_length m y)
   -> (if m <= 2 then
-    let y0 = y - 1 in if y0 >= 0 then
+    let y0 = y - 1 in if ge_log_Int y0 0 then
       let era = ComputerDivision.div y0 400 in let yoe = y0
       - era
-      * 400 in let doy = doy_from_civil m d in ([@stop_split] [@expl:yoe_of_era_year ensures] [%#syear_month_day'1] let era'0 = ComputerDivision.div (if y0
-        >= 0 then
+      * 400 in ([@stop_split] [@expl:yoe_of_era_year ensures] [%#syear_month_day'1] let era'0 = ComputerDivision.div (if ge_log_Int y0 0 then
           y0
         else
           y0 - 399
         ) 400 in let yoe'0 = y0 - era'0 * 400 in 0 <= yoe'0 /\ yoe'0 <= 399)
-      -> (let _ = yoe_of_era_year y0 in ([@stop_split] [@expl:doy_of_civil_bounds requires] [%#syear_month_day'2] 1 <= m
+      -> ([@stop_split] [@expl:doy_of_civil_bounds requires] [%#syear_month_day'2] 1 <= m
         /\ m <= 12 /\ 1 <= d /\ d <= month_length m y)
-      /\ (([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'3] let doy'0 = doy_from_civil m d in 0
-          <= doy'0
-        /\ doy'0 <= 365 /\ (doy'0 <= 364 \/ m = 2))
-      -> (let _ = doy_of_civil_bounds y m d in if doy = 365 then
+      /\ (([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'3] let doy = doy_from_civil m d in 0
+          <= doy
+        /\ doy <= 365 /\ (doy <= 364 \/ m = 2))
+      -> (if doy_from_civil m d = 365 then
         ([@stop_split] [@expl:leap_era_day requires] [%#syear_month_day'4] 0 <= yoe
           /\ yoe <= 399
           /\ y = yoe + 1 + 400 * era
           /\ ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0))
         /\ (([@stop_split] [@expl:leap_era_day ensures] [%#syear_month_day'5] ComputerDivision.mod yoe 4 = 3
           /\ yoe <> 99 /\ yoe <> 199 /\ yoe <> 299)
-        -> (let _ = leap_era_day y yoe era in [@stop_split] [@expl:civil_parts ensures] [%#syear_month_day'0] let y0'0 = y
-        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if y0'0 >= 0 then
+        -> ([@stop_split] [@expl:civil_parts ensures] [%#syear_month_day'0] let y0'0 = y
+        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if ge_log_Int y0'0 0 then
           y0'0
         else
           y0'0 - 399
-        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy'0 = doy_from_civil m d in 0 <= yoe'0
-        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy'0))
+        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy = doy_from_civil m d in 0 <= yoe'0
+        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy))
       else
         [@stop_split] [@expl:civil_parts ensures] [%#syear_month_day'0] let y0'0 = y
-        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if y0'0 >= 0 then
+        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if ge_log_Int y0'0 0 then
           y0'0
         else
           y0'0 - 399
-        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy'0 = doy_from_civil m d in 0 <= yoe'0
-        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy'0
-      )))
+        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy = doy_from_civil m d in 0 <= yoe'0
+        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy
+      ))
     else
       let era = ComputerDivision.div (y0 - 399) 400 in let yoe = y0
       - era
-      * 400 in let doy = doy_from_civil m d in ([@stop_split] [@expl:yoe_of_era_year ensures] [%#syear_month_day'1] let era'0 = ComputerDivision.div (if y0
-        >= 0 then
+      * 400 in ([@stop_split] [@expl:yoe_of_era_year ensures] [%#syear_month_day'1] let era'0 = ComputerDivision.div (if ge_log_Int y0 0 then
           y0
         else
           y0 - 399
         ) 400 in let yoe'0 = y0 - era'0 * 400 in 0 <= yoe'0 /\ yoe'0 <= 399)
-      -> (let _ = yoe_of_era_year y0 in ([@stop_split] [@expl:doy_of_civil_bounds requires] [%#syear_month_day'2] 1 <= m
+      -> ([@stop_split] [@expl:doy_of_civil_bounds requires] [%#syear_month_day'2] 1 <= m
         /\ m <= 12 /\ 1 <= d /\ d <= month_length m y)
-      /\ (([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'3] let doy'0 = doy_from_civil m d in 0
-          <= doy'0
-        /\ doy'0 <= 365 /\ (doy'0 <= 364 \/ m = 2))
-      -> (let _ = doy_of_civil_bounds y m d in if doy = 365 then
+      /\ (([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'3] let doy = doy_from_civil m d in 0
+          <= doy
+        /\ doy <= 365 /\ (doy <= 364 \/ m = 2))
+      -> (if doy_from_civil m d = 365 then
         ([@stop_split] [@expl:leap_era_day requires] [%#syear_month_day'4] 0 <= yoe
           /\ yoe <= 399
           /\ y = yoe + 1 + 400 * era
           /\ ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0))
         /\ (([@stop_split] [@expl:leap_era_day ensures] [%#syear_month_day'5] ComputerDivision.mod yoe 4 = 3
           /\ yoe <> 99 /\ yoe <> 199 /\ yoe <> 299)
-        -> (let _ = leap_era_day y yoe era in [@stop_split] [@expl:civil_parts ensures] [%#syear_month_day'0] let y0'0 = y
-        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if y0'0 >= 0 then
+        -> ([@stop_split] [@expl:civil_parts ensures] [%#syear_month_day'0] let y0'0 = y
+        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if ge_log_Int y0'0 0 then
           y0'0
         else
           y0'0 - 399
-        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy'0 = doy_from_civil m d in 0 <= yoe'0
-        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy'0))
+        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy = doy_from_civil m d in 0 <= yoe'0
+        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy))
       else
         [@stop_split] [@expl:civil_parts ensures] [%#syear_month_day'0] let y0'0 = y
-        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if y0'0 >= 0 then
+        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if ge_log_Int y0'0 0 then
           y0'0
         else
           y0'0 - 399
-        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy'0 = doy_from_civil m d in 0 <= yoe'0
-        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy'0
-      )))
+        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy = doy_from_civil m d in 0 <= yoe'0
+        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy
+      ))
   
   else
-    let y0 = y - 0 in if y0 >= 0 then
+    let y0 = y - 0 in if ge_log_Int y0 0 then
       let era = ComputerDivision.div y0 400 in let yoe = y0
       - era
-      * 400 in let doy = doy_from_civil m d in ([@stop_split] [@expl:yoe_of_era_year ensures] [%#syear_month_day'1] let era'0 = ComputerDivision.div (if y0
-        >= 0 then
+      * 400 in ([@stop_split] [@expl:yoe_of_era_year ensures] [%#syear_month_day'1] let era'0 = ComputerDivision.div (if ge_log_Int y0 0 then
           y0
         else
           y0 - 399
         ) 400 in let yoe'0 = y0 - era'0 * 400 in 0 <= yoe'0 /\ yoe'0 <= 399)
-      -> (let _ = yoe_of_era_year y0 in ([@stop_split] [@expl:doy_of_civil_bounds requires] [%#syear_month_day'2] 1 <= m
+      -> ([@stop_split] [@expl:doy_of_civil_bounds requires] [%#syear_month_day'2] 1 <= m
         /\ m <= 12 /\ 1 <= d /\ d <= month_length m y)
-      /\ (([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'3] let doy'0 = doy_from_civil m d in 0
-          <= doy'0
-        /\ doy'0 <= 365 /\ (doy'0 <= 364 \/ m = 2))
-      -> (let _ = doy_of_civil_bounds y m d in if doy = 365 then
+      /\ (([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'3] let doy = doy_from_civil m d in 0
+          <= doy
+        /\ doy <= 365 /\ (doy <= 364 \/ m = 2))
+      -> (if doy_from_civil m d = 365 then
         ([@stop_split] [@expl:leap_era_day requires] [%#syear_month_day'4] 0 <= yoe
           /\ yoe <= 399
           /\ y = yoe + 1 + 400 * era
           /\ ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0))
         /\ (([@stop_split] [@expl:leap_era_day ensures] [%#syear_month_day'5] ComputerDivision.mod yoe 4 = 3
           /\ yoe <> 99 /\ yoe <> 199 /\ yoe <> 299)
-        -> (let _ = leap_era_day y yoe era in [@stop_split] [@expl:civil_parts ensures] [%#syear_month_day'0] let y0'0 = y
-        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if y0'0 >= 0 then
+        -> ([@stop_split] [@expl:civil_parts ensures] [%#syear_month_day'0] let y0'0 = y
+        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if ge_log_Int y0'0 0 then
           y0'0
         else
           y0'0 - 399
-        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy'0 = doy_from_civil m d in 0 <= yoe'0
-        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy'0))
+        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy = doy_from_civil m d in 0 <= yoe'0
+        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy))
       else
         [@stop_split] [@expl:civil_parts ensures] [%#syear_month_day'0] let y0'0 = y
-        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if y0'0 >= 0 then
+        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if ge_log_Int y0'0 0 then
           y0'0
         else
           y0'0 - 399
-        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy'0 = doy_from_civil m d in 0 <= yoe'0
-        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy'0
-      )))
+        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy = doy_from_civil m d in 0 <= yoe'0
+        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy
+      ))
     else
       let era = ComputerDivision.div (y0 - 399) 400 in let yoe = y0
       - era
-      * 400 in let doy = doy_from_civil m d in ([@stop_split] [@expl:yoe_of_era_year ensures] [%#syear_month_day'1] let era'0 = ComputerDivision.div (if y0
-        >= 0 then
+      * 400 in ([@stop_split] [@expl:yoe_of_era_year ensures] [%#syear_month_day'1] let era'0 = ComputerDivision.div (if ge_log_Int y0 0 then
           y0
         else
           y0 - 399
         ) 400 in let yoe'0 = y0 - era'0 * 400 in 0 <= yoe'0 /\ yoe'0 <= 399)
-      -> (let _ = yoe_of_era_year y0 in ([@stop_split] [@expl:doy_of_civil_bounds requires] [%#syear_month_day'2] 1 <= m
+      -> ([@stop_split] [@expl:doy_of_civil_bounds requires] [%#syear_month_day'2] 1 <= m
         /\ m <= 12 /\ 1 <= d /\ d <= month_length m y)
-      /\ (([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'3] let doy'0 = doy_from_civil m d in 0
-          <= doy'0
-        /\ doy'0 <= 365 /\ (doy'0 <= 364 \/ m = 2))
-      -> (let _ = doy_of_civil_bounds y m d in if doy = 365 then
+      /\ (([@stop_split] [@expl:doy_of_civil_bounds ensures] [%#syear_month_day'3] let doy = doy_from_civil m d in 0
+          <= doy
+        /\ doy <= 365 /\ (doy <= 364 \/ m = 2))
+      -> (if doy_from_civil m d = 365 then
         ([@stop_split] [@expl:leap_era_day requires] [%#syear_month_day'4] 0 <= yoe
           /\ yoe <= 399
           /\ y = yoe + 1 + 400 * era
           /\ ComputerDivision.mod y 4 = 0 /\ (ComputerDivision.mod y 100 <> 0 \/ ComputerDivision.mod y 400 = 0))
         /\ (([@stop_split] [@expl:leap_era_day ensures] [%#syear_month_day'5] ComputerDivision.mod yoe 4 = 3
           /\ yoe <> 99 /\ yoe <> 199 /\ yoe <> 299)
-        -> (let _ = leap_era_day y yoe era in [@stop_split] [@expl:civil_parts ensures] [%#syear_month_day'0] let y0'0 = y
-        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if y0'0 >= 0 then
+        -> ([@stop_split] [@expl:civil_parts ensures] [%#syear_month_day'0] let y0'0 = y
+        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if ge_log_Int y0'0 0 then
           y0'0
         else
           y0'0 - 399
-        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy'0 = doy_from_civil m d in 0 <= yoe'0
-        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy'0))
+        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy = doy_from_civil m d in 0 <= yoe'0
+        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy))
       else
         [@stop_split] [@expl:civil_parts ensures] [%#syear_month_day'0] let y0'0 = y
-        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if y0'0 >= 0 then
+        - (if m <= 2 then 1 else 0) in let era'0 = ComputerDivision.div (if ge_log_Int y0'0 0 then
           y0'0
         else
           y0'0 - 399
-        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy'0 = doy_from_civil m d in 0 <= yoe'0
-        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy'0
-      )))
+        ) 400 in let yoe'0 = y0'0 - era'0 * 400 in let doy = doy_from_civil m d in 0 <= yoe'0
+        /\ yoe'0 <= 399 /\ valid_era_day yoe'0 doy
+      ))
   
   )

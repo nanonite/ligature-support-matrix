@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "I-year-month-day-ok-to-month-ok",
+  "caller": {
+    "concept": "YearMonthDay",
+    "method": "ok"
+  },
+  "callee": {
+    "concept": "Month",
+    "method": "ok"
+  },
+  "edge_class": [
+    "numeric-domain-boundary"
+  ],
+  "eligibility": "boundary-required",
+  "rationale": "YearMonthDay::ok includes Month::ok as its month-domain conjunct, so its validity postcondition depends on the callee enforcing the supported month range.",
+  "evidence_links": [
+    "E-4",
+    "E-12"
+  ],
+  "reliances": [
+    {
+      "obligation_id": "Month.C001",
+      "required_assurance": {
+        "required_claims": [
+          "postcondition-holds"
+        ],
+        "accepted_evidence_kinds": [
+          "creusot-deductive-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "year in [-32767, 32767], month in [1, 12], day in [1, 31], days::rep is a 32-bit int"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    }
+  ],
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [],
+      "cfg": []
+    }
+  },
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-16"
+  }
+}

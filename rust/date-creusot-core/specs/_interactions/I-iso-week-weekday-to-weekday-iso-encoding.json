@@ -14,7 +14,7 @@
     "pure-data-type-reference"
   ],
   "eligibility": "boundary-required",
-  "rationale": "The converting constructor from date::weekday to iso_week::weekday changes only the representation, 0 becoming 7, so the caller's whole correctness rests on the callee's 0-to-7 mapping and on the fact that no other value is altered.",
+  "rationale": "The converting constructor from date::weekday to iso_week::weekday changes only the representation, mapping zero to seven, so correctness depends on the C encoding convention and the callee mapping.",
   "evidence_links": [
     "E-7",
     "E-8",
@@ -23,7 +23,7 @@
   ],
   "reliances": [
     {
-      "obligation_id": "Weekday.C3",
+      "obligation_id": "Weekday.C003",
       "required_assurance": {
         "required_claims": [
           "postcondition-holds"
@@ -40,7 +40,7 @@
       }
     },
     {
-      "obligation_id": "Weekday.C2",
+      "obligation_id": "Weekday.C002",
       "required_assurance": {
         "required_claims": [
           "postcondition-holds"
@@ -62,14 +62,12 @@
     "requirement": "required",
     "config_scope": {
       "target": "x86_64-unknown-linux-gnu",
-      "features": [
-        "default"
-      ],
+      "features": [],
       "cfg": []
     }
   },
   "review": {
-    "reviewer": "chainlink-reviewer",
-    "reviewed_at": "2026-09-25"
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-16"
   }
 }

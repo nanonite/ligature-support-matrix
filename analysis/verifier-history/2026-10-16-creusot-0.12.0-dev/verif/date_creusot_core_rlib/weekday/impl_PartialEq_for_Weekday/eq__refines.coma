@@ -1,0 +1,27 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 55 4 55 38 *)
+
+(* <weekday::Weekday as std::cmp::PartialEq> *)
+
+let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 36 8 36 28
+let%span sweekday = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 54 14 54 65
+let%span sweekday'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 67 20 67 27
+let%span scmp = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/std/cmp.rs" 14 26 14 75
+
+use creusot.int.UInt8
+
+type t_Weekday = { f0: UInt8.t }
+
+function deep_model_Weekday [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/weekday.rs" 66 4 66 44] (self: t_Weekday) : int
+ = [%#sweekday'0] UInt8.t'int self.f0
+
+function deep_model_ref_Weekday [@inline:trivial] (self: t_Weekday) : int = [%#smodel] deep_model_Weekday self
+
+meta "rewrite_def" function deep_model_ref_Weekday
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+goal refines: forall self_: t_Weekday, rhs: t_Weekday. forall result: bool. ([%#sweekday] result
+        = (deep_model_ref_Weekday self_ = deep_model_ref_Weekday rhs))
+      -> ([%#scmp] result = (deep_model_ref_Weekday self_ = deep_model_ref_Weekday rhs))

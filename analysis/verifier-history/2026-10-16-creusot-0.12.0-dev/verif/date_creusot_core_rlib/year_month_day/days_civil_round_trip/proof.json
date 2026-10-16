@@ -1,0 +1,36 @@
+{
+  "profile": [],
+  "proofs": {
+    "Coma": {
+      "vc_days_civil_round_trip": {
+        "tactic": "split_vc",
+        "children": [
+          { "prover": "alt-ergo", "time": 0.007 },
+          { "prover": "alt-ergo", "time": 0.027 },
+          { "prover": "alt-ergo", "time": 0.102 },
+          { "prover": "alt-ergo", "time": 0.015 },
+          { "prover": "alt-ergo", "time": 0.01 },
+          { "prover": "cvc5", "time": 0.103 },
+          { "prover": "alt-ergo", "time": 0.01 },
+          { "prover": "alt-ergo", "time": 0.023 },
+          { "prover": "alt-ergo", "time": 0.08 },
+          { "prover": "alt-ergo", "time": 0.018 },
+          { "prover": "alt-ergo", "time": 0.013 },
+          { "prover": "z3", "time": 0.186 },
+          { "prover": "alt-ergo", "time": 0.005 },
+          { "prover": "alt-ergo", "time": 0.027 },
+          { "prover": "alt-ergo", "time": 0.092 },
+          { "prover": "alt-ergo", "time": 0.014 },
+          { "prover": "alt-ergo", "time": 0.013 },
+          { "prover": "cvc5", "time": 0.074 },
+          { "prover": "alt-ergo", "time": 0.007 },
+          { "prover": "alt-ergo", "time": 0.025 },
+          { "prover": "alt-ergo", "time": 0.079 },
+          { "prover": "alt-ergo", "time": 0.014 },
+          { "prover": "alt-ergo", "time": 0.013 },
+          { "prover": "cvc5", "time": 0.099 }
+        ]
+      }
+    }
+  }
+}

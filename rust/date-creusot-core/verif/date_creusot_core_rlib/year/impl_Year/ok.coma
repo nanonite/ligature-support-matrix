@@ -4,6 +4,7 @@
 
 let%span syear = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 50 18 50 26
 let%span syear'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 48 14 48 43
+let%span sint_macros = "/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/num/int_macros.rs" 36 8 36 27
 
 use creusot.int.Int16
 use creusot.prelude.Any
@@ -11,7 +12,7 @@ use int.Int
 
 type t_Year = { f0: Int16.t }
 
-constant const_MIN: Int16.t = (-32768: Int16.t)
+constant const_MIN: Int16.t = [%#sint_macros] (-32768: Int16.t)
 
 meta "compute_max_steps" 1000000
 

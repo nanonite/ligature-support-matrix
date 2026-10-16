@@ -1,0 +1,17 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/days.rs" 21 9 21 14 *)
+
+(* <days::Days as std::clone::Clone> *)
+
+use creusot.int.Int32
+use creusot.prelude.Any
+
+type t_Days = { f0: Int32.t }
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let clone_Days [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/days.rs" 21 9 21 14]
+  (self: t_Days) (return (x: t_Days)) = (! bb0
+  [ bb0 = s0 [ s0 = [ &_ret <- self ] s1 | s1 = return {_ret} ] ]
+  [ & _ret: t_Days = Any.any_l () | & self: t_Days = self ]) [ return (result: t_Days) -> (! return {result}) ]

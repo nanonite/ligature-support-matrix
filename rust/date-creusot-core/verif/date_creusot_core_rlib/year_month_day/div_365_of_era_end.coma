@@ -1,10 +1,15 @@
 (* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 184 0 184 33 *)
 
+let%span sord = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/logic/ord.rs" 34 8 34 21
 let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 182 11 182 17
 let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 183 10 183 38
 
 use int.ComputerDivision
 use int.Int
+
+predicate ge_log_Int [@inline:trivial] (self: int) (other: int) = [%#sord] other <= self
+
+meta "rewrite_def" predicate ge_log_Int
 
 meta "compute_max_steps" 1000000
 
@@ -14,6 +19,6 @@ constant k : int
 
 function div_365_of_era_end [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 184 0 184 33] (k: int) : ()
 
-goal vc_div_365_of_era_end: ([%#syear_month_day] k >= 1)
+goal vc_div_365_of_era_end: ([%#syear_month_day] ge_log_Int k 1)
   -> ([@stop_split] [@expl:div_365_of_era_end ensures] [%#syear_month_day'0] ComputerDivision.div (365 * k - 1) 365
   = k - 1)

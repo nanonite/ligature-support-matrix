@@ -1,9 +1,14 @@
 (* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/lib.rs" 53 0 53 33 *)
 
 let%span slib = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/lib.rs" 52 10 52 35
+let%span sord = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/logic/ord.rs" 34 8 34 21
 
 use int.EuclideanDivision
 use int.Int
+
+predicate ge_log_Int [@inline:trivial] (self: int) (other: int) = [%#sord] other <= self
+
+meta "rewrite_def" predicate ge_log_Int
 
 meta "compute_max_steps" 1000000
 
@@ -13,6 +18,6 @@ constant a : int
 
 function euclid_mod7 [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/lib.rs" 53 0 53 33] (a: int) : int
 
-goal vc_euclid_mod7: let result = EuclideanDivision.mod a 7 in [@stop_split] [@expl:euclid_mod7 ensures] [%#slib] result
-    >= 0
+goal vc_euclid_mod7:
+  let result = EuclideanDivision.mod a 7 in [@stop_split] [@expl:euclid_mod7 ensures] [%#slib] ge_log_Int result 0
   /\ result < 7

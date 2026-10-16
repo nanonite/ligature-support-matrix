@@ -1,0 +1,27 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 71 4 71 38 *)
+
+(* <iso_week::IsoWeekday as std::cmp::PartialEq> *)
+
+let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 36 8 36 28
+let%span siso_week = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 70 14 70 65
+let%span siso_week'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 83 20 83 27
+let%span scmp = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/std/cmp.rs" 14 26 14 75
+
+use creusot.int.UInt8
+
+type t_IsoWeekday = { f0: UInt8.t }
+
+function deep_model_IsoWeekday [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/iso_week.rs" 82 4 82 44] (self: t_IsoWeekday) : int
+ = [%#siso_week'0] UInt8.t'int self.f0
+
+function deep_model_ref_IsoWeekday [@inline:trivial] (self: t_IsoWeekday) : int = [%#smodel] deep_model_IsoWeekday self
+
+meta "rewrite_def" function deep_model_ref_IsoWeekday
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+goal refines: forall self_: t_IsoWeekday, rhs: t_IsoWeekday. forall result: bool. ([%#siso_week] result
+        = (deep_model_ref_IsoWeekday self_ = deep_model_ref_IsoWeekday rhs))
+      -> ([%#scmp] result = (deep_model_ref_IsoWeekday self_ = deep_model_ref_IsoWeekday rhs))

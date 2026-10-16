@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "boundary_id": "year_month_day_last_day__to__year_is_leap",
+  "caller": {
+    "concept": "YearMonthDayLast",
+    "method": "day"
+  },
+  "callee": {
+    "concept": "Year",
+    "method": "is_leap"
+  },
+  "callee_guarantees": [
+    "Year.C002"
+  ],
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-16"
+  }
+}

@@ -1,0 +1,78 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 772 4 772 38 *)
+
+(* <year_month_day::YearMonthDay as std::cmp::PartialEq> *)
+
+let%span sday = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/day.rs" 27 14 27 45
+let%span smodel = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/model.rs" 36 8 36 28
+let%span smonth = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/month.rs" 27 14 27 45
+let%span syear = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year.rs" 30 14 30 45
+let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 773 8 773 31
+let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 773 35 773 60
+let%span syear_month_day'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 773 64 773 85
+let%span syear_month_day'2 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 773 8 773 85
+let%span syear_month_day'3 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 771 14 771 65
+let%span syear_month_day'4 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 785 20 785 99
+
+use creusot.int.Int16
+use creusot.int.UInt8
+use creusot.prelude.Any
+
+type t_Year = { f0: Int16.t }
+
+type t_Month = { f0'0: UInt8.t }
+
+type t_Day = { f0'1: UInt8.t }
+
+type t_YearMonthDay = { year: t_Year; month: t_Month; day: t_Day }
+
+let eq_Year (self: t_Year) (other: t_Year) (return (x: bool)) = any
+  [ return (result: bool) -> {[@stop_split] [@expl:eq ensures] [%#syear] result
+    = (Int16.to_int self.f0 = Int16.to_int other.f0)}
+    (! return {result}) ]
+
+let eq_Month (self: t_Month) (other: t_Month) (return (x: bool)) = any
+  [ return (result: bool) -> {[@stop_split] [@expl:eq ensures] [%#smonth] result
+    = (UInt8.t'int self.f0'0 = UInt8.t'int other.f0'0)}
+    (! return {result}) ]
+
+let eq_Day (self: t_Day) (other: t_Day) (return (x: bool)) = any
+  [ return (result: bool) -> {[@stop_split] [@expl:eq ensures] [%#sday] result
+    = (UInt8.t'int self.f0'1 = UInt8.t'int other.f0'1)}
+    (! return {result}) ]
+
+type t_YearMonthDayView = { year'0: int; month'0: int; day'0: int }
+
+function deep_model_YearMonthDay [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 784 4 784 43] (self: t_YearMonthDay) : t_YearMonthDayView
+ = [%#syear_month_day'4] { year'0 = Int16.to_int self.year.f0;
+                           month'0 = UInt8.t'int self.month.f0'0;
+                           day'0 = UInt8.t'int self.day.f0'1 }
+
+function deep_model_ref_YearMonthDay [@inline:trivial] (self: t_YearMonthDay) : t_YearMonthDayView =
+  [%#smodel] deep_model_YearMonthDay self
+
+meta "rewrite_def" function deep_model_ref_YearMonthDay
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let eq_YearMonthDay [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 772 4 772 38]
+  (self: t_YearMonthDay) (other: t_YearMonthDay) (return (x: bool)) = (! bb0
+  [ bb0 = s0
+    [ s0 = eq_Year [%#syear_month_day] {self.year} {other.year} (fun (_x: bool) -> [ &_6 <- _x ] s1)
+    | s1 = any [ br0 -> {_6 = false} (! bb7) | br1 -> {_6} (! bb2) ] ]
+  | bb2 = s0
+    [ s0 = eq_Month [%#syear_month_day'0] {self.month} {other.month} (fun (_x: bool) -> [ &_9 <- _x ] s1)
+    | s1 = any [ br0 -> {_9 = false} (! bb7) | br1 -> {_9} (! bb4) ] ]
+  | bb4 = s0
+    [ s0 = eq_Day [%#syear_month_day'1] {self.day} {other.day} (fun (_x: bool) -> [ &_ret <- _x ] s1)
+    | s1 = return {_ret} ]
+  | bb7 = s0 [ s0 = [ &_ret <- [%#syear_month_day'2] false ] s1 | s1 = return {_ret} ] ]
+  [ & _ret: bool = Any.any_l ()
+  | & self: t_YearMonthDay = self
+  | & other: t_YearMonthDay = other
+  | & _6: bool = Any.any_l ()
+  | & _9: bool = Any.any_l () ])
+  [ return (result: bool) -> {[@stop_split] [@expl:eq ensures] [%#syear_month_day'3] result
+    = (deep_model_ref_YearMonthDay self = deep_model_ref_YearMonthDay other)}
+    (! return {result}) ]

@@ -10,10 +10,10 @@
     "method": "day"
   },
   "callee_guarantees": [
-    "YearMonthDayLast.C1"
+    "YearMonthDayLast.C001"
   ],
   "review": {
-    "reviewer": "chainlink-reviewer",
-    "reviewed_at": "2026-09-25"
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-16"
   }
 }

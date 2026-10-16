@@ -1,0 +1,9 @@
+{
+  "profile": [],
+  "proofs": {
+    "Coma": {
+      "vc_from_weekday": { "prover": "alt-ergo", "time": 0.003 },
+      "vc_to_iso_encoding": { "prover": "alt-ergo", "time": 0.004 }
+    }
+  }
+}

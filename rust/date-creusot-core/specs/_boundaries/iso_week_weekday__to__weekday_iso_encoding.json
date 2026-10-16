@@ -10,11 +10,11 @@
     "method": "iso_encoding"
   },
   "callee_guarantees": [
-    "Weekday.C2",
-    "Weekday.C3"
+    "Weekday.C002",
+    "Weekday.C003"
   ],
   "review": {
-    "reviewer": "chainlink-reviewer",
-    "reviewed_at": "2026-09-25"
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-16"
   }
 }

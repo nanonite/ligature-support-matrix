@@ -1,10 +1,15 @@
 (* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 653 0 653 39 *)
 
+let%span sord = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/logic/ord.rs" 34 8 34 21
 let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 647 11 647 36
 let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 649 4 649 68
 
 use int.ComputerDivision
 use int.Int
+
+predicate ge_log_Int [@inline:trivial] (self: int) (other: int) = [%#sord] other <= self
+
+meta "rewrite_def" predicate ge_log_Int
 
 meta "compute_max_steps" 1000000
 
@@ -14,39 +19,10 @@ constant doe : int
 
 predicate yoe_doy_bounds [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 653 0 653 39] (doe: int)
 
-goal vc_yoe_doy_bounds: ([%#syear_month_day] doe >= 0 /\ doe <= 146096)
-  -> (let yoe = ComputerDivision.div (doe - ComputerDivision.div doe 1460 + ComputerDivision.div doe 36524
+goal vc_yoe_doy_bounds: ([%#syear_month_day] ge_log_Int doe 0 /\ doe <= 146096)
+  -> ([@stop_split] [@expl:yoe_doy_bounds ensures] [%#syear_month_day'0] let yoe = ComputerDivision.div (doe
+      - ComputerDivision.div doe 1460
+    + ComputerDivision.div doe 36524
   - ComputerDivision.div doe 146096) 365 in let doy = doe
-  - (365 * yoe + ComputerDivision.div yoe 4 - ComputerDivision.div yoe 100) in if yoe >= 0 then
-    if yoe <= 399 then
-      if doy >= 0 then
-        [@stop_split] [@expl:yoe_doy_bounds ensures] [%#syear_month_day'0] let yoe'0 = ComputerDivision.div (doe
-            - ComputerDivision.div doe 1460
-          + ComputerDivision.div doe 36524
-        - ComputerDivision.div doe 146096) 365 in let doy'0 = doe
-        - (365 * yoe'0 + ComputerDivision.div yoe'0 4 - ComputerDivision.div yoe'0 100) in yoe'0 >= 0
-        /\ yoe'0 <= 399 /\ doy'0 >= 0 /\ doy'0 <= 365
-      else
-        [@stop_split] [@expl:yoe_doy_bounds ensures] [%#syear_month_day'0] let yoe'0 = ComputerDivision.div (doe
-            - ComputerDivision.div doe 1460
-          + ComputerDivision.div doe 36524
-        - ComputerDivision.div doe 146096) 365 in let doy'0 = doe
-        - (365 * yoe'0 + ComputerDivision.div yoe'0 4 - ComputerDivision.div yoe'0 100) in yoe'0 >= 0
-        /\ yoe'0 <= 399 /\ doy'0 >= 0 /\ doy'0 <= 365
-    
-    else
-      [@stop_split] [@expl:yoe_doy_bounds ensures] [%#syear_month_day'0] let yoe'0 = ComputerDivision.div (doe
-          - ComputerDivision.div doe 1460
-        + ComputerDivision.div doe 36524
-      - ComputerDivision.div doe 146096) 365 in let doy'0 = doe
-      - (365 * yoe'0 + ComputerDivision.div yoe'0 4 - ComputerDivision.div yoe'0 100) in yoe'0 >= 0
-      /\ yoe'0 <= 399 /\ doy'0 >= 0 /\ doy'0 <= 365
-  
-  else
-    [@stop_split] [@expl:yoe_doy_bounds ensures] [%#syear_month_day'0] let yoe'0 = ComputerDivision.div (doe
-        - ComputerDivision.div doe 1460
-      + ComputerDivision.div doe 36524
-    - ComputerDivision.div doe 146096) 365 in let doy'0 = doe
-    - (365 * yoe'0 + ComputerDivision.div yoe'0 4 - ComputerDivision.div yoe'0 100) in yoe'0 >= 0
-    /\ yoe'0 <= 399 /\ doy'0 >= 0 /\ doy'0 <= 365
-  )
+  - (365 * yoe + ComputerDivision.div yoe 4 - ComputerDivision.div yoe 100) in ge_log_Int yoe 0
+  /\ yoe <= 399 /\ ge_log_Int doy 0 /\ doy <= 365)

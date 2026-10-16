@@ -1,0 +1,42 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 742 4 742 36 *)
+
+(* <year_month_day::YearMonthDayView as std::cmp::PartialEq> *)
+
+let%span syear_month_day = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 743 8 743 29
+let%span syear_month_day'0 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 743 33 743 56
+let%span syear_month_day'1 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 743 60 743 79
+let%span syear_month_day'2 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 743 8 743 79
+let%span syear_month_day'3 = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 737 14 741 5
+let%span sint = "/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/creusot/creusot-std/src/logic/int.rs" 260 14 260 41
+
+use creusot.prelude.Any
+
+type t_YearMonthDayView = { year: int; month: int; day: int }
+
+let eq_Int (self: int) (other: int) (return (x: bool)) = any
+  [ return (result: bool) -> {[@stop_split] [@expl:eq ensures] [%#sint] result = (self = other)} (! return {result}) ]
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let eq_YearMonthDayView [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 742 4 742 36]
+  (self: t_YearMonthDayView) (rhs: t_YearMonthDayView) (return (x: bool)) = (! bb0
+  [ bb0 = s0
+    [ s0 = eq_Int [%#syear_month_day] {self.year} {rhs.year} (fun (_x: bool) -> [ &_6 <- _x ] s1)
+    | s1 = any [ br0 -> {_6 = false} (! bb7) | br1 -> {_6} (! bb2) ] ]
+  | bb2 = s0
+    [ s0 = eq_Int [%#syear_month_day'0] {self.month} {rhs.month} (fun (_x: bool) -> [ &_9 <- _x ] s1)
+    | s1 = any [ br0 -> {_9 = false} (! bb7) | br1 -> {_9} (! bb4) ] ]
+  | bb4 = s0
+    [ s0 = eq_Int [%#syear_month_day'1] {self.day} {rhs.day} (fun (_x: bool) -> [ &_ret <- _x ] s1)
+    | s1 = return {_ret} ]
+  | bb7 = s0 [ s0 = [ &_ret <- [%#syear_month_day'2] false ] s1 | s1 = return {_ret} ] ]
+  [ & _ret: bool = Any.any_l ()
+  | & self: t_YearMonthDayView = self
+  | & rhs: t_YearMonthDayView = rhs
+  | & _6: bool = Any.any_l ()
+  | & _9: bool = Any.any_l () ])
+  [ return (result: bool) -> {[@stop_split] [@expl:eq ensures] [%#syear_month_day'3] result
+    = (self.year = rhs.year /\ self.month = rhs.month /\ self.day = rhs.day)}
+    (! return {result}) ]

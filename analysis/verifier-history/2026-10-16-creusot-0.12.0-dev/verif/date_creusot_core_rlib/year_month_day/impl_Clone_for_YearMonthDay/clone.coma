@@ -1,0 +1,25 @@
+(* #"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 748 9 748 14 *)
+
+(* <year_month_day::YearMonthDay as std::clone::Clone> *)
+
+use creusot.int.Int16
+use creusot.int.UInt8
+use creusot.prelude.Any
+
+type t_Year = { f0: Int16.t }
+
+type t_Month = { f0'0: UInt8.t }
+
+type t_Day = { f0'1: UInt8.t }
+
+type t_YearMonthDay = { year: t_Year; month: t_Month; day: t_Day }
+
+meta "compute_max_steps" 1000000
+
+meta "select_lsinst" "all"
+
+let clone_YearMonthDay [#"/home/goya/storage/full-ligature-port-workspace/date-creusot/rust/date-creusot-core/src/year_month_day.rs" 748 9 748 14]
+  (self: t_YearMonthDay) (return (x: t_YearMonthDay)) = (! bb0
+  [ bb0 = s0 [ s0 = [ &_ret <- self ] s1 | s1 = return {_ret} ] ]
+  [ & _ret: t_YearMonthDay = Any.any_l () | & self: t_YearMonthDay = self ])
+  [ return (result: t_YearMonthDay) -> (! return {result}) ]
