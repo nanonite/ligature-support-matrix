@@ -1,202 +1,332 @@
 {
-  "schema": "work-package-manifest/1.0",
-  "work_package": "WP-DATE-CREUSOT",
-  "issue": "chainlink:14",
-  "depends_on": [],
   "coupling_notes": [
-    "Era arithmetic (days_from_civil/civil_from_days) couples to weekday computation through the days-from-epoch representation shared by date::year_month_day::to_days and date::weekday::weekday_from_days.",
-    "ISO week encoding couples to Weekday::iso_encoding through the 0-to-7 Sunday re-encoding (iso_week::weekday::weekday_from_days agrees with date::weekday::iso_encoding for every z).",
-    "All five obligations require creusot-deductive-check evidence; the promoted interactions' trust policy allows no assumptions, so trusted_assumptions is empty.",
-    "gate_integrity entries for scripts/witness_renderer.py and scripts/xml_escape.py carry the real sha256 of the ligature-managed witness renderer and its direct helper as installed by ligature 1.1+ init/migrate; the ligature 1.0-era placeholder zero hashes are gone and G13 verifies these two hashes against the installed files.",
-    "provenance.artifact_set_hash is the sha256 of the Stage 4.5 promotion receipt file specs/_promotions/date-creusot-core.json, the machine-readable record of the accepted artifact set."
+    "All selected obligations use Creusot. The exact canonical assurance output is ci/results/WP-DATE-CREUSOT.json; the feature ledger remains ci/results/feature_ledger.json.",
+    "The existing accepted interaction reliances all retain their reviewed minimum_scope verbatim: year in [-32767, 32767], month in [1, 12], day in [1, 31], and days::rep is a 32-bit int. C007 keeps the source contract precondition ok_logic(); this scope declaration does not widen that contract or assert proof success.",
+    "The three callee guarantees are Year.C001, Year.C002, and Month.C001, derived from the approved interactions. No additional assumptions are authorized; trusted_assumptions must remain empty.",
+    "This approved scope contains exactly nine unique obligations: Weekday.C001, Weekday.C002, Weekday.C003, YearMonthDay.C002 (from_days), YearMonthDay.C007 (round_trip), YearMonthDayLast.C001, Year.C001, Year.C002, and Month.C001.",
+    "YearMonthDay.C002 remains the from_days claim. YearMonthDay.C007 is a separate postcondition for round_trip; the two mappings are not interchangeable."
   ],
-  "scheduling_rule": "reverse-dependency-order",
-  "functions": [
-    "date::year_month_day::to_days",
-    "date::year_month_day::from_days",
-    "date::weekday::weekday_from_days",
-    "date::weekday::iso_encoding",
-    "iso_week::weekday::weekday_from_days",
-    "date::year_month_day::ok",
-    "date::year_month_day::last_day"
-  ],
-  "obligations": [
-    "Weekday.C1",
-    "Weekday.C2",
-    "Weekday.C3",
-    "YearMonthDay.C2",
-    "YearMonthDayLast.C1"
-  ],
-  "provenance": {
-    "base_commit": "179a6b921ccd6179b5b04dce812a89f71a51b4df",
-    "promotion_id": "PROM-DATE-CREUSOT-CORE-001",
-    "artifact_set_hash": "sha256:891099b32cb08bd2ac6bf8137cc019a7c3f6fffaec786618aedf1ef0ba9511b7",
-    "toolchain": "rustc/cargo-creusot/why3",
-    "target": "x86_64-unknown-linux-gnu",
-    "features": [
-      "default"
-    ]
+  "definition_of_done": {
+    "provided_guarantees": [
+      {
+        "harness": "creusot",
+        "obligation_id": "Month.C001",
+        "required_assurance": {
+          "accepted_evidence_kinds": [
+            "creusot-deductive-check"
+          ],
+          "minimum_scope": {
+            "input_domain": "year in [-32767, 32767], month in [1, 12], day in [1, 31], days::rep is a 32-bit int"
+          },
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "trust_policy": {
+            "assumptions_allowed": []
+          }
+        }
+      },
+      {
+        "harness": "creusot",
+        "obligation_id": "Weekday.C001",
+        "required_assurance": {
+          "accepted_evidence_kinds": [
+            "creusot-deductive-check"
+          ],
+          "minimum_scope": {
+            "input_domain": "year in [-32767, 32767], month in [1, 12], day in [1, 31], days::rep is a 32-bit int"
+          },
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "trust_policy": {
+            "assumptions_allowed": []
+          }
+        }
+      },
+      {
+        "harness": "creusot",
+        "obligation_id": "Weekday.C002",
+        "required_assurance": {
+          "accepted_evidence_kinds": [
+            "creusot-deductive-check"
+          ],
+          "minimum_scope": {
+            "input_domain": "year in [-32767, 32767], month in [1, 12], day in [1, 31], days::rep is a 32-bit int"
+          },
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "trust_policy": {
+            "assumptions_allowed": []
+          }
+        }
+      },
+      {
+        "harness": "creusot",
+        "obligation_id": "Weekday.C003",
+        "required_assurance": {
+          "accepted_evidence_kinds": [
+            "creusot-deductive-check"
+          ],
+          "minimum_scope": {
+            "input_domain": "year in [-32767, 32767], month in [1, 12], day in [1, 31], days::rep is a 32-bit int"
+          },
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "trust_policy": {
+            "assumptions_allowed": []
+          }
+        }
+      },
+      {
+        "harness": "creusot",
+        "obligation_id": "Year.C001",
+        "required_assurance": {
+          "accepted_evidence_kinds": [
+            "creusot-deductive-check"
+          ],
+          "minimum_scope": {
+            "input_domain": "year in [-32767, 32767], month in [1, 12], day in [1, 31], days::rep is a 32-bit int"
+          },
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "trust_policy": {
+            "assumptions_allowed": []
+          }
+        }
+      },
+      {
+        "harness": "creusot",
+        "obligation_id": "Year.C002",
+        "required_assurance": {
+          "accepted_evidence_kinds": [
+            "creusot-deductive-check"
+          ],
+          "minimum_scope": {
+            "input_domain": "year in [-32767, 32767], month in [1, 12], day in [1, 31], days::rep is a 32-bit int"
+          },
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "trust_policy": {
+            "assumptions_allowed": []
+          }
+        }
+      },
+      {
+        "harness": "creusot",
+        "obligation_id": "YearMonthDay.C002",
+        "required_assurance": {
+          "accepted_evidence_kinds": [
+            "creusot-deductive-check"
+          ],
+          "minimum_scope": {
+            "input_domain": "year in [-32767, 32767], month in [1, 12], day in [1, 31], days::rep is a 32-bit int"
+          },
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "trust_policy": {
+            "assumptions_allowed": []
+          }
+        }
+      },
+      {
+        "harness": "creusot",
+        "obligation_id": "YearMonthDay.C007",
+        "required_assurance": {
+          "accepted_evidence_kinds": [
+            "creusot-deductive-check"
+          ],
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "trust_policy": {
+            "assumptions_allowed": []
+          }
+        }
+      },
+      {
+        "harness": "creusot",
+        "obligation_id": "YearMonthDayLast.C001",
+        "required_assurance": {
+          "accepted_evidence_kinds": [
+            "creusot-deductive-check"
+          ],
+          "minimum_scope": {
+            "input_domain": "year in [-32767, 32767], month in [1, 12], day in [1, 31], days::rep is a 32-bit int"
+          },
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "trust_policy": {
+            "assumptions_allowed": []
+          }
+        }
+      }
+    ],
+    "required_guarantees": [],
+    "required_preconditions_to_establish": [],
+    "trusted_assumptions": []
   },
+  "depends_on": [],
+  "failure_policy": {
+    "forbidden": [
+      "weaken_or_delete_contract",
+      "delete_or_stub_harness",
+      "add_trusted_assumption",
+      "edit_protected_paths",
+      "modify_gate_implementation",
+      "change_features_or_toolchain",
+      "disable_test_registration"
+    ],
+    "missing_callee_guarantee": "raise_change_request(kind=missing_contract)",
+    "obligation_unprovable": "raise_change_request(kind=contract_revision)",
+    "unintended_call_edge": "raise_change_request(kind=interaction_revision)",
+    "unresolved_callsite": "raise_change_request(kind=callsite_unresolved)",
+    "verifier_timeout": "raise_change_request(kind=budget_or_assumption)"
+  },
+  "functions": [
+    "date_creusot_core::iso_week::weekday_from_days",
+    "date_creusot_core::month::Month::ok",
+    "date_creusot_core::weekday::Weekday::c_encoding",
+    "date_creusot_core::weekday::Weekday::iso_encoding",
+    "date_creusot_core::weekday::weekday_from_days",
+    "date_creusot_core::year::Year::is_leap",
+    "date_creusot_core::year::Year::ok",
+    "date_creusot_core::year_month_day::YearMonthDay::from_days",
+    "date_creusot_core::year_month_day::YearMonthDay::last",
+    "date_creusot_core::year_month_day::YearMonthDay::ok",
+    "date_creusot_core::year_month_day::YearMonthDay::round_trip",
+    "date_creusot_core::year_month_day::YearMonthDay::to_days",
+    "date_creusot_core::year_month_day::YearMonthDay::to_days_bounded",
+    "date_creusot_core::year_month_day_last::YearMonthDayLast::day",
+    "date_creusot_core::year_month_day_last::YearMonthDayLast::new",
+    "date_creusot_core::year_month_day_last::YearMonthDayLast::ok"
+  ],
   "gate_integrity": [
     {
-      "runner": "scripts/witness_renderer.py",
-      "hash": "sha256:0b844c7ec904604754e13ba448c5f146cbe4296a7fd617cdfe0085636eb946bd"
+      "hash": "sha256:6b3c3ae71b7d059115b497136077e1472cb46071a47143b2383ed870eee64216",
+      "runner": ".codex/skills/ligature/SKILL.md"
     },
     {
-      "runner": "scripts/xml_escape.py",
-      "hash": "sha256:09dc6a9258a9bdab7648d3d8d0588bbb4bf2a096457c950e094964aa8d139854"
+      "hash": "sha256:410dd4820f6b4ac5110653f2c310e13212eb311cd47e0d6c85ce9b715bbfffcf",
+      "runner": ".ligature/schemas/consolidated-check.schema.json"
+    },
+    {
+      "hash": "sha256:f38a526bd77fcc0a916351d729bfad95d858ead740ed0268220bb0b833f164bd",
+      "runner": ".ligature/schemas/project-state.schema.json"
+    },
+    {
+      "hash": "sha256:0b844c7ec904604754e13ba448c5f146cbe4296a7fd617cdfe0085636eb946bd",
+      "runner": "scripts/witness_renderer.py"
+    },
+    {
+      "hash": "sha256:09dc6a9258a9bdab7648d3d8d0588bbb4bf2a096457c950e094964aa8d139854",
+      "runner": "scripts/xml_escape.py"
     }
   ],
+  "gates": [
+    {
+      "args": [
+        "validate-interaction"
+      ],
+      "id": "g15",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "gate",
+        "g18"
+      ],
+      "id": "g18",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "gate",
+        "g19"
+      ],
+      "id": "g19",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "validate"
+      ],
+      "id": "g1a",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "validate-interaction"
+      ],
+      "id": "g1b",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "gate",
+        "g20"
+      ],
+      "id": "g20",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "validate-interaction"
+      ],
+      "id": "r2",
+      "runner": "ligature"
+    }
+  ],
+  "issue": "chainlink:138",
+  "obligations": [
+    "Month.C001",
+    "Weekday.C001",
+    "Weekday.C002",
+    "Weekday.C003",
+    "Year.C001",
+    "Year.C002",
+    "YearMonthDay.C002",
+    "YearMonthDay.C007",
+    "YearMonthDayLast.C001"
+  ],
+  "provenance": {
+    "artifact_set_hash": "sha256:69548f171e1a4210f0d95233b9592f22fa15acccda8f03e5cf1c7b43d197ce71",
+    "base_commit": "729f0432c90dd7916bdbeecb750b9d5abbbbf5cd",
+    "features": [],
+    "promotion_id": "PROM-DATE-CREUSOT-CORE-001",
+    "target": "x86_64-unknown-linux-gnu",
+    "toolchain": "rustc-1.90.0/cargo-creusot-0.14.0-dev/why3-1.8.2"
+  },
+  "report": {
+    "emit": "ci/results/WP-DATE-CREUSOT.json",
+    "per_obligation_assurance_record": true
+  },
+  "scheduling_rule": "reverse-dependency-order",
+  "schema": "work-package-manifest/1.0",
+  "work_package": "WP-DATE-CREUSOT",
   "write_policy": {
     "allowed_write_set": [
       "rust/*/src/",
       "rust/*/tests/"
     ],
+    "on_conflict": "raise_change_request",
     "protected_write_set": [
-      "rust/*/specs/**",
+      ".github/**",
       "ci/manifest/**",
-      "scripts/**",
-      "docs/reliance-policy.md",
       "docs/*-schema.json",
+      "docs/reliance-policy.md",
+      "rust-toolchain.toml",
       "rust/*/Cargo.toml",
       "rust/*/build.rs",
-      ".github/**",
-      "rust-toolchain.toml",
+      "rust/*/specs/**",
+      "scripts/**",
       "tests/harnesses/**"
-    ],
-    "on_conflict": "raise_change_request"
-  },
-  "definition_of_done": {
-    "provided_guarantees": [
-      {
-        "obligation_id": "Weekday.C1",
-        "required_assurance": {
-          "required_claims": [
-            "postcondition-holds"
-          ],
-          "accepted_evidence_kinds": [
-            "creusot-deductive-check"
-          ]
-        },
-        "harness": "creusot"
-      },
-      {
-        "obligation_id": "Weekday.C2",
-        "required_assurance": {
-          "required_claims": [
-            "postcondition-holds"
-          ],
-          "accepted_evidence_kinds": [
-            "creusot-deductive-check"
-          ]
-        },
-        "harness": "creusot"
-      },
-      {
-        "obligation_id": "Weekday.C3",
-        "required_assurance": {
-          "required_claims": [
-            "postcondition-holds"
-          ],
-          "accepted_evidence_kinds": [
-            "creusot-deductive-check"
-          ]
-        },
-        "harness": "creusot"
-      },
-      {
-        "obligation_id": "YearMonthDay.C2",
-        "required_assurance": {
-          "required_claims": [
-            "postcondition-holds"
-          ],
-          "accepted_evidence_kinds": [
-            "creusot-deductive-check"
-          ]
-        },
-        "harness": "creusot"
-      },
-      {
-        "obligation_id": "YearMonthDayLast.C1",
-        "required_assurance": {
-          "required_claims": [
-            "postcondition-holds"
-          ],
-          "accepted_evidence_kinds": [
-            "creusot-deductive-check"
-          ]
-        },
-        "harness": "creusot"
-      }
-    ],
-    "required_preconditions_to_establish": [],
-    "required_guarantees": [],
-    "trusted_assumptions": []
-  },
-  "gates": [
-    {
-      "id": "g1a",
-      "runner": "ligature",
-      "args": [
-        "validate"
-      ]
-    },
-    {
-      "id": "g1b",
-      "runner": "ligature",
-      "args": [
-        "validate-interaction"
-      ]
-    },
-    {
-      "id": "g15",
-      "runner": "ligature",
-      "args": [
-        "validate-interaction"
-      ]
-    },
-    {
-      "id": "r2",
-      "runner": "ligature",
-      "args": [
-        "validate-interaction"
-      ]
-    },
-    {
-      "id": "g18",
-      "runner": "ligature",
-      "args": [
-        "gate",
-        "g18"
-      ]
-    },
-    {
-      "id": "g19",
-      "runner": "ligature",
-      "args": [
-        "gate",
-        "g19"
-      ]
-    },
-    {
-      "id": "g20",
-      "runner": "ligature",
-      "args": [
-        "gate",
-        "g20"
-      ]
-    }
-  ],
-  "failure_policy": {
-    "verifier_timeout": "raise_change_request(kind=timeout)",
-    "obligation_unprovable": "raise_change_request(kind=change_request)",
-    "missing_callee_guarantee": "raise_change_request(kind=change_request)",
-    "unintended_call_edge": "raise_change_request(kind=change_request)",
-    "unresolved_callsite": "raise_change_request(kind=change_request)",
-    "forbidden": []
-  },
-  "report": {
-    "emit": "ci/results/feature_ledger.json",
-    "per_obligation_assurance_record": true
+    ]
   }
 }

@@ -1,0 +1,162 @@
+{
+  "bridge_records": [],
+  "obligation_records": [
+    {
+      "obligation_id": "Weekday.C1",
+      "record": {
+        "claim": {
+          "kind": "postcondition-holds",
+          "result": "pass"
+        },
+        "config": {
+          "features": [
+            "default"
+          ],
+          "target": "x86_64-unknown-linux-gnu",
+          "toolchain": "rustc/cargo-creusot/why3"
+        },
+        "evidence": {
+          "harness": "creusot",
+          "kind": "creusot-deductive-check",
+          "scope": {
+            "proof_targets": "rust/date-creusot-core/verif/date_creusot_core_rlib/weekday/weekday_from_days/proof.json"
+          },
+          "verifier": "creusot"
+        },
+        "schema_version": "1.0",
+        "support": {
+          "status": "supported"
+        },
+        "trust": {
+          "assumptions": []
+        }
+      }
+    },
+    {
+      "obligation_id": "Weekday.C2",
+      "record": {
+        "claim": {
+          "kind": "postcondition-holds",
+          "result": "pass"
+        },
+        "config": {
+          "features": [
+            "default"
+          ],
+          "target": "x86_64-unknown-linux-gnu",
+          "toolchain": "rustc/cargo-creusot/why3"
+        },
+        "evidence": {
+          "harness": "creusot",
+          "kind": "creusot-deductive-check",
+          "scope": {
+            "proof_targets": "rust/date-creusot-core/verif/date_creusot_core_rlib/weekday/impl_Weekday/c_encoding/proof.json"
+          },
+          "verifier": "creusot"
+        },
+        "schema_version": "1.0",
+        "support": {
+          "status": "supported"
+        },
+        "trust": {
+          "assumptions": []
+        }
+      }
+    },
+    {
+      "obligation_id": "Weekday.C3",
+      "record": {
+        "claim": {
+          "kind": "postcondition-holds",
+          "result": "pass"
+        },
+        "config": {
+          "features": [
+            "default"
+          ],
+          "target": "x86_64-unknown-linux-gnu",
+          "toolchain": "rustc/cargo-creusot/why3"
+        },
+        "evidence": {
+          "harness": "creusot",
+          "kind": "creusot-deductive-check",
+          "scope": {
+            "proof_targets": "rust/date-creusot-core/verif/date_creusot_core_rlib/weekday/impl_Weekday/iso_encoding/proof.json"
+          },
+          "verifier": "creusot"
+        },
+        "schema_version": "1.0",
+        "support": {
+          "status": "supported"
+        },
+        "trust": {
+          "assumptions": []
+        }
+      }
+    },
+    {
+      "obligation_id": "YearMonthDay.C2",
+      "record": {
+        "claim": {
+          "kind": "postcondition-holds",
+          "result": "pass"
+        },
+        "config": {
+          "features": [
+            "default"
+          ],
+          "target": "x86_64-unknown-linux-gnu",
+          "toolchain": "rustc/cargo-creusot/why3"
+        },
+        "evidence": {
+          "harness": "creusot",
+          "kind": "creusot-deductive-check",
+          "scope": {
+            "proof_targets": "rust/date-creusot-core/verif/date_creusot_core_rlib/year_month_day/impl_YearMonthDay/from_days/proof.json"
+          },
+          "verifier": "creusot"
+        },
+        "schema_version": "1.0",
+        "support": {
+          "status": "supported"
+        },
+        "trust": {
+          "assumptions": []
+        }
+      }
+    },
+    {
+      "obligation_id": "YearMonthDayLast.C1",
+      "record": {
+        "claim": {
+          "kind": "postcondition-holds",
+          "result": "pass"
+        },
+        "config": {
+          "features": [
+            "default"
+          ],
+          "target": "x86_64-unknown-linux-gnu",
+          "toolchain": "rustc/cargo-creusot/why3"
+        },
+        "evidence": {
+          "harness": "creusot",
+          "kind": "creusot-deductive-check",
+          "scope": {
+            "proof_targets": "rust/date-creusot-core/verif/date_creusot_core_rlib/year_month_day_last/impl_YearMonthDayLast/day/proof.json"
+          },
+          "verifier": "creusot"
+        },
+        "schema_version": "1.0",
+        "support": {
+          "status": "supported"
+        },
+        "trust": {
+          "assumptions": []
+        }
+      }
+    }
+  ],
+  "schema_version": "1.0",
+  "work_package": "WP-DATE-CREUSOT"
+}

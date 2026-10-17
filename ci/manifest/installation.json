@@ -1,6 +1,6 @@
 {
   "adjudicator": {
-    "content_hash": "sha256:d6faedb62a7cc325b3373f3f3efdd52f7938c4b85a57359937c9dd5a56013a59",
+    "content_hash": "sha256:6e9072ba2b7c8f92497efc0778de214dcff9c7a5d1fc88ef17876441c0657d13",
     "kind": "zipapp",
     "platform": {
       "machine": "x86_64",
@@ -9,13 +9,13 @@
     },
     "python": "3.12.3",
     "required_python": "3.10",
-    "version": "1.3.12"
+    "version": "1.4.0"
   },
   "descriptor_path": "project-descriptor.json",
   "files": [
     {
       "authority_hash": null,
-      "base_hash": "sha256:83bd03ea9e228fb749c0ce3bb3023c162ae35b70088424fbd0bf688d5e89cde8",
+      "base_hash": "sha256:7e501157ccde93912556b25e94ebceb8c75a593ee098334f95abdb301fdd0e34",
       "expected_hash": "sha256:9c350b40a9fc3bc413ee4355f4e6dd470d5ffae2af842d2af2ec29f5c19ccc82",
       "ownership": "user",
       "path": "project-descriptor.json"
@@ -158,9 +158,9 @@
     ".codex/skills/ligature/SKILL.md": "sha256:6b3c3ae71b7d059115b497136077e1472cb46071a47143b2383ed870eee64216",
     ".ligature/schemas/consolidated-check.schema.json": "sha256:410dd4820f6b4ac5110653f2c310e13212eb311cd47e0d6c85ce9b715bbfffcf",
     ".ligature/schemas/project-state.schema.json": "sha256:f38a526bd77fcc0a916351d729bfad95d858ead740ed0268220bb0b833f164bd",
-    "@adjudicator": "sha256:d6faedb62a7cc325b3373f3f3efdd52f7938c4b85a57359937c9dd5a56013a59"
+    "@adjudicator": "sha256:6e9072ba2b7c8f92497efc0778de214dcff9c7a5d1fc88ef17876441c0657d13"
   },
-  "installed_product_version": "1.3.12",
+  "installed_product_version": "1.4.0",
   "installed_schema_versions": {
     "consolidated-check": "1.0",
     "project-descriptor": "1.0",
@@ -170,6 +170,6 @@
   "installed_skill_version": "1.0",
   "manifest_schema_version": "1.0",
   "mode": "port",
-  "product_version": "1.3.12",
+  "product_version": "1.4.0",
   "project_name": "date-creusot"
 }
