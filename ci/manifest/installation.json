@@ -1,6 +1,6 @@
 {
   "adjudicator": {
-    "content_hash": "sha256:5f6e9d41af35a0ee219316b1d740547c84f8ccb8666afe21b3452bb638f1c2b8",
+    "content_hash": "sha256:6e9072ba2b7c8f92497efc0778de214dcff9c7a5d1fc88ef17876441c0657d13",
     "kind": "zipapp",
     "platform": {
       "machine": "x86_64",
@@ -9,7 +9,7 @@
     },
     "python": "3.12.3",
     "required_python": "3.10",
-    "version": "1.3.11"
+    "version": "1.4.0"
   },
   "descriptor_path": "project-descriptor.json",
   "files": [
@@ -36,15 +36,15 @@
     },
     {
       "authority_hash": null,
-      "base_hash": "sha256:04e2c1ba057877fa136f64447b0f312f9ae93610edf08c0ed88b8af61b9b185d",
-      "expected_hash": "sha256:04e2c1ba057877fa136f64447b0f312f9ae93610edf08c0ed88b8af61b9b185d",
+      "base_hash": "sha256:a6166c6d70ee97b60e3656133908315c297b3f7470202659fd20731c087c534b",
+      "expected_hash": "sha256:a6166c6d70ee97b60e3656133908315c297b3f7470202659fd20731c087c534b",
       "ownership": "managed",
       "path": "schemas/project-descriptor.schema.json"
     },
     {
       "authority_hash": null,
-      "base_hash": "sha256:04e2c1ba057877fa136f64447b0f312f9ae93610edf08c0ed88b8af61b9b185d",
-      "expected_hash": "sha256:04e2c1ba057877fa136f64447b0f312f9ae93610edf08c0ed88b8af61b9b185d",
+      "base_hash": "sha256:a6166c6d70ee97b60e3656133908315c297b3f7470202659fd20731c087c534b",
+      "expected_hash": "sha256:a6166c6d70ee97b60e3656133908315c297b3f7470202659fd20731c087c534b",
       "ownership": "managed",
       "path": ".ligature/schemas/project-descriptor.schema.json"
     },
@@ -78,29 +78,29 @@
     },
     {
       "authority_hash": null,
-      "base_hash": "sha256:ccd0c81e400da02b7592a17b19c803915415d4c8e4542a89dcacbbb0f681ab8e",
-      "expected_hash": "sha256:ccd0c81e400da02b7592a17b19c803915415d4c8e4542a89dcacbbb0f681ab8e",
+      "base_hash": "sha256:a53a5f4fc1dcccec3e7e6bec4488cf82a9bbc851c1e43cfd3a11e70cfcee1e84",
+      "expected_hash": "sha256:a53a5f4fc1dcccec3e7e6bec4488cf82a9bbc851c1e43cfd3a11e70cfcee1e84",
       "ownership": "managed",
       "path": ".ligature/prompts/stage-0-evidence-intake.md"
     },
     {
       "authority_hash": null,
-      "base_hash": "sha256:9c7438ed443cb6715bba3aff60d18e8a9eea1567a8d28957a7d599f7656c1cf3",
-      "expected_hash": "sha256:9c7438ed443cb6715bba3aff60d18e8a9eea1567a8d28957a7d599f7656c1cf3",
+      "base_hash": "sha256:6fb9c5435ec6ed42d9dbad81df75d0f37bea53da1a274df0c91594bcdc7b4560",
+      "expected_hash": "sha256:6fb9c5435ec6ed42d9dbad81df75d0f37bea53da1a274df0c91594bcdc7b4560",
       "ownership": "managed",
       "path": ".ligature/prompts/stage-3-concept-to-code.md"
     },
     {
       "authority_hash": null,
-      "base_hash": "sha256:bd50fe4c2c35860ea09c2d8c982ec21af1a5d48e87273decc169c6b36daac680",
-      "expected_hash": "sha256:bd50fe4c2c35860ea09c2d8c982ec21af1a5d48e87273decc169c6b36daac680",
+      "base_hash": "sha256:b34060c0c5484345c60583a6d1421247305575bf95d90dc04efa4bbb1f0b928b",
+      "expected_hash": "sha256:b34060c0c5484345c60583a6d1421247305575bf95d90dc04efa4bbb1f0b928b",
       "ownership": "managed",
       "path": ".ligature/prompts/stage-3-boundary-drafting.md"
     },
     {
       "authority_hash": null,
-      "base_hash": "sha256:bfa0338f232e9ebdbb1107441eadb13ccbc98c70b54929a6d1522e641976148f",
-      "expected_hash": "sha256:bfa0338f232e9ebdbb1107441eadb13ccbc98c70b54929a6d1522e641976148f",
+      "base_hash": "sha256:45523bf786d241c0129f58d0deee204c1b6856156aa2f1e6c9554c7e68b8f39b",
+      "expected_hash": "sha256:45523bf786d241c0129f58d0deee204c1b6856156aa2f1e6c9554c7e68b8f39b",
       "ownership": "managed",
       "path": ".ligature/prompts/stage-3-interaction-drafting.md"
     },
@@ -141,8 +141,8 @@
     },
     {
       "authority_hash": null,
-      "base_hash": "sha256:3bc885ed8472d21780261cf784f72193de456cec5b09f00433132217312c8316",
-      "expected_hash": "sha256:3bc885ed8472d21780261cf784f72193de456cec5b09f00433132217312c8316",
+      "base_hash": "sha256:ac4a2b4a4f70a52c422b2826d795cceedd0ea180191799f95f4447f5c785d395",
+      "expected_hash": "sha256:ac4a2b4a4f70a52c422b2826d795cceedd0ea180191799f95f4447f5c785d395",
       "ownership": "managed",
       "path": ".ligature/prompts/stage-3-closure-profile-drafting.md"
     },
@@ -158,9 +158,9 @@
     ".codex/skills/ligature/SKILL.md": "sha256:6b3c3ae71b7d059115b497136077e1472cb46071a47143b2383ed870eee64216",
     ".ligature/schemas/consolidated-check.schema.json": "sha256:410dd4820f6b4ac5110653f2c310e13212eb311cd47e0d6c85ce9b715bbfffcf",
     ".ligature/schemas/project-state.schema.json": "sha256:f38a526bd77fcc0a916351d729bfad95d858ead740ed0268220bb0b833f164bd",
-    "@adjudicator": "sha256:5f6e9d41af35a0ee219316b1d740547c84f8ccb8666afe21b3452bb638f1c2b8"
+    "@adjudicator": "sha256:6e9072ba2b7c8f92497efc0778de214dcff9c7a5d1fc88ef17876441c0657d13"
   },
-  "installed_product_version": "1.3.11",
+  "installed_product_version": "1.4.0",
   "installed_schema_versions": {
     "consolidated-check": "1.0",
     "project-descriptor": "1.0",
@@ -170,6 +170,6 @@
   "installed_skill_version": "1.0",
   "manifest_schema_version": "1.0",
   "mode": "port",
-  "product_version": "1.3.11",
+  "product_version": "1.4.0",
   "project_name": "crypto-mixed"
 }
