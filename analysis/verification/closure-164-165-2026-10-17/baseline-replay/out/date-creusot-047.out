@@ -1,0 +1,16 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+nix develop "path:/tmp/ligature-closure-164-165-baseline-1.4.0/ws#date-creusot" -c bash -lc "mkdir -p /tmp/mac-probe/src && cd /tmp/mac-probe && printf '[package]\\nname=\"mac-probe\"\\nversion=\"0.1.0\"\\nedition=\"2021\"\\n\\n[dependencies]\\nmac-probe-mac={path=\"mac\"}\\n' > Cargo.toml && printf '[package]\\nname=\"mac-probe-mac\"\\nversion=\"0.1.0\"\\nedition=\"2021\"\\n\\n[lib]\\nproc-macro=true\\n' > mac/Cargo.toml && printf 'use proc_macro::TokenStream;\\n\\n#[proc_macro_attribute]\\npub fn erase(_a: TokenStream, _i: TokenStream) -> TokenStream { TokenStream::new() }\\n' > mac/src/lib.rs && printf 'use mac_probe_mac::erase;\\n\\n#[erase]\\npub fn probe(a: u32) -> u32 { a@ + 1 }\\n' > src/lib.rs && cargo build 2>&1 | tail -4"
+### EXIT
+1
+### STDOUT
+
+### STDERR
+error:
+       … while fetching the input 'path:/tmp/ligature-closure-164-165-baseline-1.4.0/ws'
+
+       error: opening lock file "/home/goya/.cache/nix/fetcher-locks/a42f90f69f28a7e97713ca04baf7f33dbf819d699ca4bb4a48d0c66f4904149d.lock": Read-only file system
+

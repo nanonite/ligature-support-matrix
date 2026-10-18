@@ -1,0 +1,175 @@
+{
+  "adjudicator": {
+    "content_hash": "sha256:6e9072ba2b7c8f92497efc0778de214dcff9c7a5d1fc88ef17876441c0657d13",
+    "kind": "zipapp",
+    "platform": {
+      "machine": "x86_64",
+      "required": "any",
+      "system": "Linux"
+    },
+    "python": "3.12.3",
+    "required_python": "3.10",
+    "version": "1.4.0"
+  },
+  "descriptor_path": "project-descriptor.json",
+  "files": [
+    {
+      "authority_hash": null,
+      "base_hash": "sha256:e19f79e9c1c1c1b83f0633b56aaf50498694cf6eba4f56812a44d7b3ab29b4f0",
+      "expected_hash": "sha256:4c9005cee1f914d514cf4bcd3374ccff7f1352d95ab448fab49635fbb862b8f5",
+      "ownership": "user",
+      "path": "project-descriptor.json"
+    },
+    {
+      "authority_hash": null,
+      "base_hash": "sha256:e9ec56e11ac44d799f2f763bf166869b029ca3e284f75c15d6004b4928bb0c1b",
+      "expected_hash": "sha256:a43f78cb97a7fd591410fa8a9d11654bfb510fbbc6d5247b9265a9fdf4984b71",
+      "ownership": "user",
+      "path": "docs/reliance-policy.md"
+    },
+    {
+      "authority_hash": "sha256:8698972e864853e0b744d6fccbbe3070fe9eccb751ed9691780260400dbbec84",
+      "base_hash": "sha256:6b3c3ae71b7d059115b497136077e1472cb46071a47143b2383ed870eee64216",
+      "expected_hash": "sha256:6b3c3ae71b7d059115b497136077e1472cb46071a47143b2383ed870eee64216",
+      "ownership": "managed",
+      "path": ".codex/skills/ligature/SKILL.md"
+    },
+    {
+      "authority_hash": null,
+      "base_hash": "sha256:a6166c6d70ee97b60e3656133908315c297b3f7470202659fd20731c087c534b",
+      "expected_hash": "sha256:a6166c6d70ee97b60e3656133908315c297b3f7470202659fd20731c087c534b",
+      "ownership": "managed",
+      "path": "schemas/project-descriptor.schema.json"
+    },
+    {
+      "authority_hash": null,
+      "base_hash": "sha256:a6166c6d70ee97b60e3656133908315c297b3f7470202659fd20731c087c534b",
+      "expected_hash": "sha256:a6166c6d70ee97b60e3656133908315c297b3f7470202659fd20731c087c534b",
+      "ownership": "managed",
+      "path": ".ligature/schemas/project-descriptor.schema.json"
+    },
+    {
+      "authority_hash": null,
+      "base_hash": "sha256:f38a526bd77fcc0a916351d729bfad95d858ead740ed0268220bb0b833f164bd",
+      "expected_hash": "sha256:f38a526bd77fcc0a916351d729bfad95d858ead740ed0268220bb0b833f164bd",
+      "ownership": "managed",
+      "path": ".ligature/schemas/project-state.schema.json"
+    },
+    {
+      "authority_hash": null,
+      "base_hash": "sha256:410dd4820f6b4ac5110653f2c310e13212eb311cd47e0d6c85ce9b715bbfffcf",
+      "expected_hash": "sha256:410dd4820f6b4ac5110653f2c310e13212eb311cd47e0d6c85ce9b715bbfffcf",
+      "ownership": "managed",
+      "path": ".ligature/schemas/consolidated-check.schema.json"
+    },
+    {
+      "authority_hash": null,
+      "base_hash": "sha256:0b844c7ec904604754e13ba448c5f146cbe4296a7fd617cdfe0085636eb946bd",
+      "expected_hash": "sha256:0b844c7ec904604754e13ba448c5f146cbe4296a7fd617cdfe0085636eb946bd",
+      "ownership": "managed",
+      "path": "scripts/witness_renderer.py"
+    },
+    {
+      "authority_hash": null,
+      "base_hash": "sha256:09dc6a9258a9bdab7648d3d8d0588bbb4bf2a096457c950e094964aa8d139854",
+      "expected_hash": "sha256:09dc6a9258a9bdab7648d3d8d0588bbb4bf2a096457c950e094964aa8d139854",
+      "ownership": "managed",
+      "path": "scripts/xml_escape.py"
+    },
+    {
+      "authority_hash": null,
+      "base_hash": "sha256:a53a5f4fc1dcccec3e7e6bec4488cf82a9bbc851c1e43cfd3a11e70cfcee1e84",
+      "expected_hash": "sha256:a53a5f4fc1dcccec3e7e6bec4488cf82a9bbc851c1e43cfd3a11e70cfcee1e84",
+      "ownership": "managed",
+      "path": ".ligature/prompts/stage-0-evidence-intake.md"
+    },
+    {
+      "authority_hash": null,
+      "base_hash": "sha256:6fb9c5435ec6ed42d9dbad81df75d0f37bea53da1a274df0c91594bcdc7b4560",
+      "expected_hash": "sha256:6fb9c5435ec6ed42d9dbad81df75d0f37bea53da1a274df0c91594bcdc7b4560",
+      "ownership": "managed",
+      "path": ".ligature/prompts/stage-3-concept-to-code.md"
+    },
+    {
+      "authority_hash": null,
+      "base_hash": "sha256:b34060c0c5484345c60583a6d1421247305575bf95d90dc04efa4bbb1f0b928b",
+      "expected_hash": "sha256:b34060c0c5484345c60583a6d1421247305575bf95d90dc04efa4bbb1f0b928b",
+      "ownership": "managed",
+      "path": ".ligature/prompts/stage-3-boundary-drafting.md"
+    },
+    {
+      "authority_hash": null,
+      "base_hash": "sha256:45523bf786d241c0129f58d0deee204c1b6856156aa2f1e6c9554c7e68b8f39b",
+      "expected_hash": "sha256:45523bf786d241c0129f58d0deee204c1b6856156aa2f1e6c9554c7e68b8f39b",
+      "ownership": "managed",
+      "path": ".ligature/prompts/stage-3-interaction-drafting.md"
+    },
+    {
+      "authority_hash": null,
+      "base_hash": "sha256:b1b71c3767fc11b8645ca380c548cbb5746d2c2db649b5c1c8845dac5e180816",
+      "expected_hash": "sha256:b1b71c3767fc11b8645ca380c548cbb5746d2c2db649b5c1c8845dac5e180816",
+      "ownership": "managed",
+      "path": ".ligature/prompts/stage-3-bridge-drafting.md"
+    },
+    {
+      "authority_hash": null,
+      "base_hash": "sha256:0adc5f796e4679c80ce2f07edffd73391f1ccc6e44ff06883f3bb921c338f72d",
+      "expected_hash": "sha256:0adc5f796e4679c80ce2f07edffd73391f1ccc6e44ff06883f3bb921c338f72d",
+      "ownership": "managed",
+      "path": ".ligature/prompts/stage-3-witness-drafting.md"
+    },
+    {
+      "authority_hash": null,
+      "base_hash": "sha256:498325b083cd38bfa9cf9ca97d7337784c35bbd55f4f634a8e936e17e1f9066c",
+      "expected_hash": "sha256:498325b083cd38bfa9cf9ca97d7337784c35bbd55f4f634a8e936e17e1f9066c",
+      "ownership": "managed",
+      "path": ".ligature/prompts/stage-3-exemption-drafting.md"
+    },
+    {
+      "authority_hash": null,
+      "base_hash": "sha256:73ad673f3402e5ad4184288f8703d9e2c6258909d5b4fd69ff13b1c4f03e4d38",
+      "expected_hash": "sha256:73ad673f3402e5ad4184288f8703d9e2c6258909d5b4fd69ff13b1c4f03e4d38",
+      "ownership": "managed",
+      "path": ".ligature/prompts/stage-3-protocol-debt-drafting.md"
+    },
+    {
+      "authority_hash": null,
+      "base_hash": "sha256:984c9463cda5f3f3dbdd93bc54ebbfcedf8c8c781917ff9a61e3dc5e9bc54471",
+      "expected_hash": "sha256:984c9463cda5f3f3dbdd93bc54ebbfcedf8c8c781917ff9a61e3dc5e9bc54471",
+      "ownership": "managed",
+      "path": ".ligature/prompts/stage-3-conflict-resolution-drafting.md"
+    },
+    {
+      "authority_hash": null,
+      "base_hash": "sha256:ac4a2b4a4f70a52c422b2826d795cceedd0ea180191799f95f4447f5c785d395",
+      "expected_hash": "sha256:ac4a2b4a4f70a52c422b2826d795cceedd0ea180191799f95f4447f5c785d395",
+      "ownership": "managed",
+      "path": ".ligature/prompts/stage-3-closure-profile-drafting.md"
+    },
+    {
+      "authority_hash": null,
+      "base_hash": "sha256:899aa9ee06eb1c947c78ad9f9d6ef92a7d003f06a685d1c0b357db182d904953",
+      "expected_hash": "sha256:899aa9ee06eb1c947c78ad9f9d6ef92a7d003f06a685d1c0b357db182d904953",
+      "ownership": "managed",
+      "path": ".ligature/prompts/stage-3-degradation-drafting.md"
+    }
+  ],
+  "gate_hashes": {
+    ".codex/skills/ligature/SKILL.md": "sha256:6b3c3ae71b7d059115b497136077e1472cb46071a47143b2383ed870eee64216",
+    ".ligature/schemas/consolidated-check.schema.json": "sha256:410dd4820f6b4ac5110653f2c310e13212eb311cd47e0d6c85ce9b715bbfffcf",
+    ".ligature/schemas/project-state.schema.json": "sha256:f38a526bd77fcc0a916351d729bfad95d858ead740ed0268220bb0b833f164bd",
+    "@adjudicator": "sha256:6e9072ba2b7c8f92497efc0778de214dcff9c7a5d1fc88ef17876441c0657d13"
+  },
+  "installed_product_version": "1.4.0",
+  "installed_schema_versions": {
+    "consolidated-check": "1.0",
+    "project-descriptor": "1.0",
+    "project-state": "1.0",
+    "skill": "1.0"
+  },
+  "installed_skill_version": "1.0",
+  "manifest_schema_version": "1.0",
+  "mode": "port",
+  "product_version": "1.4.0",
+  "project_name": "swisstable-verus"
+}

@@ -1,0 +1,17 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+json.dump -> json.dumps (boundary draft input)
+### CMD
+rm -rf /tmp/dc13 && mkdir -p /tmp/dc13 && tar --exclude=./upstream --exclude=./analysis/codesight -C date-creusot -cf - . | tar -C /tmp/dc13 -xf - && cd /tmp/dc13 && B=rust/date-creusot-core/specs/_boundaries/year_month_day_to_days__to__weekday_weekday_from_days.json; for g in 'Weekday.C1' 'Date.C1' 'Weekday.A1' 'A-bad'; do python3 -c "import json,sys;d={'schema_version':'1.0','boundary_id':'year_month_day_to_days__to__weekday_weekday_from_days','caller':{'concept':'Date','method':'to_days'},'callee':{'concept':'Weekday','method':'weekday_from_days'},'callee_guarantees':[sys.argv[1]]};print(json.dumps(d))" "$g" | python3 tools/ligature/ligature.pyz draft 3 boundary-drafting $B --var caller_concept=Date --var caller_method=to_days --var callee_concept=Weekday --var callee_method=weekday_from_days --var caller_concept_snake=date --var callee_concept_snake=weekday --var caller_spec=x --var callee_spec=x --var reliance_policy=x --var prior_artifact=x --var finding=x 2>&1 | tail -1 | cut -c1-58; rm -f $B.draft; done; printf 'dangling evidence_links: '; sed 's/I-year-month-day-to-days-to-weekday-weekday-from-days/I-probe/' analysis/ligature/draft-responses/I-1.json | python3 -c "import json,sys;d=json.load(sys.stdin);d['evidence_links']=['E-999'];print(json.dumps(d))" | python3 tools/ligature/ligature.pyz draft 3 interaction-drafting rust/date-creusot-core/specs/_interactions/I-probe.json --var interaction_id=I-probe --var caller_concept=YearMonthDay --var caller_method=to_days --var callee_concept=Weekday --var callee_method=weekday_from_days --var caller_spec=x --var callee_spec=x --var target_triple=x86_64-unknown-linux-gnu --var prior_artifact=x --var finding=x 2>&1 | tail -1
+### EXIT
+0
+### STDOUT
+  - [G1b/error] rust/date-creusot-core/specs/_boundaries/y
+  - [G1b/error] rust/date-creusot-core/specs/_boundaries/y
+  - [G1b/error] rust/date-creusot-core/specs/_boundaries/y
+  - [G1a/error] rust/date-creusot-core/specs/_boundaries/y
+dangling evidence_links:   - [G4/error] rust/date-creusot-core/specs/_interactions/I-probe.json: evidence_links references 'E-999', but no valid workspace evidence record has that id
+
+### STDERR
+

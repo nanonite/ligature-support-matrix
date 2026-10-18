@@ -1,0 +1,13 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd /tmp/opencode/104/dc && printf '{}' > ci/manifest/PROBE.json && printf '{}' > rust/date-creusot-core/specs/_interactions/I-PROBE.json && printf '{}' > rust/date-creusot-core/specs/_boundaries/PROBE.json && diff /tmp/opencode/104/90-before.txt <(python3 tools/ligature/ligature.pyz write-set-check) && echo IDENTICAL
+### EXIT
+1
+### STDOUT
+
+### STDERR
+bash: line 1: cd: /tmp/opencode/104/dc: No such file or directory
+

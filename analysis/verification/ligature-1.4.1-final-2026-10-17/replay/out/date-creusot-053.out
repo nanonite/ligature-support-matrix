@@ -1,0 +1,28 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && python3 -c "import json;rs=[json.loads(l) for l in open('findings/limitations.jsonl') if l.strip()];print('total',len(rs));[print(d['id'],'->',b) for d in rs if d['id']!='date-creusot-053' for b in ('...','<path-to-','work-package.json') if b in d['repro_cmd']];print('--- the two that would corrupt the live tree ---');[print(d['id'],d['repro_cmd'][:120]) for d in rs if d['id'] in ('date-ligature-041','date-ligature-047')]"
+### EXIT
+0
+### STDOUT
+total 102
+date-ligature-032 -> work-package.json
+date-ligature-033 -> work-package.json
+date-ligature-034 -> work-package.json
+date-ligature-037 -> <path-to-
+date-ligature-046 -> ...
+date-ligature-054 -> ...
+date-ligature-057 -> ...
+date-creusot-054 -> ...
+date-ligature-094 -> ...
+date-ligature-097 -> ...
+date-creusot-064 -> ...
+date-creusot-066 -> ...
+--- the two that would corrupt the live tree ---
+date-ligature-041 cd date-creusot && for k in deductive bounded mixed partial degraded; do python3 -c "import json;p='specs/_closure/date-
+date-ligature-047 python3 tools/ligature/ligature.pyz record-assurance ci/manifest/WP-DATE-CREUSOT.json --proof Weekday.C1=rust/date-creus
+
+### STDERR
+

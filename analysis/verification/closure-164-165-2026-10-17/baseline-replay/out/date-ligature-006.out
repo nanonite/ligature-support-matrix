@@ -1,0 +1,38 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && cp .codex/skills/ligature/SKILL.md /tmp/skill.bak && printf '\n<!-- TAMPERED -->\n' >> .codex/skills/ligature/SKILL.md && python3 tools/ligature/ligature.pyz doctor 2>&1 | sed -n '/^Installation:/,/Executable attestation:/p'; echo "doctor exit=$?"; cp /tmp/skill.bak .codex/skills/ligature/SKILL.md
+### EXIT
+0
+### STDOUT
+Installation:
+  installation: conflict
+  mode: port  project: date-creusot
+  skill authority hash: drifted
+     CONFLICT  .codex/skills/ligature/SKILL.md
+    unchanged  .ligature/prompts/stage-0-evidence-intake.md
+    unchanged  .ligature/prompts/stage-3-boundary-drafting.md
+    unchanged  .ligature/prompts/stage-3-bridge-drafting.md
+    unchanged  .ligature/prompts/stage-3-closure-profile-drafting.md
+    unchanged  .ligature/prompts/stage-3-concept-to-code.md
+    unchanged  .ligature/prompts/stage-3-conflict-resolution-drafting.md
+    unchanged  .ligature/prompts/stage-3-degradation-drafting.md
+    unchanged  .ligature/prompts/stage-3-exemption-drafting.md
+    unchanged  .ligature/prompts/stage-3-interaction-drafting.md
+    unchanged  .ligature/prompts/stage-3-protocol-debt-drafting.md
+    unchanged  .ligature/prompts/stage-3-witness-drafting.md
+    unchanged  .ligature/schemas/consolidated-check.schema.json
+    unchanged  .ligature/schemas/project-descriptor.schema.json
+    unchanged  .ligature/schemas/project-state.schema.json
+    user-owned  docs/reliance-policy.md
+    user-owned  project-descriptor.json  schema: valid
+    unchanged  schemas/project-descriptor.schema.json
+    unchanged  scripts/witness_renderer.py
+    unchanged  scripts/xml_escape.py
+Executable attestation:
+doctor exit=0
+
+### STDERR
+

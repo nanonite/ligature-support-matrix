@@ -1,0 +1,206 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+nix develop 'path:/tmp/ligature-closure-164-165-final-1.4.1/ws#date-creusot' -c bash -lc 'cd date-creusot/oracle/rust-check && cargo nextest run --profile ci'
+### EXIT
+0
+### STDOUT
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+date-creusot: Creusot, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+
+### STDERR
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+info: checking for self-update (current version: 1.29.1)
+warn: tool `rust-analyzer` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+warn: tool `rustfmt` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+warn: tool `cargo-fmt` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+info: checking for self-update (current version: 1.29.1)
+warn: tool `rust-analyzer` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+warn: tool `rustfmt` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+warn: tool `cargo-fmt` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+    Updating crates.io index
+     Locking 3 packages to latest compatible versions
+    Updating creusot-std v0.12.0 -> v0.14.0
+    Updating creusot-std-proc v0.12.0 -> v0.14.0
+    Updating pearlite-syn v0.12.0 -> v0.14.0
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling libc v0.2.189
+   Compiling unicode-ident v1.0.26
+   Compiling getrandom v0.4.3
+   Compiling cfg-if v1.0.5
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling serde_json v1.0.151
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling syn v2.0.119
+   Compiling uuid v1.26.1
+   Compiling pearlite-syn v0.14.0
+   Compiling creusot-std-proc v0.14.0
+   Compiling creusot-std v0.14.0
+   Compiling date-creusot-core v0.1.0 (/tmp/ligature-closure-164-165-final-1.4.1/ws/date-creusot/rust/date-creusot-core)
+   Compiling date-creusot-check v0.1.0 (/tmp/ligature-closure-164-165-final-1.4.1/ws/date-creusot/oracle/rust-check)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.73s
+────────────
+ Nextest run ID aee1679a-7ee7-484d-9e79-1eff3bdb4e1c with nextest profile: ci
+    Starting 143 tests across 2 binaries
+        PASS [   0.007s] (  1/143) date-creusot-check::generated_cases boundary_days_from_civil_leap_0003
+        PASS [   0.007s] (  2/143) date-creusot-check::generated_cases boundary_days_from_civil_era_0004
+        PASS [   0.007s] (  3/143) date-creusot-check::generated_cases boundary_days_from_civil_era_0007
+        PASS [   0.007s] (  4/143) date-creusot-check::generated_cases boundary_days_from_civil_era_0006
+        PASS [   0.007s] (  5/143) date-creusot-check::generated_cases boundary_days_from_civil_leap_0004
+        PASS [   0.007s] (  6/143) date-creusot-check::generated_cases boundary_days_from_civil_era_0003
+        PASS [   0.007s] (  7/143) date-creusot-check::generated_cases boundary_days_from_civil_leap_0002
+        PASS [   0.007s] (  8/143) date-creusot-check::generated_cases boundary_civil_from_days_era_0004
+        PASS [   0.007s] (  9/143) date-creusot-check::generated_cases boundary_days_from_civil_era_0005
+        PASS [   0.008s] ( 10/143) date-creusot-check::generated_cases boundary_civil_from_days_era_0002
+        PASS [   0.008s] ( 11/143) date-creusot-check::generated_cases boundary_civil_from_days_era_0003
+        PASS [   0.008s] ( 12/143) date-creusot-check::generated_cases boundary_iso_weekday_from_days_negative_0001
+        PASS [   0.009s] ( 13/143) date-creusot-check::generated_cases boundary_civil_from_days_era_0005
+        PASS [   0.009s] ( 14/143) date-creusot-check::generated_cases boundary_days_from_civil_leap_0001
+        PASS [   0.009s] ( 15/143) date-creusot-check::generated_cases boundary_days_from_civil_normalize_0006
+        PASS [   0.009s] ( 16/143) date-creusot-check::generated_cases boundary_days_from_civil_normalize_0004
+        PASS [   0.009s] ( 17/143) date-creusot-check::generated_cases boundary_days_from_civil_era_0002
+        PASS [   0.009s] ( 18/143) date-creusot-check::generated_cases boundary_days_from_civil_leap_0005
+        PASS [   0.009s] ( 19/143) date-creusot-check::generated_cases boundary_days_from_civil_normalize_0001
+        PASS [   0.010s] ( 20/143) date-creusot-check::generated_cases boundary_days_from_civil_normalize_0005
+        PASS [   0.011s] ( 21/143) date-creusot-check::generated_cases boundary_civil_from_days_era_0001
+        PASS [   0.012s] ( 22/143) date-creusot-check::generated_cases boundary_days_from_civil_era_0001
+        PASS [   0.006s] ( 23/143) date-creusot-check::generated_cases boundary_iso_weekday_from_days_negative_0002
+        PASS [   0.006s] ( 24/143) date-creusot-check::generated_cases boundary_iso_weekday_from_days_negative_0004
+        PASS [   0.006s] ( 25/143) date-creusot-check::generated_cases boundary_iso_weekday_from_days_negative_0007
+        PASS [   0.013s] ( 26/143) date-creusot-check::generated_cases boundary_days_from_civil_normalize_0003
+        PASS [   0.014s] ( 27/143) date-creusot-check::generated_cases boundary_days_from_civil_normalize_0002
+        PASS [   0.007s] ( 28/143) date-creusot-check::generated_cases boundary_iso_weekday_from_days_negative_0005
+        PASS [   0.007s] ( 29/143) date-creusot-check::generated_cases boundary_iso_weekday_from_days_negative_0003
+        PASS [   0.006s] ( 30/143) date-creusot-check::generated_cases boundary_weekday_from_days_negative_0004
+        PASS [   0.008s] ( 31/143) date-creusot-check::generated_cases boundary_iso_weekday_from_days_negative_0008
+        PASS [   0.006s] ( 32/143) date-creusot-check::generated_cases boundary_weekday_from_days_negative_0009
+        PASS [   0.007s] ( 33/143) date-creusot-check::generated_cases boundary_weekday_from_days_negative_0002
+        PASS [   0.006s] ( 34/143) date-creusot-check::generated_cases boundary_weekday_from_days_negative_0010
+        PASS [   0.007s] ( 35/143) date-creusot-check::generated_cases boundary_weekday_from_days_negative_0008
+        PASS [   0.009s] ( 36/143) date-creusot-check::generated_cases boundary_iso_weekday_from_days_negative_0009
+        PASS [   0.008s] ( 37/143) date-creusot-check::generated_cases boundary_weekday_from_days_negative_0003
+        PASS [   0.009s] ( 38/143) date-creusot-check::generated_cases boundary_iso_weekday_from_days_negative_0010
+        PASS [   0.009s] ( 39/143) date-creusot-check::generated_cases boundary_weekday_from_days_negative_0001
+        PASS [   0.008s] ( 40/143) date-creusot-check::generated_cases boundary_weekday_from_days_negative_0007
+        PASS [   0.010s] ( 41/143) date-creusot-check::generated_cases boundary_iso_weekday_from_days_negative_0006
+        PASS [   0.007s] ( 42/143) date-creusot-check::generated_cases boundary_ymd_ok_boundary_0001
+        PASS [   0.007s] ( 43/143) date-creusot-check::generated_cases boundary_ymd_ok_boundary_0002
+        PASS [   0.009s] ( 44/143) date-creusot-check::generated_cases boundary_weekday_from_days_negative_0006
+        PASS [   0.010s] ( 45/143) date-creusot-check::generated_cases boundary_weekday_from_days_negative_0005
+        PASS [   0.007s] ( 46/143) date-creusot-check::generated_cases boundary_ymd_ok_boundary_0003
+        PASS [   0.007s] ( 47/143) date-creusot-check::generated_cases boundary_ymd_ok_boundary_0004
+        PASS [   0.007s] ( 48/143) date-creusot-check::generated_cases boundary_ymd_ok_boundary_0006
+        PASS [   0.007s] ( 49/143) date-creusot-check::generated_cases boundary_ymd_ok_boundary_0005
+        PASS [   0.006s] ( 50/143) date-creusot-check::generated_cases boundary_ymd_ok_boundary_0009
+        PASS [   0.007s] ( 51/143) date-creusot-check::generated_cases boundary_ymd_ok_boundary_0008
+        PASS [   0.006s] ( 52/143) date-creusot-check::generated_cases boundary_ymd_ok_boundary_0011
+        PASS [   0.007s] ( 53/143) date-creusot-check::generated_cases boundary_ymd_ok_boundary_0010
+        PASS [   0.006s] ( 54/143) date-creusot-check::generated_cases boundary_ymd_ok_boundary_0012
+        PASS [   0.006s] ( 55/143) date-creusot-check::generated_cases boundary_ymd_ok_boundary_0013
+        PASS [   0.006s] ( 56/143) date-creusot-check::generated_cases boundary_ymd_ok_boundary_0014
+        PASS [   0.007s] ( 57/143) date-creusot-check::generated_cases boundary_ymd_ok_boundary_0015
+        PASS [   0.006s] ( 58/143) date-creusot-check::generated_cases boundary_ymd_ok_invalid_0003
+        PASS [   0.007s] ( 59/143) date-creusot-check::generated_cases boundary_ymd_ok_invalid_0004
+        PASS [   0.007s] ( 60/143) date-creusot-check::generated_cases random_civil_from_days_0004
+        PASS [   0.008s] ( 61/143) date-creusot-check::generated_cases random_civil_from_days_0002
+        PASS [   0.006s] ( 62/143) date-creusot-check::generated_cases random_civil_from_days_0006
+        PASS [   0.008s] ( 63/143) date-creusot-check::generated_cases random_civil_from_days_0003
+        PASS [   0.008s] ( 64/143) date-creusot-check::generated_cases boundary_ymd_ok_invalid_0002
+        PASS [   0.009s] ( 65/143) date-creusot-check::generated_cases boundary_ymd_ok_invalid_0001
+        PASS [   0.009s] ( 66/143) date-creusot-check::generated_cases boundary_ymd_ok_invalid_0005
+        PASS [   0.006s] ( 67/143) date-creusot-check::generated_cases random_civil_from_days_0009
+        PASS [   0.006s] ( 68/143) date-creusot-check::generated_cases random_civil_from_days_0010
+        PASS [   0.006s] ( 69/143) date-creusot-check::generated_cases random_civil_from_days_0008
+        PASS [   0.013s] ( 70/143) date-creusot-check::generated_cases boundary_ymd_ok_boundary_0007
+        PASS [   0.008s] ( 71/143) date-creusot-check::generated_cases random_civil_from_days_0007
+        PASS [   0.006s] ( 72/143) date-creusot-check::generated_cases random_days_from_civil_0004
+        PASS [   0.007s] ( 73/143) date-creusot-check::generated_cases random_days_from_civil_0001
+        PASS [   0.008s] ( 74/143) date-creusot-check::generated_cases random_civil_from_days_0012
+        PASS [   0.008s] ( 75/143) date-creusot-check::generated_cases random_days_from_civil_0003
+        PASS [   0.006s] ( 76/143) date-creusot-check::generated_cases random_days_from_civil_0006
+        PASS [   0.007s] ( 77/143) date-creusot-check::generated_cases random_days_from_civil_0007
+        PASS [   0.010s] ( 78/143) date-creusot-check::generated_cases random_civil_from_days_0011
+        PASS [   0.008s] ( 79/143) date-creusot-check::generated_cases random_days_from_civil_0005
+        PASS [   0.007s] ( 80/143) date-creusot-check::generated_cases random_days_from_civil_0008
+        PASS [   0.014s] ( 81/143) date-creusot-check::generated_cases random_civil_from_days_0001
+        PASS [   0.010s] ( 82/143) date-creusot-check::generated_cases random_days_from_civil_0002
+        PASS [   0.008s] ( 83/143) date-creusot-check::generated_cases random_days_from_civil_0012
+        PASS [   0.007s] ( 84/143) date-creusot-check::generated_cases random_iso_weekday_from_days_0002
+        PASS [   0.008s] ( 85/143) date-creusot-check::generated_cases random_days_from_civil_0010
+        PASS [   0.007s] ( 86/143) date-creusot-check::generated_cases random_days_from_civil_0016
+        PASS [   0.008s] ( 87/143) date-creusot-check::generated_cases random_days_from_civil_0011
+        PASS [   0.009s] ( 88/143) date-creusot-check::generated_cases random_days_from_civil_0009
+        PASS [   0.008s] ( 89/143) date-creusot-check::generated_cases random_days_from_civil_0013
+        PASS [   0.015s] ( 90/143) date-creusot-check::generated_cases random_civil_from_days_0005
+        PASS [   0.007s] ( 91/143) date-creusot-check::generated_cases random_iso_weekday_from_days_0003
+        PASS [   0.006s] ( 92/143) date-creusot-check::generated_cases random_iso_weekday_from_days_0004
+        PASS [   0.008s] ( 93/143) date-creusot-check::generated_cases random_iso_weekday_from_days_0001
+        PASS [   0.008s] ( 94/143) date-creusot-check::generated_cases random_days_from_civil_0014
+        PASS [   0.007s] ( 95/143) date-creusot-check::generated_cases random_iso_weekday_from_days_0005
+        PASS [   0.006s] ( 96/143) date-creusot-check::generated_cases random_iso_weekday_from_days_0007
+        PASS [   0.007s] ( 97/143) date-creusot-check::generated_cases random_iso_weekday_from_days_0006
+        PASS [   0.006s] ( 98/143) date-creusot-check::generated_cases random_iso_weekday_from_days_0008
+        PASS [   0.010s] ( 99/143) date-creusot-check::generated_cases random_days_from_civil_0015
+        PASS [   0.006s] (100/143) date-creusot-check::generated_cases random_iso_weekday_from_days_0010
+        PASS [   0.006s] (101/143) date-creusot-check::generated_cases random_weekday_from_days_0002
+        PASS [   0.007s] (102/143) date-creusot-check::generated_cases random_weekday_from_days_0001
+        PASS [   0.008s] (103/143) date-creusot-check::generated_cases random_iso_weekday_from_days_0009
+        PASS [   0.006s] (104/143) date-creusot-check::generated_cases random_weekday_from_days_0003
+        PASS [   0.007s] (105/143) date-creusot-check::generated_cases random_weekday_from_days_0005
+        PASS [   0.009s] (106/143) date-creusot-check::generated_cases random_weekday_from_days_0004
+        PASS [   0.007s] (107/143) date-creusot-check::generated_cases random_weekday_from_days_0007
+        PASS [   0.007s] (108/143) date-creusot-check::generated_cases random_weekday_from_days_0008
+        PASS [   0.007s] (109/143) date-creusot-check::generated_cases random_ymd_ok_0003
+        PASS [   0.007s] (110/143) date-creusot-check::generated_cases random_weekday_from_days_0010
+        PASS [   0.007s] (111/143) date-creusot-check::generated_cases random_weekday_from_days_0006
+        PASS [   0.007s] (112/143) date-creusot-check::generated_cases random_ymd_ok_0007
+        PASS [   0.007s] (113/143) date-creusot-check::generated_cases random_weekday_from_days_0009
+        PASS [   0.006s] (114/143) date-creusot-check::generated_cases random_ymd_ok_0010
+        PASS [   0.007s] (115/143) date-creusot-check::generated_cases random_ymd_ok_0008
+        PASS [   0.007s] (116/143) date-creusot-check::generated_cases random_ymd_ok_0006
+        PASS [   0.008s] (117/143) date-creusot-check::generated_cases random_ymd_ok_0001
+        PASS [   0.007s] (118/143) date-creusot-check::generated_cases random_ymd_ok_0009
+        PASS [   0.008s] (119/143) date-creusot-check::generated_cases random_ymd_ok_0005
+        PASS [   0.007s] (120/143) date-creusot-check::generated_cases random_ymd_ok_0013
+        PASS [   0.007s] (121/143) date-creusot-check::generated_cases random_ymd_ok_0014
+        PASS [   0.006s] (122/143) date-creusot-check::generated_cases upstream_test_civil_from_days_day_point_0001
+        PASS [   0.008s] (123/143) date-creusot-check::generated_cases upstream_test_civil_from_days_1969_12_31_0001
+        PASS [   0.011s] (124/143) date-creusot-check::generated_cases random_ymd_ok_0002
+        PASS [   0.011s] (125/143) date-creusot-check::generated_cases random_ymd_ok_0004
+        PASS [   0.010s] (126/143) date-creusot-check::generated_cases random_ymd_ok_0011
+        PASS [   0.006s] (127/143) date-creusot-check::generated_cases upstream_test_civil_from_days_day_point_0002
+        PASS [   0.006s] (128/143) date-creusot-check::generated_cases upstream_test_days_from_civil_1969_12_31_0001
+        PASS [   0.010s] (129/143) date-creusot-check::generated_cases random_ymd_ok_0012
+        PASS [   0.006s] (130/143) date-creusot-check::generated_cases upstream_test_days_from_civil_day_point_0002
+        PASS [   0.006s] (131/143) date-creusot-check::generated_cases upstream_test_days_from_civil_day_point_0001
+        PASS [   0.006s] (132/143) date-creusot-check::generated_cases upstream_test_days_from_civil_2015_08_09_0001
+        PASS [   0.006s] (133/143) date-creusot-check::generated_cases upstream_test_days_from_civil_day_point_0004
+        PASS [   0.006s] (134/143) date-creusot-check::generated_cases upstream_test_days_from_civil_day_point_0005
+        PASS [   0.006s] (135/143) date-creusot-check::generated_cases upstream_test_weekday_from_days_day_point_0002
+        PASS [   0.007s] (136/143) date-creusot-check::generated_cases upstream_test_days_from_civil_day_point_0003
+        PASS [   0.006s] (137/143) date-creusot-check::generated_cases upstream_test_weekday_from_days_day_point_0003
+        PASS [   0.006s] (138/143) date-creusot-check::generated_cases upstream_test_ymd_ok_2000_02_30_0001
+        PASS [   0.006s] (139/143) date-creusot-check::generated_cases upstream_test_ymd_ok_2000_02_29_0001
+        PASS [   0.006s] (140/143) date-creusot-check::generated_cases upstream_test_ymd_ok_2100_02_28_0001
+        PASS [   0.006s] (141/143) date-creusot-check::generated_cases upstream_test_ymd_ok_2100_02_29_0001
+        PASS [   0.008s] (142/143) date-creusot-check::generated_cases upstream_test_weekday_from_days_day_point_0001
+        PASS [   0.012s] (143/143) date-creusot-check::generated_cases upstream_test_civil_from_days_2015_08_09_0001
+────────────
+     Summary [   0.050s] 143 tests run: 143 passed, 0 skipped
+

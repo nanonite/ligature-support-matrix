@@ -1,0 +1,45 @@
+ligature 1.4.1
+  adjudicator: zipapp (attested: true)
+  content hash: sha256:2f975350565f3dfb09682d69b34ed137ae1dc6342decb7cf9c986ed56a7d733a
+  bundle: 115 file(s)
+  bundled schemas: 34
+  required python: >= 3.10 (running 3.12.3)
+  platform: Linux/x86_64 (required: any)
+  artifact: /home/goya/storage/full-ligature-port-workspace/date-creusot/tools/ligature/ligature.pyz
+  source: 742cb253e0cb9753c7a34a0c32559936130e03ab (clean working tree)
+  bundled schemas:
+    docs/achieved-assurance-schema.json: 1.0
+    docs/assumption-registry-schema.json: 1.0
+    docs/assurance-report-schema.json: 1.0
+    docs/boundary-contract-schema.json: 1.0
+    docs/bridge-check-schema.json: 1.0
+    docs/bridge-schema.json: 1.0
+    docs/callsite-schema.json: 1.0
+    docs/cargo-profile-audit-schema.json: 1.0
+    docs/cargo-verus-profile-audit-schema.json: 1.0
+    docs/closure-profile-schema.json: 1.0
+    docs/concept-to-code-constraint-id-schema.json: unknown
+    docs/concept-to-code-witness-required-schema.json: unknown
+    docs/conflict-resolution-schema.json: 1.0
+    docs/degradation-record-schema.json: 1.0
+    docs/evidence-schema.json: 1.0
+    docs/exemption-schema.json: 1.0
+    docs/feature-ledger-schema.json: 1.0
+    docs/g14-report-schema.json: unknown
+    docs/gold-set-measurement-schema.json: 1.0
+    docs/gold-set-schema.json: 1.0
+    docs/interaction-schema.json: 1.0
+    docs/promotion-receipt-schema.json: unknown
+    docs/protocol-debt-schema.json: 1.0
+    docs/r1-g16-report-schema.json: unknown
+    docs/scaffold-receipt-schema.json: 1.0
+    docs/witness-result-schema.json: 1.0
+    docs/witness-spec-schema.json: 1.0
+    docs/work-package-generation-audit-schema.json: 1.0
+    docs/work-package-manifest-schema.json: unknown
+    docs/write-grant-schema.json: 1.0
+    schemas/consolidated-check.schema.json: 1.0
+    schemas/project-descriptor.schema.json: 1.0
+    schemas/project-state.schema.json: 1.0
+    vendor/concept-to-code/schemas/spec.schema.json: 1.0
+OK: executable identity verified against its embedded build attestation

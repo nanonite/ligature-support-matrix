@@ -1,0 +1,18 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+rm -rf /tmp/dc13 && mkdir -p /tmp/dc13 && tar --exclude=./upstream --exclude=./analysis/codesight -C date-creusot -cf - . | tar -C /tmp/dc13 -xf - && cd /tmp/dc13 && python3 tools/ligature/ligature.pyz approve rust/date-creusot-core/specs/_interactions/I-year-month-day-to-days-to-weekday-weekday-from-days.json --reviewer chainlink-reviewer --reviewed-at 2026-09-25; echo "exit=$?"; python3 -c "import json;p='rust/date-creusot-core/specs/_interactions/I-year-month-day-to-days-to-year-month-day-from-days.json';d=json.load(open(p));d.pop('review');open(p+'.draft','w').write(json.dumps(d,indent=2)+chr(10))"; python3 tools/ligature/ligature.pyz check | tail -3; echo "check exit=$?"
+### EXIT
+0
+### STDOUT
+exit=1
+  run: ligature draft interaction ci/results/c_static/rust_date-creusot-core.json
+change-request stubs: 0
+result: exit_code=1 conditions=['blocking_findings']
+check exit=0
+
+### STDERR
+error: nothing was promoted: no staged draft at rust/date-creusot-core/specs/_interactions/I-year-month-day-to-days-to-weekday-weekday-from-days.json.draft -- this command promotes an already-staged draft and never writes content itself: stage one with `ligature draft <stage> <template> rust/date-creusot-core/specs/_interactions/I-year-month-day-to-days-to-weekday-weekday-from-days.json` (`ligature draft --help` lists every template), or copy the target itself to rust/date-creusot-core/specs/_interactions/I-year-month-day-to-days-to-weekday-weekday-from-days.json.draft
+

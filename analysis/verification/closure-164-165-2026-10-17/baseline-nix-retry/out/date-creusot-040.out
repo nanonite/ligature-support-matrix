@@ -1,0 +1,156 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+time nix develop "path:/tmp/ligature-closure-164-165-nix-1.4.0/ws#date-creusot" -c bash -lc 'cd rust/date-creusot-core && cargo creusot --help'   # observed: multi-minute rebuild via /build/creusot-source, running creusot's own test suite; immediately-following identical invocation: 3.3s
+### EXIT
+0
+### STDOUT
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+date-creusot: Creusot, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+Usage: creusot-rustc [RUSTC_OPTIONS] -- [OPTIONS]
+
+Commands:
+  doc      Generate the documentation, including specs, logical functions, etc
+  new      Create new project in a sub-directory
+  init     Create new project in current directory
+  clean    Clean dangling files in verif/
+  why3     Run Why3
+  config   Check or update `~/.cargo/config.toml` with patch for `creusot-std`
+  version  Show version information of Creusot and its dependencies
+  help     Print this message or the help of the given subcommand(s)
+
+Arguments:
+  [PATTERNS]...
+          Run why3find on files that match one of the patterns. Examples: `name`, `name::*`, `m/*/f`, or whole paths `verif/a/b.coma`
+
+  [CARGO_FLAGS]...
+          Additional flags to pass to the underlying cargo invocation
+
+Options:
+  -i, --ide-on-fail
+          Run why3find and open the IDE on unproved goals only
+
+      --ide-always
+          Run why3find and open the IDE on a single Coma file
+
+      --replay
+          Replay proofs only, no update
+
+      --no-cache
+          Do not use the Why3find cache
+
+      --why3session
+          Generate Why3 sessions for why3 ide
+
+      --why3find-arg <WHY3FIND_ARG>
+          Extra argument to pass directly to Why3find. Repeat this option to pass multiple arguments
+
+      --dry-run-why3find
+          Print the Why3find command without running it
+
+  -j <JOBS>
+          Max parallel provers
+
+      --span-mode <SPAN_MODE>
+          Determines how to format the spans in generated code to loading in Why3.
+          
+          [Relative] is better if the generated code is meant to be checked into VCS.
+          [Absolute] means the files can easily be moved around your system and still work.
+          [None] provides the clearest diffs.
+          NB: spans pointing to the Rust standard library are thrown away in [Relative] mode,
+          while they are kept in [Absolute] mode.
+          
+          [default: absolute]
+          [possible values: relative, absolute, off]
+
+      --spans-relative-to <SPANS_RELATIVE_TO>
+          Directory with respect to which (relative) spans should be relative to. Necessary when using --stdout with relative spans, not needed otherwise
+
+      --export-metadata <EXPORT_METADATA>
+          Tell creusot to disable metadata exports
+          
+          [default: true]
+          [possible values: true, false]
+
+      --stdout
+          Print to stdout
+
+      --output-file <OUTPUT_FILE>
+          Print to a file
+          
+          [env: OUTPUT_FILE=]
+
+      --output-dir <OUTPUT_DIR>
+          [env: OUTPUT_DIR=]
+
+      --no-output
+          Disable output
+
+      --monolithic
+          Output the generated code in a single file in output_dir
+
+      --creusot-extern <EXTERN_PATHS>
+          Specify locations of metadata for external crates. The format is the same as rustc's `--extern` flag
+
+      --erasure-check [<ERASURE_CHECK>]
+          Enable `#[erasure]` checking across crates
+
+          Possible values:
+          - no:    Disable `#[erasure]` checks
+          - warn:  Output `#[erasure]` check failures as warnings
+          - error: Output `#[erasure]` check failures as errors
+          
+          [default: warn]
+
+      --erasure-check-dir <ERASURE_CHECK_DIR>
+          Directory where cross-crate information for `#[erasure]` checks is stored
+
+      --no-check-version
+          Allow mismatching creusot-std versions (use at your own risk!)
+
+      --creusot-rustc <PATH>
+          Path to creusot-rustc (for testing and for Nix)
+          
+          [env: CREUSOT_RUSTC=/nix/store/94wcfb44z04wyqx6smdkcmf82x2lkkqc-cargo-creusot-0.14.0-dev/bin/creusot-rustc]
+
+  -p, --package <PACKAGE>
+          
+
+      --only <ONLY>
+          Only run one stage
+
+          Possible values:
+          - coma:  Compile to Coma
+          - prove: Run provers
+
+  -h, --help
+          Print help (see a summary with '-h')
+
+### STDERR
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+info: checking for self-update (current version: 1.29.1)
+warn: tool `rust-analyzer` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+warn: tool `rustfmt` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+warn: tool `cargo-fmt` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+info: checking for self-update (current version: 1.29.1)
+warn: tool `rust-analyzer` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+warn: tool `rustfmt` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+warn: tool `cargo-fmt` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+
+real	0m5.460s
+user	0m4.807s
+sys	0m0.575s
+

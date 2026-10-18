@@ -1,0 +1,45 @@
+{
+  "installed_product_version": "1.4.1",
+  "adjudicator": {
+    "content_hash": "sha256:b676df6203ae55eb4b8cfc3ad5d8370440069e5cbff5d4ffd51bf39da0e8f773",
+    "kind": "zipapp",
+    "platform": {
+      "machine": "x86_64",
+      "required": "any",
+      "system": "Linux"
+    },
+    "python": "3.12.3",
+    "required_python": "3.10",
+    "version": "1.4.1"
+  },
+  "managed_resources": {
+    ".codex/skills/ligature/SKILL.md": true,
+    "schemas/project-descriptor.schema.json": true,
+    ".ligature/schemas/project-descriptor.schema.json": true,
+    ".ligature/schemas/project-state.schema.json": true,
+    ".ligature/schemas/consolidated-check.schema.json": true,
+    "scripts/witness_renderer.py": true,
+    "scripts/xml_escape.py": true,
+    ".ligature/prompts/stage-0-evidence-intake.md": true,
+    ".ligature/prompts/stage-3-concept-to-code.md": true,
+    ".ligature/prompts/stage-3-boundary-drafting.md": true,
+    ".ligature/prompts/stage-3-interaction-drafting.md": true,
+    ".ligature/prompts/stage-3-bridge-drafting.md": true,
+    ".ligature/prompts/stage-3-witness-drafting.md": true,
+    ".ligature/prompts/stage-3-exemption-drafting.md": true,
+    ".ligature/prompts/stage-3-protocol-debt-drafting.md": true,
+    ".ligature/prompts/stage-3-conflict-resolution-drafting.md": true,
+    ".ligature/prompts/stage-3-closure-profile-drafting.md": true,
+    ".ligature/prompts/stage-3-degradation-drafting.md": true
+  },
+  "gate_hashes": {
+    ".codex/skills/ligature/SKILL.md": true,
+    ".ligature/schemas/consolidated-check.schema.json": true,
+    ".ligature/schemas/project-state.schema.json": true,
+    "@adjudicator": true
+  },
+  "user_owned_preserved": {
+    "project-descriptor.json": true,
+    "docs/reliance-policy.md": true
+  }
+}

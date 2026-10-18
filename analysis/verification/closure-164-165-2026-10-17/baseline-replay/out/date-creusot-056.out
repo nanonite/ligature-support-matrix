@@ -1,0 +1,41 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && python3 analysis/ligature/probe-22-legs.py && echo '--- the two false-VERIFIED legs, by hand ---' && rm -rf /tmp/p22 && mkdir -p /tmp/p22 && rsync -a --exclude upstream/ --exclude target/ ./ /tmp/p22/ && cd /tmp/p22 && python3 - <<'EOF'
+import json
+wp=json.load(open('ci/manifest/WP-DATE-CREUSOT.json'))
+k=dict(wp, work_package='WP-KANI-OTHER', issue='chainlink:22', functions=['date::util::generic_helper'],
+       obligations=['Other.C1'], coupling_notes=wp['coupling_notes']+['date::year_month_day::to_days calls date::util::generic_helper, whose only assurance is a Kani bounded model check over the i64 monomorphization.'], depends_on=['WP-DATE-CREUSOT-CORE','WP-KANI-OTHER'])
+k['definition_of_done']={'provided_guarantees':[{'obligation_id':'Other.C1','required_assurance':{'required_claims':['postcondition-holds'],'accepted_evidence_kinds':['kani-bounded-model-check']},'harness':'kani'}],'required_preconditions_to_establish':[],'required_guarantees':[],'trusted_assumptions':[]}
+k['report']['emit']='ci/results/kani_other_ledger.json'
+json.dump(k,open('ci/manifest/WP-KANI-OTHER.json','w'),indent=2)
+rec={'schema_version':'1.0','claim':{'kind':'postcondition-holds','result':'pass'},'config':{'toolchain':'cargo-kani','target':'x86_64-unknown-linux-gnu','features':['default']},'evidence':{'kind':'kani-bounded-model-check','verifier':'kani','harness':'kani','scope':{'proof_targets':'rust/date-creusot-core/verif/other/proof.json'}},'support':{'status':'supported'},'trust':{'assumptions':[]}}
+json.dump({'schema_version':'1.0','work_package':'WP-KANI-OTHER','bridge_records':[],'obligation_records':[{'obligation_id':'Other.C1','record':rec}]},open('ci/results/kani_other_ledger.json','w'),indent=2)
+EOF
+python3 tools/ligature/ligature.pyz gate-g14; echo "EXIT=$? (0 expected, CG3 says VERIFIED)"
+python3 tools/ligature/ligature.pyz gate-g14 2>&1 | grep -c WP-KANI-OTHER
+### EXIT
+1
+### STDOUT
+cluster 'date-creusot-core' closes: closure_kind=deductive, 1 work package(s), 9 unique scoped obligation(s) (provided=9, required=0, evaluated=9), 0 required bridge(s), 0 bridge record(s) evaluated, 0 cycle(s) discharged; expected obligation scope=9 ID(s) declared
+  - [G14/info] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is VERIFIED from artifact data, not taken on declaration: every obligation and bridge in the closure AND its declared depends_on dependencies has a recorded achievement, the closure's own records are ['creusot-deductive-check'], and every other achieved record and declared guarantee harness in this workspace's work-package manifests and ledgers is creusot-owned as well -- with no non-creusot assurance anywhere those artifacts can name, no generic callee this cluster declares a dependency on is Kani-owned (CG3, plan.md §3, chainlink #93)
+closure is a per-cluster property with a kind; this gate never asserts a pipeline-wide guarantee (plan.md §4)
+OK: 1 cluster(s) close under their declared profile, 0 released under an accepted degradation record
+EXIT=0 (0 expected, CG3 says VERIFIED)
+0
+
+### STDERR
+Traceback (most recent call last):
+  File "/tmp/ligature-closure-164-165-baseline-1.4.0/ws/date-creusot/analysis/ligature/probe-22-legs.py", line 400, in <module>
+    main()
+  File "/tmp/ligature-closure-164-165-baseline-1.4.0/ws/date-creusot/analysis/ligature/probe-22-legs.py", line 373, in main
+    reset()
+  File "/tmp/ligature-closure-164-165-baseline-1.4.0/ws/date-creusot/analysis/ligature/probe-22-legs.py", line 46, in reset
+    shutil.copytree(PRISTINE, WORK)
+  File "/usr/lib/python3.12/shutil.py", line 598, in copytree
+    with os.scandir(src) as itr:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/opencode/p22/pristine'
+

@@ -1,0 +1,15 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+rm -rf /tmp/dc-vp && mkdir -p /tmp/dc-vp && tar --exclude=./upstream -C date-creusot -cf - . | tar -C /tmp/dc-vp -xf - && cp /tmp/dc-vp/project-descriptor.json /tmp/dc-vp/golden.json && python3 -c 'import json,pathlib;p=pathlib.Path("/tmp/dc-vp/project-descriptor.json");d=json.loads(p.read_text());d["verifier_policy"]={"default":"verus","supporting":"kani","fallback":"creusot"};p.write_text(json.dumps(d,indent=2)+"\n")' && cd /tmp/dc-vp && python3 tools/ligature/ligature.pyz status --json | python3 -c 'import sys,json;print("descriptor",json.load(sys.stdin)["descriptor"])'; python3 tools/ligature/ligature.pyz check --json >/dev/null; echo "check exit=$?"; python3 tools/ligature/ligature.pyz status --json | grep -c -i kani; cp golden.json project-descriptor.json
+### EXIT
+0
+### STDOUT
+descriptor {'closure_kind': None, 'mode': None, 'path': 'project-descriptor.json', 'schema_version': None, 'state': 'present-invalid', 'verifier_policy': None}
+check exit=5
+1
+
+### STDERR
+

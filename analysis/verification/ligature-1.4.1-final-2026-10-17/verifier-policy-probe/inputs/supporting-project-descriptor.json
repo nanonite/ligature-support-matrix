@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "name": "date-creusot",
+    "crate_naming_convention": "^date-creusot-[a-z]+"
+  },
+  "mode": "port",
+  "port_source": {
+    "repository": "https://github.com/HowardHinnant/date.git",
+    "language": "cpp",
+    "oracle_build_command": "nix develop ..#date-creusot -c bash -lc 'cmake -S upstream/date -B /tmp/date-creusot-date-v3.0.5-build-gcc -DENABLE_DATE_TESTING=ON -DBUILD_TZ_LIB=ON -DUSE_SYSTEM_TZ_DB=ON -DCMAKE_CXX_STANDARD=20 -DCMAKE_CXX_COMPILER=g++ && cmake --build /tmp/date-creusot-date-v3.0.5-build-gcc --target testit'"
+  },
+  "crates": [
+    {
+      "crate_dir": "rust/date-creusot-core",
+      "contracts_crate": "contracts",
+      "specs_search_root": "rust"
+    }
+  ],
+  "verifier_policy": {
+    "default": "creusot",
+    "supporting": [
+      "kani"
+    ]
+  },
+  "compatibility_policy": {
+    "reliance_policy_path": "docs/reliance-policy.md"
+  },
+  "write_set": {
+    "allowed_roots": [
+      "rust/*/src/",
+      "rust/*/tests/",
+      "rust/*/target/**",
+      "rust/*/verif/**",
+      "rust/*/.why3find/**",
+      "rust/*/why3find.json",
+      "rust/*/.cargo/**",
+      "rust/*/Cargo.lock",
+      "analysis/**",
+      "findings/**",
+      "oracle/**",
+      "tools/**",
+      "specs/_closure/**",
+      "specs/_promotions/**",
+      "README.md",
+      "FUTURE-WORK-round-trip-proof.md",
+      ".envrc",
+      ".mcp.json",
+      "rust/.gitkeep",
+      "upstream/**",
+      "docs/evidence-promotion-exception.md"
+    ],
+    "protected_roots": [
+      "rust/*/specs/**",
+      "ci/manifest/**",
+      "scripts/**",
+      "docs/*-schema.json",
+      "docs/reliance-policy.md",
+      "rust/*/Cargo.toml",
+      "rust/*/build.rs",
+      "tests/harnesses/**",
+      ".github/**",
+      "rust-toolchain.toml"
+    ]
+  },
+  "gate_integrity": [
+    {
+      "path": ".codex/skills/ligature/SKILL.md"
+    },
+    {
+      "path": ".ligature/schemas/project-state.schema.json"
+    },
+    {
+      "path": ".ligature/schemas/consolidated-check.schema.json"
+    },
+    {
+      "path": "@adjudicator"
+    }
+  ],
+  "llm_backend": {
+    "kind": "manual"
+  },
+  "review": {
+    "reviewer": "chainlink-reviewer",
+    "reviewed_at": "2026-09-25",
+    "accepted_fixture_values": [
+      {
+        "path": "port_source.language",
+        "value_sha256": "sha256:3eebdcd9e7aa0cc1a0b3f663baa971db6220f7cbc346e34220e744fdc8a07176",
+        "reviewer": "roger-codex-luna6",
+        "accepted_at": "2026-10-16"
+      }
+    ]
+  }
+}

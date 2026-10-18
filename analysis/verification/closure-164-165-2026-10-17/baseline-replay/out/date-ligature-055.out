@@ -1,0 +1,18 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && python3 tools/ligature/ligature.pyz report feature-ledger ; echo "report exit=$?" ; jq -r '.report.emit' ci/manifest/WP-DATE-CREUSOT.json && jq -c '.write_set.protected_roots' project-descriptor.json | tr ',' '\n' | grep -n 'ci/manifest' ; sed -n '66,77p' .codex/skills/ligature/SKILL.md | grep -c 'never write into' ; python3 tools/ligature/ligature.pyz report feature-ledger   # report exit=1 (twice: before and after the descriptor/SKILL.md evidence), report.emit == ci/results/feature_ledger.json, ci/manifest/** is protected_roots entry 2, and the authority-boundary sentence is present (grep -c == 1).
+### EXIT
+0
+### STDOUT
+wrote ci/results/feature_ledger.json (0 declared features -- nothing to check)
+report exit=0
+ci/results/WP-DATE-CREUSOT.json
+2:"ci/manifest/**"
+0
+wrote ci/results/feature_ledger.json (0 declared features -- nothing to check)
+
+### STDERR
+

@@ -1,0 +1,13 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+python3 tools/ligature/ligature.pyz record-assurance ci/manifest/WP-DATE-CREUSOT.json --proof Weekday.C1=rust/date-creusot-core/verif/date_creusot_core_rlib/weekday/weekday_from_days
+### EXIT
+2
+### STDOUT
+
+### STDERR
+error: Weekday.C1 is not a provided guarantee of WP-DATE-CREUSOT (it provides ['Month.C001', 'Weekday.C001', 'Weekday.C002', 'Weekday.C003', 'Year.C001', 'Year.C002', 'YearMonthDay.C002', 'YearMonthDay.C007', 'YearMonthDayLast.C001']) -- only the work package that provides an obligation records it
+

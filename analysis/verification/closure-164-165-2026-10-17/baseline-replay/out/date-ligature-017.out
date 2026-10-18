@@ -1,0 +1,22 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+rm -rf /tmp/dc-en && mkdir -p /tmp/dc-en && tar --exclude=./upstream --exclude=./analysis/codesight -C date-creusot -cf - . | tar -C /tmp/dc-en -xf - && cd /tmp/dc-en && cp project-descriptor.json golden.json && for v in manual claude codex anthropic openai ollama; do python3 -c "import json,pathlib,sys;p=pathlib.Path('project-descriptor.json');d=json.loads(open('golden.json').read());d['llm_backend']['kind']=sys.argv[1];p.write_text(json.dumps(d,indent=2)+chr(10))" $v && printf '%-10s ' $v && python3 tools/ligature/ligature.pyz check --json >/dev/null 2>&1; echo "check exit=$?"; done; for d in 2026-09-25 2026-9-25 2026-09-25T10:00:00Z 25-09-2026; do python3 -c "import json,pathlib,sys;p=pathlib.Path('project-descriptor.json');d=json.loads(open('golden.json').read());d['review']['reviewed_at']=sys.argv[1];p.write_text(json.dumps(d,indent=2)+chr(10))" $d && printf '%-24s ' $d && python3 tools/ligature/ligature.pyz check --json >/dev/null 2>&1; echo "check exit=$?"; done; cp golden.json project-descriptor.json
+### EXIT
+0
+### STDOUT
+manual     check exit=1
+claude     check exit=1
+codex      check exit=1
+anthropic  check exit=5
+openai     check exit=5
+ollama     check exit=5
+2026-09-25               check exit=1
+2026-9-25                check exit=5
+2026-09-25T10:00:00Z     check exit=5
+25-09-2026               check exit=5
+
+### STDERR
+

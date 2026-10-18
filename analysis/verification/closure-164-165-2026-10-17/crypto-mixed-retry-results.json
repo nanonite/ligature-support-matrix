@@ -1,0 +1,19 @@
+[
+  {
+    "command": [
+      "status",
+      "--json"
+    ],
+    "exit": null,
+    "outcome": "timeout",
+    "seconds": 180.1
+  },
+  {
+    "command": [
+      "doctor"
+    ],
+    "exit": 0,
+    "outcome": "completed",
+    "seconds": 0.4
+  }
+]

@@ -1,0 +1,21 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && wc -l findings/limitations.jsonl && grep -c '^### `' analysis/ligature/reverify-VERDICTS.md && grep -A9 '^| bucket' analysis/ligature/reverify-VERDICTS.md | tail -7
+### EXIT
+0
+### STDOUT
+102 findings/limitations.jsonl
+96
+| MATCH | 18 | 15 |
+| RESOLVED | 25 | 36 |
+| PARTLY RESOLVED | 4 | 5 |
+| SUPERSEDED | 3 | 3 |
+| CHANGED | 3 | 3 |
+| NOT-RUNNABLE | 4 | 5 |
+| NOT-RUNNABLE(ENV) | 15 | 16 |
+
+### STDERR
+

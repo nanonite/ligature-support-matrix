@@ -1,6 +1,6 @@
 {
   "adjudicator": {
-    "content_hash": "sha256:6e9072ba2b7c8f92497efc0778de214dcff9c7a5d1fc88ef17876441c0657d13",
+    "content_hash": "sha256:2f975350565f3dfb09682d69b34ed137ae1dc6342decb7cf9c986ed56a7d733a",
     "kind": "zipapp",
     "platform": {
       "machine": "x86_64",
@@ -9,7 +9,7 @@
     },
     "python": "3.12.3",
     "required_python": "3.10",
-    "version": "1.4.0"
+    "version": "1.4.1"
   },
   "descriptor_path": "project-descriptor.json",
   "files": [
@@ -158,9 +158,9 @@
     ".codex/skills/ligature/SKILL.md": "sha256:6b3c3ae71b7d059115b497136077e1472cb46071a47143b2383ed870eee64216",
     ".ligature/schemas/consolidated-check.schema.json": "sha256:410dd4820f6b4ac5110653f2c310e13212eb311cd47e0d6c85ce9b715bbfffcf",
     ".ligature/schemas/project-state.schema.json": "sha256:f38a526bd77fcc0a916351d729bfad95d858ead740ed0268220bb0b833f164bd",
-    "@adjudicator": "sha256:6e9072ba2b7c8f92497efc0778de214dcff9c7a5d1fc88ef17876441c0657d13"
+    "@adjudicator": "sha256:2f975350565f3dfb09682d69b34ed137ae1dc6342decb7cf9c986ed56a7d733a"
   },
-  "installed_product_version": "1.4.0",
+  "installed_product_version": "1.4.1",
   "installed_schema_versions": {
     "consolidated-check": "1.0",
     "project-descriptor": "1.0",
@@ -170,6 +170,6 @@
   "installed_skill_version": "1.0",
   "manifest_schema_version": "1.0",
   "mode": "port",
-  "product_version": "1.4.0",
+  "product_version": "1.4.1",
   "project_name": "date-creusot"
 }

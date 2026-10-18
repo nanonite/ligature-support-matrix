@@ -5,6 +5,16 @@ workflow on the installed Ligature 1.4.0, at project revision
 `729f0432c90dd7916bdbeecb750b9d5abbbbf5cd`. It resolves upstream findings
 `date-creusot-063`, `date-creusot-064`, and `date-ligature-103`.
 
+Correction added during the #164/#165 closure review: the successful pilot
+regeneration below verifies the accepted workflow only. It does not establish
+that regeneration rejects an edited manifest retaining the same package
+identity. Upstream #164 remains subject to a provenance-check regression test;
+the resolution entry `date-ligature-104` in the append-only findings ledger
+must be read with this qualification. This report also does not establish
+completion of the full 96-finding replay or downstream handoff required by
+upstream #161/#143. Issue numbers in this paragraph belong to the Ligature
+tracker; local port-workspace #143 is a different, closed Codesight issue.
+
 ## Installed release
 
 - Product: ligature 1.4.0

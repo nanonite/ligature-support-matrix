@@ -1,0 +1,22 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd "$([ -d date-creusot ] && echo date-creusot || echo .)" && for c in 'status --json' 'check --json' 'doctor' 'write-set-check --json' 'validate-work-package ci/manifest/WP-DATE-CREUSOT.json' 'gate-g14' 'gate-r1-g16' 'select-pilot-cluster' 'accept-policy --help' 'record-assurance --help'; do python3 tools/ligature/ligature.pyz $c >/dev/null 2>&1; echo "  $c -> exit=$?"; done   # read-only; full transcript is in the per-issue comments and in date-creusot/README.md
+### EXIT
+0
+### STDOUT
+  status --json -> exit=0
+  check --json -> exit=1
+  doctor -> exit=0
+  write-set-check --json -> exit=1
+  validate-work-package ci/manifest/WP-DATE-CREUSOT.json -> exit=0
+  gate-g14 -> exit=0
+  gate-r1-g16 -> exit=0
+  select-pilot-cluster -> exit=2
+  accept-policy --help -> exit=0
+  record-assurance --help -> exit=0
+
+### STDERR
+

@@ -1,0 +1,16 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && python3 tools/ligature/ligature.pyz validate-work-package /tmp/nonexistent-wp.json 2>&1 | tail -3 ; echo EXIT=$? ; python3 tools/ligature/ligature.pyz validate-promotion /tmp/nonexistent-promo.json 2>&1 | tail -3 ; echo EXIT=$?
+### EXIT
+0
+### STDOUT
+error: manifest not found: /tmp/nonexistent-wp.json
+EXIT=0
+error: receipt not found: /tmp/nonexistent-promo.json
+EXIT=0
+
+### STDERR
+

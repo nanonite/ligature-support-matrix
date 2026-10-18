@@ -1,0 +1,40 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+mkdir -p /tmp/p0/tools && cp -r date-creusot/tools/ligature /tmp/p0/tools/ && cd /tmp/p0 && python3 tools/ligature/ligature.pyz init --mode port && python3 tools/ligature/ligature.pyz check --json; echo "check exit=$?"; python3 tools/ligature/ligature.pyz status --json | python3 -c 'import sys,json;d=json.load(sys.stdin);print("human_decisions",d["human_decisions"]);print("open_findings",[f["summary"][:90] for f in d["open_findings"]])'
+### EXIT
+0
+### STDOUT
+installation: conflict
+mode: port  project: p0
+skill authority hash: verified
+  unchanged  .codex/skills/ligature/SKILL.md
+  unchanged  .ligature/prompts/stage-0-evidence-intake.md
+  unchanged  .ligature/prompts/stage-3-boundary-drafting.md
+  unchanged  .ligature/prompts/stage-3-bridge-drafting.md
+  unchanged  .ligature/prompts/stage-3-closure-profile-drafting.md
+  unchanged  .ligature/prompts/stage-3-concept-to-code.md
+  unchanged  .ligature/prompts/stage-3-conflict-resolution-drafting.md
+  unchanged  .ligature/prompts/stage-3-degradation-drafting.md
+  unchanged  .ligature/prompts/stage-3-exemption-drafting.md
+  unchanged  .ligature/prompts/stage-3-interaction-drafting.md
+  unchanged  .ligature/prompts/stage-3-protocol-debt-drafting.md
+  unchanged  .ligature/prompts/stage-3-witness-drafting.md
+  unchanged  .ligature/schemas/consolidated-check.schema.json
+  unchanged  .ligature/schemas/project-descriptor.schema.json
+  unchanged  .ligature/schemas/project-state.schema.json
+  user-owned  docs/reliance-policy.md  (the policy document's `Policy version:` line carries no `<name>@<major>.<minor>` value (the template `init` ships the placeholder `<policy-name>@<major>.<minor>`); stamp it with `ligature accept-policy --reviewer <name> --version <name>@<major>.<minor>`)
+  user-owned  project-descriptor.json
+  unchanged  schemas/project-descriptor.schema.json
+  unchanged  scripts/witness_renderer.py
+  unchanged  scripts/xml_escape.py
+  note: adjudicator pin mismatch: the ownership manifest records sha256:d6faedb62a7cc325b3373f3f3efdd52f7938c4b85a57359937c9dd5a56013a59 but this executable is sha256:6e9072ba2b7c8f92497efc0778de214dcff9c7a5d1fc88ef17876441c0657d13 -- refusing to silently re-pin it. If the binary swap is deliberate, re-pin explicitly with `ligature migrate --upgrade` (or `migrate --force <path>`)
+ownership manifest: ci/manifest/installation.json
+check exit=1
+human_decisions [{'decision_id': '1ad7be925d53e3f1f11618d6a6d3e2a5', 'gate_id': 'P0', 'status': 'pending', 'subject': 'project-descriptor.json'}]
+open_findings ["the policy document's `Policy version:` line carries no `<name>@<major>.<minor>` value (th", 'outside every allowed_roots pattern and not accounted for by the ownership manifest, a dec', '@adjudicator: content hash drift (pinned sha256:d6faedb62a7cc325b3373f3f3efdd52f7938c4b85a', 'project descriptor retains shipped example-fixture value(s): replace sentinel value(s): re', 'outside every allowed_roots pattern and not accounted for by the ownership manifest, a dec', 'outside every allowed_roots pattern and not accounted for by the ownership manifest, a dec', 'declared crate root crates/p0-core does not exist or is not a directory; create or scaffol', 'outside every allowed_roots pattern and not accounted for by the ownership manifest, a dec', 'outside every allowed_roots pattern and not accounted for by the ownership manifest, a dec']
+
+### STDERR
+

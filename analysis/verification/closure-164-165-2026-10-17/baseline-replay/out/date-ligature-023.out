@@ -1,0 +1,28 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+rm -rf /tmp/dc13 && mkdir -p /tmp/dc13 && tar --exclude=./upstream --exclude=./analysis/codesight -C date-creusot -cf - . | tar -C /tmp/dc13 -xf - && cd /tmp/dc13 && find . -name 'exit-code*' -not -path './upstream/*' | wc -l; python3 tools/ligature/ligature.pyz --help 2>&1 | grep -ci 'exit code'; find .ligature -type f | sort
+### EXIT
+0
+### STDOUT
+0
+2
+.ligature/prompts/stage-0-evidence-intake.md
+.ligature/prompts/stage-3-boundary-drafting.md
+.ligature/prompts/stage-3-bridge-drafting.md
+.ligature/prompts/stage-3-closure-profile-drafting.md
+.ligature/prompts/stage-3-concept-to-code.md
+.ligature/prompts/stage-3-conflict-resolution-drafting.md
+.ligature/prompts/stage-3-degradation-drafting.md
+.ligature/prompts/stage-3-exemption-drafting.md
+.ligature/prompts/stage-3-interaction-drafting.md
+.ligature/prompts/stage-3-protocol-debt-drafting.md
+.ligature/prompts/stage-3-witness-drafting.md
+.ligature/schemas/consolidated-check.schema.json
+.ligature/schemas/project-descriptor.schema.json
+.ligature/schemas/project-state.schema.json
+
+### STDERR
+

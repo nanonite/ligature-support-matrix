@@ -1,0 +1,14 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && jq -r '.review.reviewer' rust/date-creusot-core/specs/_boundaries/*.json rust/date-creusot-core/specs/_interactions/*.json | sort | uniq -c ; grep -n 'accept-promotion must not run' README.md
+### EXIT
+1
+### STDOUT
+      1 chainlink-reviewer
+     18 roger-codex-luna6
+
+### STDERR
+

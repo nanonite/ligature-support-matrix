@@ -1,0 +1,12 @@
+Scratch root: /tmp/date-creusot-141-proof-20261018
+Pilot source HEAD copied into scratch: f11ff53bb8350f41ae073bda9617b02e590fbe28
+
+First attempt, using the environment's default Nix cache:
+  timeout --kill-after=10s 600s nix develop path:/tmp/date-creusot-141-proof-20261018/analysis/verification/workspace-root-flake#date-creusot -c bash -lc 'cd rust/date-creusot-core && cargo creusot'
+  exit 1 before entering the shell; Nix could not open a fetcher lock under /home/goya/.cache/nix because the filesystem is read-only.
+
+Second attempt, redirecting the cache to writable scratch storage:
+  XDG_CACHE_HOME=/tmp/date-creusot-nix-cache timeout --kill-after=10s 600s nix develop path:/tmp/date-creusot-141-proof-20261018/analysis/verification/workspace-root-flake#date-creusot -c bash -lc 'cd rust/date-creusot-core && cargo creusot'
+  exit 1 before entering the shell: cannot connect to /nix/var/nix/daemon-socket/socket (Operation not permitted).
+
+No Creusot command ran in either attempt. Raw stdout, stderr, and exit files are adjacent.

@@ -1,0 +1,116 @@
+{
+  "exit_code": 0,
+  "findings": [
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json",
+      "reason": "CS-YEARMONTHDAY-OK-001: interaction 'I-year-month-day-ok-to-year-ok' declares features=[] cfg=[], observed under features=['default'] cfg=[]",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json",
+      "reason": "CS-YEARMONTHDAY-OK-002: interaction 'I-year-month-day-ok-to-month-ok' declares features=[] cfg=[], observed under features=['default'] cfg=[]",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json",
+      "reason": "CS-YEARMONTHDAY-OK-003: interaction 'I-year-month-day-ok-to-year-month-day-last-day' declares features=[] cfg=[], observed under features=['default'] cfg=[]",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json",
+      "reason": "CS-YEARMONTHDAY-OK-004: intra-concept call YearMonthDay::ok -> last is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json",
+      "reason": "CS-YEARMONTHDAY-TO-DAYS-BOUNDED-001: intra-concept call YearMonthDay::to_days_bounded -> to_days is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json",
+      "reason": "CS-YEARMONTHDAY-ROUND-TRIP-001: intra-concept call YearMonthDay::round_trip -> from_days is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json",
+      "reason": "CS-YEARMONTHDAY-ROUND-TRIP-002: intra-concept call YearMonthDay::round_trip -> to_days_bounded is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json",
+      "reason": "CS-YEARMONTHDAYLAST-OK-001: interaction 'I-year-month-day-last-ok-to-year-ok' declares features=[] cfg=[], observed under features=['default'] cfg=[]",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json",
+      "reason": "CS-YEARMONTHDAYLAST-OK-002: interaction 'I-year-month-day-last-ok-to-month-ok' declares features=[] cfg=[], observed under features=['default'] cfg=[]",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json",
+      "reason": "CS-YEARMONTHDAYLAST-DAY-001: interaction 'I-year-month-day-last-day-to-year-is-leap' declares features=[] cfg=[], observed under features=['default'] cfg=[]",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json",
+      "reason": "interaction 'I-iso-week-weekday-to-weekday-iso-encoding' (IsoWeek.weekday -> Weekday.iso_encoding) has no realized call in this observation -- intent without realization, not a coverage failure",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json",
+      "reason": "interaction 'I-year-month-day-to-days-to-weekday-weekday-from-days' (YearMonthDay.to_days -> Weekday.weekday_from_days) has no realized call in this observation -- intent without realization, not a coverage failure",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json",
+      "reason": "interaction 'I-year-month-day-to-days-to-year-month-day-from-days' (YearMonthDay.to_days -> YearMonthDay.from_days) has no realized call in this observation -- intent without realization, not a coverage failure",
+      "severity": "info"
+    }
+  ],
+  "format": "ligature.r1-g16-report.v1",
+  "gate_acceptance": "accepted",
+  "reports": [
+    {
+      "counts": {
+        "checked": 11,
+        "configuration_mismatches": 0,
+        "discovered": 11,
+        "reports": 1,
+        "undeclared_blocking": 0,
+        "undeclared_warnings": 0,
+        "unresolved": 0
+      },
+      "crate_dir": "rust/date-creusot-core",
+      "interaction_reconciliation": "complete",
+      "report_path": "/home/goya/storage/full-ligature-port-workspace/date-creusot/ci/results/c_static/rust_date-creusot-core.json",
+      "source_resolution": "complete"
+    }
+  ],
+  "summary": {
+    "counts": {
+      "checked": 11,
+      "configuration_mismatches": 0,
+      "discovered": 11,
+      "reports": 1,
+      "undeclared_blocking": 0,
+      "undeclared_warnings": 0,
+      "unresolved": 0
+    },
+    "discovery_completeness": "syntactic-lower-bound",
+    "interaction_reconciliation": "complete",
+    "source_resolution": "complete"
+  }
+}

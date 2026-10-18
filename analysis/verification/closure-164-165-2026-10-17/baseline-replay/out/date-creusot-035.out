@@ -1,0 +1,16 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+nix develop "path:/tmp/ligature-closure-164-165-baseline-1.4.0/ws#date-creusot" -c bash -lc "cd date-creusot/rust/date-creusot-core && cargo creusot 2>&1 | grep -E 'Goal|unproved'"
+### EXIT
+1
+### STDOUT
+
+### STDERR
+error:
+       … while fetching the input 'path:/tmp/ligature-closure-164-165-baseline-1.4.0/ws'
+
+       error: opening lock file "/home/goya/.cache/nix/fetcher-locks/a42f90f69f28a7e97713ca04baf7f33dbf819d699ca4bb4a48d0c66f4904149d.lock": Read-only file system
+

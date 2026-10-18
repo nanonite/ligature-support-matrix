@@ -1,0 +1,14 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && python3 tools/ligature/ligature.pyz approve --reviewer x --reviewed-at 2026-09-27 <path-to-a-hand-authored-.json-with-no-.draft-sibling>
+### EXIT
+2
+### STDOUT
+
+### STDERR
+bash: -c: line 1: syntax error near unexpected token `newline'
+bash: -c: line 1: `cd date-creusot && python3 tools/ligature/ligature.pyz approve --reviewer x --reviewed-at 2026-09-27 <path-to-a-hand-authored-.json-with-no-.draft-sibling>'
+

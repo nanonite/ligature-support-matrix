@@ -1,0 +1,13 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+echo '{"case_id":"x1","op":"ymd_ok","inputs":{"y":2000,"m":1,"d":1},"extra":1}' > /tmp/neg.jsonl && oracle/build/oracle_driver /tmp/neg.jsonl /tmp/out.jsonl
+### EXIT
+2
+### STDOUT
+
+### STDERR
+/tmp/neg.jsonl:1: unknown case field: extra
+

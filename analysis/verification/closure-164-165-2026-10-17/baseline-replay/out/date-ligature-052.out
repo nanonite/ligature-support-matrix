@@ -1,0 +1,25 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && jq -r '.report.emit' ci/manifest/WP-DATE-CREUSOT.json && jq -c '.write_set.protected_roots' project-descriptor.json | tr ',' '\n' | grep -n 'ci/manifest' && sed -n '69,77p' .codex/skills/ligature/SKILL.md && printf '{}' > ci/manifest/PROBE.json && python3 tools/ligature/ligature.pyz write-set-check | head -1; echo "exit=$?"; rm -f ci/manifest/PROBE.json
+### EXIT
+0
+### STDOUT
+ci/results/WP-DATE-CREUSOT.json
+2:"ci/manifest/**"
+   correctness or equivalence. A witness observation is never an
+   assurance dimension.
+4. **Generated and read-only artifacts are not hand-edited.** Reports,
+   feature ledgers, contact sheets, witness renderings, and gate outputs
+   are regenerated from source; editing one by hand is not a change to the
+   project's state.
+5. **The write set is binding.** The project descriptor's `write_set`
+   declares where you may write implementation files (`allowed_roots` —
+   the crate `src/` and `tests/` trees) and which paths are protected
+write set: violations
+exit=0
+
+### STDERR
+

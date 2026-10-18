@@ -1,0 +1,574 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+nix develop 'path:/tmp/ligature-closure-164-165-final-1.4.1/ws#date-creusot' -c bash -lc 'cd rust/date-creusot-core && cargo creusot 2>&1 | tail -10'
+### EXIT
+0
+### STDOUT
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+[0/5] Running Kani first-time setup...
+[1/5] Ensuring the existence of: /tmp/ligature-closure-164-165-final-nix-cache/kani/kani-0.67.0
+[2/5] Downloading Kani release bundle: kani-0.67.0-x86_64-unknown-linux-gnu.tar.gz
+[3/5] Installing rust toolchain version: nightly-2025-11-21-x86_64-unknown-linux-gnu
+
+  nightly-2025-11-21-x86_64-unknown-linux-gnu unchanged - rustc 1.93.0-nightly (53732d5e0 2025-11-20)
+
+[5/5] Successfully completed Kani first-time setup.
+date-creusot: Creusot, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/fmt/mod.rs]
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/fmt/mod.rs]
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/fmt/mod.rs]
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/fmt/mod.rs]
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/fmt/mod.rs]
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/fmt/mod.rs]
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/num/int_macros.rs]
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/fmt/mod.rs]
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/fmt/mod.rs]
+Proved (93 files) ✔
+
+### STDERR
+unpacking 'github:creusot-rs/creusot/553a8b732697ae8b8f2b66a64600b0d39e086f9f?narHash=sha256-eYVH0stOJmDwSGV4XA5d56PpDLiEubV2yV4sEpHNv6w%3D' into the Git cache...
+unpacking 'github:hercules-ci/flake-parts/17c9d6cdfc60c64f4ee8d306f9bc0b4ccb51481e?narHash=sha256-vp6Y/Grm98ESt6ceOkWiHWyZRDV3J1RID4w%2B6NWK9yA%3D' into the Git cache...
+unpacking 'github:nix-community/nixpkgs.lib/db3f255737b94216eb71cce308e2912cf6bc2d7c?narHash=sha256-ePjCwr1sNm9NYUqywL7QfK3JnlS015msC%2BeBu2zKlp8%3D' into the Git cache...
+unpacking 'https://releases.nixos.org/nixos/26.05/nixos-26.05.4808.569d57850992/nixexprs.tar.xz' into the Git cache...
+unpacking 'github:oxalica/rust-overlay/292249772330735cb32b90dedf44feddec40e7d0?narHash=sha256-DauSP0ACycrq3MEEmDz/Scsxhs9TPBTexwKbTuE8Bw8%3D' into the Git cache...
+unpacking 'github:ipetkov/crane/80db5bdc391be8a1794f6d8a2d56e3a84ebcede2?narHash=sha256-G6R9IT/xwFuu%2BCYBWDUAok6AdC4ERC4ZfPPFtEpxnZE%3D' into the Git cache...
+remote: Enumerating objects: 9480, done.        
+remote: Counting objects:   0% (1/1380)        
+remote: Counting objects:   1% (14/1380)        
+remote: Counting objects:   2% (28/1380)        
+remote: Counting objects:   3% (42/1380)        
+remote: Counting objects:   4% (56/1380)        
+remote: Counting objects:   5% (69/1380)        
+remote: Counting objects:   6% (83/1380)        
+remote: Counting objects:   7% (97/1380)        
+remote: Counting objects:   8% (111/1380)        
+remote: Counting objects:   9% (125/1380)        
+remote: Counting objects:  10% (138/1380)        
+remote: Counting objects:  11% (152/1380)        
+remote: Counting objects:  12% (166/1380)        
+remote: Counting objects:  13% (180/1380)        
+remote: Counting objects:  14% (194/1380)        
+remote: Counting objects:  15% (207/1380)        
+remote: Counting objects:  16% (221/1380)        
+remote: Counting objects:  17% (235/1380)        
+remote: Counting objects:  18% (249/1380)        
+remote: Counting objects:  19% (263/1380)        
+remote: Counting objects:  20% (276/1380)        
+remote: Counting objects:  21% (290/1380)        
+remote: Counting objects:  22% (304/1380)        
+remote: Counting objects:  23% (318/1380)        
+remote: Counting objects:  24% (332/1380)        
+remote: Counting objects:  25% (345/1380)        
+remote: Counting objects:  26% (359/1380)        
+remote: Counting objects:  27% (373/1380)        
+remote: Counting objects:  28% (387/1380)        
+remote: Counting objects:  29% (401/1380)        
+remote: Counting objects:  30% (414/1380)        
+remote: Counting objects:  31% (428/1380)        
+remote: Counting objects:  32% (442/1380)        
+remote: Counting objects:  33% (456/1380)        
+remote: Counting objects:  34% (470/1380)        
+remote: Counting objects:  35% (483/1380)        
+remote: Counting objects:  36% (497/1380)        
+remote: Counting objects:  37% (511/1380)        
+remote: Counting objects:  38% (525/1380)        
+remote: Counting objects:  39% (539/1380)        
+remote: Counting objects:  40% (552/1380)        
+remote: Counting objects:  41% (566/1380)        
+remote: Counting objects:  42% (580/1380)        
+remote: Counting objects:  43% (594/1380)        
+remote: Counting objects:  44% (608/1380)        
+remote: Counting objects:  45% (621/1380)        
+remote: Counting objects:  46% (635/1380)        
+remote: Counting objects:  47% (649/1380)        
+remote: Counting objects:  48% (663/1380)        
+remote: Counting objects:  49% (677/1380)        
+remote: Counting objects:  50% (690/1380)        
+remote: Counting objects:  51% (704/1380)        
+remote: Counting objects:  52% (718/1380)        
+remote: Counting objects:  53% (732/1380)        
+remote: Counting objects:  54% (746/1380)        
+remote: Counting objects:  55% (759/1380)        
+remote: Counting objects:  56% (773/1380)        
+remote: Counting objects:  57% (787/1380)        
+remote: Counting objects:  58% (801/1380)        
+remote: Counting objects:  59% (815/1380)        
+remote: Counting objects:  60% (828/1380)        
+remote: Counting objects:  61% (842/1380)        
+remote: Counting objects:  62% (856/1380)        
+remote: Counting objects:  63% (870/1380)        
+remote: Counting objects:  64% (884/1380)        
+remote: Counting objects:  65% (897/1380)        
+remote: Counting objects:  66% (911/1380)        
+remote: Counting objects:  67% (925/1380)        
+remote: Counting objects:  68% (939/1380)        
+remote: Counting objects:  69% (953/1380)        
+remote: Counting objects:  70% (966/1380)        
+remote: Counting objects:  71% (980/1380)        
+remote: Counting objects:  72% (994/1380)        
+remote: Counting objects:  73% (1008/1380)        
+remote: Counting objects:  74% (1022/1380)        
+remote: Counting objects:  75% (1035/1380)        
+remote: Counting objects:  76% (1049/1380)        
+remote: Counting objects:  77% (1063/1380)        
+remote: Counting objects:  78% (1077/1380)        
+remote: Counting objects:  79% (1091/1380)        
+remote: Counting objects:  80% (1104/1380)        
+remote: Counting objects:  81% (1118/1380)        
+remote: Counting objects:  82% (1132/1380)        
+remote: Counting objects:  83% (1146/1380)        
+remote: Counting objects:  84% (1160/1380)        
+remote: Counting objects:  85% (1173/1380)        
+remote: Counting objects:  86% (1187/1380)        
+remote: Counting objects:  87% (1201/1380)        
+remote: Counting objects:  88% (1215/1380)        
+remote: Counting objects:  89% (1229/1380)        
+remote: Counting objects:  90% (1242/1380)        
+remote: Counting objects:  91% (1256/1380)        
+remote: Counting objects:  92% (1270/1380)        
+remote: Counting objects:  93% (1284/1380)        
+remote: Counting objects:  94% (1298/1380)        
+remote: Counting objects:  95% (1311/1380)        
+remote: Counting objects:  96% (1325/1380)        
+remote: Counting objects:  97% (1339/1380)        
+remote: Counting objects:  98% (1353/1380)        
+remote: Counting objects:  99% (1367/1380)        
+remote: Counting objects: 100% (1380/1380)        
+remote: Counting objects: 100% (1380/1380), done.        
+remote: Compressing objects:   1% (1/92)        
+remote: Compressing objects:   2% (2/92)        
+remote: Compressing objects:   3% (3/92)        
+remote: Compressing objects:   4% (4/92)        
+remote: Compressing objects:   5% (5/92)        
+remote: Compressing objects:   6% (6/92)        
+remote: Compressing objects:   7% (7/92)        
+remote: Compressing objects:   8% (8/92)        
+remote: Compressing objects:   9% (9/92)        
+remote: Compressing objects:  10% (10/92)        
+remote: Compressing objects:  11% (11/92)        
+remote: Compressing objects:  13% (12/92)        
+remote: Compressing objects:  14% (13/92)        
+remote: Compressing objects:  15% (14/92)        
+remote: Compressing objects:  16% (15/92)        
+remote: Compressing objects:  17% (16/92)        
+remote: Compressing objects:  18% (17/92)        
+remote: Compressing objects:  19% (18/92)        
+remote: Compressing objects:  20% (19/92)        
+remote: Compressing objects:  21% (20/92)        
+remote: Compressing objects:  22% (21/92)        
+remote: Compressing objects:  23% (22/92)        
+remote: Compressing objects:  25% (23/92)        
+remote: Compressing objects:  26% (24/92)        
+remote: Compressing objects:  27% (25/92)        
+remote: Compressing objects:  28% (26/92)        
+remote: Compressing objects:  29% (27/92)        
+remote: Compressing objects:  30% (28/92)        
+remote: Compressing objects:  31% (29/92)        
+remote: Compressing objects:  32% (30/92)        
+remote: Compressing objects:  33% (31/92)        
+remote: Compressing objects:  34% (32/92)        
+remote: Compressing objects:  35% (33/92)        
+remote: Compressing objects:  36% (34/92)        
+remote: Compressing objects:  38% (35/92)        
+remote: Compressing objects:  39% (36/92)        
+remote: Compressing objects:  40% (37/92)        
+remote: Compressing objects:  41% (38/92)        
+remote: Compressing objects:  42% (39/92)        
+remote: Compressing objects:  43% (40/92)        
+remote: Compressing objects:  44% (41/92)        
+remote: Compressing objects:  45% (42/92)        
+remote: Compressing objects:  46% (43/92)        
+remote: Compressing objects:  47% (44/92)        
+remote: Compressing objects:  48% (45/92)        
+remote: Compressing objects:  50% (46/92)        
+remote: Compressing objects:  51% (47/92)        
+remote: Compressing objects:  52% (48/92)        
+remote: Compressing objects:  53% (49/92)        
+remote: Compressing objects:  54% (50/92)        
+remote: Compressing objects:  55% (51/92)        
+remote: Compressing objects:  56% (52/92)        
+remote: Compressing objects:  57% (53/92)        
+remote: Compressing objects:  58% (54/92)        
+remote: Compressing objects:  59% (55/92)        
+remote: Compressing objects:  60% (56/92)        
+remote: Compressing objects:  61% (57/92)        
+remote: Compressing objects:  63% (58/92)        
+remote: Compressing objects:  64% (59/92)        
+remote: Compressing objects:  65% (60/92)        
+remote: Compressing objects:  66% (61/92)        
+remote: Compressing objects:  67% (62/92)        
+remote: Compressing objects:  68% (63/92)        
+remote: Compressing objects:  69% (64/92)        
+remote: Compressing objects:  70% (65/92)        
+remote: Compressing objects:  71% (66/92)        
+remote: Compressing objects:  72% (67/92)        
+remote: Compressing objects:  73% (68/92)        
+remote: Compressing objects:  75% (69/92)        
+remote: Compressing objects:  76% (70/92)        
+remote: Compressing objects:  77% (71/92)        
+remote: Compressing objects:  78% (72/92)        
+remote: Compressing objects:  79% (73/92)        
+remote: Compressing objects:  80% (74/92)        
+remote: Compressing objects:  81% (75/92)        
+remote: Compressing objects:  82% (76/92)        
+remote: Compressing objects:  83% (77/92)        
+remote: Compressing objects:  84% (78/92)        
+remote: Compressing objects:  85% (79/92)        
+remote: Compressing objects:  86% (80/92)        
+remote: Compressing objects:  88% (81/92)        
+remote: Compressing objects:  89% (82/92)        
+remote: Compressing objects:  90% (83/92)        
+remote: Compressing objects:  91% (84/92)        
+remote: Compressing objects:  92% (85/92)        
+remote: Compressing objects:  93% (86/92)        
+remote: Compressing objects:  94% (87/92)        
+remote: Compressing objects:  95% (88/92)        
+remote: Compressing objects:  96% (89/92)        
+remote: Compressing objects:  97% (90/92)        
+remote: Compressing objects:  98% (91/92)        
+remote: Compressing objects: 100% (92/92)        
+remote: Compressing objects: 100% (92/92), done.        
+Receiving objects:   0% (1/9480)
+Receiving objects:   1% (95/9480)
+Receiving objects:   2% (190/9480)
+Receiving objects:   3% (285/9480), 120.00 KiB | 172.00 KiB/s
+Receiving objects:   4% (380/9480), 120.00 KiB | 172.00 KiB/s
+Receiving objects:   5% (474/9480), 120.00 KiB | 172.00 KiB/s
+Receiving objects:   6% (569/9480), 120.00 KiB | 172.00 KiB/s
+Receiving objects:   7% (664/9480), 120.00 KiB | 172.00 KiB/s
+Receiving objects:   8% (759/9480), 120.00 KiB | 172.00 KiB/s
+Receiving objects:   9% (854/9480), 120.00 KiB | 172.00 KiB/s
+Receiving objects:   9% (899/9480), 120.00 KiB | 172.00 KiB/s
+Receiving objects:  10% (948/9480), 120.00 KiB | 172.00 KiB/s
+Receiving objects:  11% (1043/9480), 120.00 KiB | 172.00 KiB/s
+Receiving objects:  12% (1138/9480), 120.00 KiB | 172.00 KiB/s
+Receiving objects:  13% (1233/9480), 120.00 KiB | 172.00 KiB/s
+Receiving objects:  14% (1328/9480), 120.00 KiB | 172.00 KiB/s
+Receiving objects:  15% (1422/9480), 120.00 KiB | 172.00 KiB/s
+Receiving objects:  16% (1517/9480), 384.00 KiB | 319.00 KiB/s
+Receiving objects:  17% (1612/9480), 672.00 KiB | 379.00 KiB/s
+Receiving objects:  17% (1644/9480), 672.00 KiB | 379.00 KiB/s
+Receiving objects:  18% (1707/9480), 672.00 KiB | 379.00 KiB/s
+Receiving objects:  19% (1802/9480), 672.00 KiB | 379.00 KiB/s
+Receiving objects:  20% (1896/9480), 672.00 KiB | 379.00 KiB/s
+Receiving objects:  21% (1991/9480), 672.00 KiB | 379.00 KiB/s
+Receiving objects:  22% (2086/9480), 672.00 KiB | 379.00 KiB/s
+Receiving objects:  23% (2181/9480), 672.00 KiB | 379.00 KiB/s
+Receiving objects:  24% (2276/9480), 1.18 MiB | 527.00 KiB/s  
+Receiving objects:  25% (2370/9480), 1.18 MiB | 527.00 KiB/s
+Receiving objects:  26% (2465/9480), 1.18 MiB | 527.00 KiB/s
+Receiving objects:  27% (2560/9480), 1.18 MiB | 527.00 KiB/s
+Receiving objects:  28% (2655/9480), 1.18 MiB | 527.00 KiB/s
+Receiving objects:  29% (2750/9480), 1.18 MiB | 527.00 KiB/s
+Receiving objects:  29% (2823/9480), 2.80 MiB | 868.00 KiB/s
+Receiving objects:  29% (2823/9480), 5.89 MiB | 1.36 MiB/s  
+Receiving objects:  29% (2825/9480), 10.82 MiB | 2.29 MiB/s
+Receiving objects:  29% (2828/9480), 13.98 MiB | 2.92 MiB/s
+Receiving objects:  29% (2834/9480), 21.16 MiB | 4.35 MiB/s
+Receiving objects:  29% (2838/9480), 28.55 MiB | 5.60 MiB/s
+Receiving objects:  29% (2840/9480), 36.82 MiB | 6.73 MiB/s
+Receiving objects:  30% (2844/9480), 41.14 MiB | 7.17 MiB/s
+Receiving objects:  30% (2847/9480), 50.18 MiB | 7.89 MiB/s
+Receiving objects:  30% (2849/9480), 54.61 MiB | 8.06 MiB/s
+Receiving objects:  30% (2853/9480), 63.86 MiB | 8.59 MiB/s
+Receiving objects:  30% (2867/9480), 73.12 MiB | 8.87 MiB/s
+Receiving objects:  30% (2869/9480), 82.33 MiB | 9.05 MiB/s
+Receiving objects:  30% (2877/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  31% (2939/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  32% (3034/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  33% (3129/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  34% (3224/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  35% (3318/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  36% (3413/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  37% (3508/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  38% (3603/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  39% (3698/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  40% (3792/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  41% (3887/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  42% (3982/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  43% (4077/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  44% (4172/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  45% (4266/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  46% (4361/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  47% (4456/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  48% (4551/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  49% (4646/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  50% (4740/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  51% (4835/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  52% (4930/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  53% (5025/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  54% (5120/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  55% (5214/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  56% (5309/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  57% (5404/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  58% (5499/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  59% (5594/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  60% (5688/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  61% (5783/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  62% (5878/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  63% (5973/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  64% (6068/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  65% (6162/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  66% (6257/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  67% (6352/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  68% (6447/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  69% (6542/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  70% (6636/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  71% (6731/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  72% (6826/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  73% (6921/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  74% (7016/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  75% (7110/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  76% (7205/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  77% (7300/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  78% (7395/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  79% (7490/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  80% (7584/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  81% (7679/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  82% (7774/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  83% (7869/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  84% (7964/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  85% (8058/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  86% (8153/9480), 91.66 MiB | 9.13 MiB/s
+Receiving objects:  87% (8248/9480), 96.33 MiB | 9.18 MiB/s
+Receiving objects:  88% (8343/9480), 96.33 MiB | 9.18 MiB/s
+Receiving objects:  89% (8438/9480), 96.33 MiB | 9.18 MiB/s
+Receiving objects:  90% (8532/9480), 96.33 MiB | 9.18 MiB/s
+Receiving objects:  91% (8627/9480), 96.33 MiB | 9.18 MiB/s
+Receiving objects:  92% (8722/9480), 96.33 MiB | 9.18 MiB/s
+Receiving objects:  93% (8817/9480), 96.33 MiB | 9.18 MiB/s
+Receiving objects:  94% (8912/9480), 96.33 MiB | 9.18 MiB/s
+Receiving objects:  95% (9006/9480), 96.33 MiB | 9.18 MiB/s
+Receiving objects:  96% (9101/9480), 96.33 MiB | 9.18 MiB/s
+Receiving objects:  97% (9196/9480), 96.33 MiB | 9.18 MiB/s
+Receiving objects:  98% (9291/9480), 96.33 MiB | 9.18 MiB/s
+Receiving objects:  99% (9386/9480), 96.33 MiB | 9.18 MiB/s
+remote: Total 9480 (delta 1307), reused 1288 (delta 1288), pack-reused 8100 (from 1)        
+Receiving objects: 100% (9480/9480), 96.33 MiB | 9.18 MiB/s
+Receiving objects: 100% (9480/9480), 97.04 MiB | 6.24 MiB/s, done.
+Resolving deltas:   0% (0/6593)
+Resolving deltas:   1% (66/6593)
+Resolving deltas:   2% (132/6593)
+Resolving deltas:   3% (198/6593)
+Resolving deltas:   4% (264/6593)
+Resolving deltas:   5% (331/6593)
+Resolving deltas:   6% (396/6593)
+Resolving deltas:   7% (462/6593)
+Resolving deltas:   8% (528/6593)
+Resolving deltas:   9% (594/6593)
+Resolving deltas:  10% (661/6593)
+Resolving deltas:  11% (727/6593)
+Resolving deltas:  12% (792/6593)
+Resolving deltas:  13% (858/6593)
+Resolving deltas:  14% (924/6593)
+Resolving deltas:  15% (989/6593)
+Resolving deltas:  16% (1055/6593)
+Resolving deltas:  17% (1121/6593)
+Resolving deltas:  18% (1187/6593)
+Resolving deltas:  19% (1253/6593)
+Resolving deltas:  20% (1319/6593)
+Resolving deltas:  21% (1385/6593)
+Resolving deltas:  22% (1451/6593)
+Resolving deltas:  23% (1517/6593)
+Resolving deltas:  24% (1583/6593)
+Resolving deltas:  25% (1649/6593)
+Resolving deltas:  26% (1715/6593)
+Resolving deltas:  27% (1781/6593)
+Resolving deltas:  28% (1847/6593)
+Resolving deltas:  29% (1912/6593)
+Resolving deltas:  30% (1978/6593)
+Resolving deltas:  31% (2044/6593)
+Resolving deltas:  32% (2110/6593)
+Resolving deltas:  33% (2176/6593)
+Resolving deltas:  34% (2242/6593)
+Resolving deltas:  35% (2309/6593)
+Resolving deltas:  36% (2375/6593)
+Resolving deltas:  37% (2440/6593)
+Resolving deltas:  38% (2506/6593)
+Resolving deltas:  39% (2572/6593)
+Resolving deltas:  40% (2639/6593)
+Resolving deltas:  41% (2704/6593)
+Resolving deltas:  42% (2770/6593)
+Resolving deltas:  43% (2835/6593)
+Resolving deltas:  44% (2901/6593)
+Resolving deltas:  45% (2967/6593)
+Resolving deltas:  46% (3033/6593)
+Resolving deltas:  47% (3101/6593)
+Resolving deltas:  48% (3165/6593)
+Resolving deltas:  49% (3231/6593)
+Resolving deltas:  50% (3297/6593)
+Resolving deltas:  51% (3363/6593)
+Resolving deltas:  52% (3429/6593)
+Resolving deltas:  53% (3495/6593)
+Resolving deltas:  54% (3561/6593)
+Resolving deltas:  55% (3627/6593)
+Resolving deltas:  56% (3693/6593)
+Resolving deltas:  57% (3759/6593)
+Resolving deltas:  58% (3824/6593)
+Resolving deltas:  59% (3890/6593)
+Resolving deltas:  60% (3956/6593)
+Resolving deltas:  61% (4022/6593)
+Resolving deltas:  62% (4088/6593)
+Resolving deltas:  63% (4154/6593)
+Resolving deltas:  64% (4220/6593)
+Resolving deltas:  65% (4286/6593)
+Resolving deltas:  66% (4352/6593)
+Resolving deltas:  67% (4419/6593)
+Resolving deltas:  68% (4484/6593)
+Resolving deltas:  69% (4550/6593)
+Resolving deltas:  70% (4619/6593)
+Resolving deltas:  71% (4682/6593)
+Resolving deltas:  72% (4747/6593)
+Resolving deltas:  73% (4813/6593)
+Resolving deltas:  74% (4879/6593)
+Resolving deltas:  75% (4945/6593)
+Resolving deltas:  76% (5011/6593)
+Resolving deltas:  77% (5077/6593)
+Resolving deltas:  78% (5143/6593)
+Resolving deltas:  79% (5210/6593)
+Resolving deltas:  80% (5275/6593)
+Resolving deltas:  81% (5341/6593)
+Resolving deltas:  82% (5407/6593)
+Resolving deltas:  83% (5473/6593)
+Resolving deltas:  84% (5539/6593)
+Resolving deltas:  85% (5605/6593)
+Resolving deltas:  86% (5670/6593)
+Resolving deltas:  87% (5736/6593)
+Resolving deltas:  88% (5802/6593)
+Resolving deltas:  89% (5868/6593)
+Resolving deltas:  90% (5934/6593)
+Resolving deltas:  91% (6000/6593)
+Resolving deltas:  92% (6066/6593)
+Resolving deltas:  93% (6132/6593)
+Resolving deltas:  94% (6198/6593)
+Resolving deltas:  95% (6264/6593)
+Resolving deltas:  96% (6330/6593)
+Resolving deltas:  97% (6396/6593)
+Resolving deltas:  98% (6462/6593)
+Resolving deltas:  99% (6528/6593)
+Resolving deltas: 100% (6593/6593)
+Resolving deltas: 100% (6593/6593), done.
+From https://github.com/xldenis/petgraph
+ * [new branch]      bm/dino-closure      -> bm/dino-closure
+ * [new branch]      bm/logo              -> bm/logo
+ * [new branch]      bm/speed-regression  -> bm/speed-regression
+ * [new branch]      branch-0.2           -> branch-0.2
+ * [new branch]      builder              -> builder
+ * [new branch]      edge-entry           -> edge-entry
+ * [new branch]      master               -> master
+ * [new branch]      next                 -> next
+ * [new branch]      stable-unification-2 -> stable-unification-2
+ * [new branch]      test-travis          -> test-travis
+ * [new tag]         0.0.2                -> 0.0.2
+ * [new tag]         0.0.7                -> 0.0.7
+ * [new tag]         0.2.10               -> 0.2.10
+ * [new tag]         0.4.10               -> 0.4.10
+ * [new tag]         0.4.11               -> 0.4.11
+ * [new tag]         0.4.13               -> 0.4.13
+ * [new tag]         0.4.2                -> 0.4.2
+ * [new tag]         0.4.3                -> 0.4.3
+ * [new tag]         0.4.4                -> 0.4.4
+ * [new tag]         0.4.5                -> 0.4.5
+ * [new tag]         0.4.6                -> 0.4.6
+ * [new tag]         0.4.7                -> 0.4.7
+ * [new tag]         0.4.8                -> 0.4.8
+ * [new tag]         0.4.9                -> 0.4.9
+ * [new tag]         0.5.0                -> 0.5.0
+ * [new tag]         0.5.1                -> 0.5.1
+ * [new tag]         0.6.0                -> 0.6.0
+ * [new tag]         0.6.3                -> 0.6.3
+ * [new tag]         list                 -> list
+ * [new tag]         petgraph@v0.0.1      -> petgraph@v0.0.1
+ * [new tag]         petgraph@v0.0.10     -> petgraph@v0.0.10
+ * [new tag]         petgraph@v0.0.11     -> petgraph@v0.0.11
+ * [new tag]         petgraph@v0.0.12     -> petgraph@v0.0.12
+ * [new tag]         petgraph@v0.0.2      -> petgraph@v0.0.2
+ * [new tag]         petgraph@v0.0.3      -> petgraph@v0.0.3
+ * [new tag]         petgraph@v0.0.4      -> petgraph@v0.0.4
+ * [new tag]         petgraph@v0.0.5      -> petgraph@v0.0.5
+ * [new tag]         petgraph@v0.0.6      -> petgraph@v0.0.6
+ * [new tag]         petgraph@v0.0.7      -> petgraph@v0.0.7
+ * [new tag]         petgraph@v0.0.8      -> petgraph@v0.0.8
+ * [new tag]         petgraph@v0.0.9      -> petgraph@v0.0.9
+ * [new tag]         petgraph@v0.1.0      -> petgraph@v0.1.0
+ * [new tag]         petgraph@v0.1.1      -> petgraph@v0.1.1
+ * [new tag]         petgraph@v0.1.10     -> petgraph@v0.1.10
+ * [new tag]         petgraph@v0.1.11     -> petgraph@v0.1.11
+ * [new tag]         petgraph@v0.1.12     -> petgraph@v0.1.12
+ * [new tag]         petgraph@v0.1.13     -> petgraph@v0.1.13
+ * [new tag]         petgraph@v0.1.14     -> petgraph@v0.1.14
+ * [new tag]         petgraph@v0.1.15     -> petgraph@v0.1.15
+ * [new tag]         petgraph@v0.1.16     -> petgraph@v0.1.16
+ * [new tag]         petgraph@v0.1.17     -> petgraph@v0.1.17
+ * [new tag]         petgraph@v0.1.18     -> petgraph@v0.1.18
+ * [new tag]         petgraph@v0.1.2      -> petgraph@v0.1.2
+ * [new tag]         petgraph@v0.1.3      -> petgraph@v0.1.3
+ * [new tag]         petgraph@v0.1.4      -> petgraph@v0.1.4
+ * [new tag]         petgraph@v0.1.5      -> petgraph@v0.1.5
+ * [new tag]         petgraph@v0.1.6      -> petgraph@v0.1.6
+ * [new tag]         petgraph@v0.1.7      -> petgraph@v0.1.7
+ * [new tag]         petgraph@v0.1.8      -> petgraph@v0.1.8
+ * [new tag]         petgraph@v0.1.9      -> petgraph@v0.1.9
+ * [new tag]         petgraph@v0.2.0      -> petgraph@v0.2.0
+ * [new tag]         petgraph@v0.2.1      -> petgraph@v0.2.1
+ * [new tag]         petgraph@v0.2.2      -> petgraph@v0.2.2
+ * [new tag]         petgraph@v0.2.3      -> petgraph@v0.2.3
+ * [new tag]         petgraph@v0.2.4      -> petgraph@v0.2.4
+ * [new tag]         petgraph@v0.2.5      -> petgraph@v0.2.5
+ * [new tag]         petgraph@v0.2.6      -> petgraph@v0.2.6
+ * [new tag]         petgraph@v0.2.7      -> petgraph@v0.2.7
+ * [new tag]         petgraph@v0.2.8      -> petgraph@v0.2.8
+ * [new tag]         petgraph@v0.3.0      -> petgraph@v0.3.0
+ * [new tag]         petgraph@v0.3.1      -> petgraph@v0.3.1
+ * [new tag]         petgraph@v0.3.2      -> petgraph@v0.3.2
+ * [new tag]         petgraph@v0.4.0      -> petgraph@v0.4.0
+ * [new tag]         petgraph@v0.4.1      -> petgraph@v0.4.1
+ * [new tag]         petgraph@v0.4.10     -> petgraph@v0.4.10
+ * [new tag]         petgraph@v0.4.11     -> petgraph@v0.4.11
+ * [new tag]         petgraph@v0.4.12     -> petgraph@v0.4.12
+ * [new tag]         petgraph@v0.4.13     -> petgraph@v0.4.13
+ * [new tag]         petgraph@v0.4.2      -> petgraph@v0.4.2
+ * [new tag]         petgraph@v0.4.3      -> petgraph@v0.4.3
+ * [new tag]         petgraph@v0.4.4      -> petgraph@v0.4.4
+ * [new tag]         petgraph@v0.4.5      -> petgraph@v0.4.5
+ * [new tag]         petgraph@v0.4.6      -> petgraph@v0.4.6
+ * [new tag]         petgraph@v0.4.7      -> petgraph@v0.4.7
+ * [new tag]         petgraph@v0.4.8      -> petgraph@v0.4.8
+ * [new tag]         petgraph@v0.4.9      -> petgraph@v0.4.9
+ * [new tag]         petgraph@v0.5.0      -> petgraph@v0.5.0
+ * [new tag]         petgraph@v0.5.1      -> petgraph@v0.5.1
+ * [new tag]         petgraph@v0.6.0      -> petgraph@v0.6.0
+ * [new tag]         petgraph@v0.6.1      -> petgraph@v0.6.1
+ * [new tag]         petgraph@v0.6.2      -> petgraph@v0.6.2
+ * [new tag]         petgraph@v0.6.3      -> petgraph@v0.6.3
+ * [new tag]         petgraph@v0.6.4      -> petgraph@v0.6.4
+ * [new tag]         petgraph@v0.6.5      -> petgraph@v0.6.5
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+info: checking for self-update (current version: 1.29.1)
+warn: tool `rust-analyzer` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+warn: tool `rustfmt` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+warn: tool `cargo-fmt` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+info: checking for self-update (current version: 1.29.1)
+warn: tool `rust-analyzer` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+warn: tool `rustfmt` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+warn: tool `cargo-fmt` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+info: syncing channel updates for nightly-2025-11-21-x86_64-unknown-linux-gnu
+info: checking for self-update (current version: 1.29.1)
+warn: tool `rust-analyzer` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+warn: tool `rustfmt` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+warn: tool `cargo-fmt` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+

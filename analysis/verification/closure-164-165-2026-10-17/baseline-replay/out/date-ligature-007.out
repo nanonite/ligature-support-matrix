@@ -1,0 +1,15 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && cp .codex/skills/ligature/SKILL.md /tmp/skill.bak && printf '\n<!-- TAMPERED -->\n' >> .codex/skills/ligature/SKILL.md && python3 tools/ligature/ligature.pyz status --json | python3 -c 'import sys,json;d=json.load(sys.stdin);print("installation_manifest.state =",d["installation_manifest"]["state"]);print("gate_integrity =",d["gate_integrity"])'; python3 tools/ligature/ligature.pyz doctor 2>&1 | grep -E '^  installation:'; cp /tmp/skill.bak .codex/skills/ligature/SKILL.md
+### EXIT
+0
+### STDOUT
+installation_manifest.state = drifted
+gate_integrity = {'details': '.codex/skills/ligature/SKILL.md: hash drift', 'state': 'drifted'}
+  installation: conflict
+
+### STDERR
+

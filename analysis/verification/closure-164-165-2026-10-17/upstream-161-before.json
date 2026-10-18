@@ -1,0 +1,102 @@
+{
+  "id": 161,
+  "title": "Verify the fixed Ligature release in the port workspace before filing remediation issues",
+  "description": "Source: /home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/ligature/reverify-VERDICTS.md, active Ligature findings and gate recheck; companion date-creusot/PORT-GAPS.md. Porting project: full-ligature-workspace at /home/goya/storage/full-ligature-port-workspace.\nBaseline: Ligature 1.3.11, bundle SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f, source cdac78c21b6c32800b668b8fa2e17270f771d78c. The 96-finding ledger is append-only. Normalized scratch probes do not establish live workspace acceptance.\n\nThis is the user-requested release and downstream handoff, not permission to skip version verification. Blocked by all sibling product fixes/investigations.\nAcceptance and sequence:\n1. Resolve each sibling with verification evidence or a justified existing-behavior decision, ship an attested Ligature release, and record source revision, version, bundle checksum, and relevant fixed issue IDs.\n2. Locate the actual executable and per-pilot installation/pin in /home/goya/storage/full-ligature-port-workspace. Verify the new bundle using version --verify and SHA256SUMS, follow sanctioned migration/repinning, and confirm installed product, managed resources, adjudicator, and gate hashes match. Installation-current does not imply descriptor-valid. Do not assume each pilot uses the same executable.\n3. Re-run the 96-finding harness against the actual installed release; preserve the append-only ledger, historical 1.2.0 and 1.3.11 measurements, per-command stdout/stderr/exits, and the distinction between live and normalized scratch. Evaluate actual G14 obligation scope, not just its old count.\n4. Only after the fixed version is verified in that workspace, create project-local Chainlink issues for EACH remaining feedback finding or justified related group, with original IDs and upstream links. Cover descriptor scope conflict, intended round_trip assurance scope and proof intake, five R1 interaction decisions after refresh, assurance/feature-ledger output path collision, independent crate-root probe results, compile-time evidence mapping and reference repairs, pinned Nix access and subsequently recheck the patch URL, Codesight parser/index limits, Creusot build/emission workarounds, explicit subset scope, and repository/commit availability. Separate operator decisions and environment/external-tool work from product defects; record resolved findings without inventing remaining defects.\n5. Work those local issues to evidence-backed resolution through the sanctioned workflow. Do not weaken policy, initialize an unrelated Git repository, claim a fresh proof from saved artifacts, report a 404 before reaching the fetch, or count scratch results as live acceptance. Keep blocked items explicit and capture required operator decisions.\nThe project was supplied by the user as full-ligature-workspace, exact filesystem path /home/goya/storage/full-ligature-port-workspace. No downstream issues or project edits are requested during this initial Ligature issue-filing stage.\n",
+  "status": "open",
+  "priority": "high",
+  "parent_id": 143,
+  "created_at": "2026-10-15T23:39:41.366142391Z",
+  "updated_at": "2026-10-15T23:39:41.366142391Z",
+  "closed_at": null,
+  "labels": [
+    "port-feedback"
+  ],
+  "milestone": null,
+  "comments": [
+    {
+      "id": 222,
+      "issue_id": 161,
+      "content": "Initial per-pilot audit: date-creusot, crypto-mixed, and swisstable-verus each have a separate tools/ligature bundle, all still 1.3.11 with outer SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f. All three old bundles pass version --verify and each installation manifest pins product/adjudicator content 1.3.11; their tools/versions.lock files do not pin Ligature. Managed resource expected hashes currently match their files. Swisstable status is present-valid/current; date-creusot is present-invalid due the user-owned docs/*.md/reliance-policy overlap; crypto-mixed status scan timed out, so I will use direct manifest/resource verification and rerun with a bounded timeout. I will install the already-attested 1.3.12 artifact through the pilot tools/ligature paths and use the supported migrate --upgrade command; I will not alter user-owned descriptors or policy.",
+      "created_at": "2026-10-16T04:24:39.641066619Z",
+      "kind": "observation"
+    },
+    {
+      "id": 223,
+      "issue_id": 161,
+      "content": "[action] Release v1.3.12 is built, tagged, checksum/attestation verified, and all 29 package acceptance tests passed against the exact artifact. #144–#160 resolved. #161 audit found three distinct 1.3.11 per-pilot bundles; next replace them with the release and run migrate --upgrade, preserving date descriptor invalidity.",
+      "created_at": "2026-10-16T04:24:39.699752491Z",
+      "kind": "note"
+    },
+    {
+      "id": 224,
+      "issue_id": 161,
+      "content": "Release and three-pilot install verification:\n- Ligature 1.3.12, source commit 34fb1a1372bd69e38a92f1468db6c4245a609518 (clean at build), bundle SHA-256 87ca4814b39def8f7f236f6c6a9be554992425112c339e22f0521e56c2e35028, embedded content hash sha256:d6faedb62a7cc325b3373f3f3efdd52f7938c4b85a57359937c9dd5a56013a59. Exact artifact passes SHA256SUMS and `python3 -I ligature.pyz version --verify`.\n- date-creusot, crypto-mixed, and swisstable-verus each now have the exact bundle. `migrate --upgrade --json` returned `result=current`, no conflicts; all 18 managed resource hashes per pilot match; installation and adjudicator versions are 1.3.12; each `@adjudicator` gate pin equals the attested content hash. No user descriptor or policy was edited. date-creusot remains descriptor-invalid due its existing allowed/protected docs overlap; installation-current is not descriptor-valid.\n\nFeedback harness:\n- Ran all 96 findings against the copied, actual installed 1.3.12 binary in an unmodified scratch workspace: `/tmp/ligature-161-unmodified-1.3.12/` (96 command captures).\n- Ran all 96 again using the harness's documented descriptor-overlap normalization in a separate scratch workspace: `/tmp/ligature-161-normalized-1.3.12/` (96 command captures). The only descriptor change was scratch-only; harness candidate labels are heuristic, so conclusions below cite raw output and focused checks.\n- The live append-only ledger remains 96 lines with SHA-256 `d4ee406c118c8efa4c72f70cb75805f3c7d50eb545b9edcb6980f1dea7879ebd`.\n- Live date-creusot `check --json` exits 5 on the docs allowed/protected overlap and marks all gates not applicable; live `doctor` exits 2 with the same descriptor diagnostic. No live descriptor edit was made.\n\nFocused 1.3.12 behavior and remaining work:\n- Independent missing-crate probe used a disposable copy with valid, scratch-normalized descriptor and `crate_dir=crates/no-such-crate`. `status --json` returned descriptor `present-valid`, gate integrity `pinned`; `check --json` emitted high `crate-prerequisite`: “declared crate root crates/no-such-crate does not exist or is not a directory; create or scaffold it before running extract-c-static”. An absolute `/etc` crate root was rejected as invalid with a workspace-relative/path-traversal diagnostic. This is fixed behavior; no remaining crate-root defect filed.\n- Packaged evidence schema accepts `kind=compile-time`; a scratch `E-999` record passed `validate-evidence` (`OK: all evidence records pass G1a/G1b (16 discovered)`). The bundled schema explicitly says this is classification evidence, not an assurance-report evidence kind or proof that a compiler/verifier ran. No assurance claim was inferred.\n- Current normalized `check` still reports six G2+ `applies_to unverifiable` findings because no concept specs exist under the declared `rust` search root. Ligature now names the missing concept specs and provides the supported `concept-to-code` draft/approve route; authoring/promoting those IDs needs project review.\n- Normalized `gate-g14 --json` exits 0 and reports 5 unique/evaluated/provided obligations, 0 required obligations, and expected scope `unpinned` / `not declared`: Weekday.C1/C2/C3, YearMonthDay.C2, YearMonthDayLast.C1. The saved proof references are rechecked, but `round_trip` is absent and this is not a fresh Creusot run. G14 does not establish complete declared coverage while expected scope is unpinned.\n- On a separate normalized scratch copy, fresh `extract-c-static --target x86_64-unknown-linux-gnu` reported 11 discovered, 11 resolved; `gate-r1-g16 --json` accepted gate policy but marked reconciliation incomplete: 6/11 checked and 5 uncounted warnings (the five Year/Month computed-value calls). This is scratch evidence only; an operator must choose whether to add reviewed interactions or accept the explicitly incomplete reconciliation.\n- The shared report path is protected against data loss: `report feature-ledger` exits 1 and refuses to overwrite `ci/results/feature_ledger.json`, naming command order or a separate output path. The latter requires a human manifest decision.\n- Codesight still returns `Symbol not found` for the C++ header symbol and zero importers for `date.h`; Nix fails before the cvc5 fetch with `cannot connect to socket at '/nix/var/nix/daemon-socket/socket': Operation not permitted`. Therefore the recorded patch URL 404 was not rechecked. The pinned upstream checkout is present, clean, and at `179a6b921ccd6179b5b04dce812a89f71a51b4df`; the workspace root is not a Git repo and remains uninitialized. The date subset boundary is already explicit in `src/lib.rs` and `PORT-GAPS.md`.\n\nI will now create project-local issues only for the remaining decisions, tool/environment work, and unresolved references. Closed/resolved behavior above will be recorded as evidence, not as new defects.",
+      "created_at": "2026-10-16T04:44:56.076041983Z",
+      "kind": "result"
+    },
+    {
+      "id": 225,
+      "issue_id": 161,
+      "content": "[action] Verified 1.3.12 bundle and all three pilot pins; reran 96-finding harness unmodified and normalized, ledger unchanged. #161 result comment records outputs. Filing remaining date-creusot issues after independently confirming missing crate-root and compile-time evidence fixes.",
+      "created_at": "2026-10-16T04:44:59.949738334Z",
+      "kind": "note"
+    },
+    {
+      "id": 226,
+      "issue_id": 161,
+      "content": "Fresh CodeSight check after a scratch-only reindex (so this is not the old index's `stale:true` output): pinned upstream/date commit 179a6b921ccd6179b5b04dce812a89f71a51b4df was copied to `/tmp/codesight-161/date/upstream/date`; isolated `index-folder` succeeded with 122 files and 416 symbols. `get-file-outline include/date/date.h` still reports language `c` and 7 symbols. `get-callers include/date/date.h::days_from_civil#function` exits 1 with `Symbol not found`; `get-imports include/date/date.h --direction importers` exits 0 with `result_count: 0`. This confirms a parser/index limitation on a fresh index, not absence of C++ callers/importers.\n\nAlso verified the 1.3.12 schema inspection path for the old schema-file finding: `schema show closure-profile` and `schema show degradation-record` both exit 0 and display the bundled schema names, versions, hashes, and JSON. The initialized project does not need local copies of those schemas. The Stage 3 boundary prompt now explicitly points to `docs/reliance-policy.md` as the project's policy authority.",
+      "created_at": "2026-10-16T04:46:22.445173479Z",
+      "kind": "observation"
+    },
+    {
+      "id": 227,
+      "issue_id": 161,
+      "content": "Post-verification downstream issue filing is complete. In the full-ligature-port-workspace Chainlink DB under P1 epic #9, I created issues #136–#143 after verifying the 1.3.12 install and completing both 96-case replays. Each open issue has the reproduced evidence and acceptance criteria in comments. #143 (Codesight) is closed as a confirmed fresh-index limitation; no source behavior was inferred from missing graph data.\n\nOpen work: #136 docs write-scope decision; #137 descriptor fixture review; #138 expected G14/round_trip scope; #139 five R1/G16 interactions vs explicitly incomplete reconciliation; #140 separate outputs vs safe order; #141 reviewed concept specs vs removing unresolved references; #142 Nix access, Creusot reruns, then patch URL check. These are operator decisions or environment dependencies, not new Ligature defects. I have requested the exact decisions in this session. No user-owned descriptor, manifest, policy, proof artifact, source, or historical findings ledger was changed. Parent #143/#161 remain open until these acceptance criteria can be completed.",
+      "created_at": "2026-10-16T04:47:59.624827993Z",
+      "kind": "blocker"
+    },
+    {
+      "id": 228,
+      "issue_id": 161,
+      "content": "[action] Installed and verified Ligature 1.3.12 across all pilots; both 96-finding scratch replays complete; created project-local #136–#143, closed Codesight #143 with fresh-index evidence, and requested remaining operator decisions. #161 stays open.",
+      "created_at": "2026-10-16T04:47:59.710059702Z",
+      "kind": "note"
+    },
+    {
+      "id": 229,
+      "issue_id": 161,
+      "content": "Durable verification note added at `date-creusot/analysis/ligature/reverify-1.3.12.md` (under the descriptor's existing `analysis/**` allowance). It preserves the old 1.2.0/1.3.11 table and ledger while recording the two 96-command capture roots, release checks, current live descriptor failure, normalized G14/R1 results, Codesight reindex, and Nix blocker.\n\nLive `write-set-check --json` refuses to run because the descriptor overlap is still invalid. In a disposable copy with only that overlap normalized, `write-set-check --json` reports one pre-existing out-of-set path, `PORT-GAPS.md`; it does not report the new `analysis/ligature/reverify-1.3.12.md`. This scratch check does not make the live workspace clean or authorize editing PORT-GAPS.md.",
+      "created_at": "2026-10-16T04:50:37.059105742Z",
+      "kind": "observation"
+    },
+    {
+      "id": 230,
+      "issue_id": 161,
+      "content": "Current downstream evidence at date-creusot commit 729f0432c90dd7916bdbeecb750b9d5abbbbf5cd produced three separately reproducible 1.3.12 blockers: #162 (local #138; date-creusot-063 standalone C007 intake), #163 (local #138; date-creusot-064 Creusot minimum_scope representation), and #164 (local #140; date-ligature-103 generated manifest update). Each is now linked as a blocker of #161. The matching project-local issues #138/#140/#141 remain open pending release installation, sanctioned regeneration and fresh assurance, provenance refresh, G14 nine-obligation consumption, and output-coexistence checks.",
+      "created_at": "2026-10-17T00:46:46.943725451Z",
+      "kind": "blocker"
+    },
+    {
+      "id": 237,
+      "issue_id": 161,
+      "content": "Release handoff and verification status (Ligature 1.4.0).\nStep 1 (release): Ligature 1.4.0 shipped and attested. Source commit 38e23b4188728abf19ec29e67ff6341c9daf8d8a; bundle artifact SHA-256 sha256:1f04052e4fea0441bc807c4caf2c80ecad4d70b7f9f101665185eae7aa46dc9e; embedded content hash sha256:6e9072ba2b7c8f92497efc0778de214dcff9c7a5d1fc88ef17876441c0657d13; tag v1.4.0. Fixes #162 (standalone reviewed-obligation assurance intake), #163 (Creusot scope vs minimum_scope), #164 (grant-bound manifest regeneration).\nStep 2 (verification/pinning, /home/goya/storage/full-ligature-port-workspace): all three pilots locate their own tools/ligature bundle. Each was updated to 1.4.0, passed SHA256SUMS and version --verify (attested true), and migrate --upgrade returned result=current with no conflicts and no required human action; each installation manifest now records installed_product_version 1.4.0 and @adjudicator equal to the attested content hash; status reports pinned and current. Historical 1.2.0/1.3.11 measurements and the append-only ledger are preserved.\nStep 3 (live workspace verification, date-creusot at revision 729f0432): the approved nine-obligation manifest was regenerated with report.emit ci/results/WP-DATE-CREUSOT.json and provenance.artifact_set_hash refreshed to the current receipt; fresh Creusot assurance recorded for all nine obligations including YearMonthDay.C007; live gate-g14 exits 0 as deductive with provided/evaluated/unique=9 and expected scope state=matched over the nine IDs; live gate-r1-g16 exits 0 (11 discovered/11 checked, 0 unresolved, 0 configuration mismatches); validate-work-package, validate, validate-interaction, and validate-promotion pass; check --json shows no unresolved references (only two pre-existing write-set findings for .gitignore and PORT-GAPS.md). Reports saved under analysis/verification/ligature-1.4.0-2026-10-17.md.\nProject-local #138, #140, #141 were resolved through sanctioned workflows (exact issue-scoped grant, the supported generator, then record-assurance and the feature-ledger projection) and closed.\n\nRemaining acceptance for #161 (kept open): (3) the full 96-finding harness has been re-run only in focused form, not as the complete --slow replay on 1.4.0 (that replay needs nix/network and a scratch copy); (4)-(5) file and work project-local issues for every remaining feedback item. Concrete external inputs still required: operator/environment decisions for the crypto-mixed Kani CG3 work (#134/#135), Codesight parser/index limits, pinned Nix access and the patch URL recheck, and Creusot build/emission workarounds. No product defect is claimed for those; they remain environment/operator work.",
+      "created_at": "2026-10-17T19:38:16.509691055Z",
+      "kind": "handoff"
+    },
+    {
+      "id": 240,
+      "issue_id": 161,
+      "content": "Review of Ligature 1.4.0 passed the date-creusot nine-obligation G14 and 11/11 R1/G16 checks, but upstream #164 has been reopened: its same-package regeneration guard accepts changed valid-manifest bytes without proving they match prior generation audit. #161 remains blocked by #164 and open pending a fix/release and the outstanding 96-finding replay/handoff criteria.",
+      "created_at": "2026-10-17T19:51:45.808483381Z",
+      "kind": "blocker"
+    }
+  ],
+  "blocked_by": [
+    164,
+    165
+  ],
+  "blocking": [],
+  "subissues": [],
+  "related": [],
+  "relations": []
+}

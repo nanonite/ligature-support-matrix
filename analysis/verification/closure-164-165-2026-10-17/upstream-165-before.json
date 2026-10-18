@@ -1,0 +1,23 @@
+{
+  "id": 165,
+  "title": "Update generator integration fixtures for reviewed standalone assurance intake",
+  "description": "Parent: Ligature port-feedback epic #143.\nBlocks: release verification and downstream handoff #161.\nRelated behavior fix: #162 (standalone reviewed-obligation assurance intake).\nDownstream verification: /home/goya/storage/full-ligature-port-workspace/date-creusot, current project commit f11ff53 (the approved workflow evidence was generated from base revision 729f0432c90dd7916bdbeecb750b9d5abbbbf5cd).\n\nReview of Ligature 1.4.0 source 38e23b4188728abf19ec29e67ff6341c9daf8d8a, bundle SHA-256 1f04052e4fea0441bc807c4caf2c80ecad4d70b7f9f101665185eae7aa46dc9e. The focused command\n`PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider tests/test_work_package_manifest.py tests/test_satisfies.py tests/test_record_assurance.py tests/test_generate_work_package.py`\nreported 158 passed and 3 failed. The passing standalone-intake, scope, and regeneration unit regressions pass; all 3 failures occur in legacy IntegratedWorkspace tests before their assertions, because their generated package declares standalone `TaskQueue.C003` but the fixture has no approved TaskQueue concept spec and no interaction `required_assurance` source.\n\nMinimal reproduction: construct the existing tests/test_generate_work_package.py::IntegratedWorkspace fixture, issue its valid manifest grant, and call its `generate()`. Observed exit 2:\n`{\"error\":{\"code\":\"missing-source\",\"message\":\"no interaction reliance declares required_assurance for obligation 'TaskQueue.C003', and no reviewed concept spec declares concept 'TaskQueue'; the derivation will not invent one\"}}`.\nAffected tests:\n- `test_real_generation_passes_validator_and_is_consumed_by_project_gates`\n- `test_downstream_validation_and_check_reject_tampered_generated_fields`\n- `test_gate_integrity_is_derived_from_live_files_and_stale_runners_block`\n\nThis is consistent with #162's fail-closed behavior; the fixture is now incomplete under the revised assurance-source contract. The actual date-creusot nine-obligation plan generates and passes live G14 on 1.4.0.\n\nAcceptance: update the integration fixture through test-only setup to provide an approved concept constraint for TaskQueue.C003 or a legitimate reviewed interaction reliance, without weakening #162's source validation. Rerun the four focused suites above and confirm all pass. Do not change production behavior merely to admit an unreviewed fixture.",
+  "status": "open",
+  "priority": "medium",
+  "parent_id": 143,
+  "created_at": "2026-10-17T19:53:43.036767085Z",
+  "updated_at": "2026-10-17T19:53:43.036767085Z",
+  "closed_at": null,
+  "labels": [
+    "port-feedback"
+  ],
+  "milestone": null,
+  "comments": [],
+  "blocked_by": [],
+  "blocking": [
+    161
+  ],
+  "subissues": [],
+  "related": [],
+  "relations": []
+}

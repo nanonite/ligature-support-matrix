@@ -1,0 +1,56 @@
+{
+  "exit_code": 0,
+  "findings": [
+    {
+      "gate": "R1",
+      "path": "<scratchpad>/cstatic-causation/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "interaction 'I-CRYPTO-MIXED-001' (ChaCha20Poly1305.encrypt -> Poly1305.finalize) has no realized call in this observation -- intent without realization, not a coverage failure",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "<scratchpad>/cstatic-causation/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "interaction 'I-CRYPTO-MIXED-002' (ChaCha20Poly1305.encrypt -> ChaCha20.apply_keystream) has no realized call in this observation -- intent without realization, not a coverage failure",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "<scratchpad>/cstatic-causation/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "interaction 'I-CRYPTO-MIXED-003' (ChaCha20Poly1305.encrypt -> Poly1305.set_key) has no realized call in this observation -- intent without realization, not a coverage failure",
+      "severity": "info"
+    }
+  ],
+  "format": "ligature.r1-g16-report.v1",
+  "gate_acceptance": "accepted",
+  "reports": [
+    {
+      "counts": {
+        "checked": 0,
+        "configuration_mismatches": 0,
+        "discovered": 0,
+        "reports": 1,
+        "undeclared_blocking": 0,
+        "undeclared_warnings": 0,
+        "unresolved": 0
+      },
+      "crate_dir": "crates/crypto-mixed-core",
+      "interaction_reconciliation": "no-discovered-calls",
+      "report_path": "<scratchpad>/cstatic-causation/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "source_resolution": "no-discovered-calls"
+    }
+  ],
+  "summary": {
+    "counts": {
+      "checked": 0,
+      "configuration_mismatches": 0,
+      "discovered": 0,
+      "reports": 1,
+      "undeclared_blocking": 0,
+      "undeclared_warnings": 0,
+      "unresolved": 0
+    },
+    "discovery_completeness": "syntactic-lower-bound",
+    "interaction_reconciliation": "no-discovered-calls",
+    "source_resolution": "no-discovered-calls"
+  }
+}

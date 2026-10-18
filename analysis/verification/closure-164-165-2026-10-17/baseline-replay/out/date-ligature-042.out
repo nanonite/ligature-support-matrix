@@ -1,0 +1,12 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && python3 tools/ligature/ligature.pyz gate-g14 2>&1 | grep 'filename says'
+### EXIT
+1
+### STDOUT
+
+### STDERR
+

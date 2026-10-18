@@ -1,0 +1,24 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+rm -rf /tmp/dc13 && mkdir -p /tmp/dc13 && tar --exclude=./upstream --exclude=./analysis/codesight -C date-creusot -cf - . | tar -C /tmp/dc13 -xf - && cd /tmp/dc13 && for t in bridge-drafting witness-drafting concept-to-code concept-drafting exemption-drafting protocol-debt-drafting conflict-resolution-drafting bridge witness; do out=$(python3 tools/ligature/ligature.pyz draft 3 $t rust/date-creusot-core/specs/_boundaries/x.json --var x=1 2>&1); printf '%-32s exit=%s %s\n' $t $? "$(printf '%s' "$out" | head -1 | sed 's#/tmp/ligature-data-[^/]*/##' | cut -c1-60)"; done; echo '--- the three that exist ---'; for t in boundary-drafting interaction-drafting; do python3 tools/ligature/ligature.pyz draft 3 $t rust/date-creusot-core/specs/_boundaries/x.json --var x=1 2>&1 | head -1; done
+### EXIT
+0
+### STDOUT
+bridge-drafting                  exit=1 error: template prompts/stage-3-bridge-drafting.md reference
+witness-drafting                 exit=1 error: template prompts/stage-3-witness-drafting.md referenc
+concept-to-code                  exit=1 error: template prompts/stage-3-concept-to-code.md reference
+concept-drafting                 exit=1 error: no stage-3 template named 'concept-drafting' -- `liga
+exemption-drafting               exit=1 error: template prompts/stage-3-exemption-drafting.md refere
+protocol-debt-drafting           exit=1 error: template prompts/stage-3-protocol-debt-drafting.md re
+conflict-resolution-drafting     exit=1 error: template prompts/stage-3-conflict-resolution-drafting
+bridge                           exit=1 error: no stage-3 template named 'bridge' -- `ligature draft
+witness                          exit=1 error: no stage-3 template named 'witness' -- `ligature draf
+--- the three that exist ---
+error: template /tmp/ligature-data-qmrmnnu5/prompts/stage-3-boundary-drafting.md references undefined variable {{caller_concept}}
+error: template /tmp/ligature-data-mw4v8tsg/prompts/stage-3-interaction-drafting.md references undefined variable {{interaction_id}}
+
+### STDERR
+

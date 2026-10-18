@@ -1,0 +1,114 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+python3 tools/ligature/ligature.pyz migrate --upgrade && python3 tools/ligature/ligature.pyz doctor && python3 tools/ligature/ligature.pyz record-assurance ci/manifest/WP-DATE-CREUSOT.json --proof Weekday.C1=... --proof Weekday.C2=... --proof Weekday.C3=... --proof YearMonthDay.C2=... --proof YearMonthDayLast.C1=... && python3 tools/ligature/ligature.pyz gate-g14
+### EXIT
+2
+### STDOUT
+installation: current
+mode: port  project: date-creusot
+skill authority hash: verified
+  unchanged  .codex/skills/ligature/SKILL.md
+  unchanged  .ligature/prompts/stage-0-evidence-intake.md
+  unchanged  .ligature/prompts/stage-3-boundary-drafting.md
+  unchanged  .ligature/prompts/stage-3-bridge-drafting.md
+  unchanged  .ligature/prompts/stage-3-closure-profile-drafting.md
+  unchanged  .ligature/prompts/stage-3-concept-to-code.md
+  unchanged  .ligature/prompts/stage-3-conflict-resolution-drafting.md
+  unchanged  .ligature/prompts/stage-3-degradation-drafting.md
+  unchanged  .ligature/prompts/stage-3-exemption-drafting.md
+  unchanged  .ligature/prompts/stage-3-interaction-drafting.md
+  unchanged  .ligature/prompts/stage-3-protocol-debt-drafting.md
+  unchanged  .ligature/prompts/stage-3-witness-drafting.md
+  unchanged  .ligature/schemas/consolidated-check.schema.json
+  unchanged  .ligature/schemas/project-descriptor.schema.json
+  unchanged  .ligature/schemas/project-state.schema.json
+  user-owned  docs/reliance-policy.md
+  user-owned  project-descriptor.json  schema: valid
+  unchanged  schemas/project-descriptor.schema.json
+  unchanged  scripts/witness_renderer.py
+  unchanged  scripts/xml_escape.py
+Implemented: draft (Stage 0/3), approve (checkpoint), approve-pair (transactional interaction + protocol-debt checkpoint), approve-exemption-pair (transactional interaction + exemption checkpoint, R2's exemption bootstrap), validate (Stage 4 G1a/G1b/G2+), validate-interaction (Stage 4 G1a/G1b + computed eligibility + G15 + R2), validate-exemption (Stage 4 G1a/G1b naming + G2 interaction cross-reference), validate-protocol-debt (Stage 4 G1a/G1b + interaction cross-reference), validate-bridge (Stage 4 G1a/G1b/G2 over bridge specifications, chainlink #22), validate-evidence (Stage 4 G1a/G1b, workspace-level), validate-conflict-resolution (Stage 4 G1a/G1b/G11, workspace-level), validate-work-package (Stage 7 schema + §10.1, standalone), generate-work-package (plan-driven Stage 7 manifest generation from an explicit validated plan; it does not infer package scope or synthesize plans from promoted I/O, chainlink #122/#134), validate-promotion (Stage 4.5 schema + §7.1, standalone), accept-promotion (Stage 4.5's own generator, chainlink #45), extract-c-static (Stage 8A's coarse syntactic C_static extractor, chainlink #24), validate-callsites (Stage 8A G1a/G1b over C_static reports, workspace-level), gate-r1-g16 (Stage 8A R1 reconciliation + G16 risk-tiered unresolved policy; exit 3 means a human risk decision is outstanding), render-witness (dispatch a canonical result through the renderer contract, chainlink #28), validate-witness (G1a/G1b/G2 over witness specs + canonical results, chainlink #27), validate-gold-set (G1a/G1b over human gold sets, chainlink #26), measure-gold-set (precision/recall/omission against a human gold set, chainlink #26), check-bridges (Stage 8A bridge harness generation + verifier dispatch, chainlink #47), gate-g9 (Stage 8A bridge-check verification against a recompilation of the promoted bridge), validate-closure (Stage 8C G1a/G1b + G17 over closure profiles and degradation records), gate-g14 (Stage 8C release closure over the transitive assurance graph, per cluster, with the CG6 well-foundedness discharge, chainlink #25), gate-g18 (Stage 4 witness coverage over the declared witness_required feature set, chainlink #29), gate-g19 (Stage 8A/CI witness determinism: regenerate, compare value_hash, never render_hash, chainlink #30), gate-g20 (Stage 4.5 degeneracy: must-vary vs constant, fixture-family/coverage_region consistency, warn -- block at promotion if unresolved, chainlink #31), generate-feature-ledger (Stage 4.5 generated projection over G18/G19/G20, implementation_observed vs assurance_status never merged, chainlink #34), generate-contact-sheet (Stage 4.5 review surface with the ∃-witness evidence banner, traffic-light witness/determinism/degeneracy columns kept visually distinct from a never-green assurance_status/closure_kind column, chainlink #32), select-pilot-cluster (plan.md §14 mechanized, verifier-agnostic first-pilot-cluster ranking, chainlink #4), write-set-check (read-only write-set conformance: files outside allowed_roots and inside protected_roots relative to the project descriptor, chainlink #77), accept-policy (record a reviewed change to the normative reliance-policy document, stamping its `Policy version:` marker with --version while the template placeholder is still in place -- chainlink #78, #113), accept-fixture-value (record a hash-bound human decision to retain a legitimate descriptor example value -- chainlink #145), promote-evidence (mechanically promote a staged evidence draft to its target and record the move -- the Stage 0 promotion path approve() cannot provide, chainlink #79), record-assurance (assemble a work package's assurance report from verifier proof certificates -- the achieved side gate-g14 reads, chainlink #87), scaffold-crate (deterministic Cargo.toml + canonical src skeleton for a missing declared crate of a port-mode project, the manifest write authorized by an issue-scoped grant -- chainlink #115)
+Not yet implemented:
+  - G4/G5 evidence tracing/grounding: implemented for interaction-level traceability -- G4 rejects evidence_links that do not resolve to valid workspace evidence during validation, approval, and promotion acceptance; G5 warns on ungrounded reliances during drafting/validation and blocks them at promotion acceptance. Because evidence_links are interaction-scoped, one valid link grounds that interaction's reliances collectively; semantic evidence-to-obligation matching remains a human review
+  - emission: M3's I-schema is now complete (#16-#20); emission (Stage 5) itself is still not built
+  - attach: M3's I-schema is now complete (#16-#20); attach (Stage 6) itself is still not built
+  - automatic promoted-I/O synthesis: not implemented: there is no generator that infers a Stage 7 plan from promoted I/O. The supported command provides plan-driven Stage 7 manifest generation from an explicit validated plan; it does not infer package scope or synthesize plans from promoted I/O (#122/#134)
+  - 8A: partly implemented -- C_static extraction and R1/G16 are real (#24), bridge harness generation, verifier dispatch and G9 are real (#47: check-bridges, gate-g9), and per-obligation assurance records have a record schema (#23) plus the report container G14 reads (#25). What is missing is the runner that emits a work package's OBLIGATION records from a real verifier run; bridge records now have one (ci/results/bridge_checks/), and no verifier backend is configured in this repository, so nothing here dispatches for real
+  - 8B: #26 (M4)
+Installation:
+  installation: current
+  mode: port  project: date-creusot
+  skill authority hash: verified
+    unchanged  .codex/skills/ligature/SKILL.md
+    unchanged  .ligature/prompts/stage-0-evidence-intake.md
+    unchanged  .ligature/prompts/stage-3-boundary-drafting.md
+    unchanged  .ligature/prompts/stage-3-bridge-drafting.md
+    unchanged  .ligature/prompts/stage-3-closure-profile-drafting.md
+    unchanged  .ligature/prompts/stage-3-concept-to-code.md
+    unchanged  .ligature/prompts/stage-3-conflict-resolution-drafting.md
+    unchanged  .ligature/prompts/stage-3-degradation-drafting.md
+    unchanged  .ligature/prompts/stage-3-exemption-drafting.md
+    unchanged  .ligature/prompts/stage-3-interaction-drafting.md
+    unchanged  .ligature/prompts/stage-3-protocol-debt-drafting.md
+    unchanged  .ligature/prompts/stage-3-witness-drafting.md
+    unchanged  .ligature/schemas/consolidated-check.schema.json
+    unchanged  .ligature/schemas/project-descriptor.schema.json
+    unchanged  .ligature/schemas/project-state.schema.json
+    user-owned  docs/reliance-policy.md
+    user-owned  project-descriptor.json  schema: valid
+    unchanged  schemas/project-descriptor.schema.json
+    unchanged  scripts/witness_renderer.py
+    unchanged  scripts/xml_escape.py
+Executable attestation:
+  ligature 1.4.0
+    adjudicator: zipapp (attested: true)
+    content hash: sha256:6e9072ba2b7c8f92497efc0778de214dcff9c7a5d1fc88ef17876441c0657d13
+    bundle: 115 file(s)
+    bundled schemas: 34
+    required python: >= 3.10 (running 3.12.3)
+    platform: Linux/x86_64 (required: any)
+    artifact: /tmp/ligature-closure-164-165-baseline-1.4.0/ws/date-creusot/tools/ligature/ligature.pyz
+    source: 38e23b4188728abf19ec29e67ff6341c9daf8d8a (clean working tree)
+    bundled schemas:
+      docs/achieved-assurance-schema.json: 1.0
+      docs/assumption-registry-schema.json: 1.0
+      docs/assurance-report-schema.json: 1.0
+      docs/boundary-contract-schema.json: 1.0
+      docs/bridge-check-schema.json: 1.0
+      docs/bridge-schema.json: 1.0
+      docs/callsite-schema.json: 1.0
+      docs/cargo-profile-audit-schema.json: 1.0
+      docs/cargo-verus-profile-audit-schema.json: 1.0
+      docs/closure-profile-schema.json: 1.0
+      docs/concept-to-code-constraint-id-schema.json: unknown
+      docs/concept-to-code-witness-required-schema.json: unknown
+      docs/conflict-resolution-schema.json: 1.0
+      docs/degradation-record-schema.json: 1.0
+      docs/evidence-schema.json: 1.0
+      docs/exemption-schema.json: 1.0
+      docs/feature-ledger-schema.json: 1.0
+      docs/g14-report-schema.json: unknown
+      docs/gold-set-measurement-schema.json: 1.0
+      docs/gold-set-schema.json: 1.0
+      docs/interaction-schema.json: 1.0
+      docs/promotion-receipt-schema.json: unknown
+      docs/protocol-debt-schema.json: 1.0
+      docs/r1-g16-report-schema.json: unknown
+      docs/scaffold-receipt-schema.json: 1.0
+      docs/witness-result-schema.json: 1.0
+      docs/witness-spec-schema.json: 1.0
+      docs/work-package-generation-audit-schema.json: 1.0
+      docs/work-package-manifest-schema.json: unknown
+      docs/write-grant-schema.json: 1.0
+      schemas/consolidated-check.schema.json: 1.0
+      schemas/project-descriptor.schema.json: 1.0
+      schemas/project-state.schema.json: 1.0
+      vendor/concept-to-code/schemas/spec.schema.json: 1.0
+  adjudicator pin: pinned -- running executable matches the recorded adjudicator
+
+### STDERR
+error: Weekday.C1, Weekday.C2, Weekday.C3, YearMonthDay.C2, YearMonthDayLast.C1 is not a provided guarantee of WP-DATE-CREUSOT (it provides ['Month.C001', 'Weekday.C001', 'Weekday.C002', 'Weekday.C003', 'Year.C001', 'Year.C002', 'YearMonthDay.C002', 'YearMonthDay.C007', 'YearMonthDayLast.C001']) -- only the work package that provides an obligation records it
+

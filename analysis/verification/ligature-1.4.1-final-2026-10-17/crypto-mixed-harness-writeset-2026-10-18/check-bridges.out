@@ -1,0 +1,5 @@
+wrote <scratchpad>/harness-probe/crypto-mixed/ci/harness/BR-CRYPTO-MIXED-001.kani.rs
+wrote <scratchpad>/harness-probe/crypto-mixed/ci/results/bridge_checks/BR-CRYPTO-MIXED-001.json
+wrote <scratchpad>/harness-probe/crypto-mixed/ci/harness/BR-CRYPTO-MIXED-002.kani.rs
+wrote <scratchpad>/harness-probe/crypto-mixed/ci/results/bridge_checks/BR-CRYPTO-MIXED-002.json
+OK: 4 artifact(s) written; every promoted bridge compiled and was dispatched

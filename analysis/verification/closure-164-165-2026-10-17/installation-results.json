@@ -1,0 +1,122 @@
+[
+  {
+    "pilot": "date-creusot",
+    "command": [
+      "sha256sum",
+      "-c",
+      "SHA256SUMS"
+    ],
+    "exit": 0
+  },
+  {
+    "pilot": "date-creusot",
+    "command": [
+      "python3",
+      "-I",
+      "tools/ligature/ligature.pyz",
+      "version",
+      "--verify"
+    ],
+    "exit": 0
+  },
+  {
+    "pilot": "date-creusot",
+    "command": [
+      "python3",
+      "tools/ligature/ligature.pyz",
+      "migrate",
+      "--upgrade",
+      "--json"
+    ],
+    "exit": 0
+  },
+  {
+    "pilot": "date-creusot",
+    "command": [
+      "python3",
+      "tools/ligature/ligature.pyz",
+      "doctor"
+    ],
+    "exit": 0
+  },
+  {
+    "pilot": "swisstable-verus",
+    "command": [
+      "sha256sum",
+      "-c",
+      "SHA256SUMS"
+    ],
+    "exit": 0
+  },
+  {
+    "pilot": "swisstable-verus",
+    "command": [
+      "python3",
+      "-I",
+      "tools/ligature/ligature.pyz",
+      "version",
+      "--verify"
+    ],
+    "exit": 0
+  },
+  {
+    "pilot": "swisstable-verus",
+    "command": [
+      "python3",
+      "tools/ligature/ligature.pyz",
+      "migrate",
+      "--upgrade",
+      "--json"
+    ],
+    "exit": 0
+  },
+  {
+    "pilot": "swisstable-verus",
+    "command": [
+      "python3",
+      "tools/ligature/ligature.pyz",
+      "doctor"
+    ],
+    "exit": 0
+  },
+  {
+    "pilot": "crypto-mixed",
+    "command": [
+      "sha256sum",
+      "-c",
+      "SHA256SUMS"
+    ],
+    "exit": 0
+  },
+  {
+    "pilot": "crypto-mixed",
+    "command": [
+      "python3",
+      "-I",
+      "tools/ligature/ligature.pyz",
+      "version",
+      "--verify"
+    ],
+    "exit": 0
+  },
+  {
+    "pilot": "crypto-mixed",
+    "command": [
+      "python3",
+      "tools/ligature/ligature.pyz",
+      "migrate",
+      "--upgrade",
+      "--json"
+    ],
+    "exit": 0
+  },
+  {
+    "pilot": "crypto-mixed",
+    "command": [
+      "python3",
+      "tools/ligature/ligature.pyz",
+      "doctor"
+    ],
+    "exit": 0
+  }
+]

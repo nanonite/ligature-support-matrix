@@ -1,0 +1,41 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && sed -n '55,61p' .ligature/prompts/stage-3-boundary-drafting.md && sed -n '126,141p' .ligature/prompts/stage-3-interaction-drafting.md && echo '--- ids declared by the pilot ---' && jq -r '.constraints[].id' analysis/ligature/constraint-ids.json | tr '\n' ' ' && echo && echo '--- ids shipped inside promoted artifacts ---' && jq -r '.callee_guarantees[]' rust/date-creusot-core/specs/_boundaries/*.json | sort -u | tr '\n' ' ' && echo && echo '--- the tool verifies none of them ---' && python3 tools/ligature/ligature.pyz check 2>&1 | grep -c 'applies_to unverifiable'
+### EXIT
+1
+### STDOUT
+the call depends on, and it holds two roles that mean opposite things. Both
+go here, referenced as `<CalleeConcept>.<constraint id>`:
+
+- A callee **postcondition or invariant** the caller's own correctness
+  depends on is a guarantee: the callee provides it once the call returns.
+- A callee **precondition** the caller must establish before the call is a
+  **caller obligation, not a guarantee** — the callee neither provides it
+matching bucket wins. When genuinely unsure whether an edge belongs in the
+boundary-required bucket, prefer including a boundary-required class: a
+false negative here (marking a real dependency `inform`/`ignore`) is worse
+than a false positive that a human catches at `approve`.
+
+### 2. `reliances` — only when `eligibility` is `"boundary-required"`
+
+If `eligibility` is `"boundary-required"`, `reliances` must be present and
+non-empty (G2++, plan.md gate table §12) — at least one entry naming a real
+postcondition or invariant of the callee that the caller's own correctness
+depends on. If `eligibility` is `"inform"` or `"ignore"`, omit `reliances`
+entirely — there is nothing to declare a reliance on, and an empty array is
+treated identically to an omitted field, never required.
+
+Each reliance:
+
+--- ids declared by the pilot ---
+Weekday.C1 Weekday.C2 Weekday.C3 YearMonthDay.C1 YearMonthDay.C2 YearMonthDay.C3 YearMonthDay.C4 YearMonthDay.C5 YearMonthDay.C6 YearMonthDayLast.C1 YearMonthDayLast.C2 IsoWeek.C1 IsoWeek.C2 
+--- ids shipped inside promoted artifacts ---
+Month.C001 Weekday.C001 Weekday.C002 Weekday.C003 Year.C001 Year.C002 YearMonthDay.C002 YearMonthDayLast.C001 
+--- the tool verifies none of them ---
+0
+
+### STDERR
+

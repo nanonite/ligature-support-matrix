@@ -1,0 +1,38 @@
+[
+  {
+    "command": [
+      "status",
+      "--json"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "gate",
+      "g14",
+      "--json"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "gate-r1-g16",
+      "--json"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "validate-work-package",
+      "ci/manifest/WP-DATE-CREUSOT.json"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "check",
+      "--json"
+    ],
+    "exit": 1
+  }
+]

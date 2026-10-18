@@ -1,0 +1,25 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && python3 tools/ligature/ligature.pyz extract-c-static --target x86_64-unknown-linux-gnu && python3 tools/ligature/ligature.pyz gate-r1-g16
+### EXIT
+0
+### STDOUT
+wrote /tmp/ligature-closure-164-165-final-1.4.1/ws/date-creusot/ci/results/c_static/rust_date-creusot-core.json: 11 discovered, 11 resolved, 0 unresolved (discovered-lower-bound)
+INFO: 8 non-blocking finding(s)
+  - [R1/info] /tmp/ligature-closure-164-165-final-1.4.1/ws/date-creusot/ci/results/c_static/rust_date-creusot-core.json: CS-YEARMONTHDAY-LAST-001: interaction 'I-year-month-day-last-to-year-month-day-last-new' declares features=['default'] cfg=[], observed under features=[] cfg=[]
+  - [R1/info] /tmp/ligature-closure-164-165-final-1.4.1/ws/date-creusot/ci/results/c_static/rust_date-creusot-core.json: CS-YEARMONTHDAY-OK-004: intra-concept call YearMonthDay::ok -> last is an internal helper, ignored unless architecturally eligible
+  - [R1/info] /tmp/ligature-closure-164-165-final-1.4.1/ws/date-creusot/ci/results/c_static/rust_date-creusot-core.json: CS-YEARMONTHDAY-TO-DAYS-BOUNDED-001: intra-concept call YearMonthDay::to_days_bounded -> to_days is an internal helper, ignored unless architecturally eligible
+  - [R1/info] /tmp/ligature-closure-164-165-final-1.4.1/ws/date-creusot/ci/results/c_static/rust_date-creusot-core.json: CS-YEARMONTHDAY-ROUND-TRIP-001: intra-concept call YearMonthDay::round_trip -> from_days is an internal helper, ignored unless architecturally eligible
+  - [R1/info] /tmp/ligature-closure-164-165-final-1.4.1/ws/date-creusot/ci/results/c_static/rust_date-creusot-core.json: CS-YEARMONTHDAY-ROUND-TRIP-002: intra-concept call YearMonthDay::round_trip -> to_days_bounded is an internal helper, ignored unless architecturally eligible
+  - [R1/info] /tmp/ligature-closure-164-165-final-1.4.1/ws/date-creusot/ci/results/c_static/rust_date-creusot-core.json: interaction 'I-iso-week-weekday-to-weekday-iso-encoding' (IsoWeek.weekday -> Weekday.iso_encoding) has no realized call in this observation -- intent without realization, not a coverage failure
+  - [R1/info] /tmp/ligature-closure-164-165-final-1.4.1/ws/date-creusot/ci/results/c_static/rust_date-creusot-core.json: interaction 'I-year-month-day-to-days-to-weekday-weekday-from-days' (YearMonthDay.to_days -> Weekday.weekday_from_days) has no realized call in this observation -- intent without realization, not a coverage failure
+  - [R1/info] /tmp/ligature-closure-164-165-final-1.4.1/ws/date-creusot/ci/results/c_static/rust_date-creusot-core.json: interaction 'I-year-month-day-to-days-to-year-month-day-from-days' (YearMonthDay.to_days -> YearMonthDay.from_days) has no realized call in this observation -- intent without realization, not a coverage failure
+source resolution is complete (0 unresolved of 11 discovered; syntactic discovery remains a lower bound)
+Gate acceptance: accepted (exit 0); interaction reconciliation: complete; discovered=11, checked=11, unresolved=0, undeclared warnings=0, undeclared blocking=0, configuration mismatches=0
+OK: R1 and G16 pass
+
+### STDERR
+

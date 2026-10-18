@@ -1,0 +1,22 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+ci/manifest/work-package.json -> ci/manifest/WP-DATE-CREUSOT.json
+### CMD
+cd date-creusot && ls scripts/ 2>&1 ; ls ../swisstable-verus/scripts/ ../crypto-mixed/scripts/ 2>&1 ; python3 tools/ligature/ligature.pyz validate-work-package ci/manifest/WP-DATE-CREUSOT.json 2>&1 | grep G13
+### EXIT
+1
+### STDOUT
+witness_renderer.py
+xml_escape.py
+../crypto-mixed/scripts/:
+witness_renderer.py
+xml_escape.py
+
+../swisstable-verus/scripts/:
+__pycache__
+witness_renderer.py
+xml_escape.py
+
+### STDERR
+

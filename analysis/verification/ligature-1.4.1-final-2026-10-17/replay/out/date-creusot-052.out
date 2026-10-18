@@ -1,0 +1,18 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && python3 tools/ligature/ligature.pyz extract-c-static --target x86_64-unknown-linux-gnu && python3 tools/ligature/ligature.pyz gate-g14; echo "exit=$?"
+### EXIT
+0
+### STDOUT
+wrote /tmp/ligature-closure-164-165-final-1.4.1/ws/date-creusot/ci/results/c_static/rust_date-creusot-core.json: 11 discovered, 11 resolved, 0 unresolved (discovered-lower-bound)
+cluster 'date-creusot-core' closes: closure_kind=deductive, 1 work package(s), 9 unique scoped obligation(s) (provided=9, required=0, evaluated=9), 0 required bridge(s), 0 bridge record(s) evaluated, 0 cycle(s) discharged; expected obligation scope=9 ID(s) declared
+  - [G14/info] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is VERIFIED from artifact data, not taken on declaration: every obligation and bridge in the closure AND its declared depends_on dependencies has a recorded achievement, the closure's own records are ['creusot-deductive-check'], and every other achieved record and declared guarantee harness in this workspace's work-package manifests and ledgers is creusot-owned as well -- with no non-creusot assurance anywhere those artifacts can name, no generic callee this cluster declares a dependency on is Kani-owned (CG3, plan.md §3, chainlink #93)
+closure is a per-cluster property with a kind; this gate never asserts a pipeline-wide guarantee (plan.md §4)
+OK: 1 cluster(s) close under their declared profile, 0 released under an accepted degradation record
+exit=0
+
+### STDERR
+

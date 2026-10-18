@@ -1,0 +1,13 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+python3 /tmp/opencode/rerverify_v4.py
+### EXIT
+2
+### STDOUT
+
+### STDERR
+python3: can't open file '/tmp/opencode/rerverify_v4.py': [Errno 2] No such file or directory
+

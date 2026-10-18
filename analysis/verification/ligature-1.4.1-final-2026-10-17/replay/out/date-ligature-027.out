@@ -1,0 +1,32 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && python3 tools/ligature/ligature.pyz check next; python3 tools/ligature/ligature.pyz --help 2>&1 | sed -n '/Human approval remains human/,+2p'; grep -c '"reviewer": "chainlink-reviewer"' rust/date-creusot-core/specs/_boundaries/*.json rust/date-creusot-core/specs/_interactions/*.json
+### EXIT
+0
+### STDOUT
+next action: [author-interaction] ligature draft interaction ci/results/c_static/rust_date-creusot-core.json
+rust/date-creusot-core/specs/_boundaries/iso_week_weekday__to__weekday_iso_encoding.json:0
+rust/date-creusot-core/specs/_boundaries/year_month_day_last_day__to__year_is_leap.json:0
+rust/date-creusot-core/specs/_boundaries/year_month_day_last_ok__to__month_ok.json:0
+rust/date-creusot-core/specs/_boundaries/year_month_day_last_ok__to__year_ok.json:0
+rust/date-creusot-core/specs/_boundaries/year_month_day_ok__to__month_ok.json:0
+rust/date-creusot-core/specs/_boundaries/year_month_day_ok__to__year_month_day_last_day.json:0
+rust/date-creusot-core/specs/_boundaries/year_month_day_ok__to__year_ok.json:0
+rust/date-creusot-core/specs/_boundaries/year_month_day_to_days__to__weekday_weekday_from_days.json:0
+rust/date-creusot-core/specs/_boundaries/year_month_day_to_days__to__year_month_day_from_days.json:0
+rust/date-creusot-core/specs/_interactions/I-iso-week-weekday-to-weekday-iso-encoding.json:0
+rust/date-creusot-core/specs/_interactions/I-year-month-day-last-day-to-year-is-leap.json:0
+rust/date-creusot-core/specs/_interactions/I-year-month-day-last-ok-to-month-ok.json:0
+rust/date-creusot-core/specs/_interactions/I-year-month-day-last-ok-to-year-ok.json:0
+rust/date-creusot-core/specs/_interactions/I-year-month-day-last-to-year-month-day-last-new.json:1
+rust/date-creusot-core/specs/_interactions/I-year-month-day-ok-to-month-ok.json:0
+rust/date-creusot-core/specs/_interactions/I-year-month-day-ok-to-year-month-day-last-day.json:0
+rust/date-creusot-core/specs/_interactions/I-year-month-day-ok-to-year-ok.json:0
+rust/date-creusot-core/specs/_interactions/I-year-month-day-to-days-to-weekday-weekday-from-days.json:0
+rust/date-creusot-core/specs/_interactions/I-year-month-day-to-days-to-year-month-day-from-days.json:0
+
+### STDERR
+

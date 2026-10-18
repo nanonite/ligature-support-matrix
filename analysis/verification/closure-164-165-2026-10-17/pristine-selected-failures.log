@@ -1,0 +1,561 @@
+FFFFFFFF.FFFFFFFFF                                                       [100%]
+=================================== FAILURES ===================================
+_ AuthorizedWriteIsCleanTest.test_status_and_check_agree_with_write_set_check __
+
+self = <test_authorize_write.AuthorizedWriteIsCleanTest testMethod=test_status_and_check_agree_with_write_set_check>
+
+    def test_status_and_check_agree_with_write_set_check(self):
+        """Four surfaces read the write set, so they cannot disagree about it:
+        a grant consumed by one must be consumed by all three."""
+        self.init_workspace()
+        self.write("ci/manifest/WP-114.json", "{}")
+        self.granted(
+            "--issue", "114", "--path", "ci/manifest/WP-114.json", "--op", "write",
+            "--issuer", "operator",
+        )
+        self.assertEqual(self.write_set_check("--issue", "114")[0], 0)
+        code, state = self.status("--issue", "114")
+        self.assertEqual(code, 0)
+        self.assertValid(PROJECT_STATE_SCHEMA, state, "project-state")
+        self.assertEqual(state["write_set"]["state"], "clean")
+        code, consolidated = self.check("--issue", "114")
+>       self.assertEqual(code, 0)
+E       AssertionError: 1 != 0
+
+tests/test_authorize_write.py:340: AssertionError
+_ MigrateUpgradeTest.test_local_managed_file_conflict_is_detected_not_adopted __
+
+self = <test_migrate_upgrade.MigrateUpgradeTest testMethod=test_local_managed_file_conflict_is_detected_not_adopted>
+
+    def test_local_managed_file_conflict_is_detected_not_adopted(self):
+        self.init_prior()
+        # Upgrade to current first so the workspace is otherwise healthy,
+        # then make a local edit to a gate-pinned managed file.
+        proc = self.run_cli("migrate", "--upgrade")
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        self.fix_descriptor_for_current_schema()
+        stamp = self.run_cli("accept-policy", "--reviewer", "alice", "--version", "reliance-policy@1.0")
+        self.assertEqual(stamp.returncode, 0, stamp.stderr + stamp.stdout)
+    
+        target = self.workspace / GATE_SCHEMA
+        target.write_text(target.read_text() + "\n// locally edited, not the product's bytes\n")
+        pinned_before = self.manifest()["gate_hashes"][GATE_SCHEMA]
+    
+        proc = self.run_cli("migrate", "--upgrade", "--json")
+        self.assertEqual(proc.returncode, 1, proc.stdout)
+        audit = json.loads(proc.stdout)
+        self.assertEqual(audit["result"], "conflict")
+        self.assertEqual([c["path"] for c in audit["conflicts"]], [GATE_SCHEMA])
+        self.assertEqual(audit["conflicts"][0]["recorded_base_hash"], pinned_before)
+        self.assertTrue(audit["required_human_action"])
+        self.assertIn(GATE_SCHEMA, audit["required_human_action"][0]["action"])
+    
+        # The conflicting bytes are not overwritten, and -- critically --
+        # their hash is NOT adopted as the pin: the recorded gate hash is
+        # still the product's, so the drift stays visible everywhere.
+        self.assertIn("locally edited", target.read_text())
+        self.assertEqual(self.manifest()["gate_hashes"][GATE_SCHEMA], pinned_before)
+    
+        doctor = self.run_cli("doctor")
+>       self.assertEqual(doctor.returncode, 1, doctor.stdout)
+E       AssertionError: 2 != 1 : Implemented: draft (Stage 0/3), approve (checkpoint), approve-pair (transactional interaction + protocol-debt checkpoint), approve-exemption-pair (transactional interaction + exemption checkpoint, R2's exemption bootstrap), validate (Stage 4 G1a/G1b/G2+), validate-interaction (Stage 4 G1a/G1b + computed eligibility + G15 + R2), validate-exemption (Stage 4 G1a/G1b naming + G2 interaction cross-reference), validate-protocol-debt (Stage 4 G1a/G1b + interaction cross-reference), validate-bridge (Stage 4 G1a/G1b/G2 over bridge specifications, chainlink #22), validate-evidence (Stage 4 G1a/G1b, workspace-level), validate-conflict-resolution (Stage 4 G1a/G1b/G11, workspace-level), validate-work-package (Stage 7 schema + §10.1, standalone), generate-work-package (plan-driven Stage 7 manifest generation from an explicit validated plan; it does not infer package scope or synthesize plans from promoted I/O, chainlink #122/#134), validate-promotion (Stage 4.5 schema + §7.1, standalone), accept-promotion (Stage 4.5's own generator, chainlink #45), extract-c-static (Stage 8A's coarse syntactic C_static extractor, chainlink #24), validate-callsites (Stage 8A G1a/G1b over C_static reports, workspace-level), gate-r1-g16 (Stage 8A R1 reconciliation + G16 risk-tiered unresolved policy; exit 3 means a human risk decision is outstanding), render-witness (dispatch a canonical result through the renderer contract, chainlink #28), validate-witness (G1a/G1b/G2 over witness specs + canonical results, chainlink #27), validate-gold-set (G1a/G1b over human gold sets, chainlink #26), measure-gold-set (precision/recall/omission against a human gold set, chainlink #26), check-bridges (Stage 8A bridge harness generation + verifier dispatch, chainlink #47), gate-g9 (Stage 8A bridge-check verification against a recompilation of the promoted bridge), validate-closure (Stage 8C G1a/G1b + G17 over closure profiles and degradation records), gate-g14 (Stage 8C release closure over the transitive assurance graph, per cluster, with the CG6 well-foundedness discharge, chainlink #25), gate-g18 (Stage 4 witness coverage over the declared witness_required feature set, chainlink #29), gate-g19 (Stage 8A/CI witness determinism: regenerate, compare value_hash, never render_hash, chainlink #30), gate-g20 (Stage 4.5 degeneracy: must-vary vs constant, fixture-family/coverage_region consistency, warn -- block at promotion if unresolved, chainlink #31), generate-feature-ledger (Stage 4.5 generated projection over G18/G19/G20, implementation_observed vs assurance_status never merged, chainlink #34), generate-contact-sheet (Stage 4.5 review surface with the ∃-witness evidence banner, traffic-light witness/determinism/degeneracy columns kept visually distinct from a never-green assurance_status/closure_kind column, chainlink #32), select-pilot-cluster (plan.md §14 mechanized, verifier-agnostic first-pilot-cluster ranking, chainlink #4), write-set-check (read-only write-set conformance: files outside allowed_roots and inside protected_roots relative to the project descriptor, chainlink #77), accept-policy (record a reviewed change to the normative reliance-policy document, stamping its `Policy version:` marker with --version while the template placeholder is still in place -- chainlink #78, #113), accept-fixture-value (record a hash-bound human decision to retain a legitimate descriptor example value -- chainlink #145), promote-evidence (mechanically promote a staged evidence draft to its target and record the move -- the Stage 0 promotion path approve() cannot provide, chainlink #79), record-assurance (assemble a work package's assurance report from verifier proof certificates -- the achieved side gate-g14 reads, chainlink #87), scaffold-crate (deterministic Cargo.toml + canonical src skeleton for a missing declared crate of a port-mode project, the manifest write authorized by an issue-scoped grant -- chainlink #115)
+E       Not yet implemented:
+E         - G4/G5 evidence tracing/grounding: implemented for interaction-level traceability -- G4 rejects evidence_links that do not resolve to valid workspace evidence during validation, approval, and promotion acceptance; G5 warns on ungrounded reliances during drafting/validation and blocks them at promotion acceptance. Because evidence_links are interaction-scoped, one valid link grounds that interaction's reliances collectively; semantic evidence-to-obligation matching remains a human review
+E         - emission: M3's I-schema is now complete (#16-#20); emission (Stage 5) itself is still not built
+E         - attach: M3's I-schema is now complete (#16-#20); attach (Stage 6) itself is still not built
+E         - automatic promoted-I/O synthesis: not implemented: there is no generator that infers a Stage 7 plan from promoted I/O. The supported command provides plan-driven Stage 7 manifest generation from an explicit validated plan; it does not infer package scope or synthesize plans from promoted I/O (#122/#134)
+E         - 8A: partly implemented -- C_static extraction and R1/G16 are real (#24), bridge harness generation, verifier dispatch and G9 are real (#47: check-bridges, gate-g9), and per-obligation assurance records have a record schema (#23) plus the report container G14 reads (#25). What is missing is the runner that emits a work package's OBLIGATION records from a real verifier run; bridge records now have one (ci/results/bridge_checks/), and no verifier backend is configured in this repository, so nothing here dispatches for real
+E         - 8B: #26 (M4)
+E       Installation:
+E         installation: conflict
+E         mode: greenfield  project: myproj
+E         skill authority hash: verified
+E           unchanged  .codex/skills/ligature/SKILL.md
+E           unchanged  .ligature/prompts/stage-0-evidence-intake.md
+E           unchanged  .ligature/prompts/stage-3-boundary-drafting.md
+E           unchanged  .ligature/prompts/stage-3-bridge-drafting.md
+E           unchanged  .ligature/prompts/stage-3-closure-profile-drafting.md
+E           unchanged  .ligature/prompts/stage-3-concept-to-code.md
+E           unchanged  .ligature/prompts/stage-3-conflict-resolution-drafting.md
+E           unchanged  .ligature/prompts/stage-3-degradation-drafting.md
+E           unchanged  .ligature/prompts/stage-3-exemption-drafting.md
+E           unchanged  .ligature/prompts/stage-3-interaction-drafting.md
+E           unchanged  .ligature/prompts/stage-3-protocol-debt-drafting.md
+E           unchanged  .ligature/prompts/stage-3-witness-drafting.md
+E           unchanged  .ligature/schemas/consolidated-check.schema.json
+E           unchanged  .ligature/schemas/project-descriptor.schema.json
+E            CONFLICT  .ligature/schemas/project-state.schema.json
+E           user-owned  docs/reliance-policy.md
+E           user-owned  project-descriptor.json  schema: invalid (see check for detail)
+E           unchanged  schemas/project-descriptor.schema.json
+E           unchanged  scripts/witness_renderer.py
+E           unchanged  scripts/xml_escape.py
+E           descriptor diagnostic: write_set.allowed_roots pattern 'crates/*/src/' overlaps write_set.protected_roots pattern '**/Cargo.toml'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+E           descriptor diagnostic: write_set.allowed_roots pattern 'crates/*/src/' overlaps write_set.protected_roots pattern '**/build.rs'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+E           descriptor diagnostic: write_set.allowed_roots pattern 'crates/*/src/' overlaps write_set.protected_roots pattern '**/kani.toml'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+E           descriptor diagnostic: write_set.allowed_roots pattern 'crates/*/tests/' overlaps write_set.protected_roots pattern '**/Cargo.toml'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+E           descriptor diagnostic: write_set.allowed_roots pattern 'crates/*/tests/' overlaps write_set.protected_roots pattern '**/build.rs'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+E           descriptor diagnostic: write_set.allowed_roots pattern 'crates/*/tests/' overlaps write_set.protected_roots pattern '**/kani.toml'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+E       Executable attestation:
+E         ligature 1.4.0
+E           adjudicator: source-checkout (attested: unknown)
+E           content hash: (none -- source checkout)
+E           bundle: (source checkout)
+E           bundled schemas: 35
+E           required python: >= 3.10 (running 3.12.3)
+E           platform: Linux/x86_64 (required: any)
+E           bundled schemas:
+E             docs/achieved-assurance-schema.json: 1.0
+E             docs/assumption-registry-schema.json: 1.0
+E             docs/assurance-report-schema.json: 1.0
+E             docs/boundary-contract-schema.json: 1.0
+E             docs/bridge-check-schema.json: 1.0
+E             docs/bridge-schema.json: 1.0
+E             docs/callsite-schema.json: 1.0
+E             docs/cargo-profile-audit-schema.json: 1.0
+E             docs/cargo-verus-profile-audit-schema.json: 1.0
+E             docs/closure-profile-schema.json: 1.0
+E             docs/concept-to-code-constraint-id-schema.json: unknown
+E             docs/concept-to-code-witness-required-schema.json: unknown
+E             docs/conflict-resolution-schema.json: 1.0
+E             docs/degradation-record-schema.json: 1.0
+E             docs/evidence-schema.json: 1.0
+E             docs/exemption-schema.json: 1.0
+E             docs/feature-ledger-schema.json: 1.0
+E             docs/g14-report-schema.json: unknown
+E             docs/gold-set-measurement-schema.json: 1.0
+E             docs/gold-set-schema.json: 1.0
+E             docs/interaction-schema.json: 1.0
+E             docs/promotion-receipt-schema.json: unknown
+E             docs/protocol-debt-schema.json: 1.0
+E             docs/r1-g16-report-schema.json: unknown
+E             docs/scaffold-receipt-schema.json: 1.0
+E             docs/witness-result-schema.json: 1.0
+E             docs/witness-spec-schema.json: 1.0
+E             docs/work-package-generation-audit-schema.json: 1.0
+E             docs/work-package-manifest-schema.json: unknown
+E             docs/write-grant-schema.json: 1.0
+E             schemas/consolidated-check.schema.json: 1.0
+E             schemas/implementation-inventory.schema.json: unknown
+E             schemas/project-descriptor.schema.json: 1.0
+E             schemas/project-state.schema.json: 1.0
+E             vendor/concept-to-code/schemas/spec.schema.json: 1.0
+E         adjudicator pin: pinned -- workspace initialized by an unattested source checkout (no build hash to pin)
+
+tests/test_migrate_upgrade.py:219: AssertionError
+___ MigrateUpgradeTest.test_rerun_is_safe_and_idempotent_and_surfaces_agree ____
+
+self = <test_migrate_upgrade.MigrateUpgradeTest testMethod=test_rerun_is_safe_and_idempotent_and_surfaces_agree>
+
+    def test_rerun_is_safe_and_idempotent_and_surfaces_agree(self):
+        self.init_prior()
+        first = self.run_cli("migrate", "--upgrade", "--json")
+        self.assertEqual(first.returncode, 0, first.stderr)
+        self.fix_descriptor_for_current_schema()
+        stamp = self.run_cli("accept-policy", "--reviewer", "alice", "--version", "reliance-policy@1.0")
+        self.assertEqual(stamp.returncode, 0, stamp.stderr + stamp.stdout)
+        manifest_after_first = self.manifest()
+    
+        second = self.run_cli("migrate", "--upgrade", "--json")
+        self.assertEqual(second.returncode, 0, second.stderr)
+        audit = json.loads(second.stdout)
+        self.assertEqual(audit["result"], "current")
+        # The only change is the descriptor re-base after the test's own
+        # user-owned edit: metadata tracking only, no managed rewrite.
+        self.assertEqual([p["path"] for p in audit["changed_paths"]], ["project-descriptor.json"])
+        self.assertEqual(audit["changed_paths"][0]["outcome"], "user-owned")
+        self.assertEqual(audit["gate_hashes"], {})
+        self.assertEqual(audit["conflicts"], [])
+        snapshot = {p.name: sha256_file(p) for p in self.workspace.rglob("*") if p.is_file()}
+        after_second_manifest = self.manifest()
+    
+        third = self.run_cli("migrate", "--upgrade", "--json")
+        self.assertEqual(third.returncode, 0, third.stderr)
+        third_audit = json.loads(third.stdout)
+        self.assertEqual(third_audit["result"], "current")
+        self.assertEqual(third_audit["changed_paths"], [])
+        self.assertEqual(third_audit["gate_hashes"], {})
+        self.assertEqual(third_audit["conflicts"], [])
+        self.assertEqual(self.manifest(), after_second_manifest)
+        after = {p.name: sha256_file(p) for p in self.workspace.rglob("*") if p.is_file()}
+        self.assertEqual(snapshot, after, "rerunning the upgrade must write nothing")
+    
+        # doctor / status --json / check --json / write-set-check agree on
+        # a healthy, current, pinned workspace after migration.
+        doctor = self.run_cli("doctor")
+>       self.assertEqual(doctor.returncode, 0, doctor.stdout + doctor.stderr)
+E       AssertionError: 2 != 0 : Implemented: draft (Stage 0/3), approve (checkpoint), approve-pair (transactional interaction + protocol-debt checkpoint), approve-exemption-pair (transactional interaction + exemption checkpoint, R2's exemption bootstrap), validate (Stage 4 G1a/G1b/G2+), validate-interaction (Stage 4 G1a/G1b + computed eligibility + G15 + R2), validate-exemption (Stage 4 G1a/G1b naming + G2 interaction cross-reference), validate-protocol-debt (Stage 4 G1a/G1b + interaction cross-reference), validate-bridge (Stage 4 G1a/G1b/G2 over bridge specifications, chainlink #22), validate-evidence (Stage 4 G1a/G1b, workspace-level), validate-conflict-resolution (Stage 4 G1a/G1b/G11, workspace-level), validate-work-package (Stage 7 schema + §10.1, standalone), generate-work-package (plan-driven Stage 7 manifest generation from an explicit validated plan; it does not infer package scope or synthesize plans from promoted I/O, chainlink #122/#134), validate-promotion (Stage 4.5 schema + §7.1, standalone), accept-promotion (Stage 4.5's own generator, chainlink #45), extract-c-static (Stage 8A's coarse syntactic C_static extractor, chainlink #24), validate-callsites (Stage 8A G1a/G1b over C_static reports, workspace-level), gate-r1-g16 (Stage 8A R1 reconciliation + G16 risk-tiered unresolved policy; exit 3 means a human risk decision is outstanding), render-witness (dispatch a canonical result through the renderer contract, chainlink #28), validate-witness (G1a/G1b/G2 over witness specs + canonical results, chainlink #27), validate-gold-set (G1a/G1b over human gold sets, chainlink #26), measure-gold-set (precision/recall/omission against a human gold set, chainlink #26), check-bridges (Stage 8A bridge harness generation + verifier dispatch, chainlink #47), gate-g9 (Stage 8A bridge-check verification against a recompilation of the promoted bridge), validate-closure (Stage 8C G1a/G1b + G17 over closure profiles and degradation records), gate-g14 (Stage 8C release closure over the transitive assurance graph, per cluster, with the CG6 well-foundedness discharge, chainlink #25), gate-g18 (Stage 4 witness coverage over the declared witness_required feature set, chainlink #29), gate-g19 (Stage 8A/CI witness determinism: regenerate, compare value_hash, never render_hash, chainlink #30), gate-g20 (Stage 4.5 degeneracy: must-vary vs constant, fixture-family/coverage_region consistency, warn -- block at promotion if unresolved, chainlink #31), generate-feature-ledger (Stage 4.5 generated projection over G18/G19/G20, implementation_observed vs assurance_status never merged, chainlink #34), generate-contact-sheet (Stage 4.5 review surface with the ∃-witness evidence banner, traffic-light witness/determinism/degeneracy columns kept visually distinct from a never-green assurance_status/closure_kind column, chainlink #32), select-pilot-cluster (plan.md §14 mechanized, verifier-agnostic first-pilot-cluster ranking, chainlink #4), write-set-check (read-only write-set conformance: files outside allowed_roots and inside protected_roots relative to the project descriptor, chainlink #77), accept-policy (record a reviewed change to the normative reliance-policy document, stamping its `Policy version:` marker with --version while the template placeholder is still in place -- chainlink #78, #113), accept-fixture-value (record a hash-bound human decision to retain a legitimate descriptor example value -- chainlink #145), promote-evidence (mechanically promote a staged evidence draft to its target and record the move -- the Stage 0 promotion path approve() cannot provide, chainlink #79), record-assurance (assemble a work package's assurance report from verifier proof certificates -- the achieved side gate-g14 reads, chainlink #87), scaffold-crate (deterministic Cargo.toml + canonical src skeleton for a missing declared crate of a port-mode project, the manifest write authorized by an issue-scoped grant -- chainlink #115)
+E       Not yet implemented:
+E         - G4/G5 evidence tracing/grounding: implemented for interaction-level traceability -- G4 rejects evidence_links that do not resolve to valid workspace evidence during validation, approval, and promotion acceptance; G5 warns on ungrounded reliances during drafting/validation and blocks them at promotion acceptance. Because evidence_links are interaction-scoped, one valid link grounds that interaction's reliances collectively; semantic evidence-to-obligation matching remains a human review
+E         - emission: M3's I-schema is now complete (#16-#20); emission (Stage 5) itself is still not built
+E         - attach: M3's I-schema is now complete (#16-#20); attach (Stage 6) itself is still not built
+E         - automatic promoted-I/O synthesis: not implemented: there is no generator that infers a Stage 7 plan from promoted I/O. The supported command provides plan-driven Stage 7 manifest generation from an explicit validated plan; it does not infer package scope or synthesize plans from promoted I/O (#122/#134)
+E         - 8A: partly implemented -- C_static extraction and R1/G16 are real (#24), bridge harness generation, verifier dispatch and G9 are real (#47: check-bridges, gate-g9), and per-obligation assurance records have a record schema (#23) plus the report container G14 reads (#25). What is missing is the runner that emits a work package's OBLIGATION records from a real verifier run; bridge records now have one (ci/results/bridge_checks/), and no verifier backend is configured in this repository, so nothing here dispatches for real
+E         - 8B: #26 (M4)
+E       Installation:
+E         installation: current
+E         mode: greenfield  project: myproj
+E         skill authority hash: verified
+E           unchanged  .codex/skills/ligature/SKILL.md
+E           unchanged  .ligature/prompts/stage-0-evidence-intake.md
+E           unchanged  .ligature/prompts/stage-3-boundary-drafting.md
+E           unchanged  .ligature/prompts/stage-3-bridge-drafting.md
+E           unchanged  .ligature/prompts/stage-3-closure-profile-drafting.md
+E           unchanged  .ligature/prompts/stage-3-concept-to-code.md
+E           unchanged  .ligature/prompts/stage-3-conflict-resolution-drafting.md
+E           unchanged  .ligature/prompts/stage-3-degradation-drafting.md
+E           unchanged  .ligature/prompts/stage-3-exemption-drafting.md
+E           unchanged  .ligature/prompts/stage-3-interaction-drafting.md
+E           unchanged  .ligature/prompts/stage-3-protocol-debt-drafting.md
+E           unchanged  .ligature/prompts/stage-3-witness-drafting.md
+E           unchanged  .ligature/schemas/consolidated-check.schema.json
+E           unchanged  .ligature/schemas/project-descriptor.schema.json
+E           unchanged  .ligature/schemas/project-state.schema.json
+E           user-owned  docs/reliance-policy.md
+E           user-owned  project-descriptor.json  schema: invalid (see check for detail)
+E           unchanged  schemas/project-descriptor.schema.json
+E           unchanged  scripts/witness_renderer.py
+E           unchanged  scripts/xml_escape.py
+E           descriptor diagnostic: write_set.allowed_roots pattern 'crates/*/src/' overlaps write_set.protected_roots pattern '**/Cargo.toml'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+E           descriptor diagnostic: write_set.allowed_roots pattern 'crates/*/src/' overlaps write_set.protected_roots pattern '**/build.rs'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+E           descriptor diagnostic: write_set.allowed_roots pattern 'crates/*/src/' overlaps write_set.protected_roots pattern '**/kani.toml'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+E           descriptor diagnostic: write_set.allowed_roots pattern 'crates/*/tests/' overlaps write_set.protected_roots pattern '**/Cargo.toml'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+E           descriptor diagnostic: write_set.allowed_roots pattern 'crates/*/tests/' overlaps write_set.protected_roots pattern '**/build.rs'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+E           descriptor diagnostic: write_set.allowed_roots pattern 'crates/*/tests/' overlaps write_set.protected_roots pattern '**/kani.toml'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+E       Executable attestation:
+E         ligature 1.4.0
+E           adjudicator: source-checkout (attested: unknown)
+E           content hash: (none -- source checkout)
+E           bundle: (source checkout)
+E           bundled schemas: 35
+E           required python: >= 3.10 (running 3.12.3)
+E           platform: Linux/x86_64 (required: any)
+E           bundled schemas:
+E             docs/achieved-assurance-schema.json: 1.0
+E             docs/assumption-registry-schema.json: 1.0
+E             docs/assurance-report-schema.json: 1.0
+E             docs/boundary-contract-schema.json: 1.0
+E             docs/bridge-check-schema.json: 1.0
+E             docs/bridge-schema.json: 1.0
+E             docs/callsite-schema.json: 1.0
+E             docs/cargo-profile-audit-schema.json: 1.0
+E             docs/cargo-verus-profile-audit-schema.json: 1.0
+E             docs/closure-profile-schema.json: 1.0
+E             docs/concept-to-code-constraint-id-schema.json: unknown
+E             docs/concept-to-code-witness-required-schema.json: unknown
+E             docs/conflict-resolution-schema.json: 1.0
+E             docs/degradation-record-schema.json: 1.0
+E             docs/evidence-schema.json: 1.0
+E             docs/exemption-schema.json: 1.0
+E             docs/feature-ledger-schema.json: 1.0
+E             docs/g14-report-schema.json: unknown
+E             docs/gold-set-measurement-schema.json: 1.0
+E             docs/gold-set-schema.json: 1.0
+E             docs/interaction-schema.json: 1.0
+E             docs/promotion-receipt-schema.json: unknown
+E             docs/protocol-debt-schema.json: 1.0
+E             docs/r1-g16-report-schema.json: unknown
+E             docs/scaffold-receipt-schema.json: 1.0
+E             docs/witness-result-schema.json: 1.0
+E             docs/witness-spec-schema.json: 1.0
+E             docs/work-package-generation-audit-schema.json: 1.0
+E             docs/work-package-manifest-schema.json: unknown
+E             docs/write-grant-schema.json: 1.0
+E             schemas/consolidated-check.schema.json: 1.0
+E             schemas/implementation-inventory.schema.json: unknown
+E             schemas/project-descriptor.schema.json: 1.0
+E             schemas/project-state.schema.json: 1.0
+E             vendor/concept-to-code/schemas/spec.schema.json: 1.0
+E         adjudicator pin: pinned -- workspace initialized by an unattested source checkout (no build hash to pin)
+
+tests/test_migrate_upgrade.py:167: AssertionError
+_ CmdDraftBoundaryEndToEndTest.test_valid_pre_review_boundary_draft_passes_through_cmd_draft_itself _
+
+self = <test_pipeline.CmdDraftBoundaryEndToEndTest testMethod=test_valid_pre_review_boundary_draft_passes_through_cmd_draft_itself>
+
+    def test_valid_pre_review_boundary_draft_passes_through_cmd_draft_itself(self):
+        stub = self._write_stub_backend()
+        descriptor = dict(VALID_DESCRIPTOR)
+        descriptor["llm_backend"] = {"kind": "claude", "command": f"{sys.executable} {stub}"}
+        self.descriptor_path.write_text(json.dumps(descriptor))
+        target = self.workspace / "crate_a" / "specs" / "_boundaries" / "scheduler_dispatch__to__task_queue_pop_ready.json"
+    
+        rc = pipeline.main([
+            "--workspace", str(self.workspace),
+            "--descriptor", str(self.descriptor_path),
+            "draft", "3", "boundary-drafting", str(target),
+            "--var", "caller_concept=Scheduler",
+            "--var", "caller_method=dispatch",
+            "--var", "callee_concept=TaskQueue",
+            "--var", "callee_method=pop_ready",
+            "--var", "caller_concept_snake=scheduler",
+            "--var", "callee_concept_snake=task_queue",
+            "--var", "caller_spec={}",
+            "--var", "callee_spec={}",
+            "--var", "reliance_policy=(policy text)",
+            "--var", "prior_artifact=(none)",
+            "--var", "finding=(none)",
+        ])
+>       self.assertEqual(rc, 0)
+E       AssertionError: 1 != 0
+
+tests/test_pipeline.py:1456: AssertionError
+----------------------------- Captured stderr call -----------------------------
+error: draft target 'crate_a/specs/_boundaries/scheduler_dispatch__to__task_queue_pop_ready.json' is outside every allowed_roots pattern ((none)) and is not a sanctioned protected-artifact destination -- refusing before prompt rendering; choose a supported artifact path or update the project write-set declaration
+_ CmdValidateInteractionIntegrationTest.test_staged_draft_is_inert_not_a_g1a_error _
+
+self = <test_pipeline.CmdValidateInteractionIntegrationTest testMethod=test_staged_draft_is_inert_not_a_g1a_error>
+
+    def test_staged_draft_is_inert_not_a_g1a_error(self):
+        """Chainlink #90: the exact pilot repro. `draft 3
+        interaction-drafting` stages `<target>.json.draft` without a
+        `review` block (only approve/approve-pair adds one), so the
+        output the tool prescribes used to come back from Stage 4 as
+        [G1a/error] "'review' is a required property", EXIT 1 -- while
+        `validate` skipped the equivalent staged boundary draft and
+        exited 0. Both validators now use the same `.draft` convention:
+        staged drafts are neither reported nor counted."""
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace = Path(tmp) / "ws"
+            src = INTERACTION_FIXTURES / "valid"
+            shutil.copytree(src, workspace)
+            draft = json.loads(
+                (src / "specs" / "_interactions" / "I-SCHED-TQ-001.json").read_text()
+            )
+            draft.pop("review")
+            (workspace / "specs" / "_interactions" / "I-SCHED-TQ-001.json.draft").write_text(
+                json.dumps(draft)
+            )
+            rc = self._run(workspace)
+>       self.assertEqual(rc, 0)
+E       AssertionError: 1 != 0
+
+tests/test_pipeline.py:1916: AssertionError
+----------------------------- Captured stdout call -----------------------------
+WARNING: 1 non-blocking finding(s)
+  - [G5/warning] /tmp/tmptf3gcm2w/ws/specs/_interactions/I-SCHED-TQ-001.json: obligation 'TaskQueue.C003' has no resolvable evidence_links; link at least one valid workspace evidence record to ground the interaction's reliances
+FAIL: 3 finding(s)
+  - [G4/error] /tmp/tmptf3gcm2w/ws/specs/_interactions/I-SCHED-TQ-001.json: evidence_links references 'E-0143', but no valid workspace evidence record has that id
+  - [G2-policy/error] /tmp/tmptf3gcm2w/ws/specs/_interactions/I-SCHED-TQ-001.json: cannot establish callee verifier policy for concept 'TaskQueue': no valid concept spec declares 'TaskQueue' under the descriptor's declared specs_search_root values (/tmp/tmptf3gcm2w/ws/specs); add it under an authoritative root or correct crates[].specs_search_root; Ligature will not infer an owner
+  - [G2-policy/error] /tmp/tmptf3gcm2w/ws/specs/_interactions/I-SCHED-TQ-001.json: cannot establish caller verifier policy for concept 'Scheduler': no valid concept spec declares 'Scheduler' under the descriptor's declared specs_search_root values (/tmp/tmptf3gcm2w/ws/specs); add it under an authoritative root or correct crates[].specs_search_root; Ligature will not infer an owner
+____ CmdValidateInteractionIntegrationTest.test_valid_fixture_crate_passes _____
+
+self = <test_pipeline.CmdValidateInteractionIntegrationTest testMethod=test_valid_fixture_crate_passes>
+
+    def test_valid_fixture_crate_passes(self):
+>       self.assertEqual(self._run(INTERACTION_FIXTURES / "valid"), 0)
+E       AssertionError: 1 != 0
+
+tests/test_pipeline.py:1871: AssertionError
+----------------------------- Captured stdout call -----------------------------
+WARNING: 1 non-blocking finding(s)
+  - [G5/warning] /tmp/ligature-closure-pristine/tests/fixtures/interactions/valid/specs/_interactions/I-SCHED-TQ-001.json: obligation 'TaskQueue.C003' has no resolvable evidence_links; link at least one valid workspace evidence record to ground the interaction's reliances
+FAIL: 3 finding(s)
+  - [G4/error] /tmp/ligature-closure-pristine/tests/fixtures/interactions/valid/specs/_interactions/I-SCHED-TQ-001.json: evidence_links references 'E-0143', but no valid workspace evidence record has that id
+  - [G2-policy/error] /tmp/ligature-closure-pristine/tests/fixtures/interactions/valid/specs/_interactions/I-SCHED-TQ-001.json: cannot establish callee verifier policy for concept 'TaskQueue': no valid concept spec declares 'TaskQueue' under the descriptor's declared specs_search_root values (/tmp/ligature-closure-pristine/tests/fixtures/interactions/valid/specs); add it under an authoritative root or correct crates[].specs_search_root; Ligature will not infer an owner
+  - [G2-policy/error] /tmp/ligature-closure-pristine/tests/fixtures/interactions/valid/specs/_interactions/I-SCHED-TQ-001.json: cannot establish caller verifier policy for concept 'Scheduler': no valid concept spec declares 'Scheduler' under the descriptor's declared specs_search_root values (/tmp/ligature-closure-pristine/tests/fixtures/interactions/valid/specs); add it under an authoritative root or correct crates[].specs_search_root; Ligature will not infer an owner
+____ CmdValidateProtocolDebtIntegrationTest.test_valid_fixture_crate_passes ____
+
+self = <test_pipeline.CmdValidateProtocolDebtIntegrationTest testMethod=test_valid_fixture_crate_passes>
+
+    def test_valid_fixture_crate_passes(self):
+>       self.assertEqual(self._run(PROTOCOL_DEBT_FIXTURES / "valid"), 0)
+E       AssertionError: 1 != 0
+
+tests/test_pipeline.py:1953: AssertionError
+----------------------------- Captured stdout call -----------------------------
+FAIL: 1 finding(s)
+  - [G2/error] /tmp/ligature-closure-pristine/tests/fixtures/protocol_debt/valid/specs/_protocol_debt/I-SCHED-TQ-001.json: interaction_id 'I-SCHED-TQ-001' does not resolve to any real interaction -- dangling reference
+_____________ WitnessIntegrationTest.test_a_non_pure_query_blocks ______________
+
+self = <test_pipeline.WitnessIntegrationTest testMethod=test_a_non_pure_query_blocks>
+
+    def test_a_non_pure_query_blocks(self):
+        spec_path = self.workspace / "crates" / "scheduler" / "specs" / "task_queue.json"
+        spec = json.loads(spec_path.read_text())
+        spec["queries"][0]["pure"] = False
+        spec_path.write_text(json.dumps(spec))
+        code, printed = self._run("validate-witness")
+        self.assertEqual(code, 1, printed)
+>       self.assertIn("observes a side effect", printed)
+E       AssertionError: 'observes a side effect' not found in "FAIL: 1 finding(s)\n  - [G2/error] /tmp/tmpw1rq6e8t/crates/scheduler/specs/_witnesses/task_queue.load_factor.json: cannot resolve TaskQueue.load_factor -- concept spec candidate for 'TaskQueue' under declared specs_search_root '/tmp/tmpw1rq6e8t/crates' is invalid at /tmp/tmpw1rq6e8t/crates/scheduler/specs/task_queue.json: True was expected; repair it against the bundled concept-to-code schema, then rerun the check\n"
+
+tests/test_pipeline.py:5534: AssertionError
+_ D3DuplicateConceptTest.test_duplicate_concept_across_crates_is_reported_ambiguous _
+
+self = <test_prototype_a.D3DuplicateConceptTest testMethod=test_duplicate_concept_across_crates_is_reported_ambiguous>
+
+    def test_duplicate_concept_across_crates_is_reported_ambiguous(self):
+        """Review finding D3: two spec files both declaring concept
+        TaskQueue under the same specs_search_root must not silently
+        resolve to whichever one glob() happens to return first."""
+        fixture = FIXTURES / "d3_duplicate_concept"
+        findings = validate(fixture / "crate_a", specs_search_root=fixture)
+        errors = [f for f in findings if f.severity == "error"]
+        self.assertTrue(errors, "expected an ambiguous-resolution error, got none")
+>       self.assertTrue(any("ambiguous" in f.reason.lower() or "more than one" in f.reason for f in errors))
+E       AssertionError: False is not true
+
+tests/test_prototype_a.py:40: AssertionError
+______ D4NoStableIdTest.test_missing_constraint_id_is_visible_not_silent _______
+
+self = <test_prototype_a.D4NoStableIdTest testMethod=test_missing_constraint_id_is_visible_not_silent>
+
+    def test_missing_constraint_id_is_visible_not_silent(self):
+        """Review finding D4 (the live gap #6 state): a callee spec whose
+        constraints have no id field yet must produce a visible,
+        non-blocking signal, not an indistinguishable 'all clean.'"""
+        fixture = FIXTURES / "d4_no_stable_id"
+        findings = validate(fixture, specs_search_root=fixture / "specs")
+        errors = [f for f in findings if f.severity == "error"]
+        infos = [f for f in findings if f.severity == "info"]
+>       self.assertEqual(errors, [], [str(f) for f in errors])
+E       AssertionError: Lists differ: [Finding(gate='G2+', path=PosixPath('/tmp/[636 chars]or')] != []
+E       
+E       First list contains 1 additional elements.
+E       First extra element 0:
+E       Finding(gate='G2+', path=PosixPath('/tmp/ligature-closure-pristine/tests/fixtures/boundary_contracts/d4_no_stable_id/specs/_boundaries/scheduler_dispatch__to__task_queue_pop_ready.json'), reason="'TaskQueue.C003': applies_to unverifiable -- concept spec candidate for 'TaskQueue' under declared specs_search_root '/tmp/ligature-closure-pristine/tests/fixtures/boundary_contracts/d4_no_stable_id/specs' is invalid at /tmp/ligature-closure-pristine/tests/fixtures/boundary_contracts/d4_no_stable_id/specs/task_queue.json: Additional properties are not allowed ('_comment' was unexpected); repair it against the bundled concept-to-code schema, then rerun the check", severity='error')
+E       
+E       Diff is 871 characters long. Set self.maxDiff to None to see it. : ["[G2+/error] /tmp/ligature-closure-pristine/tests/fixtures/boundary_contracts/d4_no_stable_id/specs/_boundaries/scheduler_dispatch__to__task_queue_pop_ready.json: 'TaskQueue.C003': applies_to unverifiable -- concept spec candidate for 'TaskQueue' under declared specs_search_root '/tmp/ligature-closure-pristine/tests/fixtures/boundary_contracts/d4_no_stable_id/specs' is invalid at /tmp/ligature-closure-pristine/tests/fixtures/boundary_contracts/d4_no_stable_id/specs/task_queue.json: Additional properties are not allowed ('_comment' was unexpected); repair it against the bundled concept-to-code schema, then rerun the check"]
+
+tests/test_prototype_a.py:64: AssertionError
+_ UndeclaredCrateTest.test_two_crates_with_the_same_basename_are_ambiguous_and_refused _
+
+self = <test_scaffold_crate.UndeclaredCrateTest testMethod=test_two_crates_with_the_same_basename_are_ambiguous_and_refused>
+
+    def test_two_crates_with_the_same_basename_are_ambiguous_and_refused(self):
+        self.init_workspace()
+        self.declare_crate("rust/a/core", "rust/b/core")
+        self.granted()
+        self.assertRefused(
+            "--issue", "115", "--crate", "core",
+            contains=("names 2 declared crates", "rust/a/core", "rust/b/core", "name the crate_dir"),
+        )
+        # Naming one of them by crate_dir is the documented way through.
+        code, _, err = self.authorize(
+            "--issue", "115", "--path", "rust/a/core/Cargo.toml", "--op", "write",
+            "--issuer", "operator", "--one-shot",
+        )
+>       self.assertEqual(code, 0, err)
+E       AssertionError: 2 != 0 : error: --path 'rust/a/core/Cargo.toml' names nothing any declared protected_roots pattern covers: a grant authorizes a sanctioned protected-root write and nothing else. It cannot widen allowed_roots and it cannot excuse a write that no root protects
+
+tests/test_scaffold_crate.py:691: AssertionError
+_ InvalidTargetTest.test_a_crate_dir_in_a_canonical_pipeline_artifact_location_is_refused _
+
+self = <test_scaffold_crate.InvalidTargetTest testMethod=test_a_crate_dir_in_a_canonical_pipeline_artifact_location_is_refused>
+
+    def test_a_crate_dir_in_a_canonical_pipeline_artifact_location_is_refused(self):
+        self.init_workspace()
+        self.declare_crate("ci/manifest/core")
+        self.granted()
+>       self.assertRefused(
+            "--issue", "115", "--crate", "core",
+            contains=("canonical pipeline artifact location",),
+        )
+
+tests/test_scaffold_crate.py:740: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_scaffold_crate.py:272: in assertRefused
+    self.assertIn(fragment, reason)
+E   AssertionError: 'canonical pipeline artifact location' not found in 'error: no active write grant covers ci/manifest/core/Cargo.toml for issue 115. scaffold-crate writes only what a capability record authorizes, and it never records one itself: have the issuer run `ligature authorize-write --issue 115 --path ci/manifest/core/Cargo.toml --op write --issuer <name>`, then re-run this command with --issue 115. No file was written\n'
+__ InvalidTargetTest.test_a_manifest_allowed_roots_already_permits_is_refused __
+
+self = <test_scaffold_crate.InvalidTargetTest testMethod=test_a_manifest_allowed_roots_already_permits_is_refused>
+
+    def test_a_manifest_allowed_roots_already_permits_is_refused(self):
+        """`allowed_roots` wins, exactly as `authorize-write` refuses a grant for
+        a path the descriptor already permits: such a write needs no capability
+        record, and authorizing it would be a permission-shaped object with no
+        work to do."""
+        self.init_workspace()
+        self.edit_descriptor(
+            lambda d: d["write_set"]["allowed_roots"].append("rust/*/Cargo.toml")
+        )
+>       self.assertRefused(
+            "--issue", "115", "--crate", "date-creusot-core",
+            contains=("already under allowed_roots pattern",),
+        )
+
+tests/test_scaffold_crate.py:770: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_scaffold_crate.py:270: in assertRefused
+    self.assertEqual(len(reason.splitlines()), 1, reason)
+E   AssertionError: 2 != 1 : error: project descriptor /tmp/tmpn9z3iaxy/project-descriptor.json has conflicting write_set patterns:
+E     - write_set.allowed_roots pattern 'rust/*/Cargo.toml' overlaps write_set.protected_roots pattern 'rust/*/Cargo.toml'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+______ WriteSetCleanTest.test_check_is_clean_on_an_initialized_workspace _______
+
+self = <test_write_set.WriteSetCleanTest testMethod=test_check_is_clean_on_an_initialized_workspace>
+
+    def test_check_is_clean_on_an_initialized_workspace(self):
+        self.init_workspace()
+        code, doc = self.check()
+>       self.assertEqual(code, 0)
+E       AssertionError: 1 != 0
+
+tests/test_write_set.py:142: AssertionError
+_ ProtectedSurfaceAuditTest.test_unvouched_protected_file_does_not_block_check _
+
+self = <test_write_set.ProtectedSurfaceAuditTest testMethod=test_unvouched_protected_file_does_not_block_check>
+
+    def test_unvouched_protected_file_does_not_block_check(self):
+        self.init_workspace()
+        self.write("scripts/evil.py", "echo rogue\n")
+        code, doc = self.check()
+>       self.assertEqual(code, 0)
+E       AssertionError: 1 != 0
+
+tests/test_write_set.py:521: AssertionError
+__ VacuousWriteSetTest.test_allowed_roots_matching_every_path_is_a_violation ___
+
+self = <test_write_set.VacuousWriteSetTest testMethod=test_allowed_roots_matching_every_path_is_a_violation>
+
+    def test_allowed_roots_matching_every_path_is_a_violation(self):
+        self.init_workspace()
+        descriptor = json.loads(self.descriptor_path.read_text())
+        descriptor["write_set"]["allowed_roots"] = ["**"]
+        self.descriptor_path.write_text(json.dumps(descriptor, indent=2) + "\n")
+        code, doc = self.write_set_check()
+>       self.assertEqual(code, 1)
+E       AssertionError: 2 != 1
+
+tests/test_write_set.py:535: AssertionError
+----------------------------- Captured stderr call -----------------------------
+error: project descriptor /tmp/tmp18fq_ty0/project-descriptor.json has conflicting write_set patterns:
+  - write_set.allowed_roots pattern '**' overlaps write_set.protected_roots pattern 'rust/*/specs/**'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+  - write_set.allowed_roots pattern '**' overlaps write_set.protected_roots pattern 'ci/manifest/**'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+  - write_set.allowed_roots pattern '**' overlaps write_set.protected_roots pattern 'scripts/**'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+  - write_set.allowed_roots pattern '**' overlaps write_set.protected_roots pattern 'docs/*-schema.json'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+  - write_set.allowed_roots pattern '**' overlaps write_set.protected_roots pattern 'docs/reliance-policy.md'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+  - write_set.allowed_roots pattern '**' overlaps write_set.protected_roots pattern 'rust/*/Cargo.toml'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+  - write_set.allowed_roots pattern '**' overlaps write_set.protected_roots pattern 'rust/*/build.rs'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+  - write_set.allowed_roots pattern '**' overlaps write_set.protected_roots pattern 'tests/harnesses/**'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+  - write_set.allowed_roots pattern '**' overlaps write_set.protected_roots pattern '.github/**'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+  - write_set.allowed_roots pattern '**' overlaps write_set.protected_roots pattern 'rust-toolchain.toml'; review the declared scope and narrow or otherwise revise the patterns so they are disjoint while retaining the protected-root boundary
+______________________ WriteSetUnitTest.test_is_canonical ______________________
+
+self = <test_write_set.WriteSetUnitTest testMethod=test_is_canonical>
+
+    def test_is_canonical(self):
+>       self.assertTrue(write_set._is_canonical("ci/manifest/installation.json"))
+E       AssertionError: False is not true
+
+tests/test_write_set.py:642: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_authorize_write.py::AuthorizedWriteIsCleanTest::test_status_and_check_agree_with_write_set_check
+FAILED tests/test_migrate_upgrade.py::MigrateUpgradeTest::test_local_managed_file_conflict_is_detected_not_adopted
+FAILED tests/test_migrate_upgrade.py::MigrateUpgradeTest::test_rerun_is_safe_and_idempotent_and_surfaces_agree
+FAILED tests/test_pipeline.py::CmdDraftBoundaryEndToEndTest::test_valid_pre_review_boundary_draft_passes_through_cmd_draft_itself
+FAILED tests/test_pipeline.py::CmdValidateInteractionIntegrationTest::test_staged_draft_is_inert_not_a_g1a_error
+FAILED tests/test_pipeline.py::CmdValidateInteractionIntegrationTest::test_valid_fixture_crate_passes
+FAILED tests/test_pipeline.py::CmdValidateProtocolDebtIntegrationTest::test_valid_fixture_crate_passes
+FAILED tests/test_pipeline.py::WitnessIntegrationTest::test_a_non_pure_query_blocks
+FAILED tests/test_prototype_a.py::D3DuplicateConceptTest::test_duplicate_concept_across_crates_is_reported_ambiguous
+FAILED tests/test_prototype_a.py::D4NoStableIdTest::test_missing_constraint_id_is_visible_not_silent
+FAILED tests/test_scaffold_crate.py::UndeclaredCrateTest::test_two_crates_with_the_same_basename_are_ambiguous_and_refused
+FAILED tests/test_scaffold_crate.py::InvalidTargetTest::test_a_crate_dir_in_a_canonical_pipeline_artifact_location_is_refused
+FAILED tests/test_scaffold_crate.py::InvalidTargetTest::test_a_manifest_allowed_roots_already_permits_is_refused
+FAILED tests/test_write_set.py::WriteSetCleanTest::test_check_is_clean_on_an_initialized_workspace
+FAILED tests/test_write_set.py::ProtectedSurfaceAuditTest::test_unvouched_protected_file_does_not_block_check
+FAILED tests/test_write_set.py::VacuousWriteSetTest::test_allowed_roots_matching_every_path_is_a_violation
+FAILED tests/test_write_set.py::WriteSetUnitTest::test_is_canonical - Asserti...
+17 failed, 1 passed in 5.52s

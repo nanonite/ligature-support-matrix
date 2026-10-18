@@ -1,0 +1,26 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && python3 tools/ligature/ligature.pyz gate-g14; python3 tools/ligature/ligature.pyz validate-work-package ci/manifest/WP-DATE-CREUSOT.json; python3 -c "import json;d=json.load(open('ci/manifest/WP-DATE-CREUSOT.json'));print(d['write_policy'])"; grep -A4 '\"write_set\"' project-descriptor.json
+### EXIT
+0
+### STDOUT
+cluster 'date-creusot-core' closes: closure_kind=deductive, 1 work package(s), 9 unique scoped obligation(s) (provided=9, required=0, evaluated=9), 0 required bridge(s), 0 bridge record(s) evaluated, 0 cycle(s) discharged; expected obligation scope=9 ID(s) declared
+  - [G14/info] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is VERIFIED from artifact data, not taken on declaration: every obligation and bridge in the closure AND its declared depends_on dependencies has a recorded achievement, the closure's own records are ['creusot-deductive-check'], and every other achieved record and declared guarantee harness in this workspace's work-package manifests and ledgers is creusot-owned as well -- with no non-creusot assurance anywhere those artifacts can name, no generic callee this cluster declares a dependency on is Kani-owned (CG3, plan.md §3, chainlink #93)
+closure is a per-cluster property with a kind; this gate never asserts a pipeline-wide guarantee (plan.md §4)
+OK: 1 cluster(s) close under their declared profile, 0 released under an accepted degradation record
+INFO: 2 non-blocking finding(s)
+  - [10.1/info] ci/manifest/WP-DATE-CREUSOT.json: provenance.promotion_id 'PROM-DATE-CREUSOT-CORE-001' cannot be resolved against a real promotion receipt yet -- chainlink #15 (detached promotion receipt) is not implemented
+  - [10.1/info] ci/manifest/WP-DATE-CREUSOT.json: "every owned function's source path is covered by allowed_write_set" is not checked -- functions[] are Rust module paths with no schema-computable mapping to a file path without searching real crate source, which this workspace doesn't have
+OK: work package manifest passes G1a and §10.1 checks
+{'allowed_write_set': ['rust/*/src/', 'rust/*/tests/'], 'on_conflict': 'raise_change_request', 'protected_write_set': ['.github/**', 'ci/manifest/**', 'docs/*-schema.json', 'docs/reliance-policy.md', 'rust-toolchain.toml', 'rust/*/Cargo.toml', 'rust/*/build.rs', 'rust/*/specs/**', 'scripts/**', 'tests/harnesses/**']}
+  "write_set": {
+    "allowed_roots": [
+      "rust/*/src/",
+      "rust/*/tests/",
+      "rust/*/target/**",
+
+### STDERR
+

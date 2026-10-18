@@ -1,0 +1,17 @@
+[CANDIDATE-MATCH] date-mcp-001           exit=1 recorded=1 probe='Symbol not found' 0.5s
+[CANDIDATE-MATCH] date-mcp-002           exit=0 recorded=0 probe='result_count' 0.3s
+[CANDIDATE-MATCH] date-ligature-001      exit=0 recorded=0 probe='installation' 3.2s
+[CANDIDATE-MATCH] date-ligature-002      exit=0 recorded=0 probe='unexpected property' 1.1s
+[CANDIDATE-KEY] date-ligature-003      exit=0 recorded=2 probe='closure_kind' 6.6s
+[CANDIDATE-MATCH] date-ligature-004      exit=0 recorded=0 probe='doctor exit=' 3.6s
+[CANDIDATE-MATCH] date-ligature-005      exit=0 recorded=0 probe='hash drift' 7.7s
+[CANDIDATE-MATCH] date-ligature-006      exit=0 recorded=0 probe='skill authority hash' 0.5s
+[CANDIDATE-MATCH] date-ligature-007      exit=0 recorded=0 probe='installation_manifest.state =' 3.6s
+[CANDIDATE-NO] date-ligature-008      exit=0 recorded=1 probe='oracle_build_command' 0.8s
+[CANDIDATE-NO] date-ligature-009      exit=0 recorded=0 probe='no boundary' 1.4s
+[CANDIDATE-KEY] date-ligature-010      exit=0 recorded=2 probe='is not one of' 2.4s
+[CANDIDATE-NO] date-ligature-011      exit=0 recorded=0 probe='defualt' 1.3s
+[CANDIDATE-MATCH] date-ligature-012      exit=0 recorded=0 probe='present-invalid' 3.6s
+[CANDIDATE-MATCH] date-ligature-013      exit=0 recorded=0 probe='allowed_roots pattern' 5.4s
+[CANDIDATE-MATCH] date-ligature-014      exit=0 recorded=0 probe='gate_integrity' 6.9s
+[CANDIDATE-MATCH] date-ligature-015      exit=0 recorded=0 probe='DRIFTED' 6.0s

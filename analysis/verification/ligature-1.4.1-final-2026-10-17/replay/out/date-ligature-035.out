@@ -1,0 +1,13 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && python3 tools/ligature/ligature.pyz validate-evidence
+### EXIT
+0
+### STDOUT
+OK: all evidence records pass G1a/G1b (15 discovered)
+
+### STDERR
+

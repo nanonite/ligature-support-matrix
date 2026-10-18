@@ -1,0 +1,23 @@
+[
+  {
+    "command": [
+      "doctor"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "gate",
+      "g14",
+      "--json"
+    ],
+    "exit": 0
+  },
+  {
+    "command": [
+      "gate-r1-g16",
+      "--json"
+    ],
+    "exit": 0
+  }
+]

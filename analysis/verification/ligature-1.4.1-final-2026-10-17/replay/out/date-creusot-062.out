@@ -1,0 +1,19 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+RUN ON AN rsync SCRATCH COPY ONLY -- this repro writes ci/manifest/WP-DATE-CREUSOT.json, which is a protected root, so it must never be run on the live pilot root. cd date-creusot && cp ci/manifest/WP-DATE-CREUSOT.json /tmp/wp.bak && python3 -c "import json,collections;p='ci/manifest/WP-DATE-CREUSOT.json';d=json.load(open(p),object_pairs_hook=collections.OrderedDict);d['write_policy']['allowed_write_set'].append('oracle/rust-check/Cargo.toml');json.dump(d,open(p,'w'),indent=2)" && python3 tools/ligature/ligature.pyz validate-work-package ci/manifest/WP-DATE-CREUSOT.json > /dev/null; echo "narrowed_exit=$?"; python3 -c "import json,collections;p='ci/manifest/WP-DATE-CREUSOT.json';d=json.load(open(p),object_pairs_hook=collections.OrderedDict);pw=d['write_policy']['protected_write_set'];pw[pw.index('rust/*/Cargo.toml')]='**/Cargo.toml';pw[pw.index('rust/*/build.rs')]='**/build.rs';json.dump(d,open(p,'w'),indent=2)" && python3 tools/ligature/ligature.pyz validate-work-package ci/manifest/WP-DATE-CREUSOT.json > /dev/null; echo "wide_exit=$?"; cp /tmp/wp.bak ci/manifest/WP-DATE-CREUSOT.json; rm -f /tmp/wp.bak  # measured on an rsync scratch copy of this root: narrowed_exit=0, wide_exit=1
+### EXIT
+0
+### STDOUT
+narrowed_exit=127
+wide_exit=1
+
+### STDERR
+bash: line 1: RUN: command not found
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: 'ci/manifest/WP-DATE-CREUSOT.json'
+cp: cannot stat '/tmp/wp.bak': No such file or directory
+

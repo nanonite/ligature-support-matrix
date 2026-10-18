@@ -1,0 +1,279 @@
+{
+  "id": 143,
+  "title": "Address port feedback and verify the released Ligature before downstream remediation",
+  "description": "Source: /home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/ligature/reverify-VERDICTS.md, active Ligature findings and gate recheck; companion date-creusot/PORT-GAPS.md. Porting project: full-ligature-workspace at /home/goya/storage/full-ligature-port-workspace.\nBaseline: Ligature 1.3.11, bundle SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f, source cdac78c21b6c32800b668b8fa2e17270f771d78c. The 96-finding ledger is append-only. Normalized scratch probes do not establish live workspace acceptance.\n\nUser-requested sequence: file and address Ligature product issues, release the fixes, verify that the porting project actually uses the new attested version and adjudicator pin, then create project-local issues for each remaining feedback item and resolve them. Do not create project-local issues as part of this filing task.\nTrack all active date-ligature findings individually, plus closure scope/count and reconciliation reporting. Preserve resolved findings as historical evidence. Product acceptance requires targeted regression verification and packaged-binary checks; a source-only fix is insufficient. The downstream handoff must retain environment blockers, operator decisions, Codesight limitations, and Creusot friction without pretending they are Ligature defects.\n",
+  "status": "open",
+  "priority": "high",
+  "parent_id": null,
+  "created_at": "2026-10-15T23:39:40.651788108Z",
+  "updated_at": "2026-10-15T23:39:40.651788108Z",
+  "closed_at": null,
+  "labels": [
+    "port-feedback"
+  ],
+  "milestone": null,
+  "comments": [
+    {
+      "id": 207,
+      "issue_id": 143,
+      "content": "[action] Integrating #144–#160: source regressions are implemented; running combined isolated packaged-binary verification before closing remaining children and building release.",
+      "created_at": "2026-10-16T04:07:44.085858429Z",
+      "kind": "note"
+    },
+    {
+      "id": 238,
+      "issue_id": 143,
+      "content": "Product fixes and release complete: Ligature 1.4.0 (source 38e23b4, bundle sha256 1f04052e..., content hash 6e9072ba..., tag v1.4.0) resolves children #162/#163/#164, verified through the packaged binary and in the downstream port workspace. All three pilots are installed on 1.4.0 with re-pinned adjudicators. Project-local date-creusot #138/#140/#141 closed after live gate-g14 (exit 0, nine-obligation scope matched, round_trip C007 consumed) and gate-r1-g16 (exit 0) on the real workspace. #161 remains open for the full 96-finding replay and the remaining project-local issues, whose blockers are external (Nix/network, Codesight limits, Kani CG3, operator decisions). Findings ledger preserved append-only (99->102 lines; resolutions date-creusot-065/066, date-ligature-104).",
+      "created_at": "2026-10-17T19:38:21.219708734Z",
+      "kind": "result"
+    }
+  ],
+  "blocked_by": [],
+  "blocking": [],
+  "subissues": [
+    {
+      "id": 144,
+      "title": "Fix doctor reporting for invalid project descriptors",
+      "description": "Source: /home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/ligature/reverify-VERDICTS.md, active Ligature findings and gate recheck; companion date-creusot/PORT-GAPS.md. Porting project: full-ligature-workspace at /home/goya/storage/full-ligature-port-workspace.\nBaseline: Ligature 1.3.11, bundle SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f, source cdac78c21b6c32800b668b8fa2e17270f771d78c. The 96-finding ledger is append-only. Normalized scratch probes do not establish live workspace acceptance.\n\nFinding: date-ligature-004.\nObserved: doctor exits 0 while live check --json exits 5 for docs/*.md overlapping protected docs/reliance-policy.md. Gates stop before evaluation.\nAcceptance: doctor uses the same descriptor semantic validation as check/status, reports present-invalid and a non-clean documented result, names both conflicting patterns and an actionable scope repair. Dependent gates are explicitly not evaluated. Preserve protected-root enforcement; do not silently narrow user policy.",
+      "status": "closed",
+      "priority": "high",
+      "parent_id": 143,
+      "created_at": "2026-10-15T23:39:40.691808003Z",
+      "updated_at": "2026-10-16T04:20:15.415237644Z",
+      "closed_at": "2026-10-16T04:20:15.415237644Z"
+    },
+    {
+      "id": 145,
+      "title": "Require explicit acceptance of initialized oracle command placeholders",
+      "description": "Source: /home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/ligature/reverify-VERDICTS.md, active Ligature findings and gate recheck; companion date-creusot/PORT-GAPS.md. Porting project: full-ligature-workspace at /home/goya/storage/full-ligature-port-workspace.\nBaseline: Ligature 1.3.11, bundle SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f, source cdac78c21b6c32800b668b8fa2e17270f771d78c. The 96-finding ledger is append-only. Normalized scratch probes do not establish live workspace acceptance.\n\nFinding: date-ligature-008.\nObserved: fresh init --mode port followed by valid reviewer, repository, and verifier values leaves P0 findings at zero while oracle_build_command remains cmake --build build --target oracle.\nAcceptance: all shipped fixture values require replacement or explicit recorded acceptance, including oracle_build_command. A legitimate unchanged command can be deliberately accepted; initialization alone never counts as operator review. Explain the supported acceptance workflow.",
+      "status": "closed",
+      "priority": "high",
+      "parent_id": 143,
+      "created_at": "2026-10-15T23:39:40.731278055Z",
+      "updated_at": "2026-10-16T04:20:15.487029423Z",
+      "closed_at": "2026-10-16T04:20:15.487029423Z"
+    },
+    {
+      "id": 146,
+      "title": "Verify crate-root containment independently of descriptor overlap failures",
+      "description": "Source: /home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/ligature/reverify-VERDICTS.md, active Ligature findings and gate recheck; companion date-creusot/PORT-GAPS.md. Porting project: full-ligature-workspace at /home/goya/storage/full-ligature-port-workspace.\nBaseline: Ligature 1.3.11, bundle SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f, source cdac78c21b6c32800b668b8fa2e17270f771d78c. The 96-finding ledger is append-only. Normalized scratch probes do not establish live workspace acceptance.\n\nFinding: date-ligature-009.\nInvestigation, not a confirmed containment defect. allowed_roots=[**] is correctly rejected for protected-root overlap; that rejection preempted the invalid absolute crate-root probe.\nAcceptance: isolate absolute/outside-workspace, nonexistent, valid relative, and relevant symlink crate-root cases using otherwise valid descriptors. Capture individual exits and diagnostics from the packaged CLI. Fix only independently demonstrated gaps; if existing containment/existence checks suffice, close with evidence and the downstream verdict correction.",
+      "status": "closed",
+      "priority": "medium",
+      "parent_id": 143,
+      "created_at": "2026-10-15T23:39:40.770610630Z",
+      "updated_at": "2026-10-16T04:20:15.550104480Z",
+      "closed_at": "2026-10-16T04:20:15.550104480Z"
+    },
+    {
+      "id": 147,
+      "title": "Fix reliance-policy prompt references to the initialized policy file",
+      "description": "Source: /home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/ligature/reverify-VERDICTS.md, active Ligature findings and gate recheck; companion date-creusot/PORT-GAPS.md. Porting project: full-ligature-workspace at /home/goya/storage/full-ligature-port-workspace.\nBaseline: Ligature 1.3.11, bundle SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f, source cdac78c21b6c32800b668b8fa2e17270f771d78c. The 96-finding ledger is append-only. Normalized scratch probes do not establish live workspace acceptance.\n\nFinding: date-ligature-018.\nObserved: rendered prompt references docs/reliance-policy.template.md although init creates docs/reliance-policy.md and no matching template is present in the project.\nAcceptance: installed prompts refer to the actual project policy path and work out of checkout. Verify init and migration rendering; keep bundled source templates distinct from project policy authority.",
+      "status": "closed",
+      "priority": "medium",
+      "parent_id": 143,
+      "created_at": "2026-10-15T23:39:40.810264658Z",
+      "updated_at": "2026-10-16T04:20:15.605972374Z",
+      "closed_at": "2026-10-16T04:20:15.605972374Z"
+    },
+    {
+      "id": 148,
+      "title": "Reject draft targets outside the declared write set before rendering",
+      "description": "Source: /home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/ligature/reverify-VERDICTS.md, active Ligature findings and gate recheck; companion date-creusot/PORT-GAPS.md. Porting project: full-ligature-workspace at /home/goya/storage/full-ligature-port-workspace.\nBaseline: Ligature 1.3.11, bundle SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f, source cdac78c21b6c32800b668b8fa2e17270f771d78c. The 96-finding ledger is append-only. Normalized scratch probes do not establish live workspace acceptance.\n\nFinding: date-ligature-019.\nObserved: an in-crate rogue target rust/date-creusot-core/rogue/evil.rs reaches a template-rendering error instead of write-set rejection; an out-of-crate target is refused separately.\nAcceptance: draft destination authorization checks allowed/protected paths and applicable sanctioned grants before rendering or invoking a generator. Unauthorized in-crate paths receive a precise refusal with no staged artifact or rendering side effect. Legitimate sanctioned protected-artifact workflows continue to work.",
+      "status": "closed",
+      "priority": "high",
+      "parent_id": 143,
+      "created_at": "2026-10-15T23:39:40.849895442Z",
+      "updated_at": "2026-10-16T04:20:15.663925499Z",
+      "closed_at": "2026-10-16T04:20:15.663925499Z"
+    },
+    {
+      "id": 149,
+      "title": "Resolve concept references using the declared specs search root",
+      "description": "Source: /home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/ligature/reverify-VERDICTS.md, active Ligature findings and gate recheck; companion date-creusot/PORT-GAPS.md. Porting project: full-ligature-workspace at /home/goya/storage/full-ligature-port-workspace.\nBaseline: Ligature 1.3.11, bundle SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f, source cdac78c21b6c32800b668b8fa2e17270f771d78c. The 96-finding ledger is append-only. Normalized scratch probes do not establish live workspace acceptance.\n\nFinding: date-ligature-022.\nObserved: normalized check --json emits six applies_to unverifiable findings with specs_search_root=rust; command help provides no specs_search guidance.\nAcceptance: audit descriptor-driven concept discovery across relevant validators; honor the declared root consistently, distinguish missing/ambiguous/invalid/mislocated references, and report the exact search root and remedy. Isolate this behavior from missing stable constraint IDs tracked separately. Do not infer IDs or weaken authoritative-reference checks.",
+      "status": "closed",
+      "priority": "high",
+      "parent_id": 143,
+      "created_at": "2026-10-15T23:39:40.889520475Z",
+      "updated_at": "2026-10-16T04:20:15.717922344Z",
+      "closed_at": "2026-10-16T04:20:15.717922344Z"
+    },
+    {
+      "id": 150,
+      "title": "Document exit statuses and structured outcomes for every CLI command",
+      "description": "Source: /home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/ligature/reverify-VERDICTS.md, active Ligature findings and gate recheck; companion date-creusot/PORT-GAPS.md. Porting project: full-ligature-workspace at /home/goya/storage/full-ligature-port-workspace.\nBaseline: Ligature 1.3.11, bundle SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f, source cdac78c21b6c32800b668b8fa2e17270f771d78c. The 96-finding ledger is append-only. Normalized scratch probes do not establish live workspace acceptance.\n\nFinding: date-ligature-023.\nObserved: probe finds no per-command exit contract; generic help mentions exit code only once. Existing centralized exit-code documentation and tests may cover part of this: audit them before adding duplicate documentation.\nAcceptance: publish a discoverable complete command-to-exit/outcome contract, including success with warnings, pending human decision, invalid input, prerequisite failure, and verification refusal where applicable. Specify which commands support JSON and align docs/help with observed packaged CLI behavior. Preserve intentional distinct statuses.",
+      "status": "closed",
+      "priority": "medium",
+      "parent_id": 143,
+      "created_at": "2026-10-15T23:39:40.929076579Z",
+      "updated_at": "2026-10-16T04:20:15.769597973Z",
+      "closed_at": "2026-10-16T04:20:15.769597973Z"
+    },
+    {
+      "id": 151,
+      "title": "Apply verifier policy during interaction drafting and validation",
+      "description": "Source: /home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/ligature/reverify-VERDICTS.md, active Ligature findings and gate recheck; companion date-creusot/PORT-GAPS.md. Porting project: full-ligature-workspace at /home/goya/storage/full-ligature-port-workspace.\nBaseline: Ligature 1.3.11, bundle SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f, source cdac78c21b6c32800b668b8fa2e17270f771d78c. The 96-finding ledger is append-only. Normalized scratch probes do not establish live workspace acceptance.\n\nFinding: date-ligature-024.\nObserved: interaction draft succeeds with immediate G1a/G1b checks for each verifier default creusot, kani, verus despite the cross-verifier evidence claim in the original probe.\nAcceptance: reconstruct the exact ledger repro and distinguish a default owner selection from an actually prohibited verifier combination. Enforce applicable declared policy at the correct draft/approval boundary, diagnose incompatibility and effective assurance ceiling, and preserve explicitly permitted cross-verifier/degradation paths. A changed default alone need not invalidate every interaction; record the justified semantics and verify both accepted and rejected cases.",
+      "status": "closed",
+      "priority": "high",
+      "parent_id": 143,
+      "created_at": "2026-10-15T23:39:40.968258100Z",
+      "updated_at": "2026-10-16T04:20:15.827094680Z",
+      "closed_at": "2026-10-16T04:20:15.827094680Z"
+    },
+    {
+      "id": 152,
+      "title": "Show pending human approvals as the next required project action",
+      "description": "Source: /home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/ligature/reverify-VERDICTS.md, active Ligature findings and gate recheck; companion date-creusot/PORT-GAPS.md. Porting project: full-ligature-workspace at /home/goya/storage/full-ligature-port-workspace.\nBaseline: Ligature 1.3.11, bundle SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f, source cdac78c21b6c32800b668b8fa2e17270f771d78c. The 96-finding ledger is append-only. Normalized scratch probes do not establish live workspace acceptance.\n\nFinding: date-ligature-027.\nObserved: check next recommends author-interaction although staged interaction drafts already contain reviewer blocks, without identifying the pending human checkpoint.\nAcceptance: determine actual approval provenance rather than trusting reviewer fields alone. Surface the pending artifact, required authorized reviewer action, and supported command when human approval is the next prerequisite. Do not keep recommending redundant drafting or synthesize approval authority.",
+      "status": "closed",
+      "priority": "high",
+      "parent_id": 143,
+      "created_at": "2026-10-15T23:39:41.007404384Z",
+      "updated_at": "2026-10-16T04:20:15.888830368Z",
+      "closed_at": "2026-10-16T04:20:15.888830368Z"
+    },
+    {
+      "id": 153,
+      "title": "Surface dangling evidence references during drafting",
+      "description": "Source: /home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/ligature/reverify-VERDICTS.md, active Ligature findings and gate recheck; companion date-creusot/PORT-GAPS.md. Porting project: full-ligature-workspace at /home/goya/storage/full-ligature-port-workspace.\nBaseline: Ligature 1.3.11, bundle SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f, source cdac78c21b6c32800b668b8fa2e17270f771d78c. The 96-finding ledger is append-only. Normalized scratch probes do not establish live workspace acceptance.\n\nFinding: date-ligature-028.\nObserved: draft with evidence_links:[E-999] stages successfully and prints immediate-check success; approve correctly rejects it at G4 because no valid evidence record has that ID.\nAcceptance: diagnose the unresolved evidence ID at draft time before staging, or explicitly display the deferred G4 blocker so immediate-check success cannot imply approval readiness. Preserve legitimate incomplete-draft workflows where intentional and keep approval rejection mandatory. Verify valid links, dangling links, and schema-invalid evidence separately.",
+      "status": "closed",
+      "priority": "medium",
+      "parent_id": 143,
+      "created_at": "2026-10-15T23:39:41.046742088Z",
+      "updated_at": "2026-10-16T04:20:15.947940279Z",
+      "closed_at": "2026-10-16T04:20:15.947940279Z"
+    },
+    {
+      "id": 154,
+      "title": "Provide actionable stable constraint ID resolution",
+      "description": "Source: /home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/ligature/reverify-VERDICTS.md, active Ligature findings and gate recheck; companion date-creusot/PORT-GAPS.md. Porting project: full-ligature-workspace at /home/goya/storage/full-ligature-port-workspace.\nBaseline: Ligature 1.3.11, bundle SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f, source cdac78c21b6c32800b668b8fa2e17270f771d78c. The 96-finding ledger is append-only. Normalized scratch probes do not establish live workspace acceptance.\n\nFinding: date-ligature-029.\nObserved: normalized check --json reports six G2+ applies_to unverifiable findings for the pilot declared constraint IDs.\nAcceptance: provide or document a sanctioned stable-ID authoring path compatible with concept-spec schema, drafting, approval, and G2+ resolution. Missing IDs must identify concept, requested constraint ID, and the supported repair, rather than remaining a vague unverifiable result. Do not derive normative identities from source heuristics or bypass approval. Coordinate with the search-root issue.",
+      "status": "closed",
+      "priority": "high",
+      "parent_id": 143,
+      "created_at": "2026-10-15T23:39:41.085872824Z",
+      "updated_at": "2026-10-16T04:20:16.002930772Z",
+      "closed_at": "2026-10-16T04:20:16.002930772Z"
+    },
+    {
+      "id": 155,
+      "title": "Clarify doctor support for plan-driven work-package generation",
+      "description": "Source: /home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/ligature/reverify-VERDICTS.md, active Ligature findings and gate recheck; companion date-creusot/PORT-GAPS.md. Porting project: full-ligature-workspace at /home/goya/storage/full-ligature-port-workspace.\nBaseline: Ligature 1.3.11, bundle SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f, source cdac78c21b6c32800b668b8fa2e17270f771d78c. The 96-finding ledger is append-only. Normalized scratch probes do not establish live workspace acceptance.\n\nFinding: date-ligature-032.\nObserved: doctor describes the promoted-I/O generator as unbuilt while generate-work-package --help succeeds. scripts/pipeline.py contains the stale capability text.\nAcceptance: accurately describe the existing plan-driven generation command and distinguish any genuinely unimplemented automatic promoted-I/O synthesis. Derive shared capability data where practical; align doctor, help, inventory, and documentation without claiming automatic functionality exists merely because a command exists.",
+      "status": "closed",
+      "priority": "medium",
+      "parent_id": 143,
+      "created_at": "2026-10-15T23:39:41.125001365Z",
+      "updated_at": "2026-10-16T04:20:16.068569790Z",
+      "closed_at": "2026-10-16T04:20:16.068569790Z"
+    },
+    {
+      "id": 156,
+      "title": "Support a documented evidence mapping for compile-time proof artifacts",
+      "description": "Source: /home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/ligature/reverify-VERDICTS.md, active Ligature findings and gate recheck; companion date-creusot/PORT-GAPS.md. Porting project: full-ligature-workspace at /home/goya/storage/full-ligature-port-workspace.\nBaseline: Ligature 1.3.11, bundle SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f, source cdac78c21b6c32800b668b8fa2e17270f771d78c. The 96-finding ledger is append-only. Normalized scratch probes do not establish live workspace acceptance.\n\nFinding: date-ligature-035.\nObserved: a sanctioned evidence draft with kind=compile-time fails the enum check; supported kinds are requirement, source-artifact, observed-behavior, test, comment.\nAcceptance: decide and document either a distinct compile-time/const-eval evidence kind or a precise mapping into existing kinds. Provide a sanctioned schema-valid draft/approval example with provenance and limitations. Update all affected consumers if adding a kind. Evidence classification alone must not imply verifier assurance or closure.",
+      "status": "closed",
+      "priority": "medium",
+      "parent_id": 143,
+      "created_at": "2026-10-15T23:39:41.164577236Z",
+      "updated_at": "2026-10-16T04:20:16.134159917Z",
+      "closed_at": "2026-10-16T04:20:16.134159917Z"
+    },
+    {
+      "id": 157,
+      "title": "Expose bundled schemas through a supported local inspection workflow",
+      "description": "Source: /home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/ligature/reverify-VERDICTS.md, active Ligature findings and gate recheck; companion date-creusot/PORT-GAPS.md. Porting project: full-ligature-workspace at /home/goya/storage/full-ligature-port-workspace.\nBaseline: Ligature 1.3.11, bundle SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f, source cdac78c21b6c32800b668b8fa2e17270f771d78c. The 96-finding ledger is append-only. Normalized scratch probes do not establish live workspace acceptance.\n\nFinding: date-ligature-040.\nObserved: project-relative docs/closure-profile-schema.json and docs/degradation-record-schema.json do not exist, while closure-profile and degradation drafting templates do exist.\nAcceptance: document or implement local schema listing/inspection/export from the packaged binary without a source checkout or network. Include closure and degradation schemas and necessary references, pin output to the installed version, and expose this path in relevant help. Do not require project users to guess repository-internal paths.",
+      "status": "closed",
+      "priority": "medium",
+      "parent_id": 143,
+      "created_at": "2026-10-15T23:39:41.204376346Z",
+      "updated_at": "2026-10-16T03:51:06.217829272Z",
+      "closed_at": "2026-10-16T03:51:06.217829272Z"
+    },
+    {
+      "id": 158,
+      "title": "Fix G14 obligation counts for contracts without dependency edges",
+      "description": "Source: /home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/ligature/reverify-VERDICTS.md, active Ligature findings and gate recheck; companion date-creusot/PORT-GAPS.md. Porting project: full-ligature-workspace at /home/goya/storage/full-ligature-port-workspace.\nBaseline: Ligature 1.3.11, bundle SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f, source cdac78c21b6c32800b668b8fa2e17270f771d78c. The 96-finding ledger is append-only. Normalized scratch probes do not establish live workspace acceptance.\n\nLocal source observation: ClusterOutcome.obligations counts obligation_edges keys and targets. compute_closure only inserts own provided obligations into that graph while processing required guarantees. A standalone provided contract can therefore be checked by check_provided_guarantees yet omitted from the displayed count.\nAcceptance: count actual scoped obligations independently of dependency edges, expose provided/required/evaluated counts with clear semantics, and verify isolated provided contracts, dependency chains, bridge-only packages, and genuinely empty scope. Do not infer zero evaluated obligations solely from the old display. Reassess the pilot zero-count claim using manifests and actual consumed records.",
+      "status": "closed",
+      "priority": "high",
+      "parent_id": 143,
+      "created_at": "2026-10-15T23:39:41.244170237Z",
+      "updated_at": "2026-10-16T04:20:16.195989923Z",
+      "closed_at": "2026-10-16T04:20:16.195989923Z"
+    },
+    {
+      "id": 159,
+      "title": "Expose the obligations and proof artifacts actually consumed by G14",
+      "description": "Source: /home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/ligature/reverify-VERDICTS.md, active Ligature findings and gate recheck; companion date-creusot/PORT-GAPS.md. Porting project: full-ligature-workspace at /home/goya/storage/full-ligature-port-workspace.\nBaseline: Ligature 1.3.11, bundle SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f, source cdac78c21b6c32800b668b8fa2e17270f771d78c. The 96-finding ledger is append-only. Normalized scratch probes do not establish live workspace acceptance.\n\nFeedback: normalized G14 exits 0 with closure_kind=deductive while saved round_trip/proof.json is not established as consumed. A saved proof artifact, fresh verifier run, and release-scope assurance are different facts.\nAcceptance: report selected work packages, actual provided/required obligation IDs, evaluated assurance records, and consumed proof artifact references in inspectable output. Make empty or bridge-only scope explicit so deductive does not imply a method was proved. Provide a supported way to detect a declared expected obligation omitted from release scope; do not guess intended obligations from every proof file on disk. Preserve valid bridge-only packages and existing evidence/freshness enforcement. Coordinate with the count issue.",
+      "status": "closed",
+      "priority": "high",
+      "parent_id": 143,
+      "created_at": "2026-10-15T23:39:41.283558205Z",
+      "updated_at": "2026-10-16T04:00:30.165060178Z",
+      "closed_at": "2026-10-16T04:00:30.165060178Z"
+    },
+    {
+      "id": 160,
+      "title": "Distinguish R1 gate acceptance from complete interaction reconciliation",
+      "description": "Source: /home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/ligature/reverify-VERDICTS.md, active Ligature findings and gate recheck; companion date-creusot/PORT-GAPS.md. Porting project: full-ligature-workspace at /home/goya/storage/full-ligature-port-workspace.\nBaseline: Ligature 1.3.11, bundle SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f, source cdac78c21b6c32800b668b8fa2e17270f771d78c. The 96-finding ledger is append-only. Normalized scratch probes do not establish live workspace acceptance.\n\nFeedback: saved C_static produces five high absent-from-I findings; sanctioned refresh classifies five value-domain inquiries as warnings and exits 0 with 11 discovered and 6 checked against I. Existing warnings are intentionally excluded from checked.\nAcceptance: text and structured summaries expose discovered, checked, unresolved, and undeclared warning counts, with gate acceptance separate from reconciliation completeness and source-resolution completeness. Keep warnings visible. Define a supported explicit project policy for requiring reconciliation of all discovered calls if desired; defaults must not silently change approved policy. Continue describing syntactic discovery as a lower bound. The operator chooses whether warnings are acceptable or interactions require approval.",
+      "status": "closed",
+      "priority": "high",
+      "parent_id": 143,
+      "created_at": "2026-10-15T23:39:41.327075937Z",
+      "updated_at": "2026-10-16T04:07:35.780335285Z",
+      "closed_at": "2026-10-16T04:07:35.780335285Z"
+    },
+    {
+      "id": 161,
+      "title": "Verify the fixed Ligature release in the port workspace before filing remediation issues",
+      "description": "Source: /home/goya/storage/full-ligature-port-workspace/date-creusot/analysis/ligature/reverify-VERDICTS.md, active Ligature findings and gate recheck; companion date-creusot/PORT-GAPS.md. Porting project: full-ligature-workspace at /home/goya/storage/full-ligature-port-workspace.\nBaseline: Ligature 1.3.11, bundle SHA-256 446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f, source cdac78c21b6c32800b668b8fa2e17270f771d78c. The 96-finding ledger is append-only. Normalized scratch probes do not establish live workspace acceptance.\n\nThis is the user-requested release and downstream handoff, not permission to skip version verification. Blocked by all sibling product fixes/investigations.\nAcceptance and sequence:\n1. Resolve each sibling with verification evidence or a justified existing-behavior decision, ship an attested Ligature release, and record source revision, version, bundle checksum, and relevant fixed issue IDs.\n2. Locate the actual executable and per-pilot installation/pin in /home/goya/storage/full-ligature-port-workspace. Verify the new bundle using version --verify and SHA256SUMS, follow sanctioned migration/repinning, and confirm installed product, managed resources, adjudicator, and gate hashes match. Installation-current does not imply descriptor-valid. Do not assume each pilot uses the same executable.\n3. Re-run the 96-finding harness against the actual installed release; preserve the append-only ledger, historical 1.2.0 and 1.3.11 measurements, per-command stdout/stderr/exits, and the distinction between live and normalized scratch. Evaluate actual G14 obligation scope, not just its old count.\n4. Only after the fixed version is verified in that workspace, create project-local Chainlink issues for EACH remaining feedback finding or justified related group, with original IDs and upstream links. Cover descriptor scope conflict, intended round_trip assurance scope and proof intake, five R1 interaction decisions after refresh, assurance/feature-ledger output path collision, independent crate-root probe results, compile-time evidence mapping and reference repairs, pinned Nix access and subsequently recheck the patch URL, Codesight parser/index limits, Creusot build/emission workarounds, explicit subset scope, and repository/commit availability. Separate operator decisions and environment/external-tool work from product defects; record resolved findings without inventing remaining defects.\n5. Work those local issues to evidence-backed resolution through the sanctioned workflow. Do not weaken policy, initialize an unrelated Git repository, claim a fresh proof from saved artifacts, report a 404 before reaching the fetch, or count scratch results as live acceptance. Keep blocked items explicit and capture required operator decisions.\nThe project was supplied by the user as full-ligature-workspace, exact filesystem path /home/goya/storage/full-ligature-port-workspace. No downstream issues or project edits are requested during this initial Ligature issue-filing stage.\n",
+      "status": "open",
+      "priority": "high",
+      "parent_id": 143,
+      "created_at": "2026-10-15T23:39:41.366142391Z",
+      "updated_at": "2026-10-15T23:39:41.366142391Z",
+      "closed_at": null
+    },
+    {
+      "id": 162,
+      "title": "Support assurance intake for standalone reviewed obligations",
+      "description": "Parent: Ligature port-feedback epic #143.\nBlocks: release verification and downstream handoff #161.\nDownstream project issue: full-ligature-port-workspace/date-creusot Chainlink #138.\n\nReproduced with Ligature 1.3.12 (source 34fb1a1372bd69e38a92f1468db6c4245a609518; bundle SHA-256 87ca4814b39def8f7f236f6c6a9be554992425112c339e22f0521e56c2e35028) in the date-creusot project at committed revision 729f0432c90dd7916bdbeecb750b9d5abbbbf5cd. Evidence: findings/limitations.jsonl entry date-creusot-063 and analysis/verification/creusot-0.14-2026-10-16.md.\n\nMinimal repro (from the project root, with the active issue-scoped manifest grant):\n`python3 tools/ligature/ligature.pyz generate-work-package --plan analysis/verification/stage-7-plan-WP-DATE-CREUSOT-issue-138.json --issue 138 --toolchain rustc-1.90.0/cargo-creusot-0.14.0-dev/why3-1.8.2 --target x86_64-unknown-linux-gnu --grant-id <active-138-manifest-grant> --json`\nObserved: exit 2, `missing-source: no interaction reliance declares required_assurance for obligation 'YearMonthDay.C007'; the derivation will not invent one`. No manifest was written and the grant was not consumed.\n\nC007 is the reviewed, separate postcondition for YearMonthDay.round_trip, mapped by the approved concept spec and backed by a fresh Creusot certificate. It is a standalone method obligation with no caller/callee interaction. Reusing C002 would conflate round_trip with from_days; inventing an interaction would misstate the call graph.\n\nAcceptance: add a sanctioned, reviewable source for assurance requirements of standalone provided obligations (for example, the reviewed constraint plus owning verifier policy, or an explicit plan field). Preserve claim/evidence kind, minimum scope, trust policy, method/proof mapping, and freshness checks. Do not manufacture an interaction or infer assurance from an unrelated reliance. Verify the approved nine-obligation project plan generates C007 and G14 reports consuming its fresh round_trip certificate.",
+      "status": "closed",
+      "priority": "high",
+      "parent_id": 143,
+      "created_at": "2026-10-17T00:46:26.902702492Z",
+      "updated_at": "2026-10-17T19:37:35.699905344Z",
+      "closed_at": "2026-10-17T19:37:35.699905344Z"
+    },
+    {
+      "id": 163,
+      "title": "Represent Creusot evidence scope for minimum_scope validation",
+      "description": "Parent: Ligature port-feedback epic #143.\nBlocks: release verification and downstream handoff #161.\nDownstream project issue: full-ligature-port-workspace/date-creusot Chainlink #138.\n\nReproduced with Ligature 1.3.12 (source 34fb1a1372bd69e38a92f1468db6c4245a609518; bundle SHA-256 87ca4814b39def8f7f236f6c6a9be554992425112c339e22f0521e56c2e35028) in the date-creusot project at committed revision 729f0432c90dd7916bdbeecb750b9d5abbbbf5cd. Evidence: findings/limitations.jsonl entry date-creusot-064 and analysis/verification/creusot-0.14-2026-10-16.md.\n\nMinimal repro: in a disposable project copy with a valid Ligature-generated eight-obligation manifest retaining the accepted minimum_scope.input_domain, run record-assurance for the eight interaction-backed certificates:\n`python3 tools/ligature/ligature.pyz record-assurance WP-DATE-CREUSOT --proof Weekday.C001=rust/date-creusot-core/verif/date_creusot_core_rlib/weekday/weekday_from_days --proof Weekday.C002=rust/date-creusot-core/verif/date_creusot_core_rlib/weekday/impl_Weekday/c_encoding --proof Weekday.C003=rust/date-creusot-core/verif/date_creusot_core_rlib/weekday/impl_Weekday/iso_encoding --proof YearMonthDay.C002=rust/date-creusot-core/verif/date_creusot_core_rlib/year_month_day/impl_YearMonthDay/from_days --proof YearMonthDayLast.C001=rust/date-creusot-core/verif/date_creusot_core_rlib/year_month_day_last/impl_YearMonthDayLast/day --proof Year.C001=rust/date-creusot-core/verif/date_creusot_core_rlib/year/impl_Year/ok --proof Year.C002=rust/date-creusot-core/verif/date_creusot_core_rlib/year/impl_Year/is_leap --proof Month.C001=rust/date-creusot-core/verif/date_creusot_core_rlib/month/impl_Month/ok`\nObserved: exit 1 at Month.C001: `minimum_scope['input_domain'] requires ...; achieved evidence.scope has None`. No assurance report is written. The fresh Creusot 0.14 run itself completed successfully; Ligature's Creusot evidence reader records proof_targets but no input_domain.\n\nAcceptance: define and implement an auditable relation by which verifier-derived Creusot scope can be compared with the accepted minimum_scope, using proof output and/or reviewed source-contract mapping. Record only scope that is actually established; retain proof targets and all existing contract semantics. If scope cannot be justified, refuse before writing with a precise diagnostic. Demonstrate recording all eight retained-scope records and G14 consumption against the project evidence. Do not copy the requirement into achieved evidence or weaken/remove minimum_scope.",
+      "status": "closed",
+      "priority": "high",
+      "parent_id": 143,
+      "created_at": "2026-10-17T00:46:42.817992778Z",
+      "updated_at": "2026-10-17T19:37:35.798908337Z",
+      "closed_at": "2026-10-17T19:37:35.798908337Z"
+    },
+    {
+      "id": 164,
+      "title": "Add grant-bound regeneration for existing generated work-package manifests",
+      "description": "Parent: Ligature port-feedback epic #143.\nBlocks: release verification and downstream handoff #161.\nDownstream project issue: full-ligature-port-workspace/date-creusot Chainlink #140.\n\nReproduced with Ligature 1.3.12 (source 34fb1a1372bd69e38a92f1468db6c4245a609518; bundle SHA-256 87ca4814b39def8f7f236f6c6a9be554992425112c339e22f0521e56c2e35028) in the date-creusot project at committed revision 729f0432c90dd7916bdbeecb750b9d5abbbbf5cd. Evidence: findings/limitations.jsonl entry date-ligature-103 and analysis/verification/creusot-0.14-2026-10-16.md.\n\nMinimal repro: in a disposable copy containing the existing generated ci/manifest/WP-DATE-CREUSOT.json, issue an exact write grant for that path and run Stage 7 with a valid plan whose derived output differs (the captured probe used an eight-obligation plan to isolate replacement behavior; the live approved nine-obligation plan separately stops at date-creusot-063):\n`python3 tools/ligature/ligature.pyz generate-work-package --plan <valid-plan-with-changed-derived-bytes> --issue 140 --toolchain rustc-1.90.0/cargo-creusot-0.14.0-dev/why3-1.8.2 --target x86_64-unknown-linux-gnu --grant-id <active-140-manifest-grant> --json`\nObserved: exit 2, `target-conflict: ci/manifest/WP-DATE-CREUSOT.json already exists with different bytes; it was left untouched`. The live generated manifest remains unchanged and still directs assurance output to ci/results/feature_ledger.json, colliding with the feature-ledger projection.\n\nAcceptance: provide a sanctioned, exact-path and issue-grant-bound update/regeneration flow for an existing generated manifest. Validate the full candidate (including current approved obligation scope, provenance and report.emit), then atomically replace the generated artifact and record auditable update provenance; on any refusal, preserve the old bytes. The canonical assurance output is ci/results/<work-package>.json, with the feature ledger separate. Verify either output can be regenerated while preserving the other. Do not permit silent scope widening/narrowing, hand edits, deletion, or a second package identity to bypass the guard.",
+      "status": "open",
+      "priority": "high",
+      "parent_id": 143,
+      "created_at": "2026-10-17T00:46:42.891063880Z",
+      "updated_at": "2026-10-17T19:51:45.786589351Z",
+      "closed_at": null
+    },
+    {
+      "id": 165,
+      "title": "Update generator integration fixtures for reviewed standalone assurance intake",
+      "description": "Parent: Ligature port-feedback epic #143.\nBlocks: release verification and downstream handoff #161.\nRelated behavior fix: #162 (standalone reviewed-obligation assurance intake).\nDownstream verification: /home/goya/storage/full-ligature-port-workspace/date-creusot, current project commit f11ff53 (the approved workflow evidence was generated from base revision 729f0432c90dd7916bdbeecb750b9d5abbbbf5cd).\n\nReview of Ligature 1.4.0 source 38e23b4188728abf19ec29e67ff6341c9daf8d8a, bundle SHA-256 1f04052e4fea0441bc807c4caf2c80ecad4d70b7f9f101665185eae7aa46dc9e. The focused command\n`PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider tests/test_work_package_manifest.py tests/test_satisfies.py tests/test_record_assurance.py tests/test_generate_work_package.py`\nreported 158 passed and 3 failed. The passing standalone-intake, scope, and regeneration unit regressions pass; all 3 failures occur in legacy IntegratedWorkspace tests before their assertions, because their generated package declares standalone `TaskQueue.C003` but the fixture has no approved TaskQueue concept spec and no interaction `required_assurance` source.\n\nMinimal reproduction: construct the existing tests/test_generate_work_package.py::IntegratedWorkspace fixture, issue its valid manifest grant, and call its `generate()`. Observed exit 2:\n`{\"error\":{\"code\":\"missing-source\",\"message\":\"no interaction reliance declares required_assurance for obligation 'TaskQueue.C003', and no reviewed concept spec declares concept 'TaskQueue'; the derivation will not invent one\"}}`.\nAffected tests:\n- `test_real_generation_passes_validator_and_is_consumed_by_project_gates`\n- `test_downstream_validation_and_check_reject_tampered_generated_fields`\n- `test_gate_integrity_is_derived_from_live_files_and_stale_runners_block`\n\nThis is consistent with #162's fail-closed behavior; the fixture is now incomplete under the revised assurance-source contract. The actual date-creusot nine-obligation plan generates and passes live G14 on 1.4.0.\n\nAcceptance: update the integration fixture through test-only setup to provide an approved concept constraint for TaskQueue.C003 or a legitimate reviewed interaction reliance, without weakening #162's source validation. Rerun the four focused suites above and confirm all pass. Do not change production behavior merely to admit an unreviewed fixture.",
+      "status": "open",
+      "priority": "medium",
+      "parent_id": 143,
+      "created_at": "2026-10-17T19:53:43.036767085Z",
+      "updated_at": "2026-10-17T19:53:43.036767085Z",
+      "closed_at": null
+    }
+  ],
+  "related": [],
+  "relations": []
+}

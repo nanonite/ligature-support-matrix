@@ -1,0 +1,4 @@
+Ligature bundle SHA-256: 973b883b3f4d19e60950ce6b9f0247828459d60fadd05f0d6e29d17d19c31ab8
+Scratch source revision: f11ff53bb8350f41ae073bda9617b02e590fbe28
+Nix flake snapshot hashes are recorded in analysis/verification/workspace-root-flake/README.md
+The run did not enter the Nix shell; no Creusot verification ran.

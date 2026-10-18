@@ -1,0 +1,21 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd "$([ -d date-creusot ] && echo date-creusot || echo .)" && rsync -a --delete --exclude upstream/ --exclude .git . /tmp/dc-approve-crash/ && cd /tmp/dc-approve-crash && for t in rust/date-creusot-core/specs/_interactions/I-year-month-day-to-days-to-year-month-day-from-days.json rust/date-creusot-core/specs/_boundaries/year_month_day_to_days__to__year_month_day_from_days.json rust/date-creusot-core/specs/_boundaries/does-not-exist.json; do python3 tools/ligature/ligature.pyz approve $t --reviewer chainlink-reviewer --reviewed-at 2026-10-01 2>&1 | tail -1; echo "  approve $t -> exit=${PIPESTATUS[0]}"; done; python3 tools/ligature/ligature.pyz approve-pair rust/date-creusot-core/specs/_interactions/I-probe.json rust/date-creusot-core/specs/_protocol_debt/D-probe.json --reviewer x --reviewed-at 2026-10-01 2>&1 | tail -1; echo "  approve-pair -> exit=${PIPESTATUS[0]}"; python3 tools/ligature/ligature.pyz promote-evidence evidence/E-99.json   # CONTROL, and the last command, so it IS the exit code (1): the identical missing-draft condition in a sibling verb exits 1 WITH a message -- 'error: no staged draft at evidence/E-99.json.draft -- run <draft cmd> first'. The four approve invocations above print a FileNotFoundError traceback instead.
+### EXIT
+1
+### STDOUT
+error: nothing was promoted: no staged draft at rust/date-creusot-core/specs/_interactions/I-year-month-day-to-days-to-year-month-day-from-days.json.draft -- this command promotes an already-staged draft and never writes content itself: stage one with `ligature draft <stage> <template> rust/date-creusot-core/specs/_interactions/I-year-month-day-to-days-to-year-month-day-from-days.json` (`ligature draft --help` lists every template), or copy the target itself to rust/date-creusot-core/specs/_interactions/I-year-month-day-to-days-to-year-month-day-from-days.json.draft
+  approve rust/date-creusot-core/specs/_interactions/I-year-month-day-to-days-to-year-month-day-from-days.json -> exit=1
+error: nothing was promoted: no staged draft at rust/date-creusot-core/specs/_boundaries/year_month_day_to_days__to__year_month_day_from_days.json.draft -- this command promotes an already-staged draft and never writes content itself: stage one with `ligature draft <stage> <template> rust/date-creusot-core/specs/_boundaries/year_month_day_to_days__to__year_month_day_from_days.json` (`ligature draft --help` lists every template), or copy the target itself to rust/date-creusot-core/specs/_boundaries/year_month_day_to_days__to__year_month_day_from_days.json.draft
+  approve rust/date-creusot-core/specs/_boundaries/year_month_day_to_days__to__year_month_day_from_days.json -> exit=1
+error: nothing was promoted: no staged draft at rust/date-creusot-core/specs/_boundaries/does-not-exist.json.draft -- this command promotes an already-staged draft and never writes content itself: stage one with `ligature draft <stage> <template> rust/date-creusot-core/specs/_boundaries/does-not-exist.json` (`ligature draft --help` lists every template), or copy the target itself to rust/date-creusot-core/specs/_boundaries/does-not-exist.json.draft
+  approve rust/date-creusot-core/specs/_boundaries/does-not-exist.json -> exit=1
+error: nothing was promoted: no staged draft at rust/date-creusot-core/specs/_interactions/I-probe.json.draft, rust/date-creusot-core/specs/_protocol_debt/D-probe.json.draft -- this command promotes all 2 drafts as one transaction and never writes content itself: stage the missing one with `ligature draft <stage> <template> <target>` (`ligature draft --help` lists every template)
+  approve-pair -> exit=1
+
+### STDERR
+error: no staged draft at evidence/E-99.json.draft -- run `pipeline.py draft 0 evidence-intake evidence/E-99.json` first
+

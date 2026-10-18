@@ -1,0 +1,29 @@
+{
+  "feature_ledger_exit": 0,
+  "assurance_preserved_when_generating_feature_ledger": true,
+  "record_assurance_exit": 0,
+  "feature_ledger_preserved_when_recording_assurance": true,
+  "proofs": "Existing live certificates revalidated; fresh proof execution is documented separately in scratch replay.",
+  "record_assurance_command": [
+    "record-assurance",
+    "WP-DATE-CREUSOT",
+    "--proof",
+    "Month.C001=rust/date-creusot-core/verif/date_creusot_core_rlib/month/impl_Month/ok/proof.json",
+    "--proof",
+    "Weekday.C001=rust/date-creusot-core/verif/date_creusot_core_rlib/weekday/weekday_from_days/proof.json",
+    "--proof",
+    "Weekday.C002=rust/date-creusot-core/verif/date_creusot_core_rlib/weekday/impl_Weekday/c_encoding/proof.json",
+    "--proof",
+    "Weekday.C003=rust/date-creusot-core/verif/date_creusot_core_rlib/weekday/impl_Weekday/iso_encoding/proof.json",
+    "--proof",
+    "Year.C001=rust/date-creusot-core/verif/date_creusot_core_rlib/year/impl_Year/ok/proof.json",
+    "--proof",
+    "Year.C002=rust/date-creusot-core/verif/date_creusot_core_rlib/year/impl_Year/is_leap/proof.json",
+    "--proof",
+    "YearMonthDay.C002=rust/date-creusot-core/verif/date_creusot_core_rlib/year_month_day/impl_YearMonthDay/from_days/proof.json",
+    "--proof",
+    "YearMonthDay.C007=rust/date-creusot-core/verif/date_creusot_core_rlib/year_month_day/impl_YearMonthDay/round_trip/proof.json",
+    "--proof",
+    "YearMonthDayLast.C001=rust/date-creusot-core/verif/date_creusot_core_rlib/year_month_day_last/impl_YearMonthDayLast/day/proof.json"
+  ]
+}

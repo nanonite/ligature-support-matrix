@@ -1,0 +1,291 @@
+{
+  "release": {
+    "product_version": "1.4.1",
+    "source_commit": "742cb253e0cb9753c7a34a0c32559936130e03ab",
+    "artifact_sha256": "sha256:973b883b3f4d19e60950ce6b9f0247828459d60fadd05f0d6e29d17d19c31ab8",
+    "adjudicator_hash": "sha256:2f975350565f3dfb09682d69b34ed137ae1dc6342decb7cf9c986ed56a7d733a"
+  },
+  "pilots": {
+    "date-creusot": {
+      "artifact_sha256": "sha256:973b883b3f4d19e60950ce6b9f0247828459d60fadd05f0d6e29d17d19c31ab8",
+      "installed_product_version": "1.4.1",
+      "adjudicator_hash": "sha256:2f975350565f3dfb09682d69b34ed137ae1dc6342decb7cf9c986ed56a7d733a",
+      "gate_adjudicator_hash": "sha256:2f975350565f3dfb09682d69b34ed137ae1dc6342decb7cf9c986ed56a7d733a",
+      "managed_files_checked": 18,
+      "managed_mismatches": [],
+      "migration_result": "current",
+      "migration_conflicts": [],
+      "required_human_action": [],
+      "checksums_exit": 0,
+      "version_verify_exit": 0,
+      "doctor_exit": 0
+    },
+    "crypto-mixed": {
+      "artifact_sha256": "sha256:973b883b3f4d19e60950ce6b9f0247828459d60fadd05f0d6e29d17d19c31ab8",
+      "installed_product_version": "1.4.1",
+      "adjudicator_hash": "sha256:2f975350565f3dfb09682d69b34ed137ae1dc6342decb7cf9c986ed56a7d733a",
+      "gate_adjudicator_hash": "sha256:2f975350565f3dfb09682d69b34ed137ae1dc6342decb7cf9c986ed56a7d733a",
+      "managed_files_checked": 18,
+      "managed_mismatches": [],
+      "migration_result": "current",
+      "migration_conflicts": [],
+      "required_human_action": [],
+      "checksums_exit": 0,
+      "version_verify_exit": 0,
+      "doctor_exit": 0
+    },
+    "swisstable-verus": {
+      "artifact_sha256": "sha256:973b883b3f4d19e60950ce6b9f0247828459d60fadd05f0d6e29d17d19c31ab8",
+      "installed_product_version": "1.4.1",
+      "adjudicator_hash": "sha256:2f975350565f3dfb09682d69b34ed137ae1dc6342decb7cf9c986ed56a7d733a",
+      "gate_adjudicator_hash": "sha256:2f975350565f3dfb09682d69b34ed137ae1dc6342decb7cf9c986ed56a7d733a",
+      "managed_files_checked": 18,
+      "managed_mismatches": [],
+      "migration_result": "current",
+      "migration_conflicts": [],
+      "required_human_action": [],
+      "checksums_exit": 0,
+      "version_verify_exit": 0,
+      "doctor_exit": 0
+    }
+  },
+  "date_creusot_gates": {
+    "status": {
+      "product": {
+        "name": "ligature",
+        "version": "1.4.1"
+      },
+      "descriptor": {
+        "closure_kind": null,
+        "mode": "port",
+        "path": "project-descriptor.json",
+        "schema_version": "1.0",
+        "state": "present-valid",
+        "verifier_policy": {
+          "clusters": {},
+          "default": "creusot",
+          "supporting": []
+        }
+      },
+      "gate_integrity": {
+        "details": "4 gate path(s) match the installed manifest",
+        "state": "pinned"
+      },
+      "installation": {
+        "installed_product_version": "1.4.1",
+        "installed_schema_versions": {
+          "consolidated-check": "1.0",
+          "project-descriptor": "1.0",
+          "project-state": "1.0",
+          "skill": "1.0"
+        },
+        "state": "current"
+      },
+      "binary_identity": {
+        "content_hash": "sha256:2f975350565f3dfb09682d69b34ed137ae1dc6342decb7cf9c986ed56a7d733a",
+        "verified": "true",
+        "version": "1.4.1"
+      }
+    },
+    "check": {
+      "exit_code": 1,
+      "finding_count": 16,
+      "severity_counts": {
+        "high": 2,
+        "info": 14
+      },
+      "high_subjects": [
+        ".gitignore",
+        "PORT-GAPS.md"
+      ],
+      "next_action": {
+        "action_id": "author-interaction",
+        "command": "ligature draft interaction ci/results/c_static/rust_date-creusot-core.json",
+        "description": "CS-YEARMONTHDAY-OK-001: interaction 'I-year-month-day-ok-to-year-ok' declares features=[] cfg=[], observed under features=['default'] cfg=[]. Author or update the interaction spec covering ci/results/c_static/rust_date-creusot-core.json, then re-run gate r1-g16.",
+        "kind": "automated-command"
+      }
+    },
+    "g14": {
+      "exit_code": 0,
+      "cluster": "date-creusot-core",
+      "closure_kind": "deductive",
+      "scope_counts": {
+        "evaluated_bridge_records": 0,
+        "evaluated_obligations": 9,
+        "provided_obligations": 9,
+        "required_bridges": 0,
+        "required_obligations": 0,
+        "unique_obligations": 9,
+        "work_packages": 1
+      },
+      "expected_obligations": {
+        "missing": [],
+        "obligation_ids": [
+          "Month.C001",
+          "Weekday.C001",
+          "Weekday.C002",
+          "Weekday.C003",
+          "Year.C001",
+          "Year.C002",
+          "YearMonthDay.C002",
+          "YearMonthDay.C007",
+          "YearMonthDayLast.C001"
+        ],
+        "state": "matched",
+        "unexpected": []
+      },
+      "actual_ids": [
+        "Month.C001",
+        "Weekday.C001",
+        "Weekday.C002",
+        "Weekday.C003",
+        "Year.C001",
+        "Year.C002",
+        "YearMonthDay.C002",
+        "YearMonthDay.C007",
+        "YearMonthDayLast.C001"
+      ]
+    },
+    "r1_g16": {
+      "exit_code": 0,
+      "acceptance": "accepted",
+      "summary": {
+        "counts": {
+          "checked": 11,
+          "configuration_mismatches": 0,
+          "discovered": 11,
+          "reports": 1,
+          "undeclared_blocking": 0,
+          "undeclared_warnings": 0,
+          "unresolved": 0
+        },
+        "discovery_completeness": "syntactic-lower-bound",
+        "interaction_reconciliation": "complete",
+        "source_resolution": "complete"
+      }
+    }
+  },
+  "replay": {
+    "ids": [
+      "date-mcp-001",
+      "date-mcp-002",
+      "date-ligature-001",
+      "date-ligature-002",
+      "date-ligature-003",
+      "date-ligature-004",
+      "date-ligature-005",
+      "date-ligature-006",
+      "date-ligature-007",
+      "date-ligature-008",
+      "date-ligature-009",
+      "date-ligature-010",
+      "date-ligature-011",
+      "date-ligature-012",
+      "date-ligature-013",
+      "date-ligature-014",
+      "date-ligature-015",
+      "date-ligature-016",
+      "date-ligature-017",
+      "date-ligature-018",
+      "date-ligature-019",
+      "date-ligature-020",
+      "date-ligature-021",
+      "date-ligature-022",
+      "date-ligature-023",
+      "date-ligature-024",
+      "date-ligature-025",
+      "date-ligature-026",
+      "date-ligature-027",
+      "date-ligature-028",
+      "date-ligature-029",
+      "date-ligature-030",
+      "date-ligature-031",
+      "date-ligature-032",
+      "date-ligature-033",
+      "date-ligature-034",
+      "date-creusot-001",
+      "date-creusot-035",
+      "date-creusot-036",
+      "date-creusot-037",
+      "date-creusot-038",
+      "date-creusot-039",
+      "date-creusot-040",
+      "date-creusot-041",
+      "date-ligature-035",
+      "date-ligature-036",
+      "date-creusot-042",
+      "date-creusot-043",
+      "date-ligature-037",
+      "date-ligature-038",
+      "date-creusot-044",
+      "date-creusot-045",
+      "date-ligature-039",
+      "date-ligature-040",
+      "date-ligature-041",
+      "date-ligature-042",
+      "date-ligature-043",
+      "date-ligature-044",
+      "date-ligature-045",
+      "date-creusot-047",
+      "date-creusot-048",
+      "date-creusot-049",
+      "date-creusot-050",
+      "date-ligature-046",
+      "date-ligature-047",
+      "date-ligature-048",
+      "date-creusot-051",
+      "date-ligature-049",
+      "date-ligature-050",
+      "date-creusot-052",
+      "date-ligature-051",
+      "date-ligature-052",
+      "date-ligature-053",
+      "date-creusot-053",
+      "date-ligature-054",
+      "date-ligature-055",
+      "date-ligature-056",
+      "date-ligature-057",
+      "date-creusot-054",
+      "date-ligature-094",
+      "date-ligature-095",
+      "date-ligature-096",
+      "date-ligature-097",
+      "date-ligature-098",
+      "date-ligature-099",
+      "date-ligature-100",
+      "date-creusot-055",
+      "date-creusot-056",
+      "date-creusot-057",
+      "date-creusot-058",
+      "date-creusot-059",
+      "date-creusot-060",
+      "date-ligature-101",
+      "date-ligature-102",
+      "date-creusot-061",
+      "date-creusot-062"
+    ],
+    "timeout_seconds": 180,
+    "bundle_sha256": "973b883b3f4d19e60950ce6b9f0247828459d60fadd05f0d6e29d17d19c31ab8",
+    "ledger_sha256": "2199a067b77fe365bef3d93574456b524871d36572df64901ab8799aa07b0fa7",
+    "reset": "rsync -a --checksum --delete; same-size/same-mtime corruption and extra-file self-check passed",
+    "nix_quoting": "shlex.quote instead of JSON string quoting",
+    "XDG_CACHE_HOME": "/tmp/ligature-closure-164-165-final-nix-cache",
+    "count": 96,
+    "timeouts": 0,
+    "candidate_counts": {
+      "CANDIDATE-KEY": 16,
+      "CANDIDATE-MATCH": 25,
+      "CANDIDATE-NO": 55
+    },
+    "exit_mismatches": 39,
+    "raw_captures": 96,
+    "candidate_labels_are_not_verdicts": true
+  },
+  "historical_ledger": {
+    "lines": 102,
+    "sha256": "sha256:2199a067b77fe365bef3d93574456b524871d36572df64901ab8799aa07b0fa7",
+    "first_96_sha256": "sha256:d4ee406c118c8efa4c72f70cb75805f3c7d50eb545b9edcb6980f1dea7879ebd",
+    "replay_ledger_sha256": "2199a067b77fe365bef3d93574456b524871d36572df64901ab8799aa07b0fa7",
+    "first_96_matches_historical": true
+  }
+}

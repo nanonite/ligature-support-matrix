@@ -1,0 +1,21 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && python3 analysis/ligature/reverify.py date-ligature-047 ; sed -n '1,8p' "$REVERIFY_ROOT/out/date-ligature-047.out"   # default REVERIFY_ROOT=/tmp/opencode/reverify-8c -> ### EXIT 2 and 'can't open file .../ws/tools/ligature/ligature.pyz'
+### EXIT
+0
+### STDOUT
+[CANDIDATE-NO] date-ligature-047      exit=2 recorded=0 probe='preserved' 0.4s
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+python3 tools/ligature/ligature.pyz record-assurance ci/manifest/WP-DATE-CREUSOT.json --proof Weekday.C1=rust/date-creusot-core/verif/date_creusot_core_rlib/weekday/weekday_from_days
+### EXIT
+2
+
+### STDERR
+

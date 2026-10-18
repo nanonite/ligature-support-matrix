@@ -1,0 +1,16 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && md5sum ci/results/feature_ledger.json && python3 tools/ligature/ligature.pyz gate-g14 | tail -1 && md5sum ci/results/feature_ledger.json && python3 tools/ligature/ligature.pyz report feature-ledger   # exit=1 and the refusal text (the substantive command, hence the last one). On 1.1.0 the same four commands gave: 463583d9...cf / "OK: 1 cluster(s) close ..." / c8571e09...ea / "wrote ci/results/feature_ledger.json (0 declared features -- nothing to check)" exit=0. A gate-g14 run immediately AFTER this one still exits 0 with the same md5 (run in the same session; the transcript is in README.md "Re-verified under ligature 1.1.1"), and re-running `record-assurance` with all five --proof flags also restores 463583d9...cf.
+### EXIT
+0
+### STDOUT
+579df491cc33a2d4af819c283457b077  ci/results/feature_ledger.json
+OK: 1 cluster(s) close under their declared profile, 0 released under an accepted degradation record
+579df491cc33a2d4af819c283457b077  ci/results/feature_ledger.json
+wrote ci/results/feature_ledger.json (0 declared features -- nothing to check)
+
+### STDERR
+

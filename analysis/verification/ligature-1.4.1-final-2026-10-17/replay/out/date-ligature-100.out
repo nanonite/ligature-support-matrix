@@ -1,0 +1,24 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd "$([ -d date-creusot ] && echo date-creusot || echo .)" && rsync -a --delete --exclude upstream/ --exclude .git . /tmp/dc-draftprobe/ && cd /tmp/dc-draftprobe && printf '%s' '{"schema_version":"1.0","interaction_id":"I-probe-draft-collect","caller":{"concept":"YearMonthDay","method":"ok"},"callee":{"concept":"Year","method":"ok"},"edge_class":["numeric-domain-boundary"],"eligibility":"boundary-required","rationale":"probe","evidence_links":[],"reliances":[{"obligation_id":"YearMonthDayLast.C2","required_assurance":{"required_claims":["postcondition-holds"],"accepted_evidence_kinds":["creusot-deductive-check"],"minimum_scope":{"input_domain":"year in [-32767, 32767]"},"trust_policy":{"assumptions_allowed":[]}}}],"protocol_class":"pairwise","realization":{"requirement":"required","config_scope":{"target":"x86_64-unknown-linux-gnu","features":[],"cfg":[]}}}' > /tmp/probe.json && python3 tools/ligature/ligature.pyz draft 3 interaction-drafting rust/date-creusot-core/specs/_interactions/I-probe-draft-collect.json --var interaction_id=I-probe-draft-collect --var target_triple=x86_64-unknown-linux-gnu --var caller_concept=YearMonthDay --var caller_method=ok --var callee_concept=Year --var callee_method=ok --var caller_spec='{}' --var callee_spec='{}' --var prior_artifact=none --var finding=none < /tmp/probe.json | tail -2 && python3 tools/ligature/ligature.pyz validate-interaction; echo "  validate-interaction exit=$?"; printf '%s' '{"schema_version":"1.0","boundary_id":"year_month_day_ok__to__year_ok","caller":{"concept":"YearMonthDay","method":"ok"},"callee":{"concept":"Year","method":"ok"},"callee_guarantees":[]}' > /tmp/probe-o.json && python3 tools/ligature/ligature.pyz draft 3 boundary-drafting rust/date-creusot-core/specs/_boundaries/year_month_day_ok__to__year_ok.json --var caller_concept=YearMonthDay --var caller_method=ok --var callee_concept=Year --var callee_method=ok --var caller_spec='{}' --var callee_spec='{}' --var reliance_policy="$(cat docs/reliance-policy.md)" --var prior_artifact=none --var finding=none --var caller_concept_snake=year_month_day --var callee_concept_snake=year < /tmp/probe-o.json | tail -2 && python3 tools/ligature/ligature.pyz validate; echo "  validate (boundaries) exit=$?"
+### EXIT
+0
+### STDOUT
+staged draft: rust/date-creusot-core/specs/_interactions/I-probe-draft-collect.json.draft
+OK: generated draft passed its immediate checks
+OK: all interactions pass G1a/G1b (incl. computed eligibility), G4 evidence-link resolution, G5 grounding, G15 protocol coverage, and R2 coverage (10 discovered)
+  validate-interaction exit=0
+staged draft: rust/date-creusot-core/specs/_boundaries/year_month_day_ok__to__year_ok.json.draft
+OK: generated draft passed its immediate checks
+OK: all boundary contracts pass G1a/G1b/G2+ (9 discovered)
+  validate (boundaries) exit=0
+
+### STDERR
+
+--- paste the model's JSON-only response, then EOF (ctrl-D) ---
+
+--- paste the model's JSON-only response, then EOF (ctrl-D) ---
+

@@ -1,0 +1,88 @@
+[
+  {
+    "pilot": "date-creusot",
+    "command": [
+      "version",
+      "--verify"
+    ],
+    "exit": 0,
+    "bundle_sha256": "1f04052e4fea0441bc807c4caf2c80ecad4d70b7f9f101665185eae7aa46dc9e",
+    "capture": "date-creusot-baseline-version.stdout"
+  },
+  {
+    "pilot": "date-creusot",
+    "command": [
+      "status",
+      "--json"
+    ],
+    "exit": 0,
+    "bundle_sha256": "1f04052e4fea0441bc807c4caf2c80ecad4d70b7f9f101665185eae7aa46dc9e",
+    "capture": "date-creusot-baseline-status.stdout"
+  },
+  {
+    "pilot": "date-creusot",
+    "command": [
+      "doctor"
+    ],
+    "exit": 0,
+    "bundle_sha256": "1f04052e4fea0441bc807c4caf2c80ecad4d70b7f9f101665185eae7aa46dc9e",
+    "capture": "date-creusot-baseline-doctor.stdout"
+  },
+  {
+    "pilot": "swisstable-verus",
+    "command": [
+      "version",
+      "--verify"
+    ],
+    "exit": 0,
+    "bundle_sha256": "1f04052e4fea0441bc807c4caf2c80ecad4d70b7f9f101665185eae7aa46dc9e",
+    "capture": "swisstable-verus-baseline-version.stdout"
+  },
+  {
+    "pilot": "swisstable-verus",
+    "command": [
+      "status",
+      "--json"
+    ],
+    "exit": 0,
+    "bundle_sha256": "1f04052e4fea0441bc807c4caf2c80ecad4d70b7f9f101665185eae7aa46dc9e",
+    "capture": "swisstable-verus-baseline-status.stdout"
+  },
+  {
+    "pilot": "swisstable-verus",
+    "command": [
+      "doctor"
+    ],
+    "exit": 0,
+    "bundle_sha256": "1f04052e4fea0441bc807c4caf2c80ecad4d70b7f9f101665185eae7aa46dc9e",
+    "capture": "swisstable-verus-baseline-doctor.stdout"
+  },
+  {
+    "pilot": "crypto-mixed",
+    "command": [
+      "version",
+      "--verify"
+    ],
+    "exit": 0,
+    "bundle_sha256": "1f04052e4fea0441bc807c4caf2c80ecad4d70b7f9f101665185eae7aa46dc9e",
+    "capture": "crypto-mixed-baseline-version.stdout"
+  },
+  {
+    "pilot": "crypto-mixed",
+    "command": [
+      "status",
+      "--json"
+    ],
+    "exit": null,
+    "outcome": "timeout at 60 seconds; no installation-status conclusion",
+    "bundle_sha256": "1f04052e4fea0441bc807c4caf2c80ecad4d70b7f9f101665185eae7aa46dc9e"
+  },
+  {
+    "pilot": "crypto-mixed",
+    "command": [
+      "doctor"
+    ],
+    "outcome": "not run",
+    "bundle_sha256": "1f04052e4fea0441bc807c4caf2c80ecad4d70b7f9f101665185eae7aa46dc9e"
+  }
+]

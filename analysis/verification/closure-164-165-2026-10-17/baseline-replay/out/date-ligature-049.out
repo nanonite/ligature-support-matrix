@@ -1,0 +1,51 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && printf '{}' > ci/manifest/PROBE.json && printf '{}' > rust/date-creusot-core/specs/_interactions/I-PROBE.json && python3 tools/ligature/ligature.pyz write-set-check; echo "exit=$?"; rm -f ci/manifest/PROBE.json rust/date-creusot-core/specs/_interactions/I-PROBE.json
+### EXIT
+0
+### STDOUT
+write set: violations
+descriptor: present-valid (project-descriptor.json)
+issue: (none) -- no write grant is consulted; pass --issue <N> to consume the grants recorded for the issue this run is about (chainlink #114)
+allowed_roots: rust/*/src/, rust/*/tests/, rust/*/target/**, rust/*/verif/**, rust/*/.why3find/**, rust/*/why3find.json, rust/*/.cargo/**, rust/*/Cargo.lock, analysis/**, findings/**, oracle/**, tools/**, specs/_closure/**, specs/_promotions/**, README.md, FUTURE-WORK-round-trip-proof.md, .envrc, .mcp.json, rust/.gitkeep, upstream/**, docs/evidence-promotion-exception.md
+protected_roots: rust/*/specs/**, ci/manifest/**, scripts/**, docs/*-schema.json, docs/reliance-policy.md, rust/*/Cargo.toml, rust/*/build.rs, tests/harnesses/**, .github/**, rust-toolchain.toml
+details: 4 write-set violation(s): ci/manifest/PROBE.json, rust/date-creusot-core/specs/_interactions/I-PROBE.json, .gitignore, PORT-GAPS.md (2 write(s) into a protected root; 2 file(s) outside the write set); protected surface: 32 file(s) inside 10 declared protected_roots pattern(s); 6 of them in locations the pipeline writes nothing into are vouched for by no declaration (audit only -- the check cannot attribute them, so this verdict does not cover them); protected_roots pattern(s) matching no file in this workspace: docs/*-schema.json, rust/*/build.rs, tests/harnesses/**, .github/**, rust-toolchain.toml; 11 write grant(s) recorded in ci/results/protected-writes.jsonl were not consulted: a grant is scoped to one issue, so pass --issue <N> to consume the grants recorded for the issue this run is about
+  violation [protected-write]: ci/manifest/PROBE.json: inside protected_roots pattern 'ci/manifest/**' and outside every allowed_roots pattern, in a location the pipeline writes its own artifacts into -- no declaration vouches for it and no write grant is consulted for a run that named no issue, so it is a write into a protected root (chainlink #103, #114)
+  violation [protected-write]: rust/date-creusot-core/specs/_interactions/I-PROBE.json: inside protected_roots pattern 'rust/*/specs/**' and outside every allowed_roots pattern, in a location the pipeline writes its own artifacts into -- no declaration vouches for it and no write grant is consulted for a run that named no issue, so it is a write into a protected root (chainlink #103, #114)
+  violation [out-of-set]: .gitignore: outside every allowed_roots pattern and not accounted for by the ownership manifest, a declared user-owned document, a pipeline artifact, a declared crate's specs/ tree, or a canonical pipeline location
+  violation [out-of-set]: PORT-GAPS.md: outside every allowed_roots pattern and not accounted for by the ownership manifest, a declared user-owned document, a pipeline artifact, a declared crate's specs/ tree, or a canonical pipeline location
+  protected_root: rust/*/specs/** -- 25 file(s), 1 violation(s), 5 unattributed, 0 authorized by a write grant
+  protected_root: ci/manifest/** -- 3 file(s), 1 violation(s), 0 unattributed, 0 authorized by a write grant
+  protected_root: scripts/** -- 2 file(s), 0 violation(s), 0 unattributed, 0 authorized by a write grant
+  protected_root (matched no file): docs/*-schema.json
+  protected_root: docs/reliance-policy.md -- 1 file(s), 0 violation(s), 0 unattributed, 0 authorized by a write grant
+  protected_root: rust/*/Cargo.toml -- 1 file(s), 0 violation(s), 1 unattributed, 0 authorized by a write grant
+  protected_root (matched no file): rust/*/build.rs
+  protected_root (matched no file): tests/harnesses/**
+  protected_root (matched no file): .github/**
+  protected_root (matched no file): rust-toolchain.toml
+  protected (not vouched by any declaration, audit only): rust/date-creusot-core/Cargo.toml
+  protected (not vouched by any declaration, audit only): rust/date-creusot-core/specs/month.json
+  protected (not vouched by any declaration, audit only): rust/date-creusot-core/specs/weekday.json
+  protected (not vouched by any declaration, audit only): rust/date-creusot-core/specs/year.json
+  protected (not vouched by any declaration, audit only): rust/date-creusot-core/specs/year_month_day.json
+  protected (not vouched by any declaration, audit only): rust/date-creusot-core/specs/year_month_day_last.json
+grant ledger: readable (ci/results/protected-writes.jsonl)
+  grant GW-9319aa6d1256: no-issue-named -- issue 141, write rust/date-creusot-core/specs/*.json* (pattern), issuer roger-codex-luna6 [human], ttl 3600s, expires 2026-10-16T17:13:40+00:00 -- User-approved concept specs and reference ID normalization for #141
+  grant GW-1318f1f868f4: no-issue-named -- issue 141, write rust/date-creusot-core/specs/_boundaries/*.json* (pattern), issuer roger-codex-luna6 [human], ttl 3600s, expires 2026-10-16T17:13:41+00:00 -- User-approved boundary reference normalization for #141
+  grant GW-cb11ed1e351e: no-issue-named -- issue 141, write rust/date-creusot-core/specs/_interactions/*.json* (pattern), issuer roger-codex-luna6 [human], ttl 3600s, expires 2026-10-16T17:13:41+00:00 -- User-approved interaction reference normalization for #141
+  grant GW-ad98b400f69b: no-issue-named -- issue 139, write rust/date-creusot-core/specs/_interactions/*.json* (pattern), issuer roger-codex-luna6 [human], ttl 3600s, expires 2026-10-16T17:13:42+00:00 -- User-approved five interaction drafts for #139
+  grant GW-9da55a5db2bc: no-issue-named -- issue 138, write ci/manifest/WP-DATE-CREUSOT.json (exact), issuer roger-codex-luna6 [human], ttl 3600s, expires 2026-10-16T19:05:37+00:00 -- User-approved nine-obligation manifest scope for #138
+  grant GW-27b2d0725740: no-issue-named -- issue 140, write ci/manifest/WP-DATE-CREUSOT.json (exact), issuer roger-codex-luna6 [human], ttl 3600s, expires 2026-10-16T19:05:38+00:00 -- User-approved canonical assurance output manifest for #140
+  grant GW-5468156d8bbd: no-issue-named -- issue 138, write rust/date-creusot-core/specs/year_month_day.json (exact), issuer roger-codex-luna6 [human], ttl 3600s, expires 2026-10-16T19:05:38+00:00 -- User-approved preserve C2 and add C007 scope for #138
+  grant GW-16d1f7f76e37: no-issue-named -- issue 142, write rust/date-creusot-core/Cargo.toml (exact), issuer roger-codex-luna6 [human], ttl 3600s, expires 2026-10-16T19:05:39+00:00 -- User-approved exact Creusot revision compatibility for #142
+  grant GW-5ef87aeef454: no-issue-named -- issue 138, write ci/manifest/WP-DATE-CREUSOT.json (exact), issuer roger-codex-luna6 [human], ttl 900s, expires 2026-10-16T21:23:27+00:00 -- User-approved exact nine-obligation manifest attempt for #138
+  grant GW-af35d7a70e9b: no-issue-named -- issue 140, write ci/manifest/WP-DATE-CREUSOT.json (exact), issuer roger-codex-luna6 [human], ttl 900s, expires 2026-10-16T21:23:28+00:00 -- User-approved canonical assurance output path for #140
+  grant GW-d354d42d53a0: no-issue-named -- issue 138, write ci/manifest/WP-DATE-CREUSOT.json (exact), issuer roger-codex-luna6 [human], ttl 3600s, expires 2026-10-17T03:04:14+00:00 -- Operator-authorized nine-obligation manifest regeneration (#138; also report.emit path #140 and provenance refresh #141)
+exit=1
+
+### STDERR
+

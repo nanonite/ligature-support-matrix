@@ -1,0 +1,17 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && for k in deductive bounded mixed partial degraded; do python3 -c "import json;p='specs/_closure/date-creusot-core.json';d=json.load(open(p));d['closure_kind']='$k';open(p,'w').write(json.dumps(d,indent=2))"; printf '%-12s ' $k; python3 tools/ligature/ligature.pyz validate-closure 2>&1 | tail -1; done
+### EXIT
+0
+### STDOUT
+deductive    OK: all closure artifacts pass G1a/G1b and G17 profile/record consistency (1 discovered)
+bounded      OK: all closure artifacts pass G1a/G1b and G17 profile/record consistency (1 discovered)
+mixed          - [G1a/error] specs/_closure/date-creusot-core.json: 'mixed' is not one of ['deductive', 'bounded', 'partial']
+partial      OK: all closure artifacts pass G1a/G1b and G17 profile/record consistency (1 discovered)
+degraded       - [G1a/error] specs/_closure/date-creusot-core.json: 'degraded' is not one of ['deductive', 'bounded', 'partial']
+
+### STDERR
+

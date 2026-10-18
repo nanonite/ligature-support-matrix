@@ -1,0 +1,21 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && sed -n '26,30p' .ligature/prompts/stage-3-boundary-drafting.md && ls docs/ && find . -name 'reliance-policy.template.md' -not -path './analysis/codesight/*' | wc -l
+### EXIT
+0
+### STDOUT
+  `{{callee_method}}` — the boundary being drafted.
+- `{{caller_spec}}` — the caller's concept-to-code spec JSON (queries,
+  commands, constraints).
+- `{{callee_spec}}` — the callee's concept-to-code spec JSON.
+- `{{reliance_policy}}` — contents read from this project's
+evidence-promotion-exception.md
+reliance-policy.md
+witnesses
+0
+
+### STDERR
+

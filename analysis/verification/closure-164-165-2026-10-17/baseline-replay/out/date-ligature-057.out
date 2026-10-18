@@ -1,0 +1,18 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && python3 tools/ligature/ligature.pyz version | head -1 && jq -r '.installed_product_version, .gate_hashes["@adjudicator"]' ci/manifest/installation.json && python3 tools/ligature/ligature.pyz status --json | jq -c '.gate_integrity, .installation_manifest' && python3 tools/ligature/ligature.pyz check --json | jq -c '.result' ; set -o pipefail; python3 tools/ligature/ligature.pyz doctor | grep 'adjudicator pin: mismatch'   # version 1.1.1 / installed_product_version 1.1.0 / @adjudicator pinned at 29958eae... / gate_integrity state "drifted" / installation_manifest state "upgradable" / check result {"conditions":["blocking_findings","gate_integrity_failed"],"exit_code":5}; the final `doctor` pipeline (pipefail, so the pipeline inherits doctor's exit 1) is the substantive command and prints the mismatch line. `gate-g14` is unaffected: exit 0.
+### EXIT
+1
+### STDOUT
+ligature 1.4.0
+1.4.0
+sha256:6e9072ba2b7c8f92497efc0778de214dcff9c7a5d1fc88ef17876441c0657d13
+{"details":"4 gate path(s) match the installed manifest","state":"pinned"}
+{"installed_product_version":"1.4.0","installed_schema_versions":{"consolidated-check":"1.0","project-descriptor":"1.0","project-state":"1.0","skill":"1.0"},"state":"current"}
+{"conditions":["blocking_findings"],"exit_code":1}
+
+### STDERR
+

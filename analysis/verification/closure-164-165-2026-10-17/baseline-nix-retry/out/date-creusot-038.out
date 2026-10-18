@@ -1,0 +1,57 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd rust/date-creusot-core && nix develop "path:/tmp/ligature-closure-164-165-nix-1.4.0/ws#date-creusot" -c cargo creusot   # before fix (civil_from_days missing `let z = z + 719468;`): Goal Coma.vc_from_days: x (55/61). After adding that line as civil_from_days's first statement and re-running `cargo creusot` (the full pipeline -- `--only prove` alone reuses stale coma and will not pick up a source edit): vc_from_days fully proved, 0 failures.
+### EXIT
+0
+### STDOUT
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+date-creusot: Creusot, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+Proved (93 files) ✔
+
+### STDERR
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+info: checking for self-update (current version: 1.29.1)
+warn: tool `rust-analyzer` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+warn: tool `rustfmt` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+warn: tool `cargo-fmt` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+info: checking for self-update (current version: 1.29.1)
+warn: tool `rust-analyzer` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+warn: tool `rustfmt` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+warn: tool `cargo-fmt` is already installed, remove it from `/home/goya/.cargo/bin`, then run `rustup update` to have rustup manage this tool.
+   Compiling proc-macro2 v1.0.107
+   Compiling libc v0.2.190
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.27
+   Compiling getrandom v0.4.3
+   Compiling cfg-if v1.0.5
+   Compiling syn v2.0.119
+   Compiling uuid v1.28.0
+   Compiling pearlite-syn v0.14.0-dev (/tmp/ligature-closure-164-165-nix-1.4.0/ws/date-creusot/rust/date-creusot-core/creusot/pearlite-syn)
+   Compiling creusot-std-proc v0.14.0-dev (/tmp/ligature-closure-164-165-nix-1.4.0/ws/date-creusot/rust/date-creusot-core/creusot/creusot-std-proc)
+    Checking creusot-std v0.14.0-dev (/tmp/ligature-closure-164-165-nix-1.4.0/ws/date-creusot/rust/date-creusot-core/creusot/creusot-std)
+    Checking date-creusot-core v0.1.0 (/tmp/ligature-closure-164-165-nix-1.4.0/ws/date-creusot/rust/date-creusot-core)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 21.93s
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/fmt/mod.rs]
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/fmt/mod.rs]
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/fmt/mod.rs]
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/fmt/mod.rs]
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/fmt/mod.rs]
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/fmt/mod.rs]
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/num/int_macros.rs]
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/fmt/mod.rs]
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/fmt/mod.rs]
+

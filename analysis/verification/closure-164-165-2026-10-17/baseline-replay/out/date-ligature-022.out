@@ -1,0 +1,31 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+rm -rf /tmp/dc13 && mkdir -p /tmp/dc13 && tar --exclude=./upstream --exclude=./analysis/codesight -C date-creusot -cf - . | tar -C /tmp/dc13 -xf - && cd /tmp/dc13 && python3 tools/ligature/ligature.pyz status | sed -n '/open findings/,/human decisions/p'; for c in validate validate-bridge validate-interaction check status gate; do printf '%-22s ' $c; python3 tools/ligature/ligature.pyz $c --help 2>&1 | grep -ci 'specs.search\|specs_search'; done; jq -c '.crates[0].specs_search_root' project-descriptor.json
+### EXIT
+0
+### STDOUT
+open findings: 16
+  - [info] r1-g16: CS-YEARMONTHDAY-OK-001: interaction 'I-year-month-day-ok-to-year-ok' declares features=[] cfg=[], observed under features=['default'] cfg=[]
+  - [info] r1-g16: CS-YEARMONTHDAY-TO-DAYS-BOUNDED-001: intra-concept call YearMonthDay::to_days_bounded -> to_days is an internal helper, ignored unless architecturally eligible
+  - [info] r1-g16: CS-YEARMONTHDAY-OK-004: intra-concept call YearMonthDay::ok -> last is an internal helper, ignored unless architecturally eligible
+  - [info] r1-g16: interaction 'I-year-month-day-to-days-to-year-month-day-from-days' (YearMonthDay.to_days -> YearMonthDay.from_days) has no realized call in this observation -- intent without realization, not a coverage failure
+  - [info] r1-g16: CS-YEARMONTHDAYLAST-DAY-001: interaction 'I-year-month-day-last-day-to-year-is-leap' declares features=[] cfg=[], observed under features=['default'] cfg=[]
+  - [info] r1-g16: CS-YEARMONTHDAYLAST-OK-002: interaction 'I-year-month-day-last-ok-to-month-ok' declares features=[] cfg=[], observed under features=['default'] cfg=[]
+  - [high] write-set: outside every allowed_roots pattern and not accounted for by the ownership manifest, a declared user-owned document, a pipeline artifact, a declared crate's specs/ tree, or a canonical pipeline location
+  - [info] r1-g16: CS-YEARMONTHDAY-OK-002: interaction 'I-year-month-day-ok-to-month-ok' declares features=[] cfg=[], observed under features=['default'] cfg=[]
+  - [info] r1-g16: CS-YEARMONTHDAY-ROUND-TRIP-002: intra-concept call YearMonthDay::round_trip -> to_days_bounded is an internal helper, ignored unless architecturally eligible
+  - [info] r1-g16: CS-YEARMONTHDAY-OK-003: interaction 'I-year-month-day-ok-to-year-month-day-last-day' declares features=[] cfg=[], observed under features=['default'] cfg=[]
+human decisions pending: 0
+validate               1
+validate-bridge        0
+validate-interaction   0
+check                  1
+status                 1
+gate                   0
+"rust"
+
+### STDERR
+

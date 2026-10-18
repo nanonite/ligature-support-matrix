@@ -1,0 +1,4 @@
+gate-g9 exit=0 elapsed=0s
+gate-g14 exit=1 elapsed=145s
+check-134 exit=1 elapsed=284s
+status exit=0 elapsed=275s

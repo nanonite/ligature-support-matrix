@@ -1,0 +1,15 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd "$([ -d date-creusot ] && echo date-creusot || echo .)" && grep -c 'SUPERSEDED' README.md && grep -n 'Authoring path, re-derived against ligature 1.1.1' README.md && grep -n '0.0 What ligature 1.1.1 can and cannot do' ../WORKER-CONTRACT.md
+### EXIT
+1
+### STDOUT
+15
+523:## Authoring path, re-derived against ligature 1.1.1 (chainlink #94, 2026-09-30)
+975:| concept / bridge / witness | — | **0** | **upstream-blocked** (§6, #79) — not authorable in ligature v1.0. **SUPERSEDED by ligature 1.1.1**: all three now have `draft` templates and stage cleanly; see "Authoring path, re-derived against ligature 1.1.1 (chainlink #94)" below. The count is still 0 because nothing has been promoted, not because nothing can be authored |
+
+### STDERR
+

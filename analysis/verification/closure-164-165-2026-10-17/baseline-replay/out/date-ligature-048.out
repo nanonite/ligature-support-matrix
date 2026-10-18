@@ -1,0 +1,13 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && python3 tools/ligature/ligature.pyz record-assurance WP-DATE-CREUSOT --proof Weekday.C1=rust/date-creusot-core/verif/date_creusot_core_rlib/weekday/weekday_from_days --proof Weekday.C2=rust/date-creusot-core/verif/date_creusot_core_rlib/weekday/impl_Weekday/c_encoding --proof Weekday.C3=rust/date-creusot-core/verif/date_creusot_core_rlib/weekday/impl_Weekday/iso_encoding --proof YearMonthDay.C2=rust/date-creusot-core/verif/date_creusot_core_rlib/year_month_day/impl_YearMonthDay/from_days --proof YearMonthDayLast.C1=rust/date-creusot-core/verif/date_creusot_core_rlib/year_month_day_last/impl_YearMonthDayLast/day && python3 tools/ligature/ligature.pyz gate-g14   # scc_wellfoundedness_discharged finding is gone
+### EXIT
+2
+### STDOUT
+
+### STDERR
+error: Weekday.C1, Weekday.C2, Weekday.C3, YearMonthDay.C2, YearMonthDayLast.C1 is not a provided guarantee of WP-DATE-CREUSOT (it provides ['Month.C001', 'Weekday.C001', 'Weekday.C002', 'Weekday.C003', 'Year.C001', 'Year.C002', 'YearMonthDay.C002', 'YearMonthDay.C007', 'YearMonthDayLast.C001']) -- only the work package that provides an obligation records it
+

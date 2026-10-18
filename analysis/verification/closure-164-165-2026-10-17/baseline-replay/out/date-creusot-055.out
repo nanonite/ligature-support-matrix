@@ -1,0 +1,33 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd date-creusot && rm -rf /tmp/p19-forge && rsync -a --delete --exclude upstream/ --exclude .git . /tmp/p19-forge/ && cd /tmp/p19-forge && python3 -c "
+import json
+p='ci/results/feature_ledger.json'
+d=json.load(open(p))
+for r in d['obligation_records']:
+    r['record']['evidence']['scope']['proof_targets']='rust/date-creusot-core/verif/date_creusot_core_rlib/TOTALLY/FAKE/proof.json'
+    r['record']['evidence']['verifier']='kani'
+    r['record']['evidence']['harness']='kani'
+    r['record']['config']['toolchain']='handwritten'
+    r['record']['config']['target']='aarch64-unknown-none'
+json.dump(d,open(p,'w'),indent=2)
+" && (ls rust/date-creusot-core/verif/date_creusot_core_rlib/TOTALLY 2>&1 || true) && python3 tools/ligature/ligature.pyz write-set-check >/dev/null; echo "write-set-check=$?"; python3 tools/ligature/ligature.pyz doctor >/dev/null; echo "doctor=$?"; python3 tools/ligature/ligature.pyz gate-g14; echo "gate-g14=$?"
+### EXIT
+0
+### STDOUT
+write-set-check=1
+doctor=0
+cluster 'date-creusot-core' closes: closure_kind=deductive, 1 work package(s), 9 unique scoped obligation(s) (provided=9, required=0, evaluated=9), 0 required bridge(s), 0 bridge record(s) evaluated, 0 cycle(s) discharged; expected obligation scope=9 ID(s) declared
+  - [G14/info] [generic_callees_type_universal_or_creusot_owned] date-creusot-core: generic_callees_type_universal_or_creusot_owned is VERIFIED from artifact data, not taken on declaration: every obligation and bridge in the closure AND its declared depends_on dependencies has a recorded achievement, the closure's own records are ['creusot-deductive-check'], and every other achieved record and declared guarantee harness in this workspace's work-package manifests and ledgers is creusot-owned as well -- with no non-creusot assurance anywhere those artifacts can name, no generic callee this cluster declares a dependency on is Kani-owned (CG3, plan.md §3, chainlink #93)
+closure is a per-cluster property with a kind; this gate never asserts a pipeline-wide guarantee (plan.md §4)
+OK: 1 cluster(s) close under their declared profile, 0 released under an accepted degradation record
+gate-g14=0
+
+### STDERR
+Traceback (most recent call last):
+  File "<string>", line 5, in <module>
+KeyError: 'obligation_records'
+

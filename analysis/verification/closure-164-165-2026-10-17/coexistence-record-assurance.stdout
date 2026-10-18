@@ -1,0 +1,10 @@
+recorded assurance: ci/results/WP-DATE-CREUSOT.json (work package WP-DATE-CREUSOT)
+  Month.C001: creusot-deductive-check supported -- 1 proved goal(s) <- rust/date-creusot-core/verif/date_creusot_core_rlib/month/impl_Month/ok/proof.json
+  Weekday.C001: creusot-deductive-check supported -- 1 proved goal(s) <- rust/date-creusot-core/verif/date_creusot_core_rlib/weekday/weekday_from_days/proof.json
+  Weekday.C002: creusot-deductive-check supported -- 1 proved goal(s) <- rust/date-creusot-core/verif/date_creusot_core_rlib/weekday/impl_Weekday/c_encoding/proof.json
+  Weekday.C003: creusot-deductive-check supported -- 1 proved goal(s) <- rust/date-creusot-core/verif/date_creusot_core_rlib/weekday/impl_Weekday/iso_encoding/proof.json
+  Year.C001: creusot-deductive-check supported -- 1 proved goal(s) <- rust/date-creusot-core/verif/date_creusot_core_rlib/year/impl_Year/ok/proof.json
+  Year.C002: creusot-deductive-check supported -- 1 proved goal(s) <- rust/date-creusot-core/verif/date_creusot_core_rlib/year/impl_Year/is_leap/proof.json
+  YearMonthDay.C002: creusot-deductive-check supported -- 50 proved goal(s) <- rust/date-creusot-core/verif/date_creusot_core_rlib/year_month_day/impl_YearMonthDay/from_days/proof.json
+  YearMonthDay.C007: creusot-deductive-check supported -- 10 proved goal(s) <- rust/date-creusot-core/verif/date_creusot_core_rlib/year_month_day/impl_YearMonthDay/round_trip/proof.json
+  YearMonthDayLast.C001: creusot-deductive-check supported -- 2 proved goal(s) <- rust/date-creusot-core/verif/date_creusot_core_rlib/year_month_day_last/impl_YearMonthDayLast/day/proof.json

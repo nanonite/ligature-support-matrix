@@ -1,0 +1,15 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+(none)
+### CMD
+cd "$([ -d date-creusot ] && echo date-creusot || echo .)" && grep -n 'date-creusot(?=' analysis/ligature/reverify.py; grep -n 'analysis/codesight/index' analysis/ligature/reverify.py; echo '  ^ first grep = the fixed cwd regex (found); second grep = the codesight baseline exclusion (must be ABSENT)'; REVERIFY_ROOT=/tmp/opencode/rv-cwd-regression python3 analysis/ligature/reverify.py date-ligature-047 2>&1 | tail -3 # the regression: date-ligature-047 used to exit 2 with "can't open file <scratch>/ws/tools/ligature/ligature.pyz"; # it now prints 'recorded assurance: ci/results/feature_ledger.json (work package WP-DATE-CREUSOT)'
+### EXIT
+0
+### STDOUT
+274:    if re.search(r"date-creusot(?=[/\s\"'`;,\)\]]|$)", cmd):
+  ^ first grep = the fixed cwd regex (found); second grep = the codesight baseline exclusion (must be ABSENT)
+[CANDIDATE-NO] date-ligature-047      exit=2 recorded=0 probe='preserved' 0.4s
+
+### STDERR
+

@@ -1,0 +1,7 @@
+{
+  "flake.nix": true,
+  "flake.lock": true,
+  "date-creusot/project-descriptor.json": true,
+  "date-creusot/findings/limitations.jsonl": true,
+  "date-creusot/ci/manifest/WP-DATE-CREUSOT.json": true
+}

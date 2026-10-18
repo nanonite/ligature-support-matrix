@@ -1,0 +1,17 @@
+### SCRATCH NORMALIZATION
+(none)
+### DOCUMENTED REPRO REPAIRS
+ci/manifest/work-package.json -> ci/manifest/WP-DATE-CREUSOT.json
+### CMD
+cd date-creusot && python3 tools/ligature/ligature.pyz validate-work-package ci/manifest/WP-DATE-CREUSOT.json 2>&1 | grep 'overlaps' ; grep -A4 '"write_set"' project-descriptor.json
+### EXIT
+0
+### STDOUT
+  "write_set": {
+    "allowed_roots": [
+      "rust/*/src/",
+      "rust/*/tests/",
+      "rust/*/target/**",
+
+### STDERR
+
