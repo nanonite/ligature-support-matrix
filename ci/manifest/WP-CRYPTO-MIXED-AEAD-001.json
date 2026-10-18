@@ -128,7 +128,7 @@
   ],
   "gate_integrity": [
     {
-      "hash": "sha256:78e6cfbeae3531ec90e5d122a773bb6dd23cdafd000c118b5b2f98df548d85aa",
+      "hash": "sha256:6b3c3ae71b7d059115b497136077e1472cb46071a47143b2383ed870eee64216",
       "runner": ".codex/skills/ligature/SKILL.md"
     },
     {
@@ -224,7 +224,7 @@
   ],
   "provenance": {
     "artifact_set_hash": "sha256:e0b22f122c9e542d4cbdae5b3b9f3f79fade1b7074aa6e36848c676fd57a7027",
-    "base_commit": "3296758d5d9b2eb85e5cf7ed70517c2a37319a83",
+    "base_commit": "13e602135232fb6f188125b17aa01cc1e2ffb3dd",
     "features": [
       "default"
     ],

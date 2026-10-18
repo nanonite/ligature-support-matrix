@@ -1,8 +1,8 @@
 # P3 Crypto Mixed transfer gaps
 
-Updated 2026-10-14 from the Botan 3.13.0 Codesight/Tilth findings, the accepted P3 assurance records, and the installed Ligature bundle. The port implements the selected scalar 96-bit-nonce ChaCha20, Poly1305, and RFC 8439 AEAD subset. The findings ledger retains the original reproductions; entries below give their current status.
+Updated 2026-10-18 from the Botan 3.13.0 Codesight/Tilth findings, the accepted P3 assurance records, the #135 operator ruling, and the installed Ligature bundle. The port implements the selected scalar 96-bit-nonce ChaCha20, Poly1305, and RFC 8439 AEAD subset. The findings ledger retains the original reproductions; entries below give their current status.
 
-The installed `tools/ligature/ligature.pyz` is Ligature 1.3.11, attested from source commit `cdac78c21b6c32800b668b8fa2e17270f771d78c`; its SHA-256 is `446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f`. `version --verify` passed on 2026-10-14.
+The installed `tools/ligature/ligature.pyz` is Ligature 1.4.1, attested from source commit `742cb253e0cb9753c7a34a0c32559936130e03ab`; its SHA-256 is `973b883b3f4d19e60950ce6b9f0247828459d60fadd05f0d6e29d17d19c31ab8`. `version --verify` passed on 2026-10-18. Earlier passes used 1.3.11 (`446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f`, verified 2026-10-14).
 
 ## Current P3 assurance result
 
@@ -15,6 +15,8 @@ The two work-package reports contain three obligation records and two bridge rec
 - `BR-CRYPTO-MIXED-002`: the named bridge harness checks the ChaCha20 counter-one capacity condition.
 
 The approved manifest minimum scopes match these named harness models. Ligature records successful named assertions and preserves ancillary unreachable checks. The records do not establish arbitrary-length cryptographic behavior or a deductive proof. The G14 run on 2026-10-14 consumed both reports and exited successfully, while reporting the `crypto-kani` cluster as **degraded** under the accepted `per-instantiation` ceiling. The remaining condition is `generic_callees_type_universal_or_creusot_owned`; the degradation record tracks Chainlink #135. Ligature's G14 clarification (#142) identifies the accepted coverage ceiling and affected condition. P3 therefore has accepted bounded evidence and a recorded degradation, not full closure.
+
+**Correction (2026-10-18).** That successful G14 run, and a repeat on the morning of 2026-10-18, read a C_static call-graph report extracted at the 2026-10-13 baseline, before the Rust source existed. The report had 0 call sites, so call-site validation was vacuous (see the stale C_static entry below). After the 1.4.1 manifest regeneration (#134), and against a fresh extraction (16 discovered / 12 resolved / 4 unresolved), G14 exits 1 and the cluster is **blocked**. The four unresolved `possible-dispatch` sites fail the AEAD package's `all-discovered-resolved` bridge requirement, and G17 recomputes `unresolved_indirect_calls_at_or_above_medium` as 4. `check` also reports three cross-concept calls missing from the declared interactions. The three Kani obligation records and both bridge records are still rechecked successfully, and the CG3 condition is still accepted as degraded. The outstanding work is Stage 8A call-site validation (#47).
 
 Verus remains outside P3. No constant-time or side-channel claim is made. The scalar implementation does not claim SIMD/provider-selection parity with Botan.
 
@@ -86,6 +88,28 @@ Verus remains outside P3. No constant-time or side-channel claim is made. The sc
 - **Finding ids:** `crypto-mcp-006`
 - **Generalizable lesson:** Treat MCP line hits as candidates and verify their enclosing functions before using them as call-graph evidence.
 
+### Ligature's syntactic call-graph extractor leaves calls on typed locals unresolved
+
+- **Category:** Tooling blind spots in the transfer
+- **C++ construct / upstream location:** Botan reaches its primitives through member pointers with virtual dispatch (`m_chacha->…`, `m_poly1305->…` in `src/lib/modes/aead/chacha20poly1305/chacha20poly1305.cpp:55-112` at commit `2a81eef56c96c237e590c27f9a75e60317c9c700`).
+- **What the Rust port does instead:** It builds a concrete local (`let mut chacha = ChaCha20::with_counter(*key, *nonce, 1);`) and calls inherent methods on it (`aead.rs:49,52,76`). It reaches the Poly1305 state through an `Option` projection (`self.state.as_mut().ok_or(..)?.update(input)`, `poly1305.rs:32`).
+- **Why:** Ligature 1.4.1's `extract-c-static` uses a coarse syntactic extractor (supported forms: associated-path call, `self` method call, inherent call by name). It cannot infer a local's or projection's receiver type, so it classifies these four ordinary static calls as `possible-dispatch` with the default medium risk.
+- **Impact:** The four sites are unresolved, so the AEAD package's `all-discovered-resolved` bridge requirement and G14 fail even though the Rust code has no dynamic dispatch. To clear them, either rewrite the calls in a form the extractor resolves (e.g. `ChaCha20::apply_keystream(&mut chacha, …)`), which changes source hashes and forces fresh Kani records, or resolve them through the sanctioned call-site workflow.
+- **Status:** Open; Stage 8A (#47).
+- **Finding ids:** `crypto-ligature-008`
+- **Generalizable lesson:** Gating on a syntactic call graph puts pressure on idiomatic Rust (method calls on typed locals, `?` chains) to be rewritten into explicit path calls. Budget for that rewrite, or for a type-aware extractor, before relying on "all call sites resolved".
+
+### A stale, empty call-graph report passed R1/G16 and G14
+
+- **Category:** Tooling blind spots in the transfer
+- **C++ construct / upstream location:** Not applicable; this is a gate-input freshness gap in Ligature. It affects whether the port's call edges were checked against the declared interactions at all.
+- **What the Rust port does instead:** Nothing changed in the port. The committed `ci/results/c_static/crates_crypto-mixed-core.json` came from the 2026-10-13 baseline (`2cbbccd`), before the port's source (`e0bd451`). It recorded 0 call sites, `local_concepts: []`, and no source binding.
+- **Why:** Ligature 1.4.1's `gate-r1-g16` accepted that report (0 checked; declared interactions shown only as info) and `gate-g14` read it as 0 unresolved call sites. Nothing ties a C_static observation to the source it describes.
+- **Impact:** Earlier crypto-mixed G14 results (2026-10-14 and the morning of 2026-10-18) released the cluster as degraded without validating any call site. A fresh extraction blocks G14 and exposes three undeclared cross-concept calls.
+- **Status:** Open; filed as local #149 / ligature-workspace #169. The fresh report is kept as the current observation.
+- **Finding ids:** `crypto-ligature-006`
+- **Generalizable lesson:** Any analysis artifact a gate consumes must be bound to the source revision it describes. An empty observation is the easiest stale input to miss, because it looks like "nothing to check".
+
 ### P3 deliberately uses bounded Kani evidence; Verus is deferred
 
 - **Category:** Unprovable or costly obligations
@@ -141,6 +165,17 @@ Verus remains outside P3. No constant-time or side-channel claim is made. The sc
 - **Finding ids:** `crypto-kani-005`
 - **Generalizable lesson:** Separate concrete test-vector evidence from symbolic proof coverage when documenting cryptographic assurance.
 
+### Generic-callee coverage is capped at per-instantiation under Kani (CG3)
+
+- **Category:** Unprovable or costly obligations
+- **C++ construct / upstream location:** Botan's AEAD holds its primitives behind abstract interfaces, `std::unique_ptr<StreamCipher> m_chacha` and `std::unique_ptr<MessageAuthenticationCode> m_poly1305` (`src/lib/modes/aead/chacha20poly1305/chacha20poly1305.h:52-53`). It builds them by name through factories (`chacha20poly1305.cpp:20`) and calls them through virtual dispatch, e.g. `m_chacha->write_keystream` / `m_poly1305->set_key` (`chacha20poly1305.cpp:55,88,90,112`), at Botan commit `2a81eef56c96c237e590c27f9a75e60317c9c700`.
+- **What the Rust port does instead:** `crypto-mixed-core` calls the concrete `ChaCha20` and `Poly1305` types directly, with no trait objects, factories, or production generics. The only generic item in the crate is the Kani test helper `decode_hex<const N: usize>`. Bridges `BR-CRYPTO-MIXED-001` (Poly1305 key from ChaCha counter zero) and `BR-CRYPTO-MIXED-002` (counter-one capacity) are checked by Kani for the concrete instantiation the harnesses build.
+- **Why:** Kani checks monomorphized code within harness bounds. Ligature's closure condition `generic_callees_type_universal_or_creusot_owned` needs type-universal or deductive evidence, so Kani evidence caps it at the `per-instantiation` ceiling (capability gap CG3). Ligature's `extract-c-static` reports 16 discovered / 12 resolved / 4 unresolved with `discovered-lower-bound` completeness. The four unresolved `possible-dispatch` sites (`aead.rs:49,52,76`, `poly1305.rs:32`) are method calls whose receiver type the syntactic extractor did not infer. So the tooling cannot mechanically prove that no generic callee exists.
+- **Impact:** G14 releases the `crypto-kani` cluster as **degraded**, not closed, under the reviewed record `specs/_closure/crypto-kani.degradation.json`. The bridge claims hold for the verified concrete instantiation only. Nothing is claimed for other `StreamCipher`/`MessageAuthenticationCode` implementations or for type-universal behavior. Upgrading this would need a Verus-owned (deductive) proof over an enumerated call-target set.
+- **Status:** Ruled-scope-cut. Operator decision 2026-10-18 on #135 (option B): accept the per-instantiation degradation as the final P3 limitation. #135 is the tracking issue to reopen for P4/Verus work.
+- **Finding ids:** `crypto-kani-006`
+- **Generalizable lesson:** Replacing C++ virtual or factory dispatch with concrete Rust types makes bounded model checking practical, but a model checker still proves only the instances it runs. A closure that demands type-universal coverage needs a deductive verifier or an explicit, reviewed degradation. A lower-bound call-graph extractor cannot by itself prove that no generic callee exists.
+
 ## Ligature findings fixed or worked around in this pilot
 
 ### Kani assurance intake was missing
@@ -189,6 +224,7 @@ Verus remains outside P3. No constant-time or side-channel claim is made. The sc
 
 ## Remaining review items
 
-- Keep the accepted P3 cluster degraded under `per-instantiation` while `generic_callees_type_universal_or_creusot_owned` remains tracked by #135. Do not relabel its Kani records as type-universal.
+- The `per-instantiation` CG3 degradation is the operator-accepted final P3 limitation (#135, 2026-10-18). Do not relabel its Kani records as type-universal; reopen #135 for P4/Verus work.
+- Complete Stage 8A call-site validation (#47) against the fresh C_static report: four unresolved `possible-dispatch` sites and three undeclared cross-concept calls currently block G14.
 - Keep the Codesight header, call-graph, and template gaps and the Tilth call-site attribution limitation visible for upstream triage.
 - Keep the broader timed-out Kani attempts, scalar-only provider scope, and omitted side-channel claims distinct from defects in Ligature's assurance intake.
