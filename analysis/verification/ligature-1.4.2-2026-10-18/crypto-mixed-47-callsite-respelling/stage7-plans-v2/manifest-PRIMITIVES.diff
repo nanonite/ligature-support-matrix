@@ -1,0 +1,73 @@
+43a44,79
+>                 "harness": "kani_chacha20_c004_with_counter_stream_capacity",
+>                 "obligation_id": "ChaCha20.C004",
+>                 "required_assurance": {
+>                     "accepted_evidence_kinds": [
+>                         "kani-bounded-model-check"
+>                     ],
+>                     "minimum_scope": {
+>                         "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c004_with_counter_stream_capacity"
+>                     },
+>                     "required_claims": [
+>                         "postcondition-holds"
+>                     ],
+>                     "trust_policy": {
+>                         "assumptions_allowed": []
+>                     }
+>                 }
+>             },
+>             {
+>                 "harness": "kani_chacha20_c005_bytes_remaining_tracks_consumption",
+>                 "obligation_id": "ChaCha20.C005",
+>                 "required_assurance": {
+>                     "accepted_evidence_kinds": [
+>                         "kani-bounded-model-check"
+>                     ],
+>                     "minimum_scope": {
+>                         "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c005_bytes_remaining_tracks_consumption"
+>                     },
+>                     "required_claims": [
+>                         "postcondition-holds"
+>                     ],
+>                     "trust_policy": {
+>                         "assumptions_allowed": []
+>                     }
+>                 }
+>             },
+>             {
+59a96,113
+>             },
+>             {
+>                 "harness": "kani_poly1305_c005_segments_match_concatenation",
+>                 "obligation_id": "Poly1305.C005",
+>                 "required_assurance": {
+>                     "accepted_evidence_kinds": [
+>                         "kani-bounded-model-check"
+>                     ],
+>                     "minimum_scope": {
+>                         "input_domain": "the bounded model encoded by Kani harness kani_poly1305_c005_segments_match_concatenation"
+>                     },
+>                     "required_claims": [
+>                         "postcondition-holds"
+>                     ],
+>                     "trust_policy": {
+>                         "assumptions_allowed": []
+>                     }
+>                 }
+86a141
+>         "crypto_mixed_core::ChaCha20::with_counter",
+88a144
+>         "crypto_mixed_core::Poly1305::compute_tag_segments",
+188c244,247
+<         "Poly1305.C002"
+---
+>         "ChaCha20.C004",
+>         "ChaCha20.C005",
+>         "Poly1305.C002",
+>         "Poly1305.C005"
+191,192c250,251
+<         "artifact_set_hash": "sha256:e0b22f122c9e542d4cbdae5b3b9f3f79fade1b7074aa6e36848c676fd57a7027",
+<         "base_commit": "f4ca3479034972a5cb13cf1e9c722bf44f944a5b",
+---
+>         "artifact_set_hash": "sha256:28b2e16d1f368476eb28780cbaf7fab03deb7b25fe14e3c4973c13d9933ff679",
+>         "base_commit": "666751057a68634774673f5eadb4f2df0e598c07",

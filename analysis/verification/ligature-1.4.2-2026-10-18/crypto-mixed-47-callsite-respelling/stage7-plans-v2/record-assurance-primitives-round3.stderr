@@ -1,0 +1,7 @@
+[ligature] Kani cargo-kani 0.67.0: revalidating ChaCha20.C002 with harness 'kani_chacha20_c002_exact_length_65_boundary'
+[ligature] Kani cargo-kani 0.67.0: revalidating ChaCha20.C003 with harness 'kani_chacha20_c003_aead_counter_one_stream_capacity'
+[ligature] Kani cargo-kani 0.67.0: revalidating ChaCha20.C004 with harness 'kani_chacha20_c004_with_counter_stream_capacity'
+[ligature] Kani cargo-kani 0.67.0: revalidating ChaCha20.C005 with harness 'kani_chacha20_c005_bytes_remaining_tracks_consumption'
+[ligature] Kani cargo-kani 0.67.0: revalidating Poly1305.C002 with harness 'kani_poly1305_finalize_tag_length'
+[ligature] Kani cargo-kani 0.67.0: revalidating Poly1305.C005 with harness 'kani_poly1305_c005_segments_match_concatenation'
+elapsed=286.62 maxrss_kb=4688304

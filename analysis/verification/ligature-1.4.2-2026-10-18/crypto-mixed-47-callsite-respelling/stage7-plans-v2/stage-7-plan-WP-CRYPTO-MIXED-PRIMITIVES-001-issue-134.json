@@ -1,0 +1,139 @@
+{
+  "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001",
+  "issue": "chainlink:134",
+  "cluster": "crypto-kani",
+  "functions": [
+    "crypto_mixed_core::ChaCha20::apply_keystream",
+    "crypto_mixed_core::ChaCha20::block",
+    "crypto_mixed_core::ChaCha20::bytes_remaining",
+    "crypto_mixed_core::ChaCha20::with_counter",
+    "crypto_mixed_core::Poly1305::compute_tag",
+    "crypto_mixed_core::Poly1305::compute_tag_chunked",
+    "crypto_mixed_core::Poly1305::compute_tag_segments",
+    "crypto_mixed_core::Poly1305::finalize",
+    "crypto_mixed_core::Poly1305::set_key",
+    "crypto_mixed_core::Poly1305::update"
+  ],
+  "depends_on": [],
+  "coupling_notes": [
+    "Supplier package for the approved Kani-only P3 pass. Provide the primitive guarantees consumed by the AEAD package before implementing the caller. Verus remains a P4 item; no witness specs are in scope."
+  ],
+  "provided_obligations": [
+    "ChaCha20.C002",
+    "ChaCha20.C003",
+    "ChaCha20.C004",
+    "ChaCha20.C005",
+    "Poly1305.C002",
+    "Poly1305.C005"
+  ],
+  "required_obligations": [],
+  "bridges": [],
+  "assumptions": [],
+  "harnesses": {
+    "ChaCha20.C002": "kani_chacha20_c002_exact_length_65_boundary",
+    "ChaCha20.C003": "kani_chacha20_c003_aead_counter_one_stream_capacity",
+    "ChaCha20.C004": "kani_chacha20_c004_with_counter_stream_capacity",
+    "ChaCha20.C005": "kani_chacha20_c005_bytes_remaining_tracks_consumption",
+    "Poly1305.C002": "kani_poly1305_finalize_tag_length",
+    "Poly1305.C005": "kani_poly1305_c005_segments_match_concatenation"
+  },
+  "gates": [
+    {
+      "args": [
+        "validate-interaction"
+      ],
+      "id": "g15",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "gate",
+        "g18"
+      ],
+      "id": "g18",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "gate",
+        "g19"
+      ],
+      "id": "g19",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "validate"
+      ],
+      "id": "g1a",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "validate-interaction"
+      ],
+      "id": "g1b",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "validate-bridge"
+      ],
+      "id": "g2",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "gate",
+        "g20"
+      ],
+      "id": "g20",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "gate",
+        "g9"
+      ],
+      "id": "g9",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "validate-interaction"
+      ],
+      "id": "r2",
+      "runner": "ligature"
+    }
+  ],
+  "scheduling_rule": "reverse-dependency-order",
+  "allowed_write_set": [
+    "crates/crypto-mixed-core/src/**",
+    "crates/crypto-mixed-core/tests/**"
+  ],
+  "protected_write_set": [
+    ".envrc",
+    ".github/**",
+    ".gitignore",
+    ".mcp.json",
+    "Cargo.toml",
+    "README.md",
+    "analysis/codesight/**",
+    "analysis/upstream/**",
+    "ci/manifest/**",
+    "crates/*/Cargo.toml",
+    "crates/*/build.rs",
+    "crates/*/specs/**",
+    "crates/crypto-mixed-core/Cargo.lock",
+    "docs/*-schema.json",
+    "docs/reliance-policy.md",
+    "oracle/**",
+    "rust-toolchain.toml",
+    "rust/**",
+    "scripts/**",
+    "specs/_closure/**",
+    "tests/harnesses/**",
+    "tools/**",
+    "upstream/**"
+  ]
+}

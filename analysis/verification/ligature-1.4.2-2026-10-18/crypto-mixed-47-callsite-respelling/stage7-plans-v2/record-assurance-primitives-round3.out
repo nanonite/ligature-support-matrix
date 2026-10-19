@@ -1,0 +1,7 @@
+recorded assurance: ci/results/WP-CRYPTO-MIXED-PRIMITIVES-001.json (work package WP-CRYPTO-MIXED-PRIMITIVES-001)
+  ChaCha20.C002: kani-bounded-model-check supported -- 646 proved goal(s) <- kani-run:crates/crypto-mixed-core#kani_chacha20_c002_exact_length_65_boundary
+  ChaCha20.C003: kani-bounded-model-check supported -- 33 proved goal(s) <- kani-run:crates/crypto-mixed-core#kani_chacha20_c003_aead_counter_one_stream_capacity
+  ChaCha20.C004: kani-bounded-model-check supported -- 25 proved goal(s) <- kani-run:crates/crypto-mixed-core#kani_chacha20_c004_with_counter_stream_capacity
+  ChaCha20.C005: kani-bounded-model-check supported -- 737 proved goal(s) <- kani-run:crates/crypto-mixed-core#kani_chacha20_c005_bytes_remaining_tracks_consumption
+  Poly1305.C002: kani-bounded-model-check supported -- 844 proved goal(s) <- kani-run:crates/crypto-mixed-core#kani_poly1305_finalize_tag_length
+  Poly1305.C005: kani-bounded-model-check supported -- 749 proved goal(s) <- kani-run:crates/crypto-mixed-core#kani_poly1305_c005_segments_match_concatenation

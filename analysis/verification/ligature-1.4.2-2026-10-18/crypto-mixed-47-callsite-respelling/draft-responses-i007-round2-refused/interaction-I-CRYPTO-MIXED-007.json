@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "I-CRYPTO-MIXED-007",
+  "caller": {
+    "concept": "ChaCha20Poly1305",
+    "method": "decrypt"
+  },
+  "callee": {
+    "concept": "ChaCha20",
+    "method": "apply_keystream"
+  },
+  "edge_class": [
+    "stateful",
+    "error-panic-boundary",
+    "numeric-domain-boundary"
+  ],
+  "eligibility": "boundary-required",
+  "rationale": "AEAD decryption applies the stream cipher to the authenticated ciphertext and must respect its finite block-counter capacity while preserving the message length.",
+  "evidence_links": [
+    "E-002",
+    "E-005"
+  ],
+  "reliances": [
+    {
+      "obligation_id": "ChaCha20.C002",
+      "required_assurance": {
+        "required_claims": [
+          "postcondition-holds"
+        ],
+        "accepted_evidence_kinds": [
+          "kani-bounded-model-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c002_exact_length_65_boundary"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    },
+    {
+      "obligation_id": "ChaCha20.C003",
+      "required_assurance": {
+        "required_claims": [
+          "callee-precondition-established"
+        ],
+        "accepted_evidence_kinds": [
+          "kani-bounded-model-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "the bounded model encoded by Kani harness bridge_003_limits_aead_ciphertext_to_the_counter_one_stream"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    }
+  ],
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [
+        "default"
+      ],
+      "cfg": []
+    }
+  }
+}

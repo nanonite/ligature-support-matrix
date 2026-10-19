@@ -21,6 +21,13 @@ SPEC_FILE = {"ChaCha20Poly1305": "cha_cha20_poly1305.json", "ChaCha20": "cha_cha
 SNAKE = {"ChaCha20Poly1305": "cha_cha20_poly1305", "ChaCha20": "cha_cha20", "Poly1305": "poly1305"}
 FINDING = ("chainlink #47 (2026-10-19): gate-r1-g16 reports definite cross-concept calls absent from I after the "
            "call sites were made resolvable; see crypto-mixed findings crypto-ligature-010/011.")
+if "--finding" in sys.argv:
+    FINDING = sys.argv[sys.argv.index("--finding") + 1]
+
+
+def prior(target):
+    path = pilot / target
+    return path.read_text() if path.exists() else ""
 
 
 def spec_text(concept):
@@ -62,7 +69,7 @@ for target in targets:
             "caller_concept": caller, "caller_method": doc["caller"]["method"],
             "callee_concept": callee, "callee_method": doc["callee"]["method"],
             "caller_spec": spec_text(caller), "callee_spec": spec_text(callee),
-            "prior_artifact": "", "finding": FINDING,
+            "prior_artifact": prior(target), "finding": FINDING,
         })
     elif "/_bridges/" in target:
         boundary = specs / "_boundaries" / f"{doc['boundary_id']}.json"

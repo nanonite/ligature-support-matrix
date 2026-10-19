@@ -114,6 +114,12 @@ HARNESS = {
     "Poly1305.C005": "kani_poly1305_c005_segments_match_concatenation",
 }
 CLAIM = {"ChaCha20.C003": "callee-precondition-established"}
+# generate-work-package refuses an obligation whose reliances disagree on
+# required_assurance (contradictory-source), so every reliance on
+# ChaCha20.C003 (I-002 and I-007) must name the same harness. That harness,
+# kani_chacha20_c003, covers both AEAD length gates (encrypt and decrypt) and
+# discharges BR-002 and BR-003. Kept empty on purpose.
+HARNESS_OVERRIDE = {}
 
 EDGES = [
     ("I-CRYPTO-MIXED-004", "encrypt", "ChaCha20", "with_counter", ["ChaCha20.C004"],
@@ -158,7 +164,7 @@ for iid, caller_method, callee, callee_method, obligations, edge_class, evidence
                 "required_assurance": {
                     "required_claims": [CLAIM.get(ob, "postcondition-holds")],
                     "accepted_evidence_kinds": ["kani-bounded-model-check"],
-                    "minimum_scope": {"input_domain": f"the bounded model encoded by Kani harness {HARNESS[ob]}"},
+                    "minimum_scope": {"input_domain": f"the bounded model encoded by Kani harness {HARNESS_OVERRIDE.get((iid, ob), HARNESS[ob])}"},
                     "trust_policy": {"assumptions_allowed": []},
                 },
             }

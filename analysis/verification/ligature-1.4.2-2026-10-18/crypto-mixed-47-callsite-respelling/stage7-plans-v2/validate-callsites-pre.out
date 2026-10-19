@@ -1,0 +1,2 @@
+FAIL: 1 finding(s)
+  - [G1b/error] ci/results/c_static/crates_crypto-mixed-core.json: C_static source binding is stale for 'crates/crypto-mixed-core'; the scanned source, extractor, or configuration has changed since extraction; run `ligature extract-c-static --target x86_64-unknown-linux-gnu`

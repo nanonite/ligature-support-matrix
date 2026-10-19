@@ -1,0 +1,2 @@
+{"command_result":2,"error":{"code":"contradictory-source","message":"obligation 'ChaCha20.C003' is declared with conflicting required_assurance by I-CRYPTO-MIXED-002, I-CRYPTO-MIXED-007","required_inputs":["valid canonical closure, promotion, interaction, boundary, and bridge inputs"]},"event":"work-package-generation","schema_version":"1.0","state":"refused"}
+

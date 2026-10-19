@@ -1,0 +1,2 @@
+{"after_hash":"sha256:722d6521f069a80e2baa364b1d0b964abbdad24863fc3a57e7635ac1b26f8998","before_hash":"sha256:e309f9fb45d4ca4a35106734614c679eeb2ddb9eef50704e3c38eacf2f39517c","command":"generate-work-package","command_result":0,"event":"work-package-generation","grant_id":"GW-3a6e9f51d098","issue":134,"path":"ci/manifest/WP-CRYPTO-MIXED-AEAD-001.json","recorded_at":"2026-10-19T16:39:51Z","result":"regenerated","schema_version":"1.0","work_package":"WP-CRYPTO-MIXED-AEAD-001"}
+

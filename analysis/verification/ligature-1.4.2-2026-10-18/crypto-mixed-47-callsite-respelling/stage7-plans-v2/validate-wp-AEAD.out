@@ -1,0 +1,4 @@
+INFO: 2 non-blocking finding(s)
+  - [10.1/info] ci/manifest/WP-CRYPTO-MIXED-AEAD-001.json: provenance.promotion_id 'PROM-CRYPTO-KANI-001' cannot be resolved against a real promotion receipt yet -- chainlink #15 (detached promotion receipt) is not implemented
+  - [10.1/info] ci/manifest/WP-CRYPTO-MIXED-AEAD-001.json: "every owned function's source path is covered by allowed_write_set" is not checked -- functions[] are Rust module paths with no schema-computable mapping to a file path without searching real crate source, which this workspace doesn't have
+OK: work package manifest passes G1a and §10.1 checks

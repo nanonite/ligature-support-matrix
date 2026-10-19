@@ -271,6 +271,26 @@ document.
         "apply_keystream"
       ],
       "id": "C003"
+    },
+    {
+      "english": "A stream started at block counter c has (2^32 - c) * 64 keystream bytes available.",
+      "logic": "ChaCha20::with_counter(key, nonce, counter).bytes_remaining() as u64 == (4294967296 - counter as u64) * 64",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "with_counter"
+      ],
+      "id": "C004"
+    },
+    {
+      "english": "The remaining capacity drops by exactly the input length after a successful keystream application and is unchanged after a rejected one.",
+      "logic": "match self.apply_keystream(input) { Ok(_) => self.bytes_remaining() == old(self.bytes_remaining()) - input.len(), Err(_) => self.bytes_remaining() == old(self.bytes_remaining()) }",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "bytes_remaining"
+      ],
+      "id": "C005"
     }
   ],
   "adversary_table": [
@@ -288,6 +308,16 @@ document.
       "scenario": "Use an all-zero key and nonce with counter zero.",
       "violates": "C001",
       "resolution": "match the pinned RFC ChaCha20 block result"
+    },
+    {
+      "scenario": "Start streams at counters 0, 1, and 2^32 - 1 and query the remaining capacity.",
+      "violates": "C004",
+      "resolution": "report exactly the remaining whole-block capacity for the starting counter"
+    },
+    {
+      "scenario": "Consume 1, 63, 64, and 65 bytes, including an overlong request near counter exhaustion, then query the remaining capacity.",
+      "violates": "C005",
+      "resolution": "lower the capacity by exactly the consumed length and leave it unchanged on rejection"
     }
   ],
   "source_references": [
@@ -304,18 +334,166 @@ document.
   ],
   "review": {
     "reviewer": "roger-codex-luna6",
-    "reviewed_at": "2026-10-13"
+    "reviewed_at": "2026-10-19"
   }
 }
 ` — the callee's concept-to-code spec JSON.
 - `x86_64-unknown-linux-gnu` — this project's default Rust target triple (e.g.
   `x86_64-unknown-linux-gnu`), for `realization.config_scope.target`.
 - Re-entry only (plan.md §6 diagram: change requests/drift findings route
-  back to Stage 0/3): `` (the last drafted interaction
-  record, if any) and `chainlink #47 (2026-10-19): gate-r1-g16 reports definite cross-concept calls absent from I after the call sites were made resolvable; see crypto-mixed findings crypto-ligature-010/011.` (the specific gate failure or drift
+  back to Stage 0/3): `{
+  "schema_version": "1.0",
+  "interaction_id": "I-CRYPTO-MIXED-007",
+  "caller": {
+    "concept": "ChaCha20Poly1305",
+    "method": "decrypt"
+  },
+  "callee": {
+    "concept": "ChaCha20",
+    "method": "apply_keystream"
+  },
+  "edge_class": [
+    "stateful",
+    "error-panic-boundary",
+    "numeric-domain-boundary"
+  ],
+  "eligibility": "boundary-required",
+  "rationale": "AEAD decryption applies the stream cipher to the authenticated ciphertext and must respect its finite block-counter capacity while preserving the message length.",
+  "evidence_links": [
+    "E-002",
+    "E-005"
+  ],
+  "reliances": [
+    {
+      "obligation_id": "ChaCha20.C002",
+      "required_assurance": {
+        "required_claims": [
+          "postcondition-holds"
+        ],
+        "accepted_evidence_kinds": [
+          "kani-bounded-model-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c002_exact_length_65_boundary"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    },
+    {
+      "obligation_id": "ChaCha20.C003",
+      "required_assurance": {
+        "required_claims": [
+          "callee-precondition-established"
+        ],
+        "accepted_evidence_kinds": [
+          "kani-bounded-model-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "the bounded model encoded by Kani harness bridge_003_limits_aead_ciphertext_to_the_counter_one_stream"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    }
+  ],
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [
+        "default"
+      ],
+      "cfg": []
+    }
+  },
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-19"
+  }
+}
+` (the last drafted interaction
+  record, if any) and `chainlink #47 (2026-10-19): generate-work-package refuses the round-2 promotion with contradictory-source: 'obligation ChaCha20.C003 is declared with conflicting required_assurance by I-CRYPTO-MIXED-002, I-CRYPTO-MIXED-007'. Every reliance on one obligation must carry one required_assurance. kani_chacha20_c003_aead_counter_one_stream_capacity now proves both AEAD length gates (encrypt and decrypt fit the counter-one stream; 0/34 failed) and discharges BR-002 and BR-003, so restore the ChaCha20.C003 reliance scope to that harness, matching I-CRYPTO-MIXED-002.` (the specific gate failure or drift
   report that triggered this re-entry — e.g. a G2++ or R2 finding from
   `scripts/validate_interaction.py`). When both are present, revise
-  `` to address `chainlink #47 (2026-10-19): gate-r1-g16 reports definite cross-concept calls absent from I after the call sites were made resolvable; see crypto-mixed findings crypto-ligature-010/011.` specifically; do not
+  `{
+  "schema_version": "1.0",
+  "interaction_id": "I-CRYPTO-MIXED-007",
+  "caller": {
+    "concept": "ChaCha20Poly1305",
+    "method": "decrypt"
+  },
+  "callee": {
+    "concept": "ChaCha20",
+    "method": "apply_keystream"
+  },
+  "edge_class": [
+    "stateful",
+    "error-panic-boundary",
+    "numeric-domain-boundary"
+  ],
+  "eligibility": "boundary-required",
+  "rationale": "AEAD decryption applies the stream cipher to the authenticated ciphertext and must respect its finite block-counter capacity while preserving the message length.",
+  "evidence_links": [
+    "E-002",
+    "E-005"
+  ],
+  "reliances": [
+    {
+      "obligation_id": "ChaCha20.C002",
+      "required_assurance": {
+        "required_claims": [
+          "postcondition-holds"
+        ],
+        "accepted_evidence_kinds": [
+          "kani-bounded-model-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c002_exact_length_65_boundary"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    },
+    {
+      "obligation_id": "ChaCha20.C003",
+      "required_assurance": {
+        "required_claims": [
+          "callee-precondition-established"
+        ],
+        "accepted_evidence_kinds": [
+          "kani-bounded-model-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "the bounded model encoded by Kani harness bridge_003_limits_aead_ciphertext_to_the_counter_one_stream"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    }
+  ],
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [
+        "default"
+      ],
+      "cfg": []
+    }
+  },
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-19"
+  }
+}
+` to address `chainlink #47 (2026-10-19): generate-work-package refuses the round-2 promotion with contradictory-source: 'obligation ChaCha20.C003 is declared with conflicting required_assurance by I-CRYPTO-MIXED-002, I-CRYPTO-MIXED-007'. Every reliance on one obligation must carry one required_assurance. kani_chacha20_c003_aead_counter_one_stream_capacity now proves both AEAD length gates (encrypt and decrypt fit the counter-one stream; 0/34 failed) and discharges BR-002 and BR-003, so restore the ChaCha20.C003 reliance scope to that harness, matching I-CRYPTO-MIXED-002.` specifically; do not
   redraft from scratch and do not touch anything the finding didn't flag.
 
 ## Task
@@ -543,6 +721,26 @@ least one, from the enum below), based on what `{
         "apply_keystream"
       ],
       "id": "C003"
+    },
+    {
+      "english": "A stream started at block counter c has (2^32 - c) * 64 keystream bytes available.",
+      "logic": "ChaCha20::with_counter(key, nonce, counter).bytes_remaining() as u64 == (4294967296 - counter as u64) * 64",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "with_counter"
+      ],
+      "id": "C004"
+    },
+    {
+      "english": "The remaining capacity drops by exactly the input length after a successful keystream application and is unchanged after a rejected one.",
+      "logic": "match self.apply_keystream(input) { Ok(_) => self.bytes_remaining() == old(self.bytes_remaining()) - input.len(), Err(_) => self.bytes_remaining() == old(self.bytes_remaining()) }",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "bytes_remaining"
+      ],
+      "id": "C005"
     }
   ],
   "adversary_table": [
@@ -560,6 +758,16 @@ least one, from the enum below), based on what `{
       "scenario": "Use an all-zero key and nonce with counter zero.",
       "violates": "C001",
       "resolution": "match the pinned RFC ChaCha20 block result"
+    },
+    {
+      "scenario": "Start streams at counters 0, 1, and 2^32 - 1 and query the remaining capacity.",
+      "violates": "C004",
+      "resolution": "report exactly the remaining whole-block capacity for the starting counter"
+    },
+    {
+      "scenario": "Consume 1, 63, 64, and 65 bytes, including an overlong request near counter exhaustion, then query the remaining capacity.",
+      "violates": "C005",
+      "resolution": "lower the capacity by exactly the consumed length and leave it unchanged on rejection"
     }
   ],
   "source_references": [
@@ -576,7 +784,7 @@ least one, from the enum below), based on what `{
   ],
   "review": {
     "reviewer": "roger-codex-luna6",
-    "reviewed_at": "2026-10-13"
+    "reviewed_at": "2026-10-19"
   }
 }
 ` show about the call: does it cross a verification
@@ -673,6 +881,26 @@ Each reliance:
         "apply_keystream"
       ],
       "id": "C003"
+    },
+    {
+      "english": "A stream started at block counter c has (2^32 - c) * 64 keystream bytes available.",
+      "logic": "ChaCha20::with_counter(key, nonce, counter).bytes_remaining() as u64 == (4294967296 - counter as u64) * 64",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "with_counter"
+      ],
+      "id": "C004"
+    },
+    {
+      "english": "The remaining capacity drops by exactly the input length after a successful keystream application and is unchanged after a rejected one.",
+      "logic": "match self.apply_keystream(input) { Ok(_) => self.bytes_remaining() == old(self.bytes_remaining()) - input.len(), Err(_) => self.bytes_remaining() == old(self.bytes_remaining()) }",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "bytes_remaining"
+      ],
+      "id": "C005"
     }
   ],
   "adversary_table": [
@@ -690,6 +918,16 @@ Each reliance:
       "scenario": "Use an all-zero key and nonce with counter zero.",
       "violates": "C001",
       "resolution": "match the pinned RFC ChaCha20 block result"
+    },
+    {
+      "scenario": "Start streams at counters 0, 1, and 2^32 - 1 and query the remaining capacity.",
+      "violates": "C004",
+      "resolution": "report exactly the remaining whole-block capacity for the starting counter"
+    },
+    {
+      "scenario": "Consume 1, 63, 64, and 65 bytes, including an overlong request near counter exhaustion, then query the remaining capacity.",
+      "violates": "C005",
+      "resolution": "lower the capacity by exactly the consumed length and leave it unchanged on rejection"
     }
   ],
   "source_references": [
@@ -706,7 +944,7 @@ Each reliance:
   ],
   "review": {
     "reviewer": "roger-codex-luna6",
-    "reviewed_at": "2026-10-13"
+    "reviewed_at": "2026-10-19"
   }
 }
 ` (same shape as a boundary contract's
@@ -947,6 +1185,26 @@ Each reliance:
         "apply_keystream"
       ],
       "id": "C003"
+    },
+    {
+      "english": "A stream started at block counter c has (2^32 - c) * 64 keystream bytes available.",
+      "logic": "ChaCha20::with_counter(key, nonce, counter).bytes_remaining() as u64 == (4294967296 - counter as u64) * 64",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "with_counter"
+      ],
+      "id": "C004"
+    },
+    {
+      "english": "The remaining capacity drops by exactly the input length after a successful keystream application and is unchanged after a rejected one.",
+      "logic": "match self.apply_keystream(input) { Ok(_) => self.bytes_remaining() == old(self.bytes_remaining()) - input.len(), Err(_) => self.bytes_remaining() == old(self.bytes_remaining()) }",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "bytes_remaining"
+      ],
+      "id": "C005"
     }
   ],
   "adversary_table": [
@@ -964,6 +1222,16 @@ Each reliance:
       "scenario": "Use an all-zero key and nonce with counter zero.",
       "violates": "C001",
       "resolution": "match the pinned RFC ChaCha20 block result"
+    },
+    {
+      "scenario": "Start streams at counters 0, 1, and 2^32 - 1 and query the remaining capacity.",
+      "violates": "C004",
+      "resolution": "report exactly the remaining whole-block capacity for the starting counter"
+    },
+    {
+      "scenario": "Consume 1, 63, 64, and 65 bytes, including an overlong request near counter exhaustion, then query the remaining capacity.",
+      "violates": "C005",
+      "resolution": "lower the capacity by exactly the consumed length and leave it unchanged on rejection"
     }
   ],
   "source_references": [
@@ -980,7 +1248,7 @@ Each reliance:
   ],
   "review": {
     "reviewer": "roger-codex-luna6",
-    "reviewed_at": "2026-10-13"
+    "reviewed_at": "2026-10-19"
   }
 }
 ` (is the call behind a feature flag,

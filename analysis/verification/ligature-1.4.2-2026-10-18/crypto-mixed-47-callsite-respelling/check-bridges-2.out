@@ -1,0 +1,10 @@
+[ligature] bridge BR-CRYPTO-MIXED-001: dispatching kani harness bridge_br_crypto_mixed_001
+[ligature] bridge BR-CRYPTO-MIXED-002: dispatching kani harness bridge_br_crypto_mixed_002
+[ligature] bridge BR-CRYPTO-MIXED-003: dispatching kani harness bridge_br_crypto_mixed_003
+wrote /home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/harness/BR-CRYPTO-MIXED-001.kani.rs
+wrote /home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/bridge_checks/BR-CRYPTO-MIXED-001.json
+wrote /home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/harness/BR-CRYPTO-MIXED-002.kani.rs
+wrote /home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/bridge_checks/BR-CRYPTO-MIXED-002.json
+wrote /home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/harness/BR-CRYPTO-MIXED-003.kani.rs
+wrote /home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/bridge_checks/BR-CRYPTO-MIXED-003.json
+OK: 6 artifact(s) written; every promoted bridge compiled and was dispatched

@@ -1,0 +1,1034 @@
+{
+  "clusters": [
+    {
+      "closure_kind": "bounded",
+      "cluster": "crypto-kani",
+      "cycles": [],
+      "degradation": {
+        "ceiling": "per-instantiation",
+        "conditions": [
+          "generic_callees_type_universal_or_creusot_owned"
+        ]
+      },
+      "evaluated_bridge_records": [
+        {
+          "bridge_id": "BR-CRYPTO-MIXED-001",
+          "evidence": {
+            "harness": "bridge_br_crypto_mixed_001",
+            "kind": "kani-bounded-model-check",
+            "scope": {
+              "harness_hash": "sha256:fc30f6244fd710e267e5fa09e738ae9c98c876fdf950f6743830f83cf3d4d69c",
+              "input_domain": "the bounded model encoded by Kani harness bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key",
+              "kani_version": "0.67.0",
+              "source_harness": "bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key",
+              "source_harness_sha256": "763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a"
+            },
+            "verifier": "kani"
+          },
+          "proof_artifact_references": [],
+          "record": {
+            "claim": {
+              "kind": "callee-precondition-established",
+              "result": "pass"
+            },
+            "config": {
+              "features": [
+                "default"
+              ],
+              "target": "x86_64-unknown-linux-gnu",
+              "toolchain": "1.95.0-x86_64-unknown-linux-gnu"
+            },
+            "evidence": {
+              "harness": "bridge_br_crypto_mixed_001",
+              "kind": "kani-bounded-model-check",
+              "scope": {
+                "harness_hash": "sha256:fc30f6244fd710e267e5fa09e738ae9c98c876fdf950f6743830f83cf3d4d69c",
+                "input_domain": "the bounded model encoded by Kani harness bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key",
+                "kani_version": "0.67.0",
+                "source_harness": "bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key",
+                "source_harness_sha256": "763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a"
+              },
+              "verifier": "kani"
+            },
+            "schema_version": "1.0",
+            "support": {
+              "status": "supported"
+            },
+            "trust": {
+              "assumptions": []
+            }
+          },
+          "report_path": "ci/results/WP-CRYPTO-MIXED-AEAD-001.json",
+          "used_by": [
+            {
+              "kind": "required-bridge",
+              "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+            }
+          ],
+          "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+        },
+        {
+          "bridge_id": "BR-CRYPTO-MIXED-002",
+          "evidence": {
+            "harness": "bridge_br_crypto_mixed_002",
+            "kind": "kani-bounded-model-check",
+            "scope": {
+              "harness_hash": "sha256:3832d82f855b2606e524aca7b79ecdd5bc85ee728dd17e04c1883cd0c3c39649",
+              "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c003_aead_counter_one_stream_capacity",
+              "kani_version": "0.67.0",
+              "source_harness": "kani_chacha20_c003_aead_counter_one_stream_capacity",
+              "source_harness_sha256": "763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a"
+            },
+            "verifier": "kani"
+          },
+          "proof_artifact_references": [],
+          "record": {
+            "claim": {
+              "kind": "callee-precondition-established",
+              "result": "pass"
+            },
+            "config": {
+              "features": [
+                "default"
+              ],
+              "target": "x86_64-unknown-linux-gnu",
+              "toolchain": "1.95.0-x86_64-unknown-linux-gnu"
+            },
+            "evidence": {
+              "harness": "bridge_br_crypto_mixed_002",
+              "kind": "kani-bounded-model-check",
+              "scope": {
+                "harness_hash": "sha256:3832d82f855b2606e524aca7b79ecdd5bc85ee728dd17e04c1883cd0c3c39649",
+                "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c003_aead_counter_one_stream_capacity",
+                "kani_version": "0.67.0",
+                "source_harness": "kani_chacha20_c003_aead_counter_one_stream_capacity",
+                "source_harness_sha256": "763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a"
+              },
+              "verifier": "kani"
+            },
+            "schema_version": "1.0",
+            "support": {
+              "status": "supported"
+            },
+            "trust": {
+              "assumptions": []
+            }
+          },
+          "report_path": "ci/results/WP-CRYPTO-MIXED-AEAD-001.json",
+          "used_by": [
+            {
+              "kind": "required-bridge",
+              "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+            }
+          ],
+          "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+        },
+        {
+          "bridge_id": "BR-CRYPTO-MIXED-003",
+          "evidence": {
+            "harness": "bridge_br_crypto_mixed_003",
+            "kind": "kani-bounded-model-check",
+            "scope": {
+              "harness_hash": "sha256:44d72b422d0b95a684434b9ab4ca06ea1b2386a9e36da68471bcebc0ae8fffa4",
+              "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c003_aead_counter_one_stream_capacity",
+              "kani_version": "0.67.0",
+              "source_harness": "kani_chacha20_c003_aead_counter_one_stream_capacity",
+              "source_harness_sha256": "763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a"
+            },
+            "verifier": "kani"
+          },
+          "proof_artifact_references": [],
+          "record": {
+            "claim": {
+              "kind": "callee-precondition-established",
+              "result": "pass"
+            },
+            "config": {
+              "features": [
+                "default"
+              ],
+              "target": "x86_64-unknown-linux-gnu",
+              "toolchain": "1.95.0-x86_64-unknown-linux-gnu"
+            },
+            "evidence": {
+              "harness": "bridge_br_crypto_mixed_003",
+              "kind": "kani-bounded-model-check",
+              "scope": {
+                "harness_hash": "sha256:44d72b422d0b95a684434b9ab4ca06ea1b2386a9e36da68471bcebc0ae8fffa4",
+                "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c003_aead_counter_one_stream_capacity",
+                "kani_version": "0.67.0",
+                "source_harness": "kani_chacha20_c003_aead_counter_one_stream_capacity",
+                "source_harness_sha256": "763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a"
+              },
+              "verifier": "kani"
+            },
+            "schema_version": "1.0",
+            "support": {
+              "status": "supported"
+            },
+            "trust": {
+              "assumptions": []
+            }
+          },
+          "report_path": "ci/results/WP-CRYPTO-MIXED-AEAD-001.json",
+          "used_by": [
+            {
+              "kind": "required-bridge",
+              "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+            }
+          ],
+          "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+        }
+      ],
+      "evaluated_obligation_records": [
+        {
+          "evidence": {
+            "harness": "kani_chacha20_c002_exact_length_65_boundary",
+            "kind": "kani-bounded-model-check",
+            "scope": {
+              "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c002_exact_length_65_boundary",
+              "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+              "kani_result_summary": "{\"successful_checks\":646,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c002_exact_length_65_boundary.assertion.1\"],\"total_checks\":652,\"unreachable_checks\":[{\"check\":\"chacha20::ChaCha20::bytes_remaining.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::ub_checks::is_valid_allocation_size.assertion.1\",\"description\":\"attempt to divide by zero\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
+              "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+              "kani_version": "cargo-kani 0.67.0",
+              "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c002_exact_length_65_boundary"
+            },
+            "verifier": "kani"
+          },
+          "obligation_id": "ChaCha20.C002",
+          "proof_artifact_references": [
+            "kani-run:crates/crypto-mixed-core#kani_chacha20_c002_exact_length_65_boundary"
+          ],
+          "record": {
+            "claim": {
+              "kind": "postcondition-holds",
+              "result": "pass"
+            },
+            "config": {
+              "features": [
+                "default"
+              ],
+              "target": "x86_64-unknown-linux-gnu",
+              "toolchain": "1.95.0-x86_64-unknown-linux-gnu"
+            },
+            "evidence": {
+              "harness": "kani_chacha20_c002_exact_length_65_boundary",
+              "kind": "kani-bounded-model-check",
+              "scope": {
+                "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c002_exact_length_65_boundary",
+                "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+                "kani_result_summary": "{\"successful_checks\":646,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c002_exact_length_65_boundary.assertion.1\"],\"total_checks\":652,\"unreachable_checks\":[{\"check\":\"chacha20::ChaCha20::bytes_remaining.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::ub_checks::is_valid_allocation_size.assertion.1\",\"description\":\"attempt to divide by zero\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
+                "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+                "kani_version": "cargo-kani 0.67.0",
+                "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c002_exact_length_65_boundary"
+              },
+              "verifier": "kani"
+            },
+            "schema_version": "1.0",
+            "support": {
+              "status": "supported"
+            },
+            "trust": {
+              "assumptions": []
+            }
+          },
+          "report_path": "ci/results/WP-CRYPTO-MIXED-PRIMITIVES-001.json",
+          "used_by": [
+            {
+              "kind": "provided-guarantee",
+              "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+            },
+            {
+              "kind": "required-guarantee",
+              "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+            }
+          ],
+          "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+        },
+        {
+          "evidence": {
+            "harness": "kani_chacha20_c003_aead_counter_one_stream_capacity",
+            "kind": "kani-bounded-model-check",
+            "scope": {
+              "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c003_aead_counter_one_stream_capacity",
+              "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+              "kani_result_summary": "{\"successful_checks\":33,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c003_aead_counter_one_stream_capacity.assertion.1\",\"kani_proofs::kani_chacha20_c003_aead_counter_one_stream_capacity.assertion.2\"],\"total_checks\":34,\"unreachable_checks\":[{\"check\":\"chacha20::ChaCha20::bytes_remaining.assertion.2\",\"description\":\"attempt to subtract with overflow\"}]}",
+              "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+              "kani_version": "cargo-kani 0.67.0",
+              "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c003_aead_counter_one_stream_capacity"
+            },
+            "verifier": "kani"
+          },
+          "obligation_id": "ChaCha20.C003",
+          "proof_artifact_references": [
+            "kani-run:crates/crypto-mixed-core#kani_chacha20_c003_aead_counter_one_stream_capacity"
+          ],
+          "record": {
+            "claim": {
+              "kind": "callee-precondition-established",
+              "result": "pass"
+            },
+            "config": {
+              "features": [
+                "default"
+              ],
+              "target": "x86_64-unknown-linux-gnu",
+              "toolchain": "1.95.0-x86_64-unknown-linux-gnu"
+            },
+            "evidence": {
+              "harness": "kani_chacha20_c003_aead_counter_one_stream_capacity",
+              "kind": "kani-bounded-model-check",
+              "scope": {
+                "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c003_aead_counter_one_stream_capacity",
+                "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+                "kani_result_summary": "{\"successful_checks\":33,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c003_aead_counter_one_stream_capacity.assertion.1\",\"kani_proofs::kani_chacha20_c003_aead_counter_one_stream_capacity.assertion.2\"],\"total_checks\":34,\"unreachable_checks\":[{\"check\":\"chacha20::ChaCha20::bytes_remaining.assertion.2\",\"description\":\"attempt to subtract with overflow\"}]}",
+                "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+                "kani_version": "cargo-kani 0.67.0",
+                "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c003_aead_counter_one_stream_capacity"
+              },
+              "verifier": "kani"
+            },
+            "schema_version": "1.0",
+            "support": {
+              "status": "supported"
+            },
+            "trust": {
+              "assumptions": []
+            }
+          },
+          "report_path": "ci/results/WP-CRYPTO-MIXED-PRIMITIVES-001.json",
+          "used_by": [
+            {
+              "kind": "provided-guarantee",
+              "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+            },
+            {
+              "kind": "required-guarantee",
+              "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+            }
+          ],
+          "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+        },
+        {
+          "evidence": {
+            "harness": "kani_chacha20_c004_with_counter_stream_capacity",
+            "kind": "kani-bounded-model-check",
+            "scope": {
+              "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c004_with_counter_stream_capacity",
+              "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+              "kani_result_summary": "{\"successful_checks\":25,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c004_with_counter_stream_capacity.assertion.4\"],\"total_checks\":26,\"unreachable_checks\":[{\"check\":\"chacha20::ChaCha20::bytes_remaining.assertion.2\",\"description\":\"attempt to subtract with overflow\"}]}",
+              "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+              "kani_version": "cargo-kani 0.67.0",
+              "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c004_with_counter_stream_capacity"
+            },
+            "verifier": "kani"
+          },
+          "obligation_id": "ChaCha20.C004",
+          "proof_artifact_references": [
+            "kani-run:crates/crypto-mixed-core#kani_chacha20_c004_with_counter_stream_capacity"
+          ],
+          "record": {
+            "claim": {
+              "kind": "postcondition-holds",
+              "result": "pass"
+            },
+            "config": {
+              "features": [
+                "default"
+              ],
+              "target": "x86_64-unknown-linux-gnu",
+              "toolchain": "1.95.0-x86_64-unknown-linux-gnu"
+            },
+            "evidence": {
+              "harness": "kani_chacha20_c004_with_counter_stream_capacity",
+              "kind": "kani-bounded-model-check",
+              "scope": {
+                "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c004_with_counter_stream_capacity",
+                "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+                "kani_result_summary": "{\"successful_checks\":25,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c004_with_counter_stream_capacity.assertion.4\"],\"total_checks\":26,\"unreachable_checks\":[{\"check\":\"chacha20::ChaCha20::bytes_remaining.assertion.2\",\"description\":\"attempt to subtract with overflow\"}]}",
+                "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+                "kani_version": "cargo-kani 0.67.0",
+                "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c004_with_counter_stream_capacity"
+              },
+              "verifier": "kani"
+            },
+            "schema_version": "1.0",
+            "support": {
+              "status": "supported"
+            },
+            "trust": {
+              "assumptions": []
+            }
+          },
+          "report_path": "ci/results/WP-CRYPTO-MIXED-PRIMITIVES-001.json",
+          "used_by": [
+            {
+              "kind": "provided-guarantee",
+              "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+            },
+            {
+              "kind": "required-guarantee",
+              "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+            }
+          ],
+          "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+        },
+        {
+          "evidence": {
+            "harness": "kani_chacha20_c005_bytes_remaining_tracks_consumption",
+            "kind": "kani-bounded-model-check",
+            "scope": {
+              "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c005_bytes_remaining_tracks_consumption",
+              "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+              "kani_result_summary": "{\"successful_checks\":737,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c005_bytes_remaining_tracks_consumption.assertion.3\",\"kani_proofs::kani_chacha20_c005_bytes_remaining_tracks_consumption.assertion.4\",\"kani_proofs::kani_chacha20_c005_bytes_remaining_tracks_consumption.assertion.5\",\"kani_proofs::kani_chacha20_c005_bytes_remaining_tracks_consumption.assertion.7\"],\"total_checks\":742,\"unreachable_checks\":[{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::ub_checks::is_valid_allocation_size.assertion.1\",\"description\":\"attempt to divide by zero\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
+              "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+              "kani_version": "cargo-kani 0.67.0",
+              "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c005_bytes_remaining_tracks_consumption"
+            },
+            "verifier": "kani"
+          },
+          "obligation_id": "ChaCha20.C005",
+          "proof_artifact_references": [
+            "kani-run:crates/crypto-mixed-core#kani_chacha20_c005_bytes_remaining_tracks_consumption"
+          ],
+          "record": {
+            "claim": {
+              "kind": "postcondition-holds",
+              "result": "pass"
+            },
+            "config": {
+              "features": [
+                "default"
+              ],
+              "target": "x86_64-unknown-linux-gnu",
+              "toolchain": "1.95.0-x86_64-unknown-linux-gnu"
+            },
+            "evidence": {
+              "harness": "kani_chacha20_c005_bytes_remaining_tracks_consumption",
+              "kind": "kani-bounded-model-check",
+              "scope": {
+                "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c005_bytes_remaining_tracks_consumption",
+                "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+                "kani_result_summary": "{\"successful_checks\":737,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c005_bytes_remaining_tracks_consumption.assertion.3\",\"kani_proofs::kani_chacha20_c005_bytes_remaining_tracks_consumption.assertion.4\",\"kani_proofs::kani_chacha20_c005_bytes_remaining_tracks_consumption.assertion.5\",\"kani_proofs::kani_chacha20_c005_bytes_remaining_tracks_consumption.assertion.7\"],\"total_checks\":742,\"unreachable_checks\":[{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::ub_checks::is_valid_allocation_size.assertion.1\",\"description\":\"attempt to divide by zero\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
+                "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+                "kani_version": "cargo-kani 0.67.0",
+                "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c005_bytes_remaining_tracks_consumption"
+              },
+              "verifier": "kani"
+            },
+            "schema_version": "1.0",
+            "support": {
+              "status": "supported"
+            },
+            "trust": {
+              "assumptions": []
+            }
+          },
+          "report_path": "ci/results/WP-CRYPTO-MIXED-PRIMITIVES-001.json",
+          "used_by": [
+            {
+              "kind": "provided-guarantee",
+              "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+            },
+            {
+              "kind": "required-guarantee",
+              "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+            }
+          ],
+          "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+        },
+        {
+          "evidence": {
+            "harness": "kani_poly1305_finalize_tag_length",
+            "kind": "kani-bounded-model-check",
+            "scope": {
+              "input_domain": "the bounded model encoded by Kani harness kani_poly1305_finalize_tag_length",
+              "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+              "kani_result_summary": "{\"successful_checks\":844,\"successful_claim_assertions\":[\"kani_proofs::kani_poly1305_finalize_tag_length.assertion.1\"],\"total_checks\":853,\"unreachable_checks\":[{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::ub_checks::is_valid_allocation_size.assertion.1\",\"description\":\"attempt to divide by zero\"},{\"check\":\"poly1305::Poly1305::absorb.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"poly1305::Poly1305::absorb.assertion.2\",\"description\":\"attempt to add with overflow\"},{\"check\":\"poly1305::Poly1305::absorb.assertion.3\",\"description\":\"attempt to add with overflow\"},{\"check\":\"std::alloc::Layout::max_size_for_align.assertion.1\",\"description\":\"attempt to add with overflow\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
+              "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+              "kani_version": "cargo-kani 0.67.0",
+              "proof_targets": "kani-run:crates/crypto-mixed-core#kani_poly1305_finalize_tag_length"
+            },
+            "verifier": "kani"
+          },
+          "obligation_id": "Poly1305.C002",
+          "proof_artifact_references": [
+            "kani-run:crates/crypto-mixed-core#kani_poly1305_finalize_tag_length"
+          ],
+          "record": {
+            "claim": {
+              "kind": "postcondition-holds",
+              "result": "pass"
+            },
+            "config": {
+              "features": [
+                "default"
+              ],
+              "target": "x86_64-unknown-linux-gnu",
+              "toolchain": "1.95.0-x86_64-unknown-linux-gnu"
+            },
+            "evidence": {
+              "harness": "kani_poly1305_finalize_tag_length",
+              "kind": "kani-bounded-model-check",
+              "scope": {
+                "input_domain": "the bounded model encoded by Kani harness kani_poly1305_finalize_tag_length",
+                "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+                "kani_result_summary": "{\"successful_checks\":844,\"successful_claim_assertions\":[\"kani_proofs::kani_poly1305_finalize_tag_length.assertion.1\"],\"total_checks\":853,\"unreachable_checks\":[{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::ub_checks::is_valid_allocation_size.assertion.1\",\"description\":\"attempt to divide by zero\"},{\"check\":\"poly1305::Poly1305::absorb.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"poly1305::Poly1305::absorb.assertion.2\",\"description\":\"attempt to add with overflow\"},{\"check\":\"poly1305::Poly1305::absorb.assertion.3\",\"description\":\"attempt to add with overflow\"},{\"check\":\"std::alloc::Layout::max_size_for_align.assertion.1\",\"description\":\"attempt to add with overflow\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
+                "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+                "kani_version": "cargo-kani 0.67.0",
+                "proof_targets": "kani-run:crates/crypto-mixed-core#kani_poly1305_finalize_tag_length"
+              },
+              "verifier": "kani"
+            },
+            "schema_version": "1.0",
+            "support": {
+              "status": "supported"
+            },
+            "trust": {
+              "assumptions": []
+            }
+          },
+          "report_path": "ci/results/WP-CRYPTO-MIXED-PRIMITIVES-001.json",
+          "used_by": [
+            {
+              "kind": "provided-guarantee",
+              "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+            },
+            {
+              "kind": "required-guarantee",
+              "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+            }
+          ],
+          "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+        },
+        {
+          "evidence": {
+            "harness": "kani_poly1305_c005_segments_match_concatenation",
+            "kind": "kani-bounded-model-check",
+            "scope": {
+              "input_domain": "the bounded model encoded by Kani harness kani_poly1305_c005_segments_match_concatenation",
+              "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+              "kani_result_summary": "{\"successful_checks\":749,\"successful_claim_assertions\":[\"kani_proofs::kani_poly1305_c005_segments_match_concatenation.assertion.1\"],\"total_checks\":753,\"unreachable_checks\":[{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
+              "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+              "kani_version": "cargo-kani 0.67.0",
+              "proof_targets": "kani-run:crates/crypto-mixed-core#kani_poly1305_c005_segments_match_concatenation"
+            },
+            "verifier": "kani"
+          },
+          "obligation_id": "Poly1305.C005",
+          "proof_artifact_references": [
+            "kani-run:crates/crypto-mixed-core#kani_poly1305_c005_segments_match_concatenation"
+          ],
+          "record": {
+            "claim": {
+              "kind": "postcondition-holds",
+              "result": "pass"
+            },
+            "config": {
+              "features": [
+                "default"
+              ],
+              "target": "x86_64-unknown-linux-gnu",
+              "toolchain": "1.95.0-x86_64-unknown-linux-gnu"
+            },
+            "evidence": {
+              "harness": "kani_poly1305_c005_segments_match_concatenation",
+              "kind": "kani-bounded-model-check",
+              "scope": {
+                "input_domain": "the bounded model encoded by Kani harness kani_poly1305_c005_segments_match_concatenation",
+                "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+                "kani_result_summary": "{\"successful_checks\":749,\"successful_claim_assertions\":[\"kani_proofs::kani_poly1305_c005_segments_match_concatenation.assertion.1\"],\"total_checks\":753,\"unreachable_checks\":[{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
+                "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+                "kani_version": "cargo-kani 0.67.0",
+                "proof_targets": "kani-run:crates/crypto-mixed-core#kani_poly1305_c005_segments_match_concatenation"
+              },
+              "verifier": "kani"
+            },
+            "schema_version": "1.0",
+            "support": {
+              "status": "supported"
+            },
+            "trust": {
+              "assumptions": []
+            }
+          },
+          "report_path": "ci/results/WP-CRYPTO-MIXED-PRIMITIVES-001.json",
+          "used_by": [
+            {
+              "kind": "provided-guarantee",
+              "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+            },
+            {
+              "kind": "required-guarantee",
+              "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+            }
+          ],
+          "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+        }
+      ],
+      "findings": [
+        {
+          "condition": "generic_callees_type_universal_or_creusot_owned",
+          "gate": "G14",
+          "reason": "generic_callees_type_universal_or_creusot_owned is declared as true, but this workspace's artifacts cannot verify it: the workspace's own achieved records include ['kani-bounded-model-check'] results at WP-CRYPTO-MIXED-AEAD-001:BR-CRYPTO-MIXED-001 (kani-bounded-model-check), WP-CRYPTO-MIXED-AEAD-001:BR-CRYPTO-MIXED-002 (kani-bounded-model-check), WP-CRYPTO-MIXED-AEAD-001:BR-CRYPTO-MIXED-003 (kani-bounded-model-check), WP-CRYPTO-MIXED-PRIMITIVES-001:ChaCha20.C002 (kani-bounded-model-check), WP-CRYPTO-MIXED-PRIMITIVES-001:ChaCha20.C003 (kani-bounded-model-check), WP-CRYPTO-MIXED-PRIMITIVES-001:ChaCha20.C004 (kani-bounded-model-check), WP-CRYPTO-MIXED-PRIMITIVES-001:ChaCha20.C005 (kani-bounded-model-check), WP-CRYPTO-MIXED-PRIMITIVES-001:Poly1305.C002 (kani-bounded-model-check), WP-CRYPTO-MIXED-PRIMITIVES-001:Poly1305.C005 (kani-bounded-model-check) -- creusot ownership is established positively, never by the mere absence of the Kani kind: Kani verifies generics per monomorphization, and the type_universal disjunct needs type information no artifact in this pipeline carries (CG3, plan.md \u00a73, chainlink #93). That is a capability gap, not a checked condition (plan.md \u00a73): an unverifiable declaration is never a free pass, and releasing this cluster needs a degradation record naming this condition with a tracking issue -- accepted as degradation under ceiling 'per-instantiation' (chainlink:135)",
+          "severity": "degraded",
+          "subject": "crypto-kani"
+        }
+      ],
+      "rechecked_proof_artifacts": [
+        {
+          "evidence": {
+            "harness": "kani_chacha20_c002_exact_length_65_boundary",
+            "kind": "kani-bounded-model-check",
+            "scope": {
+              "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c002_exact_length_65_boundary",
+              "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+              "kani_result_summary": "{\"successful_checks\":646,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c002_exact_length_65_boundary.assertion.1\"],\"total_checks\":652,\"unreachable_checks\":[{\"check\":\"chacha20::ChaCha20::bytes_remaining.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::ub_checks::is_valid_allocation_size.assertion.1\",\"description\":\"attempt to divide by zero\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
+              "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+              "kani_version": "cargo-kani 0.67.0",
+              "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c002_exact_length_65_boundary"
+            },
+            "verifier": "kani"
+          },
+          "obligation_id": "ChaCha20.C002",
+          "proof_artifact_references": [
+            "kani-run:crates/crypto-mixed-core#kani_chacha20_c002_exact_length_65_boundary"
+          ],
+          "record": {
+            "claim": {
+              "kind": "postcondition-holds",
+              "result": "pass"
+            },
+            "config": {
+              "features": [
+                "default"
+              ],
+              "target": "x86_64-unknown-linux-gnu",
+              "toolchain": "1.95.0-x86_64-unknown-linux-gnu"
+            },
+            "evidence": {
+              "harness": "kani_chacha20_c002_exact_length_65_boundary",
+              "kind": "kani-bounded-model-check",
+              "scope": {
+                "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c002_exact_length_65_boundary",
+                "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+                "kani_result_summary": "{\"successful_checks\":646,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c002_exact_length_65_boundary.assertion.1\"],\"total_checks\":652,\"unreachable_checks\":[{\"check\":\"chacha20::ChaCha20::bytes_remaining.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::ub_checks::is_valid_allocation_size.assertion.1\",\"description\":\"attempt to divide by zero\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
+                "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+                "kani_version": "cargo-kani 0.67.0",
+                "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c002_exact_length_65_boundary"
+              },
+              "verifier": "kani"
+            },
+            "schema_version": "1.0",
+            "support": {
+              "status": "supported"
+            },
+            "trust": {
+              "assumptions": []
+            }
+          },
+          "report_path": "ci/results/WP-CRYPTO-MIXED-PRIMITIVES-001.json",
+          "used_by": [
+            {
+              "kind": "G14-proof-recheck",
+              "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+            }
+          ],
+          "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+        },
+        {
+          "evidence": {
+            "harness": "kani_chacha20_c003_aead_counter_one_stream_capacity",
+            "kind": "kani-bounded-model-check",
+            "scope": {
+              "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c003_aead_counter_one_stream_capacity",
+              "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+              "kani_result_summary": "{\"successful_checks\":33,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c003_aead_counter_one_stream_capacity.assertion.1\",\"kani_proofs::kani_chacha20_c003_aead_counter_one_stream_capacity.assertion.2\"],\"total_checks\":34,\"unreachable_checks\":[{\"check\":\"chacha20::ChaCha20::bytes_remaining.assertion.2\",\"description\":\"attempt to subtract with overflow\"}]}",
+              "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+              "kani_version": "cargo-kani 0.67.0",
+              "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c003_aead_counter_one_stream_capacity"
+            },
+            "verifier": "kani"
+          },
+          "obligation_id": "ChaCha20.C003",
+          "proof_artifact_references": [
+            "kani-run:crates/crypto-mixed-core#kani_chacha20_c003_aead_counter_one_stream_capacity"
+          ],
+          "record": {
+            "claim": {
+              "kind": "callee-precondition-established",
+              "result": "pass"
+            },
+            "config": {
+              "features": [
+                "default"
+              ],
+              "target": "x86_64-unknown-linux-gnu",
+              "toolchain": "1.95.0-x86_64-unknown-linux-gnu"
+            },
+            "evidence": {
+              "harness": "kani_chacha20_c003_aead_counter_one_stream_capacity",
+              "kind": "kani-bounded-model-check",
+              "scope": {
+                "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c003_aead_counter_one_stream_capacity",
+                "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+                "kani_result_summary": "{\"successful_checks\":33,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c003_aead_counter_one_stream_capacity.assertion.1\",\"kani_proofs::kani_chacha20_c003_aead_counter_one_stream_capacity.assertion.2\"],\"total_checks\":34,\"unreachable_checks\":[{\"check\":\"chacha20::ChaCha20::bytes_remaining.assertion.2\",\"description\":\"attempt to subtract with overflow\"}]}",
+                "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+                "kani_version": "cargo-kani 0.67.0",
+                "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c003_aead_counter_one_stream_capacity"
+              },
+              "verifier": "kani"
+            },
+            "schema_version": "1.0",
+            "support": {
+              "status": "supported"
+            },
+            "trust": {
+              "assumptions": []
+            }
+          },
+          "report_path": "ci/results/WP-CRYPTO-MIXED-PRIMITIVES-001.json",
+          "used_by": [
+            {
+              "kind": "G14-proof-recheck",
+              "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+            }
+          ],
+          "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+        },
+        {
+          "evidence": {
+            "harness": "kani_chacha20_c004_with_counter_stream_capacity",
+            "kind": "kani-bounded-model-check",
+            "scope": {
+              "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c004_with_counter_stream_capacity",
+              "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+              "kani_result_summary": "{\"successful_checks\":25,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c004_with_counter_stream_capacity.assertion.4\"],\"total_checks\":26,\"unreachable_checks\":[{\"check\":\"chacha20::ChaCha20::bytes_remaining.assertion.2\",\"description\":\"attempt to subtract with overflow\"}]}",
+              "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+              "kani_version": "cargo-kani 0.67.0",
+              "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c004_with_counter_stream_capacity"
+            },
+            "verifier": "kani"
+          },
+          "obligation_id": "ChaCha20.C004",
+          "proof_artifact_references": [
+            "kani-run:crates/crypto-mixed-core#kani_chacha20_c004_with_counter_stream_capacity"
+          ],
+          "record": {
+            "claim": {
+              "kind": "postcondition-holds",
+              "result": "pass"
+            },
+            "config": {
+              "features": [
+                "default"
+              ],
+              "target": "x86_64-unknown-linux-gnu",
+              "toolchain": "1.95.0-x86_64-unknown-linux-gnu"
+            },
+            "evidence": {
+              "harness": "kani_chacha20_c004_with_counter_stream_capacity",
+              "kind": "kani-bounded-model-check",
+              "scope": {
+                "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c004_with_counter_stream_capacity",
+                "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+                "kani_result_summary": "{\"successful_checks\":25,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c004_with_counter_stream_capacity.assertion.4\"],\"total_checks\":26,\"unreachable_checks\":[{\"check\":\"chacha20::ChaCha20::bytes_remaining.assertion.2\",\"description\":\"attempt to subtract with overflow\"}]}",
+                "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+                "kani_version": "cargo-kani 0.67.0",
+                "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c004_with_counter_stream_capacity"
+              },
+              "verifier": "kani"
+            },
+            "schema_version": "1.0",
+            "support": {
+              "status": "supported"
+            },
+            "trust": {
+              "assumptions": []
+            }
+          },
+          "report_path": "ci/results/WP-CRYPTO-MIXED-PRIMITIVES-001.json",
+          "used_by": [
+            {
+              "kind": "G14-proof-recheck",
+              "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+            }
+          ],
+          "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+        },
+        {
+          "evidence": {
+            "harness": "kani_chacha20_c005_bytes_remaining_tracks_consumption",
+            "kind": "kani-bounded-model-check",
+            "scope": {
+              "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c005_bytes_remaining_tracks_consumption",
+              "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+              "kani_result_summary": "{\"successful_checks\":737,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c005_bytes_remaining_tracks_consumption.assertion.3\",\"kani_proofs::kani_chacha20_c005_bytes_remaining_tracks_consumption.assertion.4\",\"kani_proofs::kani_chacha20_c005_bytes_remaining_tracks_consumption.assertion.5\",\"kani_proofs::kani_chacha20_c005_bytes_remaining_tracks_consumption.assertion.7\"],\"total_checks\":742,\"unreachable_checks\":[{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::ub_checks::is_valid_allocation_size.assertion.1\",\"description\":\"attempt to divide by zero\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
+              "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+              "kani_version": "cargo-kani 0.67.0",
+              "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c005_bytes_remaining_tracks_consumption"
+            },
+            "verifier": "kani"
+          },
+          "obligation_id": "ChaCha20.C005",
+          "proof_artifact_references": [
+            "kani-run:crates/crypto-mixed-core#kani_chacha20_c005_bytes_remaining_tracks_consumption"
+          ],
+          "record": {
+            "claim": {
+              "kind": "postcondition-holds",
+              "result": "pass"
+            },
+            "config": {
+              "features": [
+                "default"
+              ],
+              "target": "x86_64-unknown-linux-gnu",
+              "toolchain": "1.95.0-x86_64-unknown-linux-gnu"
+            },
+            "evidence": {
+              "harness": "kani_chacha20_c005_bytes_remaining_tracks_consumption",
+              "kind": "kani-bounded-model-check",
+              "scope": {
+                "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c005_bytes_remaining_tracks_consumption",
+                "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+                "kani_result_summary": "{\"successful_checks\":737,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c005_bytes_remaining_tracks_consumption.assertion.3\",\"kani_proofs::kani_chacha20_c005_bytes_remaining_tracks_consumption.assertion.4\",\"kani_proofs::kani_chacha20_c005_bytes_remaining_tracks_consumption.assertion.5\",\"kani_proofs::kani_chacha20_c005_bytes_remaining_tracks_consumption.assertion.7\"],\"total_checks\":742,\"unreachable_checks\":[{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::ub_checks::is_valid_allocation_size.assertion.1\",\"description\":\"attempt to divide by zero\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
+                "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+                "kani_version": "cargo-kani 0.67.0",
+                "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c005_bytes_remaining_tracks_consumption"
+              },
+              "verifier": "kani"
+            },
+            "schema_version": "1.0",
+            "support": {
+              "status": "supported"
+            },
+            "trust": {
+              "assumptions": []
+            }
+          },
+          "report_path": "ci/results/WP-CRYPTO-MIXED-PRIMITIVES-001.json",
+          "used_by": [
+            {
+              "kind": "G14-proof-recheck",
+              "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+            }
+          ],
+          "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+        },
+        {
+          "evidence": {
+            "harness": "kani_poly1305_finalize_tag_length",
+            "kind": "kani-bounded-model-check",
+            "scope": {
+              "input_domain": "the bounded model encoded by Kani harness kani_poly1305_finalize_tag_length",
+              "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+              "kani_result_summary": "{\"successful_checks\":844,\"successful_claim_assertions\":[\"kani_proofs::kani_poly1305_finalize_tag_length.assertion.1\"],\"total_checks\":853,\"unreachable_checks\":[{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::ub_checks::is_valid_allocation_size.assertion.1\",\"description\":\"attempt to divide by zero\"},{\"check\":\"poly1305::Poly1305::absorb.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"poly1305::Poly1305::absorb.assertion.2\",\"description\":\"attempt to add with overflow\"},{\"check\":\"poly1305::Poly1305::absorb.assertion.3\",\"description\":\"attempt to add with overflow\"},{\"check\":\"std::alloc::Layout::max_size_for_align.assertion.1\",\"description\":\"attempt to add with overflow\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
+              "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+              "kani_version": "cargo-kani 0.67.0",
+              "proof_targets": "kani-run:crates/crypto-mixed-core#kani_poly1305_finalize_tag_length"
+            },
+            "verifier": "kani"
+          },
+          "obligation_id": "Poly1305.C002",
+          "proof_artifact_references": [
+            "kani-run:crates/crypto-mixed-core#kani_poly1305_finalize_tag_length"
+          ],
+          "record": {
+            "claim": {
+              "kind": "postcondition-holds",
+              "result": "pass"
+            },
+            "config": {
+              "features": [
+                "default"
+              ],
+              "target": "x86_64-unknown-linux-gnu",
+              "toolchain": "1.95.0-x86_64-unknown-linux-gnu"
+            },
+            "evidence": {
+              "harness": "kani_poly1305_finalize_tag_length",
+              "kind": "kani-bounded-model-check",
+              "scope": {
+                "input_domain": "the bounded model encoded by Kani harness kani_poly1305_finalize_tag_length",
+                "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+                "kani_result_summary": "{\"successful_checks\":844,\"successful_claim_assertions\":[\"kani_proofs::kani_poly1305_finalize_tag_length.assertion.1\"],\"total_checks\":853,\"unreachable_checks\":[{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::ub_checks::is_valid_allocation_size.assertion.1\",\"description\":\"attempt to divide by zero\"},{\"check\":\"poly1305::Poly1305::absorb.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"poly1305::Poly1305::absorb.assertion.2\",\"description\":\"attempt to add with overflow\"},{\"check\":\"poly1305::Poly1305::absorb.assertion.3\",\"description\":\"attempt to add with overflow\"},{\"check\":\"std::alloc::Layout::max_size_for_align.assertion.1\",\"description\":\"attempt to add with overflow\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
+                "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+                "kani_version": "cargo-kani 0.67.0",
+                "proof_targets": "kani-run:crates/crypto-mixed-core#kani_poly1305_finalize_tag_length"
+              },
+              "verifier": "kani"
+            },
+            "schema_version": "1.0",
+            "support": {
+              "status": "supported"
+            },
+            "trust": {
+              "assumptions": []
+            }
+          },
+          "report_path": "ci/results/WP-CRYPTO-MIXED-PRIMITIVES-001.json",
+          "used_by": [
+            {
+              "kind": "G14-proof-recheck",
+              "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+            }
+          ],
+          "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+        },
+        {
+          "evidence": {
+            "harness": "kani_poly1305_c005_segments_match_concatenation",
+            "kind": "kani-bounded-model-check",
+            "scope": {
+              "input_domain": "the bounded model encoded by Kani harness kani_poly1305_c005_segments_match_concatenation",
+              "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+              "kani_result_summary": "{\"successful_checks\":749,\"successful_claim_assertions\":[\"kani_proofs::kani_poly1305_c005_segments_match_concatenation.assertion.1\"],\"total_checks\":753,\"unreachable_checks\":[{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
+              "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+              "kani_version": "cargo-kani 0.67.0",
+              "proof_targets": "kani-run:crates/crypto-mixed-core#kani_poly1305_c005_segments_match_concatenation"
+            },
+            "verifier": "kani"
+          },
+          "obligation_id": "Poly1305.C005",
+          "proof_artifact_references": [
+            "kani-run:crates/crypto-mixed-core#kani_poly1305_c005_segments_match_concatenation"
+          ],
+          "record": {
+            "claim": {
+              "kind": "postcondition-holds",
+              "result": "pass"
+            },
+            "config": {
+              "features": [
+                "default"
+              ],
+              "target": "x86_64-unknown-linux-gnu",
+              "toolchain": "1.95.0-x86_64-unknown-linux-gnu"
+            },
+            "evidence": {
+              "harness": "kani_poly1305_c005_segments_match_concatenation",
+              "kind": "kani-bounded-model-check",
+              "scope": {
+                "input_domain": "the bounded model encoded by Kani harness kani_poly1305_c005_segments_match_concatenation",
+                "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+                "kani_result_summary": "{\"successful_checks\":749,\"successful_claim_assertions\":[\"kani_proofs::kani_poly1305_c005_segments_match_concatenation.assertion.1\"],\"total_checks\":753,\"unreachable_checks\":[{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
+                "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+                "kani_version": "cargo-kani 0.67.0",
+                "proof_targets": "kani-run:crates/crypto-mixed-core#kani_poly1305_c005_segments_match_concatenation"
+              },
+              "verifier": "kani"
+            },
+            "schema_version": "1.0",
+            "support": {
+              "status": "supported"
+            },
+            "trust": {
+              "assumptions": []
+            }
+          },
+          "report_path": "ci/results/WP-CRYPTO-MIXED-PRIMITIVES-001.json",
+          "used_by": [
+            {
+              "kind": "G14-proof-recheck",
+              "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+            }
+          ],
+          "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+        }
+      ],
+      "required_bridges": [
+        {
+          "bridge_id": "BR-CRYPTO-MIXED-001",
+          "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+        },
+        {
+          "bridge_id": "BR-CRYPTO-MIXED-002",
+          "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+        },
+        {
+          "bridge_id": "BR-CRYPTO-MIXED-003",
+          "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+        }
+      ],
+      "scope": {
+        "counts": {
+          "evaluated_bridge_records": 3,
+          "evaluated_obligations": 6,
+          "provided_obligations": 6,
+          "required_bridges": 3,
+          "required_obligations": 6,
+          "unique_obligations": 6,
+          "work_packages": 2
+        },
+        "expected_obligations": {
+          "missing": [],
+          "obligation_ids": [],
+          "state": "unpinned",
+          "unexpected": []
+        },
+        "kind": "obligations-and-bridges",
+        "provided_obligations": [
+          {
+            "obligation_id": "ChaCha20.C002",
+            "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+          },
+          {
+            "obligation_id": "ChaCha20.C003",
+            "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+          },
+          {
+            "obligation_id": "ChaCha20.C004",
+            "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+          },
+          {
+            "obligation_id": "ChaCha20.C005",
+            "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+          },
+          {
+            "obligation_id": "Poly1305.C002",
+            "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+          },
+          {
+            "obligation_id": "Poly1305.C005",
+            "work_package": "WP-CRYPTO-MIXED-PRIMITIVES-001"
+          }
+        ],
+        "required_obligations": [
+          {
+            "obligation_id": "ChaCha20.C002",
+            "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+          },
+          {
+            "obligation_id": "ChaCha20.C003",
+            "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+          },
+          {
+            "obligation_id": "ChaCha20.C004",
+            "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+          },
+          {
+            "obligation_id": "ChaCha20.C005",
+            "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+          },
+          {
+            "obligation_id": "Poly1305.C002",
+            "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+          },
+          {
+            "obligation_id": "Poly1305.C005",
+            "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+          }
+        ]
+      },
+      "status": "degraded",
+      "work_packages": [
+        "WP-CRYPTO-MIXED-PRIMITIVES-001",
+        "WP-CRYPTO-MIXED-AEAD-001"
+      ]
+    }
+  ],
+  "exit_code": 0,
+  "format": "ligature.g14-report.v1",
+  "workspace_findings": []
+}

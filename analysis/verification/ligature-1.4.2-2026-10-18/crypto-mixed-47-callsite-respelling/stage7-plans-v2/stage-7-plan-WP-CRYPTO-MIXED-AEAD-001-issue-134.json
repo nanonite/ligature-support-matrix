@@ -1,0 +1,133 @@
+{
+  "work_package": "WP-CRYPTO-MIXED-AEAD-001",
+  "issue": "chainlink:134",
+  "cluster": "crypto-kani",
+  "functions": [
+    "crypto_mixed_core::ChaCha20Poly1305::decrypt",
+    "crypto_mixed_core::ChaCha20Poly1305::decryption_output_length",
+    "crypto_mixed_core::ChaCha20Poly1305::encrypt",
+    "crypto_mixed_core::ChaCha20Poly1305::encryption_output_length",
+    "crypto_mixed_core::ChaCha20Poly1305::verify"
+  ],
+  "depends_on": [
+    "WP-CRYPTO-MIXED-PRIMITIVES-001"
+  ],
+  "coupling_notes": [
+    "Caller package depends on WP-CRYPTO-MIXED-PRIMITIVES-001 and consumes the two approved bridges plus the three interaction reliances. Keep P3 bounded and Kani-only; Verus remains P4, with no witness specs in scope."
+  ],
+  "provided_obligations": [],
+  "required_obligations": [
+    "ChaCha20.C002",
+    "ChaCha20.C003",
+    "ChaCha20.C004",
+    "ChaCha20.C005",
+    "Poly1305.C002",
+    "Poly1305.C005"
+  ],
+  "bridges": [
+    "BR-CRYPTO-MIXED-001",
+    "BR-CRYPTO-MIXED-002",
+    "BR-CRYPTO-MIXED-003"
+  ],
+  "assumptions": [],
+  "harnesses": {},
+  "gates": [
+    {
+      "args": [
+        "validate-interaction"
+      ],
+      "id": "g15",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "gate",
+        "g18"
+      ],
+      "id": "g18",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "gate",
+        "g19"
+      ],
+      "id": "g19",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "validate"
+      ],
+      "id": "g1a",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "validate-interaction"
+      ],
+      "id": "g1b",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "validate-bridge"
+      ],
+      "id": "g2",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "gate",
+        "g20"
+      ],
+      "id": "g20",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "gate",
+        "g9"
+      ],
+      "id": "g9",
+      "runner": "ligature"
+    },
+    {
+      "args": [
+        "validate-interaction"
+      ],
+      "id": "r2",
+      "runner": "ligature"
+    }
+  ],
+  "scheduling_rule": "reverse-dependency-order",
+  "allowed_write_set": [
+    "crates/crypto-mixed-core/src/**",
+    "crates/crypto-mixed-core/tests/**"
+  ],
+  "protected_write_set": [
+    ".envrc",
+    ".github/**",
+    ".gitignore",
+    ".mcp.json",
+    "Cargo.toml",
+    "README.md",
+    "analysis/codesight/**",
+    "analysis/upstream/**",
+    "ci/manifest/**",
+    "crates/*/Cargo.toml",
+    "crates/*/build.rs",
+    "crates/*/specs/**",
+    "crates/crypto-mixed-core/Cargo.lock",
+    "docs/*-schema.json",
+    "docs/reliance-policy.md",
+    "oracle/**",
+    "rust-toolchain.toml",
+    "rust/**",
+    "scripts/**",
+    "specs/_closure/**",
+    "tests/harnesses/**",
+    "tools/**",
+    "upstream/**"
+  ]
+}

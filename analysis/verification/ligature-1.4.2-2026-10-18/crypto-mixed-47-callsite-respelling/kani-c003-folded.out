@@ -1,0 +1,231 @@
+Kani Rust Verifier 0.67.0 (cargo plugin)
+   Compiling crypto-mixed-core v0.1.0 (/home/goya/storage/full-ligature-port-workspace/crypto-mixed/crates/crypto-mixed-core)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.12s
+Checking harness kani_proofs::kani_chacha20_c003_aead_counter_one_stream_capacity...
+CBMC 6.8.0 (cbmc-6.8.0)
+CBMC version 6.8.0 (cbmc-6.8.0) 64-bit x86_64 linux
+Reading GOTO program from file /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/kani-target/kani/x86_64-unknown-linux-gnu/debug/deps/crypto_mixed_core-b2a6961430383161__RNvNtCs5es5xvdSr8G_17crypto_mixed_core11kani_proofs51kani_chacha20_c003_aead_counter_one_stream_capacity.out
+Generating GOTO Program
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+Generic Property Instrumentation
+Running with 16 object bits, 48 offset bits (user-specified)
+Starting Bounded Model Checking
+aborting path on assume(false) at file /home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs line 1338 column 15 function std::option::Option::<usize>::ok_or::<error::CryptoError> thread 0
+aborting path on assume(false) at file src/kani_proofs.rs line 115 column 1 function kani_proofs::kani_chacha20_c003_aead_counter_one_stream_capacity thread 0
+Runtime Symex: 0.022981s
+size of program expression: 1759 steps
+slicing removed 1311 assignments
+Generated 51 VCC(s), 15 remaining after simplification
+Runtime Postprocess Equation: 0.000215444s
+Passing problem to propositional reduction
+converting SSA
+Runtime Convert SSA: 0.00193341s
+Running propositional reduction
+Post-processing
+Runtime Post-process: 3.967e-06s
+Solving with CaDiCaL 2.0.0
+2293 variables, 3656 clauses
+SAT checker: instance is SATISFIABLE
+Runtime Solver: 0.000135103s
+Runtime decision procedure: 0.00212818s
+Running propositional reduction
+Solving with CaDiCaL 2.0.0
+2294 variables, 3657 clauses
+SAT checker: instance is SATISFIABLE
+Runtime Solver: 9.5379e-05s
+Runtime decision procedure: 0.000120977s
+Running propositional reduction
+Solving with CaDiCaL 2.0.0
+2295 variables, 3658 clauses
+SAT checker: instance is SATISFIABLE
+Runtime Solver: 6.1094e-05s
+Runtime decision procedure: 8.4598e-05s
+Running propositional reduction
+Solving with CaDiCaL 2.0.0
+2296 variables, 3659 clauses
+SAT checker: instance is UNSATISFIABLE
+Runtime Solver: 8.596e-06s
+Runtime decision procedure: 3.1599e-05s
+
+RESULTS:
+Check 1: kani_proofs::kani_chacha20_c003_aead_counter_one_stream_capacity.assertion.1
+	 - Status: SUCCESS
+	 - Description: "assertion failed: requested_length <= stream.bytes_remaining()"
+	 - Location: src/kani_proofs.rs:122:9 in function kani_proofs::kani_chacha20_c003_aead_counter_one_stream_capacity
+
+Check 2: kani_proofs::kani_chacha20_c003_aead_counter_one_stream_capacity.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: src/kani_proofs.rs:115:1 in function kani_proofs::kani_chacha20_c003_aead_counter_one_stream_capacity
+
+Check 3: kani_proofs::kani_chacha20_c003_aead_counter_one_stream_capacity.assertion.2
+	 - Status: SUCCESS
+	 - Description: "assertion failed: message_length <= stream.bytes_remaining()"
+	 - Location: src/kani_proofs.rs:125:9 in function kani_proofs::kani_chacha20_c003_aead_counter_one_stream_capacity
+
+Check 4: chacha20::ChaCha20::bytes_remaining.assertion.1
+	 - Status: SUCCESS
+	 - Description: "attempt to subtract with overflow"
+	 - Location: src/chacha20.rs:40:29 in function chacha20::ChaCha20::bytes_remaining
+
+Check 5: chacha20::ChaCha20::bytes_remaining.assertion.2
+	 - Status: UNREACHABLE
+	 - Description: "attempt to subtract with overflow"
+	 - Location: src/chacha20.rs:42:13 in function chacha20::ChaCha20::bytes_remaining
+
+Check 6: chacha20::ChaCha20::bytes_remaining.assertion.3
+	 - Status: SUCCESS
+	 - Description: "attempt to multiply with overflow"
+	 - Location: src/chacha20.rs:46:25 in function chacha20::ChaCha20::bytes_remaining
+
+Check 7: chacha20::ChaCha20::bytes_remaining.assertion.4
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/chacha20.rs:46:25 in function chacha20::ChaCha20::bytes_remaining
+
+Check 8: std::option::Option::<usize>::ok_or::<error::CryptoError>.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: ../../../../../../runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs:1338:15 in function std::option::Option::<usize>::ok_or::<error::CryptoError>
+
+Check 9: aead::ChaCha20Poly1305::decryption_output_length.assertion.1
+	 - Status: SUCCESS
+	 - Description: "attempt to subtract with overflow"
+	 - Location: src/aead.rs:33:30 in function aead::ChaCha20Poly1305::decryption_output_length
+
+Check 10: core::num::<impl usize>::checked_add.arithmetic_overflow.1
+	 - Status: SUCCESS
+	 - Description: "attempt to compute `unchecked_add` which would overflow"
+	 - Location: ../../../../../../runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/num/uint_macros.rs:658:31 in function core::num::<impl usize>::checked_add
+
+Check 11: chacha20::ChaCha20::bytes_remaining.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:40:45 in function chacha20::ChaCha20::bytes_remaining
+
+Check 12: chacha20::ChaCha20::bytes_remaining.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:40:45 in function chacha20::ChaCha20::bytes_remaining
+
+Check 13: chacha20::ChaCha20::bytes_remaining.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:40:45 in function chacha20::ChaCha20::bytes_remaining
+
+Check 14: chacha20::ChaCha20::bytes_remaining.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:40:45 in function chacha20::ChaCha20::bytes_remaining
+
+Check 15: chacha20::ChaCha20::bytes_remaining.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:40:45 in function chacha20::ChaCha20::bytes_remaining
+
+Check 16: chacha20::ChaCha20::bytes_remaining.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:40:45 in function chacha20::ChaCha20::bytes_remaining
+
+Check 17: chacha20::ChaCha20::bytes_remaining.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:41:33 in function chacha20::ChaCha20::bytes_remaining
+
+Check 18: chacha20::ChaCha20::bytes_remaining.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:41:33 in function chacha20::ChaCha20::bytes_remaining
+
+Check 19: chacha20::ChaCha20::bytes_remaining.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:41:33 in function chacha20::ChaCha20::bytes_remaining
+
+Check 20: chacha20::ChaCha20::bytes_remaining.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:41:33 in function chacha20::ChaCha20::bytes_remaining
+
+Check 21: chacha20::ChaCha20::bytes_remaining.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:41:33 in function chacha20::ChaCha20::bytes_remaining
+
+Check 22: chacha20::ChaCha20::bytes_remaining.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:41:33 in function chacha20::ChaCha20::bytes_remaining
+
+Check 23: chacha20::ChaCha20::bytes_remaining.pointer_dereference.13
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:42:28 in function chacha20::ChaCha20::bytes_remaining
+
+Check 24: chacha20::ChaCha20::bytes_remaining.pointer_dereference.14
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:42:28 in function chacha20::ChaCha20::bytes_remaining
+
+Check 25: chacha20::ChaCha20::bytes_remaining.pointer_dereference.15
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:42:28 in function chacha20::ChaCha20::bytes_remaining
+
+Check 26: chacha20::ChaCha20::bytes_remaining.pointer_dereference.16
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:42:28 in function chacha20::ChaCha20::bytes_remaining
+
+Check 27: chacha20::ChaCha20::bytes_remaining.pointer_dereference.17
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:42:28 in function chacha20::ChaCha20::bytes_remaining
+
+Check 28: chacha20::ChaCha20::bytes_remaining.pointer_dereference.18
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:42:28 in function chacha20::ChaCha20::bytes_remaining
+
+Check 29: std::result::Result::<usize, error::CryptoError>::is_ok.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: ../../../../../../runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:594:18 in function std::result::Result::<usize, error::CryptoError>::is_ok
+
+Check 30: std::result::Result::<usize, error::CryptoError>::is_ok.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: ../../../../../../runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:594:18 in function std::result::Result::<usize, error::CryptoError>::is_ok
+
+Check 31: std::result::Result::<usize, error::CryptoError>::is_ok.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: ../../../../../../runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:594:18 in function std::result::Result::<usize, error::CryptoError>::is_ok
+
+Check 32: std::result::Result::<usize, error::CryptoError>::is_ok.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: ../../../../../../runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:594:18 in function std::result::Result::<usize, error::CryptoError>::is_ok
+
+Check 33: std::result::Result::<usize, error::CryptoError>::is_ok.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: ../../../../../../runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:594:18 in function std::result::Result::<usize, error::CryptoError>::is_ok
+
+Check 34: std::result::Result::<usize, error::CryptoError>::is_ok.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: ../../../../../../runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:594:18 in function std::result::Result::<usize, error::CryptoError>::is_ok
+
+
+SUMMARY:
+ ** 0 of 34 failed (1 unreachable)
+
+VERIFICATION:- SUCCESSFUL
+Verification Time: 0.052664574s
+
+Manual Harness Summary:
+Complete - 1 successfully verified harnesses, 0 failures, 1 total.
+elapsed=0.31 maxrss_kb=145516

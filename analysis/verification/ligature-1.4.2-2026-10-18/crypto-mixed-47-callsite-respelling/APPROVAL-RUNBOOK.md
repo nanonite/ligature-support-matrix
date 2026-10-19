@@ -60,10 +60,15 @@ then it reports as intent without realization (info).
 ! cd /home/goya/storage/full-ligature-port-workspace/crypto-mixed && python3 -I tools/ligature/ligature.pyz approve crates/crypto-mixed-core/specs/_bridges/BR-CRYPTO-MIXED-003.json --reviewer roger-codex-luna6
 ```
 
-## 5. Ruling over the 13 changed or new artifacts
+## 5. Ruling over the 13 changed or new artifacts (plus the closure profile)
+
+The last `--artifact` also rules on `specs/_closure/crypto-kani.json`. It
+was approved on 2026-10-13 and is unchanged since, but it never had a
+ratified ruling; `status` reports that as a medium `human-ruling` finding.
+Drop that argument if you don't want to rule on it now.
 
 ```sh
-! cd /home/goya/storage/full-ligature-port-workspace/crypto-mixed && S=crates/crypto-mixed-core/specs && python3 -I tools/ligature/ligature.pyz record-ruling --reviewer roger-codex-luna6 --verdict ratified --artifact $S/cha_cha20.json --artifact $S/poly1305.json --artifact $S/_boundaries/cha_cha20_poly1305_encrypt__to__cha_cha20_with_counter.json --artifact $S/_boundaries/cha_cha20_poly1305_encrypt__to__cha_cha20_bytes_remaining.json --artifact $S/_boundaries/cha_cha20_poly1305_decrypt__to__cha_cha20_with_counter.json --artifact $S/_boundaries/cha_cha20_poly1305_decrypt__to__cha_cha20_apply_keystream.json --artifact $S/_boundaries/cha_cha20_poly1305_tag__to__poly1305_compute_tag_segments.json --artifact $S/_interactions/I-CRYPTO-MIXED-004.json --artifact $S/_interactions/I-CRYPTO-MIXED-005.json --artifact $S/_interactions/I-CRYPTO-MIXED-006.json --artifact $S/_interactions/I-CRYPTO-MIXED-007.json --artifact $S/_interactions/I-CRYPTO-MIXED-008.json --artifact $S/_bridges/BR-CRYPTO-MIXED-003.json
+! cd /home/goya/storage/full-ligature-port-workspace/crypto-mixed && S=crates/crypto-mixed-core/specs && python3 -I tools/ligature/ligature.pyz record-ruling --reviewer roger-codex-luna6 --verdict ratified --artifact $S/cha_cha20.json --artifact $S/poly1305.json --artifact $S/_boundaries/cha_cha20_poly1305_encrypt__to__cha_cha20_with_counter.json --artifact $S/_boundaries/cha_cha20_poly1305_encrypt__to__cha_cha20_bytes_remaining.json --artifact $S/_boundaries/cha_cha20_poly1305_decrypt__to__cha_cha20_with_counter.json --artifact $S/_boundaries/cha_cha20_poly1305_decrypt__to__cha_cha20_apply_keystream.json --artifact $S/_boundaries/cha_cha20_poly1305_tag__to__poly1305_compute_tag_segments.json --artifact $S/_interactions/I-CRYPTO-MIXED-004.json --artifact $S/_interactions/I-CRYPTO-MIXED-005.json --artifact $S/_interactions/I-CRYPTO-MIXED-006.json --artifact $S/_interactions/I-CRYPTO-MIXED-007.json --artifact $S/_interactions/I-CRYPTO-MIXED-008.json --artifact $S/_bridges/BR-CRYPTO-MIXED-003.json --artifact specs/_closure/crypto-kani.json
 ```
 
 ## 6. Re-mint the crypto-kani promotion receipt (all 29 artifacts)

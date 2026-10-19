@@ -75,7 +75,7 @@ See the #47 comment for the full list and the approval order. Summary:
   | C005, first form (symbolic counter and length) | timed out at 1500 s; rewritten |
   | C005 (8 concrete counter/length boundary cases plus a block-crossing pair) | 0/742 failed, 130 s, 2.9 GB |
   | Poly1305.C005 (7 concrete splits of the RFC vector) | 0/753 failed, 35 s |
-  | bridge_003 (all usize lengths) | 0/25 failed |
+  | bridge_003 (all usize lengths) | 0/25 failed (later folded into the C003 harness; see section 5) |
   | regression: `poly1305_matches_the_pinned_botan_self_test_vector` | 0/619 failed |
   | regression: `aead_matches_the_pinned_botan_vector` | 0/1489 failed, 170 s, 13.6 GB |
 
@@ -89,3 +89,36 @@ See the #47 comment for the full list and the approval order. Summary:
   set_key`) are never realized in the Rust port (Botan structure). Retiring
   them affects BR-CRYPTO-MIXED-001 and both manifests, and is left for the
   owner after this round.
+
+## 5. Approval, Stage 7 regeneration, and gates (2026-10-19)
+
+The owner approved the 13 drafts, ruled on them (plus the closure profile),
+and re-minted `PROM-CRYPTO-KANI-001` over 29 artifacts (`APPROVAL-RUNBOOK.md`).
+The agent then added BR-CRYPTO-MIXED-003 to the fail-closed Kani bridge
+adapter (`check-bridges-1/2.out`, `gate-g9-after.out`) and wrote the v2
+Stage 7 plans (`stage7-plans-v2/`, issue 134: six obligations including
+C004/C005/Poly1305.C005, plus BR-003).
+
+| Step | Result | File (`stage7-plans-v2/`) |
+|---|---|---|
+| `generate-work-package --regenerate` PRIMITIVES (grant `GW-dd600ef187c2`) | exit 0, `445326e1…` → `6f28effc…`; diff = 3 new bindings, 2 functions, 6 provided obligations, receipt hash, base commit | `generate-PRIMITIVES.json`, `manifest-PRIMITIVES.diff` |
+| same, AEAD (grant `GW-3a6e9f51d098`) | exit 0, `e309f9fb…` → `722d6521…`; diff = 3 new required obligations, BR-003, receipt hash, base commit | `generate-AEAD.json`, `manifest-AEAD.diff` |
+| BR-003 scope mismatch | the manifest copied I-007's C003 scope (`kani_chacha20_c003…`, then encrypt-only) while the BR-003 record used `bridge_003…` | `../APPROVAL-RUNBOOK-I007.md` |
+| round 2: I-007 re-scoped to `bridge_003…`, approved and promoted | both regenerations **refused** (exit 2, `contradictory-source`: C003 has conflicting required_assurance in I-002 and I-007); nothing written | `generate-*-round2.json`, `crypto-ligature-012` |
+| round 3: C003 harness proves both AEAD length gates; BR-003 adapter uses it; I-007 restored to the round-1 content and re-approved | Kani 0/34 failed; `check-bridges` 0; `gate-g9` 0 (3 bridges) | `../kani-c003-folded.out`, `../check-bridges-3.out`, `../gate-g9-round3.out` |
+| regenerate both (grants `GW-ae29e8b2cafa`, `GW-d85c40268320`) | exit 0, `unchanged` (the round-3 artifact set is byte-identical to round 1) | `generate-*-round3.json` |
+| `validate-work-package` ×2, `validate-promotion`, `validate-closure` | exit 0 | `validate-*.out` |
+| `record-assurance` PRIMITIVES, 6 bindings | exit 0, all `supported`: C002 646, C003 33, C004 25, C005 737, Poly1305.C002 844, Poly1305.C005 749 proved goals; 287 s, 4.7 GB | `record-assurance-primitives-round3.*` |
+| `tests/record_bridge_only_report.py` (AEAD) | exit 0; 3 bridge records, all `pass` (stale 2-bridge report kept as `WP-CRYPTO-MIXED-AEAD-001.report-before.json`) | `record-bridge-only-report.out` |
+| `extract-c-static` | 18 discovered / 18 resolved / 0 unresolved | `extract-c-static.out` |
+| `validate-callsites` | exit 0 (exit 1 before re-extraction: stale binding after the harness edit) | `validate-callsites*.out` |
+| `gate-r1-g16 --json` | exit 0, **accepted**: 18 checked, 0 undeclared, 0 unresolved, reconciliation complete | `gate-r1-g16.json` |
+| `write-set-check --issue 134` / `--issue 47` | exit 0 / exit 0 | `write-set-check-*.json` |
+| `gate-g14 --json` | exit 0; `crypto-kani` **bounded**, status `degraded` (CG3 per-instantiation ceiling, the accepted condition); 6 obligations + 3 bridges evaluated, 6 proof artifacts re-checked, 0 cycles; 346 s, 4.7 GB | `gate-g14.json` |
+
+`bridge_003_limits_aead_ciphertext_to_the_counter_one_stream` remains in
+`src/kani_proofs.rs`, unused, like the pre-existing `bridge_002…`.
+
+Still open after #47: I-CRYPTO-MIXED-001/003 are never realized in the Rust
+port (section 4); I-CRYPTO-MIXED-008 reports intent without realization
+until upstream #170 ships.
