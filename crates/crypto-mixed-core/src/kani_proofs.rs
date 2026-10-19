@@ -114,11 +114,15 @@ fn kani_chacha20_apply_keystream_capacity() {
 #[kani::proof]
 fn kani_chacha20_c003_aead_counter_one_stream_capacity() {
     let requested_length: usize = kani::any();
+    let ciphertext_and_tag_length: usize = kani::any();
     let aead = ChaCha20Poly1305::new();
     let stream = ChaCha20::with_counter([0; 32], [0; 12], 1);
 
     if aead.encryption_output_length(requested_length).is_ok() {
         assert!(requested_length <= stream.bytes_remaining());
+    }
+    if let Ok(message_length) = aead.decryption_output_length(ciphertext_and_tag_length) {
+        assert!(message_length <= stream.bytes_remaining());
     }
 }
 

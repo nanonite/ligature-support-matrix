@@ -12,5 +12,9 @@
   "callee_guarantees": [
     "ChaCha20.C002",
     "ChaCha20.C003"
-  ]
+  ],
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-19"
+  }
 }

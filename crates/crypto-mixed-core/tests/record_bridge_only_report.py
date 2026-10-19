@@ -31,6 +31,10 @@ BRIDGE_IDS = {
         "the bounded model encoded by Kani harness "
         "kani_chacha20_c003_aead_counter_one_stream_capacity"
     ),
+    "BR-CRYPTO-MIXED-003": (
+        "the bounded model encoded by Kani harness "
+        "kani_chacha20_c003_aead_counter_one_stream_capacity"
+    ),
 }
 
 
@@ -111,7 +115,7 @@ def assemble() -> Path:
         raise ReportError("bridge-only report is valid only for a package with no provided guarantees")
     required = done.get("required_preconditions_to_establish")
     if not isinstance(required, list) or {entry.get("bridge_id") for entry in required if isinstance(entry, dict)} != set(BRIDGE_IDS):
-        raise ReportError("AEAD manifest no longer requires exactly the two reviewed bridges")
+        raise ReportError("AEAD manifest no longer requires exactly the reviewed bridges")
     report_cfg = manifest.get("report")
     if not isinstance(report_cfg, dict) or report_cfg.get("emit") != REPORT_REL.as_posix():
         raise ReportError("AEAD manifest report path is not the canonical package report path")

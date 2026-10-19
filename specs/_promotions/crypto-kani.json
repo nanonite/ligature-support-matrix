@@ -5,52 +5,12 @@
   "reviewer": "roger-codex-luna6",
   "policy_version": "reliance-policy@0.1",
   "schema_versions": {
+    "evidence": "1.0",
     "boundary": "1.0",
-    "interaction": "1.0",
-    "evidence": "1.0"
+    "interaction": "1.0"
   },
-  "accepted_at": "2026-10-14",
+  "accepted_at": "2026-10-19",
   "artifact_manifest": [
-    {
-      "path": "crates/crypto-mixed-core/specs/_boundaries/cha_cha20_poly1305_encrypt__to__cha_cha20_apply_keystream.json",
-      "hash": "sha256:187da8d80c568ec2b703f34e162bc321d942917b081c7885c475afa47d077900"
-    },
-    {
-      "path": "crates/crypto-mixed-core/specs/_boundaries/cha_cha20_poly1305_encrypt__to__poly1305_finalize.json",
-      "hash": "sha256:0957c899c8abeccbbe7a2c2d6320e8cefdcb36e79e3d582a85136898d60dd7dc"
-    },
-    {
-      "path": "crates/crypto-mixed-core/specs/_boundaries/cha_cha20_poly1305_encrypt__to__poly1305_set_key.json",
-      "hash": "sha256:38256beb99e1ff43cdded4fc3758344eb7f204707bb5daf7b4fc97701ade338d"
-    },
-    {
-      "path": "crates/crypto-mixed-core/specs/_bridges/BR-CRYPTO-MIXED-001.json",
-      "hash": "sha256:d52e254df69d3496cf6aee9b5cce7c8177c17ca6bfb082b81c390005536156f9"
-    },
-    {
-      "path": "crates/crypto-mixed-core/specs/_bridges/BR-CRYPTO-MIXED-002.json",
-      "hash": "sha256:14e10501df9dbd4d1f7343d701ff345cac39735232ada1eca4c840d203c31ffd"
-    },
-    {
-      "path": "crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-001.json",
-      "hash": "sha256:1cd34f58b7ac1f507862bf67677728ccfe773ac2a1072a9d35adc784a4c66673"
-    },
-    {
-      "path": "crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-002.json",
-      "hash": "sha256:6ce75b0ef62ceb480b4f5fee4474caef7e92d0b2c90c25c2bbff75373eaf5496"
-    },
-    {
-      "path": "crates/crypto-mixed-core/specs/cha_cha20.json",
-      "hash": "sha256:e1c354d860d90197d1182eca96de576028474382653527adc258552a7e71bd5e"
-    },
-    {
-      "path": "crates/crypto-mixed-core/specs/cha_cha20_poly1305.json",
-      "hash": "sha256:5d1bc8256655e3b8cb5cb5d83f7caa7c81d77059d742304e755ee47dcf522b4d"
-    },
-    {
-      "path": "crates/crypto-mixed-core/specs/poly1305.json",
-      "hash": "sha256:4ace30820a634774b2f17f469be54cc153661817083ec3063cebe16738b2a849"
-    },
     {
       "path": "docs/reliance-policy.md",
       "hash": "sha256:dab83f2594d27ef74f82b99ee1d6573dc1a9207c472d79d45b00a1d3bafa0c2a"
@@ -80,8 +40,92 @@
       "hash": "sha256:81e94ad468fa04524f00c39a64e8c0f2057b585c8536003b871f99c94a037819"
     },
     {
+      "path": "crates/crypto-mixed-core/specs/cha_cha20.json",
+      "hash": "sha256:3278c0b152a5564140fb05696fed8349e263949da3fdc0cceec21527bf6ec259"
+    },
+    {
+      "path": "crates/crypto-mixed-core/specs/cha_cha20_poly1305.json",
+      "hash": "sha256:5d1bc8256655e3b8cb5cb5d83f7caa7c81d77059d742304e755ee47dcf522b4d"
+    },
+    {
+      "path": "crates/crypto-mixed-core/specs/poly1305.json",
+      "hash": "sha256:8ccc7721050f06b9310a567d986434cdcf678b2995fbef580927ccf0eac1c94d"
+    },
+    {
+      "path": "crates/crypto-mixed-core/specs/_boundaries/cha_cha20_poly1305_encrypt__to__cha_cha20_apply_keystream.json",
+      "hash": "sha256:187da8d80c568ec2b703f34e162bc321d942917b081c7885c475afa47d077900"
+    },
+    {
+      "path": "crates/crypto-mixed-core/specs/_boundaries/cha_cha20_poly1305_encrypt__to__poly1305_finalize.json",
+      "hash": "sha256:0957c899c8abeccbbe7a2c2d6320e8cefdcb36e79e3d582a85136898d60dd7dc"
+    },
+    {
+      "path": "crates/crypto-mixed-core/specs/_boundaries/cha_cha20_poly1305_encrypt__to__poly1305_set_key.json",
+      "hash": "sha256:38256beb99e1ff43cdded4fc3758344eb7f204707bb5daf7b4fc97701ade338d"
+    },
+    {
+      "path": "crates/crypto-mixed-core/specs/_boundaries/cha_cha20_poly1305_encrypt__to__cha_cha20_with_counter.json",
+      "hash": "sha256:1cdc592e106f51082ed5a7741d762ec67205a8390fab7b9644e043159ddd7864"
+    },
+    {
+      "path": "crates/crypto-mixed-core/specs/_boundaries/cha_cha20_poly1305_encrypt__to__cha_cha20_bytes_remaining.json",
+      "hash": "sha256:f887b4d7ecf4cfdc441c72f1be92b66a974d60497f70bb6a1464db2d62e6d2cd"
+    },
+    {
+      "path": "crates/crypto-mixed-core/specs/_boundaries/cha_cha20_poly1305_decrypt__to__cha_cha20_with_counter.json",
+      "hash": "sha256:ccc40b44caecee09d035db33013afa734344a53dd5b4266ead30bba89ba7412b"
+    },
+    {
+      "path": "crates/crypto-mixed-core/specs/_boundaries/cha_cha20_poly1305_decrypt__to__cha_cha20_apply_keystream.json",
+      "hash": "sha256:3834b217fa85ad777703d8d6c691510b5b9fa019daa54f673b37affb295ef4b7"
+    },
+    {
+      "path": "crates/crypto-mixed-core/specs/_boundaries/cha_cha20_poly1305_tag__to__poly1305_compute_tag_segments.json",
+      "hash": "sha256:74e993cca855995a88462e15588998e80fc20d81296eab5dee061aed23e9a28f"
+    },
+    {
+      "path": "crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-001.json",
+      "hash": "sha256:1cd34f58b7ac1f507862bf67677728ccfe773ac2a1072a9d35adc784a4c66673"
+    },
+    {
+      "path": "crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-002.json",
+      "hash": "sha256:6ce75b0ef62ceb480b4f5fee4474caef7e92d0b2c90c25c2bbff75373eaf5496"
+    },
+    {
       "path": "crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-003.json",
       "hash": "sha256:07518a4e8a34c43ca6c23283c56f6686f9a49faed69e0cf7141123a92b35c42c"
+    },
+    {
+      "path": "crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-004.json",
+      "hash": "sha256:a61b784759e97d5cc3302e7d4e692346b2d9ad5adffb4f85ed3c06f5681d37fe"
+    },
+    {
+      "path": "crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-005.json",
+      "hash": "sha256:a9503b42a1b4d3ff5e2ef29f28cca734f1fb1b8b4a6c6251458d3467a41a70da"
+    },
+    {
+      "path": "crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-006.json",
+      "hash": "sha256:83138c03101beda78dcb4e474e24dca3ada56da78cad0dbfebda3a8c6078c8b9"
+    },
+    {
+      "path": "crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-007.json",
+      "hash": "sha256:16d8a28a5238b5fc484688651ca3cf9bcafe2df8ca9407b455ff4ac5573f9c66"
+    },
+    {
+      "path": "crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-008.json",
+      "hash": "sha256:d654de42ad6bb683b23478d3a94cedda02f2a248cbc8c5265ff59042f045905c"
+    },
+    {
+      "path": "crates/crypto-mixed-core/specs/_bridges/BR-CRYPTO-MIXED-001.json",
+      "hash": "sha256:d52e254df69d3496cf6aee9b5cce7c8177c17ca6bfb082b81c390005536156f9"
+    },
+    {
+      "path": "crates/crypto-mixed-core/specs/_bridges/BR-CRYPTO-MIXED-002.json",
+      "hash": "sha256:14e10501df9dbd4d1f7343d701ff345cac39735232ada1eca4c840d203c31ffd"
+    },
+    {
+      "path": "crates/crypto-mixed-core/specs/_bridges/BR-CRYPTO-MIXED-003.json",
+      "hash": "sha256:2b9cb9a5ebaf805ffbe572ac8064689b03d5b52c2e794bce30ebe20720373d94"
     }
   ]
 }

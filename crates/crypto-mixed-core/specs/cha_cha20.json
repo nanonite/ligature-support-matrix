@@ -55,6 +55,26 @@
         "apply_keystream"
       ],
       "id": "C003"
+    },
+    {
+      "english": "A stream started at block counter c has (2^32 - c) * 64 keystream bytes available.",
+      "logic": "ChaCha20::with_counter(key, nonce, counter).bytes_remaining() as u64 == (4294967296 - counter as u64) * 64",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "with_counter"
+      ],
+      "id": "C004"
+    },
+    {
+      "english": "The remaining capacity drops by exactly the input length after a successful keystream application and is unchanged after a rejected one.",
+      "logic": "match self.apply_keystream(input) { Ok(_) => self.bytes_remaining() == old(self.bytes_remaining()) - input.len(), Err(_) => self.bytes_remaining() == old(self.bytes_remaining()) }",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "bytes_remaining"
+      ],
+      "id": "C005"
     }
   ],
   "adversary_table": [
@@ -72,6 +92,16 @@
       "scenario": "Use an all-zero key and nonce with counter zero.",
       "violates": "C001",
       "resolution": "match the pinned RFC ChaCha20 block result"
+    },
+    {
+      "scenario": "Start streams at counters 0, 1, and 2^32 - 1 and query the remaining capacity.",
+      "violates": "C004",
+      "resolution": "report exactly the remaining whole-block capacity for the starting counter"
+    },
+    {
+      "scenario": "Consume 1, 63, 64, and 65 bytes, including an overlong request near counter exhaustion, then query the remaining capacity.",
+      "violates": "C005",
+      "resolution": "lower the capacity by exactly the consumed length and leave it unchanged on rejection"
     }
   ],
   "source_references": [
@@ -88,6 +118,6 @@
   ],
   "review": {
     "reviewer": "roger-codex-luna6",
-    "reviewed_at": "2026-10-13"
+    "reviewed_at": "2026-10-19"
   }
 }

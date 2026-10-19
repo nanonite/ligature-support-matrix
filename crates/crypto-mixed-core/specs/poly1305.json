@@ -73,6 +73,16 @@
         "compute_tag_chunked"
       ],
       "id": "C004"
+    },
+    {
+      "english": "Authenticating a sequence of segments gives the tag of their concatenation.",
+      "logic": "compute_tag_segments(key, segments) == compute_tag(key, &segments.concat())",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "compute_tag_segments"
+      ],
+      "id": "C005"
     }
   ],
   "adversary_table": [
@@ -95,6 +105,11 @@
       "scenario": "Set the split offset beyond the message length.",
       "violates": "C004",
       "resolution": "return an error without reading outside the message"
+    },
+    {
+      "scenario": "Split the RFC test message into three segments at block and non-block offsets, including empty segments.",
+      "violates": "C005",
+      "resolution": "produce the same tag as one-shot authentication of the concatenated message"
     }
   ],
   "source_references": [
@@ -111,6 +126,6 @@
   ],
   "review": {
     "reviewer": "roger-codex-luna6",
-    "reviewed_at": "2026-10-13"
+    "reviewed_at": "2026-10-19"
   }
 }

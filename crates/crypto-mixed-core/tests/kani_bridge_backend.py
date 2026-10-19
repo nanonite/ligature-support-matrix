@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail-closed Kani adapter for this pilot's two generated bridge contracts.
+"""Fail-closed Kani adapter for this pilot's generated bridge contracts.
 
 Ligature 1.3.10 dispatches the generated bridge harness path to this program.
 The generated DSL is not standalone Rust, so this adapter checks its exact
@@ -64,6 +64,22 @@ let plaintext: &[u8] = kani::any();
 kani::assume(ChaCha20Poly1305::C001(caller_self, plaintext));
 kani::assume(input_fits_remaining_stream(chacha, plaintext));
 assert!(ChaCha20::C003(caller_self, chacha, plaintext), \"BR-CRYPTO-MIXED-002: ChaCha20.C003\");
+}""",
+        "source_harness": "kani_chacha20_c003_aead_counter_one_stream_capacity",
+        "scope": "the bounded model encoded by Kani harness kani_chacha20_c003_aead_counter_one_stream_capacity",
+    },
+    "BR-CRYPTO-MIXED-003": {
+        "boundary": "cha_cha20_poly1305_decrypt__to__cha_cha20_apply_keystream",
+        "conclusion": "ChaCha20.C003",
+        "function": "bridge_br_crypto_mixed_003",
+        "body": """#[kani::proof]
+pub fn bridge_br_crypto_mixed_003() {
+let caller_self: ChaCha20Poly1305 = kani::any();
+let chacha: ChaCha20 = kani::any();
+let ciphertext: &[u8] = kani::any();
+kani::assume(ChaCha20Poly1305::C002(caller_self, ciphertext));
+kani::assume(fresh_counter_one_stream(chacha, ciphertext));
+assert!(ChaCha20::C003(caller_self, chacha, ciphertext), \"BR-CRYPTO-MIXED-003: ChaCha20.C003\");
 }""",
         "source_harness": "kani_chacha20_c003_aead_counter_one_stream_capacity",
         "scope": "the bounded model encoded by Kani harness kani_chacha20_c003_aead_counter_one_stream_capacity",

@@ -30,7 +30,7 @@
         "input_domain": "the bounded model encoded by Kani harness bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key",
         "kani_version": "0.67.0",
         "source_harness": "bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key",
-        "source_harness_sha256": "100d522a90464a0076f449feb82c9cd0cdb267d3eb852ad0b1c766180a7abeef",
+        "source_harness_sha256": "763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
         "harness_hash": "sha256:fc30f6244fd710e267e5fa09e738ae9c98c876fdf950f6743830f83cf3d4d69c"
       }
     },

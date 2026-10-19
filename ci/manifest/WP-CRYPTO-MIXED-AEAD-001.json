@@ -43,6 +43,42 @@
       },
       {
         "assume_during_check": true,
+        "obligation_id": "ChaCha20.C004",
+        "required_assurance": {
+          "accepted_evidence_kinds": [
+            "kani-bounded-model-check"
+          ],
+          "minimum_scope": {
+            "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c004_with_counter_stream_capacity"
+          },
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "trust_policy": {
+            "assumptions_allowed": []
+          }
+        }
+      },
+      {
+        "assume_during_check": true,
+        "obligation_id": "ChaCha20.C005",
+        "required_assurance": {
+          "accepted_evidence_kinds": [
+            "kani-bounded-model-check"
+          ],
+          "minimum_scope": {
+            "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c005_bytes_remaining_tracks_consumption"
+          },
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "trust_policy": {
+            "assumptions_allowed": []
+          }
+        }
+      },
+      {
+        "assume_during_check": true,
         "obligation_id": "Poly1305.C002",
         "required_assurance": {
           "accepted_evidence_kinds": [
@@ -50,6 +86,24 @@
           ],
           "minimum_scope": {
             "input_domain": "the bounded model encoded by Kani harness kani_poly1305_finalize_tag_length"
+          },
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "trust_policy": {
+            "assumptions_allowed": []
+          }
+        }
+      },
+      {
+        "assume_during_check": true,
+        "obligation_id": "Poly1305.C005",
+        "required_assurance": {
+          "accepted_evidence_kinds": [
+            "kani-bounded-model-check"
+          ],
+          "minimum_scope": {
+            "input_domain": "the bounded model encoded by Kani harness kani_poly1305_c005_segments_match_concatenation"
           },
           "required_claims": [
             "postcondition-holds"
@@ -81,6 +135,24 @@
       },
       {
         "bridge_id": "BR-CRYPTO-MIXED-002",
+        "callsite_requirement": "all-discovered-resolved",
+        "required_assurance": {
+          "accepted_evidence_kinds": [
+            "kani-bounded-model-check"
+          ],
+          "minimum_scope": {
+            "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c003_aead_counter_one_stream_capacity"
+          },
+          "required_claims": [
+            "callee-precondition-established"
+          ],
+          "trust_policy": {
+            "assumptions_allowed": []
+          }
+        }
+      },
+      {
+        "bridge_id": "BR-CRYPTO-MIXED-003",
         "callsite_requirement": "all-discovered-resolved",
         "required_assurance": {
           "accepted_evidence_kinds": [
@@ -220,11 +292,12 @@
   "issue": "chainlink:134",
   "obligations": [
     "BR-CRYPTO-MIXED-001",
-    "BR-CRYPTO-MIXED-002"
+    "BR-CRYPTO-MIXED-002",
+    "BR-CRYPTO-MIXED-003"
   ],
   "provenance": {
-    "artifact_set_hash": "sha256:e0b22f122c9e542d4cbdae5b3b9f3f79fade1b7074aa6e36848c676fd57a7027",
-    "base_commit": "f4ca3479034972a5cb13cf1e9c722bf44f944a5b",
+    "artifact_set_hash": "sha256:28b2e16d1f368476eb28780cbaf7fab03deb7b25fe14e3c4973c13d9933ff679",
+    "base_commit": "666751057a68634774673f5eadb4f2df0e598c07",
     "features": [
       "default"
     ],
