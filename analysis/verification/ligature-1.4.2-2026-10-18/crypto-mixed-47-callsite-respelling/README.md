@@ -122,3 +122,19 @@ C004/C005/Poly1305.C005, plus BR-003).
 Still open after #47: I-CRYPTO-MIXED-001/003 are never realized in the Rust
 port (section 4); I-CRYPTO-MIXED-008 reports intent without realization
 until upstream #170 ships.
+
+### Post-commit `check` and the feature configuration
+
+`check` after the commit exited 0 but named I-CRYPTO-MIXED-004 as the next
+action: every interaction declares `features=['default']`, while
+`extract-c-static` had been run with no `--feature` (also the case for
+I-002 before #47; `info` only). Re-extracted under the declared
+configuration:
+
+| Step | Result | File (`stage7-plans-v2/`) |
+|---|---|---|
+| `extract-c-static --target x86_64-unknown-linux-gnu --feature default` | 18 / 18 / 0 | `extract-c-static-feature-default.out` (previous report: `c_static-features-none.json`) |
+| `validate-callsites`, `gate-r1-g16 --json` | exit 0 / exit 0, accepted, 0 configuration findings | `validate-callsites-feature-default.out`, `gate-r1-g16-feature-default.json` |
+| `check` | exit 0; R1/G16, G9, G14 executed; G18-G20 not applicable (P3 has no witness specs); 23 findings (was 28), only medium = the accepted CG3 degradation; next action = I-CRYPTO-MIXED-001 intent without realization; 311 s, 4.7 GB | `check.out` |
+
+Use `--feature default` for every future extraction in this pilot.
