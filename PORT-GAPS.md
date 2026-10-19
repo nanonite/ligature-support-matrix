@@ -95,9 +95,31 @@ Verus remains outside P3. No constant-time or side-channel claim is made. The sc
 - **What the Rust port does instead:** It builds a concrete local (`let mut chacha = ChaCha20::with_counter(*key, *nonce, 1);`) and calls inherent methods on it (`aead.rs:49,52,76`). It reaches the Poly1305 state through an `Option` projection (`self.state.as_mut().ok_or(..)?.update(input)`, `poly1305.rs:32`).
 - **Why:** Ligature 1.4.1's `extract-c-static` uses a coarse syntactic extractor (supported forms: associated-path call, `self` method call, inherent call by name). It cannot infer a local's or projection's receiver type, so it classifies these four ordinary static calls as `possible-dispatch` with the default medium risk.
 - **Impact:** The four sites are unresolved, so the AEAD package's `all-discovered-resolved` bridge requirement and G14 fail even though the Rust code has no dynamic dispatch. To clear them, either rewrite the calls in a form the extractor resolves (e.g. `ChaCha20::apply_keystream(&mut chacha, …)`), which changes source hashes and forces fresh Kani records, or resolve them through the sanctioned call-site workflow.
-- **Status:** Open; Stage 8A (#47).
-- **Finding ids:** `crypto-ligature-008`
+- **Status:** Resolved 2026-10-19 (#47): the four sites were respelled as associated-path calls, so the extractor reports 0 unresolved. Resolving them exposed three more undeclared cross-concept calls (`crypto-ligature-011`), now staged as interactions for approval.
+- **Finding ids:** `crypto-ligature-008`, `crypto-ligature-011`
 - **Generalizable lesson:** Gating on a syntactic call graph puts pressure on idiomatic Rust (method calls on typed locals, `?` chains) to be rewritten into explicit path calls. Budget for that rewrite, or for a type-aware extractor, before relying on "all call sites resolved".
+
+### Ligature's extractor drops every method that returns an array
+
+- **Category:** Tooling blind spots in the transfer
+- **C++ construct / upstream location:** Botan's Poly1305 and AEAD code writes tags and keys into caller buffers (`final_result(uint8_t[])`), so no C++ function returns an array.
+- **What the Rust port does instead:** Fixed-size results are returned by value: `ChaCha20Poly1305::tag`, `Poly1305::compute_tag`, `compute_tag_chunked`, `compute_tag_segments` and `finalize` return `[u8; 16]`; `ChaCha20::block` returns `[u8; 64]`.
+- **Why:** Ligature 1.4.2's `extract-c-static` silently skips any method whose return type is an array, both as a caller and as a callee, and does not count the dropped calls as unresolved (upstream #170, local #150).
+- **Impact:** The real AEAD-to-Poly1305 edge (`ChaCha20Poly1305::tag -> Poly1305::compute_tag_segments`) and every call inside `compute_tag*` were invisible to R1/G16, while the report claimed every discovered site resolved. A scratch probe with only the return types aliased shows the true graph: 35 discovered, 0 unresolved, and 5 undeclared cross-concept edges after the Poly1305 fold.
+- **Status:** Escalated upstream. The hidden edge is declared anyway (`I-CRYPTO-MIXED-008`, staged), so nothing needs re-approving when the fix ships.
+- **Finding ids:** `crypto-ligature-010`
+- **Generalizable lesson:** Idiomatic Rust returns fixed-size crypto values by value. A syntactic extractor can trip on that form, so check the extractor against a type-aware call graph before trusting its discovered count.
+
+### The Rust AEAD computes its tag differently from Botan's streaming MAC
+
+- **Category:** Structural differences in the port
+- **C++ construct / upstream location:** Botan's `ChaCha20Poly1305_Encryption::process_msg` / `finish_msg` stream the ciphertext into a member `m_poly1305` (`update`, then `final`), after keying it with `set_key` (`src/lib/modes/aead/chacha20poly1305/chacha20poly1305.cpp` at `2a81eef56c96c237e590c27f9a75e60317c9c700`).
+- **What the Rust port does instead:** `ChaCha20Poly1305::tag` derives the one-time key and calls `Poly1305::compute_tag_segments` once over the RFC 8439 MAC data (AAD, padding, ciphertext, padding, lengths). The Poly1305 accumulator, previously a separate private `Poly1305State` struct, is folded into `Poly1305` itself (2026-10-19, #47), matching Botan's single class. A differential test over 3000 random cases plus the Botan vector showed identical output.
+- **Why:** One-shot segment authentication is simpler to verify than a stateful streaming protocol. The separate state struct made the extractor treat a private helper as its own concept, which added five cross-concept edges.
+- **Impact:** The Stage 3 interactions `I-CRYPTO-MIXED-001` (encrypt -> `Poly1305::finalize`) and `-003` (encrypt -> `Poly1305::set_key`) describe Botan's structure and are never realized in Rust (R1 reports them as intent without realization). The real edge is declared by `I-CRYPTO-MIXED-008` with a new obligation, `Poly1305.C005` (segment tag = concatenation tag).
+- **Status:** Open. Retiring 001/003 also affects `BR-CRYPTO-MIXED-001` and both manifests, so it is left for the owner after the current approval round.
+- **Finding ids:** `crypto-ligature-010`, `crypto-ligature-011`
+- **Generalizable lesson:** Stage 3 interactions drafted from the C++ call graph can describe a call structure the port deliberately changes. Re-derive the interaction set from the implemented Rust call graph before Stage 8A, not only from the upstream map.
 
 ### A stale, empty call-graph report passed R1/G16 and G14
 

@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "I-CRYPTO-MIXED-005",
+  "caller": {
+    "concept": "ChaCha20Poly1305",
+    "method": "encrypt"
+  },
+  "callee": {
+    "concept": "ChaCha20",
+    "method": "bytes_remaining"
+  },
+  "edge_class": [
+    "numeric-domain-boundary"
+  ],
+  "eligibility": "boundary-required",
+  "rationale": "AEAD encryption compares the plaintext length with the stream's reported remaining capacity before applying the keystream.",
+  "evidence_links": [
+    "E-005"
+  ],
+  "reliances": [
+    {
+      "obligation_id": "ChaCha20.C005",
+      "required_assurance": {
+        "required_claims": [
+          "postcondition-holds"
+        ],
+        "accepted_evidence_kinds": [
+          "kani-bounded-model-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c005_bytes_remaining_tracks_consumption"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    }
+  ],
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [
+        "default"
+      ],
+      "cfg": []
+    }
+  }
+}

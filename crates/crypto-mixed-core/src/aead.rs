@@ -46,10 +46,10 @@ impl ChaCha20Poly1305 {
     ) -> Result<Vec<u8>, CryptoError> {
         let output_length = self.encryption_output_length(plaintext.len())?;
         let mut chacha = ChaCha20::with_counter(*key, *nonce, 1);
-        if plaintext.len() > chacha.bytes_remaining() {
+        if plaintext.len() > ChaCha20::bytes_remaining(&chacha) {
             return Err(CryptoError::CounterExhausted);
         }
-        let ciphertext = chacha.apply_keystream(plaintext)?;
+        let ciphertext = ChaCha20::apply_keystream(&mut chacha, plaintext)?;
         let tag = self.tag(key, nonce, aad, &ciphertext);
 
         let mut output = Vec::with_capacity(output_length);
@@ -73,7 +73,7 @@ impl ChaCha20Poly1305 {
         }
 
         let mut chacha = ChaCha20::with_counter(*key, *nonce, 1);
-        chacha.apply_keystream(ciphertext)
+        ChaCha20::apply_keystream(&mut chacha, ciphertext)
     }
 
     pub fn verify(

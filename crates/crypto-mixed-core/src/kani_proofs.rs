@@ -226,6 +226,17 @@ fn bridge_002_limits_aead_plaintext_to_the_counter_one_stream() {
 }
 
 #[kani::proof]
+fn bridge_003_limits_aead_ciphertext_to_the_counter_one_stream() {
+    let ciphertext_and_tag_length: usize = kani::any();
+    let aead = ChaCha20Poly1305::new();
+    let stream = ChaCha20::with_counter([0; 32], [0; 12], 1);
+
+    if let Ok(message_length) = aead.decryption_output_length(ciphertext_and_tag_length) {
+        assert!(message_length <= stream.bytes_remaining());
+    }
+}
+
+#[kani::proof]
 #[kani::unwind(64)]
 // Kani 0.67.0 did not finish this symbolic one-byte round trip within 180 seconds.
 fn aead_round_trip_holds_for_one_symbolic_byte() {
@@ -302,4 +313,71 @@ fn aead_matches_the_pinned_botan_vector() {
         )
         .unwrap();
     assert_eq!(output.as_slice(), &AEAD_VECTOR_OUTPUT);
+}
+
+#[kani::proof]
+fn kani_chacha20_c004_with_counter_stream_capacity() {
+    let counter: u32 = kani::any();
+    let stream = ChaCha20::with_counter([0; 32], [0; 12], counter);
+    let expected = ((1u64 << 32) - u64::from(counter)) * 64;
+    assert_eq!(stream.bytes_remaining() as u64, expected);
+}
+
+#[kani::proof]
+#[kani::unwind(66)]
+fn kani_chacha20_c005_bytes_remaining_tracks_consumption() {
+    let input = [0u8; 65];
+    let cases: [(u32, usize); 8] = [
+        (0, 1),
+        (0, 63),
+        (0, 64),
+        (0, 65),
+        (1, 65),
+        (u32::MAX - 1, 65),
+        (u32::MAX, 64),
+        (u32::MAX, 65),
+    ];
+    for (counter, length) in cases {
+        let mut stream = ChaCha20::with_counter([0; 32], [0; 12], counter);
+        let before = stream.bytes_remaining();
+        if stream.apply_keystream(&input[..length]).is_ok() {
+            assert_eq!(stream.bytes_remaining(), before - length);
+        } else {
+            assert!(length > before);
+            assert_eq!(stream.bytes_remaining(), before);
+        }
+    }
+
+    // Buffered bytes: 63 then 2 crosses a block boundary inside one stream.
+    let mut stream = ChaCha20::with_counter([0; 32], [0; 12], 0);
+    let start = stream.bytes_remaining();
+    stream.apply_keystream(&input[..63]).unwrap();
+    stream.apply_keystream(&input[..2]).unwrap();
+    assert_eq!(stream.bytes_remaining(), start - 65);
+}
+
+#[kani::proof]
+#[kani::unwind(128)]
+fn kani_poly1305_c005_segments_match_concatenation() {
+    let message = &POLY1305_VECTOR_INPUT;
+    let splits: [(usize, usize); 7] = [
+        (0, 0),
+        (0, 73),
+        (15, 16),
+        (16, 32),
+        (17, 64),
+        (31, 72),
+        (73, 73),
+    ];
+    for (first, second) in splits {
+        let segmented = Poly1305::compute_tag_segments(
+            &POLY1305_VECTOR_KEY,
+            &[
+                &message[..first],
+                &message[first..second],
+                &message[second..],
+            ],
+        );
+        assert_eq!(segmented, POLY1305_VECTOR_TAG);
+    }
 }

@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "boundary_id": "cha_cha20_poly1305_tag__to__poly1305_compute_tag_segments",
+  "caller": {
+    "concept": "ChaCha20Poly1305",
+    "method": "tag"
+  },
+  "callee": {
+    "concept": "Poly1305",
+    "method": "compute_tag_segments"
+  },
+  "callee_guarantees": [
+    "Poly1305.C005"
+  ]
+}

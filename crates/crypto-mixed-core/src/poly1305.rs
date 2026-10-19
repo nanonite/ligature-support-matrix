@@ -4,7 +4,12 @@ const LIMB_MASK: u64 = (1 << 26) - 1;
 
 /// Streaming scalar Poly1305 with a one-time 32-byte key.
 pub struct Poly1305 {
-    state: Option<Poly1305State>,
+    keyed: bool,
+    r: [u64; 5],
+    h: [u64; 5],
+    pad: [u32; 4],
+    buffer: [u8; 16],
+    buffer_len: usize,
 }
 
 impl Default for Poly1305 {
@@ -15,37 +20,46 @@ impl Default for Poly1305 {
 
 impl Poly1305 {
     pub fn new() -> Self {
-        Self { state: None }
+        Self {
+            keyed: false,
+            r: [0; 5],
+            h: [0; 5],
+            pad: [0; 4],
+            buffer: [0; 16],
+            buffer_len: 0,
+        }
     }
 
     /// Initialize with exactly one 32-byte one-time key.
     pub fn set_key(&mut self, key: &[u8; 32]) -> Result<(), CryptoError> {
-        self.state = Some(Poly1305State::new(key));
+        Self::load_key(self, key);
         Ok(())
     }
 
     /// Append message bytes to the current authentication state.
     pub fn update(&mut self, input: &[u8]) -> Result<(), CryptoError> {
-        self.state
-            .as_mut()
-            .ok_or(CryptoError::KeyNotSet)?
-            .update(input);
+        if !self.keyed {
+            return Err(CryptoError::KeyNotSet);
+        }
+        Self::absorb(self, input);
         Ok(())
     }
 
     /// Finalize and consume the one-time key state.
     pub fn finalize(&mut self) -> Result<[u8; 16], CryptoError> {
-        self.state
-            .take()
-            .map(Poly1305State::finish)
-            .ok_or(CryptoError::KeyNotSet)
+        if !self.keyed {
+            return Err(CryptoError::KeyNotSet);
+        }
+        let tag = Self::finish(self);
+        *self = Self::new();
+        Ok(tag)
     }
 
     /// Compute a one-shot Poly1305 tag.
     pub fn compute_tag(&self, key: &[u8; 32], message: &[u8]) -> [u8; 16] {
-        let mut state = Poly1305State::new(key);
-        state.update(message);
-        state.finish()
+        let mut mac = Self::keyed_with(key);
+        Self::absorb(&mut mac, message);
+        Self::finish(&mut mac)
     }
 
     /// Compute a tag by splitting the message at `split_at`.
@@ -58,54 +72,48 @@ impl Poly1305 {
         if split_at > message.len() {
             return Err(CryptoError::InvalidSplit);
         }
-        let mut state = Poly1305State::new(key);
-        state.update(&message[..split_at]);
-        state.update(&message[split_at..]);
-        Ok(state.finish())
+        let mut mac = Self::keyed_with(key);
+        Self::absorb(&mut mac, &message[..split_at]);
+        Self::absorb(&mut mac, &message[split_at..]);
+        Ok(Self::finish(&mut mac))
     }
 
     pub(crate) fn compute_tag_segments(key: &[u8; 32], segments: &[&[u8]]) -> [u8; 16] {
-        let mut state = Poly1305State::new(key);
+        let mut mac = Self::keyed_with(key);
         for segment in segments {
-            state.update(segment);
+            Self::absorb(&mut mac, segment);
         }
-        state.finish()
+        Self::finish(&mut mac)
     }
-}
 
-struct Poly1305State {
-    r: [u64; 5],
-    h: [u64; 5],
-    pad: [u32; 4],
-    buffer: [u8; 16],
-    buffer_len: usize,
-}
+    fn keyed_with(key: &[u8; 32]) -> Self {
+        let mut mac = Self::new();
+        Self::load_key(&mut mac, key);
+        mac
+    }
 
-impl Poly1305State {
-    fn new(key: &[u8; 32]) -> Self {
-        let r = [
+    /// Reset the accumulator and load a clamped `r` and the pad from `key`.
+    fn load_key(&mut self, key: &[u8; 32]) {
+        self.r = [
             (load_u32_le(key, 0) & 0x3ff_ffff) as u64,
             ((load_u32_le(key, 3) >> 2) & 0x3ff_ff03) as u64,
             ((load_u32_le(key, 6) >> 4) & 0x3ff_c0ff) as u64,
             ((load_u32_le(key, 9) >> 6) & 0x3f0_3fff) as u64,
             ((load_u32_le(key, 12) >> 8) & 0x00f_ffff) as u64,
         ];
-        let pad = [
+        self.pad = [
             load_u32_le(key, 16),
             load_u32_le(key, 20),
             load_u32_le(key, 24),
             load_u32_le(key, 28),
         ];
-        Self {
-            r,
-            h: [0; 5],
-            pad,
-            buffer: [0; 16],
-            buffer_len: 0,
-        }
+        self.h = [0; 5];
+        self.buffer = [0; 16];
+        self.buffer_len = 0;
+        self.keyed = true;
     }
 
-    fn update(&mut self, mut input: &[u8]) {
+    fn absorb(&mut self, mut input: &[u8]) {
         if self.buffer_len != 0 {
             let take = (16 - self.buffer_len).min(input.len());
             self.buffer[self.buffer_len..self.buffer_len + take].copy_from_slice(&input[..take]);
@@ -178,7 +186,7 @@ impl Poly1305State {
         self.h[1] += carry;
     }
 
-    fn finish(mut self) -> [u8; 16] {
+    fn finish(&mut self) -> [u8; 16] {
         if self.buffer_len != 0 {
             self.buffer[self.buffer_len] = 1;
             self.buffer[self.buffer_len + 1..].fill(0);

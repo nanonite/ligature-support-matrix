@@ -4,7 +4,7 @@
   "crate_dir": "crates/crypto-mixed-core",
   "source_binding": {
     "algorithm": "sha256",
-    "digest": "sha256:2fe9ef3ec8261c34a0acfde39a59af0a7baea13b2d8367e6f714d615ac7694e0",
+    "digest": "sha256:b7823bc71d616ef3d4c40dff30a917dd091e029b5322792db54174b91fd2df5c",
     "file_count": 6
   },
   "coverage_scope": {
@@ -37,12 +37,11 @@
     "local_concepts": [
       "ChaCha20",
       "ChaCha20Poly1305",
-      "Poly1305",
-      "Poly1305State"
+      "Poly1305"
     ],
-    "unattributed_call_sites": 217,
-    "out_of_scope_call_sites": 62,
-    "macro_invocations": 31
+    "unattributed_call_sites": 236,
+    "out_of_scope_call_sites": 60,
+    "macro_invocations": 36
   },
   "callsites": [
     {
@@ -76,7 +75,7 @@
         "path": "crates/crypto-mixed-core/src/aead.rs",
         "symbol": "ChaCha20Poly1305::encrypt",
         "line": 47,
-        "syntax_hash": "sha256:014803c4b8c244a542a7345146647f9dfa1c6341ff8ba26074b4e840f54852d8"
+        "syntax_hash": "sha256:3c937a8bbca5b9aeb1899b2a49053ef178c965b2975fab1f14d9c658adade686"
       },
       "callee": {
         "concept": "ChaCha20Poly1305",
@@ -96,7 +95,7 @@
         "path": "crates/crypto-mixed-core/src/aead.rs",
         "symbol": "ChaCha20Poly1305::encrypt",
         "line": 48,
-        "syntax_hash": "sha256:014803c4b8c244a542a7345146647f9dfa1c6341ff8ba26074b4e840f54852d8"
+        "syntax_hash": "sha256:3c937a8bbca5b9aeb1899b2a49053ef178c965b2975fab1f14d9c658adade686"
       },
       "callee": {
         "concept": "ChaCha20",
@@ -107,7 +106,7 @@
     },
     {
       "callsite_id": "CS-CHACHA20POLY1305-ENCRYPT-003",
-      "call_class": "possible-dispatch",
+      "call_class": "definite-direct-call",
       "caller": {
         "concept": "ChaCha20Poly1305",
         "method": "encrypt"
@@ -116,16 +115,18 @@
         "path": "crates/crypto-mixed-core/src/aead.rs",
         "symbol": "ChaCha20Poly1305::encrypt",
         "line": 49,
-        "syntax_hash": "sha256:014803c4b8c244a542a7345146647f9dfa1c6341ff8ba26074b4e840f54852d8"
+        "syntax_hash": "sha256:3c937a8bbca5b9aeb1899b2a49053ef178c965b2975fab1f14d9c658adade686"
       },
-      "callee_method": "bytes_remaining",
-      "unresolved_expression": "> chacha.bytes_remaining(...)",
-      "risk_tier": "medium",
-      "risk_tier_source": "extractor-default"
+      "callee": {
+        "concept": "ChaCha20",
+        "method": "bytes_remaining"
+      },
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "general"
     },
     {
       "callsite_id": "CS-CHACHA20POLY1305-ENCRYPT-004",
-      "call_class": "possible-dispatch",
+      "call_class": "definite-direct-call",
       "caller": {
         "concept": "ChaCha20Poly1305",
         "method": "encrypt"
@@ -134,12 +135,14 @@
         "path": "crates/crypto-mixed-core/src/aead.rs",
         "symbol": "ChaCha20Poly1305::encrypt",
         "line": 52,
-        "syntax_hash": "sha256:014803c4b8c244a542a7345146647f9dfa1c6341ff8ba26074b4e840f54852d8"
+        "syntax_hash": "sha256:3c937a8bbca5b9aeb1899b2a49053ef178c965b2975fab1f14d9c658adade686"
       },
-      "callee_method": "apply_keystream",
-      "unresolved_expression": "chacha.apply_keystream(...)",
-      "risk_tier": "medium",
-      "risk_tier_source": "extractor-default"
+      "callee": {
+        "concept": "ChaCha20",
+        "method": "apply_keystream"
+      },
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "general"
     },
     {
       "callsite_id": "CS-CHACHA20POLY1305-DECRYPT-001",
@@ -152,7 +155,7 @@
         "path": "crates/crypto-mixed-core/src/aead.rs",
         "symbol": "ChaCha20Poly1305::decrypt",
         "line": 68,
-        "syntax_hash": "sha256:6d6591ab69decfe6e0b18ccf1757b8c8242a7b2ecce9c52cbc6e9c6cf9807cc5"
+        "syntax_hash": "sha256:6c9210a1c310b21a420484876308bf97ae16c0894e8990c724770086190dd8d3"
       },
       "callee": {
         "concept": "ChaCha20Poly1305",
@@ -172,7 +175,7 @@
         "path": "crates/crypto-mixed-core/src/aead.rs",
         "symbol": "ChaCha20Poly1305::decrypt",
         "line": 75,
-        "syntax_hash": "sha256:6d6591ab69decfe6e0b18ccf1757b8c8242a7b2ecce9c52cbc6e9c6cf9807cc5"
+        "syntax_hash": "sha256:6c9210a1c310b21a420484876308bf97ae16c0894e8990c724770086190dd8d3"
       },
       "callee": {
         "concept": "ChaCha20",
@@ -183,7 +186,7 @@
     },
     {
       "callsite_id": "CS-CHACHA20POLY1305-DECRYPT-003",
-      "call_class": "possible-dispatch",
+      "call_class": "definite-direct-call",
       "caller": {
         "concept": "ChaCha20Poly1305",
         "method": "decrypt"
@@ -192,12 +195,14 @@
         "path": "crates/crypto-mixed-core/src/aead.rs",
         "symbol": "ChaCha20Poly1305::decrypt",
         "line": 76,
-        "syntax_hash": "sha256:6d6591ab69decfe6e0b18ccf1757b8c8242a7b2ecce9c52cbc6e9c6cf9807cc5"
+        "syntax_hash": "sha256:6c9210a1c310b21a420484876308bf97ae16c0894e8990c724770086190dd8d3"
       },
-      "callee_method": "apply_keystream",
-      "unresolved_expression": "chacha.apply_keystream(...)",
-      "risk_tier": "medium",
-      "risk_tier_source": "extractor-default"
+      "callee": {
+        "concept": "ChaCha20",
+        "method": "apply_keystream"
+      },
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "general"
     },
     {
       "callsite_id": "CS-CHACHA20POLY1305-VERIFY-001",
@@ -269,7 +274,7 @@
       "source": {
         "path": "crates/crypto-mixed-core/src/poly1305.rs",
         "symbol": "Poly1305::default",
-        "line": 12,
+        "line": 17,
         "syntax_hash": "sha256:434fc0af7d0817535aec935d6976171b987144fa25739606bb992442bc6549e1"
       },
       "callee": {
@@ -289,19 +294,19 @@
       "source": {
         "path": "crates/crypto-mixed-core/src/poly1305.rs",
         "symbol": "Poly1305::set_key",
-        "line": 23,
-        "syntax_hash": "sha256:e238441127adc714a598ef9f82db525949f82e27510d11327a2e0fbf36130d8e"
+        "line": 35,
+        "syntax_hash": "sha256:f022de96562a5ee76b822c4bba1ffe8ee402ca8cd2eda9f5dc35c1aeb319ac15"
       },
       "callee": {
-        "concept": "Poly1305State",
-        "method": "new"
+        "concept": "Poly1305",
+        "method": "load_key"
       },
       "risk_tier_source": "not-applicable",
       "callee_shape": "general"
     },
     {
       "callsite_id": "CS-POLY1305-UPDATE-001",
-      "call_class": "possible-dispatch",
+      "call_class": "definite-direct-call",
       "caller": {
         "concept": "Poly1305",
         "method": "update"
@@ -309,49 +314,91 @@
       "source": {
         "path": "crates/crypto-mixed-core/src/poly1305.rs",
         "symbol": "Poly1305::update",
-        "line": 32,
-        "syntax_hash": "sha256:69f080c94f3c06491d25c7090ff88e0947d6b205d410ce3bba3c94774c9d605d"
+        "line": 44,
+        "syntax_hash": "sha256:fb3da9c0601dcc49f2d506d41d8eb69ffb82ece0da9f3398df3ca59674a9f2a4"
       },
-      "callee_method": "update",
-      "unresolved_expression": "?.update(...)",
-      "risk_tier": "medium",
-      "risk_tier_source": "extractor-default"
+      "callee": {
+        "concept": "Poly1305",
+        "method": "absorb"
+      },
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "general"
     },
     {
-      "callsite_id": "CS-POLY1305STATE-UPDATE-001",
+      "callsite_id": "CS-POLY1305-KEYED-WITH-001",
       "call_class": "definite-direct-call",
       "caller": {
-        "concept": "Poly1305State",
-        "method": "update"
+        "concept": "Poly1305",
+        "method": "keyed_with"
       },
       "source": {
         "path": "crates/crypto-mixed-core/src/poly1305.rs",
-        "symbol": "Poly1305State::update",
-        "line": 116,
+        "symbol": "Poly1305::keyed_with",
+        "line": 90,
+        "syntax_hash": "sha256:0b39e204fad3ae6304c95114f65dcce60cb0a297d6f075b750602c4ac4e77172"
+      },
+      "callee": {
+        "concept": "Poly1305",
+        "method": "new"
+      },
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "general"
+    },
+    {
+      "callsite_id": "CS-POLY1305-KEYED-WITH-002",
+      "call_class": "definite-direct-call",
+      "caller": {
+        "concept": "Poly1305",
+        "method": "keyed_with"
+      },
+      "source": {
+        "path": "crates/crypto-mixed-core/src/poly1305.rs",
+        "symbol": "Poly1305::keyed_with",
+        "line": 91,
+        "syntax_hash": "sha256:0b39e204fad3ae6304c95114f65dcce60cb0a297d6f075b750602c4ac4e77172"
+      },
+      "callee": {
+        "concept": "Poly1305",
+        "method": "load_key"
+      },
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "general"
+    },
+    {
+      "callsite_id": "CS-POLY1305-ABSORB-001",
+      "call_class": "definite-direct-call",
+      "caller": {
+        "concept": "Poly1305",
+        "method": "absorb"
+      },
+      "source": {
+        "path": "crates/crypto-mixed-core/src/poly1305.rs",
+        "symbol": "Poly1305::absorb",
+        "line": 124,
         "syntax_hash": "sha256:b9aef9d51c7919e0cb2e4664a38ed3a6eb9160b0a3efaa020db9167a0a5babe4"
       },
       "callee": {
-        "concept": "Poly1305State",
+        "concept": "Poly1305",
         "method": "process_block"
       },
       "risk_tier_source": "not-applicable",
       "callee_shape": "general"
     },
     {
-      "callsite_id": "CS-POLY1305STATE-UPDATE-002",
+      "callsite_id": "CS-POLY1305-ABSORB-002",
       "call_class": "definite-direct-call",
       "caller": {
-        "concept": "Poly1305State",
-        "method": "update"
+        "concept": "Poly1305",
+        "method": "absorb"
       },
       "source": {
         "path": "crates/crypto-mixed-core/src/poly1305.rs",
-        "symbol": "Poly1305State::update",
-        "line": 125,
+        "symbol": "Poly1305::absorb",
+        "line": 133,
         "syntax_hash": "sha256:b9aef9d51c7919e0cb2e4664a38ed3a6eb9160b0a3efaa020db9167a0a5babe4"
       },
       "callee": {
-        "concept": "Poly1305State",
+        "concept": "Poly1305",
         "method": "process_block"
       },
       "risk_tier_source": "not-applicable",
@@ -359,8 +406,8 @@
     }
   ],
   "callsite_coverage": {
-    "discovered": 16,
-    "resolved": 12,
-    "unresolved": 4
+    "discovered": 18,
+    "resolved": 18,
+    "unresolved": 0
   }
 }

@@ -22,7 +22,7 @@
             "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c002_exact_length_65_boundary",
             "kani_harness_sha256": "sha256:100d522a90464a0076f449feb82c9cd0cdb267d3eb852ad0b1c766180a7abeef",
             "kani_result_summary": "{\"successful_checks\":646,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c002_exact_length_65_boundary.assertion.1\"],\"total_checks\":652,\"unreachable_checks\":[{\"check\":\"chacha20::ChaCha20::bytes_remaining.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::ub_checks::is_valid_allocation_size.assertion.1\",\"description\":\"attempt to divide by zero\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
-            "kani_source_sha256": "sha256:cd9889f38750b01e69f0dc1b87012c3064872087a635d4bdfcebb338ae7cb173",
+            "kani_source_sha256": "sha256:65eca2e777a087e2d6e9c5844ba5ff391dd9335d4160b591d93ddf8b5c3f6751",
             "kani_version": "cargo-kani 0.67.0",
             "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c002_exact_length_65_boundary"
           },
@@ -58,7 +58,7 @@
             "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c003_aead_counter_one_stream_capacity",
             "kani_harness_sha256": "sha256:100d522a90464a0076f449feb82c9cd0cdb267d3eb852ad0b1c766180a7abeef",
             "kani_result_summary": "{\"successful_checks\":30,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c003_aead_counter_one_stream_capacity.assertion.1\"],\"total_checks\":31,\"unreachable_checks\":[{\"check\":\"chacha20::ChaCha20::bytes_remaining.assertion.2\",\"description\":\"attempt to subtract with overflow\"}]}",
-            "kani_source_sha256": "sha256:cd9889f38750b01e69f0dc1b87012c3064872087a635d4bdfcebb338ae7cb173",
+            "kani_source_sha256": "sha256:65eca2e777a087e2d6e9c5844ba5ff391dd9335d4160b591d93ddf8b5c3f6751",
             "kani_version": "cargo-kani 0.67.0",
             "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c003_aead_counter_one_stream_capacity"
           },
@@ -94,7 +94,7 @@
             "input_domain": "the bounded model encoded by Kani harness kani_poly1305_finalize_tag_length",
             "kani_harness_sha256": "sha256:100d522a90464a0076f449feb82c9cd0cdb267d3eb852ad0b1c766180a7abeef",
             "kani_result_summary": "{\"successful_checks\":724,\"successful_claim_assertions\":[\"kani_proofs::kani_poly1305_finalize_tag_length.assertion.1\"],\"total_checks\":733,\"unreachable_checks\":[{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::ub_checks::is_valid_allocation_size.assertion.1\",\"description\":\"attempt to divide by zero\"},{\"check\":\"poly1305::Poly1305State::update.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"poly1305::Poly1305State::update.assertion.2\",\"description\":\"attempt to add with overflow\"},{\"check\":\"poly1305::Poly1305State::update.assertion.3\",\"description\":\"attempt to add with overflow\"},{\"check\":\"std::alloc::Layout::max_size_for_align.assertion.1\",\"description\":\"attempt to add with overflow\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
-            "kani_source_sha256": "sha256:cd9889f38750b01e69f0dc1b87012c3064872087a635d4bdfcebb338ae7cb173",
+            "kani_source_sha256": "sha256:65eca2e777a087e2d6e9c5844ba5ff391dd9335d4160b591d93ddf8b5c3f6751",
             "kani_version": "cargo-kani 0.67.0",
             "proof_targets": "kani-run:crates/crypto-mixed-core#kani_poly1305_finalize_tag_length"
           },

@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "I-CRYPTO-MIXED-006",
+  "caller": {
+    "concept": "ChaCha20Poly1305",
+    "method": "decrypt"
+  },
+  "callee": {
+    "concept": "ChaCha20",
+    "method": "with_counter"
+  },
+  "edge_class": [
+    "numeric-domain-boundary",
+    "stateful"
+  ],
+  "eligibility": "boundary-required",
+  "rationale": "AEAD decryption starts the ChaCha20 stream at block counter one after authentication, so its message limit depends on the capacity that starting counter leaves.",
+  "evidence_links": [
+    "E-002",
+    "E-005"
+  ],
+  "reliances": [
+    {
+      "obligation_id": "ChaCha20.C004",
+      "required_assurance": {
+        "required_claims": [
+          "postcondition-holds"
+        ],
+        "accepted_evidence_kinds": [
+          "kani-bounded-model-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c004_with_counter_stream_capacity"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    }
+  ],
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [
+        "default"
+      ],
+      "cfg": []
+    }
+  }
+}

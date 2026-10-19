@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "I-CRYPTO-MIXED-008",
+  "caller": {
+    "concept": "ChaCha20Poly1305",
+    "method": "tag"
+  },
+  "callee": {
+    "concept": "Poly1305",
+    "method": "compute_tag_segments"
+  },
+  "edge_class": [
+    "numeric-domain-boundary"
+  ],
+  "eligibility": "boundary-required",
+  "rationale": "The AEAD tag authenticates the RFC 8439 MAC data (AAD, padding, ciphertext, padding, and the two little-endian lengths) as Poly1305 segments whose tag must equal that of their concatenation.",
+  "evidence_links": [
+    "E-003",
+    "E-005"
+  ],
+  "reliances": [
+    {
+      "obligation_id": "Poly1305.C005",
+      "required_assurance": {
+        "required_claims": [
+          "postcondition-holds"
+        ],
+        "accepted_evidence_kinds": [
+          "kani-bounded-model-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "the bounded model encoded by Kani harness kani_poly1305_c005_segments_match_concatenation"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    }
+  ],
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [
+        "default"
+      ],
+      "cfg": []
+    }
+  }
+}

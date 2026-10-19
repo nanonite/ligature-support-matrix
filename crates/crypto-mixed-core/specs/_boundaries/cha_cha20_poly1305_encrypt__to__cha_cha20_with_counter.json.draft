@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "boundary_id": "cha_cha20_poly1305_encrypt__to__cha_cha20_with_counter",
+  "caller": {
+    "concept": "ChaCha20Poly1305",
+    "method": "encrypt"
+  },
+  "callee": {
+    "concept": "ChaCha20",
+    "method": "with_counter"
+  },
+  "callee_guarantees": [
+    "ChaCha20.C004"
+  ]
+}
