@@ -1,7 +1,12 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "report_id": "rust_date-creusot-core",
   "crate_dir": "rust/date-creusot-core",
+  "source_binding": {
+    "algorithm": "sha256",
+    "digest": "sha256:be74b63e573566ee73b4d848f2efa4430649b4aac7714a2f40462d078503d0c1",
+    "file_count": 10
+  },
   "coverage_scope": {
     "extractor": "coarse-syntactic-callgraph",
     "extractor_version": "0.2.0",
@@ -21,9 +26,7 @@
   },
   "config_scope": {
     "target": "x86_64-unknown-linux-gnu",
-    "features": [
-      "default"
-    ],
+    "features": [],
     "cfg": []
   },
   "attribution_scope": {

@@ -209,7 +209,7 @@
   ],
   "gate_integrity": [
     {
-      "hash": "sha256:6b3c3ae71b7d059115b497136077e1472cb46071a47143b2383ed870eee64216",
+      "hash": "sha256:431a8179e9364591db288c707b6b5c8a3f28bd6799db5932482e14ca83bf588a",
       "runner": ".codex/skills/ligature/SKILL.md"
     },
     {
@@ -217,7 +217,7 @@
       "runner": ".ligature/schemas/consolidated-check.schema.json"
     },
     {
-      "hash": "sha256:f38a526bd77fcc0a916351d729bfad95d858ead740ed0268220bb0b833f164bd",
+      "hash": "sha256:f5f974e4e0a733af2599053087d3f5769d5bbca8cf101664994415b08db25371",
       "runner": ".ligature/schemas/project-state.schema.json"
     },
     {
@@ -297,7 +297,7 @@
   ],
   "provenance": {
     "artifact_set_hash": "sha256:69548f171e1a4210f0d95233b9592f22fa15acccda8f03e5cf1c7b43d197ce71",
-    "base_commit": "729f0432c90dd7916bdbeecb750b9d5abbbbf5cd",
+    "base_commit": "af7463610773f210da961944331e75b2f644d6f3",
     "features": [],
     "promotion_id": "PROM-DATE-CREUSOT-CORE-001",
     "target": "x86_64-unknown-linux-gnu",

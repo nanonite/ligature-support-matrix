@@ -1,0 +1,295 @@
+{
+  "schema_version": "1.1",
+  "report_id": "rust_date-creusot-core",
+  "crate_dir": "rust/date-creusot-core",
+  "source_binding": {
+    "algorithm": "sha256",
+    "digest": "sha256:be74b63e573566ee73b4d848f2efa4430649b4aac7714a2f40462d078503d0c1",
+    "file_count": 10
+  },
+  "coverage_scope": {
+    "extractor": "coarse-syntactic-callgraph",
+    "extractor_version": "0.2.0",
+    "extractor_backing": "syntactic",
+    "supported_call_forms": [
+      "associated-path-call",
+      "self-method-call",
+      "inherent-method-call-by-name"
+    ],
+    "unsupported_call_forms": [
+      "macro-expanded-call",
+      "generated-code",
+      "ffi-callback",
+      "call-to-non-local-type"
+    ],
+    "completeness_claim": "discovered-lower-bound"
+  },
+  "config_scope": {
+    "target": "x86_64-unknown-linux-gnu",
+    "features": [],
+    "cfg": []
+  },
+  "attribution_scope": {
+    "scanned_item_kinds": [
+      "inherent-impl-method",
+      "trait-impl-method"
+    ],
+    "local_concepts": [
+      "Day",
+      "Days",
+      "IsoWeekday",
+      "Month",
+      "Weekday",
+      "Year",
+      "YearMonthDay",
+      "YearMonthDayLast",
+      "YearMonthDayLastView",
+      "YearMonthDayView"
+    ],
+    "unattributed_call_sites": 148,
+    "out_of_scope_call_sites": 15,
+    "macro_invocations": 58
+  },
+  "callsites": [
+    {
+      "callsite_id": "CS-YEARMONTHDAY-LAST-001",
+      "call_class": "definite-direct-call",
+      "caller": {
+        "concept": "YearMonthDay",
+        "method": "last"
+      },
+      "source": {
+        "path": "rust/date-creusot-core/src/year_month_day.rs",
+        "symbol": "YearMonthDay::last",
+        "line": 802,
+        "syntax_hash": "sha256:646df70e3d2f054a4b9ac874ae7051a8e47c03aa4e27b31e9946a2fb2e8b6747"
+      },
+      "callee": {
+        "concept": "YearMonthDayLast",
+        "method": "new"
+      },
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "general"
+    },
+    {
+      "callsite_id": "CS-YEARMONTHDAY-OK-001",
+      "call_class": "definite-direct-call",
+      "caller": {
+        "concept": "YearMonthDay",
+        "method": "ok"
+      },
+      "source": {
+        "path": "rust/date-creusot-core/src/year_month_day.rs",
+        "symbol": "YearMonthDay::ok",
+        "line": 832,
+        "syntax_hash": "sha256:a929df506bf338f82bac79834c493fda3369a88cb7cc224a5a356a0f677d921f"
+      },
+      "callee": {
+        "concept": "Year",
+        "method": "ok"
+      },
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "value-domain-inquiry",
+      "callee_shape_evidence": {
+        "syntax_hash": "sha256:949fef3de525b1505b665e24dc97da5985a4961dd7a3521c57001713d14c88b0"
+      }
+    },
+    {
+      "callsite_id": "CS-YEARMONTHDAY-OK-002",
+      "call_class": "definite-direct-call",
+      "caller": {
+        "concept": "YearMonthDay",
+        "method": "ok"
+      },
+      "source": {
+        "path": "rust/date-creusot-core/src/year_month_day.rs",
+        "symbol": "YearMonthDay::ok",
+        "line": 833,
+        "syntax_hash": "sha256:a929df506bf338f82bac79834c493fda3369a88cb7cc224a5a356a0f677d921f"
+      },
+      "callee": {
+        "concept": "Month",
+        "method": "ok"
+      },
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "value-domain-inquiry",
+      "callee_shape_evidence": {
+        "syntax_hash": "sha256:8f0acc98b2d91b2b79f7e98b210b4318725928ec055dd8c985ba46e65352bf07"
+      }
+    },
+    {
+      "callsite_id": "CS-YEARMONTHDAY-OK-003",
+      "call_class": "definite-direct-call",
+      "caller": {
+        "concept": "YearMonthDay",
+        "method": "ok"
+      },
+      "source": {
+        "path": "rust/date-creusot-core/src/year_month_day.rs",
+        "symbol": "YearMonthDay::ok",
+        "line": 835,
+        "syntax_hash": "sha256:a929df506bf338f82bac79834c493fda3369a88cb7cc224a5a356a0f677d921f"
+      },
+      "callee": {
+        "concept": "YearMonthDayLast",
+        "method": "day"
+      },
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "general"
+    },
+    {
+      "callsite_id": "CS-YEARMONTHDAY-OK-004",
+      "call_class": "definite-direct-call",
+      "caller": {
+        "concept": "YearMonthDay",
+        "method": "ok"
+      },
+      "source": {
+        "path": "rust/date-creusot-core/src/year_month_day.rs",
+        "symbol": "YearMonthDay::ok",
+        "line": 835,
+        "syntax_hash": "sha256:a929df506bf338f82bac79834c493fda3369a88cb7cc224a5a356a0f677d921f"
+      },
+      "callee": {
+        "concept": "YearMonthDay",
+        "method": "last"
+      },
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "general"
+    },
+    {
+      "callsite_id": "CS-YEARMONTHDAY-TO-DAYS-BOUNDED-001",
+      "call_class": "definite-direct-call",
+      "caller": {
+        "concept": "YearMonthDay",
+        "method": "to_days_bounded"
+      },
+      "source": {
+        "path": "rust/date-creusot-core/src/year_month_day.rs",
+        "symbol": "YearMonthDay::to_days_bounded",
+        "line": 908,
+        "syntax_hash": "sha256:7455abe84172bb79f9221c6927cfef4ca5292d26d68e76e8d57eaa6058d3ba12"
+      },
+      "callee": {
+        "concept": "YearMonthDay",
+        "method": "to_days"
+      },
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "general"
+    },
+    {
+      "callsite_id": "CS-YEARMONTHDAY-ROUND-TRIP-001",
+      "call_class": "definite-direct-call",
+      "caller": {
+        "concept": "YearMonthDay",
+        "method": "round_trip"
+      },
+      "source": {
+        "path": "rust/date-creusot-core/src/year_month_day.rs",
+        "symbol": "YearMonthDay::round_trip",
+        "line": 984,
+        "syntax_hash": "sha256:f88b1e41526251f9cfeac6881081af3f8372949062388a5a65a269a80d628fe5"
+      },
+      "callee": {
+        "concept": "YearMonthDay",
+        "method": "from_days"
+      },
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "general"
+    },
+    {
+      "callsite_id": "CS-YEARMONTHDAY-ROUND-TRIP-002",
+      "call_class": "definite-direct-call",
+      "caller": {
+        "concept": "YearMonthDay",
+        "method": "round_trip"
+      },
+      "source": {
+        "path": "rust/date-creusot-core/src/year_month_day.rs",
+        "symbol": "YearMonthDay::round_trip",
+        "line": 984,
+        "syntax_hash": "sha256:f88b1e41526251f9cfeac6881081af3f8372949062388a5a65a269a80d628fe5"
+      },
+      "callee": {
+        "concept": "YearMonthDay",
+        "method": "to_days_bounded"
+      },
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "general"
+    },
+    {
+      "callsite_id": "CS-YEARMONTHDAYLAST-OK-001",
+      "call_class": "definite-direct-call",
+      "caller": {
+        "concept": "YearMonthDayLast",
+        "method": "ok"
+      },
+      "source": {
+        "path": "rust/date-creusot-core/src/year_month_day_last.rs",
+        "symbol": "YearMonthDayLast::ok",
+        "line": 160,
+        "syntax_hash": "sha256:a6efa66746a30d2a525e4c439cfe77cc514ca385d48487ee946281660891d0d8"
+      },
+      "callee": {
+        "concept": "Year",
+        "method": "ok"
+      },
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "value-domain-inquiry",
+      "callee_shape_evidence": {
+        "syntax_hash": "sha256:949fef3de525b1505b665e24dc97da5985a4961dd7a3521c57001713d14c88b0"
+      }
+    },
+    {
+      "callsite_id": "CS-YEARMONTHDAYLAST-OK-002",
+      "call_class": "definite-direct-call",
+      "caller": {
+        "concept": "YearMonthDayLast",
+        "method": "ok"
+      },
+      "source": {
+        "path": "rust/date-creusot-core/src/year_month_day_last.rs",
+        "symbol": "YearMonthDayLast::ok",
+        "line": 160,
+        "syntax_hash": "sha256:a6efa66746a30d2a525e4c439cfe77cc514ca385d48487ee946281660891d0d8"
+      },
+      "callee": {
+        "concept": "Month",
+        "method": "ok"
+      },
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "value-domain-inquiry",
+      "callee_shape_evidence": {
+        "syntax_hash": "sha256:8f0acc98b2d91b2b79f7e98b210b4318725928ec055dd8c985ba46e65352bf07"
+      }
+    },
+    {
+      "callsite_id": "CS-YEARMONTHDAYLAST-DAY-001",
+      "call_class": "definite-direct-call",
+      "caller": {
+        "concept": "YearMonthDayLast",
+        "method": "day"
+      },
+      "source": {
+        "path": "rust/date-creusot-core/src/year_month_day_last.rs",
+        "symbol": "YearMonthDayLast::day",
+        "line": 184,
+        "syntax_hash": "sha256:e13544b278a8e3fb2f221fd95b6207416f429c7bdfa2493c68598945c8e50587"
+      },
+      "callee": {
+        "concept": "Year",
+        "method": "is_leap"
+      },
+      "risk_tier_source": "not-applicable",
+      "callee_shape": "value-domain-inquiry",
+      "callee_shape_evidence": {
+        "syntax_hash": "sha256:51d58671842b8bea4c1ef1d7e0b9768911e9a100d0999a7234ae36170c5b5bdb"
+      }
+    }
+  ],
+  "callsite_coverage": {
+    "discovered": 11,
+    "resolved": 11,
+    "unresolved": 0
+  }
+}
