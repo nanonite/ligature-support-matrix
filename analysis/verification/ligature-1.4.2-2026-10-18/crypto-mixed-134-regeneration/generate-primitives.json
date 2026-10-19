@@ -1,0 +1,2 @@
+{"after_hash":"sha256:445326e163ab211dd1b1e8aaa69c685eb107bfec69077db84140110c08176353","before_hash":"sha256:3a7270e443f194feba2d5b6be8e96394c6ffb7744e377ddf75aa442cd36c5aff","command":"generate-work-package","command_result":0,"event":"work-package-generation","grant_id":"GW-a661e31b5e00","issue":134,"path":"ci/manifest/WP-CRYPTO-MIXED-PRIMITIVES-001.json","recorded_at":"2026-10-19T03:09:02Z","result":"regenerated","schema_version":"1.0","work_package":"WP-CRYPTO-MIXED-PRIMITIVES-001"}
+
