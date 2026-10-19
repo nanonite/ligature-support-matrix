@@ -81,6 +81,14 @@
   },
   "review": {
     "reviewer": "roger-codex-luna6",
-    "reviewed_at": "2026-10-14"
+    "reviewed_at": "2026-10-14",
+    "accepted_fixture_values": [
+      {
+        "path": "port_source.language",
+        "value_sha256": "sha256:3eebdcd9e7aa0cc1a0b3f663baa971db6220f7cbc346e34220e744fdc8a07176",
+        "reviewer": "roger-codex-luna6",
+        "accepted_at": "2026-10-18"
+      }
+    ]
   }
 }
