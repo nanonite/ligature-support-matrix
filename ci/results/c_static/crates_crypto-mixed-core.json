@@ -1,7 +1,12 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "report_id": "crates_crypto-mixed-core",
   "crate_dir": "crates/crypto-mixed-core",
+  "source_binding": {
+    "algorithm": "sha256",
+    "digest": "sha256:2fe9ef3ec8261c34a0acfde39a59af0a7baea13b2d8367e6f714d615ac7694e0",
+    "file_count": 6
+  },
   "coverage_scope": {
     "extractor": "coarse-syntactic-callgraph",
     "extractor_version": "0.2.0",
