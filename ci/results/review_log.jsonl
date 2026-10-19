@@ -35,3 +35,4 @@
 {"target_path": "specs/_promotions/crypto-kani.json", "classification": "generated", "reviewer": "roger-codex-luna6", "reviewed_at": "2026-10-19", "validation": "checked", "logged_at": "2026-10-19T17:01:33.627922+00:00"}
 {"target_path": "crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-007.json", "classification": "semantic", "reviewer": "roger-codex-luna6", "reviewed_at": "2026-10-19", "validation": "checked", "logged_at": "2026-10-19T17:15:25.293256+00:00"}
 {"target_path": "specs/_promotions/crypto-kani.json", "classification": "generated", "reviewer": "roger-codex-luna6", "reviewed_at": "2026-10-19", "validation": "checked", "logged_at": "2026-10-19T17:15:26.429366+00:00"}
+{"target_path": "specs/_closure/crypto-kani.degradation.json", "classification": "semantic", "reviewer": "roger-codex-luna6", "reviewed_at": "2026-10-19", "validation": "checked", "logged_at": "2026-10-19T18:00:19.463726+00:00"}
