@@ -1,0 +1,569 @@
+# Stage 3 (reliance / O) — boundary contract drafting
+
+One-shot template. Structured-output contract, not an interactive session:
+the caller (`scripts/validate_boundary_contracts.py` via #37) parses stdout
+directly. Counterpart to concept-to-code's `prompts/step-a-coanalysis.md`,
+but for the cross-concept reliance layer this pipeline owns — concept-to-code's
+own prompts stay interactive-session-oriented and are out of scope to change.
+
+Covers the current Prototype A scope only: a single boundary contract (O).
+The I-schema and bridge-spec templates exist now
+(`prompts/stage-3-interaction-drafting.md`,
+`prompts/stage-3-bridge-drafting.md`) and are drafted by their own
+`draft 3 <name>` stage. What a bridge discharges is declared *here* (see
+Task); the bridge's own content is never yours to emit.
+
+## Output contract
+
+Output **only** the JSON object for the boundary contract. No markdown code
+fence, no explanation before or after, no partial output if you are unsure —
+in that case output nothing and the caller treats an empty/unparseable
+response as a hard failure to retry or escalate, never as an empty guarantee.
+
+## Inputs
+
+- `ChaCha20Poly1305` / `decrypt` / `ChaCha20` /
+  `apply_keystream` — the boundary being drafted.
+- `{
+  "schema_version": "1.0",
+  "concept": "ChaCha20Poly1305",
+  "kind": "struct",
+  "cluster": "crypto-kani",
+  "english_description": "The RFC 8439 authenticated-encryption composition of scalar ChaCha20 and Poly1305.",
+  "verifier": "kani",
+  "queries": [
+    {
+      "english": "Return the encrypted length for a plaintext of this size.",
+      "rust_sig": "fn encryption_output_length(&self, plaintext_length: usize) -> Result<usize, CryptoError>",
+      "pure": true,
+      "witness_required": false
+    },
+    {
+      "english": "Return the decrypted length for a ciphertext including its tag.",
+      "rust_sig": "fn decryption_output_length(&self, ciphertext_length: usize) -> Result<usize, CryptoError>",
+      "pure": true,
+      "witness_required": false
+    },
+    {
+      "english": "Report whether this ciphertext and tag authenticate for these inputs.",
+      "rust_sig": "fn verify(&self, key: &[u8; 32], nonce: &[u8; 12], aad: &[u8], ciphertext_and_tag: &[u8]) -> bool",
+      "pure": true,
+      "witness_required": false
+    }
+  ],
+  "commands": [
+    {
+      "english": "Encrypt plaintext and return the ciphertext followed by its authentication tag.",
+      "rust_sig": "fn encrypt(&mut self, key: &[u8; 32], nonce: &[u8; 12], aad: &[u8], plaintext: &[u8]) -> Result<Vec<u8>, CryptoError>"
+    },
+    {
+      "english": "Authenticate ciphertext and return plaintext only when its tag is valid.",
+      "rust_sig": "fn decrypt(&mut self, key: &[u8; 32], nonce: &[u8; 12], aad: &[u8], ciphertext_and_tag: &[u8]) -> Result<Vec<u8>, CryptoError>"
+    }
+  ],
+  "constraints": [
+    {
+      "english": "The plaintext length stays within the RFC 8439 message limit.",
+      "logic": "plaintext.len() <= 274877906880",
+      "kind": "precondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "encrypt"
+      ],
+      "id": "C001"
+    },
+    {
+      "english": "Ciphertext includes a full tag and its message stays within the RFC 8439 limit.",
+      "logic": "ciphertext_and_tag.len() >= 16 && ciphertext_and_tag.len() <= 274877906896",
+      "kind": "precondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "decrypt"
+      ],
+      "id": "C002"
+    },
+    {
+      "english": "Decryption succeeds exactly when the supplied ciphertext and tag authenticate.",
+      "logic": "output.is_ok() == self.verify(key, nonce, aad, ciphertext_and_tag)",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "decrypt"
+      ],
+      "id": "C003"
+    },
+    {
+      "english": "Successful encryption returns the plaintext and one sixteen-byte tag.",
+      "logic": "output.is_err() || output.as_ref().map(|bytes| bytes.len() == plaintext.len() + 16).unwrap_or(false)",
+      "kind": "postcondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "encrypt"
+      ],
+      "id": "C004"
+    },
+    {
+      "english": "Successful decryption returns the ciphertext message without its sixteen-byte tag.",
+      "logic": "output.is_err() || output.as_ref().map(|bytes| bytes.len() + 16 == ciphertext_and_tag.len()).unwrap_or(false)",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "decrypt"
+      ],
+      "id": "C005"
+    }
+  ],
+  "adversary_table": [
+    {
+      "scenario": "Encrypt empty data and data lengths around the sixteen-byte block boundary.",
+      "violates": "C004",
+      "resolution": "append exactly one tag and match the pinned vector"
+    },
+    {
+      "scenario": "Decrypt ciphertext whose authentication tag has one changed bit.",
+      "violates": "C003",
+      "resolution": "return an authentication error and no plaintext"
+    },
+    {
+      "scenario": "Request a message length above the RFC 8439 maximum.",
+      "violates": "C001 or C002",
+      "resolution": "return a length error before counter wrap"
+    },
+    {
+      "scenario": "Run with an optimized Botan provider enabled.",
+      "violates": "scalar-only scope",
+      "resolution": "record provider parity as deferred and make no first-pass SIMD claim"
+    }
+  ],
+  "source_references": [
+    {
+      "kind": "reference-implementation",
+      "citation_or_path": "upstream/botan/src/lib/modes/aead/chacha20poly1305/chacha20poly1305.cpp at 2a81eef56c96c237e590c27f9a75e60317c9c700",
+      "notes": "Encryption/decryption order, output lengths, and message limit."
+    },
+    {
+      "kind": "paper",
+      "citation_or_path": "RFC 8439 section 2.8",
+      "notes": "Authenticated-encryption composition."
+    },
+    {
+      "kind": "oracle-file",
+      "citation_or_path": "upstream/botan/src/tests/data/aead/chacha20poly1305.vec",
+      "notes": "Pinned Botan includes the RFC ChaCha20-Poly1305 test vector."
+    }
+  ],
+  "depends_on": [
+    {
+      "crate": "crypto-mixed-core",
+      "concept": "ChaCha20",
+      "reason": "The AEAD composition uses ChaCha20 to encrypt message bytes and derive the Poly1305 one-time key."
+    },
+    {
+      "crate": "crypto-mixed-core",
+      "concept": "Poly1305",
+      "reason": "The AEAD composition uses Poly1305 to authenticate associated data and ciphertext."
+    }
+  ],
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-13"
+  }
+}
+` — the caller's concept-to-code spec JSON (queries,
+  commands, constraints).
+- `{
+  "schema_version": "1.0",
+  "concept": "ChaCha20",
+  "kind": "struct",
+  "cluster": "crypto-kani",
+  "english_description": "The scalar ChaCha20 stream cipher block function and bounded keystream operation.",
+  "verifier": "kani",
+  "queries": [
+    {
+      "english": "Return one 64-byte ChaCha20 block for this key nonce and counter.",
+      "rust_sig": "fn block(&self, key: [u8; 32], nonce: [u8; 12], counter: u32) -> [u8; 64]",
+      "pure": true,
+      "witness_required": false
+    },
+    {
+      "english": "Return the number of keystream bytes remaining before counter exhaustion.",
+      "rust_sig": "fn bytes_remaining(&self) -> usize",
+      "pure": true,
+      "witness_required": false
+    }
+  ],
+  "commands": [
+    {
+      "english": "Apply the next ChaCha20 keystream bytes to input and return the output.",
+      "rust_sig": "fn apply_keystream(&mut self, input: &[u8]) -> Result<Vec<u8>, CryptoError>"
+    }
+  ],
+  "constraints": [
+    {
+      "english": "A ChaCha20 block contains exactly sixty-four output bytes.",
+      "logic": "output.len() == 64",
+      "kind": "postcondition",
+      "source": "oracle-doc",
+      "applies_to": [
+        "block"
+      ],
+      "id": "C001"
+    },
+    {
+      "english": "A successful keystream application preserves the input length.",
+      "logic": "output.is_err() || output.as_ref().map(|bytes| bytes.len() == input.len()).unwrap_or(false)",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "apply_keystream"
+      ],
+      "id": "C002"
+    },
+    {
+      "english": "The requested input fits in the remaining counter stream.",
+      "logic": "input.len() <= self.bytes_remaining()",
+      "kind": "precondition",
+      "source": "hand",
+      "applies_to": [
+        "apply_keystream"
+      ],
+      "id": "C003"
+    }
+  ],
+  "adversary_table": [
+    {
+      "scenario": "Process input lengths 1, 63, 64, and 65 across block boundaries.",
+      "violates": "C002",
+      "resolution": "preserve the input length in every successful output"
+    },
+    {
+      "scenario": "Request more bytes than remain before the 32-bit block counter is exhausted.",
+      "violates": "C003",
+      "resolution": "return a counter exhaustion error without wrapping"
+    },
+    {
+      "scenario": "Use an all-zero key and nonce with counter zero.",
+      "violates": "C001",
+      "resolution": "match the pinned RFC ChaCha20 block result"
+    }
+  ],
+  "source_references": [
+    {
+      "kind": "reference-implementation",
+      "citation_or_path": "upstream/botan/src/lib/stream/chacha/chacha.cpp at 2a81eef56c96c237e590c27f9a75e60317c9c700",
+      "notes": "Scalar quarter-round and block path; optimized providers are separate."
+    },
+    {
+      "kind": "paper",
+      "citation_or_path": "RFC 8439 sections 2.3 and 2.4",
+      "notes": "ChaCha20 block and stream construction."
+    }
+  ],
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-10-13"
+  }
+}
+` — the callee's concept-to-code spec JSON.
+- `# Reliance policy — `crypto-mixed`
+
+This is standing governance for the `crypto-mixed` port, at the path declared
+by `compatibility_policy.reliance_policy_path` in the project descriptor.
+Changes to this policy go through the human-authority checkpoint in plan.md
+§7.2 and are versioned as described below.
+
+Schema version this policy targets: 1.0.
+Owner: Crypto Mixed P3 port maintainer.
+Policy version: `reliance-policy@0.1`
+
+`ligature accept-promotion` parses the `Policy version:` line to compute a
+promotion receipt's `policy_version` field (chainlink #45), and refuses to
+generate a receipt if the line is missing or malformed. The acceptance
+command below stamps this marker and records the reviewed policy content.
+
+For this initial adoption, the selected version is `reliance-policy@0.1`:
+
+```
+ligature accept-policy --reviewer roger-codex-luna6 --version reliance-policy@0.1
+```
+
+`accept-policy` is a human checkpoint (chainlink #113). Bump the version through
+the same command for every substantive change to the resolution rule or this
+project's additions below.
+
+## Resolution rule (fixed — do not override)
+
+This table resolves the schema-prose vs. G2+ conflict (plan.md §2) and is
+identical across every project using this pipeline. It is not a
+project-specific choice:
+
+| Source in the concept spec | Lands in the boundary artifact as |
+|---|---|
+| callee **precondition** | `callee_guarantees`, recorded as the obligation the **caller** must establish before the call — not a guarantee the callee provides — and discharged by the bridge specification (plan.md §8.2). A bridge's `callee_requirement` must be one of the boundary's own `callee_guarantees` entries (G2), so an obligation recorded nowhere there is one no bridge can discharge |
+| callee **postcondition** / **invariant** relied on | `callee_guarantees` |
+| adversary case (`A*`) | evidence / test seed — **never** a guarantee, never eligible for `callee_guarantees` |
+| the **caller's own** precondition / invariant | the caller's own contract — never a `callee_guarantees` entry; a bridge cites it in `available_contract_facts` |
+
+G2+ (role safety, plan.md §12) enforces the third row mechanically: an
+adversary-case id inside `callee_guarantees` is a hard error, not a style
+warning. It also reads each entry's own `kind` and reports a `precondition`
+entry as the caller obligation of the first row rather than letting the
+field name imply the second — one definition
+(`scripts/validate_boundary_contracts.py`'s `callee_obligation_role()`),
+read by the gate that reports the role, so "is this a guarantee or an
+obligation?" is answered from the artifacts and not from a reader's memory.
+An **empty** `callee_guarantees` is therefore a claim, not an omission: it
+declares that this call depends on nothing of the callee's and has no
+precondition to establish.
+
+## Project-specific additions
+
+Everything below this line is this project's own governance, additive to
+the fixed rule above — it can narrow or clarify, but never contradict or
+weaken the resolution table.
+
+- **Domain-specific evidence sources.** Use Botan 3.13.0 at the pinned commit
+  recorded in `upstream/upstream-pin.json` as the reference implementation
+  for differential cases. Record the source commit, build configuration,
+  inputs, and random seed with each result. Use RFC 8439's algorithm
+  descriptions and test vectors for ChaCha20, Poly1305, and
+  ChaCha20-Poly1305. If BLAKE2b is included in the adopted P3 scope, use RFC
+  7693's algorithm description, worked example, and self-test; that RFC does
+  not provide a full test-vector set. Botan agreement and test-vector matches
+  are testing evidence, not proofs. P3 proof claims use Kani results tied to
+  their harnesses, bounds, and assumptions. Functional tests and Kani results
+  do not establish constant-time behavior; any such claim needs separate
+  timing evidence for a stated target and configuration.
+- **Additional role-safety checks.** Apply the fixed resolution table above
+  without project-specific exceptions. For every non-empty
+  `callee_guarantees` entry, cite the upstream function and distinguish its
+  behavior from caller obligations. Treat adversarial inputs as evidence or
+  test seeds, never as callee guarantees. Keep an artifact with an unresolved
+  role interpretation unapproved.
+- **Escalation path.** When Botan behavior, published algorithm references,
+  or test results disagree, record the case as an open finding with the source
+  location, exact input or seed, and configuration; leave the affected
+  artifact unapproved. The Crypto Mixed P3 port maintainer resolves
+  project-specific interpretations. If the dispute concerns shared Ligature
+  rules or validation, escalate it to the Ligature maintainers rather than
+  adding a local exception. Update this policy through the human
+  policy-acceptance checkpoint when a resolution changes its rules.
+
+## Change history
+
+| Version | Date | Reviewer | Change |
+|---|---|---|---|
+| `0.1` | `2026-10-12` | `roger-codex-luna6` | Initial adoption for the Kani-bounded Crypto Mixed P3 port |
+` — contents read from this project's
+  `docs/reliance-policy.md`, resolution rule included. Ligature's bundled
+  `docs/reliance-policy.template.md` is only the source used to initialize
+  or migrate the project copy; the project file is the policy authority. This
+  document is **standing governance, not a one-time artifact**: it is
+  user-owned, and its on-disk content is drift-checked against the reviewed
+  hash the ownership manifest records — if it was edited without review,
+  `check` reports a `policy-drift` finding and the installation reads as
+  drifted. Never edit it as a side effect of drafting; a governance change
+  goes through `ligature accept-policy --reviewer <name>` (chainlink #78).
+- Re-entry only (plan.md §6 diagram: change requests/drift findings route
+  back to Stage 0/3): `` (the last drafted boundary
+  contract, if any) and `chainlink #47 (2026-10-19): gate-r1-g16 reports definite cross-concept calls absent from I after the call sites were made resolvable; see crypto-mixed findings crypto-ligature-010/011.` (the specific gate failure or drift
+  report that triggered this re-entry — e.g. a G2+ finding from
+  `scripts/validate_boundary_contracts.py`). When both are present, revise
+  `` to address `chainlink #47 (2026-10-19): gate-r1-g16 reports definite cross-concept calls absent from I after the call sites were made resolvable; see crypto-mixed findings crypto-ligature-010/011.` specifically; do not
+  redraft from scratch and do not touch anything the finding didn't flag.
+
+## Task
+
+Given the caller and callee concept specs, draft the boundary contract for
+`ChaCha20Poly1305::decrypt -> ChaCha20::apply_keystream`.
+
+Apply `# Reliance policy — `crypto-mixed`
+
+This is standing governance for the `crypto-mixed` port, at the path declared
+by `compatibility_policy.reliance_policy_path` in the project descriptor.
+Changes to this policy go through the human-authority checkpoint in plan.md
+§7.2 and are versioned as described below.
+
+Schema version this policy targets: 1.0.
+Owner: Crypto Mixed P3 port maintainer.
+Policy version: `reliance-policy@0.1`
+
+`ligature accept-promotion` parses the `Policy version:` line to compute a
+promotion receipt's `policy_version` field (chainlink #45), and refuses to
+generate a receipt if the line is missing or malformed. The acceptance
+command below stamps this marker and records the reviewed policy content.
+
+For this initial adoption, the selected version is `reliance-policy@0.1`:
+
+```
+ligature accept-policy --reviewer roger-codex-luna6 --version reliance-policy@0.1
+```
+
+`accept-policy` is a human checkpoint (chainlink #113). Bump the version through
+the same command for every substantive change to the resolution rule or this
+project's additions below.
+
+## Resolution rule (fixed — do not override)
+
+This table resolves the schema-prose vs. G2+ conflict (plan.md §2) and is
+identical across every project using this pipeline. It is not a
+project-specific choice:
+
+| Source in the concept spec | Lands in the boundary artifact as |
+|---|---|
+| callee **precondition** | `callee_guarantees`, recorded as the obligation the **caller** must establish before the call — not a guarantee the callee provides — and discharged by the bridge specification (plan.md §8.2). A bridge's `callee_requirement` must be one of the boundary's own `callee_guarantees` entries (G2), so an obligation recorded nowhere there is one no bridge can discharge |
+| callee **postcondition** / **invariant** relied on | `callee_guarantees` |
+| adversary case (`A*`) | evidence / test seed — **never** a guarantee, never eligible for `callee_guarantees` |
+| the **caller's own** precondition / invariant | the caller's own contract — never a `callee_guarantees` entry; a bridge cites it in `available_contract_facts` |
+
+G2+ (role safety, plan.md §12) enforces the third row mechanically: an
+adversary-case id inside `callee_guarantees` is a hard error, not a style
+warning. It also reads each entry's own `kind` and reports a `precondition`
+entry as the caller obligation of the first row rather than letting the
+field name imply the second — one definition
+(`scripts/validate_boundary_contracts.py`'s `callee_obligation_role()`),
+read by the gate that reports the role, so "is this a guarantee or an
+obligation?" is answered from the artifacts and not from a reader's memory.
+An **empty** `callee_guarantees` is therefore a claim, not an omission: it
+declares that this call depends on nothing of the callee's and has no
+precondition to establish.
+
+## Project-specific additions
+
+Everything below this line is this project's own governance, additive to
+the fixed rule above — it can narrow or clarify, but never contradict or
+weaken the resolution table.
+
+- **Domain-specific evidence sources.** Use Botan 3.13.0 at the pinned commit
+  recorded in `upstream/upstream-pin.json` as the reference implementation
+  for differential cases. Record the source commit, build configuration,
+  inputs, and random seed with each result. Use RFC 8439's algorithm
+  descriptions and test vectors for ChaCha20, Poly1305, and
+  ChaCha20-Poly1305. If BLAKE2b is included in the adopted P3 scope, use RFC
+  7693's algorithm description, worked example, and self-test; that RFC does
+  not provide a full test-vector set. Botan agreement and test-vector matches
+  are testing evidence, not proofs. P3 proof claims use Kani results tied to
+  their harnesses, bounds, and assumptions. Functional tests and Kani results
+  do not establish constant-time behavior; any such claim needs separate
+  timing evidence for a stated target and configuration.
+- **Additional role-safety checks.** Apply the fixed resolution table above
+  without project-specific exceptions. For every non-empty
+  `callee_guarantees` entry, cite the upstream function and distinguish its
+  behavior from caller obligations. Treat adversarial inputs as evidence or
+  test seeds, never as callee guarantees. Keep an artifact with an unresolved
+  role interpretation unapproved.
+- **Escalation path.** When Botan behavior, published algorithm references,
+  or test results disagree, record the case as an open finding with the source
+  location, exact input or seed, and configuration; leave the affected
+  artifact unapproved. The Crypto Mixed P3 port maintainer resolves
+  project-specific interpretations. If the dispute concerns shared Ligature
+  rules or validation, escalate it to the Ligature maintainers rather than
+  adding a local exception. Update this policy through the human
+  policy-acceptance checkpoint when a resolution changes its rules.
+
+## Change history
+
+| Version | Date | Reviewer | Change |
+|---|---|---|---|
+| `0.1` | `2026-10-12` | `roger-codex-luna6` | Initial adoption for the Kani-bounded Crypto Mixed P3 port |
+`'s resolution rule while deciding what belongs in
+`callee_guarantees`. `callee_guarantees` is this boundary's record of what
+the call depends on, and it holds two roles that mean opposite things. Both
+go here, referenced as `<CalleeConcept>.<constraint id>`:
+
+- A callee **postcondition or invariant** the caller's own correctness
+  depends on is a guarantee: the callee provides it once the call returns.
+- A callee **precondition** the caller must establish before the call is a
+  **caller obligation, not a guarantee** — the callee neither provides it
+  nor checks it. Declare it here because this is where the call's reliance
+  surface is declared and nowhere else: a bridge's `callee_requirement` must
+  be one of this boundary's own `callee_guarantees` entries (G2, checked at
+  approve time), so a precondition recorded anywhere other than here is one
+  that no bridge can discharge. `scripts/validate_boundary_contracts.py`
+  reads the referenced constraint's own `kind` and reports a precondition
+  entry as a caller obligation the bridge discharges, not as something the
+  callee guarantees — declare it, do not work around the gate.
+- The **caller's own** obligations never go here. A caller precondition or
+  invariant belongs to the caller's contract and is cited by a bridge in its
+  `available_contract_facts`, not declared as something this call relies on
+  from the callee (G2+ rejects an entry naming the caller's concept).
+- An **adversary case** (`A*`-shaped) is evidence, never a guarantee. Do not
+  put one in `callee_guarantees` under any circumstance, even if it looks
+  like the closest match to what the caller depends on — say so is missing
+  a real postcondition/invariant to cite instead, don't substitute.
+
+An **empty** `callee_guarantees` is not the way to avoid any of this. It
+says the caller's correctness depends on nothing of the callee's and that
+there is no precondition to establish, which is a claim, not an omission —
+and it is the shape that lets a real gap pass unnoticed. Leave it empty only
+when the callee spec genuinely declares no constraint with a stable `id` yet
+(the gap #6 case below).
+
+If a real normative constraint needs to be referenced but the approved spec
+has no IDs, do not invent one in this boundary. Revise the concept spec
+through `ligature draft 3 concept-to-code
+<crate>/specs/<concept_snake_case>.json`, have a human review the staged
+draft, and promote it with `ligature approve --reviewer <human> <target>`
+before referencing its author-assigned ID.
+
+If the callee spec has no constraint with a stable `id` field yet (the
+vendored concept-to-code schema has not adopted gap #6 upstream), do not
+invent one and do not reference that constraint. Omit it from
+`callee_guarantees` rather than fabricate an id, and state the missing
+reference only in the surrounding review workflow, not in the JSON output.
+The human reviewer must establish whether the concept spec should receive an
+author-assigned ID before approving a boundary that depends on it.
+
+## Schema
+
+`docs/boundary-contract-schema.json` — validate against this exactly.
+`additionalProperties: false` throughout; do not add fields it doesn't
+declare, however useful they seem.
+
+## Filename and boundary_id
+
+`boundary_id` must equal the eventual filename stem exactly:
+`cha_cha20_poly1305_decrypt__to__cha_cha20_apply_keystream`
+(doubled underscore around `to`) — `cha_cha20_poly1305` and
+`cha_cha20` are `ChaCha20Poly1305`/`ChaCha20`
+lowercased with an underscore before each internal capital (`TaskQueue` ->
+`task_queue`), precomputed by the caller, not derived by you from prose.
+Get this right in the JSON body; the caller derives the filename from it,
+not the other way around.
+
+## review block
+
+Omit the `review` field entirely. Your output is a draft
+(`scripts/review_checkpoint.py stage_draft` takes it as-is); `review` is
+added only by `approve`, from an explicit human-supplied reviewer. Do not
+guess a reviewer name or date, and do not claim a review happened.
+
+## Write set
+
+The boundary contract lands in the crate's `specs/_boundaries/` directory —
+a `protected_roots` path. That directory is written only through this
+draft → `approve` path, never by hand and never by writing the file
+directly: the project descriptor's `write_set` declares the spec trees
+off-limits to free-form writes, and `ligature write-set-check` reports a
+file hand-written into this directory as a blocking `protected-write`
+violation, exactly as it reports a file outside `allowed_roots` (the
+crate `src/` and `tests/` trees) as `out-of-set`. If a finding implies
+writing anywhere else, surface it instead of writing.
+
+The one exception is a **sanctioned** protected write: one the issue in
+progress is authorized to make. It is authorized by a recorded,
+issue-scoped capability grant (`ligature authorize-write --issue <N>
+--path <path> --op write --issuer <name>`, recorded in
+`ci/results/protected-writes.jsonl`), and `ligature write-set-check
+--issue <N>` reports such a write as `authorized protected write [grant
+<id>]` rather than as a `protected-write` violation. If the work in hand
+needs a protected write that no grant covers, stop and report it — ask
+the human to record the grant. Never run `authorize-write` yourself (it is
+a human checkpoint like `approve`) and never hand-edit the grant ledger.
+
+staged draft: crates/crypto-mixed-core/specs/_boundaries/cha_cha20_poly1305_decrypt__to__cha_cha20_apply_keystream.json.draft
+OK: generated draft passed its immediate checks
+
+--- stderr ---
+
+--- paste the model's JSON-only response, then EOF (ctrl-D) ---

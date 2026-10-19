@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "boundary_id": "cha_cha20_poly1305_decrypt__to__cha_cha20_apply_keystream",
+  "caller": {
+    "concept": "ChaCha20Poly1305",
+    "method": "decrypt"
+  },
+  "callee": {
+    "concept": "ChaCha20",
+    "method": "apply_keystream"
+  },
+  "callee_guarantees": [
+    "ChaCha20.C002",
+    "ChaCha20.C003"
+  ]
+}

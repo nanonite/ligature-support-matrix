@@ -1,0 +1,15 @@
+{
+  "crates/crypto-mixed-core/specs/cha_cha20.json": "spec-cha_cha20.json",
+  "crates/crypto-mixed-core/specs/poly1305.json": "spec-poly1305.json",
+  "crates/crypto-mixed-core/specs/_boundaries/cha_cha20_poly1305_encrypt__to__cha_cha20_with_counter.json": "boundary-cha_cha20_poly1305_encrypt__to__cha_cha20_with_counter.json",
+  "crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-004.json": "interaction-I-CRYPTO-MIXED-004.json",
+  "crates/crypto-mixed-core/specs/_boundaries/cha_cha20_poly1305_encrypt__to__cha_cha20_bytes_remaining.json": "boundary-cha_cha20_poly1305_encrypt__to__cha_cha20_bytes_remaining.json",
+  "crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-005.json": "interaction-I-CRYPTO-MIXED-005.json",
+  "crates/crypto-mixed-core/specs/_boundaries/cha_cha20_poly1305_decrypt__to__cha_cha20_with_counter.json": "boundary-cha_cha20_poly1305_decrypt__to__cha_cha20_with_counter.json",
+  "crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-006.json": "interaction-I-CRYPTO-MIXED-006.json",
+  "crates/crypto-mixed-core/specs/_boundaries/cha_cha20_poly1305_decrypt__to__cha_cha20_apply_keystream.json": "boundary-cha_cha20_poly1305_decrypt__to__cha_cha20_apply_keystream.json",
+  "crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-007.json": "interaction-I-CRYPTO-MIXED-007.json",
+  "crates/crypto-mixed-core/specs/_boundaries/cha_cha20_poly1305_tag__to__poly1305_compute_tag_segments.json": "boundary-cha_cha20_poly1305_tag__to__poly1305_compute_tag_segments.json",
+  "crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-008.json": "interaction-I-CRYPTO-MIXED-008.json",
+  "crates/crypto-mixed-core/specs/_bridges/BR-CRYPTO-MIXED-003.json": "bridge-BR-CRYPTO-MIXED-003.json"
+}

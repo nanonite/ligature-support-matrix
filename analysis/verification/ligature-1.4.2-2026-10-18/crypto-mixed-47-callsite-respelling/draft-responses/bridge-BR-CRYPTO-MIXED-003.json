@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "bridge_id": "BR-CRYPTO-MIXED-003",
+  "boundary_id": "cha_cha20_poly1305_decrypt__to__cha_cha20_apply_keystream",
+  "callee_requirement": "ChaCha20.C003",
+  "available_contract_facts": [
+    {
+      "obligation_id": "ChaCha20Poly1305.C002",
+      "role": "caller-precondition"
+    }
+  ],
+  "required_local_facts": [
+    {
+      "fact_id": "fresh_counter_one_stream",
+      "expression": "chacha.bytes_remaining() == 274877906880"
+    }
+  ],
+  "target_expression": "chacha.apply_keystream(ciphertext)",
+  "protocol_class": "pairwise",
+  "bridge_logic": {
+    "bindings": {
+      "caller_self": "ChaCha20Poly1305",
+      "chacha": "ChaCha20",
+      "ciphertext": "&[u8]"
+    },
+    "premises": [
+      "ChaCha20Poly1305.C002(caller_self, ciphertext)",
+      "fresh_counter_one_stream(chacha, ciphertext)"
+    ],
+    "conclusion": {
+      "obligation_id": "ChaCha20.C003"
+    }
+  }
+}
