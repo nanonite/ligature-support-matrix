@@ -1,6 +1,6 @@
 {
   "adjudicator": {
-    "content_hash": "sha256:2f975350565f3dfb09682d69b34ed137ae1dc6342decb7cf9c986ed56a7d733a",
+    "content_hash": "sha256:2e0616b7ff7d54776c4798ba6a1f447136f4434f211b9ccd655e753d19f3e928",
     "kind": "zipapp",
     "platform": {
       "machine": "x86_64",
@@ -9,7 +9,7 @@
     },
     "python": "3.12.3",
     "required_python": "3.10",
-    "version": "1.4.1"
+    "version": "1.4.2"
   },
   "descriptor_path": "project-descriptor.json",
   "files": [
@@ -28,9 +28,9 @@
       "path": "docs/reliance-policy.md"
     },
     {
-      "authority_hash": "sha256:8698972e864853e0b744d6fccbbe3070fe9eccb751ed9691780260400dbbec84",
-      "base_hash": "sha256:6b3c3ae71b7d059115b497136077e1472cb46071a47143b2383ed870eee64216",
-      "expected_hash": "sha256:6b3c3ae71b7d059115b497136077e1472cb46071a47143b2383ed870eee64216",
+      "authority_hash": "sha256:2ffe496467e04bb949cb1f84f98e4cb52e116b0a0f5a899d6950a8dac00d3bf2",
+      "base_hash": "sha256:431a8179e9364591db288c707b6b5c8a3f28bd6799db5932482e14ca83bf588a",
+      "expected_hash": "sha256:431a8179e9364591db288c707b6b5c8a3f28bd6799db5932482e14ca83bf588a",
       "ownership": "managed",
       "path": ".codex/skills/ligature/SKILL.md"
     },
@@ -50,8 +50,8 @@
     },
     {
       "authority_hash": null,
-      "base_hash": "sha256:f38a526bd77fcc0a916351d729bfad95d858ead740ed0268220bb0b833f164bd",
-      "expected_hash": "sha256:f38a526bd77fcc0a916351d729bfad95d858ead740ed0268220bb0b833f164bd",
+      "base_hash": "sha256:f5f974e4e0a733af2599053087d3f5769d5bbca8cf101664994415b08db25371",
+      "expected_hash": "sha256:f5f974e4e0a733af2599053087d3f5769d5bbca8cf101664994415b08db25371",
       "ownership": "managed",
       "path": ".ligature/schemas/project-state.schema.json"
     },
@@ -155,21 +155,21 @@
     }
   ],
   "gate_hashes": {
-    ".codex/skills/ligature/SKILL.md": "sha256:6b3c3ae71b7d059115b497136077e1472cb46071a47143b2383ed870eee64216",
+    ".codex/skills/ligature/SKILL.md": "sha256:431a8179e9364591db288c707b6b5c8a3f28bd6799db5932482e14ca83bf588a",
     ".ligature/schemas/consolidated-check.schema.json": "sha256:410dd4820f6b4ac5110653f2c310e13212eb311cd47e0d6c85ce9b715bbfffcf",
-    ".ligature/schemas/project-state.schema.json": "sha256:f38a526bd77fcc0a916351d729bfad95d858ead740ed0268220bb0b833f164bd",
-    "@adjudicator": "sha256:2f975350565f3dfb09682d69b34ed137ae1dc6342decb7cf9c986ed56a7d733a"
+    ".ligature/schemas/project-state.schema.json": "sha256:f5f974e4e0a733af2599053087d3f5769d5bbca8cf101664994415b08db25371",
+    "@adjudicator": "sha256:2e0616b7ff7d54776c4798ba6a1f447136f4434f211b9ccd655e753d19f3e928"
   },
-  "installed_product_version": "1.4.1",
+  "installed_product_version": "1.4.2",
   "installed_schema_versions": {
     "consolidated-check": "1.0",
     "project-descriptor": "1.0",
-    "project-state": "1.0",
-    "skill": "1.0"
+    "project-state": "1.1",
+    "skill": "1.1"
   },
-  "installed_skill_version": "1.0",
+  "installed_skill_version": "1.1",
   "manifest_schema_version": "1.0",
   "mode": "port",
-  "product_version": "1.4.1",
+  "product_version": "1.4.2",
   "project_name": "date-creusot"
 }

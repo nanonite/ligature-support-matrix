@@ -1,0 +1,2 @@
+FAIL: 1 finding(s)
+  - [G9/error] BR-CRYPTO-MIXED-001: no generated harness at ci/harness/BR-CRYPTO-MIXED-001.kani.rs -- run `ligature.pyz check-bridges`
