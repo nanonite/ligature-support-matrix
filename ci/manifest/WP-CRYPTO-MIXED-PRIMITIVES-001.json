@@ -92,7 +92,7 @@
   ],
   "gate_integrity": [
     {
-      "hash": "sha256:6b3c3ae71b7d059115b497136077e1472cb46071a47143b2383ed870eee64216",
+      "hash": "sha256:431a8179e9364591db288c707b6b5c8a3f28bd6799db5932482e14ca83bf588a",
       "runner": ".codex/skills/ligature/SKILL.md"
     },
     {
@@ -100,7 +100,7 @@
       "runner": ".ligature/schemas/consolidated-check.schema.json"
     },
     {
-      "hash": "sha256:f38a526bd77fcc0a916351d729bfad95d858ead740ed0268220bb0b833f164bd",
+      "hash": "sha256:f5f974e4e0a733af2599053087d3f5769d5bbca8cf101664994415b08db25371",
       "runner": ".ligature/schemas/project-state.schema.json"
     },
     {
@@ -189,7 +189,7 @@
   ],
   "provenance": {
     "artifact_set_hash": "sha256:e0b22f122c9e542d4cbdae5b3b9f3f79fade1b7074aa6e36848c676fd57a7027",
-    "base_commit": "13e602135232fb6f188125b17aa01cc1e2ffb3dd",
+    "base_commit": "f4ca3479034972a5cb13cf1e9c722bf44f944a5b",
     "features": [
       "default"
     ],
