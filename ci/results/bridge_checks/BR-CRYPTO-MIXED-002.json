@@ -30,7 +30,7 @@
         "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c003_aead_counter_one_stream_capacity",
         "kani_version": "0.67.0",
         "source_harness": "kani_chacha20_c003_aead_counter_one_stream_capacity",
-        "source_harness_sha256": "763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+        "source_harness_sha256": "9c636c16886f4ea11d6b90ffad9787f10f201739a7ca401c13d95ec0026ee808",
         "harness_hash": "sha256:3832d82f855b2606e524aca7b79ecdd5bc85ee728dd17e04c1883cd0c3c39649"
       }
     },

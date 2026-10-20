@@ -20,9 +20,9 @@
           "kind": "kani-bounded-model-check",
           "scope": {
             "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c002_exact_length_65_boundary",
-            "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+            "kani_harness_sha256": "sha256:9c636c16886f4ea11d6b90ffad9787f10f201739a7ca401c13d95ec0026ee808",
             "kani_result_summary": "{\"successful_checks\":646,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c002_exact_length_65_boundary.assertion.1\"],\"total_checks\":652,\"unreachable_checks\":[{\"check\":\"chacha20::ChaCha20::bytes_remaining.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::ub_checks::is_valid_allocation_size.assertion.1\",\"description\":\"attempt to divide by zero\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
-            "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+            "kani_source_sha256": "sha256:4a31b6e002407a57330e63ef9c5d6506985c9074e0d8601560160062c830b976",
             "kani_version": "cargo-kani 0.67.0",
             "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c002_exact_length_65_boundary"
           },
@@ -56,9 +56,9 @@
           "kind": "kani-bounded-model-check",
           "scope": {
             "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c003_aead_counter_one_stream_capacity",
-            "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+            "kani_harness_sha256": "sha256:9c636c16886f4ea11d6b90ffad9787f10f201739a7ca401c13d95ec0026ee808",
             "kani_result_summary": "{\"successful_checks\":33,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c003_aead_counter_one_stream_capacity.assertion.1\",\"kani_proofs::kani_chacha20_c003_aead_counter_one_stream_capacity.assertion.2\"],\"total_checks\":34,\"unreachable_checks\":[{\"check\":\"chacha20::ChaCha20::bytes_remaining.assertion.2\",\"description\":\"attempt to subtract with overflow\"}]}",
-            "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+            "kani_source_sha256": "sha256:4a31b6e002407a57330e63ef9c5d6506985c9074e0d8601560160062c830b976",
             "kani_version": "cargo-kani 0.67.0",
             "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c003_aead_counter_one_stream_capacity"
           },
@@ -92,9 +92,9 @@
           "kind": "kani-bounded-model-check",
           "scope": {
             "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c004_with_counter_stream_capacity",
-            "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+            "kani_harness_sha256": "sha256:9c636c16886f4ea11d6b90ffad9787f10f201739a7ca401c13d95ec0026ee808",
             "kani_result_summary": "{\"successful_checks\":25,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c004_with_counter_stream_capacity.assertion.4\"],\"total_checks\":26,\"unreachable_checks\":[{\"check\":\"chacha20::ChaCha20::bytes_remaining.assertion.2\",\"description\":\"attempt to subtract with overflow\"}]}",
-            "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+            "kani_source_sha256": "sha256:4a31b6e002407a57330e63ef9c5d6506985c9074e0d8601560160062c830b976",
             "kani_version": "cargo-kani 0.67.0",
             "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c004_with_counter_stream_capacity"
           },
@@ -128,9 +128,9 @@
           "kind": "kani-bounded-model-check",
           "scope": {
             "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c005_bytes_remaining_tracks_consumption",
-            "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+            "kani_harness_sha256": "sha256:9c636c16886f4ea11d6b90ffad9787f10f201739a7ca401c13d95ec0026ee808",
             "kani_result_summary": "{\"successful_checks\":737,\"successful_claim_assertions\":[\"kani_proofs::kani_chacha20_c005_bytes_remaining_tracks_consumption.assertion.3\",\"kani_proofs::kani_chacha20_c005_bytes_remaining_tracks_consumption.assertion.4\",\"kani_proofs::kani_chacha20_c005_bytes_remaining_tracks_consumption.assertion.5\",\"kani_proofs::kani_chacha20_c005_bytes_remaining_tracks_consumption.assertion.7\"],\"total_checks\":742,\"unreachable_checks\":[{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::ub_checks::is_valid_allocation_size.assertion.1\",\"description\":\"attempt to divide by zero\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
-            "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+            "kani_source_sha256": "sha256:4a31b6e002407a57330e63ef9c5d6506985c9074e0d8601560160062c830b976",
             "kani_version": "cargo-kani 0.67.0",
             "proof_targets": "kani-run:crates/crypto-mixed-core#kani_chacha20_c005_bytes_remaining_tracks_consumption"
           },
@@ -164,9 +164,9 @@
           "kind": "kani-bounded-model-check",
           "scope": {
             "input_domain": "the bounded model encoded by Kani harness kani_poly1305_finalize_tag_length",
-            "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+            "kani_harness_sha256": "sha256:9c636c16886f4ea11d6b90ffad9787f10f201739a7ca401c13d95ec0026ee808",
             "kani_result_summary": "{\"successful_checks\":844,\"successful_claim_assertions\":[\"kani_proofs::kani_poly1305_finalize_tag_length.assertion.1\"],\"total_checks\":853,\"unreachable_checks\":[{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::ub_checks::is_valid_allocation_size.assertion.1\",\"description\":\"attempt to divide by zero\"},{\"check\":\"poly1305::Poly1305::absorb.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"poly1305::Poly1305::absorb.assertion.2\",\"description\":\"attempt to add with overflow\"},{\"check\":\"poly1305::Poly1305::absorb.assertion.3\",\"description\":\"attempt to add with overflow\"},{\"check\":\"std::alloc::Layout::max_size_for_align.assertion.1\",\"description\":\"attempt to add with overflow\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
-            "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+            "kani_source_sha256": "sha256:4a31b6e002407a57330e63ef9c5d6506985c9074e0d8601560160062c830b976",
             "kani_version": "cargo-kani 0.67.0",
             "proof_targets": "kani-run:crates/crypto-mixed-core#kani_poly1305_finalize_tag_length"
           },
@@ -200,9 +200,9 @@
           "kind": "kani-bounded-model-check",
           "scope": {
             "input_domain": "the bounded model encoded by Kani harness kani_poly1305_c005_segments_match_concatenation",
-            "kani_harness_sha256": "sha256:763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a",
+            "kani_harness_sha256": "sha256:9c636c16886f4ea11d6b90ffad9787f10f201739a7ca401c13d95ec0026ee808",
             "kani_result_summary": "{\"successful_checks\":749,\"successful_claim_assertions\":[\"kani_proofs::kani_poly1305_c005_segments_match_concatenation.assertion.1\"],\"total_checks\":753,\"unreachable_checks\":[{\"check\":\"core::num::<impl usize>::abs_diff.assertion.1\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"core::num::<impl usize>::abs_diff.assertion.2\",\"description\":\"attempt to subtract with overflow\"},{\"check\":\"std::fmt::Arguments::<'_>::from_str.assertion.1\",\"description\":\"attempt to shift left with overflow\"},{\"check\":\"std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1\",\"description\":\"attempt to subtract with overflow\"}]}",
-            "kani_source_sha256": "sha256:64dc4c6a312627b470a191f103f9316c62a92c8eaecf1ab042c75796b5ae2a93",
+            "kani_source_sha256": "sha256:4a31b6e002407a57330e63ef9c5d6506985c9074e0d8601560160062c830b976",
             "kani_version": "cargo-kani 0.67.0",
             "proof_targets": "kani-run:crates/crypto-mixed-core#kani_poly1305_c005_segments_match_concatenation"
           },

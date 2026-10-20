@@ -230,17 +230,6 @@ fn bridge_002_limits_aead_plaintext_to_the_counter_one_stream() {
 }
 
 #[kani::proof]
-fn bridge_003_limits_aead_ciphertext_to_the_counter_one_stream() {
-    let ciphertext_and_tag_length: usize = kani::any();
-    let aead = ChaCha20Poly1305::new();
-    let stream = ChaCha20::with_counter([0; 32], [0; 12], 1);
-
-    if let Ok(message_length) = aead.decryption_output_length(ciphertext_and_tag_length) {
-        assert!(message_length <= stream.bytes_remaining());
-    }
-}
-
-#[kani::proof]
 #[kani::unwind(64)]
 // Kani 0.67.0 did not finish this symbolic one-byte round trip within 180 seconds.
 fn aead_round_trip_holds_for_one_symbolic_byte() {

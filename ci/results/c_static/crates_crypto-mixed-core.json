@@ -4,7 +4,7 @@
   "crate_dir": "crates/crypto-mixed-core",
   "source_binding": {
     "algorithm": "sha256",
-    "digest": "sha256:c837c3e7bbe883e164135b21a8e57c100487284292021e1e200712ba92409110",
+    "digest": "sha256:fa3f1befa13977d34937cf8fd3eb7a30d6d38be3a907f63d71342fe52f5079d3",
     "file_count": 6
   },
   "coverage_scope": {
@@ -41,9 +41,9 @@
       "ChaCha20Poly1305",
       "Poly1305"
     ],
-    "unattributed_call_sites": 246,
+    "unattributed_call_sites": 240,
     "out_of_scope_call_sites": 60,
-    "macro_invocations": 39
+    "macro_invocations": 38
   },
   "callsites": [
     {
