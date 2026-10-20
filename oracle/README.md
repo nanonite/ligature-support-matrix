@@ -9,9 +9,10 @@ in [`operations.md`](operations.md).
 | File | Role |
 |---|---|
 | `make_cases.py` | Writes `cases.jsonl` and `cases.jsonl.manifest.json` from Botan's vector files plus boundary cases |
+| `generate_random_cases.py` | Writes `random-cases.jsonl` and its reproducibility manifest from a seed (#53) |
 | `build_upstream.sh`, `CMakeLists.txt`, `driver.cpp` | Minimized scalar Botan build and the C++ driver, built outside the pilot |
-| `golden/results.jsonl` | Driver output for `cases.jsonl` (checked in; nextest never runs the driver) |
-| `generate_oracle_tests.py` | Writes `rust-check/tests/generated_cases.rs` (one test per case) and `test-map.csv` |
+| `golden/results.jsonl`, `golden/random-results.jsonl` | Driver output for each case file (checked in; nextest never runs the driver) |
+| `generate_oracle_tests.py` | Writes `rust-check/tests/generated_cases.rs` and `random_cases.rs` (one test per case) and `test-map.csv` |
 | `rust-check/` | Test crate: `src/lib.rs` recomputes each case through the port; `tests/rust_only.rs` holds the `rust-only` test |
 | `divergences/` | Evidence for each oracle mismatch, following the rdb workflow |
 
@@ -23,6 +24,8 @@ From the pilot root, inside `nix develop path:/home/goya/storage/full-ligature-p
 oracle/build_upstream.sh                     # Botan subset + driver in /tmp/crypto-mixed-oracle-build
 python3 oracle/make_cases.py
 /tmp/crypto-mixed-oracle-build/driver/oracle_driver oracle/cases.jsonl oracle/golden/results.jsonl
+python3 oracle/generate_random_cases.py --seed 20261020 --driver /tmp/crypto-mixed-oracle-build/driver/oracle_driver
+/tmp/crypto-mixed-oracle-build/driver/oracle_driver oracle/random-cases.jsonl oracle/golden/random-results.jsonl
 python3 oracle/generate_oracle_tests.py
 (cd oracle/rust-check && cargo nextest run --profile ci)
 ```
@@ -76,6 +79,38 @@ nonce vectors]` marks the part of an upstream test that was not translated.
 The test-map name is `<registered test>/<result name>`, as in the `make
 check` log.
 
+## Seeded random cases (2026-10-20, chainlink #53)
+
+`random-cases.jsonl` holds 1,210 cases from seed 20261020 (`splitmix64-v1`):
+- 200 encryptions, 200 valid decryptions and 200 mutated decryptions;
+- 50 length queries within the RFC limit;
+- 200 keystream XORs and 60 remaining-capacity queries;
+- 150 Poly1305 MACs, 100 multi-piece MACs and 50 split MACs.
+
+Lengths favor block and padding edges. Seeks mix small offsets, block-aligned
+offsets, anywhere below 2^38, and offsets within 600 bytes of the cap.
+
+The decrypt inputs are Botan's own ciphertexts for the random encryptions, so
+the generator runs the built driver once. Each mutated decryption has a
+random bit flip in the ciphertext, nonce or AD, or a random resize, in place
+of Botan's RNG-driven `mutate_vec`. The manifest records the seed, generator,
+command, upstream commit and that derivation.
+
+```text
+$ cargo nextest run --profile ci
+     Summary [   3.556s] 2580 tests run: 2580 passed, 0 skipped
+junit.xml: tests="2580" failures="0" errors="0"
+```
+
+- **Outcomes reached:** 200 valid decryptions; 195 `authentication_failed`
+  and 5 `ciphertext_too_short` among the mutations; 24
+  `keystream_exhausted` near the cap.
+- **Reproducibility:** re-running the generator with the same seed gives
+  byte-identical case and golden files.
+- **Extra seeds:** seeds 1 to 5, run on a scratch copy and not checked in,
+  also passed 1,210/1,210 each. That makes 7,260 random cases with no
+  divergence.
+
 ## Sensitivity check
 
 Two hand-made mutants of a scratch copy of the port, run with
@@ -85,3 +120,4 @@ Two hand-made mutants of a scratch copy of the port, run with
 |---|---|
 | ChaCha quarter-round `rotate_left(7)` changed to `rotate_left(6)` | `1370 tests run: 1000 passed, 370 failed` |
 | AEAD ciphertext padding `(16 - len % 16) % 16` changed to `16 - len % 16` | `1370 tests run: 1110 passed, 260 failed` (128 vectors x encrypt/decrypt, plus 4 boundary cases) |
+| The same two mutants, random cases only (`-E 'binary(random_cases)'`) | rotation: `1210 tests run: 630 passed, 580 failed`; padding: `1210 tests run: 1148 passed, 62 failed` |

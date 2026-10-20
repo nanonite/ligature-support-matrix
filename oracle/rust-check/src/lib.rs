@@ -1,9 +1,11 @@
 //! Rust side of the crypto-mixed differential oracle (oracle-PROTOCOL.md section 6).
 //!
-//! Each generated test calls [`assert_case`], which loads `oracle/cases.jsonl`
-//! and `oracle/golden/results.jsonl` at runtime, recomputes the case through
-//! the `crypto-mixed-core` port, and compares the complete result object with
-//! the Botan golden result. The operation contract is `oracle/operations.md`.
+//! Each generated test calls [`assert_case`] with its case file and golden file
+//! (`cases.jsonl` with `golden/results.jsonl`, or `random-cases.jsonl` with
+//! `golden/random-results.jsonl`). Both are loaded at runtime; the case is
+//! recomputed through the `crypto-mixed-core` port and the complete result
+//! object is compared with the Botan golden result. The operation contract is
+//! `oracle/operations.md`.
 
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -30,10 +32,10 @@ fn find<'a>(values: &'a [Value], case_id: &str) -> &'a Value {
         .unwrap_or_else(|| panic!("no entry for {case_id}"))
 }
 
-/// Recompute one case and compare it with its golden result.
-pub fn assert_case(case_id: &str) {
-    let cases = load_jsonl(&oracle_path("cases.jsonl"));
-    let golden = load_jsonl(&oracle_path("golden/results.jsonl"));
+/// Recompute one case from `case_file` and compare it with its result in `golden_file`.
+pub fn assert_case(case_file: &str, golden_file: &str, case_id: &str) {
+    let cases = load_jsonl(&oracle_path(case_file));
+    let golden = load_jsonl(&oracle_path(golden_file));
     let case = find(&cases, case_id);
     let expected = find(&golden, case_id);
     if case.get("oracle_scope").and_then(Value::as_str) == Some("excluded") {

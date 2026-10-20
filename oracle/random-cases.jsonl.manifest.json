@@ -1,0 +1,10 @@
+{
+  "case_file": "random-cases.jsonl",
+  "source": "random",
+  "seed": 20261020,
+  "generator": "splitmix64-v1",
+  "command": "python3 oracle/generate_random_cases.py --seed 20261020 --driver /tmp/crypto-mixed-oracle-build/driver/oracle_driver",
+  "upstream_commit": "2a81eef56c96c237e590c27f9a75e60317c9c700",
+  "case_count": 1210,
+  "derived_from_upstream": "random-aead-decrypt-* and random-aead-decrypt-mutated-* ciphertexts are the driver's (Botan's) output for random-aead-encrypt-* with the same number"
+}

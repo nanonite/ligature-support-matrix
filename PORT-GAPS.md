@@ -291,6 +291,6 @@ Verus remains outside P3. No constant-time or side-channel claim is made. The sc
 ## Remaining review items
 
 - The `per-instantiation` CG3 degradation is the operator-accepted final P3 limitation (#135, 2026-10-18). Do not relabel its Kani records as type-universal; reopen #135 for P4/Verus work.
-- Stage 8A call-site validation (#47) and the G14 blockers (#134) are closed: R1/G16 is accepted and `check` exits 0 with only the accepted CG3 degradation. Stage 8B (#48) has differential parity on every translated case (1,370/1,370 nextest), with one ruled divergence. Seeded random cases follow in #53.
+- Stage 8A call-site validation (#47) and the G14 blockers (#134) are closed: R1/G16 is accepted and `check` exits 0 with only the accepted CG3 degradation. Stage 8B (#48) has differential parity on every translated case (1,370/1,370 nextest), with one ruled divergence. The #53 seeded random cases (1,210 checked in, 6,050 more over five extra seeds) found no further divergence.
 - Keep the Codesight header, call-graph, and template gaps and the Tilth call-site attribution limitation visible for upstream triage.
 - Keep the broader timed-out Kani attempts, scalar-only provider scope, and omitted side-channel claims distinct from defects in Ligature's assurance intake.

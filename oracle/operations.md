@@ -80,6 +80,14 @@ vectors that were not translated, and the retired case IDs.
   `StreamCipher seek rejection past counter limits`).
 - `boundary-*` cases are hand-written: padding and block edges, the keystream
   cap, the length guards and the Poly1305 key-state errors.
+- `random-*` cases live in their own file, `random-cases.jsonl`, with
+  `random-cases.jsonl.manifest.json` and `golden/random-results.jsonl`
+  (#53). `generate_random_cases.py` draws every input from a seeded
+  SplitMix64 stream. The `random-aead-decrypt-*` and
+  `random-aead-decrypt-mutated-*` ciphertexts are the driver's output for
+  `random-aead-encrypt-*`, used unchanged or randomly mutated (bit flip in
+  the ciphertext, nonce or AD, or a resize). Random cases stay within the
+  compared domain: no length query past RFC 8439's limit.
 
 ## Excluded cases
 
