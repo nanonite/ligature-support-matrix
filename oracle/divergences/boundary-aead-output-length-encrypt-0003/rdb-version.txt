@@ -1,0 +1,2 @@
+rdb 0.0.0
+/home/goya/.cargo/bin/rdb

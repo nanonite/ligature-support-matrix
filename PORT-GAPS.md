@@ -117,7 +117,7 @@ Verus remains outside P3. No constant-time or side-channel claim is made. The sc
 - **What the Rust port does instead:** `ChaCha20Poly1305::tag` derives the one-time key and calls `Poly1305::compute_tag_segments` once over the RFC 8439 MAC data (AAD, padding, ciphertext, padding, lengths). The Poly1305 accumulator, previously a separate private `Poly1305State` struct, is folded into `Poly1305` itself (2026-10-19, #47), matching Botan's single class. A differential test over 3000 random cases plus the Botan vector showed identical output.
 - **Why:** One-shot segment authentication is simpler to verify than a stateful streaming protocol. The separate state struct made the extractor treat a private helper as its own concept, which added five cross-concept edges.
 - **Impact:** The Stage 3 interactions `I-CRYPTO-MIXED-001` (encrypt -> `Poly1305::finalize`) and `-003` (encrypt -> `Poly1305::set_key`) describe Botan's structure and are never realized in Rust (R1 reports them as intent without realization). The real edge is declared by `I-CRYPTO-MIXED-008` with a new obligation, `Poly1305.C005` (segment tag = concatenation tag).
-- **Status:** Open. Retiring 001/003 also affects `BR-CRYPTO-MIXED-001` and both manifests, so it is left for the owner after the current approval round.
+- **Status:** Open. Retiring 001/003 also affects `BR-CRYPTO-MIXED-001` and both manifests, so it is left for the owner after the current approval round. **Update 2026-10-19 (#152):** the owner closed the retirement as disregarded, so I-001 and I-003 stay as declared intent without realization. **Update 2026-10-20 (#48):** the Stage 8B oracle shows the segment-based tag is identical to Botan's streaming MAC on all 140 12-byte-nonce Botan vectors and the AEAD boundary cases.
 - **Finding ids:** `crypto-ligature-010`, `crypto-ligature-011`
 - **Generalizable lesson:** Stage 3 interactions drafted from the C++ call graph can describe a call structure the port deliberately changes. Re-derive the interaction set from the implemented Rust call graph before Stage 8A, not only from the upstream map.
 
@@ -244,9 +244,53 @@ Verus remains outside P3. No constant-time or side-channel claim is made. The sc
 - **Finding ids:** `crypto-ligature-004`
 - **Generalizable lesson:** Reproducible verifier intake depends on both locked dependency resolution and an approved path for creating and retaining the lockfile.
 
+### Past RFC 8439's message limit, the port rejects at the length query and Botan during processing
+
+- **Category:** Semantic divergence
+- **C++ construct / upstream location:** `ChaCha20Poly1305_Encryption::output_length` (`src/lib/modes/aead/chacha20poly1305/chacha20poly1305.cpp:106-107`) checks only `size_t` overflow. The 2^38-64-byte limit is enforced in `process_msg` (`:119`, `Invalid_State`). Decryption's `output_length` (`:149-151`) checks only the tag length. Pinned commit `2a81eef56c96c237e590c27f9a75e60317c9c700`.
+- **What the Rust port does instead:** `ChaCha20Poly1305::encryption_output_length` and `decryption_output_length` return `MessageTooLong` for any message longer than 2^38-64 bytes, and `encrypt`/`decrypt` call them before touching the stream.
+- **Why:** The port uses one guard for the RFC limit, and that guard is what the Kani bridges `BR-CRYPTO-MIXED-002`/`-003` verify: every accepted length fits the counter-one keystream. Botan spreads the same limit over two calls.
+- **Impact:** The Stage 8B oracle compared `output_length` past the limit: three boundary cases returned `message_too_long` where Botan returned a size (`rdb` traced it to `aead.rs:21`). Real encryption past the limit fails on both sides; only the length query differs. Within the limit every length query matches.
+- **Status:** ruled-scope-cut. The operator accepted the divergence on 2026-10-20 (#48); the three cases are excluded with that reason (`oracle/divergences/boundary-aead-output-length-encrypt-0003/`).
+- **Finding ids:** `crypto-rdb-001`
+- **Generalizable lesson:** A port that merges validation spread across several upstream calls into one guard changes *which* call fails, even when the accepted inputs are the same. Differential tests on the query API catch this, while end-to-end tests at realistic sizes never reach it.
+
+### Byte-offset seek is not ported
+
+- **Category:** Cut or simplified behaviour
+- **C++ construct / upstream location:** `ChaCha::seek(uint64_t offset)` (`src/lib/stream/chacha/chacha.cpp:450-462`) positions the stream at any byte and throws `Invalid_Argument` past 2^32 blocks for a 96-bit nonce.
+- **What the Rust port does instead:** `ChaCha20::with_counter(key, nonce, counter: u32)` starts only at a block boundary. The oracle composes a byte offset as block `seek / 64` plus `seek % 64` discarded keystream bytes.
+- **Why:** The AEAD only needs counters 0 and 1, and a `u32` counter makes an out-of-range position unrepresentable rather than a runtime error.
+- **Impact:** All 73 seeking `ChaCha(20)` vectors and the keystream-cap checks still compare through the composition. Botan's "seek past counter limit throws" checks have no comparable operation.
+- **Status:** worked-around (oracle composition); the missing API is within the P3 subset decision.
+- **Finding ids:** `crypto-oracle-001`
+- **Generalizable lesson:** Moving a range check into the type system removes the error path that upstream tests exercise. Record those tests as untranslatable rather than counting them as passed.
+
+### Botan's stateful cipher-mode API is not ported
+
+- **Category:** Cut or simplified behaviour
+- **C++ construct / upstream location:** `AEAD_Mode` / `Cipher_Mode` (`set_associated_data`, `start`, `update`, `process`, `finish`, `reset`), and the AEAD test checks in `src/tests/test_aead.cpp` that exercise them, including zeroing the caller's plaintext buffer after a failed tag check (`:476-509`).
+- **What the Rust port does instead:** One-shot `encrypt`, `decrypt` and `verify`. `decrypt` returns `AuthenticationFailed` without producing any plaintext. `Poly1305` keeps a minimal streaming API (`set_key`, `update`, `finalize`), and the oracle compares it.
+- **Why:** One-shot functions are simpler to specify and bound-check under Kani, and returning no plaintext on failure is the idiomatic Rust shape.
+- **Impact:** Botan's checks for incremental updates, AD persistence across messages and `reset()`, AD set before the key, re-keying and clone independence have no comparable operation. Plaintext zeroing holds by construction, but the oracle cannot observe it.
+- **Status:** ruled-scope-cut (P3 subset, #43).
+- **Finding ids:** `crypto-oracle-001`
+- **Generalizable lesson:** Upstream test suites often check API protocol behaviour (state machines, buffer hygiene) alongside the cryptographic outputs. List those checks explicitly when the port's API shape changes, so output parity is not mistaken for full test parity.
+
+### Upstream vectors outside the ported subset cannot be compared
+
+- **Category:** Tooling blind spots in the transfer
+- **C++ construct / upstream location:** `src/tests/data/aead/chacha20poly1305.vec`, `src/tests/data/stream/chacha.vec`, plus the FFI, libsodium, TLS and ChaCha_RNG tests in the pinned `make check` log.
+- **What the Rust port does instead:** Implements only 32-byte keys, 96-bit nonces and 20 rounds.
+- **Why:** The P3 subset decision (#43): XChaCha, 64-bit nonces, reduced rounds, 128-bit keys and the wrapper APIs are out of scope.
+- **Impact:** 1,606 vectors cannot be translated: 1,569 XChaCha20Poly1305 and 1 64-bit-nonce AEAD vector, 20 ChaCha(8), 2 ChaCha(12), and 10 64-bit-nonce and 4 192-bit-nonce ChaCha(20). 27 of 34 `test-map.csv` rows are `unmapped`. The 1,303 translated cases all pass (`oracle/README.md`).
+- **Status:** ruled-scope-cut
+- **Finding ids:** `crypto-oracle-001`
+- **Generalizable lesson:** Report differential parity as "translated cases passed, out of the upstream vectors that exist". In this pilot most of Botan's ChaCha20-Poly1305 vectors are XChaCha, so the subset's coverage is far smaller than the vector file suggests.
+
 ## Remaining review items
 
 - The `per-instantiation` CG3 degradation is the operator-accepted final P3 limitation (#135, 2026-10-18). Do not relabel its Kani records as type-universal; reopen #135 for P4/Verus work.
-- Complete Stage 8A call-site validation (#47) against the fresh C_static report: four unresolved `possible-dispatch` sites and three undeclared cross-concept calls currently block G14.
+- Stage 8A call-site validation (#47) and the G14 blockers (#134) are closed: R1/G16 is accepted and `check` exits 0 with only the accepted CG3 degradation. Stage 8B (#48) has differential parity on every translated case (1,370/1,370 nextest), with one ruled divergence. Seeded random cases follow in #53.
 - Keep the Codesight header, call-graph, and template gaps and the Tilth call-site attribution limitation visible for upstream triage.
 - Keep the broader timed-out Kani attempts, scalar-only provider scope, and omitted side-channel claims distinct from defects in Ligature's assurance intake.

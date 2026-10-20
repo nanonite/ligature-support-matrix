@@ -1,0 +1,23 @@
+breakpoint set at 0x2111f0
+Stopped(Pid(1041555), SIGTRAP)
+self = 0x7fff6b45a910 (*ChaCha20Poly1305)
+plaintext_length = 0x7fff6b45a918 (usize)
+rdi = 0x7fff6b45a910
+rsi = 0x7fff6b45a927
+rdx = 0x3fffffffc1
+/home/goya/storage/full-ligature-port-workspace/crypto-mixed/crates/crypto-mixed-core/src/aead.rs:21
+self = 0x7fff6b45a8e8 (*ChaCha20Poly1305)
+plaintext_length = 0x7fff6b45a8f0 (usize)
+/home/goya/storage/full-ligature-port-workspace/crypto-mixed/crates/crypto-mixed-core/src/aead.rs:22
+/home/goya/storage/full-ligature-port-workspace/crypto-mixed/crates/crypto-mixed-core/src/aead.rs:27
+#0> _ZN17crypto_mixed_core4aead16ChaCha20Poly130524encryption_output_length17h98f6b787b089e2d3E at 0x211251
+#1  _ZN12oracle_repro4main17h872238f3aeb6123dE at 0x210d2d
+#2  _ZN4core3ops8function6FnOnce9call_once17h87d0a0b607cf2985E at 0x210efa
+#3  _ZN3std3sys9backtrace28__rust_begin_short_backtrace17h116bf9d81c41e97cE at 0x210f4d
+#4  _ZN3std2rt10lang_start28_$u7b$$u7b$closure$u7d$$u7d$17h3598d443cf734494E at 0x2110e0
+#5  _RNvNtCsjrHSEGnQ3l9_3std2rt19lang_start_internal at 0x236863
+#6  _ZN3std2rt10lang_start17hb7ef2594719344feE at 0x2110c6
+#7  main at 0x210dcd
+#8  _RNvNvNtNtNtNtCsjrHSEGnQ3l9_3std12backtrace_rs9symbolize5gimli3elf17debug_path_exists17DEBUG_PATH_EXISTS.0 at 0x79e1d442a4d7
+case_id=boundary-aead-output-length-encrypt-0003 input_length=274877906881 expected=Ok(274877906897) result=Err(MessageTooLong)
+Exited(Pid(1041555), 0)

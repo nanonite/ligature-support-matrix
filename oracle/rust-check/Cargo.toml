@@ -1,0 +1,13 @@
+[package]
+name = "crypto-mixed-oracle-check"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[[bin]]
+name = "oracle_repro"
+path = "src/bin/oracle_repro.rs"
+
+[dependencies]
+crypto-mixed-core = { path = "../../crates/crypto-mixed-core" }
+serde_json = "1.0"

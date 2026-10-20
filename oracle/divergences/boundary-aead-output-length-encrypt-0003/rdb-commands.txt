@@ -1,0 +1,13 @@
+break 0x2111f0
+continue
+variable list
+register rdi
+register rsi
+register rdx
+next
+variable list
+next
+next
+backtrace
+continue
+quit
