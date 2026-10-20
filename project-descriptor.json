@@ -35,7 +35,8 @@
       "crates/*/tests/",
       "findings/limitations.jsonl",
       "PORT-GAPS.md",
-      "oracle/**"
+      "oracle/**",
+      "analysis/stage8c/**"
     ],
     "protected_roots": [
       "crates/*/specs/**",
