@@ -116,8 +116,8 @@ C004/C005/Poly1305.C005, plus BR-003).
 | `write-set-check --issue 134` / `--issue 47` | exit 0 / exit 0 | `write-set-check-*.json` |
 | `gate-g14 --json` | exit 0; `crypto-kani` **bounded**, status `degraded` (CG3 per-instantiation ceiling, the accepted condition); 6 obligations + 3 bridges evaluated, 6 proof artifacts re-checked, 0 cycles; 346 s, 4.7 GB | `gate-g14.json` |
 
-`bridge_003_limits_aead_ciphertext_to_the_counter_one_stream` remains in
-`src/kani_proofs.rs`, unused, like the pre-existing `bridge_002…`.
+`bridge_003_limits_aead_ciphertext_to_the_counter_one_stream` was later
+removed by the owner (section 6).
 
 Still open after #47: I-CRYPTO-MIXED-001/003 are never realized in the Rust
 port (section 4); I-CRYPTO-MIXED-008 reports intent without realization
@@ -138,3 +138,31 @@ configuration:
 | `check` | exit 0; R1/G16, G9, G14 executed; G18-G20 not applicable (P3 has no witness specs); 23 findings (was 28), only medium = the accepted CG3 degradation; next action = I-CRYPTO-MIXED-001 intent without realization; 311 s, 4.7 GB | `check.out` |
 
 Use `--feature default` for every future extraction in this pilot.
+
+## 6. Close-out for #134 (2026-10-19/20)
+
+Owner decisions: #152 (I-CRYPTO-MIXED-001/003 never realized) is
+disregarded, so those interactions stay as info-level intent without
+realization. #134 closes as the parent of #135, which was already resolved on
+2026-10-18 by option B (accept the Kani per-instantiation CG3 ceiling).
+
+- The reviewed degradation record named only BR-001/002 in `affected_edges`,
+  although G14 applied it cluster-wide (the template notes nothing
+  cross-references that list). Redrafted with BR-CRYPTO-MIXED-003 added
+  (`degradation-br003/`); approved and ratified by the owner (crypto-mixed
+  `b470139`). Ceiling, capability gap, and tracking issue unchanged.
+- The owner removed the unused `bridge_003…` harness with
+  `remove_bridge003.py` (exact-match, refuses unless the block occurs exactly
+  once; `post-bridge003-removal/source.diff`, 11 lines deleted;
+  `cargo fmt --check` exit 0). Every Kani and bridge record binds the
+  `kani_proofs.rs` hash, so all were re-run:
+
+| Step | Result | File (`post-bridge003-removal/`) |
+|---|---|---|
+| `extract-c-static --feature default`, `validate-callsites` | 18 / 18 / 0; exit 0 | `extract-c-static.out`, `validate-callsites.out` |
+| `gate-r1-g16 --json` | accepted: 18 checked, 0 undeclared, 0 unresolved, 0 configuration mismatches | `gate-r1-g16.json` |
+| `record-assurance` PRIMITIVES, 6 bindings | all supported (646 / 33 / 25 / 737 / 844 / 749 proved goals); 267 s, 4.7 GB | `record-assurance-primitives.*` |
+| `check-bridges`, `gate-g9` | exit 0 / exit 0, 3 bridges | `check-bridges.out`, `gate-g9.out` |
+| `tests/record_bridge_only_report.py` | exit 0, 3 passing bridge records | `record-bridge-only-report.out` |
+| `check` | exit 0; 23 findings; only medium = CG3 "accepted as degradation under ceiling 'per-instantiation' (chainlink:135)" over BR-001/002/003 and the six obligations; next action = I-001 intent without realization (disregarded, #152); 304 s, 4.7 GB | `check.out` |
+| `write-set-check --issue 134 --json` | exit 0 | `write-set-check-134.json` |

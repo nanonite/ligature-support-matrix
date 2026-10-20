@@ -1,0 +1,22 @@
+diff --git a/crates/crypto-mixed-core/src/kani_proofs.rs b/crates/crypto-mixed-core/src/kani_proofs.rs
+index a29b1bc..54c55b7 100644
+--- a/crates/crypto-mixed-core/src/kani_proofs.rs
++++ b/crates/crypto-mixed-core/src/kani_proofs.rs
+@@ -229,17 +229,6 @@ fn bridge_002_limits_aead_plaintext_to_the_counter_one_stream() {
+     }
+ }
+ 
+-#[kani::proof]
+-fn bridge_003_limits_aead_ciphertext_to_the_counter_one_stream() {
+-    let ciphertext_and_tag_length: usize = kani::any();
+-    let aead = ChaCha20Poly1305::new();
+-    let stream = ChaCha20::with_counter([0; 32], [0; 12], 1);
+-
+-    if let Ok(message_length) = aead.decryption_output_length(ciphertext_and_tag_length) {
+-        assert!(message_length <= stream.bytes_remaining());
+-    }
+-}
+-
+ #[kani::proof]
+ #[kani::unwind(64)]
+ // Kani 0.67.0 did not finish this symbolic one-byte round trip within 180 seconds.

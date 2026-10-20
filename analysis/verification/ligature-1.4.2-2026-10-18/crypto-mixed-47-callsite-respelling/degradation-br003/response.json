@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "cluster": "crypto-kani",
+  "failed_conditions": [
+    "generic_callees_type_universal_or_creusot_owned"
+  ],
+  "affected_edges": [
+    "BR-CRYPTO-MIXED-001",
+    "BR-CRYPTO-MIXED-002",
+    "BR-CRYPTO-MIXED-003"
+  ],
+  "ceiling": "per-instantiation",
+  "capability_gap": "CG3",
+  "tracking_issue": "chainlink:135"
+}

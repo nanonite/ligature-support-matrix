@@ -1,0 +1,112 @@
+{
+  "bridge_records": [
+    {
+      "bridge_id": "BR-CRYPTO-MIXED-001",
+      "record": {
+        "claim": {
+          "kind": "callee-precondition-established",
+          "result": "pass"
+        },
+        "config": {
+          "features": [
+            "default"
+          ],
+          "target": "x86_64-unknown-linux-gnu",
+          "toolchain": "1.95.0-x86_64-unknown-linux-gnu"
+        },
+        "evidence": {
+          "harness": "bridge_br_crypto_mixed_001",
+          "kind": "kani-bounded-model-check",
+          "scope": {
+            "harness_hash": "sha256:fc30f6244fd710e267e5fa09e738ae9c98c876fdf950f6743830f83cf3d4d69c",
+            "input_domain": "the bounded model encoded by Kani harness bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key",
+            "kani_version": "0.67.0",
+            "source_harness": "bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key",
+            "source_harness_sha256": "763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a"
+          },
+          "verifier": "kani"
+        },
+        "schema_version": "1.0",
+        "support": {
+          "status": "supported"
+        },
+        "trust": {
+          "assumptions": []
+        }
+      }
+    },
+    {
+      "bridge_id": "BR-CRYPTO-MIXED-002",
+      "record": {
+        "claim": {
+          "kind": "callee-precondition-established",
+          "result": "pass"
+        },
+        "config": {
+          "features": [
+            "default"
+          ],
+          "target": "x86_64-unknown-linux-gnu",
+          "toolchain": "1.95.0-x86_64-unknown-linux-gnu"
+        },
+        "evidence": {
+          "harness": "bridge_br_crypto_mixed_002",
+          "kind": "kani-bounded-model-check",
+          "scope": {
+            "harness_hash": "sha256:3832d82f855b2606e524aca7b79ecdd5bc85ee728dd17e04c1883cd0c3c39649",
+            "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c003_aead_counter_one_stream_capacity",
+            "kani_version": "0.67.0",
+            "source_harness": "kani_chacha20_c003_aead_counter_one_stream_capacity",
+            "source_harness_sha256": "763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a"
+          },
+          "verifier": "kani"
+        },
+        "schema_version": "1.0",
+        "support": {
+          "status": "supported"
+        },
+        "trust": {
+          "assumptions": []
+        }
+      }
+    },
+    {
+      "bridge_id": "BR-CRYPTO-MIXED-003",
+      "record": {
+        "claim": {
+          "kind": "callee-precondition-established",
+          "result": "pass"
+        },
+        "config": {
+          "features": [
+            "default"
+          ],
+          "target": "x86_64-unknown-linux-gnu",
+          "toolchain": "1.95.0-x86_64-unknown-linux-gnu"
+        },
+        "evidence": {
+          "harness": "bridge_br_crypto_mixed_003",
+          "kind": "kani-bounded-model-check",
+          "scope": {
+            "harness_hash": "sha256:44d72b422d0b95a684434b9ab4ca06ea1b2386a9e36da68471bcebc0ae8fffa4",
+            "input_domain": "the bounded model encoded by Kani harness kani_chacha20_c003_aead_counter_one_stream_capacity",
+            "kani_version": "0.67.0",
+            "source_harness": "kani_chacha20_c003_aead_counter_one_stream_capacity",
+            "source_harness_sha256": "763f40de79d4e15946265fefc5628aaf923c8276f0b805400209b0820ce2072a"
+          },
+          "verifier": "kani"
+        },
+        "schema_version": "1.0",
+        "support": {
+          "status": "supported"
+        },
+        "trust": {
+          "assumptions": []
+        }
+      }
+    }
+  ],
+  "obligation_records": [],
+  "schema_version": "1.0",
+  "work_package": "WP-CRYPTO-MIXED-AEAD-001"
+}
