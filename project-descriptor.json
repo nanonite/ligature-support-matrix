@@ -34,7 +34,8 @@
       "crates/*/src/",
       "crates/*/tests/",
       "findings/limitations.jsonl",
-      "PORT-GAPS.md"
+      "PORT-GAPS.md",
+      "oracle/**"
     ],
     "protected_roots": [
       "crates/*/specs/**",
@@ -56,7 +57,6 @@
       ".mcp.json",
       "README.md",
       "analysis/upstream/**",
-      "oracle/**",
       "rust/**",
       "tools/**",
       "upstream/**"
