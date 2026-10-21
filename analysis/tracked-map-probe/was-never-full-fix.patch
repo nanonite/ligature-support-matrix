@@ -1,0 +1,99 @@
+--- a/rust/swisstable-verus-core/src/control_bytes.rs (before #120)
++++ b/rust/swisstable-verus-core/src/control_bytes.rs (corrected probe)
+@@ -150,10 +150,13 @@
+     if n == 0 {
+         0
+     } else {
+-        if s[start + (n - 1) as int] == EMPTY {
++        let prev = empty_run_forward(s, start, (n - 1) as nat);
++        if prev < (n - 1) as nat {
++            prev
++        } else if s[start + (n - 1) as int] == EMPTY {
+             (n - 1) as nat
+         } else {
+-            empty_run_forward(s, start, (n - 1) as nat) + 1
++            prev + 1
+         }
+     }
+ }
+@@ -172,10 +175,13 @@
+     if n == 0 {
+         0
+     } else {
+-        if s[wrap_index(cap, start - n as int)] == EMPTY {
++        let prev = empty_run_backward(s, cap, start, (n - 1) as nat);
++        if prev < (n - 1) as nat {
++            prev
++        } else if s[wrap_index(cap, start - n as int)] == EMPTY {
+             (n - 1) as nat
+         } else {
+-            empty_run_backward(s, cap, start, (n - 1) as nat) + 1
++            prev + 1
+         }
+     }
+ }
+@@ -206,7 +212,13 @@
+         0 <= start,
+         start + (n + 1) as int <= s.len(),
+     ensures empty_run_forward(s, start, n + 1)
+-        == (if s[start + n as int] == EMPTY { n } else { empty_run_forward(s, start, n) + 1 }),
++        == (if empty_run_forward(s, start, n) < n {
++            empty_run_forward(s, start, n)
++        } else if s[start + n as int] == EMPTY {
++            n
++        } else {
++            empty_run_forward(s, start, n) + 1
++        }),
+ {
+ }
+ 
+@@ -264,8 +276,13 @@
+         n <= GROUP_WIDTH as nat,
+         s.len() >= cap + 1,
+     ensures empty_run_backward(s, cap, start, n + 1)
+-        == (if s[wrap_index(cap, start - (n + 1) as int)] == EMPTY { n }
+-            else { empty_run_backward(s, cap, start, n) + 1 }),
++        == (if empty_run_backward(s, cap, start, n) < n {
++            empty_run_backward(s, cap, start, n)
++        } else if s[wrap_index(cap, start - (n + 1) as int)] == EMPTY {
++            n
++        } else {
++            empty_run_backward(s, cap, start, n) + 1
++        }),
+ {
+ }
+ 
+@@ -627,10 +644,12 @@
+                 assert(at as int == start + n as int);
+                 assert(is_empty <==> self.bytes@[at as int] == EMPTY);
+             }
+-            if is_empty {
+-                fwd = n;
+-            } else {
+-                fwd = fwd + 1;
++            if fwd == n {
++                if is_empty {
++                    fwd = n;
++                } else {
++                    fwd = fwd + 1;
++                }
+             }
+             n = n + 1;
+             proof { assert(fwd as nat == empty_run_forward(self.bytes@, start, n as nat)); }
+@@ -679,10 +698,12 @@
+             }
+             let is_empty = self.bytes[raw] == EMPTY;
+             proof { assert(is_empty <==> self.bytes@[raw as int] == EMPTY); }
+-            if is_empty {
+-                bwd = m;
+-            } else {
+-                bwd = bwd + 1;
++            if bwd == m {
++                if is_empty {
++                    bwd = m;
++                } else {
++                    bwd = bwd + 1;
++                }
+             }
+             m = m + 1;
+             proof {

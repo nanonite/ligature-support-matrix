@@ -1,0 +1,41 @@
+// number of groups is a power of two, since (i^2+i)/2 is a bijection in
+// Z/(2^m). See https://en.wikipedia.org/wiki/Quadratic_probing
+template <size_t Width>
+class probe_seq {
+ public:
+  // Creates a new probe sequence using `hash` as the initial value of the
+  // sequence and `capacity` as the mask to apply to each value in the
+  // progression.
+  probe_seq(ProbeCapacity capacity, size_t hash)
+      : capacity_(capacity.capacity), offset_(hash & capacity_) {}
+
+  // The offset within the table, i.e., the value `p(i)` above.
+  size_t offset() const { return offset_; }
+  size_t offset(size_t i) const { return (offset_ + i) & capacity_; }
+
+  void next() {
+    index_ += Width;
+    offset_ += index_;
+    offset_ &= capacity_;
+  }
+  // 0-based probe index, a multiple of `Width`.
+  size_t index() const { return index_; }
+
+ private:
+  size_t capacity_;
+  size_t offset_;
+  size_t index_ = 0;
+};
+
+// Begins a probing operation on `common.control`, using `hash`.
+inline probe_seq<Group::kWidth> probe_h1(ProbeCapacity capacity, size_t h1) {
+  return probe_seq<Group::kWidth>(capacity, h1);
+}
+inline probe_seq<Group::kWidth> probe(ProbeCapacity capacity, size_t hash) {
+  return probe_h1(capacity, H1(hash));
+}
+inline probe_seq<Group::kWidth> probe(const CommonFields& common, size_t hash) {
+  return probe(ProbeCapacity{common.capacity()}, hash);
+}
+
+constexpr size_t kProbedElementIndexSentinel = ~size_t{};

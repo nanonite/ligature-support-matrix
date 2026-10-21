@@ -1,0 +1,5 @@
+OK: 0 artifact(s) written; every promoted bridge compiled and was dispatched
+exit=0
+write set: clean
+after=2
+before=0

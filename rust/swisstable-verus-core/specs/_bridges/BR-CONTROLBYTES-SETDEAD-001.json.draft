@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "bridge_id": "BR-CONTROLBYTES-SETDEAD-001",
+  "boundary_id": "raw_table_erase__to__control_bytes_set_dead",
+  "callee_requirement": "ControlBytes.C003",
+  "available_contract_facts": [
+    {
+      "obligation_id": "RawTable.C006",
+      "role": "prior-callee-postcondition"
+    },
+    {
+      "obligation_id": "RawTable.C001",
+      "role": "invariant"
+    }
+  ],
+  "required_local_facts": [
+    {
+      "fact_id": "slot",
+      "expression": "slot"
+    }
+  ],
+  "target_expression": "ControlBytes::set_dead(slot)",
+  "protocol_class": "pairwise",
+  "bridge_logic": {
+    "bindings": {
+      "self": "RawTable",
+      "slot": "usize"
+    },
+    "premises": [
+      "slot < self.capacity()",
+      "self.is_full_ctrl(slot)"
+    ],
+    "conclusion": {
+      "obligation_id": "ControlBytes.C003"
+    }
+  }
+}

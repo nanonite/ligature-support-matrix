@@ -1,0 +1,1 @@
+rust/swisstable-verus-core/src/raw_table.rs:12://! hashes.  No `unsafe`, no raw pointers, no `MaybeUninit` slots -- what that

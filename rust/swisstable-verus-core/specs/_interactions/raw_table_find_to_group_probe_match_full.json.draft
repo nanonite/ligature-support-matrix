@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "raw_table_find_to_group_probe_match_full",
+  "caller": {
+    "concept": "RawTable",
+    "method": "find"
+  },
+  "callee": {
+    "concept": "GroupProbe",
+    "method": "match_full"
+  },
+  "edge_class": [
+    "stateful"
+  ],
+  "eligibility": "boundary-required",
+  "rationale": "The table's key-equality decision is only sound if the group reports a slot as full exactly when that slot's own control byte is full with the tag derived from the hash the table passed in.",
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [
+        "default"
+      ],
+      "cfg": []
+    }
+  },
+  "evidence_links": [
+    "E-001",
+    "E-002"
+  ],
+  "reliances": [
+    {
+      "obligation_id": "GroupProbe.C002",
+      "required_assurance": {
+        "required_claims": [
+          "postcondition-holds"
+        ],
+        "accepted_evidence_kinds": [
+          "verus-deductive-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "any capacity of the form two to the n minus one"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    }
+  ]
+}

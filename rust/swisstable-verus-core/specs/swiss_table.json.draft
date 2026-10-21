@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0",
+  "concept": "SwissTable",
+  "kind": "struct",
+  "cluster": "api",
+  "english_description": "The key-value container users of the port call, mapping keys to values on top of the open-addressed table.",
+  "verifier": "verus",
+  "queries": [
+    {
+      "english": "give the number of live entries",
+      "rust_sig": "fn len(&self) -> usize",
+      "pure": true,
+      "witness_required": false
+    },
+    {
+      "english": "tell whether a key is present",
+      "rust_sig": "fn contains(&self, key: &K) -> bool",
+      "pure": true,
+      "witness_required": false
+    }
+  ],
+  "commands": [
+    {
+      "english": "insert or replace an entry",
+      "rust_sig": "fn insert(&mut self, key: K, value: V) -> bool"
+    },
+    {
+      "english": "remove an entry",
+      "rust_sig": "fn erase(&mut self, key: &K) -> bool"
+    },
+    {
+      "english": "reserve room for more entries",
+      "rust_sig": "fn reserve(&mut self, additional: usize)"
+    },
+    {
+      "english": "drop every entry",
+      "rust_sig": "fn clear(&mut self)"
+    }
+  ],
+  "constraints": [
+    {
+      "english": "The container's observable contents are exactly the live key-value pairs held in its table.",
+      "logic": "self.contents() == self.table_contents()",
+      "kind": "invariant",
+      "source": "hand",
+      "applies_to": [
+        "len",
+        "contains"
+      ],
+      "id": "C001"
+    },
+    {
+      "english": "A true insert return means the key was newly added and a false return means an existing key's value was replaced.",
+      "logic": "self.inserted_new == !self.replaced_existing",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "insert"
+      ],
+      "id": "C002"
+    },
+    {
+      "english": "A true erase return means the key was present and is now absent, and a false return means it was already absent.",
+      "logic": "self.erase_return == self.was_present && !self.contains_after()",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "erase"
+      ],
+      "id": "C003"
+    },
+    {
+      "english": "Two containers holding the same key-value pairs enumerate them in no guaranteed order.",
+      "logic": "self.order_is_unspecified()",
+      "kind": "invariant",
+      "source": "hand",
+      "applies_to": [
+        "len",
+        "contains"
+      ],
+      "id": "C004"
+    }
+  ],
+  "adversary_table": [
+    {
+      "scenario": "inserting a key that is already present with a different value",
+      "violates": "C002",
+      "resolution": "preserve reference behaviour: replace the value, keep the entry count, return false"
+    },
+    {
+      "scenario": "erasing a key that was never present",
+      "violates": "C003",
+      "resolution": "return false and leave every other entry untouched"
+    },
+    {
+      "scenario": "an oracle comparing two maps entry by entry in enumeration order",
+      "violates": "C004",
+      "resolution": "reject the comparison: compare contents, never order"
+    }
+  ],
+  "source_references": [
+    {
+      "kind": "reference-implementation",
+      "citation_or_path": "absl/container/internal/raw_hash_set.h",
+      "notes": "raw_hash_set public surface"
+    },
+    {
+      "kind": "reference-implementation",
+      "citation_or_path": "absl/container/internal/raw_hash_set.h",
+      "notes": "PerTableSeed exists to randomise iteration order"
+    }
+  ],
+  "depends_on": [
+    {
+      "crate": "swisstable-verus-core",
+      "concept": "RawTable",
+      "reason": "every observable operation of this container is a slot operation on the table below it"
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+bool WasNeverFull(CommonFields& c, size_t index) {
+  if (is_single_group(c.capacity())) {
+    return true;
+  }
+  const size_t index_before = (index - Group::kWidth) & c.capacity();
+  const auto empty_after = Group(c.control() + index).MaskEmpty();
+  const auto empty_before = Group(c.control() + index_before).MaskEmpty();
+
+  // We count how many consecutive non empties we have to the right and to the
+  // left of `it`. If the sum is >= kWidth then there is at least one probe
+  // window that might have seen a full group.
+  return empty_before && empty_after &&
+         static_cast<size_t>(empty_after.TrailingZeros()) +
+                 empty_before.LeadingZeros() <
+             Group::kWidth;
+}
+{
+}
+
+/// Upstream `WasNeverFull`, over the raw control array: `cap <= GROUP_WIDTH` is
+/// `is_single_group` (raw_hash_set.h L404-L406), and the conjunction is
+/// `empty_before && empty_after &&
+///      empty_after.TrailingZeros() + empty_before.LeadingZeros() < Group::kWidth`
+/// (raw_hash_set.cc L718-L724).
+///
+/// The two masks' bit operations are *counts of non-empty bytes*, which is what
+/// `empty_run_forward` / `empty_run_backward` are:
+///
+/// * `Group(c.control() + index).MaskEmpty()` sets abstract bit `a` exactly when
+///   `ctrl[index + a] == kEmpty` (`MoveMask` puts each byte's MSB at that byte's
+///   index), so `TrailingZeros()` is the number of consecutive non-empty bytes
+///   starting at `index` -- `fwd`, capped at `kWidth`;
+/// * `Group(c.control() + index_before).MaskEmpty()` with
+///   `index_before = (index - Group::kWidth) & c.capacity()` sets bit `b` exactly
+///   when `ctrl[index_before + b] == kEmpty`, so bit 15 is `ctrl[index - 1]` and
+///   `LeadingZeros()` -- `countl_zero(mask << 16)` over the 16-bit mask
+///   (`NonIterableBitMask`, hashtable_control_bytes.h L100-L104) -- is the number
+///   of leading *zero* abstract bits, i.e. the number of consecutive non-empty
+///   bytes ending at `index - 1` -- `bwd`, capped at `kWidth`.
+///
+/// So upstream's test is `fwd + bwd < kWidth`, **not** a comparison between the
+/// two runs.  An earlier revision of this port transcribed it as
+/// `fwd < 16 && bwd < 16 && fwd <= bwd`, which is wrong in both directions: with
+/// 16 consecutive full slots around `index` (`bwd == 15`, `fwd == 1`) upstream
+/// sums to `kWidth` and writes `kDeleted` -- the case its own comment describes,
+/// "at least one probe window that might have seen a full group" -- while `1 <= 15`
+/// would have said `kEmpty`; and with `bwd == 1`, `fwd == 3` upstream writes
+/// `kEmpty` while `3 <= 1` says `kDeleted`.  The port's comment also carried the
+/// derivation error as prose (`fwd + (15 - bwd) < 16`).  See
+/// `swisstable-verus-021`.
+pub open spec fn was_never_full_in(s: Seq<u8>, cap: int, index: int) -> bool
+            assert forall|j: int| 0 <= j < self.ctrl.capacity as int && j != slot as int
+                implies !(self.ctrl.is_full_spec(j) && self.slot_hash(j) == hash) by {
+            }
+            assert(self.hashes@.len() == self.ctrl.capacity);
+            assert(self.ctrl.well_formed());
+        }
+        proof { lemma_full_count_slot(self.ctrl.bytes@, before_bytes, self.ctrl.capacity as nat, slot as int); }
+        (slot, true)
+    }
+
+    // ---- erase -----------------------------------------------------------
+
+    /// RawTable::erase -- upstream `erase_meta_only`: drop the element in `slot`
+    /// and pick the control byte it leaves behind.
+    ///
+    /// The choice is upstream's, verbatim: `EraseMetaOnlyLarge` (raw_hash_set.cc
+    /// L868-L883) writes `kEmpty` when `WasNeverFull(c, index)` holds (L708-L724)
+    /// and `kDeleted` otherwise, and this port does the same by calling
+    /// `ControlBytes::was_never_full`.
+    ///
+    /// `swisstable-verus-021` earlier recorded this port as always writing
+    /// `kDeleted`, and justified that by saying `WasNeverFull` reads a
+    /// `growth_info()` field the port has no field for.  **That was wrong for the
+    /// pinned checkout.**  `WasNeverFull` is a pure function of the control bytes
+    /// -- two `Group(...).MaskEmpty()` windows -- and the `growth_info()` calls sit
+    /// on the two lines *after* the branch decision (L876/L882) and only feed
+    /// growth-left accounting.  The operator's 2026-10-02 ruling directed that
+    /// upstream be matched, and it is.
+    ///
+    /// The small-table arm (`EraseMetaOnlySmall`, raw_hash_set.cc L856-L866, which
+    /// writes nothing because the whole table is one probing group) is not a
+    /// separate path here: `was_never_full` reproduces its `is_single_group`
+    /// short-circuit, and under this port's `capacity_bits >= 5` that arm is dead,
+    /// since the capacity is then at least 31 > 16.  `len_` is decremented once,
+    /// which is what both upstream arms do.
+    ///
+    /// RawTable.C005, in the re-scoped per-slot and counting form: the element
+    /// count fell by exactly one, the erased slot reads as empty-or-deleted and
+    /// carries no key, and every other slot is untouched.
+    ///
+    /// The control-byte write is guarded on `is_full(slot)`, and the caller must NOT
+    /// pre-write the tombstone: this function's `model()` precondition requires the
+    /// erased slot to still be full while its key is still in `hashes`.  An earlier
+    /// revision of the container's `erase` pre-wrote it, which falsified `slot_model`
+    /// -- see `swisstable-verus-020`.
+    pub fn erase(&mut self, slot: usize)
+        requires
+            self.model(),
+            self.len_ > 0,
+            slot < self.ctrl.capacity,
+            self.ctrl.is_full_spec(slot as int),          // upstream: no dangling iterator
+        ensures
+            final(self).model(),
+            // ---- the shape of the table is untouched, so a container's
+            // `values.len() == capacity` side condition survives an erase
+            final(self).ctrl.capacity == old(self).ctrl.capacity,
+            final(self).capacity_bits == old(self).capacity_bits,
+            // ---- counting
+            final(self).len_ == old(self).len_ - 1,                        // RawTable.C005
+            // ---- per-slot
+            final(self).ctrl.is_empty_or_deleted_spec(slot as int),        // RawTable.C005
+            final(self).slot_hash(slot as int) == NO_HASH,
+            // ---- upstream's erase rule, raw_hash_set.cc L875-L883
+            old(self).ctrl.was_never_full_spec(slot as int)
+                ==> final(self).ctrl.is_empty_spec(slot as int),
+            !old(self).ctrl.was_never_full_spec(slot as int)
+                ==> final(self).ctrl.is_dead_spec(slot as int),
+            // ---- per-slot frame
+            forall|j: int| 0 <= j < final(self).ctrl.capacity as int
+                    && j != slot as int
+                ==> #[trigger] final(self).hashes[j] == old(self).hashes[j]
+                    && final(self).ctrl.bytes[j] == old(self).ctrl.bytes[j],
+            // ---- and the consequence the container needs: the erased key is gone
+            // from every slot, which is `slot_model`'s distinctness clause plus the
+            // frame above.  Stated here so the container does not have to re-derive it
+            // across the `old(self)` boundary.
+            forall|j: int| 0 <= j < final(self).ctrl.capacity as int
+                ==> !(final(self).ctrl.is_full_spec(j)
+                    && final(self).slot_hash(j) == old(self).slot_hash(slot as int)),
+    {
+        let was_nf = self.ctrl.was_never_full(slot);
+        let ghost nf_spec = self.ctrl.was_never_full_spec(slot as int);
+        assert(was_nf == nf_spec);
+        let ghost before_bytes = self.ctrl.bytes@;
+        let ghost before_hashes = self.hashes@;
+        proof {
+            // The pre-state `slot_model`, restated over the two ghost snapshots; see
+--- crate
+(no results line: the run did not reach one)
+    ^error lines: 1
+    -> /tmp/issue33-replay-85264497f7/runs-v3/53-swisstable-verus-021/swisstable-verus/analysis/verus/verus-transcript.txt
+--- bitwise probe
+(no results line: the run did not reach one)
+    ^error lines: 1
+    -> /tmp/issue33-replay-85264497f7/runs-v3/53-swisstable-verus-021/swisstable-verus/analysis/verus/reachability-probe.txt
+--- error distribution, crate
+transcript: /tmp/issue33-replay-85264497f7/runs-v3/53-swisstable-verus-021/swisstable-verus/analysis/verus/verus-transcript.txt
+  None
+  primary error locations: 0
+  by file (this crate's code):
+  by kind:
+       1  path '/tmp' is not part of a flake (neither it nor its parent directories contain a 'flake.nix' file)

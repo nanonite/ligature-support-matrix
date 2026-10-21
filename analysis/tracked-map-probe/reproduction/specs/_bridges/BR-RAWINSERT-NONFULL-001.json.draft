@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "bridge_id": "BR-RAWINSERT-NONFULL-001",
+  "boundary_id": "swiss_table_insert__to__raw_table_insert",
+  "callee_requirement": "RawTable.C003",
+  "available_contract_facts": [
+    {
+      "obligation_id": "RawTable.C001",
+      "role": "invariant"
+    },
+    {
+      "obligation_id": "RawTable.C004",
+      "role": "prior-callee-postcondition"
+    }
+  ],
+  "required_local_facts": [
+    {
+      "fact_id": "free_slot_count",
+      "expression": "self.count_empty_or_deleted()"
+    }
+  ],
+  "target_expression": "RawTable::insert(hash)",
+  "protocol_class": "pairwise",
+  "bridge_logic": {
+    "bindings": {
+      "self": "RawTable",
+      "hash": "u64"
+    },
+    "premises": [
+      "self.capacity() >= GROUP_WIDTH",
+      "free_slot_count > 0",
+      "self.len_ <= self.count_full_ctrl()"
+    ],
+    "conclusion": {
+      "obligation_id": "RawTable.C003"
+    }
+  }
+}

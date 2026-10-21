@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "raw_table_find_to_group_probe_match_empty_or_deleted",
+  "caller": {
+    "concept": "RawTable",
+    "method": "find"
+  },
+  "callee": {
+    "concept": "GroupProbe",
+    "method": "match_empty_or_deleted"
+  },
+  "edge_class": [
+    "stateful"
+  ],
+  "eligibility": "boundary-required",
+  "rationale": "Insert-slot search must stop at the first group holding any deleted byte as well as any empty one, or the table stops reusing capacity and, worse, never terminates its probe on a table that has only tombstones left.",
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [
+        "default"
+      ],
+      "cfg": []
+    }
+  },
+  "evidence_links": [
+    "E-004"
+  ],
+  "reliances": [
+    {
+      "obligation_id": "GroupProbe.C003",
+      "required_assurance": {
+        "required_claims": [
+          "postcondition-holds"
+        ],
+        "accepted_evidence_kinds": [
+          "verus-deductive-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "any capacity of the form two to the n minus one"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    }
+  ]
+}

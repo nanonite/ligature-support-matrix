@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "boundary_id": "raw_table_find__to__group_probe_match_full",
+  "caller": {
+    "concept": "RawTable",
+    "method": "find"
+  },
+  "callee": {
+    "concept": "GroupProbe",
+    "method": "match_full"
+  },
+  "callee_guarantees": [
+    "GroupProbe.C002",
+    "GroupProbe.C001"
+  ]
+}

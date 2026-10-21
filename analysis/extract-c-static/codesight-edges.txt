@@ -1,0 +1,175 @@
+artefacts: 101  resolved edges: 82  zero-count answers: 27  Symbol-not-found probes: 48
+
+--- open-addressing
+  raw_hash_set.h::H1                                 callees: 0 (zero-count answer, exit 0)
+  raw_hash_set.h::H2                                 callees: 0 (zero-count answer, exit 0)
+  raw_hash_set.h::RehashProbabilityConstant          callees: 0 (zero-count answer, exit 0)
+  raw_hash_set.h::H1                                 <- raw_hash_set.cc::find_first_non_full(L207) depth=1   [normalised: find_first_non_full -> H1]
+  raw_hash_set.h::H2                                 callers: 0 (zero-count answer, exit 0)
+  raw_hash_set.h::RehashProbabilityConstant          <- raw_hash_set.cc::ShouldRehashForBugDetection(L94) depth=1   [normalised: ShouldRehashForBugDetection -> RehashProbabilityConstant]
+  raw_hash_set.h::RehashProbabilityConstant          <- raw_hash_set_test.cc::TEST(L4608) depth=1   [normalised: TEST -> RehashProbabilityConstant]
+  raw_hash_set.h::RehashProbabilityConstant          <- raw_hash_set.cc::CommonFieldsGenerationInfoEnabled::
+    should_rehash_for_bug_detection_on_insert(L158) depth=2   [normalised: CommonFieldsGenerationInfoEnabled::
+    should_rehash_for_bug_detection_on_insert -> RehashProbabilityConstant]
+  raw_hash_set.h::RehashProbabilityConstant          <- raw_hash_set.cc::CommonFieldsGenerationInfoEnabled::should_rehash_for_bug_detection_on_move(L165) depth=2   [normalised: CommonFieldsGenerationInfoEnabled::should_rehash_for_bug_detection_on_move -> RehashProbabilityConstant]
+
+--- group-probing
+  raw_hash_set.cc::BlockControlBytes                  -> raw_hash_set.cc::BlockCtrl(L546) depth=1   [normalised: BlockControlBytes -> BlockCtrl]
+  raw_hash_set.cc::BlockControlBytes                  -> raw_hash_set.cc::SetCtrlNoSanitizeImpl(L523) depth=2   [normalised: BlockControlBytes -> SetCtrlNoSanitizeImpl]
+  [exit 1] Symbol not found: group::probing-Group
+  [exit 1] Symbol not found: group::probing-GroupImpl
+  [exit 1] Symbol not found: group::probing-Match
+  [exit 1] Symbol not found: group::probing-MatchEmptyOrDeleted
+  [exit 1] Symbol not found: group::probing-MatchFull
+  [exit 1] Symbol not found: group::probing-NonIterableBitMask
+  [exit 1] Symbol not found: group::probing-Simd
+  raw_hash_set.cc::find_first_non_full                -> raw_hash_set.cc::find_first_non_full_from_h1(L189) depth=1   [normalised: find_first_non_full -> find_first_non_full_from_h1]
+  raw_hash_set.cc::find_first_non_full                -> raw_hash_set.h::H1(L832) depth=1   [normalised: find_first_non_full -> H1]
+  raw_hash_set.cc::find_first_non_full                -> raw_hash_set.cc::probe_till_first_non_full_group(L175) depth=2   [normalised: find_first_non_full -> probe_till_first_non_full_group]
+  raw_hash_set.cc::find_first_non_full                -> raw_hash_set.h::offset(L1783) depth=2   [normalised: find_first_non_full -> offset]
+  raw_hash_set.cc::find_first_non_full                -> cord_rep_btree.h::index(L300) depth=2   [normalised: find_first_non_full -> index]
+  raw_hash_set.cc::find_first_non_full                -> raw_hash_set.h::next(L1785) depth=3   [normalised: find_first_non_full -> next]
+  raw_hash_set.cc::find_first_non_full_from_h1        -> raw_hash_set.cc::probe_till_first_non_full_group(L175) depth=1   [normalised: find_first_non_full_from_h1 -> probe_till_first_non_full_group]
+  raw_hash_set.cc::find_first_non_full_from_h1        -> raw_hash_set.h::offset(L1783) depth=1   [normalised: find_first_non_full_from_h1 -> offset]
+  raw_hash_set.cc::find_first_non_full_from_h1        -> cord_rep_btree.h::index(L300) depth=1   [normalised: find_first_non_full_from_h1 -> index]
+  raw_hash_set.cc::find_first_non_full_from_h1        -> raw_hash_set.h::next(L1785) depth=2   [normalised: find_first_non_full_from_h1 -> next]
+  raw_hash_set.cc::find_first_non_full_group          -> raw_hash_set.cc::probe_till_first_non_full_group(L175) depth=1   [normalised: find_first_non_full_group -> probe_till_first_non_full_group]
+  raw_hash_set.cc::find_first_non_full_group          -> raw_hash_set.h::offset(L1783) depth=1   [normalised: find_first_non_full_group -> offset]
+  raw_hash_set.cc::find_first_non_full_group          -> cord_rep_btree.h::index(L300) depth=1   [normalised: find_first_non_full_group -> index]
+  raw_hash_set.cc::find_first_non_full_group          -> raw_hash_set.h::next(L1785) depth=2   [normalised: find_first_non_full_group -> next]
+  raw_hash_set.cc::is_half_group                      callees: 0 (zero-count answer, exit 0)
+  [exit 1] Symbol not found: group::probing-probe_seq
+  raw_hash_set.cc::probe_till_first_non_full_group    -> raw_hash_set.h::next(L1785) depth=1   [normalised: probe_till_first_non_full_group -> next]
+  raw_hash_set.cc::probe_till_first_non_full_group    -> raw_hash_set.h::offset(L1783) depth=1   [normalised: probe_till_first_non_full_group -> offset]
+  raw_hash_set.cc::probe_till_first_non_full_group    -> cord_rep_btree.h::index(L300) depth=1   [normalised: probe_till_first_non_full_group -> index]
+  raw_hash_set.cc::BlockControlBytes                  <- raw_hash_set.cc::ResetCtrl(L729) depth=1   [normalised: ResetCtrl -> BlockControlBytes]
+  [exit 1] Symbol not found: group::probing-Group
+  [exit 1] Symbol not found: group::probing-GroupImpl
+  [exit 1] Symbol not found: group::probing-Match
+  [exit 1] Symbol not found: group::probing-MatchEmptyOrDeleted
+  [exit 1] Symbol not found: group::probing-MatchFull
+  [exit 1] Symbol not found: group::probing-NonIterableBitMask
+  [exit 1] Symbol not found: group::probing-Simd
+  raw_hash_set.cc::find_first_non_full                callers: 0 (zero-count answer, exit 0)
+  raw_hash_set.cc::find_first_non_full_from_h1        <- raw_hash_set.cc::find_first_non_full(L207) depth=1   [normalised: find_first_non_full -> find_first_non_full_from_h1]
+  raw_hash_set.cc::find_first_non_full_group          callers: 0 (zero-count answer, exit 0)
+  raw_hash_set.cc::is_half_group                      callers: 0 (zero-count answer, exit 0)
+  [exit 1] Symbol not found: group::probing-probe_seq
+  raw_hash_set.cc::probe_till_first_non_full_group    <- raw_hash_set.cc::find_first_non_full_from_h1(L189) depth=1   [normalised: find_first_non_full_from_h1 -> probe_till_first_non_full_group]
+  raw_hash_set.cc::probe_till_first_non_full_group    <- raw_hash_set.cc::find_first_non_full_group(L214) depth=1   [normalised: find_first_non_full_group -> probe_till_first_non_full_group]
+  raw_hash_set.cc::probe_till_first_non_full_group    <- raw_hash_set.cc::find_first_non_full(L207) depth=2   [normalised: find_first_non_full -> probe_till_first_non_full_group]
+
+--- tombstones
+  raw_hash_set.cc::ConvertDeletedToEmptyAndFullToDeleted -> raw_hash_set.h::IsValidCapacity(L395) depth=1   [normalised: ConvertDeletedToEmptyAndFullToDeleted -> IsValidCapacity]
+  raw_hash_set.cc::EraseMetaOnlyLarge                 -> raw_hash_set.cc::WasNeverFull(L708) depth=1   [normalised: EraseMetaOnlyLarge -> WasNeverFull]
+  raw_hash_set.cc::EraseMetaOnlyLarge                 -> raw_hash_set.h::infoz(L1425) depth=1   [normalised: EraseMetaOnlyLarge -> infoz]
+  raw_hash_set.cc::EraseMetaOnlySmall                 -> container_memory.h::SanitizerPoisonMemoryRegion(L236) depth=1   [normalised: EraseMetaOnlySmall -> SanitizerPoisonMemoryRegion]
+  raw_hash_set.cc::EraseMetaOnlySmall                 -> raw_hash_set.h::infoz(L1425) depth=1   [normalised: EraseMetaOnlySmall -> infoz]
+  raw_hash_set.cc::EraseMetaOnlySmall                 -> raw_hash_set.h::set_empty_soo(L1351) depth=1   [normalised: EraseMetaOnlySmall -> set_empty_soo]
+  raw_hash_set.cc::EraseMetaOnlySmall                 -> raw_hash_set.h::set_size(L719) depth=2   [normalised: EraseMetaOnlySmall -> set_size]
+  raw_hash_set.cc::GrowthInfoAccessor::OverwriteFullAsEmpty -> raw_hash_set.cc::GetPackedIncrement(L291) depth=1   [normalised: GrowthInfoAccessor::OverwriteFullAsEmpty -> GetPackedIncrement]
+  raw_hash_set.cc::ConvertDeletedToEmptyAndFullToDeleted <- raw_hash_set_benchmark.cc::BM_DropDeletes(L576) depth=1   [normalised: BM_DropDeletes -> ConvertDeletedToEmptyAndFullToDeleted]
+  raw_hash_set.cc::ConvertDeletedToEmptyAndFullToDeleted <- raw_hash_set_test.cc::TEST(L947) depth=1   [normalised: TEST -> ConvertDeletedToEmptyAndFullToDeleted]
+  raw_hash_set.cc::EraseMetaOnlyLarge                 callers: 0 (zero-count answer, exit 0)
+  raw_hash_set.cc::EraseMetaOnlySmall                 callers: 0 (zero-count answer, exit 0)
+  raw_hash_set.cc::GrowthInfoAccessor::OverwriteFullAsEmpty callers: 0 (zero-count answer, exit 0)
+  [exit 1] Symbol not found: tombstones::ctrl-H1
+  [exit 1] Symbol not found: tombstones::ctrl-H2
+  [exit 1] Symbol not found: tombstones::ctrl-IsDeleted
+  [exit 1] Symbol not found: tombstones::ctrl-IsEmpty
+  [exit 1] Symbol not found: tombstones::ctrl-MakeDeleted
+  [exit 1] Symbol not found: tombstones::ctrl-MakeEmpty
+
+--- erase
+  [exit 1] Symbol not found: erase::cc-ClearBackingArray
+  raw_hash_set.cc::DecrementSmallSize                 callers: 0 (zero-count answer, exit 0)
+  raw_hash_set.cc::DestroySlots                       <- raw_hash_set.cc::DestructNonSoo(L979) depth=1   [normalised: DestructNonSoo -> DestroySlots]
+  raw_hash_set.cc::DestroySlots                       <- raw_hash_set.cc::DestructSoo(L964) depth=1   [normalised: DestructSoo -> DestroySlots]
+  [exit 1] Symbol not found: erase::cc-EraseImpl
+  [exit 1] Symbol not found: erase::cc-EraseSingleElement
+  [exit 1] Symbol not found: erase::cc-EraseWithRehash
+  [exit 1] Symbol not found: erase::cc-EraseWithoutRehash
+  [exit 1] Symbol not found: erase::erase_meta_only
+  [exit 1] Symbol not found: erase::erase_meta_only_large
+  [exit 1] Symbol not found: erase::erase_meta_only_small
+
+--- rehash
+  [exit 1] Symbol not found: rehash::DropDeletesWithoutResizeAndPrepareInsert
+  raw_hash_set.cc::GrowIntoSingleGroupShuffleControlBytes callees: 0 (zero-count answer, exit 0)
+  [exit 1] Symbol not found: rehash::GrowToNextCapacity
+  raw_hash_set.cc::GrowthInfoAccessor::InitGrowthLeftNoDeleted -> raw_hash_set.cc::GetPackedIncrement(L291) depth=1   [normalised: GrowthInfoAccessor::InitGrowthLeftNoDeleted -> GetPackedIncrement]
+  [exit 1] Symbol not found: rehash::NormalizeCapacity
+  [exit 1] Symbol not found: rehash::RehashOrGrowToNextCapacityAndPrepareInsert
+  raw_hash_set.cc::ResetGrowthLeft                    callees: 0 (zero-count answer, exit 0)
+  [exit 1] Symbol not found: rehash::Resize
+  raw_hash_set.cc::Resize1To3NewOffset                -> raw_hash_set.cc::SingleGroupTableH1(L108) depth=1   [normalised: Resize1To3NewOffset -> SingleGroupTableH1]
+  raw_hash_set.cc::Resize1To3NewOffset                -> raw_hash_set.h::SooSlotIndex(L2027) depth=1   [normalised: Resize1To3NewOffset -> SooSlotIndex]
+  [exit 1] Symbol not found: rehash::ResizeImpl
+  [exit 1] Symbol not found: rehash::ResizeWithoutDeletingOrCreatingNewSlots
+  [exit 1] Symbol not found: rehash::DropDeletesWithoutResizeAndPrepareInsert
+  raw_hash_set.cc::GrowIntoSingleGroupShuffleControlBytes callers: 0 (zero-count answer, exit 0)
+  [exit 1] Symbol not found: rehash::GrowToNextCapacity
+  raw_hash_set.cc::GrowthInfoAccessor::InitGrowthLeftNoDeleted callers: 0 (zero-count answer, exit 0)
+  [exit 1] Symbol not found: rehash::NormalizeCapacity
+  [exit 1] Symbol not found: rehash::RehashOrGrowToNextCapacityAndPrepareInsert
+  raw_hash_set.cc::ResetGrowthLeft                    callers: 0 (zero-count answer, exit 0)
+  [exit 1] Symbol not found: rehash::Resize
+  raw_hash_set.cc::Resize1To3NewOffset                callers: 0 (zero-count answer, exit 0)
+  [exit 1] Symbol not found: rehash::ResizeImpl
+  [exit 1] Symbol not found: rehash::ResizeWithoutDeletingOrCreatingNewSlots
+  raw_hash_set.h::NextCapacity                       <- raw_hash_set.cc::OverflowBufferStart(L1526) depth=1   [normalised: OverflowBufferStart -> NextCapacity]
+  raw_hash_set.h::NextCapacity                       <- raw_hash_set_test.cc::TEST(L1499) depth=1   [normalised: TEST -> NextCapacity]
+  raw_hash_set.h::NextCapacity                       <- raw_hash_set_test.cc::TEST(L1539) depth=1   [normalised: TEST -> NextCapacity]
+  raw_hash_set.h::NextCapacity                       <- raw_hash_set_test.cc::TEST(L1618) depth=1   [normalised: TEST -> NextCapacity]
+  raw_hash_set.h::NextCapacity                       <- raw_hash_set_test.cc::TEST(L4048) depth=1   [normalised: TEST -> NextCapacity]
+  raw_hash_set.h::NextCapacity                       <- raw_hash_set_test.cc::TEST(L4212) depth=1   [normalised: TEST -> NextCapacity]
+  raw_hash_set.h::NextCapacity                       <- raw_hash_set_test.cc::TEST(L4251) depth=1   [normalised: TEST -> NextCapacity]
+  raw_hash_set.h::NextCapacity                       <- raw_hash_set_test.cc::TYPED_TEST(L742) depth=1   [normalised: TYPED_TEST -> NextCapacity]
+  raw_hash_set.h::NextCapacity                       <- raw_hash_set_test.cc::TYPED_TEST(L779) depth=1   [normalised: TYPED_TEST -> NextCapacity]
+  raw_hash_set.h::NextCapacity                       <- raw_hash_set_test.cc::TYPED_TEST(L794) depth=1   [normalised: TYPED_TEST -> NextCapacity]
+  raw_hash_set.h::NextCapacity                       <- raw_hash_set_test.cc::TYPED_TEST(L2286) depth=1   [normalised: TYPED_TEST -> NextCapacity]
+  raw_hash_set.h::PreviousCapacity                   <- raw_hash_set.cc::ValidateMaxCapacity(L74) depth=1   [normalised: ValidateMaxCapacity -> PreviousCapacity]
+  raw_hash_set.h::PreviousCapacity                   <- raw_hash_set_test.cc::TEST(L1539) depth=1   [normalised: TEST -> PreviousCapacity]
+  [exit 1] Symbol not found: rehash::resize-impl-NormalizeCapacity
+  [exit 1] Symbol not found: rehash::resize-impl-ResizeAllowedWithoutRehash
+  [exit 1] Symbol not found: rehash::resize-impl-resize_impl
+
+--- iteration
+  raw_hash_set.h::assert_is_full                     -> btree.h::generation(L1094) depth=1   [normalised: assert_is_full -> generation]
+  raw_hash_set.h::begin                              -> raw_hash_set.h::end(L2762) depth=1   [normalised: begin -> end]
+  raw_hash_set.h::begin                              -> raw_hash_set.h::skip_empty_or_deleted(L2451) depth=1   [normalised: begin -> skip_empty_or_deleted]
+  raw_hash_set.h::begin                              -> raw_hash_set.h::slot_array(L1341) depth=1   [normalised: begin -> slot_array]
+  raw_hash_set.h::begin                              -> raw_hash_set.h::NumControlBytes(L1152) depth=2   [normalised: begin -> NumControlBytes]
+  raw_hash_set.h::begin                              -> raw_hash_set.h::IsSmallCapacity(L398) depth=3   [normalised: begin -> IsSmallCapacity]
+  raw_hash_set.h::end                                callees: 0 (zero-count answer, exit 0)
+  raw_hash_set.h::next                               callees: 0 (zero-count answer, exit 0)
+  raw_hash_set.h::offset                             callees: 0 (zero-count answer, exit 0)
+  raw_hash_set.h::skip_empty_or_deleted              callees: 0 (zero-count answer, exit 0)
+  raw_hash_set.cc::FindEmptySlot                      callers: 0 (zero-count answer, exit 0)
+  raw_hash_set.cc::FindFirstFullSlot                  callers: 0 (zero-count answer, exit 0)
+  raw_hash_set.cc::IterateOverFullSlots               callers: 0 (zero-count answer, exit 0)
+  [exit 1] Symbol not found: iteration::IterateOverFullSlotsImpl
+  raw_hash_set.h::assert_is_full                     callers: 0 (zero-count answer, exit 0)
+  raw_hash_set.h::begin                              callers: 0 (zero-count answer, exit 0)
+  raw_hash_set.h::end                                <- raw_hash_set.h::begin(L2753) depth=1   [normalised: begin -> end]
+  raw_hash_set.h::next                               <- chunked_queue.h::Incr(L148) depth=1   [normalised: Incr -> next]
+  raw_hash_set.h::next                               <- chunked_queue.h::IncrBy(L156) depth=1   [normalised: IncrBy -> next]
+  raw_hash_set.h::next                               <- chunked_queue.h::block_end(L532) depth=1   [normalised: block_end -> next]
+  raw_hash_set.h::next                               <- raw_hash_set.cc::probe_till_first_non_full_group(L175) depth=1   [normalised: probe_till_first_non_full_group -> next]
+  raw_hash_set.h::next                               <- raw_hash_set_probe_benchmark.cc::main(L495) depth=1   [normalised: main -> next]
+  raw_hash_set.h::next                               <- raw_hash_set_test.cc::TEST(L715) depth=1   [normalised: TEST -> next]
+  raw_hash_set.h::next                               <- raw_hash_set.cc::find_first_non_full_from_h1(L189) depth=2   [normalised: find_first_non_full_from_h1 -> next]
+  raw_hash_set.h::next                               <- raw_hash_set.cc::find_first_non_full_group(L214) depth=2   [normalised: find_first_non_full_group -> next]
+  raw_hash_set.h::next                               <- raw_hash_set.cc::find_first_non_full(L207) depth=3   [normalised: find_first_non_full -> next]
+  raw_hash_set.h::offset                             <- raw_hash_set.cc::ShouldRehashForBugDetection(L94) depth=1   [normalised: ShouldRehashForBugDetection -> offset]
+  raw_hash_set.h::offset                             <- raw_hash_set.cc::find_first_non_full_from_h1(L189) depth=1   [normalised: find_first_non_full_from_h1 -> offset]
+  raw_hash_set.h::offset                             <- raw_hash_set.cc::find_first_non_full_group(L214) depth=1   [normalised: find_first_non_full_group -> offset]
+  raw_hash_set.h::offset                             <- raw_hash_set.cc::probe_till_first_non_full_group(L175) depth=1   [normalised: probe_till_first_non_full_group -> offset]
+  raw_hash_set.h::offset                             <- raw_hash_set_test.cc::TEST(L715) depth=1   [normalised: TEST -> offset]
+  raw_hash_set.h::offset                             <- raw_hash_set.cc::CommonFieldsGenerationInfoEnabled::
+    should_rehash_for_bug_detection_on_insert(L158) depth=2   [normalised: CommonFieldsGenerationInfoEnabled::
+    should_rehash_for_bug_detection_on_insert -> offset]
+  raw_hash_set.h::offset                             <- raw_hash_set.cc::CommonFieldsGenerationInfoEnabled::should_rehash_for_bug_detection_on_move(L165) depth=2   [normalised: CommonFieldsGenerationInfoEnabled::should_rehash_for_bug_detection_on_move -> offset]
+  raw_hash_set.h::offset                             <- raw_hash_set.cc::find_first_non_full(L207) depth=2   [normalised: find_first_non_full -> offset]
+  raw_hash_set.h::skip_empty_or_deleted              <- raw_hash_set.h::begin(L2753) depth=1   [normalised: begin -> skip_empty_or_deleted]
+

@@ -1,0 +1,22 @@
+transcript: /tmp/issue33-replay-85264497f7/runs-v3/62-swisstable-verus-031/swisstable-verus/analysis/verus/verus-transcript.txt
+  verification results:: 149 verified, 0 errors
+  primary error locations: 0
+  by file (this crate's code):
+  by kind:
+1202:                    ==> #[trigger] dest[i] >= 0,
+1203:                forall|i: int| 0 <= i < old_cap_i && #[trigger] dest[i] >= 0
+1204:                    ==> dest[i] < t.ctrl.capacity as int
+1205:                        && t.ctrl.is_full_spec(dest[i])
+1206:                        && t.slot_hash(dest[i]) == before_hashes[i],
+1209:                    ==> 0 <= #[trigger] owner[a] < x as int
+1210:                        && self.ctrl.is_dead_spec(owner[a])
+1211:                        && t.slot_hash(a) == before_hashes[owner[a]],
+1283:                (#[trigger] dest[i] >= 0 <==> self.ctrl.is_dead_spec(i)) by {
+1300:                    assert(dest[i] >= 0);
+1301:                    let a = dest[i];
+1314:                    assert(0 <= owner[a] < old_cap as int);
+1315:                    assert(0 <= owner[a] < old_cap_i);
+1316:                    assert(self.ctrl.is_dead_spec(owner[a]));
+1317:                    assert(old(self).ctrl.is_full_spec(owner[a]));
+1318:                    assert(t.slot_hash(a) == before_hashes[owner[a]]);
+1319:                    assert(before_hashes[owner[a]] == old(self).slot_hash(owner[a]));

@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0",
+  "report_id": "rust_swisstable-verus-core",
+  "crate_dir": "rust/swisstable-verus-core",
+  "coverage_scope": {
+    "extractor": "coarse-syntactic-callgraph",
+    "extractor_version": "0.1.0",
+    "extractor_backing": "syntactic",
+    "supported_call_forms": [
+      "associated-path-call",
+      "self-method-call",
+      "inherent-method-call-by-name"
+    ],
+    "unsupported_call_forms": [
+      "macro-expanded-call",
+      "generated-code",
+      "ffi-callback",
+      "call-to-non-local-type"
+    ],
+    "completeness_claim": "discovered-lower-bound"
+  },
+  "config_scope": {
+    "target": "x86_64-unknown-linux-gnu",
+    "features": [],
+    "cfg": []
+  },
+  "attribution_scope": {
+    "scanned_item_kinds": [
+      "inherent-impl-method",
+      "trait-impl-method"
+    ],
+    "local_concepts": [
+      "T"
+    ],
+    "unattributed_call_sites": 2,
+    "out_of_scope_call_sites": 0,
+    "macro_invocations": 1
+  },
+  "callsites": [
+    {
+      "callsite_id": "CS-T-LEMMA-STEP-001",
+      "call_class": "definite-direct-call",
+      "caller": {
+        "concept": "T",
+        "method": "lemma_step"
+      },
+      "source": {
+        "path": "rust/swisstable-verus-core/src/lib.rs",
+        "symbol": "T::lemma_step",
+        "line": 7,
+        "syntax_hash": "sha256:ec7709ef168ba0310d309e239b250e3dd790764ac49e5d7bdad9b9187ca6e66f"
+      },
+      "callee": {
+        "concept": "T",
+        "method": "lemma_base"
+      },
+      "risk_tier_source": "not-applicable"
+    },
+    {
+      "callsite_id": "CS-T-ROOT-001",
+      "call_class": "definite-direct-call",
+      "caller": {
+        "concept": "T",
+        "method": "root"
+      },
+      "source": {
+        "path": "rust/swisstable-verus-core/src/lib.rs",
+        "symbol": "T::root",
+        "line": 11,
+        "syntax_hash": "sha256:b5f542cd7c0145f055b141bd660225bb18d35d11de75504e58a4a160c9156ceb"
+      },
+      "callee": {
+        "concept": "T",
+        "method": "runtime"
+      },
+      "risk_tier_source": "not-applicable"
+    },
+    {
+      "callsite_id": "CS-T-ROOT-002",
+      "call_class": "definite-direct-call",
+      "caller": {
+        "concept": "T",
+        "method": "root"
+      },
+      "source": {
+        "path": "rust/swisstable-verus-core/src/lib.rs",
+        "symbol": "T::root",
+        "line": 12,
+        "syntax_hash": "sha256:b5f542cd7c0145f055b141bd660225bb18d35d11de75504e58a4a160c9156ceb"
+      },
+      "callee": {
+        "concept": "T",
+        "method": "lemma_step"
+      },
+      "risk_tier_source": "not-applicable"
+    }
+  ],
+  "callsite_coverage": {
+    "discovered": 3,
+    "resolved": 3,
+    "unresolved": 0
+  }
+}

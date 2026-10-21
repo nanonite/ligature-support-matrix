@@ -1,0 +1,27 @@
+    pub open spec fn reclaiming_model(
+        &self,
+        before: Seq<u8>,
+        before_hashes: Seq<u64>,
+    ) -> bool {
+        let cap = self.ctrl.capacity as int;
+        &&& self.ctrl.well_formed()
+        &&& self.hashes@ == before_hashes
+        &&& (self.hashes@.len() == cap)
+        &&& 5 <= self.capacity_bits <= 31
+        &&& self.ctrl.capacity as u64 == slots_for_bits_spec(self.capacity_bits)
+        // a slot is *tombstoned* exactly when it was full before the reclaim, and
+        // no slot is full any more -- `clear_dead` writes `kDeleted` over every
+        // full byte and `kEmpty` over every byte that already had the MSB set
+        &&& (forall|i: int| 0 <= i < cap ==> self.ctrl.is_dead_spec(i) <==> before[i] <= 0x7F)
+        // and the key a tombstone still carries is a live one, not `NO_HASH`
+        &&& (forall|i: int| 0 <= i < cap && self.ctrl.is_dead_spec(i)
+                ==> before_hashes[i] != NO_HASH)
+        // and its pre-reclaim control byte was its H2 tag, which is what lets the
+        // move read the tag back off the source slot
+        &&& (forall|i: int| 0 <= i < cap && self.ctrl.is_dead_spec(i)
+                ==> before[i] as u64 == before_hashes[i] >> 57)
+        // two live slots never share a key
+        &&& (forall|i: int, j: int| 0 <= i < j < cap
+                && self.ctrl.is_dead_spec(i) && self.ctrl.is_dead_spec(j)
+                ==> before_hashes[i] != before_hashes[j])
+    }

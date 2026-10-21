@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "boundary_id": "swiss_table_erase__to__control_bytes_set_dead",
+  "caller": {
+    "concept": "SwissTable",
+    "method": "erase"
+  },
+  "callee": {
+    "concept": "ControlBytes",
+    "method": "set_dead"
+  },
+  "callee_guarantees": [
+    "ControlBytes.C004"
+  ]
+}
+['coupling_notes', 'definition_of_done', 'depends_on', 'failure_policy', 'functions', 'gate_integrity', 'gates', 'issue', 'obligations', 'provenance', 'report', 'scheduling_rule', 'schema', 'work_package', 'write_policy']
+void EraseMetaOnlyLarge(CommonFields& c, size_t index, size_t slot_size) {
+  ABSL_SWISSTABLE_ASSERT(!c.is_small());
+  ABSL_SWISSTABLE_ASSERT(IsFull(c.control()[index]) &&
+                         "erasing a dangling iterator");
+  c.decrement_size();
+  c.infoz().RecordErase();
+
+  if (WasNeverFull(c, index)) {
+    SetCtrl(c, index, ctrl_t::kEmpty, slot_size);
+    c.growth_info().OverwriteFullAsEmpty();
+    return;
+  }
+

@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "boundary_id": "swiss_table_erase__to__control_bytes_set_dead",
+  "caller": {
+    "concept": "SwissTable",
+    "method": "erase"
+  },
+  "callee": {
+    "concept": "ControlBytes",
+    "method": "set_dead"
+  },
+  "callee_guarantees": [
+    "ControlBytes.C004"
+  ]
+}

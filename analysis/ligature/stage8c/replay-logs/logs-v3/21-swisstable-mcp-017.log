@@ -1,0 +1,52 @@
+== ligature version ==
+ligature.pyz: OK
+./run-probes.sh: line 28: /tmp/issue33-replay-85264497f7/runs-v3/21-swisstable-mcp-017/swisstable-verus/tools/ligature/ligature.pyz: Permission denied
+01-self-method                     exit=126 NO REPORT 
+02-assoc-path                      exit=126 NO REPORT 
+03-inherent-by-name                exit=126 NO REPORT 
+04-missing-callee                  exit=126 NO REPORT 
+05-verus-macro                     exit=126 NO REPORT 
+06-free-fn                         exit=126 NO REPORT 
+07-trait-default-body              exit=126 NO REPORT 
+08-trait-impl-method               exit=126 NO REPORT 
+09-cross-module-local-type         exit=126 NO REPORT 
+10-external-path-call              exit=126 NO REPORT 
+11-assoc-fn-then-method            exit=126 NO REPORT 
+12-closure-body                    exit=126 NO REPORT 
+13-self-recursion                  exit=126 NO REPORT 
+14-field-receiver                  exit=126 NO REPORT 
+15-generic-impl                    exit=126 NO REPORT 
+16-verus-proof-fns                 exit=126 NO REPORT 
+17-unattributed-isolate            exit=126 NO REPORT 
+18-spec-and-broadcast              exit=126 NO REPORT 
+19-no-calls-at-all                 exit=126 NO REPORT 
+20-minimal-macro-body              exit=126 NO REPORT 
+21-spec-and-proof-no-calls         exit=126 NO REPORT 
+22-field-reads-no-calls            exit=126 NO REPORT 
+23-ensures-cast                    exit=126 NO REPORT 
+24-forall-quantifier               exit=126 NO REPORT 
+== done: 24 reports in /tmp/issue33-replay-85264497f7/runs-v3/21-swisstable-mcp-017/swisstable-verus/analysis/extract-c-static/results ==
+== 19-no-calls-at-all
+    "attribution_scope": {
+        "scanned_item_kinds": [
+            "inherent-impl-method",
+            "trait-impl-method"
+        ],
+        "local_concepts": [
+            "T"
+== 23-ensures-cast
+    "attribution_scope": {
+        "scanned_item_kinds": [
+            "inherent-impl-method",
+            "trait-impl-method"
+        ],
+        "local_concepts": [
+            "T"
+== 24-forall-quantifier
+    "attribution_scope": {
+        "scanned_item_kinds": [
+            "inherent-impl-method",
+            "trait-impl-method"
+        ],
+        "local_concepts": [
+            "T"

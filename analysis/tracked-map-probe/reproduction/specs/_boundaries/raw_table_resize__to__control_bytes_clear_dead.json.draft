@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "boundary_id": "raw_table_resize__to__control_bytes_clear_dead",
+  "caller": {
+    "concept": "RawTable",
+    "method": "resize"
+  },
+  "callee": {
+    "concept": "ControlBytes",
+    "method": "clear_dead"
+  },
+  "callee_guarantees": [
+    "ControlBytes.C006",
+    "ControlBytes.C005"
+  ]
+}

@@ -1,0 +1,219 @@
+--- a/rust/swisstable-verus-core/src/raw_table.rs
++++ b/analysis/tracked-map-probe/reproduction/src/raw_table.rs
+@@ -81,6 +81,14 @@
+ 
+ verus! {
+ 
++broadcast use {vstd::map::group_map_axioms, vstd::set::group_set_axioms};
++
++/// Incremental live-hash model: each key is a live hash and its value is the
++/// current physical slot that stores it. This is ghost-only trusted state.
++pub tracked struct LiveIndex {
++    pub m: Map<u64, usize>,
++}
++
+ /// The value an erased slot's hash field is reset to.  No live element ever
+ /// carries it, which is what lets `slot_model` read "hash zero" as "this slot
+ /// holds nothing".
+@@ -199,6 +207,8 @@
+     pub len_: usize,
+     /// `log2(capacity + 1)`; RawTable.C001 states the capacity shape through it.
+     pub capacity_bits: u32,
++    /// Incrementally maintained live-hash to physical-slot map for the #120 probe.
++    pub g: Tracked<LiveIndex>,
+ }
+ 
+ impl RawTable {
+@@ -246,11 +256,13 @@
+             hashes.push(NO_HASH);
+             i = i + 1;
+         }
++        let tracked g = LiveIndex { m: Map::tracked_empty() };
+         let t = RawTable {
+             ctrl: ctrl,
+             hashes: hashes,
+             len_: 0,
+             capacity_bits: capacity_bits,
++            g: Tracked(g),
+         };
+         proof { lemma_full_count_zero(t.ctrl.bytes@, t.ctrl.capacity as nat); }
+         proof {
+@@ -345,9 +357,22 @@
+                 ==> self.slot_hash(i) != self.slot_hash(j))
+     }
+ 
++    /// Direct map-domain/slot relation: every live slot is indexed, and every
++    /// map key names exactly one live slot with its current physical index.
++    pub open spec fn live_map_model(&self) -> bool {
++        let m = self.g@.m;
++        let cap = self.ctrl.capacity as int;
++        &&& forall|i: int| 0 <= i < cap && self.ctrl.is_full_spec(i)
++            ==> m.dom().contains(self.slot_hash(i)) && m[self.slot_hash(i)] == i as usize
++        &&& forall|h: u64| m.dom().contains(h)
++            ==> exists|i: int| 0 <= i < cap && self.ctrl.is_full_spec(i)
++                && self.slot_hash(i) == h && m[h] == i as usize
++    }
++
+     pub open spec fn model(&self) -> bool {
+         &&& self.ctrl.well_formed()
+         &&& self.slot_model()
++        &&& self.live_map_model()
+         // RawTable.C001's capacity shape: the slot count is `2^n - 1`.  This is
+         // statable on the table's own `usize` capacity after all -- an earlier
+         // revision recorded it as unstatable (`swisstable-verus-016`) because the
+@@ -816,6 +841,8 @@
+             final(self).slot_hash(r.0 as int) == hash,
+             final(self).ctrl.bytes[r.0 as int] as u64 == hash >> 57,         // ControlBytes.C007
+             r.1 ==> old(self).ctrl.is_empty_or_deleted_spec(r.0 as int),
++            r.1 ==> final(self).g@.m == old(self).g@.m.insert(hash, r.0),
++            !r.1 ==> final(self).g@.m == old(self).g@.m,
+             // ---- counting
+             r.1 ==> final(self).len_ == old(self).len_ + 1,                 // RawTable.C004
+             !r.1 ==> final(self).len_ == old(self).len_,                    // RawTable.C004
+@@ -869,6 +896,7 @@
+         self.ctrl.set_full(slot, mix.h2());
+         self.hashes[slot] = hash;
+         self.len_ = self.len_ + 1;
++        proof { self.g.borrow_mut().m.tracked_insert(hash, slot); }
+         proof {
+             assert(self.slot_hash(slot as int) == hash);
+             assert(self.ctrl.bytes[slot as int] as u64 == hash >> 57);
+@@ -941,11 +969,14 @@
+             // ---- per-slot
+             final(self).ctrl.is_empty_or_deleted_spec(slot as int),        // RawTable.C005
+             final(self).slot_hash(slot as int) == NO_HASH,
++            final(self).g@.m == old(self).g@.m.remove(old(self).slot_hash(slot as int)),
+             // ---- upstream's erase rule, raw_hash_set.cc L875-L883
+             old(self).ctrl.was_never_full_spec(slot as int)
+-                ==> final(self).ctrl.is_empty_spec(slot as int),
++                ==> final(self).ctrl.is_empty_spec(slot as int)
++                    && final(self).live_map_model(),
+             !old(self).ctrl.was_never_full_spec(slot as int)
+-                ==> final(self).ctrl.is_dead_spec(slot as int),
++                ==> final(self).ctrl.is_dead_spec(slot as int)
++                    && final(self).live_map_model(),
+             // ---- per-slot frame
+             forall|j: int| 0 <= j < final(self).ctrl.capacity as int
+                     && j != slot as int
+@@ -959,6 +990,7 @@
+                 ==> !(final(self).ctrl.is_full_spec(j)
+                     && final(self).slot_hash(j) == old(self).slot_hash(slot as int)),
+     {
++        let erased_hash = self.hash_at(slot);
+         let was_nf = self.ctrl.was_never_full(slot);
+         let ghost nf_spec = self.ctrl.was_never_full_spec(slot as int);
+         assert(was_nf == nf_spec);
+@@ -978,6 +1010,7 @@
+         }
+         self.hashes[slot] = NO_HASH;
+         self.len_ = self.len_ - 1;
++        proof { let tracked _old_slot = self.g.borrow_mut().m.tracked_remove(erased_hash); }
+         proof {
+             assert forall|j: int| 0 <= j < self.ctrl.capacity as int && j != slot as int
+                 implies self.ctrl.is_full_spec(j) <==> before_bytes[j] <= 0x7F by {
+@@ -1332,4 +1365,43 @@
+     }
+ }
+ 
++
++
++
++/// Isolated control-window fixture for the upstream kEmpty erase outcome.
++fn probe_was_never_full_kempty_branch() {
++    let mut c = ControlBytes::new(31);
++    c.set_full(0, 0);
++    proof {
++        reveal_with_fuel(crate::control_bytes::empty_run_forward, 18);
++        reveal_with_fuel(crate::control_bytes::empty_run_backward, 18);
++        reveal(crate::control_bytes::was_never_full_in);
++    }
++    assert(c.was_never_full_spec(0));
++}
++
++/// Isolated control-window fixture for the upstream kDeleted erase outcome:
++/// sixteen consecutive full bytes surround the erased index.
++fn probe_was_never_full_kdeleted_branch() {
++    let mut c = ControlBytes::new(31);
++    let mut i: usize = 0;
++    while i < 16
++        invariant
++            i <= 16,
++            c.well_formed(),
++            forall|j: int| 0 <= j < i as int ==> c.bytes[j] == 0,
++            forall|j: int| i as int <= j < 31 ==> c.bytes[j] == crate::control_bytes::EMPTY,
++        decreases 16 - i,
++    {
++        c.set_full(i, 0);
++        i = i + 1;
++    }
++    proof {
++        reveal_with_fuel(crate::control_bytes::empty_run_forward, 18);
++        reveal_with_fuel(crate::control_bytes::empty_run_backward, 18);
++        reveal(crate::control_bytes::was_never_full_in);
++    }
++    assert(!c.was_never_full_spec(8));
++}
++
+ } // verus!
+--- a/rust/swisstable-verus-core/src/swiss_table.rs
++++ b/analysis/tracked-map-probe/reproduction/src/swiss_table.rs
+@@ -226,6 +226,8 @@
+             self.table.len_ < self.table.ctrl.capacity,
+         ensures
+             final(self).model(),
++            final(self).table.capacity_bits == old(self).table.capacity_bits,
++            final(self).table.ctrl.capacity == old(self).table.ctrl.capacity,
+             r == (!old(self).contains_spec(key)),                      // SwissTable.C002
+             final(self).contains_spec(key),
+             // ---- counting
+@@ -683,6 +685,10 @@
+         }
+         self.table.len_ = 0;
+         proof {
++            let tracked g = crate::raw_table::LiveIndex { m: Map::tracked_empty() };
++            self.table.g = Tracked(g);
++        }
++        proof {
+             assert forall|j: int| 0 <= j < cap
+                 implies #[trigger] self.table.ctrl.bytes[j] as int > 127 by {
+                 if 0 <= j && j < cap {
+@@ -716,4 +722,39 @@
+     }
+ }
+ 
++
++
++
++/// Exercises the full resize and value remapping path with H1=32. Doubling
++/// capacity changes the H1 mask; the live map is the final physical-slot index.
++fn probe_resize_value_remapping() {
++    let table = RawTable::new(5);
++    let cap = table.ctrl.capacity;
++    let mut values: Vec<u64> = Vec::new();
++    let mut i: usize = 0;
++    while i < cap
++        invariant
++            i <= cap,
++            values@.len() == i,
++            forall|j: int| 0 <= j < i as int ==> values[j] == 0,
++        decreases cap - i,
++    {
++        values.push(0);
++        i = i + 1;
++    }
++    let mut t = SwissTable { table: table, values: values };
++    assert(t.model());
++    let inserted = t.insert(32, 320);
++    assert(inserted);
++    assert(t.table.g@.m.dom().contains(32));
++    let ghost old_slot = t.table.g@.m[32];
++    assert(old_slot < t.table.ctrl.capacity);
++    t.reserve(1);
++    let ghost new_slot = t.table.g@.m[32];
++    assert(t.table.live_map_model());
++    assert(t.table.ctrl.is_full_spec(new_slot as int));
++    assert(t.table.slot_hash(new_slot as int) == 32);
++    assert(t.values[new_slot as int] == 320);
++}
++
+ } // verus!

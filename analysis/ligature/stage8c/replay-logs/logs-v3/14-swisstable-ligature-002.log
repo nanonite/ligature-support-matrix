@@ -1,0 +1,6 @@
+/bin/bash: line 1: ./tools/ligature/ligature.pyz: Permission denied
+doctor exit=126
+status exit=126
+check --json exit=126
+write-set-check --json exit=126
+doctor exit=126

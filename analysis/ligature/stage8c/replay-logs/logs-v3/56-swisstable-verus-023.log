@@ -1,0 +1,106 @@
+    pub fn insert(&mut self, hash: u64) -> (r: (usize, bool))
+        requires
+            self.model(),
+            hash != NO_HASH,
+            self.has_free_slot(),                                           // RawTable.C003
+            self.len_ < self.ctrl.capacity,
+        ensures
+            final(self).model(),
+            // ---- the shape of the table is untouched: `insert` never resizes, so
+            // the container's `values.len() == capacity` side condition survives it
+            final(self).ctrl.capacity == old(self).ctrl.capacity,
+            final(self).capacity_bits == old(self).capacity_bits,
+            // ---- per-slot
+            r.0 < final(self).ctrl.capacity,
+            final(self).ctrl.is_full_spec(r.0 as int),
+            final(self).slot_hash(r.0 as int) == hash,
+            final(self).ctrl.bytes[r.0 as int] as u64 == hash >> 57,         // ControlBytes.C007
+            r.1 ==> old(self).ctrl.is_empty_or_deleted_spec(r.0 as int),
+            // ---- counting
+            r.1 ==> final(self).len_ == old(self).len_ + 1,                 // RawTable.C004
+            !r.1 ==> final(self).len_ == old(self).len_,                    // RawTable.C004
+            // ---- per-slot: a `true` return means no full slot held `hash` before,
+            // and a `false` one means some full slot did.  This is the per-slot form
+            // of the `true`/`false` distinction `SwissTable.C002` needs, and it is
+            // what `find`'s completeness gives.
+            r.1 ==> forall|j: int| 0 <= j < old(self).ctrl.capacity as int
+                    ==> !(old(self).ctrl.is_full_spec(j)
+                        && old(self).slot_hash(j) == hash),
+            !r.1 ==> exists|j: int| 0 <= j < old(self).ctrl.capacity as int
+                    && old(self).ctrl.is_full_spec(j)
+                    && old(self).slot_hash(j) == hash,
+            // ---- per-slot frame
+            forall|j: int| 0 <= j < final(self).ctrl.capacity as int
+                    && j != r.0 as int
+                ==> final(self).ctrl.bytes[j] == old(self).ctrl.bytes[j]
+                    && final(self).hashes[j] == old(self).hashes[j],
+    {
+        let mut mix = HashMix::new();
+        mix.from_hash(hash);
+        match self.find(hash) {
+            Some(slot) => {
+                return (slot, false);
+            }
+            None => { }
+        }
+        let (slot, claimed) = claim_first_free(&self.ctrl, mix.h1());
+        proof {
+            // `has_free_slot` and `claim_first_free`'s precondition are literally the
+            // same existential now, so the `exists` carries over without a bridge.
+            assert(self.ctrl.well_formed());
+            assert(self.has_free_slot());
+            assert(claimed);
+            assert(exists|j: int| 0 <= j < self.ctrl.capacity as int
+                && crate::control_bytes::is_empty_or_deleted_in(self.ctrl.bytes@, j));
+        }
+        // The pre-write facts the three writes' postconditions need.  `&mut self`
+        // postconditions can only see `old(self)`, and the per-slot frame is a
+        // statement about which slots moved; both are captured here, before the
+        // first write.
+        let ghost before_bytes = self.ctrl.bytes@;
+        let ghost before_hashes = self.hashes@;
+        proof {
+            // The pre-state `slot_model`, restated over the two ghost snapshots; see
+            // `lemma_slot_model_snapshot` for why the receiver's own terms do not
+            // survive the writes and why the bridge has to be taken here, while
+            // `self` still is the pre-state.
+            lemma_slot_model_snapshot(self, before_bytes, before_hashes);
+        }
+        self.ctrl.set_full(slot, mix.h2());
+        self.hashes[slot] = hash;
+        self.len_ = self.len_ + 1;
+        proof {
+            assert(self.slot_hash(slot as int) == hash);
+            assert(self.ctrl.bytes[slot as int] as u64 == hash >> 57);
+            assert(self.ctrl.is_full_spec(slot as int));
+            assert forall|j: int| 0 <= j < self.ctrl.capacity as int && j != slot as int
+                implies self.ctrl.is_full_spec(j) <==> before_bytes[j] <= 0x7F by {
+            }
+            assert forall|j: int| 0 <= j < self.ctrl.capacity as int && j != slot as int
+                implies self.slot_hash(j) == before_hashes[j] by {
+            }
+            assert forall|j: int| 0 <= j < self.ctrl.capacity as int && j != slot as int
+                implies !(self.ctrl.is_full_spec(j) && self.slot_hash(j) == hash) by {
+            }
+            assert(self.hashes@.len() == self.ctrl.capacity);
+            assert(self.ctrl.well_formed());
+        }
+        proof { lemma_full_count_slot(self.ctrl.bytes@, before_bytes, self.ctrl.capacity as nat, slot as int); }
+        (slot, true)
+    }
+--- crate
+(no results line: the run did not reach one)
+    ^error lines: 1
+    -> /tmp/issue33-replay-85264497f7/runs-v3/56-swisstable-verus-023/swisstable-verus/analysis/verus/verus-transcript.txt
+--- bitwise probe
+(no results line: the run did not reach one)
+    ^error lines: 1
+    -> /tmp/issue33-replay-85264497f7/runs-v3/56-swisstable-verus-023/swisstable-verus/analysis/verus/reachability-probe.txt
+--- error distribution, crate
+transcript: /tmp/issue33-replay-85264497f7/runs-v3/56-swisstable-verus-023/swisstable-verus/analysis/verus/verus-transcript.txt
+  None
+  primary error locations: 0
+  by file (this crate's code):
+  by kind:
+       1  path '/tmp' is not part of a flake (neither it nor its parent directories contain a 'flake.nix' file)
+0 error locations in 0 functions (ordered by count; file:line shown for each)

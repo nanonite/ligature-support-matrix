@@ -1,0 +1,154 @@
+ligature extract-c-static over subset-port/ (target x86_64-unknown-linux-gnu): 43 discovered, 25 resolved, 18 unresolved; attribution_scope unattributed=45, out_of_scope=16
+
+area             true edges  cs ok  cs NF  cs silent | lig resolved lig unres lig silent  no row
+open-addressing           6      2      2          2 |            0         0          5       1
+group-probing            17     13      0          4 |            1         0         15       1
+tombstones               19      6      2         11 |            1         7         11       0
+rehash                    9      4      0          5 |            4         0          4       1
+iteration                12      3      1          8 |            7         5          0       0
+
+true edges             63
+cs recovered           28
+cs symbol-not-found    5
+cs silent              30
+lig resolved           13
+lig unresolved         12
+lig not recorded       35
+no fixture row         3
+
+ligature verdict vs the shape of the call (free function on either side?):
+  resolved        13 edges,   0 touch a free function,  13 do not
+  unresolved      12 edges,   2 touch a free function,  10 do not
+  not recorded    35 edges,  35 touch a free function,   0 do not
+
+--- codesight-mcp: true edge NOT recovered, with the reason
+  open-addressing  ShouldRehashForBugDetection -> probe  (raw_hash_set.cc:100)  [silent]
+  open-addressing  probe -> H1  (raw_hash_set.h:1804)  [symbol-not-found]
+  open-addressing  probe -> probe_h1  (raw_hash_set.h:1804)  [silent]
+  open-addressing  probe_h1 -> probe_seq  (raw_hash_set.h:1801)  [symbol-not-found]
+  group-probing    find_first_non_full_from_h1 -> probe_h1  (raw_hash_set.cc:192)  [silent]
+  group-probing    find_first_non_full_from_h1 -> IsEmptyOrDeleted  (raw_hash_set.cc:193)  [silent]
+  group-probing    find_first_non_full_group -> probe  (raw_hash_set.cc:216)  [silent]
+  group-probing    probe_till_first_non_full_group -> MaskEmptyOrDeleted  (raw_hash_set.cc:180)  [silent]
+  tombstones       OverwriteFullAsEmpty -> GetPackedIncrement  (raw_hash_set.cc:426)  [silent]
+  tombstones       ResetGrowthLeft -> InitGrowthLeftNoDeleted  (raw_hash_set.cc:471)  [silent]
+  tombstones       ResetGrowthLeft -> CapacityToGrowth  (raw_hash_set.cc:472)  [silent]
+  tombstones       EraseMetaOnlySmall -> decrement_size  (raw_hash_set.cc:862)  [silent]
+  tombstones       EraseMetaOnlyLarge -> OverwriteFullAsEmpty  (raw_hash_set.cc:877)  [silent]
+  tombstones       ConvertDeletedToEmptyAndFullToDeleted -> ConvertSpecialToEmptyAndFullToDeleted  (raw_hash_set.cc:438)  [silent]
+  tombstones       WasNeverFull -> MaskEmpty  (raw_hash_set.cc:713,714)  [silent]
+  tombstones       DropDeletesWithoutResizeAndPrepareInsert -> ConvertDeletedToEmptyAndFullToDeleted  (raw_hash_set.cc:621)  [silent]
+  tombstones       DropDeletesWithoutResizeAndPrepareInsert -> BlockControlBytes  (raw_hash_set.cc:622)  [silent]
+  tombstones       DropDeletesWithoutResizeAndPrepareInsert -> find_first_non_full  (raw_hash_set.cc:645)  [silent]
+  tombstones       DropDeletesWithoutResizeAndPrepareInsert -> probe  (raw_hash_set.cc:652)  [silent]
+  tombstones       DropDeletesWithoutResizeAndPrepareInsert -> IsEmpty  (raw_hash_set.cc:639,665)  [symbol-not-found]
+  tombstones       DropDeletesWithoutResizeAndPrepareInsert -> IsDeleted  (raw_hash_set.cc:643)  [symbol-not-found]
+  rehash           InitGrowthLeftNoDeleted -> GetPackedIncrement  (raw_hash_set.cc:370)  [silent]
+  rehash           RehashOrGrowToNextCapacityAndPrepareInsert -> DropDeletesWithoutResizeAndPrepareInsert  (raw_hash_set.cc:1958)  [silent]
+  rehash           RehashOrGrowToNextCapacityAndPrepareInsert -> GrowToNextCapacityAndPrepareInsert  (raw_hash_set.cc:1961)  [silent]
+  rehash           PrepareInsertLargeSlow -> RehashOrGrowToNextCapacityAndPrepareInsert  (raw_hash_set.cc:1984)  [silent]
+  rehash           PrepareInsertLargeSlow -> GrowToNextCapacityAndPrepareInsert  (raw_hash_set.cc:1979)  [silent]
+  iteration        begin -> empty  (raw_hash_set.h:2754)  [silent]
+  iteration        begin -> is_small  (raw_hash_set.h:2755)  [silent]
+  iteration        begin -> capacity  (raw_hash_set.h:2756)  [silent]
+  iteration        begin -> generation_ptr  (raw_hash_set.h:2757)  [silent]
+  iteration        begin -> IsFull  (raw_hash_set.h:2759)  [silent]
+  iteration        assert_is_full -> AssertIsFull  (raw_hash_set.h:2446)  [silent]
+  iteration        skip_empty_or_deleted -> IsEmptyOrDeleted  (raw_hash_set.h:2452)  [silent]
+  iteration        IterateOverFullSlots -> IterateOverFullSlotsImpl  (raw_hash_set.cc:447)  [silent]
+  iteration        FindEmptySlot -> IsEmpty  (raw_hash_set.cc:481)  [symbol-not-found]
+
+--- codesight-mcp: recorded edge NOT in the ground-truth table
+  tombstones       BM_DropDeletes -> ConvertDeletedToEmptyAndFullToDeleted  (raw_hash_set_benchmark.cc L576, depth 1, get-callers-tombstones-ConvertDeletedToEmptyAndFullToDeleted.json)
+  open-addressing  CommonFieldsGenerationInfoEnabled::
+    should_rehash_for_bug_detection_on_insert -> RehashProbabilityConstant  (raw_hash_set.cc L158, depth 2, get-callers-open-addressing-RehashProbabilityConstant.json)
+  iteration        CommonFieldsGenerationInfoEnabled::
+    should_rehash_for_bug_detection_on_insert -> offset  (raw_hash_set.cc L158, depth 2, get-callers-iteration-offset.json)
+  erase            DestructNonSoo -> DestroySlots  (raw_hash_set.cc L979, depth 1, get-callers-erase-cc-DestroySlots.json)
+  tombstones       EraseMetaOnlySmall -> set_size  (raw_hash_set.h L719, depth 2, get-callees-tombstones-EraseMetaOnlySmall.json)
+  iteration        Incr -> next  (chunked_queue.h L148, depth 1, get-callers-iteration-next.json)
+  group-probing    ResetCtrl -> BlockControlBytes  (raw_hash_set.cc L729, depth 1, get-callers-group-probing-BlockControlBytes.json)
+  rehash           TEST -> NextCapacity  (raw_hash_set_test.cc L1499, depth 1, get-callers-rehash-h-NextCapacity.json)
+  rehash           TEST -> PreviousCapacity  (raw_hash_set_test.cc L1539, depth 1, get-callers-rehash-h-PreviousCapacity.json)
+  iteration        assert_is_full -> generation  (btree.h L1094, depth 1, get-callees-iteration-assert_is_full.json)
+  iteration        begin -> IsSmallCapacity  (raw_hash_set.h L398, depth 3, get-callees-iteration-begin.json)
+  group-probing    find_first_non_full -> index  (cord_rep_btree.h L300, depth 2, get-callees-group-probing-find_first_non_full.json)
+  group-probing    find_first_non_full -> probe_till_first_non_full_group  (raw_hash_set.cc L207, depth 2, get-callers-group-probing-probe_till_first_non_full_group.json)
+  group-probing    find_first_non_full_from_h1 -> next  (raw_hash_set.h L1785, depth 2, get-callees-group-probing-find_first_non_full_from_h1.json)
+  group-probing    find_first_non_full_group -> next  (raw_hash_set.h L1785, depth 2, get-callees-group-probing-find_first_non_full_group.json)
+
+--- codesight-mcp: recorded edges hand-verified FALSE against the pinned C++
+  assert_is_full -> generation
+      codesight-mcp says: generation is at btree.h:1094 (get-callees-iteration-assert_is_full.json)
+      pinned source says: raw_hash_set.h:2445 calls AssertIsFull (h:1586); generation() is an argument evaluated at the call site, and btree_iterator_generation_info_disabled::generation is a different symbol
+  find_first_non_full -> index
+      codesight-mcp says: index is at cord_rep_btree.h:300 (get-callees-group-probing-find_first_non_full.json)
+      pinned source says: raw_hash_set.cc:207-210 calls find_first_non_full_from_h1, H1 and capacity_impl; nothing named index, and cord_rep_btree.h is outside the subset
+  Incr -> next
+      codesight-mcp says: next is at chunked_queue.h:148 (get-callers-iteration-next.json)
+      pinned source says: chunked_queue::Incr does not call probe_seq::next; the name collides because raw_hash_set.h has no class scope in the index
+
+--- ligature extract-c-static: verdict per true edge
+  open-addressing  ShouldRehashForBugDetection -> probe  rust=free:should_rehash_for_bug_detection->free:probe  [not-recorded]
+  open-addressing  ShouldRehashForBugDetection -> offset  rust=free:should_rehash_for_bug_detection->ProbeSeq::offset_  [not-recorded]
+  open-addressing  ShouldRehashForBugDetection -> RehashProbabilityConstant  rust=free:should_rehash_for_bug_detection->free:rehash_probability_constant  [not-recorded]
+  open-addressing  probe -> H1  rust=free:probe->free:h1  [not-recorded]
+  open-addressing  probe -> probe_h1  rust=free:probe->free:probe_h1  [not-recorded]
+  open-addressing  probe_h1 -> probe_seq  rust=free:probe_h1->-  [no-fixture-row]
+  group-probing    find_first_non_full -> H1  rust=free:find_first_non_full->free:h1  [not-recorded]
+  group-probing    find_first_non_full -> find_first_non_full_from_h1  rust=free:find_first_non_full->free:find_first_non_full_from_h1  [not-recorded]
+  group-probing    find_first_non_full_from_h1 -> probe_h1  rust=free:find_first_non_full_from_h1->free:probe_h1  [not-recorded]
+  group-probing    find_first_non_full_from_h1 -> IsEmptyOrDeleted  rust=free:find_first_non_full_from_h1->free:is_empty_or_deleted  [not-recorded]
+  group-probing    find_first_non_full_from_h1 -> probe_till_first_non_full_group  rust=free:find_first_non_full_from_h1->free:probe_till_first_non_full_group  [not-recorded]
+  group-probing    find_first_non_full_from_h1 -> offset  rust=free:find_first_non_full_from_h1->ProbeSeq::offset_at  [not-recorded]
+  group-probing    find_first_non_full_from_h1 -> index  rust=free:find_first_non_full_from_h1->ProbeSeq::index_  [not-recorded]
+  group-probing    find_first_non_full_group -> probe  rust=free:find_first_non_full_group->free:probe  [not-recorded]
+  group-probing    find_first_non_full_group -> probe_till_first_non_full_group  rust=free:find_first_non_full_group->free:probe_till_first_non_full_group  [not-recorded]
+  group-probing    find_first_non_full_group -> offset  rust=free:find_first_non_full_group->ProbeSeq::offset_at  [not-recorded]
+  group-probing    find_first_non_full_group -> index  rust=free:find_first_non_full_group->ProbeSeq::index_  [not-recorded]
+  group-probing    probe_till_first_non_full_group -> MaskEmptyOrDeleted  rust=free:probe_till_first_non_full_group->GroupFullEmptyOrDeleted::mask_empty_or_deleted  [not-recorded]
+  group-probing    probe_till_first_non_full_group -> offset  rust=free:probe_till_first_non_full_group->ProbeSeq::offset_at  [not-recorded]
+  group-probing    probe_till_first_non_full_group -> next  rust=free:probe_till_first_non_full_group->ProbeSeq::next  [not-recorded]
+  group-probing    probe_till_first_non_full_group -> index  rust=free:probe_till_first_non_full_group->ProbeSeq::index_  [not-recorded]
+  group-probing    BlockControlBytes -> BlockCtrl  rust=BlockControlBytes::block_ctrl->-  [no-fixture-row]
+  group-probing    BlockControlBytes -> SetCtrlNoSanitizeImpl  rust=BlockControlBytes::make_sentinel->BlockControlBytes::set_ctrl_no_sanitize_impl  [resolved]
+  tombstones       OverwriteFullAsEmpty -> GetPackedIncrement  rust=GrowthInfoAccessor::overwrite_full_as_empty->free:get_packed_increment  [not-recorded]
+  tombstones       ResetGrowthLeft -> InitGrowthLeftNoDeleted  rust=free:reset_growth_left->GrowthInfoAccessor::init_growth_left_no_deleted  [not-recorded]
+  tombstones       ResetGrowthLeft -> CapacityToGrowth  rust=free:reset_growth_left->GrowthInfoAccessor::init_growth_left_no_deleted  [not-recorded]
+  tombstones       EraseMetaOnlySmall -> set_empty_soo  rust=Table::erase_meta_only_small->Slot::set_empty_soo  [caller-present-callee-unresolved]
+  tombstones       EraseMetaOnlySmall -> decrement_size  rust=Table::erase_meta_only_small->Slot::set_size  [caller-present-callee-unresolved]
+  tombstones       EraseMetaOnlySmall -> infoz  rust=Table::erase_meta_only_small->Slot::infoz  [caller-present-callee-unresolved]
+  tombstones       EraseMetaOnlySmall -> SanitizerPoisonMemoryRegion  rust=Table::erase_meta_only_small->free:poison_memory_region  [caller-present-callee-unresolved]
+  tombstones       EraseMetaOnlyLarge -> WasNeverFull  rust=Table::erase_meta_only_large->Table::was_never_full  [resolved]
+  tombstones       EraseMetaOnlyLarge -> infoz  rust=Table::erase_meta_only_large->Slot::infoz  [caller-present-callee-unresolved]
+  tombstones       EraseMetaOnlyLarge -> OverwriteFullAsEmpty  rust=Table::erase_meta_only_large->GrowthInfoAccessor::overwrite_full_as_empty  [caller-present-callee-unresolved]
+  tombstones       ConvertDeletedToEmptyAndFullToDeleted -> IsValidCapacity  rust=free:convert_deleted_to_empty_and_full_to_deleted->free:is_valid_capacity  [not-recorded]
+  tombstones       ConvertDeletedToEmptyAndFullToDeleted -> ConvertSpecialToEmptyAndFullToDeleted  rust=free:convert_deleted_to_empty_and_full_to_deleted->Group::convert_special_to_empty_and_full_to_deleted  [not-recorded]
+  tombstones       WasNeverFull -> MaskEmpty  rust=Table::was_never_full->Group::mask_empty  [caller-present-callee-unresolved]
+  tombstones       DropDeletesWithoutResizeAndPrepareInsert -> ConvertDeletedToEmptyAndFullToDeleted  rust=free:drop_deletes_without_resize_and_prepare_insert->free:convert_deleted_to_empty_and_full_to_deleted  [not-recorded]
+  tombstones       DropDeletesWithoutResizeAndPrepareInsert -> BlockControlBytes  rust=free:drop_deletes_without_resize_and_prepare_insert->BlockControlBytes::make_sentinel  [not-recorded]
+  tombstones       DropDeletesWithoutResizeAndPrepareInsert -> find_first_non_full  rust=free:drop_deletes_without_resize_and_prepare_insert->free:find_first_non_full  [not-recorded]
+  tombstones       DropDeletesWithoutResizeAndPrepareInsert -> probe  rust=free:drop_deletes_without_resize_and_prepare_insert->free:probe  [not-recorded]
+  tombstones       DropDeletesWithoutResizeAndPrepareInsert -> IsEmpty  rust=free:drop_deletes_without_resize_and_prepare_insert->free:is_empty  [not-recorded]
+  tombstones       DropDeletesWithoutResizeAndPrepareInsert -> IsDeleted  rust=free:drop_deletes_without_resize_and_prepare_insert->free:is_deleted  [not-recorded]
+  rehash           InitGrowthLeftNoDeleted -> GetPackedIncrement  rust=-->-  [no-fixture-row]
+  rehash           ValidateMaxCapacity -> PreviousCapacity  rust=free:validate_max_capacity->free:previous_capacity  [not-recorded]
+  rehash           OverflowBufferStart -> NextCapacity  rust=Table::overflow_buffer_start->free:next_capacity  [not-recorded]
+  rehash           Resize1To3NewOffset -> SooSlotIndex  rust=free:resize_1_to_3_new_offset->free:soo_slot_index  [not-recorded]
+  rehash           Resize1To3NewOffset -> SingleGroupTableH1  rust=free:resize_1_to_3_new_offset->free:single_group_table_h1  [not-recorded]
+  rehash           RehashOrGrowToNextCapacityAndPrepareInsert -> DropDeletesWithoutResizeAndPrepareInsert  rust=Table::rehash_or_grow_to_next_capacity_and_prepare_insert->Table::drop_deletes_without_resize_and_prepare_insert  [resolved]
+  rehash           RehashOrGrowToNextCapacityAndPrepareInsert -> GrowToNextCapacityAndPrepareInsert  rust=Table::rehash_or_grow_to_next_capacity_and_prepare_insert->Table::grow_to_next_capacity_and_prepare_insert  [resolved]
+  rehash           PrepareInsertLargeSlow -> RehashOrGrowToNextCapacityAndPrepareInsert  rust=Table::prepare_insert_large_slow->Table::rehash_or_grow_to_next_capacity_and_prepare_insert  [resolved]
+  rehash           PrepareInsertLargeSlow -> GrowToNextCapacityAndPrepareInsert  rust=Table::prepare_insert_large_slow->Table::grow_to_next_capacity_and_prepare_insert  [resolved]
+  iteration        begin -> end  rust=Table::begin->Table::end  [resolved]
+  iteration        begin -> empty  rust=Table::begin->Table::empty  [resolved]
+  iteration        begin -> is_small  rust=Table::begin->Table::is_small  [resolved]
+  iteration        begin -> slot_array  rust=Table::begin->Table::slot_array  [resolved]
+  iteration        begin -> capacity  rust=Table::begin->Table::capacity  [resolved]
+  iteration        begin -> generation_ptr  rust=Table::begin->Table::generation_ptr  [caller-present-callee-unresolved]
+  iteration        begin -> skip_empty_or_deleted  rust=Table::begin->Iterator::skip_empty_or_deleted  [caller-present-callee-unresolved]
+  iteration        begin -> IsFull  rust=Table::begin->free:is_full  [caller-present-callee-unresolved]
+  iteration        assert_is_full -> AssertIsFull  rust=Table::assert_is_full->Table::assert_is_full_boundary  [resolved]
+  iteration        skip_empty_or_deleted -> IsEmptyOrDeleted  rust=Table::skip_empty_or_deleted->Ctrl::is_empty_or_deleted  [caller-present-callee-unresolved]
+  iteration        IterateOverFullSlots -> IterateOverFullSlotsImpl  rust=Table::iterate_over_full_slots->Table::iterate_over_full_slots_impl  [resolved]
+  iteration        FindEmptySlot -> IsEmpty  rust=Table::find_empty_slot->Ctrl::is_empty  [caller-present-callee-unresolved]

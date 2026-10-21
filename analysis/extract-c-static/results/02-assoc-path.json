@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0",
+  "report_id": "rust_swisstable-verus-core",
+  "crate_dir": "rust/swisstable-verus-core",
+  "coverage_scope": {
+    "extractor": "coarse-syntactic-callgraph",
+    "extractor_version": "0.1.0",
+    "extractor_backing": "syntactic",
+    "supported_call_forms": [
+      "associated-path-call",
+      "self-method-call",
+      "inherent-method-call-by-name"
+    ],
+    "unsupported_call_forms": [
+      "macro-expanded-call",
+      "generated-code",
+      "ffi-callback",
+      "call-to-non-local-type"
+    ],
+    "completeness_claim": "discovered-lower-bound"
+  },
+  "config_scope": {
+    "target": "x86_64-unknown-linux-gnu",
+    "features": [],
+    "cfg": []
+  },
+  "attribution_scope": {
+    "scanned_item_kinds": [
+      "inherent-impl-method",
+      "trait-impl-method"
+    ],
+    "local_concepts": [
+      "T"
+    ],
+    "unattributed_call_sites": 0,
+    "out_of_scope_call_sites": 0,
+    "macro_invocations": 0
+  },
+  "callsites": [
+    {
+      "callsite_id": "CS-T-ROOT-001",
+      "call_class": "definite-direct-call",
+      "caller": {
+        "concept": "T",
+        "method": "root"
+      },
+      "source": {
+        "path": "rust/swisstable-verus-core/src/lib.rs",
+        "symbol": "T::root",
+        "line": 5,
+        "syntax_hash": "sha256:0102d3803b5eec98b3ff6bc526d544662d67639039a0693183fdc45a4db618e4"
+      },
+      "callee": {
+        "concept": "T",
+        "method": "leaf"
+      },
+      "risk_tier_source": "not-applicable"
+    },
+    {
+      "callsite_id": "CS-T-ROOT-002",
+      "call_class": "definite-direct-call",
+      "caller": {
+        "concept": "T",
+        "method": "root"
+      },
+      "source": {
+        "path": "rust/swisstable-verus-core/src/lib.rs",
+        "symbol": "T::root",
+        "line": 5,
+        "syntax_hash": "sha256:0102d3803b5eec98b3ff6bc526d544662d67639039a0693183fdc45a4db618e4"
+      },
+      "callee": {
+        "concept": "T",
+        "method": "leaf"
+      },
+      "risk_tier_source": "not-applicable"
+    }
+  ],
+  "callsite_coverage": {
+    "discovered": 2,
+    "resolved": 2,
+    "unresolved": 0
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "case_file": "random-cases.jsonl",
+  "source": "random",
+  "seed": 20261010,
+  "generator": "splitmix64-v1",
+  "command": "python3 oracle/generate_random_cases.py --seed 20261010 --count 8",
+  "upstream_commit": "2065f4ded0558c6f89fee67c8e5228feb4eb960e"
+}

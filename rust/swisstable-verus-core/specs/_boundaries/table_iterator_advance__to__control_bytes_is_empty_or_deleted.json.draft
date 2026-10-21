@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "boundary_id": "table_iterator_advance__to__control_bytes_is_empty_or_deleted",
+  "caller": {
+    "concept": "TableIterator",
+    "method": "advance"
+  },
+  "callee": {
+    "concept": "ControlBytes",
+    "method": "is_empty_or_deleted"
+  },
+  "callee_guarantees": [
+    "ControlBytes.C001"
+  ]
+}

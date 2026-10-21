@@ -1,0 +1,36 @@
+== ligature version ==
+ligature.pyz: OK
+ligature 1.2.0
+  adjudicator: zipapp (attested: true)
+  content hash: sha256:f4ce4be09ad856b13299d3b5f3b047a3276d14d988a17ffc97301f0c69fd693c
+  bundle: 95 file(s)
+  bundled schemas: 27
+  required python: >= 3.10 (running 3.12.3)
+  platform: Linux/x86_64 (required: any)
+  artifact: /home/goya/storage/full-ligature-port-workspace/swisstable-verus/tools/ligature/ligature.pyz
+  source: b5f267694f6ba9f172499d94611116b87537b925 (DIRTY working tree, uncommitted-state sha256:909c511c750a84fb47f10b325861ff2ee7aaa1d0dc238227b4643788f32f4ccb)
+01-self-method                     wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 1 discovered, 1 resolved, 0 unresolved (discovered-lower-bound) exit=0 
+02-assoc-path                      wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 2 discovered, 2 resolved, 0 unresolved (discovered-lower-bound) exit=0 
+03-inherent-by-name                wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 1 discovered, 0 resolved, 1 unresolved (discovered-lower-bound) exit=0 
+04-missing-callee                  wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 0 discovered, 0 resolved, 0 unresolved (discovered-lower-bound) exit=0 
+05-verus-macro                     wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 1 discovered, 1 resolved, 0 unresolved (discovered-lower-bound) exit=0 
+06-free-fn                         wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 0 discovered, 0 resolved, 0 unresolved (discovered-lower-bound) exit=0 
+07-trait-default-body              wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 0 discovered, 0 resolved, 0 unresolved (discovered-lower-bound) exit=0 
+08-trait-impl-method               wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 1 discovered, 1 resolved, 0 unresolved (discovered-lower-bound) exit=0 
+09-cross-module-local-type         wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 1 discovered, 0 resolved, 1 unresolved (discovered-lower-bound) exit=0 
+10-external-path-call              wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 1 discovered, 1 resolved, 0 unresolved (discovered-lower-bound) exit=0 
+11-assoc-fn-then-method            wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 2 discovered, 1 resolved, 1 unresolved (discovered-lower-bound) exit=0 
+12-closure-body                    wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 2 discovered, 1 resolved, 1 unresolved (discovered-lower-bound) exit=0 
+13-self-recursion                  wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 1 discovered, 1 resolved, 0 unresolved (discovered-lower-bound) exit=0 
+14-field-receiver                  wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 2 discovered, 2 resolved, 0 unresolved (discovered-lower-bound) exit=0 
+15-generic-impl                    wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 2 discovered, 2 resolved, 0 unresolved (discovered-lower-bound) exit=0 
+16-verus-proof-fns                 wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 3 discovered, 3 resolved, 0 unresolved (discovered-lower-bound) exit=0 
+17-unattributed-isolate            wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 1 discovered, 1 resolved, 0 unresolved (discovered-lower-bound) exit=0 
+18-spec-and-broadcast              wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 1 discovered, 1 resolved, 0 unresolved (discovered-lower-bound) exit=0 
+19-no-calls-at-all                 wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 0 discovered, 0 resolved, 0 unresolved (discovered-lower-bound) exit=0 
+20-minimal-macro-body              wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 0 discovered, 0 resolved, 0 unresolved (discovered-lower-bound) exit=0 
+21-spec-and-proof-no-calls         wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 0 discovered, 0 resolved, 0 unresolved (discovered-lower-bound) exit=0 
+22-field-reads-no-calls            wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 0 discovered, 0 resolved, 0 unresolved (discovered-lower-bound) exit=0 
+23-ensures-cast                    wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 0 discovered, 0 resolved, 0 unresolved (discovered-lower-bound) exit=0 
+24-forall-quantifier               wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 0 discovered, 0 resolved, 0 unresolved (discovered-lower-bound) exit=0 
+== done: 24 reports in /home/goya/storage/full-ligature-port-workspace/swisstable-verus/analysis/extract-c-static/results ==

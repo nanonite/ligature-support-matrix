@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "witness_id": "W-CONTROLBYTES-COUNTEMPTY-001",
+  "concept": "ControlBytes",
+  "query": "count_empty",
+  "fixture": {
+    "fixture_id": "FX-CTRL-EMPTY-DENSITY",
+    "seed": 0,
+    "description": "One control group swept over every empty-slot density from zero to sixteen, so the empty count is a genuinely varying measurement rather than a constant."
+  },
+  "renderer": "group_bitmask",
+  "expectation": {
+    "renderer": "group_bitmask",
+    "coverage_region": "full-grid",
+    "value_distribution": "must-vary",
+    "fixture_family": "FX-CTRL-EMPTY-DENSITY"
+  },
+  "determinism": {
+    "value_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "claim": "byte-identical-across-runs",
+    "platforms": [
+      "x86_64-unknown-linux-gnu"
+    ]
+  },
+  "output": {
+    "path": "docs/witnesses/control_bytes.count_empty.svg",
+    "render_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "renderer_actual": "group_bitmask"
+  }
+}

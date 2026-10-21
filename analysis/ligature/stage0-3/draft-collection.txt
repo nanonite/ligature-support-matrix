@@ -1,0 +1,27 @@
+Which validator collects a staged <target>.json.draft of its own kind, measured one
+kind at a time from a clean tree (every other pipeline artifact removed first).
+Binary: ligature 1.2.1. Filed as epic #1 #110.
+
+draft kind     validator                      exit   check --json exit
+boundary       validate                       0      0
+      OK (nothing to check: no boundary contracts discovered under .)
+interaction    validate-interaction           0      0
+      OK (nothing to check: no interactions discovered under .)
+bridge         validate-bridge                1      3
+      FAIL: 1 finding(s)
+        - [G1a/error] rust/swisstable-verus-core/specs/_bridges/BR-GROUPPROBE-WINDOW-001.json.draft: 'review' is a required property
+witness        validate-witness               1      3
+      FAIL: 1 finding(s)
+        - [G1a/error] rust/swisstable-verus-core/specs/_witnesses/group_probe.match_full.json.draft: 'review' is a required property
+exemption      validate-exemption             1      3
+      FAIL: 1 finding(s)
+        - [G1a/error] rust/swisstable-verus-core/specs/_exemptions/probe_exemption_edge.json.draft: 'review' is a required property
+conflict       validate-conflict-resolution   1      3
+      FAIL: 1 finding(s)
+        - [G1a/error] specs/_conflicts/EC-1.json.draft: 'review' is a required property
+concept        (none: approve has no concept-spec branch) 2      0
+
+Conclusion: validate and validate-interaction SKIP staged drafts (chainlink #97,
+fixed in 1.2.0). validate-bridge, validate-witness, validate-exemption and
+validate-conflict-resolution still COLLECT them, fail closed on the missing
+review block, and turn check --json into exit 3 / human_decision_required.

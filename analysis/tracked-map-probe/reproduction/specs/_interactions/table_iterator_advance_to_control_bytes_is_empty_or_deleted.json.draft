@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "table_iterator_advance_to_control_bytes_is_empty_or_deleted",
+  "caller": {
+    "concept": "TableIterator",
+    "method": "advance"
+  },
+  "callee": {
+    "concept": "ControlBytes",
+    "method": "is_empty_or_deleted"
+  },
+  "edge_class": [
+    "stateful"
+  ],
+  "eligibility": "boundary-required",
+  "rationale": "The cursor's step is defined by skipping bytes that are empty or deleted; it would stop on a tombstone, or run past the sentinel, if that byte test meant something other than it does.",
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [
+        "default"
+      ],
+      "cfg": []
+    }
+  },
+  "evidence_links": [
+    "E-002",
+    "E-007"
+  ],
+  "reliances": [
+    {
+      "obligation_id": "ControlBytes.C001",
+      "required_assurance": {
+        "required_claims": [
+          "postcondition-holds"
+        ],
+        "accepted_evidence_kinds": [
+          "verus-deductive-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "any capacity of the form two to the n minus one"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    }
+  ]
+}

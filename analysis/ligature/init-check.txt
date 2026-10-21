@@ -1,0 +1,750 @@
+# Ligature init and descriptor check evidence
+
+Pilot: swisstable-verus  (P2, abseil/abseil-cpp SwissTable, Verus-owned)
+Recorded: 2026-10-02  --  chainlink #27
+Working directory: swisstable-verus/
+Pinned artifact: tools/ligature/ligature.pyz
+Artifact SHA-256: 9c921eeb1bbb858c0041e49f07cf5d06988eb798ba60b9207f7576cba430637c
+  (sha256sum -c SHA256SUMS -> "ligature.pyz: OK"; `ligature version` -> "ligature 1.2.0")
+
+State before init: no project-descriptor.json, no ci/, no .ligature/, no
+.codex/, no docs/, no schemas/, no scripts/.  rust/ contained only
+.gitkeep, so no Rust code existed -- which is what makes the
+closure_kind / verifier_policy values below genuinely pre-implementation.
+
+All commands below were run from the pilot root as
+`python3 tools/ligature/ligature.pyz <cmd>` (the pinned copy in this root,
+per WORKER-CONTRACT.md section 1).
+
+### pre-init: status
+ligature 1.2.0 -- project state
+descriptor: absent (project-descriptor.json)
+installation manifest: not-initialized
+gate integrity: unknown -- no project descriptor present
+artifacts: none discovered
+obligations: 0 declared, 0 with an unmet required dimension
+open findings: 1
+  - [high] gate-integrity: no project descriptor present
+human decisions pending: 0
+change requests: 0
+exit=0
+
+### pre-init: status --json
+{"artifacts":[],"binary_identity":{"content_hash":"sha256:f4ce4be09ad856b13299d3b5f3b047a3276d14d988a17ffc97301f0c69fd693c","verified":"true","version":"1.2.0"},"change_requests":[],"clusters":[],"descriptor":{"path":"project-descriptor.json","state":"absent"},"gate_integrity":{"details":"no project descriptor present","state":"unknown"},"generated_observations":{"feature_ledger_generated_at":null,"witness_summaries":[]},"human_decisions":[],"installation_manifest":{"installed_product_version":null,"installed_schema_versions":{},"state":"not-initialized"},"obligations":[],"open_findings":[{"dedup_key":"11e16fc4373054ac7ab307539dca8d1d","gate_id":"gate-integrity","severity":"high","subject":"(workspace)","summary":"no project descriptor present"}],"product":{"name":"ligature","version":"1.2.0"},"schema_version":"1.0","write_set":{"details":"no valid project descriptor present -- the write set cannot be evaluated","state":"unknown"}}
+exit=0
+
+### pre-init: doctor
+Implemented: draft (Stage 0/3), approve (checkpoint), approve-pair (transactional interaction + protocol-debt checkpoint), approve-exemption-pair (transactional interaction + exemption checkpoint, R2's exemption bootstrap), validate (Stage 4 G1a/G1b/G2+), validate-interaction (Stage 4 G1a/G1b + computed eligibility + G15 + R2), validate-exemption (Stage 4 G1a/G1b naming + G2 interaction cross-reference), validate-protocol-debt (Stage 4 G1a/G1b + interaction cross-reference), validate-bridge (Stage 4 G1a/G1b/G2 over bridge specifications, chainlink #22), validate-evidence (Stage 4 G1a/G1b, workspace-level), validate-conflict-resolution (Stage 4 G1a/G1b/G11, workspace-level), validate-work-package (Stage 7 schema + §10.1, standalone), validate-promotion (Stage 4.5 schema + §7.1, standalone), accept-promotion (Stage 4.5's own generator, chainlink #45), extract-c-static (Stage 8A's coarse syntactic C_static extractor, chainlink #24), validate-callsites (Stage 8A G1a/G1b over C_static reports, workspace-level), gate-r1-g16 (Stage 8A R1 reconciliation + G16 risk-tiered unresolved policy; exit 3 means a human risk decision is outstanding), render-witness (dispatch a canonical result through the renderer contract, chainlink #28), validate-witness (G1a/G1b/G2 over witness specs + canonical results, chainlink #27), validate-gold-set (G1a/G1b over human gold sets, chainlink #26), measure-gold-set (precision/recall/omission against a human gold set, chainlink #26), check-bridges (Stage 8A bridge harness generation + verifier dispatch, chainlink #47), gate-g9 (Stage 8A bridge-check verification against a recompilation of the promoted bridge), validate-closure (Stage 8C G1a/G1b + G17 over closure profiles and degradation records), gate-g14 (Stage 8C release closure over the transitive assurance graph, per cluster, with the CG6 well-foundedness discharge, chainlink #25), gate-g18 (Stage 4 witness coverage over the declared witness_required feature set, chainlink #29), gate-g19 (Stage 8A/CI witness determinism: regenerate, compare value_hash, never render_hash, chainlink #30), gate-g20 (Stage 4.5 degeneracy: must-vary vs constant, fixture-family/coverage_region consistency, warn -- block at promotion if unresolved, chainlink #31), generate-feature-ledger (Stage 4.5 generated projection over G18/G19/G20, implementation_observed vs assurance_status never merged, chainlink #34), generate-contact-sheet (Stage 4.5 review surface with the ∃-witness evidence banner, traffic-light witness/determinism/degeneracy columns kept visually distinct from a never-green assurance_status/closure_kind column, chainlink #32), select-pilot-cluster (plan.md §14 mechanized, verifier-agnostic first-pilot-cluster ranking, chainlink #4), write-set-check (read-only write-set conformance: files outside allowed_roots and inside protected_roots relative to the project descriptor, chainlink #77), accept-policy (record a reviewed change to the normative reliance-policy document, chainlink #78), promote-evidence (mechanically promote a staged evidence draft to its target and record the move -- the Stage 0 promotion path approve() cannot provide, chainlink #79), record-assurance (assemble a work package's assurance report from verifier proof certificates -- the achieved side gate-g14 reads, chainlink #87)
+Not yet implemented:
+  - G4/G5 evidence tracing/grounding: not yet implemented -- required/bug-compat evidence tracing to nothing (G4) and ungrounded obligations (G5) both need cross-referencing interaction evidence_links (#16) to evidence ids (#20), which exist individually but aren't cross-referenced against each other yet
+  - emission: M3's I-schema is now complete (#16-#20); emission (Stage 5) itself is still not built
+  - attach: M3's I-schema is now complete (#16-#20); attach (Stage 6) itself is still not built
+  - manifest generation: #14's schema+validator exist (`validate-work-package`); M3's I-schema is now complete (#16-#20), but the generator that reads promoted I/O and emits a manifest from it is still not built
+  - 8A: partly implemented -- C_static extraction and R1/G16 are real (#24), bridge harness generation, verifier dispatch and G9 are real (#47: check-bridges, gate-g9), and per-obligation assurance records have a record schema (#23) plus the report container G14 reads (#25). What is missing is the runner that emits a work package's OBLIGATION records from a real verifier run; bridge records now have one (ci/results/bridge_checks/), and no verifier backend is configured in this repository, so nothing here dispatches for real
+  - 8B: #26 (M4)
+Installation:
+  installation: not-initialized
+Executable attestation:
+  ligature 1.2.0
+    adjudicator: zipapp (attested: true)
+    content hash: sha256:f4ce4be09ad856b13299d3b5f3b047a3276d14d988a17ffc97301f0c69fd693c
+    bundle: 95 file(s)
+    bundled schemas: 27
+    required python: >= 3.10 (running 3.12.3)
+    platform: Linux/x86_64 (required: any)
+    artifact: /home/goya/storage/full-ligature-port-workspace/swisstable-verus/tools/ligature/ligature.pyz
+    source: b5f267694f6ba9f172499d94611116b87537b925 (DIRTY working tree, uncommitted-state sha256:909c511c750a84fb47f10b325861ff2ee7aaa1d0dc238227b4643788f32f4ccb)
+    bundled schemas:
+      docs/achieved-assurance-schema.json: 1.0
+      docs/assumption-registry-schema.json: 1.0
+      docs/assurance-report-schema.json: 1.0
+      docs/boundary-contract-schema.json: 1.0
+      docs/bridge-check-schema.json: 1.0
+      docs/bridge-schema.json: 1.0
+      docs/callsite-schema.json: 1.0
+      docs/closure-profile-schema.json: 1.0
+      docs/concept-to-code-constraint-id-schema.json: unknown
+      docs/concept-to-code-witness-required-schema.json: unknown
+      docs/conflict-resolution-schema.json: 1.0
+      docs/degradation-record-schema.json: 1.0
+      docs/evidence-schema.json: 1.0
+      docs/exemption-schema.json: 1.0
+      docs/feature-ledger-schema.json: 1.0
+      docs/gold-set-measurement-schema.json: 1.0
+      docs/gold-set-schema.json: 1.0
+      docs/interaction-schema.json: 1.0
+      docs/promotion-receipt-schema.json: unknown
+      docs/protocol-debt-schema.json: 1.0
+      docs/witness-result-schema.json: 1.0
+      docs/witness-spec-schema.json: 1.0
+      docs/work-package-manifest-schema.json: unknown
+      schemas/consolidated-check.schema.json: 1.0
+      schemas/project-descriptor.schema.json: 1.0
+      schemas/project-state.schema.json: 1.0
+      vendor/concept-to-code/schemas/spec.schema.json: 1.0
+  adjudicator pin: not-installed -- no installation manifest
+exit=0
+
+### pre-init: check --json
+{"change_request_stubs":[],"findings":[{"authority":"mechanized-gate","dedup_key":"11e16fc4373054ac7ab307539dca8d1d","gate_id":"gate-integrity","provenance":"scripts/project_state.py:_gate_integrity_findings","reason":"no project descriptor present","severity":"high","subject":"(workspace)"}],"gates":[{"gate_id":"r1-g16","outcome":"not-applicable","reason":"no valid project descriptor"},{"gate_id":"g9","outcome":"not-applicable","reason":"no valid project descriptor"},{"gate_id":"g14","outcome":"not-applicable","reason":"no valid project descriptor"},{"gate_id":"g18","outcome":"not-applicable","reason":"no valid project descriptor"},{"gate_id":"g19","outcome":"not-applicable","reason":"no valid project descriptor"},{"gate_id":"g20","outcome":"not-applicable","reason":"no valid project descriptor"}],"mutated_workspace":false,"next_action":null,"result":{"conditions":["blocking_findings","gate_integrity_failed","invalid_input"],"exit_code":5},"schema_version":"1.0"}
+exit=5
+
+================================================================
+### INIT
+$ python3 tools/ligature/ligature.pyz init --mode port
+================================================================
+installation: current
+mode: port  project: swisstable-verus
+skill authority hash: verified
+     create  .codex/skills/ligature/SKILL.md
+     create  .ligature/prompts/stage-0-evidence-intake.md
+     create  .ligature/prompts/stage-3-boundary-drafting.md
+     create  .ligature/prompts/stage-3-bridge-drafting.md
+     create  .ligature/prompts/stage-3-concept-to-code.md
+     create  .ligature/prompts/stage-3-conflict-resolution-drafting.md
+     create  .ligature/prompts/stage-3-exemption-drafting.md
+     create  .ligature/prompts/stage-3-interaction-drafting.md
+     create  .ligature/prompts/stage-3-protocol-debt-drafting.md
+     create  .ligature/prompts/stage-3-witness-drafting.md
+     create  .ligature/schemas/consolidated-check.schema.json
+     create  .ligature/schemas/project-descriptor.schema.json
+     create  .ligature/schemas/project-state.schema.json
+     create  docs/reliance-policy.md
+     create  project-descriptor.json
+     create  schemas/project-descriptor.schema.json
+     create  scripts/witness_renderer.py
+     create  scripts/xml_escape.py
+ownership manifest: ci/manifest/installation.json
+exit=0
+
+================================================================
+### DESCRIPTOR AS FILLED IN
+================================================================
+{
+  "schema_version": "1.0",
+  "project": {
+    "name": "swisstable-verus",
+    "crate_naming_convention": "^swisstable-verus-[a-z]+"
+  },
+  "mode": "port",
+  "closure_kind": "deductive",
+  "port_source": {
+    "repository": "https://github.com/abseil/abseil-cpp",
+    "language": "cpp",
+    "oracle_build_command": "nix develop ..#swisstable-verus -c bash -lc 'cmake -G Ninja -S upstream/abseil-cpp -B /tmp/opencode/swisstable-verus-abseil-build -DABSL_GOOGLETEST_DOWNLOAD_URL=https://github.com/google/googletest/releases/download/v1.17.0/googletest-1.17.0.tar.gz -DABSL_BUILD_TESTING=ON -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_STANDARD=17 && cmake --build /tmp/opencode/swisstable-verus-abseil-build -j 24'"
+  },
+  "crates": [
+    {
+      "crate_dir": "rust/swisstable-verus-core",
+      "contracts_crate": "verus_contracts",
+      "specs_search_root": "rust"
+    }
+  ],
+  "verifier_policy": {
+    "default": "verus"
+  },
+  "compatibility_policy": {
+    "reliance_policy_path": "docs/reliance-policy.md"
+  },
+  "write_set": {
+    "allowed_roots": [
+      "rust/*/src/",
+      "rust/*/tests/",
+      "rust/*/target/**",
+      "rust/*/verif/**",
+      "rust/*/.cargo/**",
+      "rust/*/Cargo.lock",
+      "rust/.gitkeep",
+      "analysis/**",
+      "findings/**",
+      "oracle/**",
+      "tools/**",
+      "upstream/**",
+      "specs/_closure/**",
+      "specs/_promotions/**",
+      "README.md",
+      ".envrc",
+      ".mcp.json"
+    ],
+    "protected_roots": [
+      "rust/*/specs/**",
+      "ci/manifest/**",
+      "scripts/**",
+      "docs/*-schema.json",
+      "docs/reliance-policy.md",
+      "rust/*/Cargo.toml",
+      "rust/*/build.rs",
+      "tests/harnesses/**",
+      ".github/**",
+      "rust-toolchain.toml"
+    ]
+  },
+  "gate_integrity": [
+    {
+      "path": ".codex/skills/ligature/SKILL.md"
+    },
+    {
+      "path": ".ligature/schemas/project-state.schema.json"
+    },
+    {
+      "path": ".ligature/schemas/consolidated-check.schema.json"
+    },
+    {
+      "path": "@adjudicator"
+    }
+  ],
+  "llm_backend": {
+    "kind": "manual"
+  },
+  "review": {
+    "reviewer": "chainlink-reviewer",
+    "reviewed_at": "2026-10-02"
+  }
+}
+================================================================
+### POST-INIT: write-set-check --json
+$ python3 tools/ligature/ligature.pyz write-set-check --json
+================================================================
+{"descriptor":{"path":"project-descriptor.json","state":"present-valid"},"mutated_workspace":false,"schema_version":"1.0","write_set":{"allowed_roots":["rust/*/src/","rust/*/tests/","rust/*/target/**","rust/*/verif/**","rust/*/.cargo/**","rust/*/Cargo.lock","rust/.gitkeep","analysis/**","findings/**","oracle/**","tools/**","upstream/**","specs/_closure/**","specs/_promotions/**","README.md",".envrc",".mcp.json"],"details":"write set is clean -- every file is accounted for by allowed_roots, protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location","protected_roots":["rust/*/specs/**","ci/manifest/**","scripts/**","docs/*-schema.json","docs/reliance-policy.md","rust/*/Cargo.toml","rust/*/build.rs","tests/harnesses/**",".github/**","rust-toolchain.toml"],"protected_unvouched":[],"state":"clean","violations":[]}}
+exit=0
+
+================================================================
+### POST-INIT: status
+$ python3 tools/ligature/ligature.pyz status
+================================================================
+ligature 1.2.0 -- project state
+descriptor: present-valid (project-descriptor.json)
+installation manifest: current
+gate integrity: pinned -- 4 gate path(s) match the installed manifest
+artifacts: none discovered
+obligations: 0 declared, 0 with an unmet required dimension
+open findings: 0
+human decisions pending: 0
+change requests: 0
+exit=0
+
+================================================================
+### POST-INIT: status --json
+$ python3 tools/ligature/ligature.pyz status --json | python3 -m json.tool
+================================================================
+{
+    "artifacts": [],
+    "binary_identity": {
+        "content_hash": "sha256:f4ce4be09ad856b13299d3b5f3b047a3276d14d988a17ffc97301f0c69fd693c",
+        "verified": "true",
+        "version": "1.2.0"
+    },
+    "change_requests": [],
+    "clusters": [],
+    "descriptor": {
+        "closure_kind": "deductive",
+        "mode": "port",
+        "path": "project-descriptor.json",
+        "schema_version": "1.0",
+        "state": "present-valid",
+        "verifier_policy": {
+            "clusters": {},
+            "default": "verus",
+            "supporting": []
+        }
+    },
+    "gate_integrity": {
+        "details": "4 gate path(s) match the installed manifest",
+        "state": "pinned"
+    },
+    "generated_observations": {
+        "feature_ledger_generated_at": null,
+        "witness_summaries": []
+    },
+    "human_decisions": [],
+    "installation_manifest": {
+        "installed_product_version": "1.2.0",
+        "installed_schema_versions": {
+            "consolidated-check": "1.0",
+            "project-descriptor": "1.0",
+            "project-state": "1.0",
+            "skill": "1.0"
+        },
+        "state": "current"
+    },
+    "obligations": [],
+    "open_findings": [],
+    "product": {
+        "name": "ligature",
+        "version": "1.2.0"
+    },
+    "schema_version": "1.0",
+    "write_set": {
+        "details": "write set is clean -- every file is accounted for by allowed_roots, protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location",
+        "state": "clean"
+    }
+}
+exit=0
+
+================================================================
+### POST-INIT: check --json
+$ python3 tools/ligature/ligature.pyz check --json
+================================================================
+{
+    "change_request_stubs": [],
+    "findings": [],
+    "gates": [
+        {
+            "gate_id": "r1-g16",
+            "outcome": "blocked",
+            "reason": "no C_static reports at ci/results/c_static/ -- run extract-c-static first"
+        },
+        {
+            "gate_id": "g9",
+            "outcome": "not-applicable",
+            "reason": "no bridge specifications present in this workspace"
+        },
+        {
+            "gate_id": "g14",
+            "outcome": "not-applicable",
+            "reason": "no closure profiles present"
+        },
+        {
+            "gate_id": "g18",
+            "outcome": "not-applicable",
+            "reason": "no witness specifications present"
+        },
+        {
+            "gate_id": "g19",
+            "outcome": "not-applicable",
+            "reason": "no witness specifications present"
+        },
+        {
+            "gate_id": "g20",
+            "outcome": "not-applicable",
+            "reason": "no witness specifications present"
+        }
+    ],
+    "mutated_workspace": false,
+    "next_action": {
+        "action_id": "refresh-c-static",
+        "command": "ligature extract-c-static --target <target-triple>",
+        "description": "no C_static reports at ci/results/c_static/ -- run extract-c-static first",
+        "kind": "automated-command"
+    },
+    "result": {
+        "conditions": [],
+        "exit_code": 0
+    },
+    "schema_version": "1.0"
+}
+exit=0
+
+================================================================
+### POST-INIT: check (text)
+$ python3 tools/ligature/ligature.pyz check
+================================================================
+consolidated check
+  gate r1-g16: blocked -- no C_static reports at ci/results/c_static/ -- run extract-c-static first
+  gate g9: not-applicable -- no bridge specifications present in this workspace
+  gate g14: not-applicable -- no closure profiles present
+  gate g18: not-applicable -- no witness specifications present
+  gate g19: not-applicable -- no witness specifications present
+  gate g20: not-applicable -- no witness specifications present
+findings: 0
+next action: [refresh-c-static] no C_static reports at ci/results/c_static/ -- run extract-c-static first
+  run: ligature extract-c-static --target <target-triple>
+change-request stubs: 0
+result: exit_code=0 conditions=[]
+exit=0
+
+================================================================
+### POST-INIT: doctor (full)
+$ python3 tools/ligature/ligature.pyz doctor
+================================================================
+Implemented: draft (Stage 0/3), approve (checkpoint), approve-pair (transactional interaction + protocol-debt checkpoint), approve-exemption-pair (transactional interaction + exemption checkpoint, R2's exemption bootstrap), validate (Stage 4 G1a/G1b/G2+), validate-interaction (Stage 4 G1a/G1b + computed eligibility + G15 + R2), validate-exemption (Stage 4 G1a/G1b naming + G2 interaction cross-reference), validate-protocol-debt (Stage 4 G1a/G1b + interaction cross-reference), validate-bridge (Stage 4 G1a/G1b/G2 over bridge specifications, chainlink #22), validate-evidence (Stage 4 G1a/G1b, workspace-level), validate-conflict-resolution (Stage 4 G1a/G1b/G11, workspace-level), validate-work-package (Stage 7 schema + §10.1, standalone), validate-promotion (Stage 4.5 schema + §7.1, standalone), accept-promotion (Stage 4.5's own generator, chainlink #45), extract-c-static (Stage 8A's coarse syntactic C_static extractor, chainlink #24), validate-callsites (Stage 8A G1a/G1b over C_static reports, workspace-level), gate-r1-g16 (Stage 8A R1 reconciliation + G16 risk-tiered unresolved policy; exit 3 means a human risk decision is outstanding), render-witness (dispatch a canonical result through the renderer contract, chainlink #28), validate-witness (G1a/G1b/G2 over witness specs + canonical results, chainlink #27), validate-gold-set (G1a/G1b over human gold sets, chainlink #26), measure-gold-set (precision/recall/omission against a human gold set, chainlink #26), check-bridges (Stage 8A bridge harness generation + verifier dispatch, chainlink #47), gate-g9 (Stage 8A bridge-check verification against a recompilation of the promoted bridge), validate-closure (Stage 8C G1a/G1b + G17 over closure profiles and degradation records), gate-g14 (Stage 8C release closure over the transitive assurance graph, per cluster, with the CG6 well-foundedness discharge, chainlink #25), gate-g18 (Stage 4 witness coverage over the declared witness_required feature set, chainlink #29), gate-g19 (Stage 8A/CI witness determinism: regenerate, compare value_hash, never render_hash, chainlink #30), gate-g20 (Stage 4.5 degeneracy: must-vary vs constant, fixture-family/coverage_region consistency, warn -- block at promotion if unresolved, chainlink #31), generate-feature-ledger (Stage 4.5 generated projection over G18/G19/G20, implementation_observed vs assurance_status never merged, chainlink #34), generate-contact-sheet (Stage 4.5 review surface with the ∃-witness evidence banner, traffic-light witness/determinism/degeneracy columns kept visually distinct from a never-green assurance_status/closure_kind column, chainlink #32), select-pilot-cluster (plan.md §14 mechanized, verifier-agnostic first-pilot-cluster ranking, chainlink #4), write-set-check (read-only write-set conformance: files outside allowed_roots and inside protected_roots relative to the project descriptor, chainlink #77), accept-policy (record a reviewed change to the normative reliance-policy document, chainlink #78), promote-evidence (mechanically promote a staged evidence draft to its target and record the move -- the Stage 0 promotion path approve() cannot provide, chainlink #79), record-assurance (assemble a work package's assurance report from verifier proof certificates -- the achieved side gate-g14 reads, chainlink #87)
+Not yet implemented:
+  - G4/G5 evidence tracing/grounding: not yet implemented -- required/bug-compat evidence tracing to nothing (G4) and ungrounded obligations (G5) both need cross-referencing interaction evidence_links (#16) to evidence ids (#20), which exist individually but aren't cross-referenced against each other yet
+  - emission: M3's I-schema is now complete (#16-#20); emission (Stage 5) itself is still not built
+  - attach: M3's I-schema is now complete (#16-#20); attach (Stage 6) itself is still not built
+  - manifest generation: #14's schema+validator exist (`validate-work-package`); M3's I-schema is now complete (#16-#20), but the generator that reads promoted I/O and emits a manifest from it is still not built
+  - 8A: partly implemented -- C_static extraction and R1/G16 are real (#24), bridge harness generation, verifier dispatch and G9 are real (#47: check-bridges, gate-g9), and per-obligation assurance records have a record schema (#23) plus the report container G14 reads (#25). What is missing is the runner that emits a work package's OBLIGATION records from a real verifier run; bridge records now have one (ci/results/bridge_checks/), and no verifier backend is configured in this repository, so nothing here dispatches for real
+  - 8B: #26 (M4)
+Installation:
+  installation: current
+  mode: port  project: swisstable-verus
+  skill authority hash: verified
+    unchanged  .codex/skills/ligature/SKILL.md
+    unchanged  .ligature/prompts/stage-0-evidence-intake.md
+    unchanged  .ligature/prompts/stage-3-boundary-drafting.md
+    unchanged  .ligature/prompts/stage-3-bridge-drafting.md
+    unchanged  .ligature/prompts/stage-3-concept-to-code.md
+    unchanged  .ligature/prompts/stage-3-conflict-resolution-drafting.md
+    unchanged  .ligature/prompts/stage-3-exemption-drafting.md
+    unchanged  .ligature/prompts/stage-3-interaction-drafting.md
+    unchanged  .ligature/prompts/stage-3-protocol-debt-drafting.md
+    unchanged  .ligature/prompts/stage-3-witness-drafting.md
+    unchanged  .ligature/schemas/consolidated-check.schema.json
+    unchanged  .ligature/schemas/project-descriptor.schema.json
+    unchanged  .ligature/schemas/project-state.schema.json
+    user-owned  docs/reliance-policy.md
+    user-owned  project-descriptor.json  schema: valid
+    unchanged  schemas/project-descriptor.schema.json
+    unchanged  scripts/witness_renderer.py
+    unchanged  scripts/xml_escape.py
+Executable attestation:
+  ligature 1.2.0
+    adjudicator: zipapp (attested: true)
+    content hash: sha256:f4ce4be09ad856b13299d3b5f3b047a3276d14d988a17ffc97301f0c69fd693c
+    bundle: 95 file(s)
+    bundled schemas: 27
+    required python: >= 3.10 (running 3.12.3)
+    platform: Linux/x86_64 (required: any)
+    artifact: /home/goya/storage/full-ligature-port-workspace/swisstable-verus/tools/ligature/ligature.pyz
+    source: b5f267694f6ba9f172499d94611116b87537b925 (DIRTY working tree, uncommitted-state sha256:909c511c750a84fb47f10b325861ff2ee7aaa1d0dc238227b4643788f32f4ccb)
+    bundled schemas:
+      docs/achieved-assurance-schema.json: 1.0
+      docs/assumption-registry-schema.json: 1.0
+      docs/assurance-report-schema.json: 1.0
+      docs/boundary-contract-schema.json: 1.0
+      docs/bridge-check-schema.json: 1.0
+      docs/bridge-schema.json: 1.0
+      docs/callsite-schema.json: 1.0
+      docs/closure-profile-schema.json: 1.0
+      docs/concept-to-code-constraint-id-schema.json: unknown
+      docs/concept-to-code-witness-required-schema.json: unknown
+      docs/conflict-resolution-schema.json: 1.0
+      docs/degradation-record-schema.json: 1.0
+      docs/evidence-schema.json: 1.0
+      docs/exemption-schema.json: 1.0
+      docs/feature-ledger-schema.json: 1.0
+      docs/gold-set-measurement-schema.json: 1.0
+      docs/gold-set-schema.json: 1.0
+      docs/interaction-schema.json: 1.0
+      docs/promotion-receipt-schema.json: unknown
+      docs/protocol-debt-schema.json: 1.0
+      docs/witness-result-schema.json: 1.0
+      docs/witness-spec-schema.json: 1.0
+      docs/work-package-manifest-schema.json: unknown
+      schemas/consolidated-check.schema.json: 1.0
+      schemas/project-descriptor.schema.json: 1.0
+      schemas/project-state.schema.json: 1.0
+      vendor/concept-to-code/schemas/spec.schema.json: 1.0
+  adjudicator pin: pinned -- running executable matches the recorded adjudicator
+exit=0
+
+================================================================
+### port_source.oracle_build_command: re-run in this session
+$ nix develop ..#swisstable-verus -c bash -lc 'cmake -G Ninja -S upstream/abseil-cpp -B /tmp/opencode/swisstable-verus-abseil-build -DABSL_GOOGLETEST_DOWNLOAD_URL=https://github.com/google/googletest/releases/download/v1.17.0/googletest-1.17.0.tar.gz -DABSL_BUILD_TESTING=ON -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_STANDARD=17 && cmake --build /tmp/opencode/swisstable-verus-abseil-build -j 24'
+### (tail of output; full log at /tmp/opencode/oracle-build.log)
+================================================================
+  CMakeLists.txt:6 (ExternalProject_Add)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /tmp/opencode/swisstable-verus-abseil-build/googletest-external
+ninja: no work to do.
+-- Configuring done (0.2s)
+-- Generating done (0.4s)
+-- Build files have been written to: /tmp/opencode/swisstable-verus-abseil-build
+ninja: no work to do.
+EXIT=0
+
+================================================================
+### PROBES (schema / policy read-back)
+================================================================
+All probes below were run against *copies* of the filled descriptor placed
+outside the workspace, selected with the global `--descriptor` flag, so the
+pilot's own project-descriptor.json was never left invalid. The one exception
+is called out explicitly in P4, where the workspace file itself was
+temporarily edited and then restored byte-for-byte (sha256 verified below).
+
+Caveat when reading the raw probe output: with `--descriptor` pointing
+outside the workspace, the workspace's own `project-descriptor.json` is
+itself reported as an out-of-set write ("outside every allowed_roots
+pattern ..."), because the ownership manifest accounts for it only when the
+descriptor in use is the manifest's own `descriptor_path`. That single extra
+line is an artifact of probing out-of-tree; it is absent from the in-tree
+run recorded above, which reports state "clean", exit 0.
+
+Probe order on the page is P1, P2, P3, P5, P6, P7, P8, then P4/P4b: P4 is
+the only probe that edits the workspace descriptor in place, so it was run
+last, after the out-of-tree probes had already been captured. P4 also had
+to be re-run once -- its first attempt aborted on a KeyError in the
+recording script (the raw `check --json` output has no `descriptor` key),
+and the truncated output was removed from this file before the re-run, so
+nothing partial is recorded.
+
+--- P1: closure_kind enum is enforced, with a property-level diagnostic ---
+$ ligature.pyz --descriptor /tmp/opencode/probe-closure-kind.json status   # closure_kind='full'
+ligature 1.2.0 -- project state
+descriptor: present-invalid (/tmp/opencode/probe-closure-kind.json)
+installation manifest: unknown
+gate integrity: unknown -- project descriptor is present but invalid: $.closure_kind: 'full' is not one of ['deductive', 'bounded', 'partial']
+artifacts: none discovered
+obligations: 0 declared, 0 with an unmet required dimension
+open findings: 2
+  - [high] P0: project descriptor is invalid: $.closure_kind: 'full' is not one of ['deductive', 'bounded', 'partial'] (chainlink #73)
+  - [high] gate-integrity: project descriptor is present but invalid: $.closure_kind: 'full' is not one of ['deductive', 'bounded', 'partial']
+human decisions pending: 0
+change requests: 0
+exit=0
+--- P2: check --json fails closed (exit 5) on the same invalid descriptor, with next_action ---
+$ ligature.pyz --descriptor /tmp/opencode/probe-closure-kind.json check --json
+  exit=5
+{"change_request_stubs":[],"findings":[{"authority":"mechanized-gate","dedup_key":"b14687efd97a1361f5490ef805744507","gate_id":"P0","provenance":"scripts/project_descriptor.py:schema_diagnostics","reason":"project descriptor is invalid: $.closure_kind: 'full' is not one of ['deductive', 'bounded', 'partial'] (chainlink #73)","severity":"high","subject":"/tmp/opencode/probe-closure-kind.json"},{"authority":"mechanized-gate","dedup_key":"c6f723bd1c1d3c14120703d4f0cc4ac9","gate_id":"gate-integrity","provenance":"scripts/project_state.py:_gate_integrity_findings","reason":"project descriptor is present but invalid: $.closure_kind: 'full' is not one of ['deductive', 'bounded', 'partial']","severity":"high","subject":"(workspace)"}],"gates":[{"gate_id":"r1-g16","outcome":"not-applicable","reason":"no valid project descriptor"},{"gate_id":"g9","outcome":"not-applicable","reason":"no valid project descriptor"},{"gate_id":"g14","outcome":"not-applicable","reason":"no valid project descriptor"},{"gate_id":"g18","outcome":"not-applicable","reason":"no valid project descriptor"},{"gate_id":"g19","outcome":"not-applicable","reason":"no valid project descriptor"},{"gate_id":"g20","outcome":"not-applicable","reason":"no valid project descriptor"}],"mutated_workspace":false,"next_action":{"command":null,"description":"project descriptor is invalid: $.closure_kind: 'full' is not one of ['deductive', 'bounded', 'partial']. Fix project-descriptor.json, then re-run check.","kind":"human-decision"},"result":{"conditions":["blocking_findings","gate_integrity_failed","invalid_input"],"exit_code":5},"schema_version":"1.0"}
+
+--- P3: write-set-check fails closed (exit 2) on the same invalid descriptor ---
+$ ligature.pyz --descriptor /tmp/opencode/probe-closure-kind.json write-set-check --json
+  exit=2  descriptor.state=present-invalid  write_set.state=unknown
+  details: no valid project descriptor present -- the write set cannot be evaluated
+  stderr: error: project descriptor /tmp/opencode/probe-closure-kind.json is invalid:
+    - $.closure_kind: 'full' is not one of ['deductive', 'bounded', 'partial']
+
+--- P5: allowed_roots '**' is rejected as a self-cancelling boundary ---
+$ ligature.pyz --descriptor /tmp/opencode/probe-allowed-star.json write-set-check --json
+  exit=1  descriptor.state=present-valid  write_set.state=violations
+  details: 1 write-set violation(s): /tmp/opencode/probe-allowed-star.json
+  violation: /tmp/opencode/probe-allowed-star.json -- allowed_roots pattern '**' matches every path -- the write set declares no boundary, so no file can ever be out of set (chainlink #77)
+
+--- P6: empty protected_roots is rejected ---
+$ ligature.pyz --descriptor /tmp/opencode/probe-protected-empty.json write-set-check --json
+  exit=1  descriptor.state=present-valid  write_set.state=violations
+  details: 2 write-set violation(s): /tmp/opencode/probe-protected-empty.json, project-descriptor.json
+  violation: /tmp/opencode/probe-protected-empty.json -- protected_roots is empty -- no path is declared protected, so the write set's protected half enforces nothing (chainlink #77)
+  violation: project-descriptor.json -- outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+
+--- P7: the init template's '**/Cargo.toml' is ACCEPTED here -- the overlap is only caught at Stage 7 G13 ---
+$ ligature.pyz --descriptor /tmp/opencode/probe-protected-glob-cargo.json write-set-check --json
+  exit=1  descriptor.state=present-valid  write_set.state=violations
+  details: 1 write-set violation(s): project-descriptor.json
+  violation: project-descriptor.json -- outside every allowed_roots pattern and not accounted for by protected_roots, the ownership manifest, a declared crate's specs/ tree, or a canonical pipeline location
+
+$ ligature.pyz --descriptor /tmp/opencode/probe-protected-glob-cargo.json status --json
+  exit=0  descriptor.state=present-valid   (i.e. '**/Cargo.toml' is schema-valid and write-set-clean at P0)
+
+--- P8: an unknown key inside verifier_policy is silently accepted and becomes a phantom per-cluster override ---
+  descriptor verifier_policy on disk: {"default": "verus", "defualt": "kani"}
+$ ligature.pyz --descriptor /tmp/opencode/probe-verifier-typo.json status --json
+  exit=0
+  {
+    "closure_kind": "deductive",
+    "mode": "port",
+    "path": "/tmp/opencode/probe-verifier-typo.json",
+    "schema_version": "1.0",
+    "state": "present-valid",
+    "verifier_policy": {
+      "clusters": {
+        "defualt": "kani"
+      },
+      "default": "verus",
+      "supporting": []
+    }
+  }
+--- P4: `doctor` is the only command that fails closed on an invalid descriptor (exit 2) ---
+    workspace project-descriptor.json sha256 before: d1eb75deb0a377ef61ae522ada81924dab57241794028f76882afc47ee017f01
+  Installation:
+    installation: current
+      user-owned  project-descriptor.json  schema: invalid (see check for detail)
+  doctor exit=2
+    workspace project-descriptor.json sha256 after:  d1eb75deb0a377ef61ae522ada81924dab57241794028f76882afc47ee017f01
+    restored byte-for-byte: True
+
+--- P4b: `doctor` IGNORES the global --descriptor flag (status/check/write-set-check honour it) ---
+    Every invocation below names an INVALID descriptor (closure_kind='full') via --descriptor.
+  $ ligature.pyz --descriptor <invalid> status
+    exit=0
+    descriptor: present-invalid (/tmp/opencode/probe-closure-kind.json)
+  $ ligature.pyz --descriptor <invalid> check --json
+    exit=5  result={"conditions": ["blocking_findings", "gate_integrity_failed", "invalid_input"], "exit_code": 5}
+  $ ligature.pyz --descriptor <invalid> write-set-check --json
+    exit=2  descriptor.state=present-invalid  write_set.state=unknown
+  $ ligature.pyz --descriptor <invalid> doctor
+    exit=0
+    user-owned  project-descriptor.json  schema: valid
+    ^^ doctor read the ownership manifest's own descriptor_path, NOT the file --descriptor named,
+       so it printed a clean 'schema: valid' verdict and exit 0 about a descriptor it never opened.
+
+  The workspace's real (valid, in-tree) descriptor, immediately afterwards:
+  $ ligature.pyz doctor
+    user-owned  project-descriptor.json  schema: valid
+    doctor exit=0
+  $ ligature.pyz check --json
+    exit=0  findings=0  conditions=[]
+
+================================================================
+### DECISIONS, AND WHY
+================================================================
+
+1. `closure_kind: "deductive"` (top level, schema enum
+   ['deductive','bounded','partial']). This is the intent the plan's P2
+   heading states and the pilot README already carried
+   (`Intended closure_kind: deductive`). It is set here, before any Rust
+   exists, which is the whole point of the field: probe P1 confirms the
+   enum is enforced with a property-level diagnostic, and the schema's
+   own description says gate g14 later recomputes closure_kind from the
+   evidence actually present, so this is a declaration of intent, not a
+   claim. P1 needed a side record for this; that is obsolete
+   (epic #1 #72).
+
+2. `verifier_policy: {"default": "verus"}` and nothing else.
+   `verifier_policy` deliberately has no `supporting: ["kani"]` yet:
+   whether the unsafe/raw-pointer slots and the SIMD group-probing half
+   become a Kani-owned sub-cluster or a `Vec<Option<T>>` scope cut is
+   exactly what chainlink #35 and #36 have to decide, and declaring a
+   supporting verifier now would fix that answer before the probes that
+   decide it have run. The `status --json` read-back confirms the
+   effective policy is exactly {clusters: {}, default: verus,
+   supporting: []}.
+
+3. `crates[0].contracts_crate: "verus_contracts"` rather than the init
+   template's `contracts`. The field is "the verifier-contracts facade
+   crate this crate's generated stubs depend on"; for a Verus pilot that
+   facade is `verus_contracts` (the vstd library), not Creusot's
+   `contracts`. This is a Verus-specific intent fixed before code
+   exists, which is what this issue is for. Revisit when #30 creates the
+   crate, if the actual facade name differs.
+
+4. `write_set.protected_roots` uses crate-scoped globs
+   `rust/*/Cargo.toml` and `rust/*/build.rs`, NOT the init template's
+   `**/Cargo.toml` / `**/build.rs`. The `**` forms overlap the allowed
+   roots `rust/*/src/`, which is the P1 G13 failure recorded as #105 /
+   date-ligature-034. Probe P7 below confirms the `**` form is
+   schema-valid and write-set-clean at P0, so nothing at this stage
+   would have caught it -- it is Stage 7 that rejects it.
+
+5. `write_set.allowed_roots` was widened from the template's
+   `crates/*/src/` + `crates/*/tests/` to this pilot's real footprint
+   (`rust/*/...`, `analysis/**`, `findings/**`, `oracle/**`, `tools/**`,
+   `upstream/**`, `specs/_closure/**`, `specs/_promotions/**`,
+   `README.md`, `.envrc`, `.mcp.json`, `rust/.gitkeep`). Left as the
+   template shipped, write-set-check reported the whole pinned upstream
+   checkout plus every pilot-owned directory as out-of-set writes
+   (exit 1). Widening is the intended behaviour, not a defect.
+   `crates/` was dropped rather than kept, because this pilot's Rust
+   workspace is `rust/` (WORKER-CONTRACT.md section 4 and the plan's
+   directory map), so `crates/*/...` would have described a directory
+   that does not and will not exist.
+
+6. `port_source.oracle_build_command` is the abseil-cpp configure+build
+   invocation, and it was re-run in this session (exit 0, "ninja: no
+   work to do" over #25's existing build tree). It builds and tests the
+   C++ side the differential oracle will link against. The oracle driver
+   itself does not exist yet -- that is #32 -- and the descriptor's own
+   field description is "Command that builds/runs the origin-language
+   oracle", so #32 should tighten this field to the driver's own build
+   once there is one. Recording a command that cannot run would be
+   worse than recording the verified one.
+
+7. `port_source` has no `commit`. `port_source` is
+   `additionalProperties: false` with only repository / language /
+   oracle_build_command, so the pinned commit
+   `2065f4ded0558c6f89fee67c8e5228feb4eb960e` stays in
+   `upstream/upstream-pin.json` and `README.md`, as in P1
+   (epic #1 #72).
+
+8. `gate_integrity` is the init template's four entries, unchanged.
+   `validate-work-package`'s own help text says G13 additionally requires
+   `scripts/witness_renderer.py` and `scripts/xml_escape.py` to each have
+   a `gate_integrity` entry, protected coverage and no allowed coverage.
+   Both scripts were installed by `init` and are already protected by
+   `scripts/**`, but adding their gate_integrity entries is Stage 7's
+   job (#29), and `ci/manifest/installation.json` pins `gate_hashes` for
+   exactly the four entries the template declares. Widening the pin list
+   is not this issue's call to make.
+
+9. `review.reviewer` is `chainlink-reviewer` / `2026-10-02`, replacing
+   the template's `example-reviewer` / `2026-08-25` placeholder. It
+   records the workspace's own review convention (as in P1). A ruling
+   under `record-ruling` remains a human action and is not implied here.
+
+================================================================
+### NOT DONE, DELIBERATELY
+================================================================
+
+- No `draft`, `approve`, `approve-pair`, `promote-evidence`,
+  `record-ruling`, `record-assurance` or `accept-*` invocation. Those are
+  #28 and later.
+- No `extract-c-static`. `check`'s own `next_action` is exactly
+  `ligature extract-c-static --target <target-triple>`, and running it
+  belongs to #31/#108. It is left as the recorded next action.
+- No `migrate --upgrade`: this root was initialised by 1.2.0 in the first
+  place.
+- No `flake.nix` / `flake.lock` change, no `git init`, no file outside
+  `swisstable-verus/` touched.
+
+================================================================
+### FINDINGS FILED
+================================================================
+
+- swisstable-ligature-002  doctor ignores the global --descriptor flag
+                          (friction; escalated to epic #1)
+- swisstable-ligature-003  `**/Cargo.toml` in protected_roots is accepted
+                          at P0 (friction)
+- swisstable-ligature-004  unknown verifier_policy key becomes a phantom
+                          per-cluster override, never an error (friction)
+
+================================================================
+### FINAL RE-VERIFICATION (after findings + README were written)
+================================================================
+$ python3 tools/ligature/ligature.pyz status
+ligature 1.2.0 -- project state
+descriptor: present-valid (project-descriptor.json)
+installation manifest: current
+gate integrity: pinned -- 4 gate path(s) match the installed manifest
+artifacts: none discovered
+obligations: 0 declared, 0 with an unmet required dimension
+open findings: 0
+human decisions pending: 0
+change requests: 0
+exit=0
+
+$ python3 tools/ligature/ligature.pyz check
+consolidated check
+  gate r1-g16: blocked -- no C_static reports at ci/results/c_static/ -- run extract-c-static first
+  gate g9: not-applicable -- no bridge specifications present in this workspace
+  gate g14: not-applicable -- no closure profiles present
+  gate g18: not-applicable -- no witness specifications present
+  gate g19: not-applicable -- no witness specifications present
+  gate g20: not-applicable -- no witness specifications present
+findings: 0
+next action: [refresh-c-static] no C_static reports at ci/results/c_static/ -- run extract-c-static first
+  run: ligature extract-c-static --target <target-triple>
+change-request stubs: 0
+result: exit_code=0 conditions=[]
+exit=0
+
+$ python3 tools/ligature/ligature.pyz write-set-check --json | jq -c '{descriptor:.descriptor.state, write_set:.write_set.state, violations:(.write_set.violations|length), protected_unvouched:(.write_set.protected_unvouched|length)}'
+{"descriptor":"present-valid","write_set":"clean","violations":0,"protected_unvouched":0}
+exit=0
+
+$ python3 tools/ligature/ligature.pyz doctor | grep -E 'installation:|schema: valid|adjudicator pin'
+  installation: current
+    user-owned  project-descriptor.json  schema: valid
+  adjudicator pin: pinned -- running executable matches the recorded adjudicator
+exit=0
+
+$ sha256sum -c SHA256SUMS   # tools/ligature/
+ligature.pyz: OK
+exit=0
+
+$ md5sum flake.nix flake.lock   # workspace root, unchanged by this issue
+8a3fdb4742c8aa8488ea889413611fa3  flake.nix
+f4bf5566bd4b89f6a6db076eb937f83d  flake.lock
+
+$ wc -l findings/limitations.jsonl
+16 findings/limitations.jsonl
+
+================================================================
+### LAST RE-VERIFICATION (after the trailing-newline fix to the descriptor)
+### All init-written files end with a newline; project-descriptor.json now does too.
+================================================================
+$ python3 tools/ligature/ligature.pyz status | head -2
+ligature 1.2.0 -- project state
+descriptor: present-valid (project-descriptor.json)
+exit=0
+$ python3 tools/ligature/ligature.pyz check --json | jq -c ...
+{"findings":0,"exit":0,"conditions":[]}
+exit=0
+$ python3 tools/ligature/ligature.pyz write-set-check --json | jq -c ...
+{"descriptor":"present-valid","write_set":"clean","violations":0}
+exit=0
+$ python3 tools/ligature/ligature.pyz doctor | grep schema:
+    user-owned  project-descriptor.json  schema: valid
+exit=0

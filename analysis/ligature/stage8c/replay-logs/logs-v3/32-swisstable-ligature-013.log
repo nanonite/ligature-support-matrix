@@ -1,0 +1,37 @@
+3. NEW: the exact grammar G9 accepts
+-------------------------------------
+Probed by rewriting `bridge_logic.premises` in place on the scratch and re-running
+`check-bridges` for each candidate. ACCEPTED:
+
+    ["self"]                        bare declared binding
+    ["slot"]                        bare declared binding
+    ["self.ctrl.len()"]             dotted chain
+    ["self.foo()"]                  chain ending in a call
+    ["self.a.b.c"]                  deeper dotted chain
+    ["self.foo(slot)"]              call argument is a declared binding
+    [""]                            the empty string (so "at least one premise"
+                                    is not enforced by G9)
+
+REJECTED, each with its own message:
+
+    ["x == y"]        unexpected character '=' at offset 2
+    ["x < 16"]        unexpected character '<' at offset 2
+    ["x && y"]        unexpected character '&' at offset 2
+    ["x + y"]         unexpected character '+'
+    ["forall|i: u64| true"]
+                      unexpected character '|' at offset 6
+    ["self.ctrl[0]"]  unexpected character '[' at offset 9
+    ["self.f(0xFF)"]  unexpected character '0' at offset 7   (literal argument)
+    ["Self::f()"]     unexpected character ':' at offset 4   (no paths)
+    ["foo(self)"]     premise[0]: foo is rooted at 'foo', which bridge_logic.bindings
+                      does not declare (declared: ['h', 'i', 'mirror_index_wraps_
+                      inside_the_array', 'self']) -- a harness cannot pass a value it
+                      was never given
+
+The declared set is `bridge_logic.bindings` keys PLUS every
+`required_local_facts[].fact_id`. A binding key that is not snake_case is rejected
+separately: `binding name 'GROUP_WIDTH' is not snake_case -- it becomes a harness
+parameter name`.
+
+
+4. NEW: check-bridges is not read-only, and --workspace is a global flag

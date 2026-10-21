@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "swiss_table_erase_to_raw_table_erase",
+  "caller": {
+    "concept": "SwissTable",
+    "method": "erase"
+  },
+  "callee": {
+    "concept": "RawTable",
+    "method": "erase"
+  },
+  "edge_class": [
+    "stateful"
+  ],
+  "eligibility": "boundary-required",
+  "rationale": "The container's erase return value is exactly the table's pre-erase occupancy test, so a stale tombstone that still answers 'present' would make erase report true for a key that is gone.",
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [
+        "default"
+      ],
+      "cfg": []
+    }
+  },
+  "evidence_links": [
+    "E-005"
+  ],
+  "reliances": [
+    {
+      "obligation_id": "RawTable.C005",
+      "required_assurance": {
+        "required_claims": [
+          "postcondition-holds"
+        ],
+        "accepted_evidence_kinds": [
+          "verus-deductive-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "any capacity of the form two to the n minus one"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    }
+  ]
+}

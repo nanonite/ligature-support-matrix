@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "boundary_id": "raw_table_find__to__probe_seq_advance",
+  "caller": {
+    "concept": "RawTable",
+    "method": "find"
+  },
+  "callee": {
+    "concept": "ProbeSeq",
+    "method": "advance"
+  },
+  "callee_guarantees": [
+    "ProbeSeq.C004"
+  ]
+}

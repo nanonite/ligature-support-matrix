@@ -1,0 +1,6 @@
+rsync: [Receiver] mkdir "/tmp/issue33-replay-85264497f7/runs-v3/33-swisstable-ligature-014/tmp/opencode/s2/v121" failed: No such file or directory (2)
+rsync error: error in file IO (code 11) at main.c(800) [Receiver=3.2.7]
+exit=11
+write set: clean
+after=2
+before=0
