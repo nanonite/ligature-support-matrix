@@ -1,0 +1,16 @@
+error: assertion failed
+  --> set_ext.rs:11:12
+   |
+11 |     assert(stored(full.update(s, true), hashes.update(s, h), cap) =~= stored(full, hashes, cap).insert(h));
+   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed
+
+error: assertion failed
+  --> set_ext.rs:25:12
+   |
+25 |     assert(stored(full.update(s, false), hashes, cap) =~= stored(full, hashes, cap).remove(hashes[s]));
+   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ assertion failed
+
+verification results:: 2 verified, 2 errors
+error: aborting due to 2 previous errors
+
+exit=1

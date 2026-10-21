@@ -1,0 +1,7 @@
+    Checking probe-set-ext-mutant v0.1.0 (/tmp/tmp.7YBc9w8KQZ/creusot-set_ext_mutant)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.16s
+File "verif/probe_set_ext_mutant_rlib/erase_ext_mutant.coma", lines 35-38: proof failed
+Goal Coma.vc_erase_ext_mutant: ✘
+Error: 1 unproved file
+Error: 'why3find prove' failed
+exit=1

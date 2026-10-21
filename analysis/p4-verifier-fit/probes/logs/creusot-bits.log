@@ -1,0 +1,8 @@
+    Checking probe-bits v0.1.0 (/tmp/tmp.7YBc9w8KQZ/creusot-bits)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.17s
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/num/uint_macros.rs]
+File "/tmp/tmp.7YBc9w8KQZ/creusot-bits/src/lib.rs", line 14, characters 1-28: proof failed
+Goal Coma.vc_h1: ✘ (1/2)
+Error: 1 unproved file
+Error: 'why3find prove' failed
+exit=1

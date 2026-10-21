@@ -274,3 +274,39 @@ The scoped direct-Verus crate run reports **149 verified, 0 errors** (`analysis/
 - **Finding ids:** `swisstable-ligature-015`; see `analysis/ligature/stage8a/issue31.md` for exact outputs and callsite IDs.
 - **Generalizable lesson:** Passing a schema/coverage validator over a lower-bound callsite report does not establish graph completeness. Require reviewed edge declarations and explicit risk dispositions before counting R1/G16 as closed.
 
+### Derived-set extensionality closes as a standalone lemma (`swisstable-verus-038`)
+- **Category:** Unprovable or costly obligations.
+- **C++ construct / upstream location:** The set of keys a `raw_hash_set` holds, as observed through `find`/`contains` after `insert` and `erase` (`absl/container/internal/raw_hash_set.h`).
+- **What the Rust port does instead:** The port models the stored keys as a derived `Set::new` comprehension and proves per-slot and counting properties instead of set equality (`-017`, `-023`). The P4-3 probe states the equality as a standalone lemma over `Seq` models. Verus proves the erase case unaided, and the insert case with about 15 lines of explicit witnesses.
+- **Why:** The comprehension hides an `exists` inside the `forall` that `=~=` unfolds to. Z3 needs a witness for that direction. Inside the full `RawTable` proofs, the same quantifiers spread into every frame condition.
+- **Impact:** None on the current proof contract. It gives P4-8 a cheap route to try before keeping `-023` as a scope cut. Creusot proves both lemmas unaided (`analysis/p4-verifier-fit/`).
+- **Status:** open (P4-8, chainlink #162).
+- **Finding ids:** `swisstable-verus-038`; refines `swisstable-verus-023`.
+- **Generalizable lesson:** When an extensionality proof fails inside a large function, try it first as a lemma over the plain sequence model with explicit witnesses. If that proves, the failure is about context, not reach.
+
+### Creusot needs bitvector mode and lemmas for hash and mask arithmetic (`swisstable-creusot-001`)
+- **Category:** Unprovable or costly obligations.
+- **C++ construct / upstream location:** `H1`/`H2` and the probe-offset mask (`absl/container/internal/raw_hash_set.h`, `hash_policy_traits.h`). The port mirrors them in `hash_mix.rs`, `probe_seq.rs` and `group_probe.rs`.
+- **What the Rust port does instead:** The Verus port proves these with `by(bit_vector)`. In the P4-3 Creusot probe:
+  - by default, only `trailing_zeros < 16` proves; `hash & 0x7f < 128`, `hash >> 7 == hash / 128` and `hash & mask <= mask` fail, even at 10 times the budget;
+  - `#[bitwise_proof]` with `u64` comparisons proves the mask facts;
+  - the shift-as-division fact still fails, and `u64` division is rejected in logic.
+- **Why:** Creusot proves machine-integer facts over mathematical integers unless a function opts into bitvector mode, and its logic language does not offer `u64` division.
+- **Impact:** A Creusot-owned P2 cell (P4-11) needs `#[bitwise_proof]` on every mask or shift function, plus a lemma for each fact that mixes shifts with arithmetic.
+- **Status:** open (P4-11, chainlink #165).
+- **Finding ids:** `swisstable-creusot-001`.
+- **Generalizable lesson:** Hash tables lean on mask and shift arithmetic. Check each verifier's bitvector support on the hash and probe functions before choosing it to own them.
+
+### Kani cannot check initialization of raw `MaybeUninit` slots (`swisstable-kani-001`)
+- **Category:** Tooling blind spots in the transfer.
+- **C++ construct / upstream location:** Uninitialized slot storage whose live entries are tracked by control bytes (`absl/container/internal/raw_hash_set.h:67-79,2231-2236`; poisoning in `raw_hash_set.cc:505-516`).
+- **What the Rust port does instead:** The port uses initialized vectors (`swisstable-verus-001`). A P4-3 probe writes the upstream shape as `[MaybeUninit<u64>; 4]` guarded by control bytes.
+  - Kani checks insert, get and erase.
+  - Under default checks it also passes an `assume_init_read` of a never-written slot.
+  - With `-Z uninit-checks`, Kani 0.67 refuses the type ("Checking memory initialization of type `[std::mem::MaybeUninit<u64>; 4]` is not supported").
+- **Why:** Kani's uninitialized-memory instrumentation does not support union layouts such as `MaybeUninit`.
+- **Impact:** A Kani-owned raw-slot cluster could not establish the property raw slots need most. A hand-written shadow "is initialized" map, asserted before each read, is needed until Kani supports the layout.
+- **Status:** open; applies only if a cell adds a raw-slot implementation (P4-12, chainlink #166).
+- **Finding ids:** `swisstable-kani-001`.
+- **Generalizable lesson:** "Kani handles unsafe code" does not mean it checks initialization. Confirm that the specific uninitialized-memory check works on the storage type before relying on it, and keep shadow state where it does not.
+

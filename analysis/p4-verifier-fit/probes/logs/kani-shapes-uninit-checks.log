@@ -1,0 +1,224 @@
+Kani Rust Verifier 0.67.0 (cargo plugin)
+   Compiling swisstable-upstream-shapes v0.1.0 (/tmp/tmp.7YBc9w8KQZ/shapes)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.08s
+Checking harness proofs::raw_slots_uninit_read_mutant...
+CBMC 6.8.0 (cbmc-6.8.0)
+CBMC version 6.8.0 (cbmc-6.8.0) 64-bit x86_64 linux
+Reading GOTO program from file /tmp/tmp.7YBc9w8KQZ/shapes-target/kani/x86_64-unknown-linux-gnu/debug/deps/swisstable_upstream_shapes-bfb637edd649a883__RNvNtCs812u7E3NEtx_26swisstable_upstream_shapes6proofs28raw_slots_uninit_read_mutant.out
+Generating GOTO Program
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+Generic Property Instrumentation
+Running with 16 object bits, 48 offset bits (user-specified)
+Starting Bounded Model Checking
+aborting path on assume(false) at file src/lib.rs line 59 column 45 function RawSlots::new thread 0
+aborting path on assume(false) at file src/lib.rs line 59 column 70 function RawSlots::new thread 0
+aborting path on assume(false) at file src/lib.rs line 121 column 17 function proofs::raw_slots_uninit_read_mutant thread 0
+Runtime Symex: 0.0126278s
+size of program expression: 825 steps
+slicing removed 649 assignments
+Generated 28 VCC(s), 15 remaining after simplification
+Runtime Postprocess Equation: 7.6985e-05s
+Passing problem to propositional reduction
+converting SSA
+Runtime Convert SSA: 0.00162108s
+Running propositional reduction
+Post-processing
+Runtime Post-process: 4.408e-06s
+Solving with CaDiCaL 2.0.0
+3135 variables, 4263 clauses
+SAT checker: instance is SATISFIABLE
+Runtime Solver: 6.5142e-05s
+Runtime decision procedure: 0.00175195s
+Running propositional reduction
+Solving with CaDiCaL 2.0.0
+3136 variables, 4264 clauses
+SAT checker: instance is SATISFIABLE
+Runtime Solver: 5.0354e-05s
+Runtime decision procedure: 8.5029e-05s
+Running propositional reduction
+Solving with CaDiCaL 2.0.0
+3137 variables, 4265 clauses
+SAT checker: instance is UNSATISFIABLE
+Runtime Solver: 3.3804e-05s
+Runtime decision procedure: 4.8451e-05s
+
+RESULTS:
+Check 1: RawSlots::get_unchecked.assertion.1
+	 - Status: UNREACHABLE
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/lib.rs:75:18 in function RawSlots::get_unchecked
+
+Check 2: kani::mem_init::is_ptr_initialized::<8, u64>.safety_check.1
+	 - Status: SUCCESS
+	 - Description: "misaligned pointer to reference cast: address must be a multiple of its type's alignment"
+	 - Location: ../../../home/runner/work/kani/kani/library/kani_core/src/mem_init.rs:212:22 in function kani::mem_init::is_ptr_initialized::<8, u64>
+
+Check 3: kani::mem_init::is_ptr_initialized::<8, u64>.safety_check.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: ../../../home/runner/work/kani/kani/library/kani_core/src/mem_init.rs:212:22 in function kani::mem_init::is_ptr_initialized::<8, u64>
+
+Check 4: kani::mem_init::MemoryInitializationState::get::<8>.assertion.1
+	 - Status: UNREACHABLE
+	 - Description: "attempt to add with overflow"
+	 - Location: ../../../home/runner/work/kani/kani/library/kani_core/src/mem_init.rs:63:46 in function kani::mem_init::MemoryInitializationState::get::<8>
+
+Check 5: kani::mem_init::MemoryInitializationState::get::<8>.assertion.2
+	 - Status: UNREACHABLE
+	 - Description: "attempt to subtract with overflow"
+	 - Location: ../../../home/runner/work/kani/kani/library/kani_core/src/mem_init.rs:65:29 in function kani::mem_init::MemoryInitializationState::get::<8>
+
+Check 6: kani::mem_init::MemoryInitializationState::get::<8>.assertion.3
+	 - Status: UNREACHABLE
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: ../../../home/runner/work/kani/kani/library/kani_core/src/mem_init.rs:65:22 in function kani::mem_init::MemoryInitializationState::get::<8>
+
+Check 7: kani::mem_init::MemoryInitializationState::set::<0>.assertion.1
+	 - Status: UNREACHABLE
+	 - Description: "attempt to add with overflow"
+	 - Location: ../../../home/runner/work/kani/kani/library/kani_core/src/mem_init.rs:88:46 in function kani::mem_init::MemoryInitializationState::set::<0>
+
+Check 8: kani::mem_init::MemoryInitializationState::set::<0>.assertion.2
+	 - Status: UNREACHABLE
+	 - Description: "attempt to subtract with overflow"
+	 - Location: ../../../home/runner/work/kani/kani/library/kani_core/src/mem_init.rs:90:41 in function kani::mem_init::MemoryInitializationState::set::<0>
+
+Check 9: kani::mem_init::MemoryInitializationState::set::<0>.assertion.3
+	 - Status: UNREACHABLE
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: ../../../home/runner/work/kani/kani/library/kani_core/src/mem_init.rs:90:34 in function kani::mem_init::MemoryInitializationState::set::<0>
+
+Check 10: kani::mem_init::set_ptr_initialized::<0, std::mem::MaybeUninit<u64>>.safety_check.1
+	 - Status: SUCCESS
+	 - Description: "misaligned pointer to reference cast: address must be a multiple of its type's alignment"
+	 - Location: ../../../home/runner/work/kani/kani/library/kani_core/src/mem_init.rs:228:17 in function kani::mem_init::set_ptr_initialized::<0, std::mem::MaybeUninit<u64>>
+
+Check 11: kani::mem_init::set_ptr_initialized::<0, std::mem::MaybeUninit<u64>>.safety_check.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: ../../../home/runner/work/kani/kani/library/kani_core/src/mem_init.rs:228:17 in function kani::mem_init::set_ptr_initialized::<0, std::mem::MaybeUninit<u64>>
+
+Check 12: proofs::raw_slots_uninit_read_mutant.unsupported_construct.1
+	 - Status: SUCCESS
+	 - Description: "Kani currently doesn't support checking memory initialization for pointers to `RawSlots. Cannot determine layout for a type that contains union of type std::mem::MaybeUninit<u64> as a field."
+	 - Location: src/lib.rs:121:17 in function proofs::raw_slots_uninit_read_mutant
+
+Check 13: std::ptr::read::<u64>.safety_check.1
+	 - Status: SUCCESS
+	 - Description: "Undefined Behavior: Reading from an uninitialized pointer of type `*const u64`"
+	 - Location: ../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1708:9 in function std::ptr::read::<u64>
+
+Check 14: std::ptr::read::<u64>.safety_check.2
+	 - Status: SUCCESS
+	 - Description: "misaligned pointer to reference cast: address must be a multiple of its type's alignment"
+	 - Location: ../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1708:9 in function std::ptr::read::<u64>
+
+Check 15: std::ptr::read::<u64>.safety_check.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: ../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1708:9 in function std::ptr::read::<u64>
+
+Check 16: std::ptr::read::<u64>.safety_check.4
+	 - Status: SUCCESS
+	 - Description: "Undefined Behavior: Reading from an uninitialized pointer of type `u64`"
+	 - Location: ../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1708:9 in function std::ptr::read::<u64>
+
+Check 17: std::mem::MaybeUninit::<u64>::as_ptr.unsupported_construct.1
+	 - Status: SUCCESS
+	 - Description: "Interaction between raw pointers and unions is not yet supported."
+	 - Location: ../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/mem/maybe_uninit.rs:609:9 in function std::mem::MaybeUninit::<u64>::as_ptr
+
+Check 18: kani::mem_init::set_ptr_initialized::<24, kani::mem_init::MemoryInitializationState>.safety_check.1
+	 - Status: SUCCESS
+	 - Description: "misaligned pointer to reference cast: address must be a multiple of its type's alignment"
+	 - Location: ../../../home/runner/work/kani/kani/library/kani_core/src/mem_init.rs:228:17 in function kani::mem_init::set_ptr_initialized::<24, kani::mem_init::MemoryInitializationState>
+
+Check 19: kani::mem_init::set_ptr_initialized::<24, kani::mem_init::MemoryInitializationState>.safety_check.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: ../../../home/runner/work/kani/kani/library/kani_core/src/mem_init.rs:228:17 in function kani::mem_init::set_ptr_initialized::<24, kani::mem_init::MemoryInitializationState>
+
+Check 20: kani::mem_init::MemoryInitializationState::set::<24>.assertion.1
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: ../../../home/runner/work/kani/kani/library/kani_core/src/mem_init.rs:88:46 in function kani::mem_init::MemoryInitializationState::set::<24>
+
+Check 21: kani::mem_init::MemoryInitializationState::set::<24>.assertion.2
+	 - Status: SUCCESS
+	 - Description: "attempt to subtract with overflow"
+	 - Location: ../../../home/runner/work/kani/kani/library/kani_core/src/mem_init.rs:90:41 in function kani::mem_init::MemoryInitializationState::set::<24>
+
+Check 22: kani::mem_init::MemoryInitializationState::set::<24>.assertion.3
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: ../../../home/runner/work/kani/kani/library/kani_core/src/mem_init.rs:90:34 in function kani::mem_init::MemoryInitializationState::set::<24>
+
+Check 23: RawSlots::new.unsupported_construct.1
+	 - Status: FAILURE
+	 - Description: "Checking memory initialization of type [std::mem::MaybeUninit<u64>; 4] is not supported. Cannot determine layout for a type that contains union of type std::mem::MaybeUninit<u64> as a field."
+	 - Location: src/lib.rs:59:45 in function RawSlots::new
+
+Check 24: RawSlots::new.unsupported_construct.2
+	 - Status: SUCCESS
+	 - Description: "Checking memory initialization of type RawSlots is not supported. Cannot determine layout for a type that contains union of type std::mem::MaybeUninit<u64> as a field."
+	 - Location: src/lib.rs:59:70 in function RawSlots::new
+
+Check 25: std::ptr::read::<u64>.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: ../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1708:9 in function std::ptr::read::<u64>
+
+Check 26: std::ptr::read::<u64>.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: ../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1708:9 in function std::ptr::read::<u64>
+
+Check 27: std::ptr::read::<u64>.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: ../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1708:9 in function std::ptr::read::<u64>
+
+Check 28: std::ptr::read::<u64>.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: ../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1708:9 in function std::ptr::read::<u64>
+
+Check 29: std::ptr::read::<u64>.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: ../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1708:9 in function std::ptr::read::<u64>
+
+Check 30: std::ptr::read::<u64>.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: ../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:1708:9 in function std::ptr::read::<u64>
+
+Check 31: kani::mem_init::MemoryInitializationState::get::<8>.array_bounds.1
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: ../../../home/runner/work/kani/kani/library/kani_core/src/mem_init.rs:65:22 in function kani::mem_init::MemoryInitializationState::get::<8>
+
+Check 32: kani::mem_init::MemoryInitializationState::set::<0>.array_bounds.1
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: ../../../home/runner/work/kani/kani/library/kani_core/src/mem_init.rs:90:34 in function kani::mem_init::MemoryInitializationState::set::<0>
+
+Check 33: kani::mem_init::MemoryInitializationState::set::<24>.array_bounds.1
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: ../../../home/runner/work/kani/kani/library/kani_core/src/mem_init.rs:90:34 in function kani::mem_init::MemoryInitializationState::set::<24>
+
+
+SUMMARY:
+ ** 1 of 33 failed (7 unreachable)
+Failed Checks: Checking memory initialization of type [std::mem::MaybeUninit<u64>; 4] is not supported. Cannot determine layout for a type that contains union of type std::mem::MaybeUninit<u64> as a field.
+ File: "src/lib.rs", line 59, in RawSlots::new
+
+VERIFICATION:- FAILED
+Verification Time: 0.05273981s
+
+Manual Harness Summary:
+Verification failed for - proofs::raw_slots_uninit_read_mutant
+Complete - 0 successfully verified harnesses, 1 failures, 1 total.
+exit=1
