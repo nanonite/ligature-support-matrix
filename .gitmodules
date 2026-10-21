@@ -1,0 +1,11 @@
+# The pilots stay their own git repositories (Ligature's work-package
+# generation requires each pilot to be a Git repository root). Their histories
+# live in this same GitHub repo as pilot/<name> branches.
+[submodule "crypto-mixed"]
+	path = crypto-mixed
+	url = git@github.com:nanonite/ligature-support-matrix.git
+	branch = pilot/crypto-mixed
+[submodule "date-creusot"]
+	path = date-creusot
+	url = git@github.com:nanonite/ligature-support-matrix.git
+	branch = pilot/date-creusot
