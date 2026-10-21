@@ -36,7 +36,8 @@
       "findings/limitations.jsonl",
       "PORT-GAPS.md",
       "oracle/**",
-      "analysis/stage8c/**"
+      "analysis/stage8c/**",
+      "analysis/p4-verifier-fit/**"
     ],
     "protected_roots": [
       "crates/*/specs/**",
