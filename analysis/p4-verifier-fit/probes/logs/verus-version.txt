@@ -1,0 +1,7 @@
+/nix/store/57l94534x07sysi7gjf4zkkpai6cw6vc-verus-tools/bin/verus
+Verus
+  Version: 0.2026.05.24.ecee80a
+  Profile: release
+  Platform: linux_x86_64
+  Toolchain: 1.95.0-x86_64-unknown-linux-gnu
+

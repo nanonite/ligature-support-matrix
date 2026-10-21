@@ -1,0 +1,53 @@
+    Checking probe-p3-stdcalls v0.1.0 (/tmp/tmp.2P4gV59WWM/creusot-stdcalls)
+warning: calling external function `to_le_bytes` with no contract will yield an impossible precondition
+ --> src/lib.rs:6:43
+  |
+6 | pub fn c_to_le_bytes(x: u32) -> [u8; 4] { x.to_le_bytes() }
+  |                                           ^^^^^^^^^^^^^^^ function called here
+  |
+  = note: `#[warn(creusot::contractless_external_function)]` on by default
+
+warning: calling external function `from_le_bytes` with no contract will yield an impossible precondition
+ --> src/lib.rs:7:45
+  |
+7 | pub fn c_from_le_bytes(b: [u8; 4]) -> u32 { u32::from_le_bytes(b) }
+  |                                             ^^^^^^^^^^^^^^^^^^^^^ function called here
+
+warning: calling external function `rotate_left` with no contract will yield an impossible precondition
+ --> src/lib.rs:8:39
+  |
+8 | pub fn c_rotate_left(x: u32) -> u32 { x.rotate_left(7) }
+  |                                       ^^^^^^^^^^^^^^^^ function called here
+
+warning: calling external function `extend_from_slice` with no contract will yield an impossible precondition
+  --> src/lib.rs:15:57
+   |
+15 | pub fn c_extend_from_slice(v: &mut Vec<u8>, s: &[u8]) { v.extend_from_slice(s) }
+   |                                                         ^^^^^^^^^^^^^^^^^^^^^^ function called here
+
+warning: calling external function `fill` with no contract will yield an impossible precondition
+  --> src/lib.rs:16:34
+   |
+16 | pub fn c_fill(s: &mut [u8; 4]) { s.fill(0) }
+   |                                  ^^^^^^^^^ function called here
+
+warning: `probe-p3-stdcalls` (lib) generated 5 warnings
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.15s
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/num/uint_macros.rs]
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/num/uint_macros.rs]
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/convert/mod.rs]
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/array/mod.rs]
+Warning: inexistent file in source location: No resolved file among [/rustc/11177f2235f0c842b00f82c558ad9480c0c3a895/library/core/src/num/uint_macros.rs]
+File "/tmp/tmp.2P4gV59WWM/creusot-stdcalls/src/lib.rs", line 15, characters 57-79: proof failed
+Goal Coma.vc_c_extend_from_slice: ✘
+File "/tmp/tmp.2P4gV59WWM/creusot-stdcalls/src/lib.rs", line 8, characters 39-55: proof failed
+Goal Coma.vc_c_rotate_left: ✘
+File "/tmp/tmp.2P4gV59WWM/creusot-stdcalls/src/lib.rs", line 6, characters 43-58: proof failed
+Goal Coma.vc_c_to_le_bytes: ✘
+File "/tmp/tmp.2P4gV59WWM/creusot-stdcalls/src/lib.rs", line 7, characters 1-42: proof failed
+Goal Coma.vc_c_from_le_bytes: ✘
+File "/tmp/tmp.2P4gV59WWM/creusot-stdcalls/src/lib.rs", line 16, characters 1-31: proof failed
+Goal Coma.vc_c_fill: ✘ (1/2)
+Error: 5 unproved files
+Error: 'why3find prove' failed
+exit=1

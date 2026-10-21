@@ -1,0 +1,22 @@
+note: function body check: not all errors may have been reported; rerun with a higher value for --multiple-errors to find other potential errors in this function
+ --> poly.rs:4:1
+  |
+4 | fn d0(h0: u64, h1: u64, h2: u64, h3: u64, h4: u64, r1: u64, r2: u64, r3: u64, r4: u64, r0: u64) -> (d: u64)
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: possible arithmetic underflow/overflow
+  --> poly.rs:12:5
+   |
+12 |     h0 * r0 + h1 * s4 + h2 * s3 + h3 * s2 + h4 * s1
+   |     ^^^^^^^
+
+error: possible arithmetic underflow/overflow
+  --> poly.rs:12:15
+   |
+12 |     h0 * r0 + h1 * s4 + h2 * s3 + h3 * s2 + h4 * s1
+   |               ^^^^^^^
+
+verification results:: 1 verified, 1 errors
+error: aborting due to 2 previous errors
+
+exit=1

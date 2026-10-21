@@ -1,0 +1,13 @@
+error: postcondition not satisfied
+  --> qr_mutant.rs:21:13
+   |
+21 |     ensures r == qr_spec(a, b, c, d),
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^ failed this postcondition
+...
+27 |     (a, b, c, d)
+   |     ------------ at the end of the function body
+
+verification results:: 2 verified, 1 errors
+error: aborting due to 1 previous error
+
+exit=1

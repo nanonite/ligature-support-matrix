@@ -1,0 +1,58 @@
+error: `core::num::impl&%8::to_le_bytes` is not supported (note: you may be able to add a Verus specification to this function with `assume_specification`) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)
+ --> stdcalls.rs:6:43
+  |
+6 | pub fn c_to_le_bytes(x: u32) -> [u8; 4] { x.to_le_bytes() }
+  |                                           ^^^^^^^^^^^^^^^
+  |
+  = help: The following declaration may resolve this error:
+          pub assume_specification [core::num::<impl u32>::to_le_bytes] (_0: u32) -> [u8; core::::num::{impl#8}::to_le_bytes::{constant#0}];
+
+error: `core::num::impl&%8::from_le_bytes` is not supported (note: you may be able to add a Verus specification to this function with `assume_specification`) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)
+ --> stdcalls.rs:7:45
+  |
+7 | pub fn c_from_le_bytes(b: [u8; 4]) -> u32 { u32::from_le_bytes(b) }
+  |                                             ^^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: The following declaration may resolve this error:
+          pub assume_specification [core::num::<impl u32>::from_le_bytes] (_0: [u8; core::::num::{impl#8}::from_le_bytes::{constant#0}]) -> u32;
+
+error: `core::num::impl&%8::rotate_left` is not supported (note: you may be able to add a Verus specification to this function with `assume_specification`) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)
+ --> stdcalls.rs:8:39
+  |
+8 | pub fn c_rotate_left(x: u32) -> u32 { x.rotate_left(7) }
+  |                                       ^^^^^^^^^^^^^^^^
+  |
+  = help: The following declaration may resolve this error:
+          pub assume_specification [core::num::<impl u32>::rotate_left] (_0: u32, _1: u32) -> u32;
+
+error: `core::slice::impl&%0::fill` is not supported (note: you may be able to add a Verus specification to this function with `assume_specification`) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)
+  --> stdcalls.rs:16:34
+   |
+16 | pub fn c_fill(s: &mut [u8; 4]) { s.fill(0) }
+   |                                  ^^^^^^^^^
+   |
+   = help: The following declaration may resolve this error:
+           pub assume_specification<T> [core::slice::<impl [T]>::fill] (_0: &[T], _1: T)
+           where
+           T: std::clone::Clone,;
+
+error: `core::array::TryFromSliceError` is not supported (note: you may be able to add a Verus specification to this type with the `external_type_specification` attribute) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)
+  --> stdcalls.rs:17:41
+   |
+17 | pub fn c_try_into(s: &[u8]) -> u8 { let r: Result<[u8; 2], _> = s.try_into(); match r { Ok(a) => a[0], Err(_) => 0 } }
+   |                                         ^                       ------------        -   -----          ------
+
+error: `core::slice::impl&%0::copy_from_slice` is not supported (note: you may be able to add a Verus specification to this function with `assume_specification`) (note: the vstd library provides some specification for the Rust std library, but it is currently limited)
+ --> stdcalls.rs:5:58
+  |
+5 | pub fn c_copy_from_slice(d: &mut [u8; 4], s: &[u8; 4]) { d.copy_from_slice(s) }
+  |                                                          ^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: The following declaration may resolve this error:
+          pub assume_specification<T> [core::slice::<impl [T]>::copy_from_slice] (_0: &[T], _1: &[T])
+          where
+          T: std::marker::Copy,;
+
+error: aborting due to 6 previous errors
+
+exit=1

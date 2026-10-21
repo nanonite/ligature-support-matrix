@@ -288,6 +288,28 @@ Verus remains outside P3. No constant-time or side-channel claim is made. The sc
 - **Finding ids:** `crypto-oracle-001`
 - **Generalizable lesson:** Report differential parity as "translated cases passed, out of the upstream vectors that exist". In this pilot most of Botan's ChaCha20-Poly1305 vectors are XChaCha, so the subset's coverage is far smaller than the vector file suggests.
 
+### Byte-order and rotation primitives have no deductive-verifier specs
+
+- **Category:** No faithful Rust or verifier equivalent
+- **C++ construct / upstream location:** Botan's `load_le`/`store_le` and `rotl<N>` helpers (`src/lib/utils/loadstor.h`, `src/lib/utils/rotate.h`), used by `chacha.cpp` and `poly1305.cpp`.
+- **What the Rust port does instead:** Uses the std equivalents: `u32::rotate_left`, `u32::from_le_bytes`, `u32::to_le_bytes`, plus `copy_from_slice`, `fill`, slice `try_into` and `extend_from_slice` for buffers. Kani verifies them as ordinary code. A Creusot- or Verus-owned cell cannot: Verus 0.2026.05.24 rejects 6 of these calls as "not supported", and creusot-std 0.14.0-dev has no contract for 5. `rotate_left`, both byte-order conversions and `fill` are missing in both.
+- **Why:** Verifier standard-library coverage. Found by the P4-4 probes (`analysis/p4-verifier-fit/`).
+- **Impact:** A deductive P3 cell needs either trusted specs (`assume_specification`, `extern_spec!`), which the verifier does not check, or a rewrite into shifts, masks and indexed loops, which changes production code and must keep the 2,580-case oracle green. With rotation written as shifts, both verifiers prove the quarter-round against RFC 8439 unaided.
+- **Status:** open (P4-13 and P4-14, chainlink #167 and #168)
+- **Finding ids:** `crypto-verus-001`, `crypto-creusot-001`
+- **Generalizable lesson:** Idiomatic Rust ports of C++ crypto replace hand-written byte and rotate helpers with std methods. That is good Rust, but it moves those operations outside what deductive verifiers specify. Check std coverage before choosing the owner, and prefer rewrites over trusted specs where oracle parity can confirm them.
+
+### Poly1305 limb products need nonlinear hints in Verus
+
+- **Category:** Unprovable or costly obligations
+- **C++ construct / upstream location:** Botan's 26-bit-limb Poly1305 block function (`src/lib/mac/poly1305/poly1305.cpp`), mirrored by `poly1305.rs` `process_block`.
+- **What the Rust port does instead:** The same donna-style limb arithmetic in `u64`. Its 25 limb products multiply two variables (`h_i * r_j`, `h_i * 5r_j`).
+- **Why:** Verus keeps nonlinear arithmetic out of its default solver queries. Each product's `u64` bound needs an `assert ... by (nonlinear_arith)` (5 for `d0` in the probe). Creusot's Why3 provers prove the same `d0` bound unaided and refute it when the limb bound is loosened to 2^40.
+- **Impact:** Proof cost only for a Verus-owned Poly1305: about 25 one-line hints for the overflow bounds. Functional correctness (`h = (h + m)·r mod 2^130 − 5`) is a separate and much deeper obligation that no current cell has attempted.
+- **Status:** open (P4-14, chainlink #168)
+- **Finding ids:** `crypto-verus-002`
+- **Generalizable lesson:** Bignum limb arithmetic is where SMT-backed verifiers differ most. Budget nonlinear hints for Verus-style tools, or give limb arithmetic to the verifier whose provers handle bounded products.
+
 ## Remaining review items
 
 - The `per-instantiation` CG3 degradation is the operator-accepted final P3 limitation (#135, 2026-10-18). Do not relabel its Kani records as type-universal; reopen #135 for P4/Verus work.
