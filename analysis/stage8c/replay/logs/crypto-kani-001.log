@@ -1,0 +1,61 @@
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cargo kani --version; which cargo-kani
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-kani-001/ws/crypto-mixed
+### START: 2026-10-20T16:27:09-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+cargo-kani 0.67.0
+/home/goya/.cargo/bin/cargo-kani
+### EXIT: 0  ELAPSED: 6.3s
+
+### CMD: git show 2cbbccd:project-descriptor.json | python3 -c "import json,sys;d=json.load(sys.stdin);print('verifier_policy:',json.dumps(d.get('verifier_policy')));print('closure_kind:',d.get('closure_kind'), [ (k,v) for k,v in d.items() if 'closure' in k.lower()])"
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-kani-001/ws/crypto-mixed
+### START: 2026-10-20T16:27:15-05:00
+verifier_policy: {"default": "kani"}
+closure_kind: bounded [('closure_kind', 'bounded')]
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD: for f in $(git ls-tree -r --name-only 2cbbccd | grep -E 'specs/.*(concept|_concepts).*\.json$' | head -20); do git show 2cbbccd:$f | python3 -c "import json,sys;d=json.load(sys.stdin);print('2cbbccd',sys.argv[1], 'verifier=',d.get('verifier'), 'cluster=',d.get('cluster'), 'status=',d.get('status') or d.get('review',{}).get('status') if isinstance(d.get('review'),dict) else d.get('status'))" $f 2>/dev/null; done
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-kani-001/ws/crypto-mixed
+### START: 2026-10-20T16:27:15-05:00
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD: git show HEAD:project-descriptor.json | python3 -c "import json,sys;d=json.load(sys.stdin);print('verifier_policy:',json.dumps(d.get('verifier_policy')));print('closure_kind:',d.get('closure_kind'), [ (k,v) for k,v in d.items() if 'closure' in k.lower()])"
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-kani-001/ws/crypto-mixed
+### START: 2026-10-20T16:27:15-05:00
+verifier_policy: {"default": "kani"}
+closure_kind: bounded [('closure_kind', 'bounded')]
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD: for f in $(git ls-tree -r --name-only HEAD | grep -E 'specs/.*(concept|_concepts).*\.json$' | head -20); do git show HEAD:$f | python3 -c "import json,sys;d=json.load(sys.stdin);print('HEAD',sys.argv[1], 'verifier=',d.get('verifier'), 'cluster=',d.get('cluster'), 'status=',d.get('status') or d.get('review',{}).get('status') if isinstance(d.get('review'),dict) else d.get('status'))" $f 2>/dev/null; done
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-kani-001/ws/crypto-mixed
+### START: 2026-10-20T16:27:15-05:00
+### EXIT: 0  ELAPSED: 0.0s
+
+### (re-run of the concept listing with the correct path pattern)
+### CMD: for c in 2cbbccd 6a55894; do for f in cha_cha20 poly1305 cha_cha20_poly1305; do git show $c:crates/crypto-mixed-core/specs/$f.json | python3 -c "import json,sys;d=json.load(sys.stdin);print(sys.argv[1], d['concept'], 'verifier=',d['verifier'], 'cluster=',d['cluster'], 'review.status=', (d.get('review') or {}).get('status'))" $c; done; git show $c:specs/_promotions/crypto-kani.json | python3 -c "import json,sys;d=json.load(sys.stdin);print(sys.argv[1],'promotion cluster',d['cluster'],'accepted_at',d.get('accepted_at'),'manifest has 3 concept specs:',sum(1 for a in d['artifact_manifest'] if a['path'].endswith(('cha_cha20.json','poly1305.json','cha_cha20_poly1305.json'))))" $c; done
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-kani-001/ws/crypto-mixed
+### START: 2026-10-20T16:28:20-05:00
+2cbbccd ChaCha20 verifier= kani cluster= crypto-kani review.status= None
+2cbbccd Poly1305 verifier= kani cluster= crypto-kani review.status= None
+2cbbccd ChaCha20Poly1305 verifier= kani cluster= crypto-kani review.status= None
+2cbbccd promotion cluster crypto-kani accepted_at 2026-10-13 manifest has 3 concept specs: 3
+6a55894 ChaCha20 verifier= kani cluster= crypto-kani review.status= None
+6a55894 Poly1305 verifier= kani cluster= crypto-kani review.status= None
+6a55894 ChaCha20Poly1305 verifier= kani cluster= crypto-kani review.status= None
+6a55894 promotion cluster crypto-kani accepted_at 2026-10-19 manifest has 3 concept specs: 3
+### EXIT: 0  ELAPSED: 0.1s
+

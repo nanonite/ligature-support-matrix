@@ -1,0 +1,222 @@
+########## STATE 6667510 (ligature 1.4.2)
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz extract-c-static --target x86_64-unknown-linux-gnu && timeout 600 python3 -I tools/ligature/ligature.pyz gate-r1-g16 --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/r1g16-6667510.json; rc=$?; echo gate-r1-g16 exit $rc; exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed
+### START: 2026-10-20T16:31:40-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json: 18 discovered, 18 resolved, 0 unresolved (discovered-lower-bound)
+gate-r1-g16 exit 1
+### EXIT: 1  ELAPSED: 7.6s
+
+### CMD: python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/csum.py ci/results/c_static/crates_crypto-mixed-core.json | head -1; timeout 600 python3 -I tools/ligature/ligature.pyz validate-callsites; echo validate-callsites exit $?
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed
+### START: 2026-10-20T16:31:47-05:00
+coverage {"discovered": 18, "resolved": 18, "unresolved": 0} config_scope {"target": "x86_64-unknown-linux-gnu", "features": [], "cfg": []} unattributed_call_sites: 242 attribution_scope keys: ['local_concepts', 'macro_invocations', 'out_of_scope_call_sites', 'scanned_item_kinds', 'unattributed_call_sites']
+OK: all C_static reports pass G1a/G1b (incl. recomputed callsite coverage and callee shapes) (1 discovered)
+validate-callsites exit 0
+### EXIT: 0  ELAPSED: 0.6s
+
+### CMD: python3 - /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/r1g16-6667510.json <<'PY'
+import json,sys
+s=open(sys.argv[1]).read(); d=json.loads(s)
+print('top keys:',sorted(d.keys()))
+for k in ['verdict','status','result','summary','counts']:
+    if k in d: print(k,'=',json.dumps(d[k])[:500])
+fs=d.get('findings') or []
+print('findings:',len(fs))
+for f in fs:
+    print('  ', json.dumps(f)[:420])
+PY
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed
+### START: 2026-10-20T16:31:48-05:00
+top keys: ['exit_code', 'findings', 'format', 'gate_acceptance', 'reports', 'summary']
+summary = {"counts": {"checked": 14, "configuration_mismatches": 0, "discovered": 18, "reports": 1, "undeclared_blocking": 4, "undeclared_warnings": 0, "unresolved": 0}, "discovery_completeness": "syntactic-lower-bound", "interaction_reconciliation": "incomplete", "source_resolution": "complete"}
+findings: 20
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20POLY1305-DEFAULT-001: intra-concept call ChaCha20Poly1305::default -> new is an internal helper, ignored unless architecturally eligible", "severity": "i
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20POLY1305-ENCRYPT-001: intra-concept call ChaCha20Poly1305::encrypt -> encryption_output_length is an internal helper, ignored unless architecturally elig
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20POLY1305-ENCRYPT-002: realized call ChaCha20Poly1305.encrypt -> ChaCha20.with_counter is absent from I -- a definite direct call across concepts must be 
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20POLY1305-ENCRYPT-003: realized call ChaCha20Poly1305.encrypt -> ChaCha20.bytes_remaining is absent from I -- a definite direct call across concepts must 
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20POLY1305-ENCRYPT-004: interaction 'I-CRYPTO-MIXED-002' declares features=['default'] cfg=[], observed under features=[] cfg=[]", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20POLY1305-DECRYPT-001: intra-concept call ChaCha20Poly1305::decrypt -> decryption_output_length is an internal helper, ignored unless architecturally elig
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20POLY1305-DECRYPT-002: realized call ChaCha20Poly1305.decrypt -> ChaCha20.with_counter is absent from I -- a definite direct call across concepts must be 
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20POLY1305-DECRYPT-003: realized call ChaCha20Poly1305.decrypt -> ChaCha20.apply_keystream is absent from I -- a definite direct call across concepts must 
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20POLY1305-VERIFY-001: intra-concept call ChaCha20Poly1305::verify -> decryption_output_length is an internal helper, ignored unless architecturally eligib
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20-NEW-001: intra-concept call ChaCha20::new -> with_counter is an internal helper, ignored unless architecturally eligible", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20-APPLY-KEYSTREAM-001: intra-concept call ChaCha20::apply_keystream -> bytes_remaining is an internal helper, ignored unless architecturally eligible", "s
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-POLY1305-DEFAULT-001: intra-concept call Poly1305::default -> new is an internal helper, ignored unless architecturally eligible", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-POLY1305-SET-KEY-001: intra-concept call Poly1305::set_key -> load_key is an internal helper, ignored unless architecturally eligible", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-POLY1305-UPDATE-001: intra-concept call Poly1305::update -> absorb is an internal helper, ignored unless architecturally eligible", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-POLY1305-KEYED-WITH-001: intra-concept call Poly1305::keyed_with -> new is an internal helper, ignored unless architecturally eligible", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-POLY1305-KEYED-WITH-002: intra-concept call Poly1305::keyed_with -> load_key is an internal helper, ignored unless architecturally eligible", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-POLY1305-ABSORB-001: intra-concept call Poly1305::absorb -> process_block is an internal helper, ignored unless architecturally eligible", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-POLY1305-ABSORB-002: intra-concept call Poly1305::absorb -> process_block is an internal helper, ignored unless architecturally eligible", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "interaction 'I-CRYPTO-MIXED-001' (ChaCha20Poly1305.encrypt -> Poly1305.finalize) has no realized call in this observation -- intent without realization, not a cover
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "interaction 'I-CRYPTO-MIXED-003' (ChaCha20Poly1305.encrypt -> Poly1305.set_key) has no realized call in this observation -- intent without realization, not a covera
+### EXIT: 0  ELAPSED: 0.0s
+
+########## STATE 6a55894 (ligature 1.4.2)
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz extract-c-static --target x86_64-unknown-linux-gnu && timeout 600 python3 -I tools/ligature/ligature.pyz gate-r1-g16 --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/r1g16-6a55894.json; rc=$?; echo gate-r1-g16 exit $rc; exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed
+### START: 2026-10-20T16:31:48-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json: 18 discovered, 18 resolved, 0 unresolved (discovered-lower-bound)
+gate-r1-g16 exit 0
+### EXIT: 0  ELAPSED: 7.3s
+
+### CMD: python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/csum.py ci/results/c_static/crates_crypto-mixed-core.json | head -1; timeout 600 python3 -I tools/ligature/ligature.pyz validate-callsites; echo validate-callsites exit $?
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed
+### START: 2026-10-20T16:31:56-05:00
+coverage {"discovered": 18, "resolved": 18, "unresolved": 0} config_scope {"target": "x86_64-unknown-linux-gnu", "features": [], "cfg": []} unattributed_call_sites: 240 attribution_scope keys: ['local_concepts', 'macro_invocations', 'out_of_scope_call_sites', 'scanned_item_kinds', 'unattributed_call_sites']
+OK: all C_static reports pass G1a/G1b (incl. recomputed callsite coverage and callee shapes) (1 discovered)
+validate-callsites exit 0
+### EXIT: 0  ELAPSED: 0.6s
+
+### CMD: python3 - /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/r1g16-6a55894.json <<'PY'
+import json,sys
+s=open(sys.argv[1]).read(); d=json.loads(s)
+print('top keys:',sorted(d.keys()))
+for k in ['verdict','status','result','summary','counts']:
+    if k in d: print(k,'=',json.dumps(d[k])[:500])
+fs=d.get('findings') or []
+print('findings:',len(fs))
+for f in fs:
+    print('  ', json.dumps(f)[:420])
+PY
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed
+### START: 2026-10-20T16:31:56-05:00
+top keys: ['exit_code', 'findings', 'format', 'gate_acceptance', 'reports', 'summary']
+summary = {"counts": {"checked": 18, "configuration_mismatches": 0, "discovered": 18, "reports": 1, "undeclared_blocking": 0, "undeclared_warnings": 0, "unresolved": 0}, "discovery_completeness": "syntactic-lower-bound", "interaction_reconciliation": "complete", "source_resolution": "complete"}
+findings: 21
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20POLY1305-DEFAULT-001: intra-concept call ChaCha20Poly1305::default -> new is an internal helper, ignored unless architecturally eligible", "severity": "i
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20POLY1305-ENCRYPT-001: intra-concept call ChaCha20Poly1305::encrypt -> encryption_output_length is an internal helper, ignored unless architecturally elig
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20POLY1305-ENCRYPT-002: interaction 'I-CRYPTO-MIXED-004' declares features=['default'] cfg=[], observed under features=[] cfg=[]", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20POLY1305-ENCRYPT-003: interaction 'I-CRYPTO-MIXED-005' declares features=['default'] cfg=[], observed under features=[] cfg=[]", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20POLY1305-ENCRYPT-004: interaction 'I-CRYPTO-MIXED-002' declares features=['default'] cfg=[], observed under features=[] cfg=[]", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20POLY1305-DECRYPT-001: intra-concept call ChaCha20Poly1305::decrypt -> decryption_output_length is an internal helper, ignored unless architecturally elig
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20POLY1305-DECRYPT-002: interaction 'I-CRYPTO-MIXED-006' declares features=['default'] cfg=[], observed under features=[] cfg=[]", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20POLY1305-DECRYPT-003: interaction 'I-CRYPTO-MIXED-007' declares features=['default'] cfg=[], observed under features=[] cfg=[]", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20POLY1305-VERIFY-001: intra-concept call ChaCha20Poly1305::verify -> decryption_output_length is an internal helper, ignored unless architecturally eligib
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20-NEW-001: intra-concept call ChaCha20::new -> with_counter is an internal helper, ignored unless architecturally eligible", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-CHACHA20-APPLY-KEYSTREAM-001: intra-concept call ChaCha20::apply_keystream -> bytes_remaining is an internal helper, ignored unless architecturally eligible", "s
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-POLY1305-DEFAULT-001: intra-concept call Poly1305::default -> new is an internal helper, ignored unless architecturally eligible", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-POLY1305-SET-KEY-001: intra-concept call Poly1305::set_key -> load_key is an internal helper, ignored unless architecturally eligible", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-POLY1305-UPDATE-001: intra-concept call Poly1305::update -> absorb is an internal helper, ignored unless architecturally eligible", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-POLY1305-KEYED-WITH-001: intra-concept call Poly1305::keyed_with -> new is an internal helper, ignored unless architecturally eligible", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-POLY1305-KEYED-WITH-002: intra-concept call Poly1305::keyed_with -> load_key is an internal helper, ignored unless architecturally eligible", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-POLY1305-ABSORB-001: intra-concept call Poly1305::absorb -> process_block is an internal helper, ignored unless architecturally eligible", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "CS-POLY1305-ABSORB-002: intra-concept call Poly1305::absorb -> process_block is an internal helper, ignored unless architecturally eligible", "severity": "info"}
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "interaction 'I-CRYPTO-MIXED-001' (ChaCha20Poly1305.encrypt -> Poly1305.finalize) has no realized call in this observation -- intent without realization, not a cover
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "interaction 'I-CRYPTO-MIXED-003' (ChaCha20Poly1305.encrypt -> Poly1305.set_key) has no realized call in this observation -- intent without realization, not a covera
+   {"gate": "R1", "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json", "reason": "interaction 'I-CRYPTO-MIXED-008' (ChaCha20Poly1305.tag -> Poly1305.compute_tag_segments) has no realized call in this observation -- intent without realization, not
+### EXIT: 0  ELAPSED: 0.0s
+
+########## RECONSTRUCTED STATE: 74ff591 (last commit before 6667510; 1.4.2) + the four #47 associated-path respellings described in crypto-ligature-011, Poly1305State NOT folded (that fold landed in the same commit 6667510)
+### CMD: python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/respell.py && git diff crates | grep '^[-+] '
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed
+### START: 2026-10-20T16:33:03-05:00
+respelled 3 aead.rs sites and poly1305.rs update
+-        if plaintext.len() > chacha.bytes_remaining() {
++        if plaintext.len() > ChaCha20::bytes_remaining(&chacha) {
+-        let ciphertext = chacha.apply_keystream(plaintext)?;
++        let ciphertext = ChaCha20::apply_keystream(&mut chacha, plaintext)?;
+-        chacha.apply_keystream(ciphertext)
++        ChaCha20::apply_keystream(&mut chacha, ciphertext)
+-        self.state
+-            .as_mut()
+-            .ok_or(CryptoError::KeyNotSet)?
+-            .update(input);
++        let state = self.state.as_mut().ok_or(CryptoError::KeyNotSet)?;
++        Poly1305State::update(state, input);
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cargo check --offline -q --manifest-path crates/crypto-mixed-core/Cargo.toml --target-dir /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/kani-target/crypto-ligature-011-check 2>&1 | grep -v 'cfg\|^ *=\|^ *|\|^ *-->\|^$\|^[0-9]* |' ; echo cargo-check-exit ${PIPESTATUS[0]}
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed
+### START: 2026-10-20T16:33:03-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+            [lints.rust]
+cargo-check-exit 0
+### EXIT: 0  ELAPSED: 10.2s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz extract-c-static --target x86_64-unknown-linux-gnu && python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/csum.py ci/results/c_static/crates_crypto-mixed-core.json | head -1; timeout 600 python3 -I tools/ligature/ligature.pyz validate-callsites; echo validate-callsites exit $?; timeout 600 python3 -I tools/ligature/ligature.pyz gate-r1-g16 --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/r1g16-recon.json; rc=$?; echo gate-r1-g16 exit $rc; python3 -c "
+import json; d=json.load(open('/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/r1g16-recon.json')); print('summary', json.dumps(d['summary']['counts']))
+[print('  BLOCKING:', f['reason'][:160]) for f in d['findings'] if f.get('severity') not in ('info','warning')]
+[print('  info:', f['reason'][:160]) for f in d['findings'] if 'I-CRYPTO-MIXED-002' in f['reason']]
+"; exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed
+### START: 2026-10-20T16:33:13-05:00
+waiting for another Nix process to finish fetching input 'git+https://github.com/xldenis/petgraph?rev=04cecb7aae38dfed25545fd87c49e26faec752b5&submodules=1'...
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-011/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json: 16 discovered, 16 resolved, 0 unresolved (discovered-lower-bound)
+coverage {"discovered": 16, "resolved": 16, "unresolved": 0} config_scope {"target": "x86_64-unknown-linux-gnu", "features": [], "cfg": []} unattributed_call_sites: 217 attribution_scope keys: ['local_concepts', 'macro_invocations', 'out_of_scope_call_sites', 'scanned_item_kinds', 'unattributed_call_sites']
+OK: all C_static reports pass G1a/G1b (incl. recomputed callsite coverage and callee shapes) (1 discovered)
+validate-callsites exit 0
+gate-r1-g16 exit 1
+summary {"checked": 10, "configuration_mismatches": 0, "discovered": 16, "reports": 1, "undeclared_blocking": 6, "undeclared_warnings": 0, "unresolved": 0}
+  BLOCKING: CS-CHACHA20POLY1305-ENCRYPT-002: realized call ChaCha20Poly1305.encrypt -> ChaCha20.with_counter is absent from I -- a definite direct call across concepts must
+  BLOCKING: CS-CHACHA20POLY1305-ENCRYPT-003: realized call ChaCha20Poly1305.encrypt -> ChaCha20.bytes_remaining is absent from I -- a definite direct call across concepts m
+  BLOCKING: CS-CHACHA20POLY1305-DECRYPT-002: realized call ChaCha20Poly1305.decrypt -> ChaCha20.with_counter is absent from I -- a definite direct call across concepts must
+  BLOCKING: CS-CHACHA20POLY1305-DECRYPT-003: realized call ChaCha20Poly1305.decrypt -> ChaCha20.apply_keystream is absent from I -- a definite direct call across concepts m
+  BLOCKING: CS-POLY1305-SET-KEY-001: realized call Poly1305.set_key -> Poly1305State.new is absent from I -- a definite direct call across concepts must be a declared inter
+  BLOCKING: CS-POLY1305-UPDATE-001: realized call Poly1305.update -> Poly1305State.update is absent from I -- a definite direct call across concepts must be a declared inte
+  info: CS-CHACHA20POLY1305-ENCRYPT-004: interaction 'I-CRYPTO-MIXED-002' declares features=['default'] cfg=[], observed under features=[] cfg=[]
+### EXIT: 1  ELAPSED: 9.0s
+

@@ -1,0 +1,1 @@
+FAIL: no gold set could be measured -- an audit with nothing to compare against is not a good score (looked under ./specs/_gold_sets)

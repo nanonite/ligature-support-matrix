@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="784" height="196" viewBox="0 0 784 196">
+  <title>Contact sheet — Stage 4.5 review surface</title>
+  <rect x="0" y="0" width="784" height="40" fill="#1a1a2e"/>
+  <text x="392" y="20" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">∃-witness evidence — not verification.</text>
+  <g transform="translate(12,52)">
+    <rect x="0" y="0" width="760" height="132" fill="#ffffff" stroke="#cccccc"/>
+    <text x="12" y="66" font-size="14" fill="#111111" dominant-baseline="middle">0 declared features -- nothing to check</text>
+  </g>
+</svg>

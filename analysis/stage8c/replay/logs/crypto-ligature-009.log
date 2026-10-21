@@ -1,0 +1,134 @@
+### interaction file: crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-001.json
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 300 python3 -I tools/ligature/ligature.pyz validate-interaction
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-009/ws/crypto-mixed
+### START: 2026-10-20T16:27:36-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+OK: all interactions pass G1a/G1b (incl. computed eligibility), G4 evidence-link resolution, G5 grounding, G15 protocol coverage, and R2 coverage (8 discovered)
+### EXIT: 0  ELAPSED: 7.5s
+
+### CMD: python3 - crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-001.json <<'PY'
+import json,sys
+p=sys.argv[1]; d=json.load(open(p))
+r=d['reliances'][0]['required_assurance']
+print('before:',r.get('accepted_evidence_kinds'))
+r['accepted_evidence_kinds']=['kani-bounded-model-check','dudect-constant-time-test']
+json.dump(d,open(p,'w'),indent=2); open(p,'a').write('\n')
+print('after:',json.load(open(p))['reliances'][0]['required_assurance']['accepted_evidence_kinds'])
+PY
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-009/ws/crypto-mixed
+### START: 2026-10-20T16:27:43-05:00
+before: ['kani-bounded-model-check']
+after: ['kani-bounded-model-check', 'dudect-constant-time-test']
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 300 python3 -I tools/ligature/ligature.pyz validate-interaction
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-009/ws/crypto-mixed
+### START: 2026-10-20T16:27:43-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+FAIL: 1 finding(s)
+  - [G1a/error] /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-009/ws/crypto-mixed/crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-001.json: 'dudect-constant-time-test' is not one of ['kani-bounded-model-check', 'creusot-deductive-check', 'verus-deductive-check']
+### EXIT: 1  ELAPSED: 6.9s
+
+### CMD: python3 -I tools/ligature/ligature.pyz record-assurance --help | grep -E -- '--(proof|verus-json|verus-function|kani-harness|kani-crate)' ; python3 -I tools/ligature/ligature.pyz schema --help | head -20
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-009/ws/crypto-mixed
+### START: 2026-10-20T16:27:50-05:00
+usage: ligature.pyz record-assurance [-h] [--proof OBLIGATION=PATH]
+                                     [--verus-json PATH]
+                                     [--verus-function OBLIGATION=FUNCTION]
+                                     [--kani-crate PATH]
+                                     [--kani-harness OBLIGATION=HARNESS]
+  --proof OBLIGATION=PATH
+                        proof.json or that certificate itself (e.g. --proof
+  --verus-json PATH     official Verus --output-json result file (workspace-
+                        relative); required with --verus-function for Verus
+  --verus-function OBLIGATION=FUNCTION
+  --kani-crate PATH     Cargo package directory containing Cargo.toml
+                        (workspace-relative); required with --kani-harness.
+  --kani-harness OBLIGATION=HARNESS
+usage: ligature.pyz schema [-h] {list,show,export} ...
+
+Inspect the exact JSON Schemas packaged with this Ligature build. No checkout
+or network access is required.
+
+positional arguments:
+  {list,show,export}
+    list              List bundled schemas and their hashes
+    show              Inspect one bundled schema by catalog name
+    export            Write a self-contained versioned schema export
+
+options:
+  -h, --help          show this help message and exit
+
+Exit codes and JSON support are command-specific. Only commands whose usage
+lists --json accept it; run ligature contract [--json] for the bundled CLI
+contract.
+### EXIT: 0  ELAPSED: 0.8s
+
+### CMD: python3 -I tools/ligature/ligature.pyz schema list | grep -iE 'interaction|work-package|work_package|concept' ; for s in $(python3 -I tools/ligature/ligature.pyz schema list | grep -ioE '^\S*(interaction|work.package)\S*' | sort -u); do echo "== $s"; python3 -I tools/ligature/ligature.pyz schema show $s 2>/dev/null | python3 -c "import sys,re; s=sys.stdin.read(); print(sorted(set(re.findall(r'\"(kani-bounded-model-check|creusot-deductive-check|verus-deductive-check|[a-z]+-[a-z-]+-(?:check|test))\"', s))))"; done
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-009/ws/crypto-mixed
+### START: 2026-10-20T16:29:12-05:00
+  concept-to-code-constraint-id  schema=unknown  sha256:26f629c40038709a90a95d1df2f1b331544469ccd70f92a0bd9a3dcd79b2fb6f  docs/concept-to-code-constraint-id-schema.json
+  concept-to-code-witness-required  schema=unknown  sha256:be0decc77b1fabacb830bb2573ce91cb0d126b4fcd8ee1eea1be45239a38a544  docs/concept-to-code-witness-required-schema.json
+  interaction  schema=1.0  sha256:283e09eb798818f8737dff1a68084ebd99ffdb1136fedae5755ff6303d274065  docs/interaction-schema.json
+  work-package-generation-audit  schema=1.0  sha256:a98d725ebc1fe5518bda1f9a0531701d133dc844303795ec947f04a0aead0063  docs/work-package-generation-audit-schema.json
+  work-package-manifest  schema=unknown  sha256:a59fc5e8e4782d1e32de7d1318b5d4d57f62883f579e04684ee951d7bdd49158  docs/work-package-manifest-schema.json
+### EXIT: 0  ELAPSED: 0.8s
+
+### CMD: for s in interaction work-package-manifest; do python3 -I tools/ligature/ligature.pyz schema show $s > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/schema-$s.txt 2>&1; echo "== $s: $(wc -c < /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/schema-$s.txt) bytes"; python3 - /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/schema-$s.txt <<'PY'
+import sys,json,re
+s=open(sys.argv[1]).read()
+i=s.find('{'); 
+try:
+  d=json.loads(s[i:])
+except Exception as e:
+  print('not json', e); print(s[:300]); sys.exit()
+def walk(o,p=''):
+  if isinstance(o,dict):
+    for k,v in o.items():
+      if k=='accepted_evidence_kinds' or (k=='enum' and any('deductive' in str(x) or 'model-check' in str(x) for x in v)) : print(p+'/'+k, json.dumps(v)[:300])
+      walk(v,p+'/'+k)
+  elif isinstance(o,list):
+    for i,v in enumerate(o): walk(v,p+f'[{i}]')
+walk(d)
+PY
+done
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-009/ws/crypto-mixed
+### START: 2026-10-20T16:29:24-05:00
+== interaction: 9979 bytes
+/$defs/required_assurance/properties/accepted_evidence_kinds {"items": {"enum": ["kani-bounded-model-check", "creusot-deductive-check", "verus-deductive-check"], "type": "string"}, "minItems": 1, "type": "array", "uniqueItems": true}
+/$defs/required_assurance/properties/accepted_evidence_kinds/items/enum ["kani-bounded-model-check", "creusot-deductive-check", "verus-deductive-check"]
+== work-package-manifest: 15701 bytes
+/$defs/evidence_kind/enum ["kani-bounded-model-check", "creusot-deductive-check", "verus-deductive-check"]
+/$defs/required_assurance/properties/accepted_evidence_kinds {"items": {"$ref": "#/$defs/evidence_kind"}, "minItems": 1, "type": "array"}
+### EXIT: 0  ELAPSED: 0.9s
+

@@ -1,0 +1,168 @@
+### state: 13e6021 + uncommitted 1.4.1 install (tools/ligature/* and ci/manifest/installation.json from 2f2152d); 973b883b3f4d19e60950ce6b9f0247828459d60fadd05f0d6e29d17d19c31ab8; ligature 1.4.1
+### CMD: git status --short
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed
+### START: 2026-10-20T16:50:24-05:00
+ M ci/manifest/installation.json
+ M tools/ligature/PROVENANCE.json
+ M tools/ligature/SHA256SUMS
+ M tools/ligature/ligature.pyz
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 20 python3 -I tools/ligature/ligature.pyz status --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/s20.out 2> /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/s20.err; echo exit $? stdout_bytes=$(wc -c < /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/s20.out) stderr_bytes=$(wc -c < /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/s20.err)
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed
+### START: 2026-10-20T16:50:25-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+exit 124 stdout_bytes=0 stderr_bytes=0
+### EXIT: 0  ELAPSED: 26.9s
+
+### CMD: pgrep -af 'ligature-kani|cbmc' | grep -F '/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed' || echo 'no leftover processes from the 20 s run (checked by copy path)'
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed
+### START: 2026-10-20T16:50:52-05:00
+2026078 bash -c pgrep -af 'ligature-kani|cbmc' | grep -F '/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed' || echo 'no leftover processes from the 20 s run (checked by copy path)'
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/probe-1.4.1
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed
+### START: 2026-10-20T16:50:52-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+exit=0 elapsed=419s stdout_bytes=14465 stderr_bytes=0
+valid JSON; top keys: ['artifacts', 'binary_identity', 'change_requests', 'clusters', 'descriptor', 'gate_integrity', 'generated_observations', 'human_decisions', 'installation_manifest', 'obligations', 'open_findings', 'product', 'schema_version', 'write_set']
+samples: 28
+distinct harnesses seen in process tree:
+unwind flags seen with cbmc:
+     20 --unwind 32
+      2 --unwind 66
+peak cbmc rss: 6725 MB
+### EXIT: 0  ELAPSED: 424.8s
+
+### CMD: echo 'files changed since start (excluding .git):'; find . -newer /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/marker -type f ! -path './.git/*' | head; git status --short
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed
+### START: 2026-10-20T16:57:57-05:00
+files changed since start (excluding .git):
+ M ci/manifest/installation.json
+ M tools/ligature/PROVENANCE.json
+ M tools/ligature/SHA256SUMS
+ M tools/ligature/ligature.pyz
+### EXIT: 0  ELAPSED: 0.1s
+
+installation_manifest: "current" | gate_integrity: "pinned"
+clusters: [{"closure_kind": "bounded", "cluster": "crypto-kani", "limitations": ["generic_callees_type_universal_or_creusot_owned"], "state": "degraded"}]
+### baseline 6a55894 (1.4.2): same probe
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/probe-1.4.2
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed
+### START: 2026-10-20T16:57:57-05:00
+unpacking 'https://releases.nixos.org/nixos/26.05/nixos-26.05.4808.569d57850992/nixexprs.tar.xz' into the Git cache...
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+exit=0 elapsed=4s stdout_bytes=22552 stderr_bytes=0
+valid JSON; top keys: ['artifacts', 'binary_identity', 'change_requests', 'clusters', 'descriptor', 'gate_integrity', 'generated_observations', 'human_decisions', 'installation_manifest', 'obligations', 'open_findings', 'product', 'schema_version', 'verification', 'write_set']
+samples: 1
+distinct harnesses seen in process tree:
+unwind flags seen with cbmc:
+peak cbmc rss:  MB
+### EXIT: 0  ELAPSED: 13.7s
+
+
+########## SECOND PASS: the recorded status output (date-creusot/.../crypto-mixed-status-diagnosis-2026-10-18/status.stdout.json, 23,420 bytes) carries r1-g16 open_findings for the FRESH 16/12/4 C_static (e.g. CS-POLY1305-UPDATE-001 possible-dispatch) and cluster state 'blocked', so the live pilot then also had the uncommitted fresh C_static. State here: 13e6021 + tools/ligature/*, ci/manifest/installation.json AND ci/results/c_static/crates_crypto-mixed-core.json from 2f2152d. Sampler now also extracts --harness/--unwind tokens.
+### CMD: git status --short; python3 -I tools/ligature/ligature.pyz version | head -1
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005-b/ws/crypto-mixed
+### START: 2026-10-20T17:27:49-05:00
+ M ci/manifest/installation.json
+ M ci/results/c_static/crates_crypto-mixed-core.json
+ M tools/ligature/PROVENANCE.json
+ M tools/ligature/SHA256SUMS
+ M tools/ligature/ligature.pyz
+ligature 1.4.1
+### EXIT: 0  ELAPSED: 0.4s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005-b/probe; python3 -c "import json;d=json.load(open('/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005-b/probe/status.stdout.json'));print('clusters:',json.dumps(d['clusters']));print('open_findings:',len(d.get('open_findings',[])))"
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005-b/ws/crypto-mixed
+### START: 2026-10-20T17:27:50-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+exit=0 elapsed=404s stdout_bytes=23264 stderr_bytes=0
+valid JSON; top keys: ['artifacts', 'binary_identity', 'change_requests', 'clusters', 'descriptor', 'gate_integrity', 'generated_observations', 'human_decisions', 'installation_manifest', 'obligations', 'open_findings', 'product', 'schema_version', 'write_set']
+samples: 27
+distinct harnesses seen in process tree:
+      6 --harness kani_proofs::kani_chacha20_c002_exact_length_65_boundary]
+     40 --harness kani_proofs::kani_poly1305_finalize_tag_length]
+unwind flags seen with cbmc:
+     20 --unwind 32
+      3 --unwind 66
+peak cbmc rss: 6363 MB
+clusters: [{"closure_kind": "bounded", "cluster": "crypto-kani", "limitations": ["generic_callees_type_universal_or_creusot_owned"], "state": "blocked"}]
+open_findings: 36
+### EXIT: 0  ELAPSED: 410.7s
+
+### CMD: grep -oE 'kani_proofs::[a-z0-9_]+' /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005-b/probe/ptree.log | sort | uniq -c; echo 'files changed during the run (excluding .git):'; find . -newer /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005-b/marker -type f ! -path './.git/*' | head; git status --short
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005-b/ws/crypto-mixed
+### START: 2026-10-20T17:34:41-05:00
+      6 kani_proofs::kani_chacha20_c002_exact_length_65_boundary
+     40 kani_proofs::kani_poly1305_finalize_tag_length
+files changed during the run (excluding .git):
+ M ci/manifest/installation.json
+ M ci/results/c_static/crates_crypto-mixed-core.json
+ M tools/ligature/PROVENANCE.json
+ M tools/ligature/SHA256SUMS
+ M tools/ligature/ligature.pyz
+### EXIT: 0  ELAPSED: 0.1s
+
+LIG005B_DONE

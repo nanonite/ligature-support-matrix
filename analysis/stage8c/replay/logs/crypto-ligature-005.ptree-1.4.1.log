@@ -1,0 +1,189 @@
+--- sample t=0s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=20MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+--- sample t=15s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=41MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2026907 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2026916 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2027028 rss=606MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 66 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=30s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=41MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2026907 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2026916 rss=1249MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+--- sample t=45s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=41MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2028383 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2028392 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2028926 rss=39MB goto-cc /tmp/nix-shell.Tcprf9/ligature-kani-discovery-067-2iux53lu/kani/x86_64-unknown-linux-gnu/debug/deps/crypto_mixed_core-e6bfb269db8e2f66__RNvNtCs5es5xvdSr8G_17crypto_mixed_core11kani_proofs54aead_verify_and_decrypt_accept_th
+--- sample t=60s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=41MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2028962 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2028971 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2029074 rss=4906MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 32 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=75s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=41MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2028962 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2028971 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2029074 rss=5262MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 32 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=91s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=41MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2028962 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2028971 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2029074 rss=5176MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 32 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=106s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=41MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2028962 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2028971 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2029074 rss=5972MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 32 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=121s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=41MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2028962 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2028971 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2029074 rss=5775MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 32 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=136s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=41MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2028962 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2028971 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2029074 rss=5776MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 32 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=151s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=41MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2028962 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2028971 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2029074 rss=6725MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 32 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=166s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=41MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2028962 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2028971 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2029074 rss=5984MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 32 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=181s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=41MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2028962 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2028971 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2029074 rss=5810MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 32 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=196s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=41MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2028962 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2028971 rss=15MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2029074 rss=5288MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 32 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=211s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=42MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2035322 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2035331 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+--- sample t=226s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=42MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2036072 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2036081 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2036173 rss=608MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 66 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=242s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=42MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2036072 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2036081 rss=1490MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+--- sample t=257s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=42MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2037966 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2037975 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+--- sample t=272s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=42MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2037966 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2037975 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2038134 rss=4893MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 32 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=287s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=42MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2037966 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2037975 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2038134 rss=5172MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 32 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=302s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=42MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2037966 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2037975 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2038134 rss=5176MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 32 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=317s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=42MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2037966 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2037975 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2038134 rss=6069MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 32 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=332s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=42MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2037966 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2037975 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2038134 rss=6366MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 32 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=347s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=42MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2037966 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2037975 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2038134 rss=5996MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 32 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=362s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=42MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2037966 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2037975 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2038134 rss=5973MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 32 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=378s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=42MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2037966 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2037975 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2038134 rss=5971MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 32 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=393s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=42MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2037966 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2037975 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2038134 rss=6456MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 32 --sat-solver cadical --slice-formula /tmp/nix-she
+--- sample t=408s
+2026484 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2026487 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2026496 rss=42MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json
+      2037966 rss=2MB /home/goya/.cargo/bin/cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/
+        2037975 rss=6MB cargo-kani kani -Z unstable-options --manifest-path /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-005/ws/crypto-mixed/crates/cr
+          2038134 rss=5336MB cbmc --no-malloc-may-fail --no-undefined-shift-check --no-signed-overflow-check --nan-check --no-self-loops-to-assumptions --no-pointer-primitive-check --object-bits 16 --unwind 32 --sat-solver cadical --slice-formula /tmp/nix-she

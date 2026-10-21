@@ -1,0 +1,120 @@
+### state: 13e6021 + 1.4.1 pyz from 2f2152d: 973b883b3f4d19e60950ce6b9f0247828459d60fadd05f0d6e29d17d19c31ab8  tools/ligature/ligature.pyz
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz extract-c-static --target x86_64-unknown-linux-gnu
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-008/ws/crypto-mixed
+### START: 2026-10-20T16:27:19-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-008/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json: 16 discovered, 12 resolved, 4 unresolved (discovered-lower-bound)
+### EXIT: 0  ELAPSED: 7.9s
+
+### CMD: git status --short
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-008/ws/crypto-mixed
+### START: 2026-10-20T16:27:27-05:00
+ M ci/results/c_static/crates_crypto-mixed-core.json
+ M tools/ligature/ligature.pyz
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD: python3 - <<'PY'
+import json,glob
+for p in glob.glob('ci/results/c_static/*.json'):
+    d=json.load(open(p))
+    print(p, 'top keys:', sorted(d.keys()))
+    for k in ['coverage','completeness_claim','summary','counts','supported_forms','extractor']:
+        if k in d: print(k,'=',json.dumps(d[k])[:600])
+    cs=d.get('callsites') or d.get('call_sites') or []
+    print('callsites:',len(cs))
+    from collections import Counter
+    print('call_class counts:',Counter(c.get('call_class') for c in cs))
+    for c in cs:
+        if c.get('call_class')=='possible-dispatch': print('  PD:',json.dumps(c)[:400])
+PY
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-008/ws/crypto-mixed
+### START: 2026-10-20T16:27:27-05:00
+ci/results/c_static/crates_crypto-mixed-core.json top keys: ['attribution_scope', 'callsite_coverage', 'callsites', 'config_scope', 'coverage_scope', 'crate_dir', 'report_id', 'schema_version']
+callsites: 16
+call_class counts: Counter({'definite-direct-call': 12, 'possible-dispatch': 4})
+  PD: {"callsite_id": "CS-CHACHA20POLY1305-ENCRYPT-003", "call_class": "possible-dispatch", "caller": {"concept": "ChaCha20Poly1305", "method": "encrypt"}, "source": {"path": "crates/crypto-mixed-core/src/aead.rs", "symbol": "ChaCha20Poly1305::encrypt", "line": 49, "syntax_hash": "sha256:014803c4b8c244a542a7345146647f9dfa1c6341ff8ba26074b4e840f54852d8"}, "callee_method": "bytes_remaining", "unresolved_e
+  PD: {"callsite_id": "CS-CHACHA20POLY1305-ENCRYPT-004", "call_class": "possible-dispatch", "caller": {"concept": "ChaCha20Poly1305", "method": "encrypt"}, "source": {"path": "crates/crypto-mixed-core/src/aead.rs", "symbol": "ChaCha20Poly1305::encrypt", "line": 52, "syntax_hash": "sha256:014803c4b8c244a542a7345146647f9dfa1c6341ff8ba26074b4e840f54852d8"}, "callee_method": "apply_keystream", "unresolved_e
+  PD: {"callsite_id": "CS-CHACHA20POLY1305-DECRYPT-003", "call_class": "possible-dispatch", "caller": {"concept": "ChaCha20Poly1305", "method": "decrypt"}, "source": {"path": "crates/crypto-mixed-core/src/aead.rs", "symbol": "ChaCha20Poly1305::decrypt", "line": 76, "syntax_hash": "sha256:6d6591ab69decfe6e0b18ccf1757b8c8242a7b2ecce9c52cbc6e9c6cf9807cc5"}, "callee_method": "apply_keystream", "unresolved_e
+  PD: {"callsite_id": "CS-POLY1305-UPDATE-001", "call_class": "possible-dispatch", "caller": {"concept": "Poly1305", "method": "update"}, "source": {"path": "crates/crypto-mixed-core/src/poly1305.rs", "symbol": "Poly1305::update", "line": 32, "syntax_hash": "sha256:69f080c94f3c06491d25c7090ff88e0947d6b205d410ce3bba3c94774c9d605d"}, "callee_method": "update", "unresolved_expression": "?.update(...)", "ri
+### EXIT: 0  ELAPSED: 0.0s
+
+### baseline 6a55894 for comparison (after #47 respelling)
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz extract-c-static --target x86_64-unknown-linux-gnu | tail -15
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-008/ws/crypto-mixed
+### START: 2026-10-20T16:27:27-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-008/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json: 18 discovered, 18 resolved, 0 unresolved (discovered-lower-bound)
+### EXIT: 0  ELAPSED: 7.8s
+
+### re-run at 13e6021 + 1.4.1 to extract coverage/risk details
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz extract-c-static --target x86_64-unknown-linux-gnu
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-008/ws/crypto-mixed
+### START: 2026-10-20T16:28:47-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-008/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json: 16 discovered, 12 resolved, 4 unresolved (discovered-lower-bound)
+### EXIT: 0  ELAPSED: 7.0s
+
+### CMD: python3 - <<'PY'
+import json
+d=json.load(open('ci/results/c_static/crates_crypto-mixed-core.json'))
+print('callsite_coverage =',json.dumps(d['callsite_coverage']))
+print('coverage_scope =',json.dumps(d['coverage_scope'])[:800])
+for c in d['callsites']:
+    if c['call_class']=='possible-dispatch':
+        print('PD', c['callsite_id'], c['source']['path'].split('/')[-1]+':'+str(c['source']['line']), 'callee_method=',c.get('callee_method'), 'expr=',c.get('unresolved_expression'), 'risk_tier=',c.get('risk_tier'), 'risk_source=',c.get('risk_tier_source') or c.get('risk_source') , 'keys=',sorted(c.keys()))
+PY
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-008/ws/crypto-mixed
+### START: 2026-10-20T16:28:54-05:00
+callsite_coverage = {"discovered": 16, "resolved": 12, "unresolved": 4}
+coverage_scope = {"extractor": "coarse-syntactic-callgraph", "extractor_version": "0.2.0", "extractor_backing": "syntactic", "supported_call_forms": ["associated-path-call", "self-method-call", "inherent-method-call-by-name"], "unsupported_call_forms": ["macro-expanded-call", "generated-code", "ffi-callback", "call-to-non-local-type"], "completeness_claim": "discovered-lower-bound"}
+PD CS-CHACHA20POLY1305-ENCRYPT-003 aead.rs:49 callee_method= bytes_remaining expr= > chacha.bytes_remaining(...) risk_tier= medium risk_source= extractor-default keys= ['call_class', 'callee_method', 'caller', 'callsite_id', 'risk_tier', 'risk_tier_source', 'source', 'unresolved_expression']
+PD CS-CHACHA20POLY1305-ENCRYPT-004 aead.rs:52 callee_method= apply_keystream expr= chacha.apply_keystream(...) risk_tier= medium risk_source= extractor-default keys= ['call_class', 'callee_method', 'caller', 'callsite_id', 'risk_tier', 'risk_tier_source', 'source', 'unresolved_expression']
+PD CS-CHACHA20POLY1305-DECRYPT-003 aead.rs:76 callee_method= apply_keystream expr= chacha.apply_keystream(...) risk_tier= medium risk_source= extractor-default keys= ['call_class', 'callee_method', 'caller', 'callsite_id', 'risk_tier', 'risk_tier_source', 'source', 'unresolved_expression']
+PD CS-POLY1305-UPDATE-001 poly1305.rs:32 callee_method= update expr= ?.update(...) risk_tier= medium risk_source= extractor-default keys= ['call_class', 'callee_method', 'caller', 'callsite_id', 'risk_tier', 'risk_tier_source', 'source', 'unresolved_expression']
+### EXIT: 0  ELAPSED: 0.0s
+

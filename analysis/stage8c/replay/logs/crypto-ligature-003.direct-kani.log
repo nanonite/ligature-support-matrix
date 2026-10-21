@@ -1,0 +1,2180 @@
+Kani Rust Verifier 0.67.0 (cargo plugin)
+   Compiling crypto-mixed-core v0.1.0 (/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-003/ws/crypto-mixed/crates/crypto-mixed-core)
+warning: Found the following unsupported constructs:
+             - caller_location (1)
+             - foreign function (1)
+         
+         Verification will fail if one or more of these constructs is reachable.
+         See https://model-checking.github.io/kani/rust-feature-support.html for more details.
+
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.59s
+Checking harness kani_proofs::bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key...
+CBMC 6.8.0 (cbmc-6.8.0)
+CBMC version 6.8.0 (cbmc-6.8.0) 64-bit x86_64 linux
+Reading GOTO program from file /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/kani-target/crypto-ligature-003-direct/kani/x86_64-unknown-linux-gnu/debug/deps/crypto_mixed_core-a221ed1307db5d7d__RNvNtCs5es5xvdSr8G_17crypto_mixed_core11kani_proofs54bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key.out
+Generating GOTO Program
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+Generic Property Instrumentation
+Running with 16 object bits, 48 offset bits (user-specified)
+Starting Bounded Model Checking
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 1 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 2 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 3 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 4 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 5 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 6 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 7 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 8 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 1 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 2 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 3 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 1 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 2 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 3 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 4 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 5 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 6 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 7 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 8 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 9 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 10 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 1 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 2 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 3 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 4 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 5 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 6 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 7 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 8 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 9 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 10 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 11 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 12 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 13 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 14 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 15 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 16 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+Runtime Symex: 2.37262s
+size of program expression: 77239 steps
+slicing removed 44091 assignments
+Generated 23772 VCC(s), 3448 remaining after simplification
+Runtime Postprocess Equation: 0.0743229s
+Passing problem to propositional reduction
+converting SSA
+Runtime Convert SSA: 0.434901s
+Running propositional reduction
+Post-processing
+Runtime Post-process: 3.1829e-05s
+Solving with CaDiCaL 2.0.0
+228101 variables, 484076 clauses
+SAT checker: instance is SATISFIABLE
+Runtime Solver: 3.47981s
+Runtime decision procedure: 3.92525s
+Running propositional reduction
+Solving with CaDiCaL 2.0.0
+228102 variables, 484077 clauses
+SAT checker: instance is UNSATISFIABLE
+Runtime Solver: 0.00340138s
+Runtime decision procedure: 0.0035166s
+
+RESULTS:
+Check 1: core::slice::index::slice_index_fail::do_panic::runtime.assertion.1
+	 - Status: SUCCESS
+	 - Description: "This is a placeholder message; Kani doesn't support message formatted at runtime"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/index.rs:68:5 in function core::slice::index::slice_index_fail::do_panic::runtime
+
+Check 2: chacha20::store_u32_le.assertion.1
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/chacha20.rs:97:20 in function chacha20::store_u32_le
+
+Check 3: <u32 as std::intrinsics::fallback::DisjointBitOr>::disjoint_bitor.assume.1
+	 - Status: SUCCESS
+	 - Description: "Rust intrinsic assumption failed"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/intrinsics/fallback.rs:138:26 in function <u32 as std::intrinsics::fallback::DisjointBitOr>::disjoint_bitor
+
+Check 4: std::option::Option::<i32>::unwrap_unchecked.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/option.rs:1129:15 in function std::option::Option::<i32>::unwrap_unchecked
+
+Check 5: <std::ops::Range<usize> as std::slice::SliceIndex<[u8]>>::index.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/index.rs:435:5 in function <std::ops::Range<usize> as std::slice::SliceIndex<[u8]>>::index
+
+Check 6: <std::ops::Range<usize> as std::slice::SliceIndex<[u8]>>::index.safety_check.1
+	 - Status: SUCCESS
+	 - Description: "misaligned pointer to reference cast: address must be a multiple of its type's alignment"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/index.rs:441:22 in function <std::ops::Range<usize> as std::slice::SliceIndex<[u8]>>::index
+
+Check 7: <std::ops::Range<usize> as std::slice::SliceIndex<[u8]>>::index.safety_check.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/index.rs:441:22 in function <std::ops::Range<usize> as std::slice::SliceIndex<[u8]>>::index
+
+Check 8: core::slice::copy_from_slice_impl::len_mismatch_fail::do_panic::runtime.assertion.1
+	 - Status: SUCCESS
+	 - Description: "This is a placeholder message; Kani doesn't support message formatted at runtime"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/mod.rs:5117:9 in function core::slice::copy_from_slice_impl::len_mismatch_fail::do_panic::runtime
+
+Check 9: chacha20::load_u32_le.assertion.1
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:88:9 in function chacha20::load_u32_le
+
+Check 10: chacha20::load_u32_le.assertion.2
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/chacha20.rs:89:15 in function chacha20::load_u32_le
+
+Check 11: chacha20::load_u32_le.assertion.3
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:89:9 in function chacha20::load_u32_le
+
+Check 12: chacha20::load_u32_le.assertion.4
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/chacha20.rs:90:15 in function chacha20::load_u32_le
+
+Check 13: chacha20::load_u32_le.assertion.5
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:90:9 in function chacha20::load_u32_le
+
+Check 14: chacha20::load_u32_le.assertion.6
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/chacha20.rs:91:15 in function chacha20::load_u32_le
+
+Check 15: chacha20::load_u32_le.assertion.7
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:91:9 in function chacha20::load_u32_le
+
+Check 16: std::hint::unreachable_unchecked.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/hint.rs:111:14 in function std::hint::unreachable_unchecked
+
+Check 17: kani_proofs::bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key.assertion.1
+	 - Status: SUCCESS
+	 - Description: "assertion failed: poly_key.len() == 32"
+	 - Location: src/kani_proofs.rs:189:5 in function kani_proofs::bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key
+
+Check 18: kani_proofs::bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key.assertion.2
+	 - Status: SUCCESS
+	 - Description: "assertion failed: poly.set_key(&poly_key).is_ok()"
+	 - Location: src/kani_proofs.rs:192:5 in function kani_proofs::bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key
+
+Check 19: core::num::<impl usize>::checked_sub.arithmetic_overflow.1
+	 - Status: SUCCESS
+	 - Description: "attempt to compute `unchecked_sub` which would overflow"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/num/uint_macros.rs:812:31 in function core::num::<impl usize>::checked_sub
+
+Check 20: std::ptr::copy_nonoverlapping::<u8>.safety_check.1
+	 - Status: SUCCESS
+	 - Description: "`src` must be properly aligned"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:547:14 in function std::ptr::copy_nonoverlapping::<u8>
+
+Check 21: std::ptr::copy_nonoverlapping::<u8>.safety_check.2
+	 - Status: SUCCESS
+	 - Description: "`dst` must be properly aligned"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:547:14 in function std::ptr::copy_nonoverlapping::<u8>
+
+Check 22: std::ptr::copy_nonoverlapping::<u8>.arithmetic_overflow.1
+	 - Status: SUCCESS
+	 - Description: "copy_nonoverlapping: attempt to compute number in bytes which would overflow"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:547:14 in function std::ptr::copy_nonoverlapping::<u8>
+
+Check 23: poly1305::load_u32_le.assertion.1
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/poly1305.rs:258:9 in function poly1305::load_u32_le
+
+Check 24: poly1305::load_u32_le.assertion.2
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/poly1305.rs:259:15 in function poly1305::load_u32_le
+
+Check 25: poly1305::load_u32_le.assertion.3
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/poly1305.rs:259:9 in function poly1305::load_u32_le
+
+Check 26: poly1305::load_u32_le.assertion.4
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/poly1305.rs:260:15 in function poly1305::load_u32_le
+
+Check 27: poly1305::load_u32_le.assertion.5
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/poly1305.rs:260:9 in function poly1305::load_u32_le
+
+Check 28: poly1305::load_u32_le.assertion.6
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/poly1305.rs:261:15 in function poly1305::load_u32_le
+
+Check 29: poly1305::load_u32_le.assertion.7
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/poly1305.rs:261:9 in function poly1305::load_u32_le
+
+Check 30: core::num::<impl usize>::unchecked_add.arithmetic_overflow.1
+	 - Status: SUCCESS
+	 - Description: "attempt to compute `unchecked_add` which would overflow"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/num/uint_macros.rs:729:17 in function core::num::<impl usize>::unchecked_add
+
+Check 31: kani::rustc_intrinsics::offset::<u8, *mut u8, usize>.safety_check.1
+	 - Status: SUCCESS
+	 - Description: "Offset in bytes overflows isize"
+	 - Location: ../../../../../../../../../../home/runner/work/kani/kani/library/kani/src/lib.rs:57:1 in function kani::rustc_intrinsics::offset::<u8, *mut u8, usize>
+
+Check 32: kani::rustc_intrinsics::offset::<u8, *mut u8, usize>.safety_check.2
+	 - Status: SUCCESS
+	 - Description: "Offset result and original pointer must point to the same allocation"
+	 - Location: ../../../../../../../../../../home/runner/work/kani/kani/library/kani/src/lib.rs:57:1 in function kani::rustc_intrinsics::offset::<u8, *mut u8, usize>
+
+Check 33: core::ub_checks::maybe_is_nonoverlapping::runtime.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/intrinsics/mod.rs:2437:9 in function core::ub_checks::maybe_is_nonoverlapping::runtime
+
+Check 34: std::fmt::Arguments::<'_>::from_str.assertion.1
+	 - Status: UNREACHABLE
+	 - Description: "attempt to shift left with overflow"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs:820:38 in function std::fmt::Arguments::<'_>::from_str
+
+Check 35: core::num::<impl usize>::abs_diff.assertion.1
+	 - Status: UNREACHABLE
+	 - Description: "attempt to subtract with overflow"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/num/uint_macros.rs:2852:21 in function core::num::<impl usize>::abs_diff
+
+Check 36: core::num::<impl usize>::abs_diff.assertion.2
+	 - Status: UNREACHABLE
+	 - Description: "attempt to subtract with overflow"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/num/uint_macros.rs:2854:21 in function core::num::<impl usize>::abs_diff
+
+Check 37: poly1305::Poly1305State::new.assertion.1
+	 - Status: SUCCESS
+	 - Description: "attempt to shift right with overflow"
+	 - Location: src/poly1305.rs:88:14 in function poly1305::Poly1305State::new
+
+Check 38: poly1305::Poly1305State::new.assertion.2
+	 - Status: SUCCESS
+	 - Description: "attempt to shift right with overflow"
+	 - Location: src/poly1305.rs:89:14 in function poly1305::Poly1305State::new
+
+Check 39: poly1305::Poly1305State::new.assertion.3
+	 - Status: SUCCESS
+	 - Description: "attempt to shift right with overflow"
+	 - Location: src/poly1305.rs:90:14 in function poly1305::Poly1305State::new
+
+Check 40: poly1305::Poly1305State::new.assertion.4
+	 - Status: SUCCESS
+	 - Description: "attempt to shift right with overflow"
+	 - Location: src/poly1305.rs:91:14 in function poly1305::Poly1305State::new
+
+Check 41: std::intrinsics::rotate_left::<u32>.assertion.1
+	 - Status: SUCCESS
+	 - Description: "attempt to multiply with overflow"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/intrinsics/mod.rs:2022:49 in function std::intrinsics::rotate_left::<u32>
+
+Check 42: std::intrinsics::rotate_left::<u32>.assertion.2
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with a divisor of zero"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/intrinsics/mod.rs:2022:41 in function std::intrinsics::rotate_left::<u32>
+
+Check 43: std::intrinsics::rotate_left::<u32>.arithmetic_overflow.1
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with a divisor of zero"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/intrinsics/mod.rs:2022:41 in function std::intrinsics::rotate_left::<u32>
+
+Check 44: std::panic::Location::<'_>::caller.unsupported_construct.1
+	 - Status: SUCCESS
+	 - Description: "caller_location is not currently supported by Kani. Please post your example at https://github.com/model-checking/kani/issues/374"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/panic/location.rs:147:9 in function std::panic::Location::<'_>::caller
+
+Check 45: core::slice::index::slice_index_fail::do_panic::runtime.assertion.2
+	 - Status: SUCCESS
+	 - Description: "This is a placeholder message; Kani doesn't support message formatted at runtime"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/index.rs:40:9 in function core::slice::index::slice_index_fail::do_panic::runtime
+
+Check 46: <u32 as std::intrinsics::fallback::FunnelShift>::unchecked_funnel_shl.assume.1
+	 - Status: SUCCESS
+	 - Description: "Rust intrinsic assumption failed"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/intrinsics/fallback.rs:170:26 in function <u32 as std::intrinsics::fallback::FunnelShift>::unchecked_funnel_shl
+
+Check 47: <u32 as std::intrinsics::fallback::FunnelShift>::unchecked_funnel_shl.arithmetic_overflow.1
+	 - Status: SUCCESS
+	 - Description: "attempt to shift by excessive shift distance"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/intrinsics/fallback.rs:183:29 in function <u32 as std::intrinsics::fallback::FunnelShift>::unchecked_funnel_shl
+
+Check 48: <u32 as std::intrinsics::fallback::FunnelShift>::unchecked_funnel_shl.assertion.1
+	 - Status: SUCCESS
+	 - Description: "attempt to subtract with overflow"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/intrinsics/fallback.rs:184:55 in function <u32 as std::intrinsics::fallback::FunnelShift>::unchecked_funnel_shl
+
+Check 49: <u32 as std::intrinsics::fallback::FunnelShift>::unchecked_funnel_shl.arithmetic_overflow.2
+	 - Status: SUCCESS
+	 - Description: "attempt to shift by excessive shift distance"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/intrinsics/fallback.rs:184:29 in function <u32 as std::intrinsics::fallback::FunnelShift>::unchecked_funnel_shl
+
+Check 50: core::slice::index::slice_index_fail::do_panic::runtime.assertion.3
+	 - Status: SUCCESS
+	 - Description: "This is a placeholder message; Kani doesn't support message formatted at runtime"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/index.rs:49:9 in function core::slice::index::slice_index_fail::do_panic::runtime
+
+Check 51: chacha20::quarter_round.assertion.1
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:101:16 in function chacha20::quarter_round
+
+Check 52: chacha20::quarter_round.assertion.2
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:101:38 in function chacha20::quarter_round
+
+Check 53: chacha20::quarter_round.assertion.3
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:101:5 in function chacha20::quarter_round
+
+Check 54: chacha20::quarter_round.assertion.4
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:102:17 in function chacha20::quarter_round
+
+Check 55: chacha20::quarter_round.assertion.5
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:102:28 in function chacha20::quarter_round
+
+Check 56: chacha20::quarter_round.assertion.6
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:102:5 in function chacha20::quarter_round
+
+Check 57: chacha20::quarter_round.assertion.7
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:103:16 in function chacha20::quarter_round
+
+Check 58: chacha20::quarter_round.assertion.8
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:103:38 in function chacha20::quarter_round
+
+Check 59: chacha20::quarter_round.assertion.9
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:103:5 in function chacha20::quarter_round
+
+Check 60: chacha20::quarter_round.assertion.10
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:104:17 in function chacha20::quarter_round
+
+Check 61: chacha20::quarter_round.assertion.11
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:104:28 in function chacha20::quarter_round
+
+Check 62: chacha20::quarter_round.assertion.12
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:104:5 in function chacha20::quarter_round
+
+Check 63: chacha20::quarter_round.assertion.13
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:105:16 in function chacha20::quarter_round
+
+Check 64: chacha20::quarter_round.assertion.14
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:105:38 in function chacha20::quarter_round
+
+Check 65: chacha20::quarter_round.assertion.15
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:105:5 in function chacha20::quarter_round
+
+Check 66: chacha20::quarter_round.assertion.16
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:106:17 in function chacha20::quarter_round
+
+Check 67: chacha20::quarter_round.assertion.17
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:106:28 in function chacha20::quarter_round
+
+Check 68: chacha20::quarter_round.assertion.18
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:106:5 in function chacha20::quarter_round
+
+Check 69: chacha20::quarter_round.assertion.19
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:107:16 in function chacha20::quarter_round
+
+Check 70: chacha20::quarter_round.assertion.20
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:107:38 in function chacha20::quarter_round
+
+Check 71: chacha20::quarter_round.assertion.21
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:107:5 in function chacha20::quarter_round
+
+Check 72: chacha20::quarter_round.assertion.22
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:108:17 in function chacha20::quarter_round
+
+Check 73: chacha20::quarter_round.assertion.23
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:108:28 in function chacha20::quarter_round
+
+Check 74: chacha20::quarter_round.assertion.24
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:108:5 in function chacha20::quarter_round
+
+Check 75: <std::ops::Range<usize> as std::slice::SliceIndex<[u8]>>::index_mut.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/index.rs:448:5 in function <std::ops::Range<usize> as std::slice::SliceIndex<[u8]>>::index_mut
+
+Check 76: <std::ops::Range<usize> as std::slice::SliceIndex<[u8]>>::index_mut.safety_check.1
+	 - Status: SUCCESS
+	 - Description: "misaligned pointer to reference cast: address must be a multiple of its type's alignment"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/index.rs:454:22 in function <std::ops::Range<usize> as std::slice::SliceIndex<[u8]>>::index_mut
+
+Check 77: <std::ops::Range<usize> as std::slice::SliceIndex<[u8]>>::index_mut.safety_check.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/index.rs:454:22 in function <std::ops::Range<usize> as std::slice::SliceIndex<[u8]>>::index_mut
+
+Check 78: core::panicking::panic_nounwind_fmt::runtime.unsupported_construct.1
+	 - Status: SUCCESS
+	 - Description: "call to foreign "Rust" function `_RNvCs1hStedNDpZ2_7___rustc17rust_begin_unwind` is not currently supported by Kani. Please post your example at https://github.com/model-checking/kani/issues/new/choose"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/panicking.rs:110:17 in function core::panicking::panic_nounwind_fmt::runtime
+
+Check 79: std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.1
+	 - Status: UNREACHABLE
+	 - Description: "attempt to subtract with overflow"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/const_ptr.rs:1377:23 in function std::ptr::const_ptr::<impl *const ()>::is_aligned_to
+
+Check 80: std::ptr::const_ptr::<impl *const ()>::is_aligned_to.assertion.2
+	 - Status: SUCCESS
+	 - Description: "This is a placeholder message; Kani doesn't support message formatted at runtime"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/const_ptr.rs:1374:13 in function std::ptr::const_ptr::<impl *const ()>::is_aligned_to
+
+Check 81: kani::rustc_intrinsics::offset::<u8, *const u8, usize>.safety_check.1
+	 - Status: SUCCESS
+	 - Description: "Offset in bytes overflows isize"
+	 - Location: ../../../../../../../../../../home/runner/work/kani/kani/library/kani/src/lib.rs:57:1 in function kani::rustc_intrinsics::offset::<u8, *const u8, usize>
+
+Check 82: kani::rustc_intrinsics::offset::<u8, *const u8, usize>.safety_check.2
+	 - Status: SUCCESS
+	 - Description: "Offset result and original pointer must point to the same allocation"
+	 - Location: ../../../../../../../../../../home/runner/work/kani/kani/library/kani/src/lib.rs:57:1 in function kani::rustc_intrinsics::offset::<u8, *const u8, usize>
+
+Check 83: chacha20::chacha20_block.assertion.1
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:113:5 in function chacha20::chacha20_block
+
+Check 84: chacha20::chacha20_block.assertion.2
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:114:5 in function chacha20::chacha20_block
+
+Check 85: chacha20::chacha20_block.assertion.3
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:115:5 in function chacha20::chacha20_block
+
+Check 86: chacha20::chacha20_block.assertion.4
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:116:5 in function chacha20::chacha20_block
+
+Check 87: chacha20::chacha20_block.assertion.5
+	 - Status: SUCCESS
+	 - Description: "attempt to multiply with overflow"
+	 - Location: src/chacha20.rs:119:46 in function chacha20::chacha20_block
+
+Check 88: chacha20::chacha20_block.assertion.6
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/chacha20.rs:119:17 in function chacha20::chacha20_block
+
+Check 89: chacha20::chacha20_block.assertion.7
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:119:9 in function chacha20::chacha20_block
+
+Check 90: chacha20::chacha20_block.assertion.8
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:121:5 in function chacha20::chacha20_block
+
+Check 91: chacha20::chacha20_block.assertion.9
+	 - Status: SUCCESS
+	 - Description: "attempt to multiply with overflow"
+	 - Location: src/chacha20.rs:123:49 in function chacha20::chacha20_block
+
+Check 92: chacha20::chacha20_block.assertion.10
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/chacha20.rs:123:17 in function chacha20::chacha20_block
+
+Check 93: chacha20::chacha20_block.assertion.11
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:123:9 in function chacha20::chacha20_block
+
+Check 94: chacha20::chacha20_block.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: src/lib.rs:0:0 in function chacha20::chacha20_block
+
+Check 95: chacha20::chacha20_block.assertion.12
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:141:13 in function chacha20::chacha20_block
+
+Check 96: chacha20::chacha20_block.assertion.13
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:141:38 in function chacha20::chacha20_block
+
+Check 97: chacha20::chacha20_block.assertion.14
+	 - Status: SUCCESS
+	 - Description: "attempt to multiply with overflow"
+	 - Location: src/chacha20.rs:143:13 in function chacha20::chacha20_block
+
+Check 98: core::slice::index::slice_index_fail::do_panic::runtime.assertion.4
+	 - Status: SUCCESS
+	 - Description: "This is a placeholder message; Kani doesn't support message formatted at runtime"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/slice/index.rs:58:9 in function core::slice::index::slice_index_fail::do_panic::runtime
+
+Check 99: <usize as kani::rustc_intrinsics::ToISize>::to_isize.unreachable.1
+	 - Status: SUCCESS
+	 - Description: "unreachable code"
+	 - Location: ../../../../../../../../../../home/runner/work/kani/kani/library/kani_core/src/models.rs:176:17 in function <usize as kani::rustc_intrinsics::ToISize>::to_isize
+
+Check 100: <usize as kani::rustc_intrinsics::ToISize>::to_isize.safety_check.1
+	 - Status: SUCCESS
+	 - Description: "Offset value overflows isize"
+	 - Location: ../../../../../../../../../../home/runner/work/kani/kani/library/kani/src/lib.rs:57:1 in function <usize as kani::rustc_intrinsics::ToISize>::to_isize
+
+Check 101: <usize as kani::rustc_intrinsics::ToISize>::to_isize.assertion.1
+	 - Status: SUCCESS
+	 - Description: "internal error: entered unreachable code"
+	 - Location: ../../../../../../../../../../home/runner/work/kani/kani/library/kani/src/lib.rs:57:1 in function <usize as kani::rustc_intrinsics::ToISize>::to_isize
+
+Check 102: kani::mem::cbmc::same_allocation.unsupported_construct.1
+	 - Status: SUCCESS
+	 - Description: "Kani does not support reasoning about pointer to unallocated memory"
+	 - Location: ../../../../../../../../../../home/runner/work/kani/kani/library/kani/src/lib.rs:57:1 in function kani::mem::cbmc::same_allocation
+
+Check 103: chacha20::chacha20_block.array_bounds.1
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:113:5 in function chacha20::chacha20_block
+
+Check 104: chacha20::chacha20_block.array_bounds.2
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:114:5 in function chacha20::chacha20_block
+
+Check 105: chacha20::chacha20_block.array_bounds.3
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:115:5 in function chacha20::chacha20_block
+
+Check 106: chacha20::chacha20_block.array_bounds.4
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:116:5 in function chacha20::chacha20_block
+
+Check 107: chacha20::chacha20_block.array_bounds.5
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:119:9 in function chacha20::chacha20_block
+
+Check 108: chacha20::chacha20_block.array_bounds.6
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:121:5 in function chacha20::chacha20_block
+
+Check 109: chacha20::chacha20_block.array_bounds.7
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:123:9 in function chacha20::chacha20_block
+
+Check 110: chacha20::chacha20_block.array_bounds.8
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:141:13 in function chacha20::chacha20_block
+
+Check 111: chacha20::chacha20_block.array_bounds.9
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:141:38 in function chacha20::chacha20_block
+
+Check 112: <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:766:23 in function <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 113: <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:766:23 in function <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 114: <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:766:23 in function <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 115: <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:766:23 in function <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 116: <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:766:23 in function <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 117: <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:766:23 in function <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 118: <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:768:13 in function <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 119: <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:768:13 in function <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 120: <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:768:13 in function <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 121: <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:768:13 in function <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 122: <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:768:13 in function <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 123: <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:768:13 in function <std::ops::Range<usize> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 124: poly1305::load_u32_le.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/poly1305.rs:258:9 in function poly1305::load_u32_le
+
+Check 125: poly1305::load_u32_le.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/poly1305.rs:258:9 in function poly1305::load_u32_le
+
+Check 126: poly1305::load_u32_le.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/poly1305.rs:258:9 in function poly1305::load_u32_le
+
+Check 127: poly1305::load_u32_le.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/poly1305.rs:258:9 in function poly1305::load_u32_le
+
+Check 128: poly1305::load_u32_le.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/poly1305.rs:258:9 in function poly1305::load_u32_le
+
+Check 129: poly1305::load_u32_le.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/poly1305.rs:258:9 in function poly1305::load_u32_le
+
+Check 130: poly1305::load_u32_le.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/poly1305.rs:259:9 in function poly1305::load_u32_le
+
+Check 131: poly1305::load_u32_le.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/poly1305.rs:259:9 in function poly1305::load_u32_le
+
+Check 132: poly1305::load_u32_le.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/poly1305.rs:259:9 in function poly1305::load_u32_le
+
+Check 133: poly1305::load_u32_le.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/poly1305.rs:259:9 in function poly1305::load_u32_le
+
+Check 134: poly1305::load_u32_le.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/poly1305.rs:259:9 in function poly1305::load_u32_le
+
+Check 135: poly1305::load_u32_le.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/poly1305.rs:259:9 in function poly1305::load_u32_le
+
+Check 136: poly1305::load_u32_le.pointer_dereference.13
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/poly1305.rs:260:9 in function poly1305::load_u32_le
+
+Check 137: poly1305::load_u32_le.pointer_dereference.14
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/poly1305.rs:260:9 in function poly1305::load_u32_le
+
+Check 138: poly1305::load_u32_le.pointer_dereference.15
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/poly1305.rs:260:9 in function poly1305::load_u32_le
+
+Check 139: poly1305::load_u32_le.pointer_dereference.16
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/poly1305.rs:260:9 in function poly1305::load_u32_le
+
+Check 140: poly1305::load_u32_le.pointer_dereference.17
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/poly1305.rs:260:9 in function poly1305::load_u32_le
+
+Check 141: poly1305::load_u32_le.pointer_dereference.18
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/poly1305.rs:260:9 in function poly1305::load_u32_le
+
+Check 142: poly1305::load_u32_le.pointer_dereference.19
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/poly1305.rs:261:9 in function poly1305::load_u32_le
+
+Check 143: poly1305::load_u32_le.pointer_dereference.20
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/poly1305.rs:261:9 in function poly1305::load_u32_le
+
+Check 144: poly1305::load_u32_le.pointer_dereference.21
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/poly1305.rs:261:9 in function poly1305::load_u32_le
+
+Check 145: poly1305::load_u32_le.pointer_dereference.22
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/poly1305.rs:261:9 in function poly1305::load_u32_le
+
+Check 146: poly1305::load_u32_le.pointer_dereference.23
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/poly1305.rs:261:9 in function poly1305::load_u32_le
+
+Check 147: poly1305::load_u32_le.pointer_dereference.24
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/poly1305.rs:261:9 in function poly1305::load_u32_le
+
+Check 148: std::result::Result::<(), error::CryptoError>::is_ok.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:594:18 in function std::result::Result::<(), error::CryptoError>::is_ok
+
+Check 149: std::result::Result::<(), error::CryptoError>::is_ok.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:594:18 in function std::result::Result::<(), error::CryptoError>::is_ok
+
+Check 150: std::result::Result::<(), error::CryptoError>::is_ok.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:594:18 in function std::result::Result::<(), error::CryptoError>::is_ok
+
+Check 151: std::result::Result::<(), error::CryptoError>::is_ok.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:594:18 in function std::result::Result::<(), error::CryptoError>::is_ok
+
+Check 152: std::result::Result::<(), error::CryptoError>::is_ok.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:594:18 in function std::result::Result::<(), error::CryptoError>::is_ok
+
+Check 153: std::result::Result::<(), error::CryptoError>::is_ok.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs:594:18 in function std::result::Result::<(), error::CryptoError>::is_ok
+
+Check 154: memcpy.pointer.1
+	 - Status: SUCCESS
+	 - Description: "same object violation in (const char *)(void *)src >= (const char *)(void *)dst + (signed long int)(count * sizeof(unsigned char) /*1*/ )"
+	 - Location: <builtin-library-memcpy>:33 in function memcpy
+
+Check 155: memcpy.pointer.2
+	 - Status: SUCCESS
+	 - Description: "same object violation in (const char *)(void *)dst >= (const char *)(void *)src + (signed long int)(count * sizeof(unsigned char) /*1*/ )"
+	 - Location: <builtin-library-memcpy>:34 in function memcpy
+
+Check 156: std::ptr::copy_nonoverlapping::<u8>.precondition_instance.1
+	 - Status: SUCCESS
+	 - Description: "memcpy src/dst overlap"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:547:14 in function std::ptr::copy_nonoverlapping::<u8>
+
+Check 157: std::ptr::copy_nonoverlapping::<u8>.precondition_instance.2
+	 - Status: SUCCESS
+	 - Description: "memcpy source region readable"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:547:14 in function std::ptr::copy_nonoverlapping::<u8>
+
+Check 158: std::ptr::copy_nonoverlapping::<u8>.precondition_instance.3
+	 - Status: SUCCESS
+	 - Description: "memcpy destination region writeable"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ptr/mod.rs:547:14 in function std::ptr::copy_nonoverlapping::<u8>
+
+Check 159: std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:50 in function std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt
+
+Check 160: std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:50 in function std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt
+
+Check 161: std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:50 in function std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt
+
+Check 162: std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:50 in function std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt
+
+Check 163: std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:50 in function std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt
+
+Check 164: std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:50 in function std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt
+
+Check 165: std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:59 in function std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt
+
+Check 166: std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:59 in function std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt
+
+Check 167: std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:59 in function std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt
+
+Check 168: std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:59 in function std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt
+
+Check 169: std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:59 in function std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt
+
+Check 170: std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:59 in function std::cmp::impls::<impl std::cmp::PartialOrd for i32>::lt
+
+Check 171: chacha20::load_u32_le.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:88:9 in function chacha20::load_u32_le
+
+Check 172: chacha20::load_u32_le.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:88:9 in function chacha20::load_u32_le
+
+Check 173: chacha20::load_u32_le.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:88:9 in function chacha20::load_u32_le
+
+Check 174: chacha20::load_u32_le.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:88:9 in function chacha20::load_u32_le
+
+Check 175: chacha20::load_u32_le.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:88:9 in function chacha20::load_u32_le
+
+Check 176: chacha20::load_u32_le.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:88:9 in function chacha20::load_u32_le
+
+Check 177: chacha20::load_u32_le.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:89:9 in function chacha20::load_u32_le
+
+Check 178: chacha20::load_u32_le.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:89:9 in function chacha20::load_u32_le
+
+Check 179: chacha20::load_u32_le.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:89:9 in function chacha20::load_u32_le
+
+Check 180: chacha20::load_u32_le.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:89:9 in function chacha20::load_u32_le
+
+Check 181: chacha20::load_u32_le.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:89:9 in function chacha20::load_u32_le
+
+Check 182: chacha20::load_u32_le.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:89:9 in function chacha20::load_u32_le
+
+Check 183: chacha20::load_u32_le.pointer_dereference.13
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:90:9 in function chacha20::load_u32_le
+
+Check 184: chacha20::load_u32_le.pointer_dereference.14
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:90:9 in function chacha20::load_u32_le
+
+Check 185: chacha20::load_u32_le.pointer_dereference.15
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:90:9 in function chacha20::load_u32_le
+
+Check 186: chacha20::load_u32_le.pointer_dereference.16
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:90:9 in function chacha20::load_u32_le
+
+Check 187: chacha20::load_u32_le.pointer_dereference.17
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:90:9 in function chacha20::load_u32_le
+
+Check 188: chacha20::load_u32_le.pointer_dereference.18
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:90:9 in function chacha20::load_u32_le
+
+Check 189: chacha20::load_u32_le.pointer_dereference.19
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:91:9 in function chacha20::load_u32_le
+
+Check 190: chacha20::load_u32_le.pointer_dereference.20
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:91:9 in function chacha20::load_u32_le
+
+Check 191: chacha20::load_u32_le.pointer_dereference.21
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:91:9 in function chacha20::load_u32_le
+
+Check 192: chacha20::load_u32_le.pointer_dereference.22
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:91:9 in function chacha20::load_u32_le
+
+Check 193: chacha20::load_u32_le.pointer_dereference.23
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:91:9 in function chacha20::load_u32_le
+
+Check 194: chacha20::load_u32_le.pointer_dereference.24
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:91:9 in function chacha20::load_u32_le
+
+Check 195: <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:766:23 in function <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 196: <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:766:23 in function <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 197: <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:766:23 in function <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 198: <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:766:23 in function <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 199: <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:766:23 in function <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 200: <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:766:23 in function <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 201: <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:768:13 in function <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 202: <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:768:13 in function <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 203: <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:768:13 in function <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 204: <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:768:13 in function <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 205: <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:768:13 in function <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 206: <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:768:13 in function <std::ops::Range<i32> as std::iter::range::RangeIteratorImpl>::spec_next
+
+Check 207: std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:50 in function std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt
+
+Check 208: std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:50 in function std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt
+
+Check 209: std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:50 in function std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt
+
+Check 210: std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:50 in function std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt
+
+Check 211: std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:50 in function std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt
+
+Check 212: std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:50 in function std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt
+
+Check 213: std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:59 in function std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt
+
+Check 214: std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:59 in function std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt
+
+Check 215: std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:59 in function std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt
+
+Check 216: std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:59 in function std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt
+
+Check 217: std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:59 in function std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt
+
+Check 218: std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/cmp.rs:1903:59 in function std::cmp::impls::<impl std::cmp::PartialOrd for usize>::lt
+
+Check 219: poly1305::Poly1305::set_key.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/poly1305.rs:23:9 in function poly1305::Poly1305::set_key
+
+Check 220: poly1305::Poly1305::set_key.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/poly1305.rs:23:9 in function poly1305::Poly1305::set_key
+
+Check 221: poly1305::Poly1305::set_key.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/poly1305.rs:23:9 in function poly1305::Poly1305::set_key
+
+Check 222: poly1305::Poly1305::set_key.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/poly1305.rs:23:9 in function poly1305::Poly1305::set_key
+
+Check 223: poly1305::Poly1305::set_key.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/poly1305.rs:23:9 in function poly1305::Poly1305::set_key
+
+Check 224: poly1305::Poly1305::set_key.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/poly1305.rs:23:9 in function poly1305::Poly1305::set_key
+
+Check 225: poly1305::Poly1305::set_key.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/poly1305.rs:24:9 in function poly1305::Poly1305::set_key
+
+Check 226: std::intrinsics::rotate_left::<u32>.division-by-zero.1
+	 - Status: SUCCESS
+	 - Description: "division by zero"
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/intrinsics/mod.rs:2022:41 in function std::intrinsics::rotate_left::<u32>
+
+Check 227: chacha20::quarter_round.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:101:16 in function chacha20::quarter_round
+
+Check 228: chacha20::quarter_round.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:101:16 in function chacha20::quarter_round
+
+Check 229: chacha20::quarter_round.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:101:16 in function chacha20::quarter_round
+
+Check 230: chacha20::quarter_round.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:101:16 in function chacha20::quarter_round
+
+Check 231: chacha20::quarter_round.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:101:16 in function chacha20::quarter_round
+
+Check 232: chacha20::quarter_round.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:101:16 in function chacha20::quarter_round
+
+Check 233: chacha20::quarter_round.array_bounds.1
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:101:16 in function chacha20::quarter_round
+
+Check 234: chacha20::quarter_round.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:101:38 in function chacha20::quarter_round
+
+Check 235: chacha20::quarter_round.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:101:38 in function chacha20::quarter_round
+
+Check 236: chacha20::quarter_round.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:101:38 in function chacha20::quarter_round
+
+Check 237: chacha20::quarter_round.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:101:38 in function chacha20::quarter_round
+
+Check 238: chacha20::quarter_round.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:101:38 in function chacha20::quarter_round
+
+Check 239: chacha20::quarter_round.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:101:38 in function chacha20::quarter_round
+
+Check 240: chacha20::quarter_round.array_bounds.2
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:101:38 in function chacha20::quarter_round
+
+Check 241: chacha20::quarter_round.pointer_dereference.13
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:101:5 in function chacha20::quarter_round
+
+Check 242: chacha20::quarter_round.pointer_dereference.14
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:101:5 in function chacha20::quarter_round
+
+Check 243: chacha20::quarter_round.pointer_dereference.15
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:101:5 in function chacha20::quarter_round
+
+Check 244: chacha20::quarter_round.pointer_dereference.16
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:101:5 in function chacha20::quarter_round
+
+Check 245: chacha20::quarter_round.pointer_dereference.17
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:101:5 in function chacha20::quarter_round
+
+Check 246: chacha20::quarter_round.pointer_dereference.18
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:101:5 in function chacha20::quarter_round
+
+Check 247: chacha20::quarter_round.array_bounds.3
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:101:5 in function chacha20::quarter_round
+
+Check 248: chacha20::quarter_round.pointer_dereference.19
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:102:17 in function chacha20::quarter_round
+
+Check 249: chacha20::quarter_round.pointer_dereference.20
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:102:17 in function chacha20::quarter_round
+
+Check 250: chacha20::quarter_round.pointer_dereference.21
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:102:17 in function chacha20::quarter_round
+
+Check 251: chacha20::quarter_round.pointer_dereference.22
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:102:17 in function chacha20::quarter_round
+
+Check 252: chacha20::quarter_round.pointer_dereference.23
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:102:17 in function chacha20::quarter_round
+
+Check 253: chacha20::quarter_round.pointer_dereference.24
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:102:17 in function chacha20::quarter_round
+
+Check 254: chacha20::quarter_round.array_bounds.4
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:102:17 in function chacha20::quarter_round
+
+Check 255: chacha20::quarter_round.pointer_dereference.25
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:102:28 in function chacha20::quarter_round
+
+Check 256: chacha20::quarter_round.pointer_dereference.26
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:102:28 in function chacha20::quarter_round
+
+Check 257: chacha20::quarter_round.pointer_dereference.27
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:102:28 in function chacha20::quarter_round
+
+Check 258: chacha20::quarter_round.pointer_dereference.28
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:102:28 in function chacha20::quarter_round
+
+Check 259: chacha20::quarter_round.pointer_dereference.29
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:102:28 in function chacha20::quarter_round
+
+Check 260: chacha20::quarter_round.pointer_dereference.30
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:102:28 in function chacha20::quarter_round
+
+Check 261: chacha20::quarter_round.array_bounds.5
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:102:28 in function chacha20::quarter_round
+
+Check 262: chacha20::quarter_round.pointer_dereference.31
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:102:5 in function chacha20::quarter_round
+
+Check 263: chacha20::quarter_round.pointer_dereference.32
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:102:5 in function chacha20::quarter_round
+
+Check 264: chacha20::quarter_round.pointer_dereference.33
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:102:5 in function chacha20::quarter_round
+
+Check 265: chacha20::quarter_round.pointer_dereference.34
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:102:5 in function chacha20::quarter_round
+
+Check 266: chacha20::quarter_round.pointer_dereference.35
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:102:5 in function chacha20::quarter_round
+
+Check 267: chacha20::quarter_round.pointer_dereference.36
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:102:5 in function chacha20::quarter_round
+
+Check 268: chacha20::quarter_round.array_bounds.6
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:102:5 in function chacha20::quarter_round
+
+Check 269: chacha20::quarter_round.pointer_dereference.37
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:103:16 in function chacha20::quarter_round
+
+Check 270: chacha20::quarter_round.pointer_dereference.38
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:103:16 in function chacha20::quarter_round
+
+Check 271: chacha20::quarter_round.pointer_dereference.39
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:103:16 in function chacha20::quarter_round
+
+Check 272: chacha20::quarter_round.pointer_dereference.40
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:103:16 in function chacha20::quarter_round
+
+Check 273: chacha20::quarter_round.pointer_dereference.41
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:103:16 in function chacha20::quarter_round
+
+Check 274: chacha20::quarter_round.pointer_dereference.42
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:103:16 in function chacha20::quarter_round
+
+Check 275: chacha20::quarter_round.array_bounds.7
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:103:16 in function chacha20::quarter_round
+
+Check 276: chacha20::quarter_round.pointer_dereference.43
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:103:38 in function chacha20::quarter_round
+
+Check 277: chacha20::quarter_round.pointer_dereference.44
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:103:38 in function chacha20::quarter_round
+
+Check 278: chacha20::quarter_round.pointer_dereference.45
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:103:38 in function chacha20::quarter_round
+
+Check 279: chacha20::quarter_round.pointer_dereference.46
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:103:38 in function chacha20::quarter_round
+
+Check 280: chacha20::quarter_round.pointer_dereference.47
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:103:38 in function chacha20::quarter_round
+
+Check 281: chacha20::quarter_round.pointer_dereference.48
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:103:38 in function chacha20::quarter_round
+
+Check 282: chacha20::quarter_round.array_bounds.8
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:103:38 in function chacha20::quarter_round
+
+Check 283: chacha20::quarter_round.pointer_dereference.49
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:103:5 in function chacha20::quarter_round
+
+Check 284: chacha20::quarter_round.pointer_dereference.50
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:103:5 in function chacha20::quarter_round
+
+Check 285: chacha20::quarter_round.pointer_dereference.51
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:103:5 in function chacha20::quarter_round
+
+Check 286: chacha20::quarter_round.pointer_dereference.52
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:103:5 in function chacha20::quarter_round
+
+Check 287: chacha20::quarter_round.pointer_dereference.53
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:103:5 in function chacha20::quarter_round
+
+Check 288: chacha20::quarter_round.pointer_dereference.54
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:103:5 in function chacha20::quarter_round
+
+Check 289: chacha20::quarter_round.array_bounds.9
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:103:5 in function chacha20::quarter_round
+
+Check 290: chacha20::quarter_round.pointer_dereference.55
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:104:17 in function chacha20::quarter_round
+
+Check 291: chacha20::quarter_round.pointer_dereference.56
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:104:17 in function chacha20::quarter_round
+
+Check 292: chacha20::quarter_round.pointer_dereference.57
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:104:17 in function chacha20::quarter_round
+
+Check 293: chacha20::quarter_round.pointer_dereference.58
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:104:17 in function chacha20::quarter_round
+
+Check 294: chacha20::quarter_round.pointer_dereference.59
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:104:17 in function chacha20::quarter_round
+
+Check 295: chacha20::quarter_round.pointer_dereference.60
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:104:17 in function chacha20::quarter_round
+
+Check 296: chacha20::quarter_round.array_bounds.10
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:104:17 in function chacha20::quarter_round
+
+Check 297: chacha20::quarter_round.pointer_dereference.61
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:104:28 in function chacha20::quarter_round
+
+Check 298: chacha20::quarter_round.pointer_dereference.62
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:104:28 in function chacha20::quarter_round
+
+Check 299: chacha20::quarter_round.pointer_dereference.63
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:104:28 in function chacha20::quarter_round
+
+Check 300: chacha20::quarter_round.pointer_dereference.64
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:104:28 in function chacha20::quarter_round
+
+Check 301: chacha20::quarter_round.pointer_dereference.65
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:104:28 in function chacha20::quarter_round
+
+Check 302: chacha20::quarter_round.pointer_dereference.66
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:104:28 in function chacha20::quarter_round
+
+Check 303: chacha20::quarter_round.array_bounds.11
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:104:28 in function chacha20::quarter_round
+
+Check 304: chacha20::quarter_round.pointer_dereference.67
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:104:5 in function chacha20::quarter_round
+
+Check 305: chacha20::quarter_round.pointer_dereference.68
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:104:5 in function chacha20::quarter_round
+
+Check 306: chacha20::quarter_round.pointer_dereference.69
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:104:5 in function chacha20::quarter_round
+
+Check 307: chacha20::quarter_round.pointer_dereference.70
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:104:5 in function chacha20::quarter_round
+
+Check 308: chacha20::quarter_round.pointer_dereference.71
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:104:5 in function chacha20::quarter_round
+
+Check 309: chacha20::quarter_round.pointer_dereference.72
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:104:5 in function chacha20::quarter_round
+
+Check 310: chacha20::quarter_round.array_bounds.12
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:104:5 in function chacha20::quarter_round
+
+Check 311: chacha20::quarter_round.pointer_dereference.73
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:105:16 in function chacha20::quarter_round
+
+Check 312: chacha20::quarter_round.pointer_dereference.74
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:105:16 in function chacha20::quarter_round
+
+Check 313: chacha20::quarter_round.pointer_dereference.75
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:105:16 in function chacha20::quarter_round
+
+Check 314: chacha20::quarter_round.pointer_dereference.76
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:105:16 in function chacha20::quarter_round
+
+Check 315: chacha20::quarter_round.pointer_dereference.77
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:105:16 in function chacha20::quarter_round
+
+Check 316: chacha20::quarter_round.pointer_dereference.78
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:105:16 in function chacha20::quarter_round
+
+Check 317: chacha20::quarter_round.array_bounds.13
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:105:16 in function chacha20::quarter_round
+
+Check 318: chacha20::quarter_round.pointer_dereference.79
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:105:38 in function chacha20::quarter_round
+
+Check 319: chacha20::quarter_round.pointer_dereference.80
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:105:38 in function chacha20::quarter_round
+
+Check 320: chacha20::quarter_round.pointer_dereference.81
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:105:38 in function chacha20::quarter_round
+
+Check 321: chacha20::quarter_round.pointer_dereference.82
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:105:38 in function chacha20::quarter_round
+
+Check 322: chacha20::quarter_round.pointer_dereference.83
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:105:38 in function chacha20::quarter_round
+
+Check 323: chacha20::quarter_round.pointer_dereference.84
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:105:38 in function chacha20::quarter_round
+
+Check 324: chacha20::quarter_round.array_bounds.14
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:105:38 in function chacha20::quarter_round
+
+Check 325: chacha20::quarter_round.pointer_dereference.85
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:105:5 in function chacha20::quarter_round
+
+Check 326: chacha20::quarter_round.pointer_dereference.86
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:105:5 in function chacha20::quarter_round
+
+Check 327: chacha20::quarter_round.pointer_dereference.87
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:105:5 in function chacha20::quarter_round
+
+Check 328: chacha20::quarter_round.pointer_dereference.88
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:105:5 in function chacha20::quarter_round
+
+Check 329: chacha20::quarter_round.pointer_dereference.89
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:105:5 in function chacha20::quarter_round
+
+Check 330: chacha20::quarter_round.pointer_dereference.90
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:105:5 in function chacha20::quarter_round
+
+Check 331: chacha20::quarter_round.array_bounds.15
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:105:5 in function chacha20::quarter_round
+
+Check 332: chacha20::quarter_round.pointer_dereference.91
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:106:17 in function chacha20::quarter_round
+
+Check 333: chacha20::quarter_round.pointer_dereference.92
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:106:17 in function chacha20::quarter_round
+
+Check 334: chacha20::quarter_round.pointer_dereference.93
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:106:17 in function chacha20::quarter_round
+
+Check 335: chacha20::quarter_round.pointer_dereference.94
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:106:17 in function chacha20::quarter_round
+
+Check 336: chacha20::quarter_round.pointer_dereference.95
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:106:17 in function chacha20::quarter_round
+
+Check 337: chacha20::quarter_round.pointer_dereference.96
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:106:17 in function chacha20::quarter_round
+
+Check 338: chacha20::quarter_round.array_bounds.16
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:106:17 in function chacha20::quarter_round
+
+Check 339: chacha20::quarter_round.pointer_dereference.97
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:106:28 in function chacha20::quarter_round
+
+Check 340: chacha20::quarter_round.pointer_dereference.98
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:106:28 in function chacha20::quarter_round
+
+Check 341: chacha20::quarter_round.pointer_dereference.99
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:106:28 in function chacha20::quarter_round
+
+Check 342: chacha20::quarter_round.pointer_dereference.100
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:106:28 in function chacha20::quarter_round
+
+Check 343: chacha20::quarter_round.pointer_dereference.101
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:106:28 in function chacha20::quarter_round
+
+Check 344: chacha20::quarter_round.pointer_dereference.102
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:106:28 in function chacha20::quarter_round
+
+Check 345: chacha20::quarter_round.array_bounds.17
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:106:28 in function chacha20::quarter_round
+
+Check 346: chacha20::quarter_round.pointer_dereference.103
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:106:5 in function chacha20::quarter_round
+
+Check 347: chacha20::quarter_round.pointer_dereference.104
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:106:5 in function chacha20::quarter_round
+
+Check 348: chacha20::quarter_round.pointer_dereference.105
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:106:5 in function chacha20::quarter_round
+
+Check 349: chacha20::quarter_round.pointer_dereference.106
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:106:5 in function chacha20::quarter_round
+
+Check 350: chacha20::quarter_round.pointer_dereference.107
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:106:5 in function chacha20::quarter_round
+
+Check 351: chacha20::quarter_round.pointer_dereference.108
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:106:5 in function chacha20::quarter_round
+
+Check 352: chacha20::quarter_round.array_bounds.18
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:106:5 in function chacha20::quarter_round
+
+Check 353: chacha20::quarter_round.pointer_dereference.109
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:107:16 in function chacha20::quarter_round
+
+Check 354: chacha20::quarter_round.pointer_dereference.110
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:107:16 in function chacha20::quarter_round
+
+Check 355: chacha20::quarter_round.pointer_dereference.111
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:107:16 in function chacha20::quarter_round
+
+Check 356: chacha20::quarter_round.pointer_dereference.112
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:107:16 in function chacha20::quarter_round
+
+Check 357: chacha20::quarter_round.pointer_dereference.113
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:107:16 in function chacha20::quarter_round
+
+Check 358: chacha20::quarter_round.pointer_dereference.114
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:107:16 in function chacha20::quarter_round
+
+Check 359: chacha20::quarter_round.array_bounds.19
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:107:16 in function chacha20::quarter_round
+
+Check 360: chacha20::quarter_round.pointer_dereference.115
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:107:38 in function chacha20::quarter_round
+
+Check 361: chacha20::quarter_round.pointer_dereference.116
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:107:38 in function chacha20::quarter_round
+
+Check 362: chacha20::quarter_round.pointer_dereference.117
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:107:38 in function chacha20::quarter_round
+
+Check 363: chacha20::quarter_round.pointer_dereference.118
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:107:38 in function chacha20::quarter_round
+
+Check 364: chacha20::quarter_round.pointer_dereference.119
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:107:38 in function chacha20::quarter_round
+
+Check 365: chacha20::quarter_round.pointer_dereference.120
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:107:38 in function chacha20::quarter_round
+
+Check 366: chacha20::quarter_round.array_bounds.20
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:107:38 in function chacha20::quarter_round
+
+Check 367: chacha20::quarter_round.pointer_dereference.121
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:107:5 in function chacha20::quarter_round
+
+Check 368: chacha20::quarter_round.pointer_dereference.122
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:107:5 in function chacha20::quarter_round
+
+Check 369: chacha20::quarter_round.pointer_dereference.123
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:107:5 in function chacha20::quarter_round
+
+Check 370: chacha20::quarter_round.pointer_dereference.124
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:107:5 in function chacha20::quarter_round
+
+Check 371: chacha20::quarter_round.pointer_dereference.125
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:107:5 in function chacha20::quarter_round
+
+Check 372: chacha20::quarter_round.pointer_dereference.126
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:107:5 in function chacha20::quarter_round
+
+Check 373: chacha20::quarter_round.array_bounds.21
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:107:5 in function chacha20::quarter_round
+
+Check 374: chacha20::quarter_round.pointer_dereference.127
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:108:17 in function chacha20::quarter_round
+
+Check 375: chacha20::quarter_round.pointer_dereference.128
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:108:17 in function chacha20::quarter_round
+
+Check 376: chacha20::quarter_round.pointer_dereference.129
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:108:17 in function chacha20::quarter_round
+
+Check 377: chacha20::quarter_round.pointer_dereference.130
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:108:17 in function chacha20::quarter_round
+
+Check 378: chacha20::quarter_round.pointer_dereference.131
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:108:17 in function chacha20::quarter_round
+
+Check 379: chacha20::quarter_round.pointer_dereference.132
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:108:17 in function chacha20::quarter_round
+
+Check 380: chacha20::quarter_round.array_bounds.22
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:108:17 in function chacha20::quarter_round
+
+Check 381: chacha20::quarter_round.pointer_dereference.133
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:108:28 in function chacha20::quarter_round
+
+Check 382: chacha20::quarter_round.pointer_dereference.134
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:108:28 in function chacha20::quarter_round
+
+Check 383: chacha20::quarter_round.pointer_dereference.135
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:108:28 in function chacha20::quarter_round
+
+Check 384: chacha20::quarter_round.pointer_dereference.136
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:108:28 in function chacha20::quarter_round
+
+Check 385: chacha20::quarter_round.pointer_dereference.137
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:108:28 in function chacha20::quarter_round
+
+Check 386: chacha20::quarter_round.pointer_dereference.138
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:108:28 in function chacha20::quarter_round
+
+Check 387: chacha20::quarter_round.array_bounds.23
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:108:28 in function chacha20::quarter_round
+
+Check 388: chacha20::quarter_round.pointer_dereference.139
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/chacha20.rs:108:5 in function chacha20::quarter_round
+
+Check 389: chacha20::quarter_round.pointer_dereference.140
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/chacha20.rs:108:5 in function chacha20::quarter_round
+
+Check 390: chacha20::quarter_round.pointer_dereference.141
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/chacha20.rs:108:5 in function chacha20::quarter_round
+
+Check 391: chacha20::quarter_round.pointer_dereference.142
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/chacha20.rs:108:5 in function chacha20::quarter_round
+
+Check 392: chacha20::quarter_round.pointer_dereference.143
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/chacha20.rs:108:5 in function chacha20::quarter_round
+
+Check 393: chacha20::quarter_round.pointer_dereference.144
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/chacha20.rs:108:5 in function chacha20::quarter_round
+
+Check 394: chacha20::quarter_round.array_bounds.24
+	 - Status: SUCCESS
+	 - Description: "index out of bounds: the length is less than or equal to the given index"
+	 - Location: src/chacha20.rs:108:5 in function chacha20::quarter_round
+
+Check 395: aead::derive_poly1305_key.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/aead.rs:117:32 in function aead::derive_poly1305_key
+
+Check 396: aead::derive_poly1305_key.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/aead.rs:117:32 in function aead::derive_poly1305_key
+
+Check 397: aead::derive_poly1305_key.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/aead.rs:117:32 in function aead::derive_poly1305_key
+
+Check 398: aead::derive_poly1305_key.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/aead.rs:117:32 in function aead::derive_poly1305_key
+
+Check 399: aead::derive_poly1305_key.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/aead.rs:117:32 in function aead::derive_poly1305_key
+
+Check 400: aead::derive_poly1305_key.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/aead.rs:117:32 in function aead::derive_poly1305_key
+
+Check 401: aead::derive_poly1305_key.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/aead.rs:117:38 in function aead::derive_poly1305_key
+
+Check 402: aead::derive_poly1305_key.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/aead.rs:117:38 in function aead::derive_poly1305_key
+
+Check 403: aead::derive_poly1305_key.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/aead.rs:117:38 in function aead::derive_poly1305_key
+
+Check 404: aead::derive_poly1305_key.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/aead.rs:117:38 in function aead::derive_poly1305_key
+
+Check 405: aead::derive_poly1305_key.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/aead.rs:117:38 in function aead::derive_poly1305_key
+
+Check 406: aead::derive_poly1305_key.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/aead.rs:117:38 in function aead::derive_poly1305_key
+
+Check 407: aead::derive_poly1305_key.pointer_dereference.13
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/aead.rs:118:36 in function aead::derive_poly1305_key
+
+Check 408: aead::derive_poly1305_key.pointer_dereference.14
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/aead.rs:118:36 in function aead::derive_poly1305_key
+
+Check 409: aead::derive_poly1305_key.pointer_dereference.15
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/aead.rs:118:36 in function aead::derive_poly1305_key
+
+Check 410: aead::derive_poly1305_key.pointer_dereference.16
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/aead.rs:118:36 in function aead::derive_poly1305_key
+
+Check 411: aead::derive_poly1305_key.pointer_dereference.17
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/aead.rs:118:36 in function aead::derive_poly1305_key
+
+Check 412: aead::derive_poly1305_key.pointer_dereference.18
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/aead.rs:118:36 in function aead::derive_poly1305_key
+
+Check 413: aead::derive_poly1305_key.pointer_dereference.19
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/aead.rs:118:42 in function aead::derive_poly1305_key
+
+Check 414: aead::derive_poly1305_key.pointer_dereference.20
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/aead.rs:118:42 in function aead::derive_poly1305_key
+
+Check 415: aead::derive_poly1305_key.pointer_dereference.21
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/aead.rs:118:42 in function aead::derive_poly1305_key
+
+Check 416: aead::derive_poly1305_key.pointer_dereference.22
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/aead.rs:118:42 in function aead::derive_poly1305_key
+
+Check 417: aead::derive_poly1305_key.pointer_dereference.23
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/aead.rs:118:42 in function aead::derive_poly1305_key
+
+Check 418: aead::derive_poly1305_key.pointer_dereference.24
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/aead.rs:118:42 in function aead::derive_poly1305_key
+
+
+SUMMARY:
+ ** 0 of 418 failed (4 unreachable)
+
+VERIFICATION:- SUCCESSFUL
+Verification Time: 19.42179s
+
+Manual Harness Summary:
+Complete - 1 successfully verified harnesses, 0 failures, 1 total.

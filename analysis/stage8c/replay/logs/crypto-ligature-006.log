@@ -1,0 +1,238 @@
+### state: 2f2152d (1.4.1, regenerated manifests) + untracked BR-001/002 harness files (f4ca347 bytes) + C_static from 2cbbccd
+### CMD: git status --short; sha256sum ci/results/c_static/crates_crypto-mixed-core.json; python3 -c "import json;d=json.load(open('ci/results/c_static/crates_crypto-mixed-core.json'));print('keys',sorted(d.keys()));print('coverage',d.get('callsite_coverage'),'| local_concepts',(d.get('attribution_scope') or {}).get('local_concepts'),'| callsites',len(d.get('callsites',[])))"
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/ws/crypto-mixed
+### START: 2026-10-20T16:58:12-05:00
+ M ci/results/c_static/crates_crypto-mixed-core.json
+?? ci/harness/
+20845eb0132a8e7ee1c6b3714a2b0f3640ac3dd6e5ea056c33b4b9f4b241d857  ci/results/c_static/crates_crypto-mixed-core.json
+keys ['attribution_scope', 'callsite_coverage', 'callsites', 'config_scope', 'coverage_scope', 'crate_dir', 'report_id', 'schema_version']
+coverage {'discovered': 0, 'resolved': 0, 'unresolved': 0} | local_concepts [] | callsites 0
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 1800 python3 -I tools/ligature/ligature.pyz gate-r1-g16 --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/r1-stale.json; rc=$?; python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/jsum.py /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/r1-stale.json; echo gate-r1-g16 exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/ws/crypto-mixed
+### START: 2026-10-20T16:58:12-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+bytes: 2633 | top keys: ['exit_code', 'findings', 'format', 'gate_acceptance', 'reports', 'summary']
+exit_code = 0
+gate_acceptance = "accepted"
+summary = {"counts": {"checked": 0, "configuration_mismatches": 0, "discovered": 0, "reports": 1, "undeclared_blocking": 0, "undeclared_warnings": 0, "unresolved": 0}, "discovery_completeness": "syntactic-lower-bound", "interaction_reconciliation": "no-discovered-calls", "source_resolution": "no-discovered-calls"}
+gate-r1-g16 exit 0
+### EXIT: 0  ELAPSED: 7.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 1800 python3 -I tools/ligature/ligature.pyz gate-g14 --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/g14-stale.json; rc=$?; python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/jsum.py /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/g14-stale.json CG3 degrad unresolved all-discovered G17; echo gate-g14 exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/ws/crypto-mixed
+### START: 2026-10-20T16:58:19-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+bytes: 34221 | top keys: ['clusters', 'exit_code', 'format', 'workspace_findings']
+exit_code = 0
+  [G14/degraded] $.clusters[0].findings[0]: generic_callees_type_universal_or_creusot_owned is declared as true, but this workspace's artifacts cannot verify it: the workspace's own achieved records include ['kani-bounded-model-check'] results at WP-CRYPTO-MIXED-AEAD-001:BR-CRYPTO-MIXED-001 (kani-bounded-model-check), WP-CRYPTO-MIXED-AEAD-001:BR-CRYPTO-MIXED-002 (kani-bou
+   state: $.clusters[0].degradation.ceiling = per-instantiation
+   state: $.clusters[0].findings[0].condition = generic_callees_type_universal_or_creusot_owned
+   state: $.clusters[0].scope.expected_obligations.state = unpinned
+gate-g14 exit 0
+### EXIT: 0  ELAPSED: 206.7s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz extract-c-static --target x86_64-unknown-linux-gnu; python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/csum.py ci/results/c_static/crates_crypto-mixed-core.json | head -1
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/ws/crypto-mixed
+### START: 2026-10-20T17:01:46-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json: 16 discovered, 12 resolved, 4 unresolved (discovered-lower-bound)
+coverage {"discovered": 16, "resolved": 12, "unresolved": 4} config_scope {"target": "x86_64-unknown-linux-gnu", "features": [], "cfg": []} unattributed_call_sites: 217 attribution_scope keys: ['local_concepts', 'macro_invocations', 'out_of_scope_call_sites', 'scanned_item_kinds', 'unattributed_call_sites']
+### EXIT: 0  ELAPSED: 7.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 1800 python3 -I tools/ligature/ligature.pyz gate-g14 --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/g14-fresh.json; rc=$?; python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/jsum.py /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/g14-fresh.json CG3 degrad unresolved all-discovered G17; echo gate-g14 exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/ws/crypto-mixed
+### START: 2026-10-20T17:01:53-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+bytes: 35632 | top keys: ['clusters', 'exit_code', 'format', 'workspace_findings']
+exit_code = 1
+  [G14/error] $.clusters[0].findings[0]: WP-CRYPTO-MIXED-AEAD-001 requires all discovered call sites resolved, but the C_static observation reports 4 unresolved (chainlink #24; note this is stricter than the cluster's at-or-above-medium condition)
+  [G14/error] $.clusters[0].findings[1]: WP-CRYPTO-MIXED-AEAD-001 requires all discovered call sites resolved, but the C_static observation reports 4 unresolved (chainlink #24; note this is stricter than the cluster's at-or-above-medium condition)
+  [G17/error] $.clusters[0].findings[2]: conditions.unresolved_indirect_calls_at_or_above_medium is declared as 0 but the computed closure says 4 -- conditions are recomputed, never stored-and-trusted
+  [G14/error] $.clusters[0].findings[3]: 4 unresolved call site(s) at or above medium risk (chainlink #24's own count, read from gate_r1_g16 rather than recomputed)
+  [G14/degraded] $.clusters[0].findings[4]: generic_callees_type_universal_or_creusot_owned is declared as true, but this workspace's artifacts cannot verify it: the workspace's own achieved records include ['kani-bounded-model-check'] results at WP-CRYPTO-MIXED-AEAD-001:BR-CRYPTO-MIXED-001 (kani-bounded-model-check), WP-CRYPTO-MIXED-AEAD-001:BR-CRYPTO-MIXED-002 (kani-bou
+   state: $.clusters[0].degradation.ceiling = per-instantiation
+   state: $.clusters[0].findings[0].condition = None
+   state: $.clusters[0].findings[1].condition = None
+   state: $.clusters[0].findings[2].condition = None
+   state: $.clusters[0].findings[3].condition = unresolved_indirect_calls_at_or_above_medium
+   state: $.clusters[0].findings[4].condition = generic_callees_type_universal_or_creusot_owned
+   state: $.clusters[0].scope.expected_obligations.state = unpinned
+gate-g14 exit 1
+### EXIT: 0  ELAPSED: 224.4s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 1800 python3 -I tools/ligature/ligature.pyz check --issue 134 --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/check.json; rc=$?; python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/jsum.py /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/check.json 'absent from I'; echo check exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/ws/crypto-mixed
+### START: 2026-10-20T17:05:37-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+bytes: 17921 | top keys: ['change_request_stubs', 'findings', 'gates', 'mutated_workspace', 'next_action', 'result', 'schema_version']
+result = {"conditions": ["blocking_findings", "human_decision_required"], "exit_code": 1}
+  [/high] $.findings[4]: project descriptor retains shipped example-fixture value(s): replace or explicitly accept unchanged value(s): port_source.language; use `ligature accept-fixture-value --path <field> --reviewer <name>` to record a hash-bound human decision before running any stage (chainlink #67/#145)
+  [/high] $.findings[5]: WP-CRYPTO-MIXED-AEAD-001 requires all discovered call sites resolved, but the C_static observation reports 4 unresolved (chainlink #24; note this is stricter than the cluster's at-or-above-medium condition)
+  [/high] $.findings[6]: WP-CRYPTO-MIXED-AEAD-001 requires all discovered call sites resolved, but the C_static observation reports 4 unresolved (chainlink #24; note this is stricter than the cluster's at-or-above-medium condition)
+  [/medium] $.findings[7]: [generic_callees_type_universal_or_creusot_owned] generic_callees_type_universal_or_creusot_owned is declared as true, but this workspace's artifacts cannot verify it: the workspace's own achieved records include ['kani-bounded-model-check'] results at WP-CRYPTO-MIXED-AEAD-001:BR-CRYPTO-MIXED-001 (kani-bounded-model-check), WP-C
+  [/high] $.findings[8]: conditions.unresolved_indirect_calls_at_or_above_medium is declared as 0 but the computed closure says 4 -- conditions are recomputed, never stored-and-trusted
+  [/high] $.findings[9]: [unresolved_indirect_calls_at_or_above_medium] 4 unresolved call site(s) at or above medium risk (chainlink #24's own count, read from gate_r1_g16 rather than recomputed)
+  [/medium] $.findings[10]: specs/_closure/crypto-kani.json has sanctioned approval provenance but no current ratified human ruling for its exact content hash: specs/_closure/crypto-kani.json: no human ruling recorded for this artifact -- record one with `record-ruling --reviewer <name> --verdict ratified --artifact specs/_closure/crypto-kani.json`; an aut
+  [/medium] $.findings[11]: CS-POLY1305-UPDATE-001 (possible-dispatch): possible dispatch on method 'update' matches no intended edge in I -- risk tier medium (extractor-default) -> decide
+  [/high] $.findings[18]: CS-CHACHA20POLY1305-DECRYPT-002: realized call ChaCha20Poly1305.decrypt -> ChaCha20.with_counter is absent from I -- a definite direct call across concepts must be a declared interaction (its eligibility cannot even be computed while it has no edge_class)
+  [/medium] $.findings[19]: CS-CHACHA20POLY1305-DECRYPT-003 (possible-dispatch): call site is unresolved and can never count toward coverage -- risk tier medium (extractor-default) -> decide
+  [/medium] $.findings[20]: CS-CHACHA20POLY1305-ENCRYPT-003 (possible-dispatch): call site is unresolved and can never count toward coverage -- risk tier medium (extractor-default) -> decide
+  [/high] $.findings[23]: CS-CHACHA20POLY1305-ENCRYPT-002: realized call ChaCha20Poly1305.encrypt -> ChaCha20.with_counter is absent from I -- a definite direct call across concepts must be a declared interaction (its eligibility cannot even be computed while it has no edge_class)
+  [/medium] $.findings[26]: CS-CHACHA20POLY1305-ENCRYPT-004 (possible-dispatch): call site is unresolved and can never count toward coverage -- risk tier medium (extractor-default) -> decide
+  [/medium] $.findings[28]: CS-POLY1305-UPDATE-001 (possible-dispatch): call site is unresolved and can never count toward coverage -- risk tier medium (extractor-default) -> decide
+  [/high] $.findings[30]: CS-POLY1305-SET-KEY-001: realized call Poly1305.set_key -> Poly1305State.new is absent from I -- a definite direct call across concepts must be a declared interaction (its eligibility cannot even be computed while it has no edge_class)
+  [/medium] $.findings[32]: CS-CHACHA20POLY1305-ENCRYPT-003 (possible-dispatch): possible dispatch on method 'bytes_remaining' matches no intended edge in I -- risk tier medium (extractor-default) -> decide
+  [/high] $.findings[34]: outside every allowed_roots pattern and not accounted for by the ownership manifest, a declared user-owned document, a pipeline artifact, a declared crate's specs/ tree, or a canonical pipeline location
+  [/high] $.findings[35]: outside every allowed_roots pattern and not accounted for by the ownership manifest, a declared user-owned document, a pipeline artifact, a declared crate's specs/ tree, or a canonical pipeline location
+check exit 1
+### EXIT: 0  ELAPSED: 434.6s
+
+### extra: does 1.4.2 (baseline) still accept the stale 2cbbccd report?
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 1800 python3 -I tools/ligature/ligature.pyz gate-r1-g16 --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/r1-stale-142.json; rc=$?; python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/jsum.py /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/r1-stale-142.json stale source binding; echo gate-r1-g16 exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/ws/crypto-mixed
+### START: 2026-10-20T17:12:52-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+bytes: 1333 | top keys: ['exit_code', 'findings', 'format', 'gate_acceptance', 'reports', 'summary']
+exit_code = 1
+gate_acceptance = "blocked"
+summary = {"counts": {"checked": 0, "configuration_mismatches": 0, "discovered": 0, "reports": 0, "undeclared_blocking": 0, "undeclared_warnings": 0, "unresolved": 0}, "discovery_completeness": "syntactic-lower-bound", "interaction_reconciliation": "not-evaluated", "source_resolution": "not-evaluated"}
+  [G1b/error] $.findings[0]: legacy C_static report has no source binding, so freshness cannot be established; run `ligature extract-c-static --target x86_64-unknown-linux-gnu`
+  [G16/error] $.findings[1]: no C_static report was reconciled -- the report directory holds nothing valid to check (an empty reconciliation is not a pass); run `ligature extract-c-static --target <target-triple>`, and check validate-callsites for reports rejected by G1a/G1b
+gate-r1-g16 exit 1
+### EXIT: 0  ELAPSED: 9.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 1800 python3 -I tools/ligature/ligature.pyz gate-g14 --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/g14-stale-142.json; rc=$?; python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/jsum.py /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/g14-stale-142.json stale source binding CG3 degrad; echo gate-g14 exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/ws/crypto-mixed
+### START: 2026-10-20T17:13:01-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+[ligature] Kani cargo-kani 0.67.0: revalidating ChaCha20.C002 with harness 'kani_chacha20_c002_exact_length_65_boundary'
+[ligature] Kani cargo-kani 0.67.0: revalidating ChaCha20.C003 with harness 'kani_chacha20_c003_aead_counter_one_stream_capacity'
+[ligature] Kani cargo-kani 0.67.0: revalidating ChaCha20.C004 with harness 'kani_chacha20_c004_with_counter_stream_capacity'
+[ligature] Kani cargo-kani 0.67.0: revalidating ChaCha20.C005 with harness 'kani_chacha20_c005_bytes_remaining_tracks_consumption'
+[ligature] Kani cargo-kani 0.67.0: revalidating Poly1305.C002 with harness 'kani_poly1305_finalize_tag_length'
+[ligature] Kani cargo-kani 0.67.0: revalidating Poly1305.C005 with harness 'kani_poly1305_c005_segments_match_concatenation'
+bytes: 64421 | top keys: ['clusters', 'exit_code', 'format', 'workspace_findings']
+exit_code = 1
+  [G14/error] $.clusters[0].findings[0]: WP-CRYPTO-MIXED-AEAD-001 requires all discovered call sites resolved, but no C_static observation exists to check that against -- run `ligature extract-c-static --target <target-triple>`; an unobserved call graph is not a resolved one
+  [G14/error] $.clusters[0].findings[1]: WP-CRYPTO-MIXED-AEAD-001 requires all discovered call sites resolved, but no C_static observation exists to check that against -- run `ligature extract-c-static --target <target-triple>`; an unobserved call graph is not a resolved one
+  [G14/error] $.clusters[0].findings[2]: WP-CRYPTO-MIXED-AEAD-001 requires all discovered call sites resolved, but no C_static observation exists to check that against -- run `ligature extract-c-static --target <target-triple>`; an unobserved call graph is not a resolved one
+  [G14/error] $.clusters[0].findings[3]: no C_static observation exists, so unresolved_indirect_calls_at_or_above_medium could not be read from the R1/G16 gate -- run `ligature extract-c-static --target <target-triple>`
+  [G14/degraded] $.clusters[0].findings[4]: generic_callees_type_universal_or_creusot_owned is declared as true, but this workspace's artifacts cannot verify it: the workspace's own achieved records include ['kani-bounded-model-check'] results at WP-CRYPTO-MIXED-AEAD-001:BR-CRYPTO-MIXED-001 (kani-bounded-model-check), WP-CRYPTO-MIXED-AEAD-001:BR-CRYPTO-MIXED-002 (kani-bou
+  [G14/error] $.workspace_findings[0]: C_static report is not safe to consume: legacy C_static report has no source binding, so freshness cannot be established; run `ligature extract-c-static --target x86_64-unknown-linux-gnu`
+   state: $.clusters[0].degradation.ceiling = per-instantiation
+   state: $.clusters[0].findings[0].condition = None
+   state: $.clusters[0].findings[1].condition = None
+   state: $.clusters[0].findings[2].condition = None
+   state: $.clusters[0].findings[3].condition = None
+   state: $.clusters[0].findings[4].condition = generic_callees_type_universal_or_creusot_owned
+   state: $.clusters[0].scope.expected_obligations.state = unpinned
+gate-g14 exit 1
+### EXIT: 0  ELAPSED: 291.3s
+

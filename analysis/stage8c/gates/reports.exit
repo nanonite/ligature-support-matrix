@@ -1,0 +1,5 @@
+report pilot-cluster exit=1
+report feature-ledger exit=0
+report contact-sheet exit=0
+report gold-set-measurement exit=1
+select-pilot-cluster exit=1

@@ -1,0 +1,288 @@
+### state: 2f2152d (1.4.1) + untracked ci/harness/BR-CRYPTO-MIXED-00{1,2}.kani.rs (bytes from f4ca347)
+## step 1: as copied
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz write-set-check --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/wsc.json; rc=$?; python3 -c "import json;w=json.load(open('/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/wsc.json'))['write_set'];print('state',w['state'],'| violations:',json.dumps(w['violations'])[:600])"; echo write-set-check exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/ws/crypto-mixed
+### START: 2026-10-20T17:25:47-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+state violations | violations: [{"kind": "out-of-set", "path": "ci/harness/BR-CRYPTO-MIXED-001.kani.rs", "reason": "outside every allowed_roots pattern and not accounted for by the ownership manifest, a declared user-owned document, a pipeline artifact, a declared crate's specs/ tree, or a canonical pipeline location"}, {"kind": "out-of-set", "path": "ci/harness/BR-CRYPTO-MIXED-002.kani.rs", "reason": "outside every allowed_roots pattern and not accounted for by the ownership manifest, a declared user-owned document, a pipeline artifact, a declared crate's specs/ tree, or a canonical pipeline location"}]
+write-set-check exit 1
+### EXIT: 0  ELAPSED: 7.4s
+
+## step 2: harness removed
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz write-set-check --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/wsc.json; rc=$?; python3 -c "import json;w=json.load(open('/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/wsc.json'))['write_set'];print('state',w['state'],'| violations:',json.dumps(w['violations'])[:600])"; echo write-set-check exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/ws/crypto-mixed
+### START: 2026-10-20T17:25:54-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+state clean | violations: []
+write-set-check exit 0
+### EXIT: 0  ELAPSED: 6.9s
+
+## step 3: gate-g9 without harness
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz gate-g9; echo gate-g9 exit $?
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/ws/crypto-mixed
+### START: 2026-10-20T17:26:01-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+FAIL: 2 finding(s)
+  - [G9/error] BR-CRYPTO-MIXED-001: no generated harness at ci/harness/BR-CRYPTO-MIXED-001.kani.rs -- run `pipeline.py check-bridges`
+  - [G9/error] BR-CRYPTO-MIXED-002: no generated harness at ci/harness/BR-CRYPTO-MIXED-002.kani.rs -- run `pipeline.py check-bridges`
+gate-g9 exit 1
+### EXIT: 0  ELAPSED: 6.7s
+
+## step 4: check-bridges
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 1800 python3 -I tools/ligature/ligature.pyz check-bridges; echo check-bridges exit $?; git status --short; for n in 001 002; do cmp ci/harness/BR-CRYPTO-MIXED-$n.kani.rs <(git show f4ca347:ci/harness/BR-CRYPTO-MIXED-$n.kani.rs) && echo BR-$n identical to f4ca347; done
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/ws/crypto-mixed
+### START: 2026-10-20T17:26:08-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/ws/crypto-mixed/ci/harness/BR-CRYPTO-MIXED-001.kani.rs
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/ws/crypto-mixed/ci/results/bridge_checks/BR-CRYPTO-MIXED-001.json
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/ws/crypto-mixed/ci/harness/BR-CRYPTO-MIXED-002.kani.rs
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/ws/crypto-mixed/ci/results/bridge_checks/BR-CRYPTO-MIXED-002.json
+OK: 4 artifact(s) written; every promoted bridge compiled and was dispatched
+check-bridges exit 0
+ M ci/results/bridge_checks/BR-CRYPTO-MIXED-001.json
+ M ci/results/bridge_checks/BR-CRYPTO-MIXED-002.json
+?? ci/harness/
+BR-001 identical to f4ca347
+BR-002 identical to f4ca347
+### EXIT: 0  ELAPSED: 42.0s
+
+## step 5: write-set-check after check-bridges
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz write-set-check --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/wsc.json; rc=$?; python3 -c "import json;w=json.load(open('/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/wsc.json'))['write_set'];print('state',w['state'],'| violations:',json.dumps(w['violations'])[:600])"; echo write-set-check exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/ws/crypto-mixed
+### START: 2026-10-20T17:26:50-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+state violations | violations: [{"kind": "out-of-set", "path": "ci/harness/BR-CRYPTO-MIXED-001.kani.rs", "reason": "outside every allowed_roots pattern and not accounted for by the ownership manifest, a declared user-owned document, a pipeline artifact, a declared crate's specs/ tree, or a canonical pipeline location"}, {"kind": "out-of-set", "path": "ci/harness/BR-CRYPTO-MIXED-002.kani.rs", "reason": "outside every allowed_roots pattern and not accounted for by the ownership manifest, a declared user-owned document, a pipeline artifact, a declared crate's specs/ tree, or a canonical pipeline location"}]
+write-set-check exit 1
+### EXIT: 0  ELAPSED: 7.1s
+
+## step 6: gate-g9 after check-bridges
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz gate-g9; echo gate-g9 exit $?
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/ws/crypto-mixed
+### START: 2026-10-20T17:26:57-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+OK: all bridges pass G9 (compiled, dispatched, and checked) (2 discovered)
+gate-g9 exit 0
+### EXIT: 0  ELAPSED: 6.6s
+
+## step 7: commit ci/harness in the scratch git
+### CMD: git add ci/harness && git -c user.name=replay -c user.email=replay@invalid commit -q -m 'scratch: track harness' && git log --oneline -1
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/ws/crypto-mixed
+### START: 2026-10-20T17:27:04-05:00
+060c48b scratch: track harness
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz write-set-check --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/wsc.json; rc=$?; python3 -c "import json;w=json.load(open('/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/wsc.json'))['write_set'];print('state',w['state'],'| violations:',json.dumps(w['violations'])[:600])"; echo write-set-check exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/ws/crypto-mixed
+### START: 2026-10-20T17:27:04-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+state violations | violations: [{"kind": "out-of-set", "path": "ci/harness/BR-CRYPTO-MIXED-001.kani.rs", "reason": "outside every allowed_roots pattern and not accounted for by the ownership manifest, a declared user-owned document, a pipeline artifact, a declared crate's specs/ tree, or a canonical pipeline location"}, {"kind": "out-of-set", "path": "ci/harness/BR-CRYPTO-MIXED-002.kani.rs", "reason": "outside every allowed_roots pattern and not accounted for by the ownership manifest, a declared user-owned document, a pipeline artifact, a declared crate's specs/ tree, or a canonical pipeline location"}]
+write-set-check exit 1
+### EXIT: 0  ELAPSED: 6.6s
+
+## step 8: same write-set-check with the 1.4.0 bundle (from 13e6021)
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): python3 -I tools/ligature/ligature.pyz version | head -1; timeout 600 python3 -I tools/ligature/ligature.pyz write-set-check --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/wsc.json; rc=$?; python3 -c "import json;w=json.load(open('/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/wsc.json'))['write_set'];print('state',w['state'],'| violations:',json.dumps(w['violations'])[:600])"; echo write-set-check exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/ws/crypto-mixed
+### START: 2026-10-20T17:27:10-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+ligature 1.4.0
+state violations | violations: [{"kind": "out-of-set", "path": "ci/harness/BR-CRYPTO-MIXED-001.kani.rs", "reason": "outside every allowed_roots pattern and not accounted for by the ownership manifest, a declared user-owned document, a pipeline artifact, a declared crate's specs/ tree, or a canonical pipeline location"}, {"kind": "out-of-set", "path": "ci/harness/BR-CRYPTO-MIXED-002.kani.rs", "reason": "outside every allowed_roots pattern and not accounted for by the ownership manifest, a declared user-owned document, a pipeline artifact, a declared crate's specs/ tree, or a canonical pipeline location"}]
+write-set-check exit 1
+### EXIT: 0  ELAPSED: 7.1s
+
+## step 8: same write-set-check with the 1.3.11 bundle (from 201745b)
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): python3 -I tools/ligature/ligature.pyz version | head -1; timeout 600 python3 -I tools/ligature/ligature.pyz write-set-check --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/wsc.json; rc=$?; python3 -c "import json;w=json.load(open('/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/wsc.json'))['write_set'];print('state',w['state'],'| violations:',json.dumps(w['violations'])[:600])"; echo write-set-check exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/ws/crypto-mixed
+### START: 2026-10-20T17:27:17-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+ligature 1.3.11
+state violations | violations: [{"kind": "out-of-set", "path": "ci/harness/BR-CRYPTO-MIXED-001.kani.rs", "reason": "outside every allowed_roots pattern and not accounted for by the ownership manifest, a declared user-owned document, a pipeline artifact, a declared crate's specs/ tree, or a canonical pipeline location"}, {"kind": "out-of-set", "path": "ci/harness/BR-CRYPTO-MIXED-002.kani.rs", "reason": "outside every allowed_roots pattern and not accounted for by the ownership manifest, a declared user-owned document, a pipeline artifact, a declared crate's specs/ tree, or a canonical pipeline location"}]
+write-set-check exit 1
+### EXIT: 0  ELAPSED: 7.2s
+
+## baseline 6a55894 (1.4.2, harness files tracked incl. BR-003)
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz write-set-check --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/wsc.json; rc=$?; python3 -c "import json;w=json.load(open('/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/wsc.json'))['write_set'];print('state',w['state'],'| violations:',json.dumps(w['violations'])[:600])"; echo write-set-check exit $rc; timeout 600 python3 -I tools/ligature/ligature.pyz gate-g9; echo gate-g9 exit $?
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007/ws/crypto-mixed
+### START: 2026-10-20T17:27:25-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+state clean | violations: []
+write-set-check exit 0
+OK: all bridges pass G9 (compiled, dispatched, and checked) (3 discovered)
+gate-g9 exit 0
+### EXIT: 0  ELAPSED: 7.6s
+
+########## SUPPLEMENT: violation count for step 1 (the summaries above were truncated at 600 chars)
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): python3 -I tools/ligature/ligature.pyz write-set-check --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007-count/w.json; echo exit $?; python3 -c "import json;w=json.load(open('/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007-count/w.json'))['write_set'];print('violations:',len(w['violations']),[v['path'] for v in w['violations']]);print(w['details'][:120])"
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-007-count/ws/crypto-mixed
+### START: 2026-10-20T20:42:58-05:00
+unpacking 'https://releases.nixos.org/nixos/26.05/nixos-26.05.4808.569d57850992/nixexprs.tar.xz' into the Git cache...
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+exit 1
+violations: 2 ['ci/harness/BR-CRYPTO-MIXED-001.kani.rs', 'ci/harness/BR-CRYPTO-MIXED-002.kani.rs']
+2 write-set violation(s): ci/harness/BR-CRYPTO-MIXED-001.kani.rs, ci/harness/BR-CRYPTO-MIXED-002.kani.rs (2 file(s) outs
+### EXIT: 0  ELAPSED: 13.2s
+

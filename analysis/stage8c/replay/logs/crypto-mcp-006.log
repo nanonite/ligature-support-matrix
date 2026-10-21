@@ -1,0 +1,51 @@
+### copy: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-006/ws/crypto-mixed (baseline 6a55894). Tilth MCP tools WERE available to this agent (mcp__tilth__tilth_search / mcp__tilth__tilth_read); the scope was given as an absolute path into the disposable copy instead of the workspace-relative "crypto-mixed/upstream/botan/...".
+### CALL: mcp__tilth__tilth_search(query="m_poly1305->update", kind="content", scope="/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-006/ws/crypto-mixed/upstream/botan/src/lib/modes/aead/chacha20poly1305")
+### OUTPUT (verbatim):
+# Search: "m_poly1305->update" in /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-006/ws/crypto-mixed/upstream/botan/src/lib/modes/aead/chacha20poly1305 — 7 matches
+
+## Usages — other (7)
+
+### chacha20poly1305.cpp:72,94,99,113,133,156,188 [7 usages in function Botan.ChaCha20Poly1305_Mode::update_len(uint64_t len)]
+→ [17-210]     mod Botan
+    [19-24]      fn <anonymous>
+               ChaCha20Poly1305_Mode::ChaCha20Poly1305_Mode()
+
+(~134 tokens)
+
+### CALL: mcp__tilth__tilth_read(path="/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-006/ws/crypto-mixed/upstream/botan/src/lib/modes/aead/chacha20poly1305/chacha20poly1305.cpp", section="110-157")
+### OUTPUT (decisive lines, verbatim):
+110  size_t ChaCha20Poly1305_Encryption::process_msg(uint8_t buf[], size_t sz) {
+111     BOTAN_STATE_CHECK(m_nonce_len > 0);
+112     m_chacha->cipher1(buf, sz);
+113     m_poly1305->update(buf, sz);  // poly1305 of ciphertext
+...
+123  }
+...
+154  size_t ChaCha20Poly1305_Decryption::process_msg(uint8_t buf[], size_t sz) {
+155     BOTAN_STATE_CHECK(m_nonce_len > 0);
+156     m_poly1305->update(buf, sz);  // poly1305 of ciphertext
+157     m_chacha->cipher1(buf, sz);
+
+### CROSS-CHECK: grep -n 'update_len\|::process_msg\|m_poly1305->update' <file>
+69:void ChaCha20Poly1305_Mode::update_len(uint64_t len) {
+72:   m_poly1305->update(len8, 8);
+94:   m_poly1305->update(m_ad);
+99:         m_poly1305->update(zeros, 16 - m_ad.size() % 16);
+102:      update_len(m_ad.size());
+110:size_t ChaCha20Poly1305_Encryption::process_msg(uint8_t buf[], size_t sz) {
+113:   m_poly1305->update(buf, sz);  // poly1305 of ciphertext
+133:         m_poly1305->update(zeros, padding);
+135:      update_len(m_ad.size());
+137:   update_len(m_ctext_len);
+154:size_t ChaCha20Poly1305_Decryption::process_msg(uint8_t buf[], size_t sz) {
+156:   m_poly1305->update(buf, sz);  // poly1305 of ciphertext
+188:         m_poly1305->update(zeros, padding);
+190:      update_len(m_ad.size());
+193:   update_len(m_ctext_len);
+### update_len body:
+void ChaCha20Poly1305_Mode::update_len(uint64_t len) {
+   uint8_t len8[8] = {0};
+   store_le(len, len8);
+   m_poly1305->update(len8, 8);
+}
+

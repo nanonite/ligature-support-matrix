@@ -1,0 +1,733 @@
+### copy: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-kani-005/ws/crypto-mixed (baseline 6a55894)
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): export CARGO_TARGET_DIR=/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/kani-target/crypto-kani-005; cargo kani --version; timeout 180 cargo kani --manifest-path crates/crypto-mixed-core/Cargo.toml --harness aead_round_trip_holds_for_one_symbolic_byte 2>&1 | while IFS= read -r l; do printf '[%s] %s\n' "$(date +%T)" "$l"; done; exit ${PIPESTATUS[0]}
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-kani-005/ws/crypto-mixed
+### START: 2026-10-20T16:30:02-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+cargo-kani 0.67.0
+[16:30:11] Kani Rust Verifier 0.67.0 (cargo plugin)
+[16:30:11]    Compiling crypto-mixed-core v0.1.0 (/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-kani-005/ws/crypto-mixed/crates/crypto-mixed-core)
+[16:30:12] warning: Found the following unsupported constructs:
+[16:30:12]              - caller_location (1)
+[16:30:12]              - foreign function (2)
+[16:30:12]          
+[16:30:12]          Verification will fail if one or more of these constructs is reachable.
+[16:30:12]          See https://model-checking.github.io/kani/rust-feature-support.html for more details.
+[16:30:12] 
+[16:30:12]     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.89s
+[16:30:15] Checking harness kani_proofs::aead_round_trip_holds_for_one_symbolic_byte...
+[16:30:15] CBMC 6.8.0 (cbmc-6.8.0)
+[16:30:15] CBMC version 6.8.0 (cbmc-6.8.0) 64-bit x86_64 linux
+[16:30:15] Reading GOTO program from file /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/kani-target/crypto-kani-005/kani/x86_64-unknown-linux-gnu/debug/deps/crypto_mixed_core-96fe4c488687b675__RNvNtCs5es5xvdSr8G_17crypto_mixed_core11kani_proofs43aead_round_trip_holds_for_one_symbolic_byte.out
+[16:30:15] Generating GOTO Program
+[16:30:15] Adding CPROVER library (x86_64)
+[16:30:15] Removal of function pointers and virtual functions
+[16:30:15] Generic Property Instrumentation
+[16:30:15] Running with 16 object bits, 48 offset bits (user-specified)
+[16:30:15] Starting Bounded Model Checking
+[16:30:15] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 1 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:15] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 2 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:15] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 3 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:15] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 4 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:15] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 5 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:15] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 6 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:15] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 7 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:15] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 8 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:15] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 1 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:30:15] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 2 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:30:16] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 3 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:30:16] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 1 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:16] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 2 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:16] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 3 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:16] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 4 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:16] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 5 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:16] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 6 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:16] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 7 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 8 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 9 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 10 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 1 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 2 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 3 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 4 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 5 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 6 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 7 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 8 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 9 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 10 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 11 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 12 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 13 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 14 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 15 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 16 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvMNtCs5es5xvdSr8G_17crypto_mixed_core8chacha20NtB2_8ChaCha2015apply_keystream.0 iteration 1 file src/chacha20.rs line 75 column 13 function chacha20::ChaCha20::apply_keystream thread 0
+[16:30:17] Unwinding loop _RNvMNtCs5es5xvdSr8G_17crypto_mixed_core8chacha20NtB2_8ChaCha2015apply_keystream.1 iteration 1 file src/chacha20.rs line 64 column 9 function chacha20::ChaCha20::apply_keystream thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 1 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 2 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 3 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 4 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 5 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 6 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 7 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 8 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 1 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 2 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 3 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:30:17] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 1 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:18] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 2 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:18] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 3 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:18] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 4 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:18] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 5 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:18] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 6 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:18] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 7 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:18] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 8 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:18] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 9 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:18] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 10 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:18] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 1 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:19] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 2 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:19] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 3 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:19] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 4 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:19] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 5 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:19] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 6 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:19] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 7 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:19] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 8 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:19] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 9 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:19] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 10 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:19] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 11 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:19] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 12 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:19] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 13 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:19] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 14 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:19] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 15 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:19] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 16 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:19] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 1 file src/poly1305.rs line 83 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:30:19] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 2 file src/poly1305.rs line 83 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:30:19] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 3 file src/poly1305.rs line 83 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:30:19] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 4 file src/poly1305.rs line 83 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:30:19] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly13056absorb.0 iteration 1 file src/poly1305.rs line 131 column 9 function poly1305::Poly1305::absorb thread 0
+[16:30:19] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 5 file src/poly1305.rs line 83 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:30:20] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 1 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:20] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 2 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:20] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 3 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:20] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 4 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:20] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 5 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:20] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 6 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:20] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 7 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:20] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 8 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:20] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 1 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:30:20] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 2 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:30:20] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 3 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:30:20] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 1 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:20] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 2 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:20] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 3 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:21] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 4 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:21] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 5 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:21] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 6 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:21] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 7 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:21] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 8 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:21] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 9 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:21] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 10 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:21] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 1 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:21] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 2 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:21] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 3 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:21] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 4 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:21] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 5 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 6 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 7 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 8 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 9 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 10 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 11 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 12 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 13 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 14 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 15 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 16 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:22] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 1 file src/poly1305.rs line 83 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:30:22] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 2 file src/poly1305.rs line 83 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:30:22] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 3 file src/poly1305.rs line 83 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:30:22] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 4 file src/poly1305.rs line 83 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:30:22] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly13056absorb.0 iteration 1 file src/poly1305.rs line 131 column 9 function poly1305::Poly1305::absorb thread 0
+[16:30:22] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 5 file src/poly1305.rs line 83 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 1 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 2 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 3 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 4 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 5 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 6 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 7 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 8 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 9 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 10 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 11 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 12 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 13 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 14 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 15 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:22] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 16 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:23] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 1 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:23] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 2 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:23] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 3 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:23] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 4 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:23] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 5 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:23] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 6 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:23] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 7 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:23] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 8 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:23] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 1 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:30:23] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 2 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:30:23] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 3 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:30:23] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 1 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:23] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 2 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:24] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 3 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:24] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 4 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:24] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 5 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:24] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 6 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:24] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 7 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:25] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 8 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:25] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 9 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:25] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 10 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:25] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 1 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:25] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 2 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:25] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 3 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:25] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 4 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:25] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 5 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:25] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 6 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:25] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 7 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:25] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 8 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:25] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 9 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:25] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 10 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:25] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 11 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:25] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 12 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:25] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 13 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:25] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 14 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:25] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 15 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:25] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 16 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:25] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 1 file src/poly1305.rs line 83 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:30:26] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 2 file src/poly1305.rs line 83 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:30:26] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 3 file src/poly1305.rs line 83 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:30:26] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 4 file src/poly1305.rs line 83 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:30:26] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly13056absorb.0 iteration 1 file src/poly1305.rs line 131 column 9 function poly1305::Poly1305::absorb thread 0
+[16:30:26] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 5 file src/poly1305.rs line 83 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 1 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 2 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 3 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 4 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 5 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 6 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 7 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 8 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 9 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 10 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 11 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 12 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 13 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 14 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 15 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 16 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 1 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 2 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 3 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 4 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 5 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 6 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 7 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 8 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 1 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:30:26] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 2 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:30:27] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 3 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:30:27] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 1 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:27] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 2 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:27] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 3 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:28] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 4 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:28] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 5 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:28] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 6 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:28] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 7 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:29] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 8 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:29] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 9 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:29] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 10 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:30:29] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 1 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:29] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 2 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:29] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 3 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:29] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 4 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:29] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 5 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:29] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 6 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:29] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 7 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:29] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 8 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:29] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 9 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:29] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 10 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:29] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 11 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:29] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 12 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:29] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 13 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:29] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 14 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:29] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 15 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:29] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 16 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:30:29] Unwinding loop _RNvMNtCs5es5xvdSr8G_17crypto_mixed_core8chacha20NtB2_8ChaCha2015apply_keystream.0 iteration 1 file src/chacha20.rs line 75 column 13 function chacha20::ChaCha20::apply_keystream thread 0
+[16:30:29] Unwinding loop _RNvMNtCs5es5xvdSr8G_17crypto_mixed_core8chacha20NtB2_8ChaCha2015apply_keystream.1 iteration 1 file src/chacha20.rs line 64 column 9 function chacha20::ChaCha20::apply_keystream thread 0
+[16:30:29] aborting path on assume(false) at file /home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs line 1231 column 15 function std::result::Result::<std::vec::Vec<u8>, error::CryptoError>::unwrap thread 0
+[16:30:29] aborting path on assume(false) at file /home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs line 1867 column 5 function std::result::unwrap_failed thread 0
+[16:30:29] aborting path on assume(false) at file /home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs line 1233 column 23 function std::result::Result::<std::vec::Vec<u8>, error::CryptoError>::unwrap thread 0
+[16:30:29] aborting path on assume(false) at file /home/runner/work/kani/kani/library/kani_core/src/models.rs line 23 column 13 function kani::rustc_intrinsics::size_of_val_raw::<[u8]> thread 0
+[16:30:29] aborting path on assume(false) at file /home/runner/work/kani/kani/library/kani/src/lib.rs line 57 column 1 function kani::rustc_intrinsics::size_of_val_raw::<[u8]> thread 0
+[16:30:29] Unwinding loop memcmp.0 iteration 1 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:29] Unwinding loop memcmp.0 iteration 2 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:29] Unwinding loop memcmp.0 iteration 3 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:29] Unwinding loop memcmp.0 iteration 4 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:29] Unwinding loop memcmp.0 iteration 5 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:29] Unwinding loop memcmp.0 iteration 6 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:29] Unwinding loop memcmp.0 iteration 7 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:29] Unwinding loop memcmp.0 iteration 8 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:29] Unwinding loop memcmp.0 iteration 9 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:29] Unwinding loop memcmp.0 iteration 10 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:29] Unwinding loop memcmp.0 iteration 11 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:29] Unwinding loop memcmp.0 iteration 12 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:29] Unwinding loop memcmp.0 iteration 13 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:29] Unwinding loop memcmp.0 iteration 14 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:29] Unwinding loop memcmp.0 iteration 15 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:29] Unwinding loop memcmp.0 iteration 16 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 17 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 18 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 19 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 20 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 21 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 22 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 23 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 24 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 25 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 26 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 27 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 28 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 29 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 30 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 31 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 32 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 33 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 34 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 35 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 36 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 37 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 38 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 39 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 40 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 41 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 42 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 43 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 44 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 45 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 46 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 47 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 48 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 49 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 50 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 51 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 52 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 53 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 54 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 55 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 56 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 57 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 58 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 59 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 60 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 61 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 62 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Unwinding loop memcmp.0 iteration 63 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] Not unwinding loop memcmp.0 iteration 64 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:30:30] aborting path on assume(false) at file /home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs line 830 column 5 function alloc::raw_vec::RawVecInner::deallocate thread 0
+[16:30:30] Runtime Symex: 14.7278s
+[16:30:30] size of program expression: 444641 steps
+[16:30:30] slicing removed 257410 assignments
+[16:30:30] Generated 128991 VCC(s), 19477 remaining after simplification
+[16:30:30] Runtime Postprocess Equation: 0.405589s
+[16:30:33] Passing problem to propositional reduction
+[16:30:33] converting SSA
+[16:30:33] Runtime Convert SSA: 2.3033s
+[16:30:33] Running propositional reduction
+[16:30:33] Post-processing
+[16:30:33] Runtime Post-process: 0.106574s
+[16:30:43] Solving with CaDiCaL 2.0.0
+[16:30:43] 1714903 variables, 4681857 clauses
+[16:30:43] SAT checker: instance is SATISFIABLE
+[16:30:43] Runtime Solver: 10.1725s
+### EXIT: 124  ELAPSED: 189.7s
+
+### lingering cbmc/kani procs after timeout:
+none
+### DONE crypto-kani-005
+### HISTORICAL copy: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-kani-005-hist/ws/crypto-mixed at e0bd451
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): export CARGO_TARGET_DIR=/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/kani-target/crypto-kani-005-hist; timeout 180 cargo kani --manifest-path crates/crypto-mixed-core/Cargo.toml --harness aead_round_trip_holds_for_one_symbolic_byte 2>&1 | while IFS= read -r l; do printf '[%s] %s\n' "$(date +%T)" "$l"; done; exit ${PIPESTATUS[0]}
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-kani-005-hist/ws/crypto-mixed
+### START: 2026-10-20T16:36:23-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+[16:36:31] Kani Rust Verifier 0.67.0 (cargo plugin)
+[16:36:31]    Compiling crypto-mixed-core v0.1.0 (/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-kani-005-hist/ws/crypto-mixed/crates/crypto-mixed-core)
+[16:36:32] warning: Found the following unsupported constructs:
+[16:36:32]              - caller_location (1)
+[16:36:32]              - foreign function (2)
+[16:36:32]          
+[16:36:32]          Verification will fail if one or more of these constructs is reachable.
+[16:36:32]          See https://model-checking.github.io/kani/rust-feature-support.html for more details.
+[16:36:32] 
+[16:36:32]     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.88s
+[16:36:35] Checking harness kani_proofs::aead_round_trip_holds_for_one_symbolic_byte...
+[16:36:35] CBMC 6.8.0 (cbmc-6.8.0)
+[16:36:35] CBMC version 6.8.0 (cbmc-6.8.0) 64-bit x86_64 linux
+[16:36:35] Reading GOTO program from file /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/kani-target/crypto-kani-005-hist/kani/x86_64-unknown-linux-gnu/debug/deps/crypto_mixed_core-96fe4c488687b675__RNvNtCs5es5xvdSr8G_17crypto_mixed_core11kani_proofs43aead_round_trip_holds_for_one_symbolic_byte.out
+[16:36:35] Generating GOTO Program
+[16:36:35] Adding CPROVER library (x86_64)
+[16:36:35] Removal of function pointers and virtual functions
+[16:36:35] Generic Property Instrumentation
+[16:36:36] Running with 16 object bits, 48 offset bits (user-specified)
+[16:36:36] Starting Bounded Model Checking
+[16:36:36] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 1 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:36] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 2 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:36] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 3 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:36] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 4 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:36] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 5 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:36] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 6 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:36] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 7 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:36] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 8 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:36] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 1 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:36:36] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 2 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:36:36] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 3 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:36:36] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 1 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:36] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 2 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:36] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 3 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:37] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 4 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:37] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 5 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:37] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 6 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:37] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 7 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:37] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 8 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:37] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 9 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:37] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 10 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:37] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 1 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 2 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 3 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 4 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 5 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 6 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 7 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 8 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 9 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 10 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 11 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 12 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 13 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 14 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 15 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 16 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvMNtCs5es5xvdSr8G_17crypto_mixed_core8chacha20NtB2_8ChaCha2015apply_keystream.0 iteration 1 file src/chacha20.rs line 75 column 13 function chacha20::ChaCha20::apply_keystream thread 0
+[16:36:38] Unwinding loop _RNvMNtCs5es5xvdSr8G_17crypto_mixed_core8chacha20NtB2_8ChaCha2015apply_keystream.1 iteration 1 file src/chacha20.rs line 64 column 9 function chacha20::ChaCha20::apply_keystream thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 1 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 2 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 3 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 4 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 5 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 6 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 7 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 8 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 1 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 2 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:36:38] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 3 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:36:39] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 1 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:39] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 2 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:39] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 3 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:39] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 4 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:39] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 5 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:40] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 6 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:40] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 7 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:40] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 8 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:40] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 9 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:40] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 10 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:40] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 1 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:40] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 2 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:40] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 3 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:40] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 4 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:40] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 5 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:40] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 6 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:40] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 7 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:40] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 8 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:40] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 9 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:40] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 10 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:40] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 11 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:40] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 12 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:40] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 13 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:40] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 14 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:41] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 15 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:41] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 16 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:41] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 1 file src/poly1305.rs line 69 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:36:41] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 2 file src/poly1305.rs line 69 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:36:41] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 3 file src/poly1305.rs line 69 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:36:41] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 4 file src/poly1305.rs line 69 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:36:42] Unwinding loop _RNvMs0_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB5_13Poly1305State6update.0 iteration 1 file src/poly1305.rs line 123 column 9 function poly1305::Poly1305State::update thread 0
+[16:36:42] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 5 file src/poly1305.rs line 69 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:36:42] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 1 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:42] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 2 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:42] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 3 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:42] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 4 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:42] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 5 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:42] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 6 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:42] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 7 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:42] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 8 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:42] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 1 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:36:42] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 2 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:36:42] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 3 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:36:43] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 1 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:43] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 2 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:43] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 3 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:43] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 4 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:43] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 5 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:44] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 6 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:44] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 7 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:44] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 8 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:44] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 9 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:44] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 10 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:44] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 1 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:45] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 2 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:45] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 3 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:45] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 4 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:45] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 5 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:45] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 6 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:45] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 7 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:45] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 8 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:45] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 9 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:45] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 10 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:45] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 11 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:45] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 12 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:45] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 13 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:45] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 14 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:45] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 15 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:45] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 16 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:45] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 1 file src/poly1305.rs line 69 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:36:46] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 2 file src/poly1305.rs line 69 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:36:46] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 3 file src/poly1305.rs line 69 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:36:46] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 4 file src/poly1305.rs line 69 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:36:46] Unwinding loop _RNvMs0_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB5_13Poly1305State6update.0 iteration 1 file src/poly1305.rs line 123 column 9 function poly1305::Poly1305State::update thread 0
+[16:36:46] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 5 file src/poly1305.rs line 69 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 1 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 2 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 3 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 4 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 5 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 6 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 7 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 8 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 9 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 10 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 11 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 12 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 13 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 14 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 15 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 16 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 1 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 2 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 3 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 4 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 5 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 6 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 7 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 8 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:46] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 1 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:36:47] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 2 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:36:47] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 3 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:36:47] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 1 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:47] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 2 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:48] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 3 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:48] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 4 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:48] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 5 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:48] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 6 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:49] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 7 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:49] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 8 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:49] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 9 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:49] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 10 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:49] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 1 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:49] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 2 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:49] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 3 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:49] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 4 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:49] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 5 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:49] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 6 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:49] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 7 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:49] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 8 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:49] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 9 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:49] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 10 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:49] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 11 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:49] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 12 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:49] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 13 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:49] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 14 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:49] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 15 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 16 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:50] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 1 file src/poly1305.rs line 69 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:36:50] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 2 file src/poly1305.rs line 69 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:36:50] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 3 file src/poly1305.rs line 69 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:36:50] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 4 file src/poly1305.rs line 69 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:36:50] Unwinding loop _RNvMs0_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB5_13Poly1305State6update.0 iteration 1 file src/poly1305.rs line 123 column 9 function poly1305::Poly1305State::update thread 0
+[16:36:50] Unwinding loop _RNvMs_NtCs5es5xvdSr8G_17crypto_mixed_core8poly1305NtB4_8Poly130520compute_tag_segments.0 iteration 5 file src/poly1305.rs line 69 column 9 function poly1305::Poly1305::compute_tag_segments thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 1 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 2 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 3 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 4 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 5 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 6 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 7 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 8 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 9 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 10 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 11 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 12 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 13 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 14 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 15 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core4aead10tags_equal.0 iteration 16 file src/aead.rs line 129 column 5 function aead::tags_equal thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 1 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 2 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 3 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 4 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 5 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:50] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 6 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:51] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 7 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:51] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.0 iteration 8 file src/chacha20.rs line 118 column 5 function chacha20::chacha20_block thread 0
+[16:36:51] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 1 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:36:51] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 2 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:36:51] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.1 iteration 3 file src/chacha20.rs line 122 column 5 function chacha20::chacha20_block thread 0
+[16:36:51] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 1 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:52] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 2 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:52] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 3 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:52] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 4 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:52] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 5 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:53] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 6 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:53] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 7 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:53] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 8 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:53] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 9 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:53] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.2 iteration 10 file src/chacha20.rs line 127 column 5 function chacha20::chacha20_block thread 0
+[16:36:53] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 1 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:53] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 2 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:53] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 3 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:53] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 4 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:53] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 5 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:53] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 6 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:54] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 7 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:54] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 8 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:54] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 9 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:54] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 10 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:54] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 11 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:54] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 12 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:54] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 13 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:54] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 14 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:54] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 15 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:54] Unwinding loop _RNvNtCs5es5xvdSr8G_17crypto_mixed_core8chacha2014chacha20_block.3 iteration 16 file src/chacha20.rs line 139 column 5 function chacha20::chacha20_block thread 0
+[16:36:54] Unwinding loop _RNvMNtCs5es5xvdSr8G_17crypto_mixed_core8chacha20NtB2_8ChaCha2015apply_keystream.0 iteration 1 file src/chacha20.rs line 75 column 13 function chacha20::ChaCha20::apply_keystream thread 0
+[16:36:54] Unwinding loop _RNvMNtCs5es5xvdSr8G_17crypto_mixed_core8chacha20NtB2_8ChaCha2015apply_keystream.1 iteration 1 file src/chacha20.rs line 64 column 9 function chacha20::ChaCha20::apply_keystream thread 0
+[16:36:54] aborting path on assume(false) at file /home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs line 1231 column 15 function std::result::Result::<std::vec::Vec<u8>, error::CryptoError>::unwrap thread 0
+[16:36:54] aborting path on assume(false) at file /home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs line 1867 column 5 function std::result::unwrap_failed thread 0
+[16:36:54] aborting path on assume(false) at file /home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/result.rs line 1233 column 23 function std::result::Result::<std::vec::Vec<u8>, error::CryptoError>::unwrap thread 0
+[16:36:54] aborting path on assume(false) at file /home/runner/work/kani/kani/library/kani_core/src/models.rs line 23 column 13 function kani::rustc_intrinsics::size_of_val_raw::<[u8]> thread 0
+[16:36:54] aborting path on assume(false) at file /home/runner/work/kani/kani/library/kani/src/lib.rs line 57 column 1 function kani::rustc_intrinsics::size_of_val_raw::<[u8]> thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 1 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 2 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 3 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 4 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 5 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 6 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 7 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 8 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 9 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 10 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 11 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 12 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 13 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 14 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 15 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 16 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 17 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 18 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 19 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 20 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 21 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 22 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 23 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 24 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 25 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 26 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 27 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 28 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 29 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 30 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 31 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 32 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 33 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 34 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 35 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 36 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 37 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 38 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 39 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 40 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 41 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 42 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 43 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 44 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 45 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 46 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 47 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 48 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 49 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 50 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 51 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 52 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 53 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 54 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 55 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 56 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 57 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 58 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 59 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 60 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 61 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 62 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:54] Unwinding loop memcmp.0 iteration 63 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:55] Not unwinding loop memcmp.0 iteration 64 file <builtin-library-memcmp> line 25 function memcmp thread 0
+[16:36:55] aborting path on assume(false) at file /home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/raw_vec/mod.rs line 830 column 5 function alloc::raw_vec::RawVecInner::deallocate thread 0
+[16:36:55] Runtime Symex: 19.2103s
+[16:36:55] size of program expression: 444218 steps
+[16:36:55] slicing removed 257080 assignments
+[16:36:55] Generated 128703 VCC(s), 19477 remaining after simplification
+[16:36:55] Runtime Postprocess Equation: 0.450939s
+[16:36:58] Passing problem to propositional reduction
+[16:36:58] converting SSA
+[16:36:58] Runtime Convert SSA: 2.60525s
+[16:36:58] Running propositional reduction
+[16:36:58] Post-processing
+[16:36:58] Runtime Post-process: 0.118173s
+### EXIT: 124  ELAPSED: 189.0s
+
+### DONE crypto-kani-005 historical

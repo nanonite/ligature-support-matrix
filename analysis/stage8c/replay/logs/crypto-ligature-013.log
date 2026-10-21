@@ -1,0 +1,189 @@
+########## BASELINE 6a55894
+### CMD: python3 -c "import json,sys;d=json.load(open(\"project-descriptor.json\"));ws=d.get(\"write_set\") or {};print(\"descriptor write_set:\",json.dumps(ws)[:700])"; for m in ci/manifest/WP-CRYPTO-MIXED-AEAD-001.json ci/manifest/WP-CRYPTO-MIXED-PRIMITIVES-001.json; do python3 -c "import json,sys;d=json.load(open(sys.argv[1]));wp=d.get(\"write_policy\",{});print(sys.argv[1].split(\"/\")[-1],\"protected_write_set has oracle/**:\",\"oracle/**\" in json.dumps(wp.get(\"protected_write_set\")),\"| allowed_write_set has oracle/**:\",\"oracle/**\" in json.dumps(wp.get(\"allowed_write_set\")), \"| keys:\",sorted(wp.keys()))" $m; done
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/ws/crypto-mixed
+### START: 2026-10-20T16:34:37-05:00
+descriptor write_set: {"allowed_roots": ["crates/*/src/", "crates/*/tests/", "findings/limitations.jsonl", "PORT-GAPS.md", "oracle/**"], "protected_roots": ["crates/*/specs/**", "specs/_closure/**", "ci/manifest/**", "scripts/**", "docs/*-schema.json", "docs/reliance-policy.md", "Cargo.toml", "crates/*/Cargo.toml", "crates/crypto-mixed-core/Cargo.lock", "crates/*/build.rs", "tests/harnesses/**", ".github/**", "rust-toolchain.toml", "analysis/codesight/**", ".gitignore", ".envrc", ".mcp.json", "README.md", "analysis/upstream/**", "rust/**", "tools/**", "upstream/**"]}
+WP-CRYPTO-MIXED-AEAD-001.json protected_write_set has oracle/**: True | allowed_write_set has oracle/**: False | keys: ['allowed_write_set', 'on_conflict', 'protected_write_set']
+WP-CRYPTO-MIXED-PRIMITIVES-001.json protected_write_set has oracle/**: True | allowed_write_set has oracle/**: False | keys: ['allowed_write_set', 'on_conflict', 'protected_write_set']
+### EXIT: 0  ELAPSED: 0.1s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): for m in ci/manifest/WP-CRYPTO-MIXED-AEAD-001.json ci/manifest/WP-CRYPTO-MIXED-PRIMITIVES-001.json; do timeout 600 python3 -I tools/ligature/ligature.pyz validate-work-package $m --specs-search-root crates; echo "validate-work-package $m exit $?"; done
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/ws/crypto-mixed
+### START: 2026-10-20T16:34:38-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+INFO: 2 non-blocking finding(s)
+  - [10.1/info] ci/manifest/WP-CRYPTO-MIXED-AEAD-001.json: provenance.promotion_id 'PROM-CRYPTO-KANI-001' cannot be resolved against a real promotion receipt yet -- chainlink #15 (detached promotion receipt) is not implemented
+  - [10.1/info] ci/manifest/WP-CRYPTO-MIXED-AEAD-001.json: "every owned function's source path is covered by allowed_write_set" is not checked -- functions[] are Rust module paths with no schema-computable mapping to a file path without searching real crate source, which this workspace doesn't have
+OK: work package manifest passes G1a and §10.1 checks
+validate-work-package ci/manifest/WP-CRYPTO-MIXED-AEAD-001.json exit 0
+INFO: 2 non-blocking finding(s)
+  - [10.1/info] ci/manifest/WP-CRYPTO-MIXED-PRIMITIVES-001.json: provenance.promotion_id 'PROM-CRYPTO-KANI-001' cannot be resolved against a real promotion receipt yet -- chainlink #15 (detached promotion receipt) is not implemented
+  - [10.1/info] ci/manifest/WP-CRYPTO-MIXED-PRIMITIVES-001.json: "every owned function's source path is covered by allowed_write_set" is not checked -- functions[] are Rust module paths with no schema-computable mapping to a file path without searching real crate source, which this workspace doesn't have
+OK: work package manifest passes G1a and §10.1 checks
+validate-work-package ci/manifest/WP-CRYPTO-MIXED-PRIMITIVES-001.json exit 0
+### EXIT: 0  ELAPSED: 7.6s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz write-set-check --issue 48 --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/wsc-base.json; rc=$?; python3 -c "import json;d=json.load(open('/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/wsc-base.json'));print({k:(v if not isinstance(v,(list,dict)) else (len(v) if isinstance(v,list) else list(v)[:12])) for k,v in d.items()})"; echo write-set-check exit $rc; exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/ws/crypto-mixed
+### START: 2026-10-20T16:34:45-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+{'descriptor': ['path', 'state'], 'mutated_workspace': False, 'schema_version': '1.0', 'write_set': ['allowed_roots', 'authorized_writes', 'details', 'grants', 'protected_roots', 'protected_surface', 'protected_unvouched', 'state', 'violations']}
+write-set-check exit 0
+### EXIT: 0  ELAPSED: 7.1s
+
+########## STATE d401338: then simulate the Stage 8B oracle write (restore oracle/driver.cpp, make_cases.py from 93407d0 as new files)
+### CMD: python3 -c "import json,sys;d=json.load(open(\"project-descriptor.json\"));ws=d.get(\"write_set\") or {};print(\"descriptor write_set:\",json.dumps(ws)[:700])"; for m in ci/manifest/WP-CRYPTO-MIXED-AEAD-001.json ci/manifest/WP-CRYPTO-MIXED-PRIMITIVES-001.json; do python3 -c "import json,sys;d=json.load(open(sys.argv[1]));wp=d.get(\"write_policy\",{});print(sys.argv[1].split(\"/\")[-1],\"protected_write_set has oracle/**:\",\"oracle/**\" in json.dumps(wp.get(\"protected_write_set\")),\"| allowed_write_set has oracle/**:\",\"oracle/**\" in json.dumps(wp.get(\"allowed_write_set\")), \"| keys:\",sorted(wp.keys()))" $m; done
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/ws/crypto-mixed
+### START: 2026-10-20T16:34:52-05:00
+descriptor write_set: {"allowed_roots": ["crates/*/src/", "crates/*/tests/", "findings/limitations.jsonl", "PORT-GAPS.md"], "protected_roots": ["crates/*/specs/**", "specs/_closure/**", "ci/manifest/**", "scripts/**", "docs/*-schema.json", "docs/reliance-policy.md", "Cargo.toml", "crates/*/Cargo.toml", "crates/crypto-mixed-core/Cargo.lock", "crates/*/build.rs", "tests/harnesses/**", ".github/**", "rust-toolchain.toml", "analysis/codesight/**", ".gitignore", ".envrc", ".mcp.json", "README.md", "analysis/upstream/**", "oracle/**", "rust/**", "tools/**", "upstream/**"]}
+WP-CRYPTO-MIXED-AEAD-001.json protected_write_set has oracle/**: True | allowed_write_set has oracle/**: False | keys: ['allowed_write_set', 'on_conflict', 'protected_write_set']
+WP-CRYPTO-MIXED-PRIMITIVES-001.json protected_write_set has oracle/**: True | allowed_write_set has oracle/**: False | keys: ['allowed_write_set', 'on_conflict', 'protected_write_set']
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD: git show 93407d0:oracle/driver.cpp > oracle/driver.cpp; git show 93407d0:oracle/make_cases.py > oracle/make_cases.py; git status --short
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/ws/crypto-mixed
+### START: 2026-10-20T16:34:52-05:00
+?? oracle/driver.cpp
+?? oracle/make_cases.py
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz write-set-check --issue 48 --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/wsc-d401338.json; rc=$?; python3 - /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/wsc-d401338.json <<'PY'
+import json,sys
+d=json.load(open(sys.argv[1]))
+print('top keys', sorted(d.keys()))
+for k,v in d.items():
+    if isinstance(v,list):
+        print(k, len(v))
+        for x in v[:6]: print('   ', json.dumps(x)[:300])
+    elif not isinstance(v,dict): print(k,'=',v)
+    else: print(k,'=',json.dumps(v)[:300])
+PY
+echo write-set-check exit $rc; exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/ws/crypto-mixed
+### START: 2026-10-20T16:34:52-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+top keys ['descriptor', 'mutated_workspace', 'schema_version', 'write_set']
+descriptor = {"path": "project-descriptor.json", "state": "present-valid"}
+mutated_workspace = False
+schema_version = 1.0
+write_set = {"allowed_roots": ["crates/*/src/", "crates/*/tests/", "findings/limitations.jsonl", "PORT-GAPS.md"], "authorized_writes": [], "details": "write set is clean -- every file is accounted for by allowed_roots, the ownership manifest, a declared user-owned document, a pipeline artifact, an active write 
+write-set-check exit 0
+### EXIT: 0  ELAPSED: 7.3s
+
+########## STATE 69645d2: then simulate the Stage 8B oracle write (restore oracle/driver.cpp, make_cases.py from 93407d0 as new files)
+### CMD: python3 -c "import json,sys;d=json.load(open(\"project-descriptor.json\"));ws=d.get(\"write_set\") or {};print(\"descriptor write_set:\",json.dumps(ws)[:700])"; for m in ci/manifest/WP-CRYPTO-MIXED-AEAD-001.json ci/manifest/WP-CRYPTO-MIXED-PRIMITIVES-001.json; do python3 -c "import json,sys;d=json.load(open(sys.argv[1]));wp=d.get(\"write_policy\",{});print(sys.argv[1].split(\"/\")[-1],\"protected_write_set has oracle/**:\",\"oracle/**\" in json.dumps(wp.get(\"protected_write_set\")),\"| allowed_write_set has oracle/**:\",\"oracle/**\" in json.dumps(wp.get(\"allowed_write_set\")), \"| keys:\",sorted(wp.keys()))" $m; done
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/ws/crypto-mixed
+### START: 2026-10-20T16:35:00-05:00
+descriptor write_set: {"allowed_roots": ["crates/*/src/", "crates/*/tests/", "findings/limitations.jsonl", "PORT-GAPS.md", "oracle/**"], "protected_roots": ["crates/*/specs/**", "specs/_closure/**", "ci/manifest/**", "scripts/**", "docs/*-schema.json", "docs/reliance-policy.md", "Cargo.toml", "crates/*/Cargo.toml", "crates/crypto-mixed-core/Cargo.lock", "crates/*/build.rs", "tests/harnesses/**", ".github/**", "rust-toolchain.toml", "analysis/codesight/**", ".gitignore", ".envrc", ".mcp.json", "README.md", "analysis/upstream/**", "rust/**", "tools/**", "upstream/**"]}
+WP-CRYPTO-MIXED-AEAD-001.json protected_write_set has oracle/**: True | allowed_write_set has oracle/**: False | keys: ['allowed_write_set', 'on_conflict', 'protected_write_set']
+WP-CRYPTO-MIXED-PRIMITIVES-001.json protected_write_set has oracle/**: True | allowed_write_set has oracle/**: False | keys: ['allowed_write_set', 'on_conflict', 'protected_write_set']
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD: git show 93407d0:oracle/driver.cpp > oracle/driver.cpp; git show 93407d0:oracle/make_cases.py > oracle/make_cases.py; git status --short
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/ws/crypto-mixed
+### START: 2026-10-20T16:35:00-05:00
+?? oracle/driver.cpp
+?? oracle/make_cases.py
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz write-set-check --issue 48 --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/wsc-69645d2.json; rc=$?; python3 - /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/wsc-69645d2.json <<'PY'
+import json,sys
+d=json.load(open(sys.argv[1]))
+print('top keys', sorted(d.keys()))
+for k,v in d.items():
+    if isinstance(v,list):
+        print(k, len(v))
+        for x in v[:6]: print('   ', json.dumps(x)[:300])
+    elif not isinstance(v,dict): print(k,'=',v)
+    else: print(k,'=',json.dumps(v)[:300])
+PY
+echo write-set-check exit $rc; exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/ws/crypto-mixed
+### START: 2026-10-20T16:35:00-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+top keys ['descriptor', 'mutated_workspace', 'schema_version', 'write_set']
+descriptor = {"path": "project-descriptor.json", "state": "present-valid"}
+mutated_workspace = False
+schema_version = 1.0
+write_set = {"allowed_roots": ["crates/*/src/", "crates/*/tests/", "findings/limitations.jsonl", "PORT-GAPS.md", "oracle/**"], "authorized_writes": [], "details": "write set is clean -- every file is accounted for by allowed_roots, the ownership manifest, a declared user-owned document, a pipeline artifact, an 
+write-set-check exit 0
+### EXIT: 0  ELAPSED: 9.0s
+
+DONE
+########## SUPPLEMENT at d401338: is a write under protected oracle/** flagged? (a) new untracked files, (b) edit of tracked oracle/oracle-PROTOCOL.md
+### CMD: python3 -I tools/ligature/ligature.pyz write-set-check --issue 48 --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/a.json; echo exit $?; python3 -c "import json;w=json.load(open('/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/a.json'))['write_set'];print('state',w['state'],'violations',w['violations'],'driver.cpp in protected_unvouched:', 'oracle/driver.cpp' in w['protected_unvouched'])"
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/ws/crypto-mixed
+### START: 2026-10-20T16:35:40-05:00
+exit 0
+state clean violations [] driver.cpp in protected_unvouched: True
+### EXIT: 0  ELAPSED: 1.2s
+
+### CMD: git status --short; python3 -I tools/ligature/ligature.pyz write-set-check --issue 48 --json > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/b.json; echo exit $?; python3 -c "import json;w=json.load(open('/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/b.json'))['write_set'];print('state',w['state'],'violations',json.dumps(w['violations'])[:400],'PROTOCOL in protected_unvouched:', 'oracle/oracle-PROTOCOL.md' in w['protected_unvouched']); print(w['details'][:300])"
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-013/ws/crypto-mixed
+### START: 2026-10-20T16:35:42-05:00
+ M oracle/oracle-PROTOCOL.md
+exit 0
+state clean violations [] PROTOCOL in protected_unvouched: True
+write set is clean -- every file is accounted for by allowed_roots, the ownership manifest, a declared user-owned document, a pipeline artifact, an active write grant (chainlink #114), a declared crate's specs/ tree, or a canonical pipeline location; protected surface: 1372 file(s) inside 23 declare
+### EXIT: 0  ELAPSED: 1.0s
+

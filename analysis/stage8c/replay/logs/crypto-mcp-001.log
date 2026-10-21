@@ -1,0 +1,75 @@
+### copy: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-001/ws/crypto-mixed ; removed the copy's committed index first to emulate the pre-index state
+### CMD: ls -ld /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-001/ro-cache/tree-sitter-language-pack/v1.20.0; touch /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-001/ro-cache/tree-sitter-language-pack/v1.20.0/.download.lock
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-001/ws/crypto-mixed
+### START: 2026-10-20T16:25:08-05:00
+dr-x------ 4 goya goya 6 Oct 20 16:16 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-001/ro-cache/tree-sitter-language-pack/v1.20.0
+### EXIT: 0  ELAPSED: 0.0s
+
+### ATTEMPT 1: repro_cmd verbatim, with XDG_CACHE_HOME pointing at the non-writable cache copy
+### CMD: XDG_CACHE_HOME=/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-001/ro-cache CODE_INDEX_PATH="$PWD/analysis/codesight/index" CODESIGHT_ALLOWED_ROOTS="$PWD/upstream:$PWD/rust" timeout 1200 ../tools/codesight-mcp/.venv/bin/codesight-mcp index-folder --path "$PWD/upstream/botan" --format json --use-ai-summaries false
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-001/ws/crypto-mixed
+### START: 2026-10-20T16:25:08-05:00
+[codesight] index-folder
+[codesight-mcp] Sanitized error: CacheLockError
+{
+  "success": false,
+  "error": "An internal error occurred"
+}
+### EXIT: 1  ELAPSED: 5.8s
+
+### CMD: ls -la analysis/codesight/index 2>&1 | head; find analysis/codesight/index -maxdepth 1 2>/dev/null | wc -l
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-001/ws/crypto-mixed
+### START: 2026-10-20T16:25:14-05:00
+ls: cannot access 'analysis/codesight/index': No such file or directory
+0
+### EXIT: 0  ELAPSED: 0.0s
+
+### direct parser call (same venv python) to expose the sanitized error
+### CMD: XDG_CACHE_HOME=/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-001/ro-cache timeout 120 ../tools/codesight-mcp/.venv/bin/python -c "import tree_sitter_language_pack as t; print(t.get_parser('cpp'))"
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-001/ws/crypto-mixed
+### START: 2026-10-20T16:25:14-05:00
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import tree_sitter_language_pack as t; print(t.get_parser('cpp'))
+                                                 ~~~~~~~~~~~~^^^^^^^
+  File "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-001/ws/tools/codesight-mcp/.venv/lib/python3.13/site-packages/tree_sitter_language_pack/api.py", line 198, in get_parser
+    return cast("Parser", _rust.get_parser(name=name))
+                          ~~~~~~~~~~~~~~~~^^^^^^^^^^^
+tree_sitter_language_pack.CacheLockError: Download cache lock error: open lock file /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-001/ro-cache/tree-sitter-language-pack/v1.20.0/.download.lock: Permission denied (os error 13)
+### EXIT: 1  ELAPSED: 0.0s
+
+### ATTEMPT 2 (workaround): writable cache copy
+### CMD: XDG_CACHE_HOME=/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-001/rw-cache CODE_INDEX_PATH="$PWD/analysis/codesight/index" CODESIGHT_ALLOWED_ROOTS="$PWD/upstream:$PWD/rust" timeout 1800 ../tools/codesight-mcp/.venv/bin/codesight-mcp index-folder --path "$PWD/upstream/botan" --format json --use-ai-summaries false > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-001/index-folder.out 2>&1; rc=$?; head -c 600 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-001/index-folder.out; echo; python3 - /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-001/index-folder.out <<'PY'
+import json,sys,re
+s=open(sys.argv[1]).read(); s=s[s.index('{'):]
+s=re.sub(r'<<<(END_)?UNTRUSTED_CODE_[0-9a-f]+>>>','',s)
+d=json.loads(s)
+print({k:d.get(k) for k in ['success','repo','file_count','symbol_count','languages','warnings','warning']})
+PY
+exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-mcp-001/ws/crypto-mixed
+### START: 2026-10-20T16:25:14-05:00
+[codesight] index-folder
+{
+  "success": true,
+  "repo": "<<<UNTRUSTED_CODE_cb71d1291f220f83d591f26f38b3c375>>>\nlocal/botan-cdffbf00a8e0\n<<<END_UNTRUSTED_CODE_cb71d1291f220f83d591f26f38b3c375>>>",
+  "indexed_at": "2026-10-20T21:25:22.333370+00:00",
+  "file_count": 1199,
+  "symbol_count": 15643,
+  "languages": {
+    "python": 68,
+    "json": 9,
+    "bash": 3,
+    "cpp": 912,
+    "c": 193,
+    "toml": 1,
+    "xml": 2,
+    "yaml": 10,
+    "html": 1
+  },
+  "files": [
+    "<<<UNTRUSTED_CODE_b51c16a5fae926a07912e6c19a69d0ee>>>\nconfigure.py\n<<<END_UNTRUSTED_CODE_b51c16a5fae926a07912e6c19a69d0ee>>>
+{'success': True, 'repo': '\nlocal/botan-cdffbf00a8e0\n', 'file_count': 1199, 'symbol_count': 15643, 'languages': {'python': 68, 'json': 9, 'bash': 3, 'cpp': 912, 'c': 193, 'toml': 1, 'xml': 2, 'yaml': 10, 'html': 1}, 'warnings': ['Skipped 706 secret file(s)'], 'warning': None}
+### EXIT: 0  ELAPSED: 9.4s
+
+DONE

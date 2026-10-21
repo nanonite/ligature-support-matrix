@@ -37,6 +37,12 @@ $ nm -C target/repro/debug/oracle_repro | grep encryption_output_length
 $ rdb target/repro/debug/oracle_repro < rdb-commands.txt
 ```
 
+The break address depends on the build path: `rdb-commands.txt` records this
+session's `0x2111f0`, and clean rebuilds put the function elsewhere (#49
+replay). To replay in any checkout, run `replay.sh` inside the flake shell. It
+resolves the address with `nm`, runs rdb, and checks the transcript, since
+rdb exits 0 even when its commands fail.
+
 `rdb-version.txt` records `rdb 0.0.0` at `/home/goya/.cargo/bin/rdb`.
 `rdb-transcript.txt` holds the full session; the relevant lines are:
 

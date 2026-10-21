@@ -1,0 +1,326 @@
+### repro_cmd (verbatim, from oracle/rust-check)
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cd oracle/rust-check && RUSTFLAGS='-C link-arg=-no-pie' CARGO_TARGET_DIR=target/repro cargo build --bin oracle_repro 2>&1 | tail -2 && target/repro/debug/oracle_repro && nm -C target/repro/debug/oracle_repro | grep 'ChaCha20Poly1305::encryption_output_length' && timeout 120 rdb target/repro/debug/oracle_repro < ../divergences/boundary-aead-output-length-encrypt-0003/rdb-commands.txt; echo rdb exit $?
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-001/ws/crypto-mixed
+### START: 2026-10-20T16:45:09-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+   Compiling crypto-mixed-oracle-check v0.1.0 (/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-001/ws/crypto-mixed/oracle/rust-check)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.75s
+case_id=boundary-aead-output-length-encrypt-0003 input_length=274877906881 expected=Ok(274877906897) result=Err(MessageTooLong)
+0000000000211240 T crypto_mixed_core::aead::ChaCha20Poly1305::encryption_output_length
+breakpoint set at 0x2111f0
+Stopped(Pid(1984569), SIGTRAP)
+(no variables visible)
+rdi = 0x4
+rsi = 0x1
+rdx = 0x0
+/rustc/59807616e1fa2540724bfbac14d7976d7e4a3860/library/std/src/sys/alloc/unix.rs:13
+(no variables visible)
+/rustc/59807616e1fa2540724bfbac14d7976d7e4a3860/library/std/src/sys/alloc/unix.rs:14
+/rustc/59807616e1fa2540724bfbac14d7976d7e4a3860/library/core/src/result.rs:2173
+#0> _RNvNtNtNtNtNtCsjrHSEGnQ3l9_3std3sys3pal4unix14stack_overflow11thread_info16set_current_info at 0x238f88
+#1  _RNvNtCsjrHSEGnQ3l9_3std2rt19lang_start_internal at 0x2367ec
+#2  _ZN3std2rt10lang_start17h64b0cffa15584857E at 0x210d66
+#3  main at 0x210f8d
+#4  _RNvNvNtNtNtNtCsjrHSEGnQ3l9_3std12backtrace_rs9symbolize5gimli3elf17debug_path_exists17DEBUG_PATH_EXISTS.0 at 0x7ffff7c2a4d7
+Stopped(Pid(1984569), SIGTRAP)
+rdb exit 0
+### EXIT: 0  ELAPSED: 9.9s
+
+### CMD: sed -n '18,24p' crates/crypto-mixed-core/src/aead.rs
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-001/ws/crypto-mixed
+### START: 2026-10-20T16:45:19-05:00
+    }
+
+    pub fn encryption_output_length(&self, plaintext_length: usize) -> Result<usize, CryptoError> {
+        if plaintext_length as u128 > MAX_MESSAGE_BYTES as u128 {
+            return Err(CryptoError::MessageTooLong);
+        }
+        plaintext_length
+### EXIT: 0  ELAPSED: 0.0s
+
+### pre-ruling reconstruction: compare the three past-RFC-limit cases again (copy only), regenerate golden + tests, run the 1370 generated/rust-only tests
+### CMD: python3 - <<'PY'
+import json
+L=[json.loads(l) for l in open('oracle/cases.jsonl')]
+n=0
+for c in L:
+    if c.get('oracle_scope')=='excluded':
+        c.pop('exclusion_reason',None); c['oracle_scope']='compare'; n+=1
+open('oracle/cases.jsonl','w').write(''.join(json.dumps(c,separators=(',',':'))+'\n' for c in L))
+print('re-enabled',n,'excluded cases')
+PY
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-001/ws/crypto-mixed
+### START: 2026-10-20T16:45:19-05:00
+re-enabled 3 excluded cases
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): /tmp/crypto-mixed-oracle-build/driver/oracle_driver oracle/cases.jsonl oracle/golden/results.jsonl; echo driver exit $?; grep past-rfc oracle/golden/results.jsonl; python3 oracle/generate_oracle_tests.py; echo generate exit $?
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-001/ws/crypto-mixed
+### START: 2026-10-20T16:45:19-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+driver exit 0
+{"case_id":"boundary-aead-output-length-decrypt-past-rfc-limit-0012","status":"ok","value":274877906881}
+{"case_id":"boundary-aead-output-length-encrypt-past-rfc-limit-0010","status":"ok","value":274877906897}
+{"case_id":"boundary-aead-output-length-encrypt-past-rfc-limit-0011","status":"ok","value":4611686018427387920}
+generated 1369 tests in oracle/rust-check/tests/generated_cases.rs
+generated 1210 tests in oracle/rust-check/tests/random_cases.rs
+wrote oracle/test-map.csv
+generate exit 0
+### EXIT: 0  ELAPSED: 7.9s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cd oracle/rust-check && timeout 1800 cargo nextest run --profile ci --no-fail-fast -E 'not binary(random_cases)' 2>&1 | grep -E 'Summary|  FAIL|left:|right:|oracle mismatch' | head -20; echo nextest exit ${PIPESTATUS[0]}
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-001/ws/crypto-mixed
+### START: 2026-10-20T16:45:27-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+        FAIL [   0.046s] (  11/1370) crypto-mixed-oracle-check::generated_cases boundary_aead_output_length_encrypt_past_rfc_limit_0010
+    assertion `left == right` failed: oracle mismatch for boundary-aead-output-length-encrypt-past-rfc-limit-0010
+      left: Object {"case_id": String("boundary-aead-output-length-encrypt-past-rfc-limit-0010"), "err_kind": String("message_too_long"), "status": String("err")}
+     right: Object {"case_id": String("boundary-aead-output-length-encrypt-past-rfc-limit-0010"), "status": String("ok"), "value": Number(274877906897)}
+        FAIL [   0.047s] (  23/1370) crypto-mixed-oracle-check::generated_cases boundary_aead_output_length_encrypt_past_rfc_limit_0011
+    assertion `left == right` failed: oracle mismatch for boundary-aead-output-length-encrypt-past-rfc-limit-0011
+      left: Object {"case_id": String("boundary-aead-output-length-encrypt-past-rfc-limit-0011"), "err_kind": String("message_too_long"), "status": String("err")}
+     right: Object {"case_id": String("boundary-aead-output-length-encrypt-past-rfc-limit-0011"), "status": String("ok"), "value": Number(4611686018427387920)}
+        FAIL [   0.128s] (  46/1370) crypto-mixed-oracle-check::generated_cases boundary_aead_output_length_decrypt_past_rfc_limit_0012
+    assertion `left == right` failed: oracle mismatch for boundary-aead-output-length-decrypt-past-rfc-limit-0012
+      left: Object {"case_id": String("boundary-aead-output-length-decrypt-past-rfc-limit-0012"), "err_kind": String("message_too_long"), "status": String("err")}
+     right: Object {"case_id": String("boundary-aead-output-length-decrypt-past-rfc-limit-0012"), "status": String("ok"), "value": Number(274877906881)}
+     Summary [   3.096s] 1370 tests run: 1367 passed, 3 failed, 0 skipped
+        FAIL [   0.046s] (  11/1370) crypto-mixed-oracle-check::generated_cases boundary_aead_output_length_encrypt_past_rfc_limit_0010
+        FAIL [   0.047s] (  23/1370) crypto-mixed-oracle-check::generated_cases boundary_aead_output_length_encrypt_past_rfc_limit_0011
+        FAIL [   0.128s] (  46/1370) crypto-mixed-oracle-check::generated_cases boundary_aead_output_length_decrypt_past_rfc_limit_0012
+nextest exit 100
+### EXIT: 0  ELAPSED: 13.4s
+
+
+########## RERUN (2nd pass): the first pass showed the hard-coded break address 0x2111f0 does not match this build (nm: 0x211240), so rdb stopped in std code. Below: (a) adapted address, (b) same-path-length build test, (c) pre-ruling nextest with full output kept
+### CMD: sed -n '18,24p' crates/crypto-mixed-core/src/aead.rs
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-001/ws/crypto-mixed
+### START: 2026-10-20T16:49:58-05:00
+    }
+
+    pub fn encryption_output_length(&self, plaintext_length: usize) -> Result<usize, CryptoError> {
+        if plaintext_length as u128 > MAX_MESSAGE_BYTES as u128 {
+            return Err(CryptoError::MessageTooLong);
+        }
+        plaintext_length
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cd oracle/rust-check && RUSTFLAGS='-C link-arg=-no-pie' CARGO_TARGET_DIR=target/repro cargo build -q --bin oracle_repro && A=$(nm target/repro/debug/oracle_repro | grep -m1 'encryption_output_length' | cut -d' ' -f1) && echo "nm address: 0x${A#${A%%[1-9a-f]*}}" && sed "s/^break 0x2111f0/break 0x${A#${A%%[1-9a-f]*}}/" ../divergences/boundary-aead-output-length-encrypt-0003/rdb-commands.txt > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/rdb-adapted.txt && head -1 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/rdb-adapted.txt && timeout 120 rdb target/repro/debug/oracle_repro < /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/rdb-adapted.txt; echo rdb exit $?
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-001/ws/crypto-mixed
+### START: 2026-10-20T16:49:58-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+warning: unexpected `cfg` condition name: `kani`
+  --> /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-001/ws/crypto-mixed/crates/crypto-mixed-core/src/lib.rs:13:7
+   |
+13 | #[cfg(kani)]
+   |       ^^^^
+   |
+   = help: expected names are: `docsrs`, `feature`, and `test` and 31 more
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(kani)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(kani)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: `#[warn(unexpected_cfgs)]` on by default
+
+nm address: 0x211240
+break 0x211240
+breakpoint set at 0x211240
+Stopped(Pid(2015688), SIGTRAP)
+self = 0x7fffffff59c0 (*ChaCha20Poly1305)
+plaintext_length = 0x7fffffff59c8 (usize)
+rdi = 0x7fffffff59c0
+rsi = 0x7fffffff59d7
+rdx = 0x3fffffffc1
+/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-001/ws/crypto-mixed/crates/crypto-mixed-core/src/aead.rs:21
+self = 0x7fffffff5998 (*ChaCha20Poly1305)
+plaintext_length = 0x7fffffff59a0 (usize)
+/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-001/ws/crypto-mixed/crates/crypto-mixed-core/src/aead.rs:22
+/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-001/ws/crypto-mixed/crates/crypto-mixed-core/src/aead.rs:27
+#0> _ZN17crypto_mixed_core4aead16ChaCha20Poly130524encryption_output_length17haa4c4354bee72e51E at 0x2112a1
+#1  _ZN12oracle_repro4main17h6be01298c864d271E at 0x210eed
+#2  _ZN4core3ops8function6FnOnce9call_once17hf3a1eca7fccaedb7E at 0x210eba
+#3  _ZN3std3sys9backtrace28__rust_begin_short_backtrace17h0d84a3a1ef15f512E at 0x21102d
+#4  _ZN3std2rt10lang_start28_$u7b$$u7b$closure$u7d$$u7d$17hd580af490bc0eb69E at 0x210d80
+#5  _RNvNtCsjrHSEGnQ3l9_3std2rt19lang_start_internal at 0x2368b3
+#6  _ZN3std2rt10lang_start17h64b0cffa15584857E at 0x210d66
+#7  main at 0x210f8d
+#8  _RNvNvNtNtNtNtCsjrHSEGnQ3l9_3std12backtrace_rs9symbolize5gimli3elf17debug_path_exists17DEBUG_PATH_EXISTS.0 at 0x7ffff7c2a4d7
+case_id=boundary-aead-output-length-encrypt-0003 input_length=274877906881 expected=Ok(274877906897) result=Err(MessageTooLong)
+Exited(Pid(2015688), 0)
+rdb exit 0
+### EXIT: 0  ELAPSED: 14.1s
+
+### (c) pre-ruling reconstruction (three past-RFC-limit cases compared again; copy only)
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): /tmp/crypto-mixed-oracle-build/driver/oracle_driver oracle/cases.jsonl oracle/golden/results.jsonl && python3 oracle/generate_oracle_tests.py >/dev/null && cd oracle/rust-check && timeout 1800 cargo nextest run --profile ci --no-fail-fast -E 'not binary(random_cases)' > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-001/nextest.out 2>&1; rc=$?; grep -aE 'Summary|^\s+FAIL|left:|right:' /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-001/nextest.out | sed 's/\x1b\[[0-9;]*m//g' | head -12; echo nextest exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-001/ws/crypto-mixed
+### START: 2026-10-20T16:50:12-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+        FAIL [   0.030s] (  14/1370) crypto-mixed-oracle-check::generated_cases boundary_aead_output_length_decrypt_past_rfc_limit_0012
+      left: Object {"case_id": String("boundary-aead-output-length-decrypt-past-rfc-limit-0012"), "err_kind": String("message_too_long"), "status": String("err")}
+     right: Object {"case_id": String("boundary-aead-output-length-decrypt-past-rfc-limit-0012"), "status": String("ok"), "value": Number(274877906881)}
+        FAIL [   0.029s] (  23/1370) crypto-mixed-oracle-check::generated_cases boundary_aead_output_length_encrypt_past_rfc_limit_0011
+      left: Object {"case_id": String("boundary-aead-output-length-encrypt-past-rfc-limit-0011"), "err_kind": String("message_too_long"), "status": String("err")}
+     right: Object {"case_id": String("boundary-aead-output-length-encrypt-past-rfc-limit-0011"), "status": String("ok"), "value": Number(4611686018427387920)}
+        FAIL [   0.039s] (  27/1370) crypto-mixed-oracle-check::generated_cases boundary_aead_output_length_encrypt_past_rfc_limit_0010
+      left: Object {"case_id": String("boundary-aead-output-length-encrypt-past-rfc-limit-0010"), "err_kind": String("message_too_long"), "status": String("err")}
+     right: Object {"case_id": String("boundary-aead-output-length-encrypt-past-rfc-limit-0010"), "status": String("ok"), "value": Number(274877906897)}
+     Summary [   2.129s] 1370 tests run: 1367 passed, 3 failed, 0 skipped
+        FAIL [   0.030s] (  14/1370) crypto-mixed-oracle-check::generated_cases boundary_aead_output_length_decrypt_past_rfc_limit_0012
+        FAIL [   0.029s] (  23/1370) crypto-mixed-oracle-check::generated_cases boundary_aead_output_length_encrypt_past_rfc_limit_0011
+nextest exit 100
+### EXIT: 0  ELAPSED: 11.0s
+
+### baseline (post-ruling) control: same filter, unmodified cases
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): python3 oracle/generate_oracle_tests.py >/dev/null; cd oracle/rust-check && timeout 1800 cargo nextest run --profile ci -E 'not binary(random_cases)' > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-001/nextest2.out 2>&1; rc=$?; grep -aE 'Summary' /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-001/nextest2.out | sed 's/\x1b\[[0-9;]*m//g'; echo nextest exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-001/ws/crypto-mixed
+### START: 2026-10-20T16:50:23-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+     Summary [   2.213s] 1370 tests run: 1370 passed, 0 skipped
+nextest exit 0
+### EXIT: 0  ELAPSED: 9.8s
+
+### (b) path-dependence test: build oracle_repro in a /tmp checkout whose root path has the same length (60 chars) as /home/goya/storage/full-ligature-port-workspace/crypto-mixed
+### path: /tmp/s8c-rdb-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/crypto-mixed (length 60)
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cd oracle/rust-check && RUSTFLAGS='-C link-arg=-no-pie' CARGO_TARGET_DIR=target/repro cargo build -q --bin oracle_repro && nm -C target/repro/debug/oracle_repro | grep 'ChaCha20Poly1305::encryption_output_length' && timeout 120 rdb target/repro/debug/oracle_repro < ../divergences/boundary-aead-output-length-encrypt-0003/rdb-commands.txt; echo rdb exit $?
+### CWD: /tmp/s8c-rdb-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/crypto-mixed
+### START: 2026-10-20T16:50:34-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+warning: unexpected `cfg` condition name: `kani`
+  --> /tmp/s8c-rdb-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/crypto-mixed/crates/crypto-mixed-core/src/lib.rs:13:7
+   |
+13 | #[cfg(kani)]
+   |       ^^^^
+   |
+   = help: expected names are: `docsrs`, `feature`, and `test` and 31 more
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(kani)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(kani)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: `#[warn(unexpected_cfgs)]` on by default
+
+00000000002111e0 T crypto_mixed_core::aead::ChaCha20Poly1305::encryption_output_length
+breakpoint set at 0x2111f0
+case_id=boundary-aead-output-length-encrypt-0003 input_length=274877906881 expected=Ok(274877906897) result=Err(MessageTooLong)
+Exited(Pid(2025589), 0)
+error: os error: ESRCH: No such process
+error: os error: ESRCH: No such process
+error: os error: ESRCH: No such process
+error: os error: ESRCH: No such process
+os error: ESRCH: No such process
+error: os error: ESRCH: No such process
+os error: ESRCH: No such process
+os error: ESRCH: No such process
+error: os error: ESRCH: No such process
+rdb exit 0
+### EXIT: 0  ELAPSED: 9.0s
+
+RDB_RERUN_DONE

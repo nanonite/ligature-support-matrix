@@ -1,0 +1,4 @@
+Evaluated 1 candidate cluster(s).
+- crypto-kani: concepts=3 verifiers=['kani'] intra_edges=8 non_pairwise=[] enum_concepts=[] generic=non-generic deductive_closure_value=0 eligible=False
+    excluded: sole verifier 'kani' is not a deductive verifier (kani is bounded model checking, not a deductive proof)
+No eligible candidate cluster -- every candidate was excluded (see reasons above).

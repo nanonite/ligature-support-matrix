@@ -1,0 +1,171 @@
+### state 3296758; d1b20d0b3387a43608b47971cb92489d8a83c1787bc70f93b06d66f16a677ca7; ligature 1.3.10
+### CMD: python3 -c "import json;print('verifier_backends:',json.load(open('project-descriptor.json')).get('verifier_backends'))"; ls ci/harness 2>&1
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-003/ws/crypto-mixed
+### START: 2026-10-20T16:48:28-05:00
+verifier_backends: None
+ls: cannot access 'ci/harness': No such file or directory
+### EXIT: 2  ELAPSED: 0.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cargo generate-lockfile --offline --manifest-path crates/crypto-mixed-core/Cargo.toml && git status --short
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-003/ws/crypto-mixed
+### START: 2026-10-20T16:48:28-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+?? crates/crypto-mixed-core/Cargo.lock
+### EXIT: 0  ELAPSED: 9.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): export CARGO_TARGET_DIR=/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/kani-target/crypto-ligature-003; timeout 1200 python3 -I tools/ligature/ligature.pyz check-bridges; echo check-bridges exit $?
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-003/ws/crypto-mixed
+### START: 2026-10-20T16:48:37-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-003/ws/crypto-mixed/ci/harness/BR-CRYPTO-MIXED-001.kani.rs
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-003/ws/crypto-mixed/ci/harness/BR-CRYPTO-MIXED-002.kani.rs
+FAIL: 2 finding(s)
+  - [G9/error] BR-CRYPTO-MIXED-001: harness generated for kani at ci/harness/BR-CRYPTO-MIXED-001.kani.rs, but the project descriptor configures no verifier_backends.kani command -- nothing was checked, so no result is recorded (the ceiling here is harness-tested, never bridge-checked)
+  - [G9/error] BR-CRYPTO-MIXED-002: harness generated for kani at ci/harness/BR-CRYPTO-MIXED-002.kani.rs, but the project descriptor configures no verifier_backends.kani command -- nothing was checked, so no result is recorded (the ceiling here is harness-tested, never bridge-checked)
+check-bridges exit 1
+### EXIT: 0  ELAPSED: 8.4s
+
+### CMD: git status --short; ls -la ci/harness 2>&1; ls ci/results/bridge_checks 2>&1
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-003/ws/crypto-mixed
+### START: 2026-10-20T16:48:45-05:00
+?? ci/harness/
+?? crates/crypto-mixed-core/Cargo.lock
+total 2
+drwxr-xr-x 2 goya goya    4 Oct 20 16:48 .
+drwxrwxr-x 5 goya goya    5 Oct 20 16:48 ..
+-rw-r--r-- 1 goya goya  918 Oct 20 16:48 BR-CRYPTO-MIXED-001.kani.rs
+-rw-r--r-- 1 goya goya 1077 Oct 20 16:48 BR-CRYPTO-MIXED-002.kani.rs
+ls: cannot access 'ci/results/bridge_checks': No such file or directory
+### EXIT: 2  ELAPSED: 0.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): export CARGO_TARGET_DIR=/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/kani-target/crypto-ligature-003; timeout 1200 python3 -I tools/ligature/ligature.pyz record-assurance WP-CRYPTO-MIXED-AEAD-001 --kani-crate crates/crypto-mixed-core --kani-harness BR-CRYPTO-MIXED-001=bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-003/ws/crypto-mixed
+### START: 2026-10-20T16:48:45-05:00
+waiting for another Nix process to finish fetching input 'git+https://github.com/xldenis/petgraph?rev=04cecb7aae38dfed25545fd87c49e26faec752b5&submodules=1'...
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+error: --kani-harness obligation 'BR-CRYPTO-MIXED-001' does not match the `<Concept>.C<n>` obligation id grammar
+### EXIT: 2  ELAPSED: 7.3s
+
+### direct Kani run of bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key at 3296758
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): export CARGO_TARGET_DIR=/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/kani-target/crypto-ligature-003-direct; timeout 1200 cargo kani --manifest-path crates/crypto-mixed-core/Cargo.toml --harness bridge_001_passes_a_fixed_thirty_two_byte_poly1305_key > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-003/direct.log 2>&1; rc=$?; echo cargo-kani exit $rc; exit $rc
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-003/ws/crypto-mixed
+### START: 2026-10-20T16:48:53-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+cargo-kani exit 0
+### EXIT: 0  ELAPSED: 27.6s
+
+### kani summary:
+SUCCESS checks: 414  UNREACHABLE: 4  FAILURE: 0
+SUMMARY:
+ ** 0 of 418 failed (4 unreachable)
+VERIFICATION:- SUCCESSFUL
+Manual Harness Summary:
+Complete - 1 successfully verified harnesses, 0 failures, 1 total.
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/intrinsics/mod.rs:2437:9 in function core::
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/fmt/mod.rs:820:38 in function std::fmt::Arg
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/num/uint_macros.rs:2852:21 in function core
+	 - Location: ../../../../../../../../../../home/runner/.rustup/toolchains/nightly-2025-11-21-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/panicking.rs:110:17 in function core::panic
+### resolved state: baseline 6a55894 (descriptor configures verifier_backends.kani); gate-g9 then check-bridges
+### CMD: python3 -c "import json;print('verifier_backends:',json.load(open('project-descriptor.json')).get('verifier_backends'))"; timeout 600 python3 -I tools/ligature/ligature.pyz gate-g9; echo gate-g9 exit $?
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-003/ws/crypto-mixed
+### START: 2026-10-20T16:49:20-05:00
+verifier_backends: {'kani': {'command': 'python3 crates/crypto-mixed-core/tests/kani_bridge_backend.py'}}
+OK: all bridges pass G9 (compiled, dispatched, and checked) (3 discovered)
+gate-g9 exit 0
+### EXIT: 0  ELAPSED: 0.7s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 1800 python3 -I tools/ligature/ligature.pyz check-bridges; echo check-bridges exit $?; git status --short
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-003/ws/crypto-mixed
+### START: 2026-10-20T16:49:21-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+[ligature] bridge BR-CRYPTO-MIXED-001: dispatching kani harness bridge_br_crypto_mixed_001
+[ligature] bridge BR-CRYPTO-MIXED-002: dispatching kani harness bridge_br_crypto_mixed_002
+[ligature] bridge BR-CRYPTO-MIXED-003: dispatching kani harness bridge_br_crypto_mixed_003
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-003/ws/crypto-mixed/ci/harness/BR-CRYPTO-MIXED-001.kani.rs
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-003/ws/crypto-mixed/ci/results/bridge_checks/BR-CRYPTO-MIXED-001.json
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-003/ws/crypto-mixed/ci/harness/BR-CRYPTO-MIXED-002.kani.rs
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-003/ws/crypto-mixed/ci/results/bridge_checks/BR-CRYPTO-MIXED-002.json
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-003/ws/crypto-mixed/ci/harness/BR-CRYPTO-MIXED-003.kani.rs
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-003/ws/crypto-mixed/ci/results/bridge_checks/BR-CRYPTO-MIXED-003.json
+OK: 6 artifact(s) written; every promoted bridge compiled and was dispatched
+check-bridges exit 0
+ M ci/results/bridge_checks/BR-CRYPTO-MIXED-001.json
+ M ci/results/bridge_checks/BR-CRYPTO-MIXED-002.json
+ M ci/results/bridge_checks/BR-CRYPTO-MIXED-003.json
+### EXIT: 0  ELAPSED: 61.6s
+

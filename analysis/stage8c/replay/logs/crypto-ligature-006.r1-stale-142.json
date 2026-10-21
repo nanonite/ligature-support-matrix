@@ -1,0 +1,34 @@
+{
+  "exit_code": 1,
+  "findings": [
+    {
+      "gate": "G1b",
+      "path": "ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "legacy C_static report has no source binding, so freshness cannot be established; run `ligature extract-c-static --target x86_64-unknown-linux-gnu`",
+      "severity": "error"
+    },
+    {
+      "gate": "G16",
+      "path": "/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-006/ws/crypto-mixed/ci/results/c_static",
+      "reason": "no C_static report was reconciled -- the report directory holds nothing valid to check (an empty reconciliation is not a pass); run `ligature extract-c-static --target <target-triple>`, and check validate-callsites for reports rejected by G1a/G1b",
+      "severity": "error"
+    }
+  ],
+  "format": "ligature.r1-g16-report.v1",
+  "gate_acceptance": "blocked",
+  "reports": [],
+  "summary": {
+    "counts": {
+      "checked": 0,
+      "configuration_mismatches": 0,
+      "discovered": 0,
+      "reports": 0,
+      "undeclared_blocking": 0,
+      "undeclared_warnings": 0,
+      "unresolved": 0
+    },
+    "discovery_completeness": "syntactic-lower-bound",
+    "interaction_reconciliation": "not-evaluated",
+    "source_resolution": "not-evaluated"
+  }
+}

@@ -1,0 +1,189 @@
+### missing step supplied: build target/repro/debug/oracle_repro first (as in crypto-rdb-001)
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cd oracle/rust-check && RUSTFLAGS='-C link-arg=-no-pie' CARGO_TARGET_DIR=target/repro cargo build --bin oracle_repro 2>&1 | tail -1; nm -C target/repro/debug/oracle_repro | grep 'ChaCha20Poly1305::encryption_output_length'
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-002/ws/crypto-mixed
+### START: 2026-10-20T16:49:07-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.52s
+0000000000211250 T crypto_mixed_core::aead::ChaCha20Poly1305::encryption_output_length
+### EXIT: 0  ELAPSED: 8.1s
+
+### repro_cmd run 1
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cd oracle/rust-check && printf 'break 0x2111f0\ncontinue\nregister rdi\nregister rsi\nregister rdx\nnext\nvariable list\nquit\n' | timeout 120 rdb target/repro/debug/oracle_repro; echo rdb exit $?
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-002/ws/crypto-mixed
+### START: 2026-10-20T16:49:15-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+breakpoint set at 0x2111f0
+case_id=boundary-aead-output-length-encrypt-0003 input_length=274877906881 expected=Ok(274877906897) result=Err(MessageTooLong)
+Stopped(Pid(2009623), SIGTRAP)
+rdi = 0x254500
+rsi = 0x252ed0
+rdx = 0xfffffffffffffffc
+/home/goya/.rustup/toolchains/1.95.0-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/rt.rs:206
+main = <unavailable> (*<DW_TAG_subroutine_type>)
+rdb exit 0
+### EXIT: 0  ELAPSED: 7.0s
+
+### repro_cmd run 2
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cd oracle/rust-check && printf 'break 0x2111f0\ncontinue\nregister rdi\nregister rsi\nregister rdx\nnext\nvariable list\nquit\n' | timeout 120 rdb target/repro/debug/oracle_repro; echo rdb exit $?
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-002/ws/crypto-mixed
+### START: 2026-10-20T16:49:22-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+breakpoint set at 0x2111f0
+case_id=boundary-aead-output-length-encrypt-0003 input_length=274877906881 expected=Ok(274877906897) result=Err(MessageTooLong)
+Stopped(Pid(2010254), SIGTRAP)
+rdi = 0x254500
+rsi = 0x252ed0
+rdx = 0xfffffffffffffffc
+/home/goya/.rustup/toolchains/1.95.0-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/rt.rs:206
+main = <unavailable> (*<DW_TAG_subroutine_type>)
+rdb exit 0
+### EXIT: 0  ELAPSED: 7.7s
+
+
+########## RERUN with the address adapted to this build (the literal 0x2111f0 stops in std::rt, not in encryption_output_length)
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cd oracle/rust-check && RUSTFLAGS='-C link-arg=-no-pie' CARGO_TARGET_DIR=target/repro cargo build -q --bin oracle_repro; nm -C target/repro/debug/oracle_repro | grep 'ChaCha20Poly1305::encryption_output_length'
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-002-adapted/ws/crypto-mixed
+### START: 2026-10-20T16:50:24-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+warning: unexpected `cfg` condition name: `kani`
+  --> /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-002-adapted/ws/crypto-mixed/crates/crypto-mixed-core/src/lib.rs:13:7
+   |
+13 | #[cfg(kani)]
+   |       ^^^^
+   |
+   = help: expected names are: `docsrs`, `feature`, and `test` and 31 more
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(kani)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(kani)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: `#[warn(unexpected_cfgs)]` on by default
+
+0000000000211250 T crypto_mixed_core::aead::ChaCha20Poly1305::encryption_output_length
+### EXIT: 0  ELAPSED: 8.7s
+
+### adapted address: 0x211250
+### adapted repro run 1
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cd oracle/rust-check && printf 'break 0x211250\ncontinue\nregister rdi\nregister rsi\nregister rdx\nnext\nvariable list\nquit\n' | timeout 120 rdb target/repro/debug/oracle_repro; echo rdb exit $?
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-002-adapted/ws/crypto-mixed
+### START: 2026-10-20T16:50:33-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+breakpoint set at 0x211250
+Stopped(Pid(2024961), SIGTRAP)
+rdi = 0x7fffffff59a0
+rsi = 0x7fffffff59b7
+rdx = 0x3fffffffc1
+/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-002-adapted/ws/crypto-mixed/crates/crypto-mixed-core/src/aead.rs:21
+self = 0x7fffffff5978 (*ChaCha20Poly1305)
+plaintext_length = 0x7fffffff5980 (usize)
+rdb exit 0
+### EXIT: 0  ELAPSED: 7.2s
+
+### adapted repro run 2
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cd oracle/rust-check && printf 'break 0x211250\ncontinue\nregister rdi\nregister rsi\nregister rdx\nnext\nvariable list\nquit\n' | timeout 120 rdb target/repro/debug/oracle_repro; echo rdb exit $?
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-002-adapted/ws/crypto-mixed
+### START: 2026-10-20T16:50:40-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+breakpoint set at 0x211250
+Stopped(Pid(2025831), SIGTRAP)
+rdi = 0x7fffffff59a0
+rsi = 0x7fffffff59b7
+rdx = 0x3fffffffc1
+/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-rdb-002-adapted/ws/crypto-mixed/crates/crypto-mixed-core/src/aead.rs:21
+self = 0x7fffffff5978 (*ChaCha20Poly1305)
+plaintext_length = 0x7fffffff5980 (usize)
+rdb exit 0
+### EXIT: 0  ELAPSED: 6.7s
+
+RDB2_RERUN_DONE

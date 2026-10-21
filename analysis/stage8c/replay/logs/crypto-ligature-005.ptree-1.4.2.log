@@ -1,0 +1,4 @@
+--- sample t=0s
+2046158 rss=1MB bash /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/status_probe.sh /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b8
+  2046160 rss=3MB timeout --kill-after=5s 1200 python3 -I tools/ligature/ligature.pyz status --json
+    2046165 rss=24MB /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/bin/python3 -I tools/ligature/ligature.pyz status --json

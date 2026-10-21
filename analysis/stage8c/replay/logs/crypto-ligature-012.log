@@ -1,0 +1,72 @@
+### CMD: python3 - <<'PY'
+import json
+def rel(i):
+    d=json.load(open(f'crates/crypto-mixed-core/specs/_interactions/I-CRYPTO-MIXED-00{i}.json'))
+    return [r for r in d.get('reliances',[]) if 'ChaCha20.C003' in json.dumps(r)]
+a=rel(2); b=rel(7)
+print('I-002 C003 reliances:',len(a),'I-007 C003 reliances:',len(b))
+ra=[r.get('required_assurance') for r in a]; rb=[r.get('required_assurance') for r in b]
+print('required_assurance identical:', ra==rb)
+print(json.dumps(ra)[:700])
+for n in ('002','003'):
+    br=json.load(open(f'crates/crypto-mixed-core/specs/_bridges/BR-CRYPTO-MIXED-{n}.json'))
+    s=json.dumps(br); print('BR-'+n,'cites kani_chacha20_c003_aead_counter_one_stream_capacity:', 'kani_chacha20_c003_aead_counter_one_stream_capacity' in s)
+PY
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-012/ws/crypto-mixed
+### START: 2026-10-20T17:27:33-05:00
+I-002 C003 reliances: 1 I-007 C003 reliances: 1
+required_assurance identical: True
+[{"required_claims": ["callee-precondition-established"], "accepted_evidence_kinds": ["kani-bounded-model-check"], "minimum_scope": {"input_domain": "the bounded model encoded by Kani harness kani_chacha20_c003_aead_counter_one_stream_capacity"}, "trust_policy": {"assumptions_allowed": []}}]
+BR-002 cites kani_chacha20_c003_aead_counter_one_stream_capacity: False
+BR-003 cites kani_chacha20_c003_aead_counter_one_stream_capacity: False
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD: timeout 30 python3 -I tools/ligature/ligature.pyz generate-work-package --help | grep -E 'grant|plan' | head -6; ls ci/results/protected-writes.jsonl && tail -3 ci/results/protected-writes.jsonl | cut -c1-250
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-012/ws/crypto-mixed
+### START: 2026-10-20T17:27:33-05:00
+usage: ligature.pyz generate-work-package [-h] [--plan PLAN] [--issue N]
+                                          [--grant-id GW-ID] [--regenerate]
+plan-driven Stage 7 manifest generation from an explicit validated plan; it
+does not infer package scope or synthesize plans from promoted I/O; requires
+an exact issue-scoped protected-write grant
+  --plan PLAN        required JSON or YAML Stage 7 plan
+ci/results/protected-writes.jsonl
+{"event": "grant", "expires_at": "2026-10-19T18:01:46+00:00", "grant_id": "GW-d85c40268320", "issue": 134, "issued_at": "2026-10-19T17:01:46+00:00", "issuer": "roger-codex-luna6", "issuer_kind": "human", "note": null, "one_shot": true, "op": "write",
+{"after_hash":"sha256:6f28effcf9cdd2d9e0d014f33d48edfd461dd2ab85268420c09bd60ffded14a9","before_hash":"sha256:6f28effcf9cdd2d9e0d014f33d48edfd461dd2ab85268420c09bd60ffded14a9","command":"generate-work-package","command_result":0,"event":"work-package
+{"after_hash":"sha256:722d6521f069a80e2baa364b1d0b964abbdad24863fc3a57e7635ac1b26f8998","before_hash":"sha256:722d6521f069a80e2baa364b1d0b964abbdad24863fc3a57e7635ac1b26f8998","command":"generate-work-package","command_result":0,"event":"work-package
+### EXIT: 0  ELAPSED: 0.4s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): export CARGO_TARGET_DIR=/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/kani-target/crypto-ligature-012; timeout 1200 cargo kani --manifest-path crates/crypto-mixed-core/Cargo.toml --harness kani_chacha20_c003_aead_counter_one_stream_capacity > /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-012/k.log 2>&1; echo cargo-kani exit $?
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-012/ws/crypto-mixed
+### START: 2026-10-20T17:27:34-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+cargo-kani exit 0
+### EXIT: 0  ELAPSED: 7.4s
+
+### kani summary:
+SUCCESS 33 UNREACHABLE 1 FAILURE 0
+SUMMARY:
+ ** 0 of 34 failed (1 unreachable)
+VERIFICATION:- SUCCESSFUL
+Verification Time: 0.082922734s
+Complete - 1 successfully verified harnesses, 0 failures, 1 total.
+### (appended) baseline AEAD manifest / assurance report: which harness discharges BR-002/BR-003
+ci/manifest/WP-CRYPTO-MIXED-AEAD-001.json BR-CRYPTO-MIXED-002 present: True | c003 aead harness within record: True
+ci/manifest/WP-CRYPTO-MIXED-AEAD-001.json BR-CRYPTO-MIXED-003 present: True | c003 aead harness within record: True
+ci/results/WP-CRYPTO-MIXED-AEAD-001.json BR-CRYPTO-MIXED-002 present: True | c003 aead harness within record: True
+ci/results/WP-CRYPTO-MIXED-AEAD-001.json BR-CRYPTO-MIXED-003 present: True | c003 aead harness within record: True

@@ -1,0 +1,372 @@
+### jsonvalue.cpp = date-creusot/oracle/driver.cpp lines 28-37 (std includes) + 48-68 (struct JsonValue) + a 1-line main; read-only copy of the other pilot's source
+### CMD: cat -n /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-oracle-003/jsonvalue.cpp
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-oracle-002/ws/crypto-mixed
+### START: 2026-10-20T16:41:00-05:00
+     1	#include <algorithm>
+     2	#include <cctype>
+     3	#include <cstdlib>
+     4	#include <fstream>
+     5	#include <iostream>
+     6	#include <limits>
+     7	#include <set>
+     8	#include <stdexcept>
+     9	#include <string>
+    10	#include <vector>
+    11	
+    12	struct JsonValue {
+    13	    enum Type { Null, Bool, Int, String, Object, Array };
+    14	
+    15	    Type type = Null;
+    16	    bool bool_value = false;
+    17	    long long int_value = 0;
+    18	    std::string string_value;
+    19	    std::vector<std::pair<std::string, JsonValue>> object_value;
+    20	    std::vector<JsonValue> array_value;
+    21	
+    22	    const JsonValue* find(const std::string& key) const {
+    23	        if (type != Object) {
+    24	            return nullptr;
+    25	        }
+    26	        for (const auto& member : object_value) {
+    27	            if (member.first == key) {
+    28	                return &member.second;
+    29	            }
+    30	        }
+    31	        return nullptr;
+    32	    }
+    33	int main() { JsonValue v; v.type = JsonValue::Object; JsonValue m; m.type = JsonValue::Int; m.int_value = 7; v.object_value.push_back({"k", m}); return v.find("k") ? 0 : 1; }
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): clang++ --version | head -1; echo | clang++ -x c++ -E -v - 2>&1 | grep -E 'gcc|c\+\+/[0-9]+' | grep include | head -3
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-oracle-002/ws/crypto-mixed
+### START: 2026-10-20T16:41:00-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+clang version 21.1.7
+ "/nix/store/9k73m9j7cxldplpn2ch43a79sk9qm5b7-clang-21.1.7/bin/clang++" -cc1 -triple x86_64-unknown-linux-gnu -O2 -E -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name - -mrelocation-model pic -pic-level 2 -fhalf-no-semantic-interposition -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-oracle-002/ws/crypto-mixed -v -fcoverage-compilation-dir=/tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-oracle-002/ws/crypto-mixed -nostdsysteminc -resource-dir /nix/store/snsqw9v764wfyk77s7b516wayvz4nvk1-clang-wrapper-21.1.7/resource-root -idirafter /nix/store/39l6rhxg9qb07q3862p4zcr2s4146p1r-glibc-2.40-224-dev/include -isystem /nix/store/wg7nw3rri4z34fanql4dc2y640qaxwnz-graphviz-12.2.1/include -isystem /nix/store/wg7nw3rri4z34fanql4dc2y640qaxwnz-graphviz-12.2.1/include -isystem /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/include -isystem /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/include -isystem /nix/store/bc18da77ygq4gvq02aa70nb89hj26bk9-gdb-16.3/include -isystem /nix/store/bc18da77ygq4gvq02aa70nb89hj26bk9-gdb-16.3/include -isystem /nix/store/b495pc7yyszahgdz235j160iiy1aa6i2-lldb-21.1.7-dev/include -isystem /nix/store/b495pc7yyszahgdz235j160iiy1aa6i2-lldb-21.1.7-dev/include -isystem /nix/store/3ll0vqpzkjaimvg7s0r6qw7j1vk8lgiw-creusot-wrapped/include -isystem /nix/store/3ll0vqpzkjaimvg7s0r6qw7j1vk8lgiw-creusot-wrapped/include -isystem /nix/store/wkvc3p6ih0f7v7aqchj7lmn6j816sapf-zlib-1.3.2-dev/include -isystem /nix/store/wkvc3p6ih0f7v7aqchj7lmn6j816sapf-zlib-1.3.2-dev/include -isystem /nix/store/cnqfdclvp1746rcmzwrqrcby42cqbx5p-gmp-with-cxx-6.3.0-dev/include -isystem /nix/store/cnqfdclvp1746rcmzwrqrcby42cqbx5p-gmp-with-cxx-6.3.0-dev/include -isystem /nix/store/6wzfwxq1kg2wji2kp226pwc5l5dyxgz3-z3-4.15.4-dev/include -isystem /nix/store/6wzfwxq1kg2wji2kp226pwc5l5dyxgz3-z3-4.15.4-dev/include -isystem /nix/store/ylj3ihkkiqicwiqifpkknk3az31d1rsy-cvc5-1.3.2/include -isystem /nix/store/ylj3ihkkiqicwiqifpkknk3az31d1rsy-cvc5-1.3.2/include -isystem /nix/store/5nl4ca8g2nqjins1k9qhj83jxxzlw0b9-compiler-rt-libc-21.1.7-dev/include -isystem /nix/store/5nl4ca8g2nqjins1k9qhj83jxxzlw0b9-compiler-rt-libc-21.1.7-dev/include -isystem /nix/store/wg7nw3rri4z34fanql4dc2y640qaxwnz-graphviz-12.2.1/include -isystem /nix/store/wg7nw3rri4z34fanql4dc2y640qaxwnz-graphviz-12.2.1/include -isystem /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/include -isystem /nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/include -isystem /nix/store/bc18da77ygq4gvq02aa70nb89hj26bk9-gdb-16.3/include -isystem /nix/store/bc18da77ygq4gvq02aa70nb89hj26bk9-gdb-16.3/include -isystem /nix/store/b495pc7yyszahgdz235j160iiy1aa6i2-lldb-21.1.7-dev/include -isystem /nix/store/b495pc7yyszahgdz235j160iiy1aa6i2-lldb-21.1.7-dev/include -isystem /nix/store/3ll0vqpzkjaimvg7s0r6qw7j1vk8lgiw-creusot-wrapped/include -isystem /nix/store/3ll0vqpzkjaimvg7s0r6qw7j1vk8lgiw-creusot-wrapped/include -isystem /nix/store/wkvc3p6ih0f7v7aqchj7lmn6j816sapf-zlib-1.3.2-dev/include -isystem /nix/store/wkvc3p6ih0f7v7aqchj7lmn6j816sapf-zlib-1.3.2-dev/include -isystem /nix/store/cnqfdclvp1746rcmzwrqrcby42cqbx5p-gmp-with-cxx-6.3.0-dev/include -isystem /nix/store/cnqfdclvp1746rcmzwrqrcby42cqbx5p-gmp-with-cxx-6.3.0-dev/include -isystem /nix/store/6wzfwxq1kg2wji2kp226pwc5l5dyxgz3-z3-4.15.4-dev/include -isystem /nix/store/6wzfwxq1kg2wji2kp226pwc5l5dyxgz3-z3-4.15.4-dev/include -isystem /nix/store/ylj3ihkkiqicwiqifpkknk3az31d1rsy-cvc5-1.3.2/include -isystem /nix/store/ylj3ihkkiqicwiqifpkknk3az31d1rsy-cvc5-1.3.2/include -isystem /nix/store/5nl4ca8g2nqjins1k9qhj83jxxzlw0b9-compiler-rt-libc-21.1.7-dev/include -isystem /nix/store/5nl4ca8g2nqjins1k9qhj83jxxzlw0b9-compiler-rt-libc-21.1.7-dev/include -cxx-isystem /nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0 -cxx-isystem /nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/x86_64-unknown-linux-gnu -D _LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_EXTENSIVE -U _FORTIFY_SOURCE -U _FORTIFY_SOURCE -D _FORTIFY_SOURCE=2 -internal-isystem /nix/store/snsqw9v764wfyk77s7b516wayvz4nvk1-clang-wrapper-21.1.7/resource-root/include -fmacro-prefix-map=/nix/store/39l6rhxg9qb07q3862p4zcr2s4146p1r-glibc-2.40-224-dev/include=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-glibc-2.40-224-dev/include -fmacro-prefix-map=/nix/store/wg7nw3rri4z34fanql4dc2y640qaxwnz-graphviz-12.2.1=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-graphviz-12.2.1 -fmacro-prefix-map=/nix/store/wg7nw3rri4z34fanql4dc2y640qaxwnz-graphviz-12.2.1=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-graphviz-12.2.1 -fmacro-prefix-map=/nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-python3-3.13.12-env -fmacro-prefix-map=/nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-python3-3.13.12-env -fmacro-prefix-map=/nix/store/bc18da77ygq4gvq02aa70nb89hj26bk9-gdb-16.3=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-gdb-16.3 -fmacro-prefix-map=/nix/store/bc18da77ygq4gvq02aa70nb89hj26bk9-gdb-16.3=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-gdb-16.3 -fmacro-prefix-map=/nix/store/b495pc7yyszahgdz235j160iiy1aa6i2-lldb-21.1.7-dev=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-lldb-21.1.7-dev -fmacro-prefix-map=/nix/store/b495pc7yyszahgdz235j160iiy1aa6i2-lldb-21.1.7-dev=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-lldb-21.1.7-dev -fmacro-prefix-map=/nix/store/3ll0vqpzkjaimvg7s0r6qw7j1vk8lgiw-creusot-wrapped=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-creusot-wrapped -fmacro-prefix-map=/nix/store/3ll0vqpzkjaimvg7s0r6qw7j1vk8lgiw-creusot-wrapped=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-creusot-wrapped -fmacro-prefix-map=/nix/store/wkvc3p6ih0f7v7aqchj7lmn6j816sapf-zlib-1.3.2-dev=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-zlib-1.3.2-dev -fmacro-prefix-map=/nix/store/wkvc3p6ih0f7v7aqchj7lmn6j816sapf-zlib-1.3.2-dev=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-zlib-1.3.2-dev -fmacro-prefix-map=/nix/store/cnqfdclvp1746rcmzwrqrcby42cqbx5p-gmp-with-cxx-6.3.0-dev=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-gmp-with-cxx-6.3.0-dev -fmacro-prefix-map=/nix/store/cnqfdclvp1746rcmzwrqrcby42cqbx5p-gmp-with-cxx-6.3.0-dev=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-gmp-with-cxx-6.3.0-dev -fmacro-prefix-map=/nix/store/6wzfwxq1kg2wji2kp226pwc5l5dyxgz3-z3-4.15.4-dev=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-z3-4.15.4-dev -fmacro-prefix-map=/nix/store/6wzfwxq1kg2wji2kp226pwc5l5dyxgz3-z3-4.15.4-dev=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-z3-4.15.4-dev -fmacro-prefix-map=/nix/store/ylj3ihkkiqicwiqifpkknk3az31d1rsy-cvc5-1.3.2=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-cvc5-1.3.2 -fmacro-prefix-map=/nix/store/ylj3ihkkiqicwiqifpkknk3az31d1rsy-cvc5-1.3.2=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-cvc5-1.3.2 -fmacro-prefix-map=/nix/store/5nl4ca8g2nqjins1k9qhj83jxxzlw0b9-compiler-rt-libc-21.1.7-dev=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-compiler-rt-libc-21.1.7-dev -fmacro-prefix-map=/nix/store/5nl4ca8g2nqjins1k9qhj83jxxzlw0b9-compiler-rt-libc-21.1.7-dev=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-compiler-rt-libc-21.1.7-dev -fmacro-prefix-map=/nix/store/wg7nw3rri4z34fanql4dc2y640qaxwnz-graphviz-12.2.1=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-graphviz-12.2.1 -fmacro-prefix-map=/nix/store/wg7nw3rri4z34fanql4dc2y640qaxwnz-graphviz-12.2.1=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-graphviz-12.2.1 -fmacro-prefix-map=/nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-python3-3.13.12-env -fmacro-prefix-map=/nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-python3-3.13.12-env -fmacro-prefix-map=/nix/store/bc18da77ygq4gvq02aa70nb89hj26bk9-gdb-16.3=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-gdb-16.3 -fmacro-prefix-map=/nix/store/bc18da77ygq4gvq02aa70nb89hj26bk9-gdb-16.3=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-gdb-16.3 -fmacro-prefix-map=/nix/store/b495pc7yyszahgdz235j160iiy1aa6i2-lldb-21.1.7-dev=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-lldb-21.1.7-dev -fmacro-prefix-map=/nix/store/b495pc7yyszahgdz235j160iiy1aa6i2-lldb-21.1.7-dev=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-lldb-21.1.7-dev -fmacro-prefix-map=/nix/store/3ll0vqpzkjaimvg7s0r6qw7j1vk8lgiw-creusot-wrapped=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-creusot-wrapped -fmacro-prefix-map=/nix/store/3ll0vqpzkjaimvg7s0r6qw7j1vk8lgiw-creusot-wrapped=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-creusot-wrapped -fmacro-prefix-map=/nix/store/wkvc3p6ih0f7v7aqchj7lmn6j816sapf-zlib-1.3.2-dev=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-zlib-1.3.2-dev -fmacro-prefix-map=/nix/store/wkvc3p6ih0f7v7aqchj7lmn6j816sapf-zlib-1.3.2-dev=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-zlib-1.3.2-dev -fmacro-prefix-map=/nix/store/cnqfdclvp1746rcmzwrqrcby42cqbx5p-gmp-with-cxx-6.3.0-dev=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-gmp-with-cxx-6.3.0-dev -fmacro-prefix-map=/nix/store/cnqfdclvp1746rcmzwrqrcby42cqbx5p-gmp-with-cxx-6.3.0-dev=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-gmp-with-cxx-6.3.0-dev -fmacro-prefix-map=/nix/store/6wzfwxq1kg2wji2kp226pwc5l5dyxgz3-z3-4.15.4-dev=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-z3-4.15.4-dev -fmacro-prefix-map=/nix/store/6wzfwxq1kg2wji2kp226pwc5l5dyxgz3-z3-4.15.4-dev=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-z3-4.15.4-dev -fmacro-prefix-map=/nix/store/ylj3ihkkiqicwiqifpkknk3az31d1rsy-cvc5-1.3.2=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-cvc5-1.3.2 -fmacro-prefix-map=/nix/store/ylj3ihkkiqicwiqifpkknk3az31d1rsy-cvc5-1.3.2=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-cvc5-1.3.2 -fmacro-prefix-map=/nix/store/5nl4ca8g2nqjins1k9qhj83jxxzlw0b9-compiler-rt-libc-21.1.7-dev=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-compiler-rt-libc-21.1.7-dev -fmacro-prefix-map=/nix/store/5nl4ca8g2nqjins1k9qhj83jxxzlw0b9-compiler-rt-libc-21.1.7-dev=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-compiler-rt-libc-21.1.7-dev -fmacro-prefix-map=/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-gcc-14.3.0/include/c++/14.3.0 -fmacro-prefix-map=/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/x86_64-unknown-linux-gnu=/nix/store/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-gcc-14.3.0/include/c++/14.3.0/x86_64-unknown-linux-gnu -source-date-epoch 315532800 -Wformat -Wformat-security -Werror=format-security -fdeprecated-macro -ferror-limit 19 -fzero-call-used-regs=used-gpr -fwrapv -stack-protector 2 -stack-protector-buffer-size 4 -fstack-clash-protection -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -vectorize-loops -vectorize-slp -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o - -x c++ -
+ /nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0
+ /nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/x86_64-unknown-linux-gnu
+### EXIT: 0  ELAPSED: 8.5s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cd /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-oracle-003 && clang++ -std=c++20 -c jsonvalue.cpp -o /dev/null 2>&1 | tee c20.err | grep -E 'error|note: in instantiation' | head -30; echo; echo errors: $(grep -c ' error: ' c20.err); grep -m1 'generated' c20.err; exit ${PIPESTATUS[0]}
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-oracle-002/ws/crypto-mixed
+### START: 2026-10-20T16:41:09-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+jsonvalue.cpp:33:175: error: expected '}'
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/type_traits:1049:21: error: static assertion failed due to requirement 'std::__is_complete_or_unbounded(std::__type_identity<std::pair<std::basic_string<char, std::char_traits<char>, std::allocator<char>>, JsonValue>>{})': template argument must be a complete class or an unbounded array
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/bits/stl_construct.h:188:21: note: in instantiation of template class 'std::is_destructible<std::pair<std::basic_string<char>, JsonValue>>' requested here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/bits/alloc_traits.h:993:12: note: in instantiation of function template specialization 'std::_Destroy<std::pair<std::basic_string<char>, JsonValue> *>' requested here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/bits/stl_vector.h:748:7: note: in instantiation of function template specialization 'std::_Destroy<std::pair<std::basic_string<char>, JsonValue> *, std::pair<std::basic_string<char>, JsonValue>>' requested here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/type_traits:1312:43: note: in instantiation of member function 'std::vector<std::pair<std::basic_string<char>, JsonValue>>::~vector' requested here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/type_traits:1312:38: note: in instantiation of requirement here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/type_traits:183:30: note: in instantiation of template class 'std::__is_implicitly_default_constructible<JsonValue>' requested here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/type_traits:204:29: note: in instantiation of template class 'std::__and_<std::__is_implicitly_default_constructible<std::basic_string<char>>, std::__is_implicitly_default_constructible<JsonValue>>' requested here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/bits/stl_pair.h:344:16: note: in instantiation of template class 'std::__not_<std::__and_<std::__is_implicitly_default_constructible<std::basic_string<char>>, std::__is_implicitly_default_constructible<JsonValue>>>' requested here
+jsonvalue.cpp:26:33: note: in instantiation of template class 'std::pair<std::basic_string<char>, JsonValue>' requested here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/bits/stl_construct.h:162:30: error: arithmetic on a pointer to an incomplete type 'std::pair<std::basic_string<char>, JsonValue>'
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/bits/stl_construct.h:193:35: note: in instantiation of function template specialization 'std::_Destroy_aux<false>::__destroy<std::pair<std::basic_string<char>, JsonValue> *>' requested here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/bits/alloc_traits.h:993:12: note: in instantiation of function template specialization 'std::_Destroy<std::pair<std::basic_string<char>, JsonValue> *>' requested here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/bits/stl_vector.h:748:7: note: in instantiation of function template specialization 'std::_Destroy<std::pair<std::basic_string<char>, JsonValue> *, std::pair<std::basic_string<char>, JsonValue>>' requested here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/type_traits:1312:43: note: in instantiation of member function 'std::vector<std::pair<std::basic_string<char>, JsonValue>>::~vector' requested here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/type_traits:1312:38: note: in instantiation of requirement here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/type_traits:183:30: note: in instantiation of template class 'std::__is_implicitly_default_constructible<JsonValue>' requested here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/type_traits:204:29: note: in instantiation of template class 'std::__and_<std::__is_implicitly_default_constructible<std::basic_string<char>>, std::__is_implicitly_default_constructible<JsonValue>>' requested here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/bits/stl_pair.h:344:16: note: in instantiation of template class 'std::__not_<std::__and_<std::__is_implicitly_default_constructible<std::basic_string<char>>, std::__is_implicitly_default_constructible<JsonValue>>>' requested here
+jsonvalue.cpp:26:33: note: in instantiation of template class 'std::pair<std::basic_string<char>, JsonValue>' requested here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/bits/stl_construct.h:195:25: error: incomplete type '_Value_type' (aka 'std::pair<std::basic_string<char>, JsonValue>') used in type trait expression
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/bits/alloc_traits.h:993:12: note: in instantiation of function template specialization 'std::_Destroy<std::pair<std::basic_string<char>, JsonValue> *>' requested here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/bits/stl_vector.h:748:7: note: in instantiation of function template specialization 'std::_Destroy<std::pair<std::basic_string<char>, JsonValue> *, std::pair<std::basic_string<char>, JsonValue>>' requested here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/type_traits:1312:43: note: in instantiation of member function 'std::vector<std::pair<std::basic_string<char>, JsonValue>>::~vector' requested here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/type_traits:1312:38: note: in instantiation of requirement here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/type_traits:1316:23: note: in instantiation of variable template specialization 'std::__is_implicitly_default_constructible_v<JsonValue>' requested here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/type_traits:183:30: note: in instantiation of template class 'std::__is_implicitly_default_constructible<JsonValue>' requested here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/type_traits:204:29: note: in instantiation of template class 'std::__and_<std::__is_implicitly_default_constructible<std::basic_string<char>>, std::__is_implicitly_default_constructible<JsonValue>>' requested here
+/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/include/c++/14.3.0/bits/stl_pair.h:344:16: note: in instantiation of template class 'std::__not_<std::__and_<std::__is_implicitly_default_constructible<std::basic_string<char>>, std::__is_implicitly_default_constructible<JsonValue>>>' requested here
+
+errors: 7
+7 errors generated.
+### EXIT: 0  ELAPSED: 6.9s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cd /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-oracle-003 && clang++ -std=c++17 -c jsonvalue.cpp -o /dev/null; echo c++17-exit $?
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-oracle-002/ws/crypto-mixed
+### START: 2026-10-20T16:41:16-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+jsonvalue.cpp:33:175: error: expected '}'
+   33 | int main() { JsonValue v; v.type = JsonValue::Object; JsonValue m; m.type = JsonValue::Int; m.int_value = 7; v.object_value.push_back({"k", m}); return v.find("k") ? 0 : 1; }
+      |                                                                                                                                                                               ^
+jsonvalue.cpp:12:18: note: to match this '{'
+   12 | struct JsonValue {
+      |                  ^
+jsonvalue.cpp:33:175: error: expected ';' after struct
+   33 | int main() { JsonValue v; v.type = JsonValue::Object; JsonValue m; m.type = JsonValue::Int; m.int_value = 7; v.object_value.push_back({"k", m}); return v.find("k") ? 0 : 1; }
+      |                                                                                                                                                                               ^
+      |                                                                                                                                                                               ;
+2 errors generated.
+c++17-exit 1
+### EXIT: 0  ELAPSED: 8.1s
+
+### workaround check: crypto-mixed's own oracle/driver.cpp JsonValue uses parallel key/value vectors
+### CMD: grep -n -A10 'struct JsonValue' /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/baseline/oracle/driver.cpp | head -14
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-oracle-002/ws/crypto-mixed
+### START: 2026-10-20T16:41:24-05:00
+45:struct JsonValue {
+46-    enum Type { Null, Bool, Int, String, Object, Array };
+47-
+48-    Type type = Null;
+49-    bool bool_value = false;
+50-    long long int_value = 0;
+51-    std::string string_value;
+52-    // Object members as parallel vectors: std::pair<std::string, JsonValue>
+53-    // would need JsonValue complete inside its own definition.
+54-    std::vector<std::string> object_keys;
+55-    std::vector<JsonValue> object_values;
+### EXIT: 0  ELAPSED: 0.0s
+
+DONE
+########## RERUN: the first extraction (lines 48-68) cut off the struct's closing '};' (line 69), adding a syntax error; corrected extraction lines 28-37 + 48-69
+### CMD: tail -4 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-oracle-003/jsonvalue.cpp | cut -c1-120
+### CWD: /home/goya/storage/full-ligature-port-workspace/crypto-mixed
+### START: 2026-10-20T16:42:02-05:00
+        return nullptr;
+    }
+};
+int main() { JsonValue v; v.type = JsonValue::Object; JsonValue m; m.type = JsonValue::Int; m.int_value = 7; v.object_va
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cd /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-oracle-003 && clang++ -std=c++20 -c jsonvalue.cpp -o /dev/null 2> c20.err; rc=$?; grep -E ' error: ' c20.err | sed 's#/nix/store/[^/]*/include/c++/14.3.0/##' | cut -c1-230; echo; echo 'error lines:' $(grep -c ' error: ' c20.err); tail -1 c20.err; echo clang++-c++20-exit $rc; exit $rc
+### CWD: /home/goya/storage/full-ligature-port-workspace/crypto-mixed
+### START: 2026-10-20T16:42:02-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+type_traits:1049:21: error: static assertion failed due to requirement 'std::__is_complete_or_unbounded(std::__type_identity<std::pair<std::basic_string<char, std::char_traits<char>, std::allocator<char>>, JsonValue>>{})': templat
+bits/stl_construct.h:162:30: error: arithmetic on a pointer to an incomplete type 'std::pair<std::basic_string<char>, JsonValue>'
+bits/stl_construct.h:195:25: error: incomplete type '_Value_type' (aka 'std::pair<std::basic_string<char>, JsonValue>') used in type trait expression
+bits/stl_vector.h:372:35: error: arithmetic on a pointer to an incomplete type 'std::pair<std::basic_string<char>, JsonValue>'
+bits/stl_uninitialized.h:125:4: error: no matching function for call to '_Destroy'
+
+error lines: 5
+5 errors generated.
+clang++-c++20-exit 1
+### EXIT: 1  ELAPSED: 7.3s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cd /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-oracle-003 && clang++ -std=c++17 -c jsonvalue.cpp -o /dev/null; echo clang++-c++17-exit $?
+### CWD: /home/goya/storage/full-ligature-port-workspace/crypto-mixed
+### START: 2026-10-20T16:42:09-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+clang++-c++17-exit 0
+### EXIT: 0  ELAPSED: 6.6s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cd /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-oracle-003 && g++ -std=c++20 -c jsonvalue.cpp -o /dev/null 2>&1 | grep -c 'error' ; echo g++-c++20-exit ${PIPESTATUS[0]}
+### CWD: /home/goya/storage/full-ligature-port-workspace/crypto-mixed
+### START: 2026-10-20T16:42:16-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+0
+g++-c++20-exit 0
+### EXIT: 0  ELAPSED: 6.8s
+
+########## whole date-creusot/oracle/driver.cpp (read-only) compiled with clang++ -std=c++20 and -std=c++17 against date-creusot/upstream/date/include
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cd /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-oracle-003 && clang++ -std=c++20 -fsyntax-only -I /home/goya/storage/full-ligature-port-workspace/date-creusot/upstream/date/include /home/goya/storage/full-ligature-port-workspace/date-creusot/oracle/driver.cpp 2> full20.err; rc=$?; grep -E ' error: ' full20.err | sed 's#/nix/store/[^/]*/include/c++/14.3.0/##' | cut -c1-200; echo 'error lines:' $(grep -c ' error: ' full20.err); tail -1 full20.err; echo 'mentions complete class:' $(grep -c 'must be a complete class' full20.err); echo clang++-c++20-exit $rc
+### CWD: /home/goya/storage/full-ligature-port-workspace/crypto-mixed
+### START: 2026-10-20T16:42:35-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+type_traits:1049:21: error: static assertion failed due to requirement 'std::__is_complete_or_unbounded(std::__type_identity<std::pair<std::basic_string<char, std::char_traits<char>, std::allocator<ch
+bits/stl_construct.h:162:30: error: arithmetic on a pointer to an incomplete type 'std::pair<std::basic_string<char>, JsonValue>'
+bits/stl_construct.h:195:25: error: incomplete type '_Value_type' (aka 'std::pair<std::basic_string<char>, JsonValue>') used in type trait expression
+bits/stl_vector.h:372:35: error: arithmetic on a pointer to an incomplete type 'std::pair<std::basic_string<char>, JsonValue>'
+error lines: 4
+4 errors generated.
+mentions complete class: 1
+clang++-c++20-exit 1
+### EXIT: 0  ELAPSED: 9.2s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cd /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-oracle-003 && clang++ -std=c++17 -fsyntax-only -I /home/goya/storage/full-ligature-port-workspace/date-creusot/upstream/date/include /home/goya/storage/full-ligature-port-workspace/date-creusot/oracle/driver.cpp; echo clang++-c++17-exit $?
+### CWD: /home/goya/storage/full-ligature-port-workspace/crypto-mixed
+### START: 2026-10-20T16:42:44-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+clang++: warning: -Wl,-dynamic-linker=/nix/store/7nbi22pcc92y2fqbkyp7h3srvvklmckb-glibc-2.40-224/lib/ld-linux-x86-64.so.2: 'linker' input unused [-Wunused-command-line-argument]
+clang++: warning: -Wl,-rpath: 'linker' input unused [-Wunused-command-line-argument]
+clang++: warning: -Wl,/home/goya/storage/full-ligature-port-workspace/crypto-mixed/outputs/out/lib: 'linker' input unused [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/wg7nw3rri4z34fanql4dc2y640qaxwnz-graphviz-12.2.1/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/wg7nw3rri4z34fanql4dc2y640qaxwnz-graphviz-12.2.1/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/bc18da77ygq4gvq02aa70nb89hj26bk9-gdb-16.3/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/bc18da77ygq4gvq02aa70nb89hj26bk9-gdb-16.3/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/ny8ypaq365qqvp3cy0iaqyb7hvijc61y-lldb-21.1.7/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/ny8ypaq365qqvp3cy0iaqyb7hvijc61y-lldb-21.1.7/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/3ll0vqpzkjaimvg7s0r6qw7j1vk8lgiw-creusot-wrapped/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/3ll0vqpzkjaimvg7s0r6qw7j1vk8lgiw-creusot-wrapped/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/lf793zr9yfa0dpph8jlxbbdnvnahvq8b-zlib-1.3.2/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/lf793zr9yfa0dpph8jlxbbdnvnahvq8b-zlib-1.3.2/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/hi0ar880110k6jsmmili7dh1gq3cg2a9-gmp-with-cxx-6.3.0/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/hi0ar880110k6jsmmili7dh1gq3cg2a9-gmp-with-cxx-6.3.0/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/2f2bh0a3m0f0bjmximncqwv99h9fqkzv-z3-4.15.4-lib/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/2f2bh0a3m0f0bjmximncqwv99h9fqkzv-z3-4.15.4-lib/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/ylj3ihkkiqicwiqifpkknk3az31d1rsy-cvc5-1.3.2/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/ylj3ihkkiqicwiqifpkknk3az31d1rsy-cvc5-1.3.2/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/wg7nw3rri4z34fanql4dc2y640qaxwnz-graphviz-12.2.1/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/wg7nw3rri4z34fanql4dc2y640qaxwnz-graphviz-12.2.1/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/c617im66q5di115wwl2jfna7lpar487m-python3-3.13.12-env/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/bc18da77ygq4gvq02aa70nb89hj26bk9-gdb-16.3/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/bc18da77ygq4gvq02aa70nb89hj26bk9-gdb-16.3/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/ny8ypaq365qqvp3cy0iaqyb7hvijc61y-lldb-21.1.7/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/ny8ypaq365qqvp3cy0iaqyb7hvijc61y-lldb-21.1.7/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/3ll0vqpzkjaimvg7s0r6qw7j1vk8lgiw-creusot-wrapped/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/3ll0vqpzkjaimvg7s0r6qw7j1vk8lgiw-creusot-wrapped/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/lf793zr9yfa0dpph8jlxbbdnvnahvq8b-zlib-1.3.2/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/lf793zr9yfa0dpph8jlxbbdnvnahvq8b-zlib-1.3.2/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/hi0ar880110k6jsmmili7dh1gq3cg2a9-gmp-with-cxx-6.3.0/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/hi0ar880110k6jsmmili7dh1gq3cg2a9-gmp-with-cxx-6.3.0/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/2f2bh0a3m0f0bjmximncqwv99h9fqkzv-z3-4.15.4-lib/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/2f2bh0a3m0f0bjmximncqwv99h9fqkzv-z3-4.15.4-lib/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/ylj3ihkkiqicwiqifpkknk3az31d1rsy-cvc5-1.3.2/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/ylj3ihkkiqicwiqifpkknk3az31d1rsy-cvc5-1.3.2/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/7nbi22pcc92y2fqbkyp7h3srvvklmckb-glibc-2.40-224/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0/lib/gcc/x86_64-unknown-linux-gnu/14.3.0' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/ybp235ps7m4yd85v0pgvqkhd4xmxf6jq-gcc-14.3.0-lib/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/ipr6y28viyqkhkg58rdvy27m01q5j5nh-gcc-14.3.0//lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/phpq5h7cp6y1w84aysy29548irqy5dd9-gcc-14.3.0-libgcc/lib' [-Wunused-command-line-argument]
+clang++: warning: argument unused during compilation: '-L/nix/store/bljp5s9sb7kz2yfz4g1mix0g7n00lpdv-clang-21.1.7-lib/lib' [-Wunused-command-line-argument]
+clang++-c++17-exit 0
+### EXIT: 0  ELAPSED: 7.0s
+
+### CMD: sed -n '45,60p' /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/baseline/oracle/driver.cpp
+### CWD: /home/goya/storage/full-ligature-port-workspace/crypto-mixed
+### START: 2026-10-20T16:43:04-05:00
+struct JsonValue {
+    enum Type { Null, Bool, Int, String, Object, Array };
+
+    Type type = Null;
+    bool bool_value = false;
+    long long int_value = 0;
+    std::string string_value;
+    // Object members as parallel vectors: std::pair<std::string, JsonValue>
+    // would need JsonValue complete inside its own definition.
+    std::vector<std::string> object_keys;
+    std::vector<JsonValue> object_values;
+    std::vector<JsonValue> array_value;
+
+    const JsonValue* find(const std::string& key) const {
+        if (type != Object) {
+            return nullptr;
+### EXIT: 0  ELAPSED: 0.0s
+

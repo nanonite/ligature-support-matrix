@@ -1,0 +1,483 @@
+########## STATE 6667510 (ligature 1.4.2)
+### CMD: echo committed report:; python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/csum.py ci/results/c_static/crates_crypto-mixed-core.json | head -1
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed
+### START: 2026-10-20T16:30:49-05:00
+committed report:
+coverage {"discovered": 18, "resolved": 18, "unresolved": 0} config_scope {"target": "x86_64-unknown-linux-gnu", "features": [], "cfg": []} unattributed_call_sites: 236 attribution_scope keys: ['local_concepts', 'macro_invocations', 'out_of_scope_call_sites', 'scanned_item_kinds', 'unattributed_call_sites']
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz extract-c-static --target x86_64-unknown-linux-gnu && python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/csum.py ci/results/c_static/crates_crypto-mixed-core.json
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed
+### START: 2026-10-20T16:30:49-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json: 18 discovered, 18 resolved, 0 unresolved (discovered-lower-bound)
+coverage {"discovered": 18, "resolved": 18, "unresolved": 0} config_scope {"target": "x86_64-unknown-linux-gnu", "features": [], "cfg": []} unattributed_call_sites: 242 attribution_scope keys: ['local_concepts', 'macro_invocations', 'out_of_scope_call_sites', 'scanned_item_kinds', 'unattributed_call_sites']
+   CS-CHACHA20POLY1305-DEFAULT-001 definite-direct-call aead.rs:11 -> ChaCha20Poly1305 new 
+   CS-CHACHA20POLY1305-ENCRYPT-001 definite-direct-call aead.rs:47 -> ChaCha20Poly1305 encryption_output_length 
+   CS-CHACHA20POLY1305-ENCRYPT-002 definite-direct-call aead.rs:48 -> ChaCha20 with_counter 
+   CS-CHACHA20POLY1305-ENCRYPT-003 definite-direct-call aead.rs:49 -> ChaCha20 bytes_remaining 
+   CS-CHACHA20POLY1305-ENCRYPT-004 definite-direct-call aead.rs:52 -> ChaCha20 apply_keystream 
+   CS-CHACHA20POLY1305-DECRYPT-001 definite-direct-call aead.rs:68 -> ChaCha20Poly1305 decryption_output_length 
+   CS-CHACHA20POLY1305-DECRYPT-002 definite-direct-call aead.rs:75 -> ChaCha20 with_counter 
+   CS-CHACHA20POLY1305-DECRYPT-003 definite-direct-call aead.rs:76 -> ChaCha20 apply_keystream 
+   CS-CHACHA20POLY1305-VERIFY-001 definite-direct-call aead.rs:86 -> ChaCha20Poly1305 decryption_output_length 
+   CS-CHACHA20-NEW-001 definite-direct-call chacha20.rs:18 -> ChaCha20 with_counter 
+   CS-CHACHA20-APPLY-KEYSTREAM-001 definite-direct-call chacha20.rs:58 -> ChaCha20 bytes_remaining 
+   CS-POLY1305-DEFAULT-001 definite-direct-call poly1305.rs:17 -> Poly1305 new 
+   CS-POLY1305-SET-KEY-001 definite-direct-call poly1305.rs:35 -> Poly1305 load_key 
+   CS-POLY1305-UPDATE-001 definite-direct-call poly1305.rs:44 -> Poly1305 absorb 
+   CS-POLY1305-KEYED-WITH-001 definite-direct-call poly1305.rs:90 -> Poly1305 new 
+   CS-POLY1305-KEYED-WITH-002 definite-direct-call poly1305.rs:91 -> Poly1305 load_key 
+   CS-POLY1305-ABSORB-001 definite-direct-call poly1305.rs:124 -> Poly1305 process_block 
+   CS-POLY1305-ABSORB-002 definite-direct-call poly1305.rs:133 -> Poly1305 process_block 
+### EXIT: 0  ELAPSED: 7.7s
+
+### CMD: python3 - <<'PY'
+import re
+for f,fn in [('crates/crypto-mixed-core/src/aead.rs','fn tag('),('crates/crypto-mixed-core/src/poly1305.rs','pub fn compute_tag(')]:
+    s=open(f).read()
+    lines=s.split('\n'); n=0
+    for i,l in enumerate(lines):
+        if fn in l and l.rstrip().endswith('-> [u8; 16] {'):
+            lines[i]=l.replace('-> [u8; 16] {','-> TagBytes {'); n+=1
+    # the alias has to exist for the crate to compile; added right after the leading module docs/uses
+    lines.insert(0,'type TagBytes = [u8; 16];')
+    open(f,'w').write('\n'.join(lines)); print(f,'replaced',n)
+PY
+git diff --stat; git diff crates | grep '^[-+]' | grep -v '^+++\|^---'
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed
+### START: 2026-10-20T16:30:56-05:00
+crates/crypto-mixed-core/src/aead.rs replaced 1
+crates/crypto-mixed-core/src/poly1305.rs replaced 1
+ ci/results/c_static/crates_crypto-mixed-core.json | 6 +++---
+ crates/crypto-mixed-core/src/aead.rs              | 3 ++-
+ crates/crypto-mixed-core/src/poly1305.rs          | 3 ++-
+ 3 files changed, 7 insertions(+), 5 deletions(-)
++type TagBytes = [u8; 16];
+-    fn tag(&self, key: &[u8; 32], nonce: &[u8; 12], aad: &[u8], ciphertext: &[u8]) -> [u8; 16] {
++    fn tag(&self, key: &[u8; 32], nonce: &[u8; 12], aad: &[u8], ciphertext: &[u8]) -> TagBytes {
++type TagBytes = [u8; 16];
+-    pub fn compute_tag(&self, key: &[u8; 32], message: &[u8]) -> [u8; 16] {
++    pub fn compute_tag(&self, key: &[u8; 32], message: &[u8]) -> TagBytes {
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cargo check --offline -q --manifest-path crates/crypto-mixed-core/Cargo.toml --target-dir /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/kani-target/crypto-ligature-010-check && echo CRATE_COMPILES
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed
+### START: 2026-10-20T16:30:56-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+warning: unexpected `cfg` condition name: `kani`
+  --> src/lib.rs:13:7
+   |
+13 | #[cfg(kani)]
+   |       ^^^^
+   |
+   = help: expected names are: `docsrs`, `feature`, and `test` and 31 more
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(kani)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(kani)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: `#[warn(unexpected_cfgs)]` on by default
+
+CRATE_COMPILES
+### EXIT: 0  ELAPSED: 8.4s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz extract-c-static --target x86_64-unknown-linux-gnu && python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/csum.py ci/results/c_static/crates_crypto-mixed-core.json
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed
+### START: 2026-10-20T16:31:05-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json: 23 discovered, 23 resolved, 0 unresolved (discovered-lower-bound)
+coverage {"discovered": 23, "resolved": 23, "unresolved": 0} config_scope {"target": "x86_64-unknown-linux-gnu", "features": [], "cfg": []} unattributed_call_sites: 229 attribution_scope keys: ['local_concepts', 'macro_invocations', 'out_of_scope_call_sites', 'scanned_item_kinds', 'unattributed_call_sites']
+   CS-CHACHA20POLY1305-DEFAULT-001 definite-direct-call aead.rs:12 -> ChaCha20Poly1305 new 
+   CS-CHACHA20POLY1305-ENCRYPT-001 definite-direct-call aead.rs:48 -> ChaCha20Poly1305 encryption_output_length 
+   CS-CHACHA20POLY1305-ENCRYPT-002 definite-direct-call aead.rs:49 -> ChaCha20 with_counter 
+   CS-CHACHA20POLY1305-ENCRYPT-003 definite-direct-call aead.rs:50 -> ChaCha20 bytes_remaining 
+   CS-CHACHA20POLY1305-ENCRYPT-004 definite-direct-call aead.rs:53 -> ChaCha20 apply_keystream 
+   CS-CHACHA20POLY1305-ENCRYPT-005 definite-direct-call aead.rs:54 -> ChaCha20Poly1305 tag 
+   CS-CHACHA20POLY1305-DECRYPT-001 definite-direct-call aead.rs:69 -> ChaCha20Poly1305 decryption_output_length 
+   CS-CHACHA20POLY1305-DECRYPT-002 definite-direct-call aead.rs:71 -> ChaCha20Poly1305 tag 
+   CS-CHACHA20POLY1305-DECRYPT-003 definite-direct-call aead.rs:76 -> ChaCha20 with_counter 
+   CS-CHACHA20POLY1305-DECRYPT-004 definite-direct-call aead.rs:77 -> ChaCha20 apply_keystream 
+   CS-CHACHA20POLY1305-VERIFY-001 definite-direct-call aead.rs:87 -> ChaCha20Poly1305 decryption_output_length 
+   CS-CHACHA20POLY1305-VERIFY-002 definite-direct-call aead.rs:91 -> ChaCha20Poly1305 tag 
+   CS-CHACHA20-NEW-001 definite-direct-call chacha20.rs:18 -> ChaCha20 with_counter 
+   CS-CHACHA20-APPLY-KEYSTREAM-001 definite-direct-call chacha20.rs:58 -> ChaCha20 bytes_remaining 
+   CS-POLY1305-DEFAULT-001 definite-direct-call poly1305.rs:18 -> Poly1305 new 
+   CS-POLY1305-SET-KEY-001 definite-direct-call poly1305.rs:36 -> Poly1305 load_key 
+   CS-POLY1305-UPDATE-001 definite-direct-call poly1305.rs:45 -> Poly1305 absorb 
+   CS-POLY1305-COMPUTE-TAG-001 definite-direct-call poly1305.rs:61 -> Poly1305 keyed_with 
+   CS-POLY1305-COMPUTE-TAG-002 definite-direct-call poly1305.rs:62 -> Poly1305 absorb 
+   CS-POLY1305-KEYED-WITH-001 definite-direct-call poly1305.rs:91 -> Poly1305 new 
+   CS-POLY1305-KEYED-WITH-002 definite-direct-call poly1305.rs:92 -> Poly1305 load_key 
+   CS-POLY1305-ABSORB-001 definite-direct-call poly1305.rs:125 -> Poly1305 process_block 
+   CS-POLY1305-ABSORB-002 definite-direct-call poly1305.rs:134 -> Poly1305 process_block 
+### EXIT: 0  ELAPSED: 11.0s
+
+### control: make tag pub (no return-type change) at 6667510
+### CMD: sed -i 's/^    fn tag(&self, key/    pub fn tag(\&self, key/' crates/crypto-mixed-core/src/aead.rs && git diff crates | grep '^[-+] ' ; timeout 600 python3 -I tools/ligature/ligature.pyz extract-c-static --target x86_64-unknown-linux-gnu && python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/csum.py ci/results/c_static/crates_crypto-mixed-core.json | head -1
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed
+### START: 2026-10-20T16:31:16-05:00
+-    fn tag(&self, key: &[u8; 32], nonce: &[u8; 12], aad: &[u8], ciphertext: &[u8]) -> [u8; 16] {
++    pub fn tag(&self, key: &[u8; 32], nonce: &[u8; 12], aad: &[u8], ciphertext: &[u8]) -> [u8; 16] {
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json: 18 discovered, 18 resolved, 0 unresolved (discovered-lower-bound)
+coverage {"discovered": 18, "resolved": 18, "unresolved": 0} config_scope {"target": "x86_64-unknown-linux-gnu", "features": [], "cfg": []} unattributed_call_sites: 242 attribution_scope keys: ['local_concepts', 'macro_invocations', 'out_of_scope_call_sites', 'scanned_item_kinds', 'unattributed_call_sites']
+### EXIT: 0  ELAPSED: 0.5s
+
+########## STATE 6a55894 (ligature 1.4.2)
+### CMD: echo committed report:; python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/csum.py ci/results/c_static/crates_crypto-mixed-core.json | head -1
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed
+### START: 2026-10-20T16:31:17-05:00
+committed report:
+coverage {"discovered": 18, "resolved": 18, "unresolved": 0} config_scope {"target": "x86_64-unknown-linux-gnu", "features": ["default"], "cfg": []} unattributed_call_sites: 240 attribution_scope keys: ['local_concepts', 'macro_invocations', 'out_of_scope_call_sites', 'scanned_item_kinds', 'unattributed_call_sites']
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz extract-c-static --target x86_64-unknown-linux-gnu && python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/csum.py ci/results/c_static/crates_crypto-mixed-core.json
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed
+### START: 2026-10-20T16:31:17-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json: 18 discovered, 18 resolved, 0 unresolved (discovered-lower-bound)
+coverage {"discovered": 18, "resolved": 18, "unresolved": 0} config_scope {"target": "x86_64-unknown-linux-gnu", "features": [], "cfg": []} unattributed_call_sites: 240 attribution_scope keys: ['local_concepts', 'macro_invocations', 'out_of_scope_call_sites', 'scanned_item_kinds', 'unattributed_call_sites']
+   CS-CHACHA20POLY1305-DEFAULT-001 definite-direct-call aead.rs:11 -> ChaCha20Poly1305 new 
+   CS-CHACHA20POLY1305-ENCRYPT-001 definite-direct-call aead.rs:47 -> ChaCha20Poly1305 encryption_output_length 
+   CS-CHACHA20POLY1305-ENCRYPT-002 definite-direct-call aead.rs:48 -> ChaCha20 with_counter 
+   CS-CHACHA20POLY1305-ENCRYPT-003 definite-direct-call aead.rs:49 -> ChaCha20 bytes_remaining 
+   CS-CHACHA20POLY1305-ENCRYPT-004 definite-direct-call aead.rs:52 -> ChaCha20 apply_keystream 
+   CS-CHACHA20POLY1305-DECRYPT-001 definite-direct-call aead.rs:68 -> ChaCha20Poly1305 decryption_output_length 
+   CS-CHACHA20POLY1305-DECRYPT-002 definite-direct-call aead.rs:75 -> ChaCha20 with_counter 
+   CS-CHACHA20POLY1305-DECRYPT-003 definite-direct-call aead.rs:76 -> ChaCha20 apply_keystream 
+   CS-CHACHA20POLY1305-VERIFY-001 definite-direct-call aead.rs:86 -> ChaCha20Poly1305 decryption_output_length 
+   CS-CHACHA20-NEW-001 definite-direct-call chacha20.rs:18 -> ChaCha20 with_counter 
+   CS-CHACHA20-APPLY-KEYSTREAM-001 definite-direct-call chacha20.rs:58 -> ChaCha20 bytes_remaining 
+   CS-POLY1305-DEFAULT-001 definite-direct-call poly1305.rs:17 -> Poly1305 new 
+   CS-POLY1305-SET-KEY-001 definite-direct-call poly1305.rs:35 -> Poly1305 load_key 
+   CS-POLY1305-UPDATE-001 definite-direct-call poly1305.rs:44 -> Poly1305 absorb 
+   CS-POLY1305-KEYED-WITH-001 definite-direct-call poly1305.rs:90 -> Poly1305 new 
+   CS-POLY1305-KEYED-WITH-002 definite-direct-call poly1305.rs:91 -> Poly1305 load_key 
+   CS-POLY1305-ABSORB-001 definite-direct-call poly1305.rs:124 -> Poly1305 process_block 
+   CS-POLY1305-ABSORB-002 definite-direct-call poly1305.rs:133 -> Poly1305 process_block 
+### EXIT: 0  ELAPSED: 7.2s
+
+### CMD: python3 - <<'PY'
+import re
+for f,fn in [('crates/crypto-mixed-core/src/aead.rs','fn tag('),('crates/crypto-mixed-core/src/poly1305.rs','pub fn compute_tag(')]:
+    s=open(f).read()
+    lines=s.split('\n'); n=0
+    for i,l in enumerate(lines):
+        if fn in l and l.rstrip().endswith('-> [u8; 16] {'):
+            lines[i]=l.replace('-> [u8; 16] {','-> TagBytes {'); n+=1
+    # the alias has to exist for the crate to compile; added right after the leading module docs/uses
+    lines.insert(0,'type TagBytes = [u8; 16];')
+    open(f,'w').write('\n'.join(lines)); print(f,'replaced',n)
+PY
+git diff --stat; git diff crates | grep '^[-+]' | grep -v '^+++\|^---'
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed
+### START: 2026-10-20T16:31:24-05:00
+crates/crypto-mixed-core/src/aead.rs replaced 1
+crates/crypto-mixed-core/src/poly1305.rs replaced 1
+ ci/results/c_static/crates_crypto-mixed-core.json | 6 ++----
+ crates/crypto-mixed-core/src/aead.rs              | 3 ++-
+ crates/crypto-mixed-core/src/poly1305.rs          | 3 ++-
+ 3 files changed, 6 insertions(+), 6 deletions(-)
++type TagBytes = [u8; 16];
+-    fn tag(&self, key: &[u8; 32], nonce: &[u8; 12], aad: &[u8], ciphertext: &[u8]) -> [u8; 16] {
++    fn tag(&self, key: &[u8; 32], nonce: &[u8; 12], aad: &[u8], ciphertext: &[u8]) -> TagBytes {
++type TagBytes = [u8; 16];
+-    pub fn compute_tag(&self, key: &[u8; 32], message: &[u8]) -> [u8; 16] {
++    pub fn compute_tag(&self, key: &[u8; 32], message: &[u8]) -> TagBytes {
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cargo check --offline -q --manifest-path crates/crypto-mixed-core/Cargo.toml --target-dir /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/kani-target/crypto-ligature-010-check && echo CRATE_COMPILES
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed
+### START: 2026-10-20T16:31:24-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+warning: unexpected `cfg` condition name: `kani`
+  --> src/lib.rs:13:7
+   |
+13 | #[cfg(kani)]
+   |       ^^^^
+   |
+   = help: expected names are: `docsrs`, `feature`, and `test` and 31 more
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(kani)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(kani)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: `#[warn(unexpected_cfgs)]` on by default
+
+CRATE_COMPILES
+### EXIT: 0  ELAPSED: 7.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz extract-c-static --target x86_64-unknown-linux-gnu && python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/csum.py ci/results/c_static/crates_crypto-mixed-core.json
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed
+### START: 2026-10-20T16:31:31-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json: 23 discovered, 23 resolved, 0 unresolved (discovered-lower-bound)
+coverage {"discovered": 23, "resolved": 23, "unresolved": 0} config_scope {"target": "x86_64-unknown-linux-gnu", "features": [], "cfg": []} unattributed_call_sites: 227 attribution_scope keys: ['local_concepts', 'macro_invocations', 'out_of_scope_call_sites', 'scanned_item_kinds', 'unattributed_call_sites']
+   CS-CHACHA20POLY1305-DEFAULT-001 definite-direct-call aead.rs:12 -> ChaCha20Poly1305 new 
+   CS-CHACHA20POLY1305-ENCRYPT-001 definite-direct-call aead.rs:48 -> ChaCha20Poly1305 encryption_output_length 
+   CS-CHACHA20POLY1305-ENCRYPT-002 definite-direct-call aead.rs:49 -> ChaCha20 with_counter 
+   CS-CHACHA20POLY1305-ENCRYPT-003 definite-direct-call aead.rs:50 -> ChaCha20 bytes_remaining 
+   CS-CHACHA20POLY1305-ENCRYPT-004 definite-direct-call aead.rs:53 -> ChaCha20 apply_keystream 
+   CS-CHACHA20POLY1305-ENCRYPT-005 definite-direct-call aead.rs:54 -> ChaCha20Poly1305 tag 
+   CS-CHACHA20POLY1305-DECRYPT-001 definite-direct-call aead.rs:69 -> ChaCha20Poly1305 decryption_output_length 
+   CS-CHACHA20POLY1305-DECRYPT-002 definite-direct-call aead.rs:71 -> ChaCha20Poly1305 tag 
+   CS-CHACHA20POLY1305-DECRYPT-003 definite-direct-call aead.rs:76 -> ChaCha20 with_counter 
+   CS-CHACHA20POLY1305-DECRYPT-004 definite-direct-call aead.rs:77 -> ChaCha20 apply_keystream 
+   CS-CHACHA20POLY1305-VERIFY-001 definite-direct-call aead.rs:87 -> ChaCha20Poly1305 decryption_output_length 
+   CS-CHACHA20POLY1305-VERIFY-002 definite-direct-call aead.rs:91 -> ChaCha20Poly1305 tag 
+   CS-CHACHA20-NEW-001 definite-direct-call chacha20.rs:18 -> ChaCha20 with_counter 
+   CS-CHACHA20-APPLY-KEYSTREAM-001 definite-direct-call chacha20.rs:58 -> ChaCha20 bytes_remaining 
+   CS-POLY1305-DEFAULT-001 definite-direct-call poly1305.rs:18 -> Poly1305 new 
+   CS-POLY1305-SET-KEY-001 definite-direct-call poly1305.rs:36 -> Poly1305 load_key 
+   CS-POLY1305-UPDATE-001 definite-direct-call poly1305.rs:45 -> Poly1305 absorb 
+   CS-POLY1305-COMPUTE-TAG-001 definite-direct-call poly1305.rs:61 -> Poly1305 keyed_with 
+   CS-POLY1305-COMPUTE-TAG-002 definite-direct-call poly1305.rs:62 -> Poly1305 absorb 
+   CS-POLY1305-KEYED-WITH-001 definite-direct-call poly1305.rs:91 -> Poly1305 new 
+   CS-POLY1305-KEYED-WITH-002 definite-direct-call poly1305.rs:92 -> Poly1305 load_key 
+   CS-POLY1305-ABSORB-001 definite-direct-call poly1305.rs:125 -> Poly1305 process_block 
+   CS-POLY1305-ABSORB-002 definite-direct-call poly1305.rs:134 -> Poly1305 process_block 
+### EXIT: 0  ELAPSED: 7.0s
+
+### control: make tag pub (no return-type change) at 6a55894
+### CMD: sed -i 's/^    fn tag(&self, key/    pub fn tag(\&self, key/' crates/crypto-mixed-core/src/aead.rs && git diff crates | grep '^[-+] ' ; timeout 600 python3 -I tools/ligature/ligature.pyz extract-c-static --target x86_64-unknown-linux-gnu && python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/csum.py ci/results/c_static/crates_crypto-mixed-core.json | head -1
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed
+### START: 2026-10-20T16:31:38-05:00
+-    fn tag(&self, key: &[u8; 32], nonce: &[u8; 12], aad: &[u8], ciphertext: &[u8]) -> [u8; 16] {
++    pub fn tag(&self, key: &[u8; 32], nonce: &[u8; 12], aad: &[u8], ciphertext: &[u8]) -> [u8; 16] {
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json: 18 discovered, 18 resolved, 0 unresolved (discovered-lower-bound)
+coverage {"discovered": 18, "resolved": 18, "unresolved": 0} config_scope {"target": "x86_64-unknown-linux-gnu", "features": [], "cfg": []} unattributed_call_sites: 240 attribution_scope keys: ['local_concepts', 'macro_invocations', 'out_of_scope_call_sites', 'scanned_item_kinds', 'unattributed_call_sites']
+### EXIT: 0  ELAPSED: 0.5s
+
+########## RECONSTRUCTED STATE: 74ff591 (last commit before 6667510; 1.4.2) + the four #47 associated-path respellings described in crypto-ligature-011, Poly1305State NOT folded (that fold landed in the same commit 6667510)
+### CMD: python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/respell.py && git diff crates | grep '^[-+] '
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed
+### START: 2026-10-20T16:33:22-05:00
+respelled 3 aead.rs sites and poly1305.rs update
+-        if plaintext.len() > chacha.bytes_remaining() {
++        if plaintext.len() > ChaCha20::bytes_remaining(&chacha) {
+-        let ciphertext = chacha.apply_keystream(plaintext)?;
++        let ciphertext = ChaCha20::apply_keystream(&mut chacha, plaintext)?;
+-        chacha.apply_keystream(ciphertext)
++        ChaCha20::apply_keystream(&mut chacha, ciphertext)
+-        self.state
+-            .as_mut()
+-            .ok_or(CryptoError::KeyNotSet)?
+-            .update(input);
++        let state = self.state.as_mut().ok_or(CryptoError::KeyNotSet)?;
++        Poly1305State::update(state, input);
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cargo check --offline -q --manifest-path crates/crypto-mixed-core/Cargo.toml --target-dir /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/kani-target/crypto-ligature-010-check 2>&1 | grep -v 'cfg\|^ *=\|^ *|\|^ *-->\|^$\|^[0-9]* |' ; echo cargo-check-exit ${PIPESTATUS[0]}
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed
+### START: 2026-10-20T16:33:22-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+            [lints.rust]
+cargo-check-exit 0
+### EXIT: 0  ELAPSED: 6.5s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): timeout 600 python3 -I tools/ligature/ligature.pyz extract-c-static --target x86_64-unknown-linux-gnu && python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/csum.py ci/results/c_static/crates_crypto-mixed-core.json
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed
+### START: 2026-10-20T16:33:29-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json: 16 discovered, 16 resolved, 0 unresolved (discovered-lower-bound)
+coverage {"discovered": 16, "resolved": 16, "unresolved": 0} config_scope {"target": "x86_64-unknown-linux-gnu", "features": [], "cfg": []} unattributed_call_sites: 217 attribution_scope keys: ['local_concepts', 'macro_invocations', 'out_of_scope_call_sites', 'scanned_item_kinds', 'unattributed_call_sites']
+   CS-CHACHA20POLY1305-DEFAULT-001 definite-direct-call aead.rs:11 -> ChaCha20Poly1305 new 
+   CS-CHACHA20POLY1305-ENCRYPT-001 definite-direct-call aead.rs:47 -> ChaCha20Poly1305 encryption_output_length 
+   CS-CHACHA20POLY1305-ENCRYPT-002 definite-direct-call aead.rs:48 -> ChaCha20 with_counter 
+   CS-CHACHA20POLY1305-ENCRYPT-003 definite-direct-call aead.rs:49 -> ChaCha20 bytes_remaining 
+   CS-CHACHA20POLY1305-ENCRYPT-004 definite-direct-call aead.rs:52 -> ChaCha20 apply_keystream 
+   CS-CHACHA20POLY1305-DECRYPT-001 definite-direct-call aead.rs:68 -> ChaCha20Poly1305 decryption_output_length 
+   CS-CHACHA20POLY1305-DECRYPT-002 definite-direct-call aead.rs:75 -> ChaCha20 with_counter 
+   CS-CHACHA20POLY1305-DECRYPT-003 definite-direct-call aead.rs:76 -> ChaCha20 apply_keystream 
+   CS-CHACHA20POLY1305-VERIFY-001 definite-direct-call aead.rs:86 -> ChaCha20Poly1305 decryption_output_length 
+   CS-CHACHA20-NEW-001 definite-direct-call chacha20.rs:18 -> ChaCha20 with_counter 
+   CS-CHACHA20-APPLY-KEYSTREAM-001 definite-direct-call chacha20.rs:58 -> ChaCha20 bytes_remaining 
+   CS-POLY1305-DEFAULT-001 definite-direct-call poly1305.rs:12 -> Poly1305 new 
+   CS-POLY1305-SET-KEY-001 definite-direct-call poly1305.rs:23 -> Poly1305State new 
+   CS-POLY1305-UPDATE-001 definite-direct-call poly1305.rs:30 -> Poly1305State update 
+   CS-POLY1305STATE-UPDATE-001 definite-direct-call poly1305.rs:114 -> Poly1305State process_block 
+   CS-POLY1305STATE-UPDATE-002 definite-direct-call poly1305.rs:123 -> Poly1305State process_block 
+### EXIT: 0  ELAPSED: 7.1s
+
+### CMD: python3 - <<'PY'
+for f,fn in [('crates/crypto-mixed-core/src/aead.rs','fn tag('),('crates/crypto-mixed-core/src/poly1305.rs','pub fn compute_tag(')]:
+    s=open(f).read(); lines=s.split('\n'); n=0
+    for i,l in enumerate(lines):
+        if fn in l and l.rstrip().endswith('-> [u8; 16] {'):
+            lines[i]=l.replace('-> [u8; 16] {','-> TagBytes {'); n+=1
+    lines.insert(0,'type TagBytes = [u8; 16];')
+    open(f,'w').write('\n'.join(lines)); print(f,'replaced',n)
+PY
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed
+### START: 2026-10-20T16:33:36-05:00
+crates/crypto-mixed-core/src/aead.rs replaced 1
+crates/crypto-mixed-core/src/poly1305.rs replaced 1
+### EXIT: 0  ELAPSED: 0.0s
+
+### CMD (in nix develop path:/home/goya/storage/full-ligature-port-workspace#crypto-mixed): cargo check --offline -q --manifest-path crates/crypto-mixed-core/Cargo.toml --target-dir /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/kani-target/crypto-ligature-010-check 2>/dev/null; echo cargo-check-exit $?; timeout 600 python3 -I tools/ligature/ligature.pyz extract-c-static --target x86_64-unknown-linux-gnu && python3 /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/bin/csum.py ci/results/c_static/crates_crypto-mixed-core.json
+### CWD: /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed
+### START: 2026-10-20T16:33:36-05:00
+info: syncing channel updates for 1.95.0-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-16 for version 1.95.0 (59807616e 2026-04-14)
+info: component clippy is up to date
+info: component rustfmt is up to date
+
+  1.95.0-x86_64-unknown-linux-gnu unchanged - rustc 1.95.0 (59807616e 2026-04-14)
+
+info: checking for self-update (current version: 1.29.1)
+info: syncing channel updates for nightly-2026-04-21-x86_64-unknown-linux-gnu
+info: latest update on 2026-04-21 for version 1.97.0-nightly (66da6cae1 2026-04-20)
+info: component rust-src is up to date
+
+  nightly-2026-04-21-x86_64-unknown-linux-gnu unchanged - rustc 1.97.0-nightly (66da6cae1 2026-04-20)
+
+info: checking for self-update (current version: 1.29.1)
+crypto-mixed: Creusot, Verus, Why3, Z3, cvc5, Alt-Ergo, Kani, and Rust
+cargo-check-exit 0
+wrote /tmp/claude-1000/-home-goya-storage-full-ligature-port-workspace/eb65b35e-7b86-4223-92f8-5242f34618bf/scratchpad/stage8c-replay/work/crypto-ligature-010/ws/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json: 21 discovered, 20 resolved, 1 unresolved (discovered-lower-bound)
+coverage {"discovered": 21, "resolved": 20, "unresolved": 1} config_scope {"target": "x86_64-unknown-linux-gnu", "features": [], "cfg": []} unattributed_call_sites: 204 attribution_scope keys: ['local_concepts', 'macro_invocations', 'out_of_scope_call_sites', 'scanned_item_kinds', 'unattributed_call_sites']
+   CS-CHACHA20POLY1305-DEFAULT-001 definite-direct-call aead.rs:12 -> ChaCha20Poly1305 new 
+   CS-CHACHA20POLY1305-ENCRYPT-001 definite-direct-call aead.rs:48 -> ChaCha20Poly1305 encryption_output_length 
+   CS-CHACHA20POLY1305-ENCRYPT-002 definite-direct-call aead.rs:49 -> ChaCha20 with_counter 
+   CS-CHACHA20POLY1305-ENCRYPT-003 definite-direct-call aead.rs:50 -> ChaCha20 bytes_remaining 
+   CS-CHACHA20POLY1305-ENCRYPT-004 definite-direct-call aead.rs:53 -> ChaCha20 apply_keystream 
+   CS-CHACHA20POLY1305-ENCRYPT-005 definite-direct-call aead.rs:54 -> ChaCha20Poly1305 tag 
+   CS-CHACHA20POLY1305-DECRYPT-001 definite-direct-call aead.rs:69 -> ChaCha20Poly1305 decryption_output_length 
+   CS-CHACHA20POLY1305-DECRYPT-002 definite-direct-call aead.rs:71 -> ChaCha20Poly1305 tag 
+   CS-CHACHA20POLY1305-DECRYPT-003 definite-direct-call aead.rs:76 -> ChaCha20 with_counter 
+   CS-CHACHA20POLY1305-DECRYPT-004 definite-direct-call aead.rs:77 -> ChaCha20 apply_keystream 
+   CS-CHACHA20POLY1305-VERIFY-001 definite-direct-call aead.rs:87 -> ChaCha20Poly1305 decryption_output_length 
+   CS-CHACHA20POLY1305-VERIFY-002 definite-direct-call aead.rs:91 -> ChaCha20Poly1305 tag 
+   CS-CHACHA20-NEW-001 definite-direct-call chacha20.rs:18 -> ChaCha20 with_counter 
+   CS-CHACHA20-APPLY-KEYSTREAM-001 definite-direct-call chacha20.rs:58 -> ChaCha20 bytes_remaining 
+   CS-POLY1305-DEFAULT-001 definite-direct-call poly1305.rs:13 -> Poly1305 new 
+   CS-POLY1305-SET-KEY-001 definite-direct-call poly1305.rs:24 -> Poly1305State new 
+   CS-POLY1305-UPDATE-001 definite-direct-call poly1305.rs:31 -> Poly1305State update 
+   CS-POLY1305-COMPUTE-TAG-001 definite-direct-call poly1305.rs:45 -> Poly1305State new 
+   CS-POLY1305-COMPUTE-TAG-002 possible-dispatch poly1305.rs:46 -> None None update
+   CS-POLY1305STATE-UPDATE-001 definite-direct-call poly1305.rs:115 -> Poly1305State process_block 
+   CS-POLY1305STATE-UPDATE-002 definite-direct-call poly1305.rs:124 -> Poly1305State process_block 
+### EXIT: 0  ELAPSED: 8.0s
+
