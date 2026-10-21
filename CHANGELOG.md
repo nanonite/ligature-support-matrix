@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 ### Changed
+- [p4 matrix] P4-2 Verifier-fit analysis for P1 date-creusot (#156)
 - [p4 matrix] P4-1 Draft the verifier matrix spec (Axis A port x owner, Axis B composition) (#155)
 - [p3 probe] Per-tool cluster split + boundary contract on cross-verifier edge; degradation record needs (#51)
 - [p3 probe] Mixed-tool single cluster: single_verifier_system + G14 behaviour (#50)
