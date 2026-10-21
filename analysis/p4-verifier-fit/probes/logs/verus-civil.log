@@ -1,0 +1,16 @@
+error: function body check: Resource limit (rlimit) exceeded; consider rerunning with --profile for more details
+  --> civil.rs:50:1
+   |
+50 | fn from_days(dp: i32) -> (r: (i16, u8, u8))
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: function body check: Resource limit (rlimit) exceeded; consider rerunning with --profile for more details
+  --> civil.rs:66:1
+   |
+66 | fn round_trip(y: i16, m: u8, d: u8) -> (b: bool)
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+verification results:: 2 verified, 2 errors
+error: aborting due to 2 previous errors
+
+exit=1

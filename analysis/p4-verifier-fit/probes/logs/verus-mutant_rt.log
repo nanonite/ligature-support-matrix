@@ -1,0 +1,13 @@
+error: postcondition not satisfied
+  --> mutant_rt.rs:70:13
+   |
+70 |     ensures !b,
+   |             ^^ failed this postcondition
+...
+73 |     r.0 == y && r.1 == m && r.2 == d
+   |     -------------------------------- at the end of the function body
+
+verification results:: 3 verified, 1 errors
+error: aborting due to 1 previous error
+
+exit=1

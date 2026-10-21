@@ -1,0 +1,19 @@
+error: function body check: Resource limit (rlimit) exceeded; consider rerunning with --profile for more details
+  --> mutant_spec.rs:51:1
+   |
+51 | fn from_days(dp: i32) -> (r: (i16, u8, u8))
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: postcondition not satisfied
+  --> mutant_spec.rs:70:13
+   |
+70 |     ensures b,
+   |             ^ failed this postcondition
+...
+73 |     r.0 == y && r.1 == m && r.2 == d
+   |     -------------------------------- at the end of the function body
+
+verification results:: 2 verified, 2 errors
+error: aborting due to 2 previous errors
+
+exit=1

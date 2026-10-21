@@ -1,0 +1,2 @@
+/home/goya/.cargo/bin/cargo-kani
+cargo-kani 0.67.0

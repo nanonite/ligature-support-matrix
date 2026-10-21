@@ -1,0 +1,1212 @@
+Kani Rust Verifier 0.67.0 (cargo plugin)
+   Compiling date-creusot-core v0.1.0 (/tmp/tmp.dGVwq2nNbk/crate)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.10s
+Checking harness kani_probe::round_trip_mutant...
+CBMC 6.8.0 (cbmc-6.8.0)
+CBMC version 6.8.0 (cbmc-6.8.0) 64-bit x86_64 linux
+Reading GOTO program from file /tmp/tmp.dGVwq2nNbk/target/kani/x86_64-unknown-linux-gnu/debug/deps/date_creusot_core-61f0869ca9d51648__RNvNtCsabYY06mt9jS_17date_creusot_core10kani_probe17round_trip_mutant.out
+Generating GOTO Program
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+Generic Property Instrumentation
+Running with 16 object bits, 48 offset bits (user-specified)
+Starting Bounded Model Checking
+Runtime Symex: 0.0234654s
+size of program expression: 1594 steps
+slicing removed 721 assignments
+Generated 302 VCC(s), 128 remaining after simplification
+Runtime Postprocess Equation: 0.000271508s
+Passing problem to propositional reduction
+converting SSA
+Runtime Convert SSA: 0.0190442s
+Running propositional reduction
+Post-processing
+Runtime Post-process: 4.718e-06s
+Solving with CaDiCaL 2.0.0
+23612 variables, 107984 clauses
+SAT checker: instance is SATISFIABLE
+Runtime Solver: 0.100576s
+Runtime decision procedure: 0.12003s
+Running propositional reduction
+Solving with CaDiCaL 2.0.0
+23613 variables, 107985 clauses
+SAT checker: instance is SATISFIABLE
+Runtime Solver: 0.0301747s
+Runtime decision procedure: 0.0303611s
+Running propositional reduction
+Solving with CaDiCaL 2.0.0
+23614 variables, 107986 clauses
+SAT checker: instance is SATISFIABLE
+Runtime Solver: 0.00836601s
+Runtime decision procedure: 0.00851512s
+Running propositional reduction
+Solving with CaDiCaL 2.0.0
+23615 variables, 107987 clauses
+SAT checker: instance is UNSATISFIABLE
+Runtime Solver: 0.577847s
+Runtime decision procedure: 0.57795s
+
+RESULTS:
+Check 1: year::Year::is_leap.assertion.1
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with a divisor of zero"
+	 - Location: src/year.rs:70:9 in function year::Year::is_leap
+
+Check 2: year::Year::is_leap.assertion.2
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with overflow"
+	 - Location: src/year.rs:70:9 in function year::Year::is_leap
+
+Check 3: year::Year::is_leap.arithmetic_overflow.1
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with overflow"
+	 - Location: src/year.rs:70:9 in function year::Year::is_leap
+
+Check 4: year::Year::is_leap.arithmetic_overflow.2
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with a divisor of zero"
+	 - Location: src/year.rs:70:9 in function year::Year::is_leap
+
+Check 5: year::Year::is_leap.assertion.3
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with a divisor of zero"
+	 - Location: src/year.rs:70:29 in function year::Year::is_leap
+
+Check 6: year::Year::is_leap.assertion.4
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with overflow"
+	 - Location: src/year.rs:70:29 in function year::Year::is_leap
+
+Check 7: year::Year::is_leap.arithmetic_overflow.3
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with overflow"
+	 - Location: src/year.rs:70:29 in function year::Year::is_leap
+
+Check 8: year::Year::is_leap.arithmetic_overflow.4
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with a divisor of zero"
+	 - Location: src/year.rs:70:29 in function year::Year::is_leap
+
+Check 9: year::Year::is_leap.assertion.5
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with a divisor of zero"
+	 - Location: src/year.rs:70:50 in function year::Year::is_leap
+
+Check 10: year::Year::is_leap.assertion.6
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with overflow"
+	 - Location: src/year.rs:70:50 in function year::Year::is_leap
+
+Check 11: year::Year::is_leap.arithmetic_overflow.5
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with overflow"
+	 - Location: src/year.rs:70:50 in function year::Year::is_leap
+
+Check 12: year::Year::is_leap.arithmetic_overflow.6
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with a divisor of zero"
+	 - Location: src/year.rs:70:50 in function year::Year::is_leap
+
+Check 13: kani_probe::round_trip_mutant.assertion.1
+	 - Status: FAILURE
+	 - Description: "assertion failed: !ymd.round_trip()"
+	 - Location: src/kani_probe.rs:33:5 in function kani_probe::round_trip_mutant
+
+Check 14: year_month_day::YearMonthDay::from_days.assertion.1
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/year_month_day.rs:926:17 in function year_month_day::YearMonthDay::from_days
+
+Check 15: year_month_day::YearMonthDay::from_days.assertion.2
+	 - Status: SUCCESS
+	 - Description: "attempt to subtract with overflow"
+	 - Location: src/year_month_day.rs:927:42 in function year_month_day::YearMonthDay::from_days
+
+Check 16: year_month_day::YearMonthDay::from_days.assertion.3
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:927:19 in function year_month_day::YearMonthDay::from_days
+
+Check 17: year_month_day::YearMonthDay::from_days.assertion.4
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:927:19 in function year_month_day::YearMonthDay::from_days
+
+Check 18: year_month_day::YearMonthDay::from_days.arithmetic_overflow.1
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:927:19 in function year_month_day::YearMonthDay::from_days
+
+Check 19: year_month_day::YearMonthDay::from_days.arithmetic_overflow.2
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:927:19 in function year_month_day::YearMonthDay::from_days
+
+Check 20: year_month_day::YearMonthDay::from_days.assertion.5
+	 - Status: SUCCESS
+	 - Description: "attempt to multiply with overflow"
+	 - Location: src/year_month_day.rs:928:23 in function year_month_day::YearMonthDay::from_days
+
+Check 21: year_month_day::YearMonthDay::from_days.assertion.6
+	 - Status: SUCCESS
+	 - Description: "attempt to subtract with overflow"
+	 - Location: src/year_month_day.rs:928:19 in function year_month_day::YearMonthDay::from_days
+
+Check 22: year_month_day::YearMonthDay::from_days.assertion.7
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:929:26 in function year_month_day::YearMonthDay::from_days
+
+Check 23: year_month_day::YearMonthDay::from_days.assertion.8
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:929:26 in function year_month_day::YearMonthDay::from_days
+
+Check 24: year_month_day::YearMonthDay::from_days.arithmetic_overflow.3
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:929:26 in function year_month_day::YearMonthDay::from_days
+
+Check 25: year_month_day::YearMonthDay::from_days.arithmetic_overflow.4
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:929:26 in function year_month_day::YearMonthDay::from_days
+
+Check 26: year_month_day::YearMonthDay::from_days.assertion.9
+	 - Status: SUCCESS
+	 - Description: "attempt to subtract with overflow"
+	 - Location: src/year_month_day.rs:929:20 in function year_month_day::YearMonthDay::from_days
+
+Check 27: year_month_day::YearMonthDay::from_days.assertion.10
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:929:39 in function year_month_day::YearMonthDay::from_days
+
+Check 28: year_month_day::YearMonthDay::from_days.assertion.11
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:929:39 in function year_month_day::YearMonthDay::from_days
+
+Check 29: year_month_day::YearMonthDay::from_days.arithmetic_overflow.5
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:929:39 in function year_month_day::YearMonthDay::from_days
+
+Check 30: year_month_day::YearMonthDay::from_days.arithmetic_overflow.6
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:929:39 in function year_month_day::YearMonthDay::from_days
+
+Check 31: year_month_day::YearMonthDay::from_days.assertion.12
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/year_month_day.rs:929:20 in function year_month_day::YearMonthDay::from_days
+
+Check 32: year_month_day::YearMonthDay::from_days.assertion.13
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:929:53 in function year_month_day::YearMonthDay::from_days
+
+Check 33: year_month_day::YearMonthDay::from_days.assertion.14
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:929:53 in function year_month_day::YearMonthDay::from_days
+
+Check 34: year_month_day::YearMonthDay::from_days.arithmetic_overflow.7
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:929:53 in function year_month_day::YearMonthDay::from_days
+
+Check 35: year_month_day::YearMonthDay::from_days.arithmetic_overflow.8
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:929:53 in function year_month_day::YearMonthDay::from_days
+
+Check 36: year_month_day::YearMonthDay::from_days.assertion.15
+	 - Status: SUCCESS
+	 - Description: "attempt to subtract with overflow"
+	 - Location: src/year_month_day.rs:929:19 in function year_month_day::YearMonthDay::from_days
+
+Check 37: year_month_day::YearMonthDay::from_days.assertion.16
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:929:19 in function year_month_day::YearMonthDay::from_days
+
+Check 38: year_month_day::YearMonthDay::from_days.assertion.17
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:929:19 in function year_month_day::YearMonthDay::from_days
+
+Check 39: year_month_day::YearMonthDay::from_days.arithmetic_overflow.9
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:929:19 in function year_month_day::YearMonthDay::from_days
+
+Check 40: year_month_day::YearMonthDay::from_days.arithmetic_overflow.10
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:929:19 in function year_month_day::YearMonthDay::from_days
+
+Check 41: year_month_day::YearMonthDay::from_days.assertion.18
+	 - Status: SUCCESS
+	 - Description: "attempt to multiply with overflow"
+	 - Location: src/year_month_day.rs:930:23 in function year_month_day::YearMonthDay::from_days
+
+Check 42: year_month_day::YearMonthDay::from_days.assertion.19
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/year_month_day.rs:930:17 in function year_month_day::YearMonthDay::from_days
+
+Check 43: year_month_day::YearMonthDay::from_days.assertion.20
+	 - Status: SUCCESS
+	 - Description: "attempt to multiply with overflow"
+	 - Location: src/year_month_day.rs:931:26 in function year_month_day::YearMonthDay::from_days
+
+Check 44: year_month_day::YearMonthDay::from_days.assertion.21
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:931:38 in function year_month_day::YearMonthDay::from_days
+
+Check 45: year_month_day::YearMonthDay::from_days.assertion.22
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:931:38 in function year_month_day::YearMonthDay::from_days
+
+Check 46: year_month_day::YearMonthDay::from_days.arithmetic_overflow.11
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:931:38 in function year_month_day::YearMonthDay::from_days
+
+Check 47: year_month_day::YearMonthDay::from_days.arithmetic_overflow.12
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:931:38 in function year_month_day::YearMonthDay::from_days
+
+Check 48: year_month_day::YearMonthDay::from_days.assertion.23
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/year_month_day.rs:931:26 in function year_month_day::YearMonthDay::from_days
+
+Check 49: year_month_day::YearMonthDay::from_days.assertion.24
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:931:48 in function year_month_day::YearMonthDay::from_days
+
+Check 50: year_month_day::YearMonthDay::from_days.assertion.25
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:931:48 in function year_month_day::YearMonthDay::from_days
+
+Check 51: year_month_day::YearMonthDay::from_days.arithmetic_overflow.13
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:931:48 in function year_month_day::YearMonthDay::from_days
+
+Check 52: year_month_day::YearMonthDay::from_days.arithmetic_overflow.14
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:931:48 in function year_month_day::YearMonthDay::from_days
+
+Check 53: year_month_day::YearMonthDay::from_days.assertion.26
+	 - Status: SUCCESS
+	 - Description: "attempt to subtract with overflow"
+	 - Location: src/year_month_day.rs:931:25 in function year_month_day::YearMonthDay::from_days
+
+Check 54: year_month_day::YearMonthDay::from_days.assertion.27
+	 - Status: SUCCESS
+	 - Description: "attempt to subtract with overflow"
+	 - Location: src/year_month_day.rs:931:19 in function year_month_day::YearMonthDay::from_days
+
+Check 55: year_month_day::YearMonthDay::from_days.assertion.28
+	 - Status: SUCCESS
+	 - Description: "attempt to multiply with overflow"
+	 - Location: src/year_month_day.rs:932:19 in function year_month_day::YearMonthDay::from_days
+
+Check 56: year_month_day::YearMonthDay::from_days.assertion.29
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/year_month_day.rs:932:18 in function year_month_day::YearMonthDay::from_days
+
+Check 57: year_month_day::YearMonthDay::from_days.assertion.30
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:932:18 in function year_month_day::YearMonthDay::from_days
+
+Check 58: year_month_day::YearMonthDay::from_days.assertion.31
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:932:18 in function year_month_day::YearMonthDay::from_days
+
+Check 59: year_month_day::YearMonthDay::from_days.arithmetic_overflow.15
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:932:18 in function year_month_day::YearMonthDay::from_days
+
+Check 60: year_month_day::YearMonthDay::from_days.arithmetic_overflow.16
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:932:18 in function year_month_day::YearMonthDay::from_days
+
+Check 61: year_month_day::YearMonthDay::from_days.assertion.32
+	 - Status: SUCCESS
+	 - Description: "attempt to multiply with overflow"
+	 - Location: src/year_month_day.rs:933:24 in function year_month_day::YearMonthDay::from_days
+
+Check 62: year_month_day::YearMonthDay::from_days.assertion.33
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/year_month_day.rs:933:23 in function year_month_day::YearMonthDay::from_days
+
+Check 63: year_month_day::YearMonthDay::from_days.assertion.34
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:933:23 in function year_month_day::YearMonthDay::from_days
+
+Check 64: year_month_day::YearMonthDay::from_days.assertion.35
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:933:23 in function year_month_day::YearMonthDay::from_days
+
+Check 65: year_month_day::YearMonthDay::from_days.arithmetic_overflow.17
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:933:23 in function year_month_day::YearMonthDay::from_days
+
+Check 66: year_month_day::YearMonthDay::from_days.arithmetic_overflow.18
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:933:23 in function year_month_day::YearMonthDay::from_days
+
+Check 67: year_month_day::YearMonthDay::from_days.assertion.36
+	 - Status: SUCCESS
+	 - Description: "attempt to subtract with overflow"
+	 - Location: src/year_month_day.rs:933:17 in function year_month_day::YearMonthDay::from_days
+
+Check 68: year_month_day::YearMonthDay::from_days.assertion.37
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/year_month_day.rs:933:17 in function year_month_day::YearMonthDay::from_days
+
+Check 69: year_month_day::YearMonthDay::from_days.assertion.38
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/year_month_day.rs:934:30 in function year_month_day::YearMonthDay::from_days
+
+Check 70: year_month_day::YearMonthDay::from_days.assertion.39
+	 - Status: SUCCESS
+	 - Description: "attempt to subtract with overflow"
+	 - Location: src/year_month_day.rs:934:46 in function year_month_day::YearMonthDay::from_days
+
+Check 71: year_month_day::YearMonthDay::from_days.assertion.40
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/year_month_day.rs:936:24 in function year_month_day::YearMonthDay::from_days
+
+Check 72: year_month_day::YearMonthDay::to_days.assertion.1
+	 - Status: SUCCESS
+	 - Description: "attempt to subtract with overflow"
+	 - Location: src/year_month_day.rs:871:17 in function year_month_day::YearMonthDay::to_days
+
+Check 73: year_month_day::YearMonthDay::to_days.assertion.2
+	 - Status: SUCCESS
+	 - Description: "attempt to subtract with overflow"
+	 - Location: src/year_month_day.rs:874:42 in function year_month_day::YearMonthDay::to_days
+
+Check 74: year_month_day::YearMonthDay::to_days.assertion.3
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:874:19 in function year_month_day::YearMonthDay::to_days
+
+Check 75: year_month_day::YearMonthDay::to_days.assertion.4
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:874:19 in function year_month_day::YearMonthDay::to_days
+
+Check 76: year_month_day::YearMonthDay::to_days.arithmetic_overflow.1
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:874:19 in function year_month_day::YearMonthDay::to_days
+
+Check 77: year_month_day::YearMonthDay::to_days.arithmetic_overflow.2
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:874:19 in function year_month_day::YearMonthDay::to_days
+
+Check 78: year_month_day::YearMonthDay::to_days.assertion.5
+	 - Status: SUCCESS
+	 - Description: "attempt to multiply with overflow"
+	 - Location: src/year_month_day.rs:875:23 in function year_month_day::YearMonthDay::to_days
+
+Check 79: year_month_day::YearMonthDay::to_days.assertion.6
+	 - Status: SUCCESS
+	 - Description: "attempt to subtract with overflow"
+	 - Location: src/year_month_day.rs:875:19 in function year_month_day::YearMonthDay::to_days
+
+Check 80: year_month_day::YearMonthDay::to_days.assertion.7
+	 - Status: SUCCESS
+	 - Description: "attempt to subtract with overflow"
+	 - Location: src/year_month_day.rs:876:38 in function year_month_day::YearMonthDay::to_days
+
+Check 81: year_month_day::YearMonthDay::to_days.assertion.8
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/year_month_day.rs:876:53 in function year_month_day::YearMonthDay::to_days
+
+Check 82: year_month_day::YearMonthDay::to_days.assertion.9
+	 - Status: SUCCESS
+	 - Description: "attempt to multiply with overflow"
+	 - Location: src/year_month_day.rs:876:20 in function year_month_day::YearMonthDay::to_days
+
+Check 83: year_month_day::YearMonthDay::to_days.assertion.10
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/year_month_day.rs:876:19 in function year_month_day::YearMonthDay::to_days
+
+Check 84: year_month_day::YearMonthDay::to_days.assertion.11
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:876:19 in function year_month_day::YearMonthDay::to_days
+
+Check 85: year_month_day::YearMonthDay::to_days.assertion.12
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:876:19 in function year_month_day::YearMonthDay::to_days
+
+Check 86: year_month_day::YearMonthDay::to_days.arithmetic_overflow.3
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:876:19 in function year_month_day::YearMonthDay::to_days
+
+Check 87: year_month_day::YearMonthDay::to_days.arithmetic_overflow.4
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:876:19 in function year_month_day::YearMonthDay::to_days
+
+Check 88: year_month_day::YearMonthDay::to_days.assertion.13
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/year_month_day.rs:876:19 in function year_month_day::YearMonthDay::to_days
+
+Check 89: year_month_day::YearMonthDay::to_days.assertion.14
+	 - Status: SUCCESS
+	 - Description: "attempt to subtract with overflow"
+	 - Location: src/year_month_day.rs:876:19 in function year_month_day::YearMonthDay::to_days
+
+Check 90: year_month_day::YearMonthDay::to_days.assertion.15
+	 - Status: SUCCESS
+	 - Description: "attempt to multiply with overflow"
+	 - Location: src/year_month_day.rs:877:19 in function year_month_day::YearMonthDay::to_days
+
+Check 91: year_month_day::YearMonthDay::to_days.assertion.16
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:877:31 in function year_month_day::YearMonthDay::to_days
+
+Check 92: year_month_day::YearMonthDay::to_days.assertion.17
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:877:31 in function year_month_day::YearMonthDay::to_days
+
+Check 93: year_month_day::YearMonthDay::to_days.arithmetic_overflow.5
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:877:31 in function year_month_day::YearMonthDay::to_days
+
+Check 94: year_month_day::YearMonthDay::to_days.arithmetic_overflow.6
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:877:31 in function year_month_day::YearMonthDay::to_days
+
+Check 95: year_month_day::YearMonthDay::to_days.assertion.18
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/year_month_day.rs:877:19 in function year_month_day::YearMonthDay::to_days
+
+Check 96: year_month_day::YearMonthDay::to_days.assertion.19
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:877:41 in function year_month_day::YearMonthDay::to_days
+
+Check 97: year_month_day::YearMonthDay::to_days.assertion.20
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:877:41 in function year_month_day::YearMonthDay::to_days
+
+Check 98: year_month_day::YearMonthDay::to_days.arithmetic_overflow.7
+	 - Status: SUCCESS
+	 - Description: "attempt to divide with overflow"
+	 - Location: src/year_month_day.rs:877:41 in function year_month_day::YearMonthDay::to_days
+
+Check 99: year_month_day::YearMonthDay::to_days.arithmetic_overflow.8
+	 - Status: SUCCESS
+	 - Description: "attempt to divide by zero"
+	 - Location: src/year_month_day.rs:877:41 in function year_month_day::YearMonthDay::to_days
+
+Check 100: year_month_day::YearMonthDay::to_days.assertion.21
+	 - Status: SUCCESS
+	 - Description: "attempt to subtract with overflow"
+	 - Location: src/year_month_day.rs:877:19 in function year_month_day::YearMonthDay::to_days
+
+Check 101: year_month_day::YearMonthDay::to_days.assertion.22
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/year_month_day.rs:877:19 in function year_month_day::YearMonthDay::to_days
+
+Check 102: year_month_day::YearMonthDay::to_days.assertion.23
+	 - Status: SUCCESS
+	 - Description: "attempt to multiply with overflow"
+	 - Location: src/year_month_day.rs:878:14 in function year_month_day::YearMonthDay::to_days
+
+Check 103: year_month_day::YearMonthDay::to_days.assertion.24
+	 - Status: SUCCESS
+	 - Description: "attempt to add with overflow"
+	 - Location: src/year_month_day.rs:878:14 in function year_month_day::YearMonthDay::to_days
+
+Check 104: year_month_day::YearMonthDay::to_days.assertion.25
+	 - Status: SUCCESS
+	 - Description: "attempt to subtract with overflow"
+	 - Location: src/year_month_day.rs:878:14 in function year_month_day::YearMonthDay::to_days
+
+Check 105: <day::Day as std::cmp::PartialEq>::eq.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/day.rs:29:9 in function <day::Day as std::cmp::PartialEq>::eq
+
+Check 106: <day::Day as std::cmp::PartialEq>::eq.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/day.rs:29:9 in function <day::Day as std::cmp::PartialEq>::eq
+
+Check 107: <day::Day as std::cmp::PartialEq>::eq.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/day.rs:29:9 in function <day::Day as std::cmp::PartialEq>::eq
+
+Check 108: <day::Day as std::cmp::PartialEq>::eq.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/day.rs:29:9 in function <day::Day as std::cmp::PartialEq>::eq
+
+Check 109: <day::Day as std::cmp::PartialEq>::eq.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/day.rs:29:9 in function <day::Day as std::cmp::PartialEq>::eq
+
+Check 110: <day::Day as std::cmp::PartialEq>::eq.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/day.rs:29:9 in function <day::Day as std::cmp::PartialEq>::eq
+
+Check 111: <day::Day as std::cmp::PartialEq>::eq.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/day.rs:29:19 in function <day::Day as std::cmp::PartialEq>::eq
+
+Check 112: <day::Day as std::cmp::PartialEq>::eq.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/day.rs:29:19 in function <day::Day as std::cmp::PartialEq>::eq
+
+Check 113: <day::Day as std::cmp::PartialEq>::eq.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/day.rs:29:19 in function <day::Day as std::cmp::PartialEq>::eq
+
+Check 114: <day::Day as std::cmp::PartialEq>::eq.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/day.rs:29:19 in function <day::Day as std::cmp::PartialEq>::eq
+
+Check 115: <day::Day as std::cmp::PartialEq>::eq.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/day.rs:29:19 in function <day::Day as std::cmp::PartialEq>::eq
+
+Check 116: <day::Day as std::cmp::PartialEq>::eq.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/day.rs:29:19 in function <day::Day as std::cmp::PartialEq>::eq
+
+Check 117: year::Year::ok.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year.rs:50:9 in function year::Year::ok
+
+Check 118: year::Year::ok.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year.rs:50:9 in function year::Year::ok
+
+Check 119: year::Year::ok.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year.rs:50:9 in function year::Year::ok
+
+Check 120: year::Year::ok.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year.rs:50:9 in function year::Year::ok
+
+Check 121: year::Year::ok.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year.rs:50:9 in function year::Year::ok
+
+Check 122: year::Year::ok.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year.rs:50:9 in function year::Year::ok
+
+Check 123: month::Month::ok.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/month.rs:53:14 in function month::Month::ok
+
+Check 124: month::Month::ok.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/month.rs:53:14 in function month::Month::ok
+
+Check 125: month::Month::ok.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/month.rs:53:14 in function month::Month::ok
+
+Check 126: month::Month::ok.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/month.rs:53:14 in function month::Month::ok
+
+Check 127: month::Month::ok.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/month.rs:53:14 in function month::Month::ok
+
+Check 128: month::Month::ok.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/month.rs:53:14 in function month::Month::ok
+
+Check 129: month::Month::ok.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/month.rs:53:24 in function month::Month::ok
+
+Check 130: month::Month::ok.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/month.rs:53:24 in function month::Month::ok
+
+Check 131: month::Month::ok.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/month.rs:53:24 in function month::Month::ok
+
+Check 132: month::Month::ok.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/month.rs:53:24 in function month::Month::ok
+
+Check 133: month::Month::ok.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/month.rs:53:24 in function month::Month::ok
+
+Check 134: month::Month::ok.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/month.rs:53:24 in function month::Month::ok
+
+Check 135: year_month_day::YearMonthDay::to_days.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year_month_day.rs:871:17 in function year_month_day::YearMonthDay::to_days
+
+Check 136: year_month_day::YearMonthDay::to_days.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year_month_day.rs:871:17 in function year_month_day::YearMonthDay::to_days
+
+Check 137: year_month_day::YearMonthDay::to_days.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year_month_day.rs:871:17 in function year_month_day::YearMonthDay::to_days
+
+Check 138: year_month_day::YearMonthDay::to_days.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year_month_day.rs:871:17 in function year_month_day::YearMonthDay::to_days
+
+Check 139: year_month_day::YearMonthDay::to_days.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year_month_day.rs:871:17 in function year_month_day::YearMonthDay::to_days
+
+Check 140: year_month_day::YearMonthDay::to_days.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year_month_day.rs:871:17 in function year_month_day::YearMonthDay::to_days
+
+Check 141: year_month_day::YearMonthDay::to_days.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year_month_day.rs:871:41 in function year_month_day::YearMonthDay::to_days
+
+Check 142: year_month_day::YearMonthDay::to_days.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year_month_day.rs:871:41 in function year_month_day::YearMonthDay::to_days
+
+Check 143: year_month_day::YearMonthDay::to_days.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year_month_day.rs:871:41 in function year_month_day::YearMonthDay::to_days
+
+Check 144: year_month_day::YearMonthDay::to_days.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year_month_day.rs:871:41 in function year_month_day::YearMonthDay::to_days
+
+Check 145: year_month_day::YearMonthDay::to_days.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year_month_day.rs:871:41 in function year_month_day::YearMonthDay::to_days
+
+Check 146: year_month_day::YearMonthDay::to_days.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year_month_day.rs:871:41 in function year_month_day::YearMonthDay::to_days
+
+Check 147: year_month_day::YearMonthDay::to_days.pointer_dereference.13
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year_month_day.rs:872:17 in function year_month_day::YearMonthDay::to_days
+
+Check 148: year_month_day::YearMonthDay::to_days.pointer_dereference.14
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year_month_day.rs:872:17 in function year_month_day::YearMonthDay::to_days
+
+Check 149: year_month_day::YearMonthDay::to_days.pointer_dereference.15
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year_month_day.rs:872:17 in function year_month_day::YearMonthDay::to_days
+
+Check 150: year_month_day::YearMonthDay::to_days.pointer_dereference.16
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year_month_day.rs:872:17 in function year_month_day::YearMonthDay::to_days
+
+Check 151: year_month_day::YearMonthDay::to_days.pointer_dereference.17
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year_month_day.rs:872:17 in function year_month_day::YearMonthDay::to_days
+
+Check 152: year_month_day::YearMonthDay::to_days.pointer_dereference.18
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year_month_day.rs:872:17 in function year_month_day::YearMonthDay::to_days
+
+Check 153: year_month_day::YearMonthDay::to_days.pointer_dereference.19
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year_month_day.rs:873:17 in function year_month_day::YearMonthDay::to_days
+
+Check 154: year_month_day::YearMonthDay::to_days.pointer_dereference.20
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year_month_day.rs:873:17 in function year_month_day::YearMonthDay::to_days
+
+Check 155: year_month_day::YearMonthDay::to_days.pointer_dereference.21
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year_month_day.rs:873:17 in function year_month_day::YearMonthDay::to_days
+
+Check 156: year_month_day::YearMonthDay::to_days.pointer_dereference.22
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year_month_day.rs:873:17 in function year_month_day::YearMonthDay::to_days
+
+Check 157: year_month_day::YearMonthDay::to_days.pointer_dereference.23
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year_month_day.rs:873:17 in function year_month_day::YearMonthDay::to_days
+
+Check 158: year_month_day::YearMonthDay::to_days.pointer_dereference.24
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year_month_day.rs:873:17 in function year_month_day::YearMonthDay::to_days
+
+Check 159: year::Year::is_leap.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year.rs:70:9 in function year::Year::is_leap
+
+Check 160: year::Year::is_leap.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year.rs:70:9 in function year::Year::is_leap
+
+Check 161: year::Year::is_leap.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year.rs:70:9 in function year::Year::is_leap
+
+Check 162: year::Year::is_leap.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year.rs:70:9 in function year::Year::is_leap
+
+Check 163: year::Year::is_leap.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year.rs:70:9 in function year::Year::is_leap
+
+Check 164: year::Year::is_leap.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year.rs:70:9 in function year::Year::is_leap
+
+Check 165: year::Year::is_leap.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year.rs:70:29 in function year::Year::is_leap
+
+Check 166: year::Year::is_leap.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year.rs:70:29 in function year::Year::is_leap
+
+Check 167: year::Year::is_leap.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year.rs:70:29 in function year::Year::is_leap
+
+Check 168: year::Year::is_leap.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year.rs:70:29 in function year::Year::is_leap
+
+Check 169: year::Year::is_leap.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year.rs:70:29 in function year::Year::is_leap
+
+Check 170: year::Year::is_leap.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year.rs:70:29 in function year::Year::is_leap
+
+Check 171: year::Year::is_leap.pointer_dereference.13
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year.rs:70:50 in function year::Year::is_leap
+
+Check 172: year::Year::is_leap.pointer_dereference.14
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year.rs:70:50 in function year::Year::is_leap
+
+Check 173: year::Year::is_leap.pointer_dereference.15
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year.rs:70:50 in function year::Year::is_leap
+
+Check 174: year::Year::is_leap.pointer_dereference.16
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year.rs:70:50 in function year::Year::is_leap
+
+Check 175: year::Year::is_leap.pointer_dereference.17
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year.rs:70:50 in function year::Year::is_leap
+
+Check 176: year::Year::is_leap.pointer_dereference.18
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year.rs:70:50 in function year::Year::is_leap
+
+Check 177: year_month_day_last::YearMonthDayLast::day.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year_month_day_last.rs:183:17 in function year_month_day_last::YearMonthDayLast::day
+
+Check 178: year_month_day_last::YearMonthDayLast::day.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year_month_day_last.rs:183:17 in function year_month_day_last::YearMonthDayLast::day
+
+Check 179: year_month_day_last::YearMonthDayLast::day.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year_month_day_last.rs:183:17 in function year_month_day_last::YearMonthDayLast::day
+
+Check 180: year_month_day_last::YearMonthDayLast::day.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year_month_day_last.rs:183:17 in function year_month_day_last::YearMonthDayLast::day
+
+Check 181: year_month_day_last::YearMonthDayLast::day.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year_month_day_last.rs:183:17 in function year_month_day_last::YearMonthDayLast::day
+
+Check 182: year_month_day_last::YearMonthDayLast::day.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year_month_day_last.rs:183:17 in function year_month_day_last::YearMonthDayLast::day
+
+Check 183: <year::Year as std::cmp::PartialEq>::eq.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year.rs:32:9 in function <year::Year as std::cmp::PartialEq>::eq
+
+Check 184: <year::Year as std::cmp::PartialEq>::eq.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year.rs:32:9 in function <year::Year as std::cmp::PartialEq>::eq
+
+Check 185: <year::Year as std::cmp::PartialEq>::eq.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year.rs:32:9 in function <year::Year as std::cmp::PartialEq>::eq
+
+Check 186: <year::Year as std::cmp::PartialEq>::eq.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year.rs:32:9 in function <year::Year as std::cmp::PartialEq>::eq
+
+Check 187: <year::Year as std::cmp::PartialEq>::eq.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year.rs:32:9 in function <year::Year as std::cmp::PartialEq>::eq
+
+Check 188: <year::Year as std::cmp::PartialEq>::eq.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year.rs:32:9 in function <year::Year as std::cmp::PartialEq>::eq
+
+Check 189: <year::Year as std::cmp::PartialEq>::eq.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year.rs:32:19 in function <year::Year as std::cmp::PartialEq>::eq
+
+Check 190: <year::Year as std::cmp::PartialEq>::eq.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year.rs:32:19 in function <year::Year as std::cmp::PartialEq>::eq
+
+Check 191: <year::Year as std::cmp::PartialEq>::eq.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year.rs:32:19 in function <year::Year as std::cmp::PartialEq>::eq
+
+Check 192: <year::Year as std::cmp::PartialEq>::eq.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year.rs:32:19 in function <year::Year as std::cmp::PartialEq>::eq
+
+Check 193: <year::Year as std::cmp::PartialEq>::eq.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year.rs:32:19 in function <year::Year as std::cmp::PartialEq>::eq
+
+Check 194: <year::Year as std::cmp::PartialEq>::eq.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year.rs:32:19 in function <year::Year as std::cmp::PartialEq>::eq
+
+Check 195: <month::Month as std::cmp::PartialEq>::eq.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/month.rs:29:9 in function <month::Month as std::cmp::PartialEq>::eq
+
+Check 196: <month::Month as std::cmp::PartialEq>::eq.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/month.rs:29:9 in function <month::Month as std::cmp::PartialEq>::eq
+
+Check 197: <month::Month as std::cmp::PartialEq>::eq.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/month.rs:29:9 in function <month::Month as std::cmp::PartialEq>::eq
+
+Check 198: <month::Month as std::cmp::PartialEq>::eq.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/month.rs:29:9 in function <month::Month as std::cmp::PartialEq>::eq
+
+Check 199: <month::Month as std::cmp::PartialEq>::eq.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/month.rs:29:9 in function <month::Month as std::cmp::PartialEq>::eq
+
+Check 200: <month::Month as std::cmp::PartialEq>::eq.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/month.rs:29:9 in function <month::Month as std::cmp::PartialEq>::eq
+
+Check 201: <month::Month as std::cmp::PartialEq>::eq.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/month.rs:29:19 in function <month::Month as std::cmp::PartialEq>::eq
+
+Check 202: <month::Month as std::cmp::PartialEq>::eq.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/month.rs:29:19 in function <month::Month as std::cmp::PartialEq>::eq
+
+Check 203: <month::Month as std::cmp::PartialEq>::eq.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/month.rs:29:19 in function <month::Month as std::cmp::PartialEq>::eq
+
+Check 204: <month::Month as std::cmp::PartialEq>::eq.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/month.rs:29:19 in function <month::Month as std::cmp::PartialEq>::eq
+
+Check 205: <month::Month as std::cmp::PartialEq>::eq.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/month.rs:29:19 in function <month::Month as std::cmp::PartialEq>::eq
+
+Check 206: <month::Month as std::cmp::PartialEq>::eq.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/month.rs:29:19 in function <month::Month as std::cmp::PartialEq>::eq
+
+Check 207: year_month_day::YearMonthDay::ok.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year_month_day.rs:834:40 in function year_month_day::YearMonthDay::ok
+
+Check 208: year_month_day::YearMonthDay::ok.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year_month_day.rs:834:40 in function year_month_day::YearMonthDay::ok
+
+Check 209: year_month_day::YearMonthDay::ok.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year_month_day.rs:834:40 in function year_month_day::YearMonthDay::ok
+
+Check 210: year_month_day::YearMonthDay::ok.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year_month_day.rs:834:40 in function year_month_day::YearMonthDay::ok
+
+Check 211: year_month_day::YearMonthDay::ok.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year_month_day.rs:834:40 in function year_month_day::YearMonthDay::ok
+
+Check 212: year_month_day::YearMonthDay::ok.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year_month_day.rs:834:40 in function year_month_day::YearMonthDay::ok
+
+Check 213: year_month_day::YearMonthDay::ok.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year_month_day.rs:835:16 in function year_month_day::YearMonthDay::ok
+
+Check 214: year_month_day::YearMonthDay::ok.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year_month_day.rs:835:16 in function year_month_day::YearMonthDay::ok
+
+Check 215: year_month_day::YearMonthDay::ok.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year_month_day.rs:835:16 in function year_month_day::YearMonthDay::ok
+
+Check 216: year_month_day::YearMonthDay::ok.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year_month_day.rs:835:16 in function year_month_day::YearMonthDay::ok
+
+Check 217: year_month_day::YearMonthDay::ok.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year_month_day.rs:835:16 in function year_month_day::YearMonthDay::ok
+
+Check 218: year_month_day::YearMonthDay::ok.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year_month_day.rs:835:16 in function year_month_day::YearMonthDay::ok
+
+Check 219: year_month_day::YearMonthDay::last.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year_month_day.rs:802:31 in function year_month_day::YearMonthDay::last
+
+Check 220: year_month_day::YearMonthDay::last.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year_month_day.rs:802:31 in function year_month_day::YearMonthDay::last
+
+Check 221: year_month_day::YearMonthDay::last.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year_month_day.rs:802:31 in function year_month_day::YearMonthDay::last
+
+Check 222: year_month_day::YearMonthDay::last.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year_month_day.rs:802:31 in function year_month_day::YearMonthDay::last
+
+Check 223: year_month_day::YearMonthDay::last.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year_month_day.rs:802:31 in function year_month_day::YearMonthDay::last
+
+Check 224: year_month_day::YearMonthDay::last.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year_month_day.rs:802:31 in function year_month_day::YearMonthDay::last
+
+Check 225: year_month_day::YearMonthDay::last.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year_month_day.rs:802:42 in function year_month_day::YearMonthDay::last
+
+Check 226: year_month_day::YearMonthDay::last.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year_month_day.rs:802:42 in function year_month_day::YearMonthDay::last
+
+Check 227: year_month_day::YearMonthDay::last.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year_month_day.rs:802:42 in function year_month_day::YearMonthDay::last
+
+Check 228: year_month_day::YearMonthDay::last.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year_month_day.rs:802:42 in function year_month_day::YearMonthDay::last
+
+Check 229: year_month_day::YearMonthDay::last.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year_month_day.rs:802:42 in function year_month_day::YearMonthDay::last
+
+Check 230: year_month_day::YearMonthDay::last.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year_month_day.rs:802:42 in function year_month_day::YearMonthDay::last
+
+
+SUMMARY:
+ ** 1 of 230 failed
+Failed Checks: assertion failed: !ymd.round_trip()
+ File: "src/kani_probe.rs", line 33, in kani_probe::round_trip_mutant
+
+VERIFICATION:- FAILED
+Verification Time: 1.1463995s
+
+Manual Harness Summary:
+Verification failed for - kani_probe::round_trip_mutant
+Complete - 0 successfully verified harnesses, 1 failures, 1 total.
+exit=1

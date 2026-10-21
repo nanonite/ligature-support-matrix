@@ -236,3 +236,51 @@ pilot operator.
   `date-ligature-052`, `date-ligature-055`.
 - **Generalizable lesson:** Assign distinct paths to independently generated
   artifacts, and keep configuration changes behind the authority boundary.
+
+## Verus spec division is Euclidean, not C++ truncation
+
+- **Category:** No faithful Rust or verifier equivalent.
+- **C++ construct / upstream location:** `include/date/date.h:2976-3109`
+  (`days_from_civil` / `civil_from_days`). The era steps
+  `(y >= 0 ? y : y-399) / 400` and `(z >= 0 ? z : z - 146096) / 146097` rely
+  on truncating signed division to compute a floor.
+- **What the Rust port does instead:** The Creusot port keeps truncating `/`
+  in both the code and its logic functions, because Creusot's `Int` division
+  truncates. A Verus port can keep the executable form, since Rust `i32`
+  division also truncates. Its specs must state the era as plain floor
+  division (`y / 400`), because Verus's spec-level `/` on `int` is Euclidean.
+- **Why:** Verifier spec-language semantics. Found by the P4-2 probe
+  (`analysis/p4-verifier-fit/`).
+- **Impact:** Specs cannot be copied between Creusot and Verus. A literal copy
+  of the era expression changes its meaning for negative years: for y = −2,
+  C++ and Creusot give era −1, while the copied Verus spec gives −2. Verus
+  proves the executable truncation trick equal to floor division
+  automatically.
+- **Status:** open (applies when P4-9, chainlink #163, writes the Verus specs).
+- **Finding IDs:** `date-creusot-067`.
+- **Generalizable lesson:** Before porting C or C++ integer division into a
+  verifier's specs, check that verifier's spec-level division semantics.
+  Where the code's trick already computes a floor, state the floor directly.
+
+## Verus needs a raised resource limit for `from_days` and `round_trip`
+
+- **Category:** Unprovable or costly obligations.
+- **C++ construct / upstream location:** `include/date/date.h:2976-3109`,
+  `civil_from_days` and the civil-date round trip it supports.
+- **What the Rust port does instead:** P1's Creusot proof carries more than
+  20 helper lemmas for these functions (`FUTURE-WORK-round-trip-proof.md`).
+  In the P4-2 probe, Verus proves `from_days` against its spec and the round
+  trip with no lemmas, but only at `#[verifier::rlimit(200)]`, 20 times the
+  default. At the default limit it proves `to_days` and the year-of-era
+  exactness lemma unaided.
+- **Why:** Z3 has to reason through nine constant divisions and the era and
+  year-of-era decomposition in a single query.
+- **Impact:** Proof cost only; the obligations do hold. Proofs that depend on
+  rlimit can regress on a Verus or Z3 upgrade.
+- **Status:** open (applies to P4-9, chainlink #163).
+- **Finding IDs:** `date-creusot-068`.
+- **Generalizable lesson:** For calendar-style arithmetic with constant
+  divisors, a verifier that sends the problem straight to SMT may close in
+  one raised-budget query what a pipeline through an intermediate language
+  needs a lemma library for. Record the budget as part of the proof, so
+  upgrades can be checked against it.

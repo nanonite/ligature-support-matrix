@@ -1,0 +1,469 @@
+Kani Rust Verifier 0.67.0 (cargo plugin)
+   Compiling date-creusot-core v0.1.0 (/tmp/tmp.dGVwq2nNbk/crate)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.09s
+Checking harness kani_probe::round_trip_reachable...
+CBMC 6.8.0 (cbmc-6.8.0)
+CBMC version 6.8.0 (cbmc-6.8.0) 64-bit x86_64 linux
+Reading GOTO program from file /tmp/tmp.dGVwq2nNbk/target/kani/x86_64-unknown-linux-gnu/debug/deps/date_creusot_core-6b2160bc775dc7b8__RNvNtCsabYY06mt9jS_17date_creusot_core10kani_probe20round_trip_reachable.out
+Generating GOTO Program
+Adding CPROVER library (x86_64)
+Removal of function pointers and virtual functions
+Generic Property Instrumentation
+Running with 16 object bits, 48 offset bits (user-specified)
+Starting Bounded Model Checking
+Runtime Symex: 0.00679628s
+size of program expression: 535 steps
+slicing removed 251 assignments
+Generated 86 VCC(s), 11 remaining after simplification
+Runtime Postprocess Equation: 9.5499e-05s
+Passing problem to propositional reduction
+converting SSA
+Runtime Convert SSA: 0.00124576s
+Running propositional reduction
+Post-processing
+Runtime Post-process: 5.48e-06s
+Solving with CaDiCaL 2.0.0
+1620 variables, 4910 clauses
+SAT checker: instance is SATISFIABLE
+Runtime Solver: 0.000137758s
+Runtime decision procedure: 0.00143066s
+Running propositional reduction
+Solving with CaDiCaL 2.0.0
+1621 variables, 4911 clauses
+SAT checker: instance is SATISFIABLE
+Runtime Solver: 5.9872e-05s
+Runtime decision procedure: 7.9859e-05s
+Running propositional reduction
+Solving with CaDiCaL 2.0.0
+1622 variables, 4912 clauses
+SAT checker: instance is SATISFIABLE
+Runtime Solver: 0.00010131s
+Runtime decision procedure: 0.000119423s
+Running propositional reduction
+Solving with CaDiCaL 2.0.0
+1623 variables, 4913 clauses
+SAT checker: instance is SATISFIABLE
+Runtime Solver: 6.2847e-05s
+Runtime decision procedure: 8.0641e-05s
+Running propositional reduction
+Solving with CaDiCaL 2.0.0
+1624 variables, 4914 clauses
+SAT checker: instance is SATISFIABLE
+Runtime Solver: 4.6677e-05s
+Runtime decision procedure: 0.000110436s
+Running propositional reduction
+Solving with CaDiCaL 2.0.0
+1625 variables, 4915 clauses
+SAT checker: instance is UNSATISFIABLE
+Runtime Solver: 1.3114e-05s
+Runtime decision procedure: 2.2823e-05s
+
+RESULTS:
+Check 1: year::Year::is_leap.assertion.1
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with a divisor of zero"
+	 - Location: src/year.rs:70:9 in function year::Year::is_leap
+
+Check 2: year::Year::is_leap.assertion.2
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with overflow"
+	 - Location: src/year.rs:70:9 in function year::Year::is_leap
+
+Check 3: year::Year::is_leap.arithmetic_overflow.1
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with overflow"
+	 - Location: src/year.rs:70:9 in function year::Year::is_leap
+
+Check 4: year::Year::is_leap.arithmetic_overflow.2
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with a divisor of zero"
+	 - Location: src/year.rs:70:9 in function year::Year::is_leap
+
+Check 5: year::Year::is_leap.assertion.3
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with a divisor of zero"
+	 - Location: src/year.rs:70:29 in function year::Year::is_leap
+
+Check 6: year::Year::is_leap.assertion.4
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with overflow"
+	 - Location: src/year.rs:70:29 in function year::Year::is_leap
+
+Check 7: year::Year::is_leap.arithmetic_overflow.3
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with overflow"
+	 - Location: src/year.rs:70:29 in function year::Year::is_leap
+
+Check 8: year::Year::is_leap.arithmetic_overflow.4
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with a divisor of zero"
+	 - Location: src/year.rs:70:29 in function year::Year::is_leap
+
+Check 9: year::Year::is_leap.assertion.5
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with a divisor of zero"
+	 - Location: src/year.rs:70:50 in function year::Year::is_leap
+
+Check 10: year::Year::is_leap.assertion.6
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with overflow"
+	 - Location: src/year.rs:70:50 in function year::Year::is_leap
+
+Check 11: year::Year::is_leap.arithmetic_overflow.5
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with overflow"
+	 - Location: src/year.rs:70:50 in function year::Year::is_leap
+
+Check 12: year::Year::is_leap.arithmetic_overflow.6
+	 - Status: SUCCESS
+	 - Description: "attempt to calculate the remainder with a divisor of zero"
+	 - Location: src/year.rs:70:50 in function year::Year::is_leap
+
+Check 13: kani_probe::round_trip_reachable.cover.1
+	 - Status: SATISFIED
+	 - Description: "cover condition: y == 2000 && m == 2 && d == 29"
+	 - Location: src/kani_probe.rs:22:5 in function kani_probe::round_trip_reachable
+
+Check 14: month::Month::ok.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/month.rs:53:14 in function month::Month::ok
+
+Check 15: month::Month::ok.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/month.rs:53:14 in function month::Month::ok
+
+Check 16: month::Month::ok.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/month.rs:53:14 in function month::Month::ok
+
+Check 17: month::Month::ok.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/month.rs:53:14 in function month::Month::ok
+
+Check 18: month::Month::ok.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/month.rs:53:14 in function month::Month::ok
+
+Check 19: month::Month::ok.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/month.rs:53:14 in function month::Month::ok
+
+Check 20: month::Month::ok.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/month.rs:53:24 in function month::Month::ok
+
+Check 21: month::Month::ok.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/month.rs:53:24 in function month::Month::ok
+
+Check 22: month::Month::ok.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/month.rs:53:24 in function month::Month::ok
+
+Check 23: month::Month::ok.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/month.rs:53:24 in function month::Month::ok
+
+Check 24: month::Month::ok.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/month.rs:53:24 in function month::Month::ok
+
+Check 25: month::Month::ok.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/month.rs:53:24 in function month::Month::ok
+
+Check 26: year::Year::is_leap.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year.rs:70:9 in function year::Year::is_leap
+
+Check 27: year::Year::is_leap.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year.rs:70:9 in function year::Year::is_leap
+
+Check 28: year::Year::is_leap.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year.rs:70:9 in function year::Year::is_leap
+
+Check 29: year::Year::is_leap.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year.rs:70:9 in function year::Year::is_leap
+
+Check 30: year::Year::is_leap.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year.rs:70:9 in function year::Year::is_leap
+
+Check 31: year::Year::is_leap.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year.rs:70:9 in function year::Year::is_leap
+
+Check 32: year::Year::is_leap.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year.rs:70:29 in function year::Year::is_leap
+
+Check 33: year::Year::is_leap.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year.rs:70:29 in function year::Year::is_leap
+
+Check 34: year::Year::is_leap.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year.rs:70:29 in function year::Year::is_leap
+
+Check 35: year::Year::is_leap.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year.rs:70:29 in function year::Year::is_leap
+
+Check 36: year::Year::is_leap.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year.rs:70:29 in function year::Year::is_leap
+
+Check 37: year::Year::is_leap.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year.rs:70:29 in function year::Year::is_leap
+
+Check 38: year::Year::is_leap.pointer_dereference.13
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year.rs:70:50 in function year::Year::is_leap
+
+Check 39: year::Year::is_leap.pointer_dereference.14
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year.rs:70:50 in function year::Year::is_leap
+
+Check 40: year::Year::is_leap.pointer_dereference.15
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year.rs:70:50 in function year::Year::is_leap
+
+Check 41: year::Year::is_leap.pointer_dereference.16
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year.rs:70:50 in function year::Year::is_leap
+
+Check 42: year::Year::is_leap.pointer_dereference.17
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year.rs:70:50 in function year::Year::is_leap
+
+Check 43: year::Year::is_leap.pointer_dereference.18
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year.rs:70:50 in function year::Year::is_leap
+
+Check 44: year_month_day::YearMonthDay::ok.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year_month_day.rs:834:40 in function year_month_day::YearMonthDay::ok
+
+Check 45: year_month_day::YearMonthDay::ok.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year_month_day.rs:834:40 in function year_month_day::YearMonthDay::ok
+
+Check 46: year_month_day::YearMonthDay::ok.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year_month_day.rs:834:40 in function year_month_day::YearMonthDay::ok
+
+Check 47: year_month_day::YearMonthDay::ok.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year_month_day.rs:834:40 in function year_month_day::YearMonthDay::ok
+
+Check 48: year_month_day::YearMonthDay::ok.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year_month_day.rs:834:40 in function year_month_day::YearMonthDay::ok
+
+Check 49: year_month_day::YearMonthDay::ok.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year_month_day.rs:834:40 in function year_month_day::YearMonthDay::ok
+
+Check 50: year_month_day::YearMonthDay::ok.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year_month_day.rs:835:16 in function year_month_day::YearMonthDay::ok
+
+Check 51: year_month_day::YearMonthDay::ok.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year_month_day.rs:835:16 in function year_month_day::YearMonthDay::ok
+
+Check 52: year_month_day::YearMonthDay::ok.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year_month_day.rs:835:16 in function year_month_day::YearMonthDay::ok
+
+Check 53: year_month_day::YearMonthDay::ok.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year_month_day.rs:835:16 in function year_month_day::YearMonthDay::ok
+
+Check 54: year_month_day::YearMonthDay::ok.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year_month_day.rs:835:16 in function year_month_day::YearMonthDay::ok
+
+Check 55: year_month_day::YearMonthDay::ok.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year_month_day.rs:835:16 in function year_month_day::YearMonthDay::ok
+
+Check 56: year_month_day::YearMonthDay::last.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year_month_day.rs:802:31 in function year_month_day::YearMonthDay::last
+
+Check 57: year_month_day::YearMonthDay::last.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year_month_day.rs:802:31 in function year_month_day::YearMonthDay::last
+
+Check 58: year_month_day::YearMonthDay::last.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year_month_day.rs:802:31 in function year_month_day::YearMonthDay::last
+
+Check 59: year_month_day::YearMonthDay::last.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year_month_day.rs:802:31 in function year_month_day::YearMonthDay::last
+
+Check 60: year_month_day::YearMonthDay::last.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year_month_day.rs:802:31 in function year_month_day::YearMonthDay::last
+
+Check 61: year_month_day::YearMonthDay::last.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year_month_day.rs:802:31 in function year_month_day::YearMonthDay::last
+
+Check 62: year_month_day::YearMonthDay::last.pointer_dereference.7
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year_month_day.rs:802:42 in function year_month_day::YearMonthDay::last
+
+Check 63: year_month_day::YearMonthDay::last.pointer_dereference.8
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year_month_day.rs:802:42 in function year_month_day::YearMonthDay::last
+
+Check 64: year_month_day::YearMonthDay::last.pointer_dereference.9
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year_month_day.rs:802:42 in function year_month_day::YearMonthDay::last
+
+Check 65: year_month_day::YearMonthDay::last.pointer_dereference.10
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year_month_day.rs:802:42 in function year_month_day::YearMonthDay::last
+
+Check 66: year_month_day::YearMonthDay::last.pointer_dereference.11
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year_month_day.rs:802:42 in function year_month_day::YearMonthDay::last
+
+Check 67: year_month_day::YearMonthDay::last.pointer_dereference.12
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year_month_day.rs:802:42 in function year_month_day::YearMonthDay::last
+
+Check 68: year::Year::ok.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year.rs:50:9 in function year::Year::ok
+
+Check 69: year::Year::ok.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year.rs:50:9 in function year::Year::ok
+
+Check 70: year::Year::ok.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year.rs:50:9 in function year::Year::ok
+
+Check 71: year::Year::ok.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year.rs:50:9 in function year::Year::ok
+
+Check 72: year::Year::ok.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year.rs:50:9 in function year::Year::ok
+
+Check 73: year::Year::ok.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year.rs:50:9 in function year::Year::ok
+
+Check 74: year_month_day_last::YearMonthDayLast::day.pointer_dereference.1
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer NULL"
+	 - Location: src/year_month_day_last.rs:183:17 in function year_month_day_last::YearMonthDayLast::day
+
+Check 75: year_month_day_last::YearMonthDayLast::day.pointer_dereference.2
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer invalid"
+	 - Location: src/year_month_day_last.rs:183:17 in function year_month_day_last::YearMonthDayLast::day
+
+Check 76: year_month_day_last::YearMonthDayLast::day.pointer_dereference.3
+	 - Status: SUCCESS
+	 - Description: "dereference failure: deallocated dynamic object"
+	 - Location: src/year_month_day_last.rs:183:17 in function year_month_day_last::YearMonthDayLast::day
+
+Check 77: year_month_day_last::YearMonthDayLast::day.pointer_dereference.4
+	 - Status: SUCCESS
+	 - Description: "dereference failure: dead object"
+	 - Location: src/year_month_day_last.rs:183:17 in function year_month_day_last::YearMonthDayLast::day
+
+Check 78: year_month_day_last::YearMonthDayLast::day.pointer_dereference.5
+	 - Status: SUCCESS
+	 - Description: "dereference failure: pointer outside object bounds"
+	 - Location: src/year_month_day_last.rs:183:17 in function year_month_day_last::YearMonthDayLast::day
+
+Check 79: year_month_day_last::YearMonthDayLast::day.pointer_dereference.6
+	 - Status: SUCCESS
+	 - Description: "dereference failure: invalid integer address"
+	 - Location: src/year_month_day_last.rs:183:17 in function year_month_day_last::YearMonthDayLast::day
+
+
+SUMMARY:
+ ** 0 of 78 failed
+
+ ** 1 of 1 cover properties satisfied
+
+
+VERIFICATION:- SUCCESSFUL
+Verification Time: 0.0525274s
+
+Manual Harness Summary:
+Complete - 1 successfully verified harnesses, 0 failures, 1 total.
+exit=0
