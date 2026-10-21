@@ -30,7 +30,8 @@ git commit -m "Pin pilot commits"
 git push origin main pilot/crypto-mixed pilot/date-creusot pilot/swisstable-verus
 ```
 
-Shared material at the root: `WORKER-CONTRACT.md`, `PROTECTED-WRITES.md`,
+Shared material at the root: `VERIFIER-MATRIX.md` (the P4 plan),
+`WORKER-CONTRACT.md`, `PROTECTED-WRITES.md`,
 `oracle-PROTOCOL.md`, `rdb-divergence-workflow.md`, `findings-schema.md`,
 `oracle-example/`, the Nix flake (`nix develop path:.#<pilot>`), and the
 chainlink issue database in `.chainlink/`.
