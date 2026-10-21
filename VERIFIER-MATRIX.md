@@ -107,8 +107,8 @@ chooses the layout.
 | Cell | Port | Owner | Issue | State | Expected | Risks to settle in the fit analysis |
 |---|---|---|---|---|---|---|
 | A1 | P1 date | Creusot | #18 (probes #19, #22) | **done** | D: G14 closes, 9 pinned obligations, CG3 VERIFIED | None open. 2 known out-of-set write-set findings (`.gitignore`, `PORT-GAPS.md`) |
-| A2 | P1 date | Verus | P4-9 #163 | open | D. A CG3 refusal here would be a Ligature defect (Q1) | Integer arithmetic, no generics; P4-2 #156 |
-| A3 | P1 date | Kani | P4-10 #164 | open | B/CG3 | Unwind bounds for day-count loops; P4-2 #156 |
+| A2 | P1 date | Verus | P4-9 #163 | open | D. A CG3 refusal here would be a Ligature defect (Q1) | Fit done (P4-2 #156, `date-creusot/analysis/p4-verifier-fit/`). All 9 obligations transfer. Probes prove `from_days` and the round trip with no lemmas at rlimit 200. Specs must be restated in floor division (date-creusot-067, -068). No generic code, so it is the cleanest Q1 probe |
+| A3 | P1 date | Kani | P4-10 #164 | open | B/CG3 | Fit done (P4-2 #156). Loop-free: the round trip is proved over the full valid domain on the unchanged crate in ~26 s. C002 needs an operator decision on its Kani wording. A CG3 record is required even with no generic code |
 | A4 | P2 SwissTable | Verus | P4-8 #162 | open: 7 concept specs still drafts, no work packages | D: the intended Verus-only port. P only if unsafe storage or SIMD probing stay out of reach | Heaviest generics of any port, so it is the main test of Q1. Blocked first by 462 pending R1/G16 decisions (`swisstable-ligature-015`) and a stale C-static report (section 7); P4-3 #157 |
 | A5 | P2 SwissTable | Creusot | P4-11 #165 | open | D: the one owner whose generic callees settle CG3 positively. P if unsafe slots or SIMD are out of reach | P4-3 #157 |
 | A6 | P2 SwissTable | Kani | P4-12 #166 | open | B/CG3 | Kani's fit for unsafe slots and SIMD group probing; per-monomorphization only; P4-3 #157 |
