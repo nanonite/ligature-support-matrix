@@ -1,0 +1,57 @@
+== proof 1: drafting ==
+   56 artifacts, # 50/56 drafts staged cleanly; 6 failed
+== proof 2: approving in order ==
+   wrote approval-proof.txt
+== proof 3: order constraints (deliberately wrong orders) ==
+   wrote order-constraints.txt
+== proof 4: which validators collect a staged .draft ==
+   wrote draft-collection.txt
+== proof 5: the post-#111 G2+ outcome (PROBE ONLY) ==
+   wrote post-111-g2plus.txt
+     validate -> exit 0
+     check --json -> exit 1
+done
+.ligature/prompts/stage-3-boundary-drafting.md:58:- A callee **precondition** the caller must establish before the call is a
+.ligature/prompts/stage-3-boundary-drafting.md:63:  approve time), so a precondition recorded anywhere other than here is one
+.ligature/prompts/stage-3-boundary-drafting.md:65:  reads the referenced constraint's own `kind` and reports a precondition
+.ligature/prompts/stage-3-boundary-drafting.md:68:- The **caller's own** obligations never go here. A caller precondition or
+.ligature/prompts/stage-3-boundary-drafting.md:79:there is no precondition to establish, which is a claim, not an omission —
+.ligature/prompts/stage-3-bridge-drafting.md:27:      "role": "caller-precondition | invariant | prior-callee-postcondition | trusted-environment-assumption"
+.ligature/prompts/stage-3-bridge-drafting.md:88:That entry is normally a callee **precondition**, and the boundary is where
+.ligature/prompts/stage-3-bridge-drafting.md:90:caller depends on and the callee preconditions the caller must establish
+.ligature/prompts/stage-3-bridge-drafting.md:92:of the two an entry is — a precondition is a **caller obligation**, never
+.ligature/prompts/stage-3-bridge-drafting.md:95:`callee-precondition-established`, so `callee_requirement` naming a
+.ligature/prompts/stage-3-bridge-drafting.md:107:plan.md §8.2: the real obligation is that caller preconditions AND caller
+.ligature/prompts/stage-3-bridge-drafting.md:109:precondition. Each fact's `role` must be one of:
+.ligature/prompts/stage-3-bridge-drafting.md:111:- `caller-precondition` — a precondition the caller's own contract requires
+--- validators in the post-#111 state ---
+  validate -> exit 0
+      INFO: 6 non-blocking finding(s)
+        - [G2+/info] rust/swisstable-verus-core/specs/_boundaries/swiss_table_insert__to__raw_table_insert.json: 'RawTable.C003' is a precondition of RawTable: a caller obligation the caller must establish before this call, NOT a guarantee the callee provides. It is declared here because a bridge's callee_requirement must be one of these entries (validate-bridge G2) -- the bridge specification is what discharges it
+        - [G2+/info] rust/swisstable-verus-core/specs/_boundaries/raw_table_resize__to__control_bytes_clear_dead.json: 'ControlBytes.C005' is a precondition of ControlBytes: a caller obligation the caller must establish before this call, NOT a guarantee the callee provides. It is declared here because a bridge's callee_requirement must be one of these entries (validate-bridge G2) -- the bridge specification is what discharges it
+        - [G2+/info] rust/swisstable-verus-core/specs/_boundaries/raw_table_find__to__group_probe_match_full.json: 'GroupProbe.C001' is a precondition of GroupProbe: a caller obligation the caller must establish before this call, NOT a guarantee the callee provides. It is declared here because a bridge's callee_requirement must be one of these entries (validate-bridge G2) -- the bridge specification is what discharges it
+        - [G2+/info] rust/swisstable-verus-core/specs/_boundaries/raw_table_find__to__probe_seq_offset.json: 'ProbeSeq.C001' is a precondition of ProbeSeq: a caller obligation the caller must establish before this call, NOT a guarantee the callee provides. It is declared here because a bridge's callee_requirement must be one of these entries (validate-bridge G2) -- the bridge specification is what discharges it
+        - [G2+/info] rust/swisstable-verus-core/specs/_boundaries/raw_table_erase__to__control_bytes_set_dead.json: 'ControlBytes.C003' is a precondition of ControlBytes: a caller obligation the caller must establish before this call, NOT a guarantee the callee provides. It is declared here because a bridge's callee_requirement must be one of these entries (validate-bridge G2) -- the bridge specification is what discharges it
+        - [G2+/info] rust/swisstable-verus-core/specs/_boundaries/raw_table_find__to__group_probe_match_empty_or_deleted.json: 'GroupProbe.C001' is a precondition of GroupProbe: a caller obligation the caller must establish before this call, NOT a guarantee the callee provides. It is declared here because a bridge's callee_requirement must be one of these entries (validate-bridge G2) -- the bridge specification is what discharges it
+      OK: all boundary contracts pass G1a/G1b/G2+ (14 discovered)
+  validate-interaction -> exit 0
+      OK: all interactions pass G1a/G1b (incl. computed eligibility), G15 protocol coverage, and R2 coverage (15 discovered)
+  validate-bridge -> exit 0
+      OK (nothing to check: no bridges discovered under .)
+  validate-witness -> exit 0
+      OK (nothing to check: no witness artifacts discovered under .)
+
+--- check --json in the post-#111 state ---
+  exit_code 1 conditions ['blocking_findings', 'human_decision_required']
+  findings ('high', 'r1-g16') 5
+  findings ('info', 'G2+') 6
+  findings ('info', 'r1-g16') 65
+  findings ('medium', 'r1-g16') 453
+  BLOCKING r1-g16 rust_swisstable-verus-core.json -- CS-RAWTABLE-NEW-SEQ-001: realized call RawTable.new_seq -> ProbeSeq.new is absent from I -- a definite direct call across concepts must be a declared interaction (its eligibility cannot even be computed while it has no edge_class)
+  BLOCKING r1-g16 rust_swisstable-verus-core.json -- CS-RAWTABLE-INSERT-001: realized call RawTable.insert -> HashMix.new is absent from I -- a definite direct call across concepts must be a declared interaction (its eligibility cannot even be computed while it has no edge_class)
+  BLOCKING r1-g16 rust_swisstable-verus-core.json -- CS-RAWTABLE-NEW-001: realized call RawTable.new -> ControlBytes.new is absent from I -- a definite direct call across concepts must be a declared interaction (its eligibility cannot even be computed while it has no edge_class)
+  BLOCKING r1-g16 rust_swisstable-verus-core.json -- CS-SWISSTABLE-NEW-001: realized call SwissTable.new -> RawTable.new is absent from I -- a definite direct call across concepts must be a declared interaction (its eligibility cannot even be computed while it has no edge_class)
+  BLOCKING r1-g16 rust_swisstable-verus-core.json -- CS-SWISSTABLE-ITER-001: realized call SwissTable.iter -> TableIterator.new is absent from I -- a definite direct call across concepts must be a declared interaction (its eligibility cannot even be computed while it has no edge_class)
+  check --json -> exit 1
+
+==============================================================

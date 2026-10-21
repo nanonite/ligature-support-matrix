@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-001",
+  "kind": "source-artifact",
+  "claim": "The SwissTable slot index is taken from the low bits of the user hash (H1 is the identity) and the same hash's 7 most significant bits are stored in the full slot's control byte (H2 = hash >> (sizeof(size_t)*8 - 7)), so a port that changes the hash function must change both the probe start offset and the control-byte tag together.",
+  "origin": {
+    "repository": "https://github.com/abseil/abseil-cpp",
+    "commit": "2065f4ded0558c6f89fee67c8e5228feb4eb960e",
+    "symbol": "absl::container_internal::H1 / H2",
+    "path": "absl/container/internal/raw_hash_set.h",
+    "content_hash": "sha256:811f35e12e768f3bc155ce919684d923e3d8995e87de74c21496305c0c586e2c",
+    "line_hint": "831-837"
+  },
+  "semantic_disposition": "required",
+  "lifecycle": "accepted",
+  "confidence": "high",
+  "mode": "P"
+}

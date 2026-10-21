@@ -1,0 +1,2 @@
+869:        self.ctrl.set_full(slot, mix.h2());
+0 error locations in 0 functions (ordered by count; file:line shown for each)

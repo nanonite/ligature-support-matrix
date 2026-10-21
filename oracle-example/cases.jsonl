@@ -1,0 +1,4 @@
+{"case_id":"boundary-add-normal-001","op":"add","inputs":{"a":2,"b":3},"oracle_scope":"compare"}
+{"case_id":"boundary-add-overflow-003","op":"add","inputs":{"a":9223372036854775807,"b":1},"oracle_scope":"compare"}
+{"case_id":"boundary-add-negative-002","op":"add","inputs":{"a":-7,"b":4},"oracle_scope":"compare"}
+{"case_id":"boundary-iteration-order-004","op":"iteration-order","inputs":{"values":[3,1,2]},"oracle_scope":"excluded","exclusion_reason":"iteration order is not an observable cross-language contract"}

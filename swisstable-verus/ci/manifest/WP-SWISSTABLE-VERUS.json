@@ -1,0 +1,672 @@
+{
+  "schema": "work-package-manifest/1.0",
+  "work_package": "WP-SWISSTABLE-VERUS",
+  "issue": "chainlink:29",
+  "depends_on": [],
+  "coupling_notes": [
+    "One work package, seven concepts in six clusters (hashing, control-bytes, probing, table, api, iteration). There is no second work package in this workspace, so `depends_on` is empty and `required_guarantees` is empty: a work package may not assume its own output as its own input (P1 hit that as a CG6 'mutual satisfaction is not soundness' cycle -- chainlink #15).",
+    "The tightest coupling is the probe sequence's dependence on the table's capacity encoding: BR-PROBESEQ-MASK-001 has to derive `capacity_mask + 1 == (1 << capacity_bits)` from RawTable.C001/C004 to discharge the `ProbeSeq.C001` precondition at RawTable.find -> ProbeSeq.offset. That is the one place where a rehash policy change in RawTable would invalidate a callee obligation rather than just a boundary.",
+    "Group probing couples to control bytes twice over: GroupProbe.match_full and match_empty_or_deleted read the H2 tag GroupProbe.load writes, and the same mask drives the free-window query BR-GROUPPROBE-FREE-WINDOW-001. Changing the tag encoding in ControlBytes.C007 breaks both bridges at once.",
+    "ControlBytes.clear_dead (rehash) is the only edge that destroys tombstones, so it is the only place a capacity change is observable. It is bridged separately (BR-CONTROLBYTES-CLEARDEAD-001) from set_dead (BR-CONTROLBYTES-SETDEAD-001) precisely so that a rehash-only regression is not confused with a tombstone-marking one.",
+    "All 30 non-precondition obligations require verus-deductive-check evidence. The promoted interactions are protocol_class `pairwise` with no trusted assumptions, so `trusted_assumptions` is empty.",
+    "The 6 precondition obligations are deliberately NOT in `provided_guarantees`: they are established at the call site and discharged by the bridges, which is the only shape that satisfies bridge G2 (`callee_requirement` must be one of the boundary's own `callee_guarantees`). They appear under `required_preconditions_to_establish`, one entry per bridge -- BR-CONTROLBYTES-CLEARDEAD-001/ControlBytes.C005, BR-CONTROLBYTES-SETDEAD-001/ControlBytes.C003, BR-GROUPPROBE-FREE-WINDOW-001/GroupProbe.C001, BR-GROUPPROBE-WINDOW-001/GroupProbe.C001, BR-PROBESEQ-MASK-001/ProbeSeq.C001, BR-RAWINSERT-NONFULL-001/RawTable.C003 -- so nothing is both provided and required. The obligation id lives in each bridge's own `callee_requirement`, which is where bridge G2 reads it from; the manifest schema's `required_preconditions_to_establish` entry carries only `bridge_id`, `callsite_requirement` and `required_assurance`. See epic #1 #112 for the template disagreement that forces this shape.",
+    "EC-1 (promoted) resolves the E-007/E-008 conflict in favour of the per-table seed randomising iteration order, so TableIterator.C004 and SwissTable.C004 are written from E-008 and no obligation here constrains an iteration order.",
+    "`gate_integrity` carries the real sha256 of the two ligature-managed witness renderer scripts, recomputed by the generator; G13 verifies both against the installed files. The ligature 1.0-era zero hashes P1 had to remove are never written here.",
+    "`provenance.promotion_id` is PROM-SWISSTABLE-VERUS-CORE-001, derived from `cluster` alone by accept-promotion and confirmed against the receipt minted by the Stage 4.5 scratch proof (analysis/ligature/stage4-7/stage45-scratch-proof.txt). `provenance.artifact_set_hash` is the real sha256 of THAT SAME SCRATCH receipt, not of a live-root receipt: no promotion receipt exists on the live root yet, because accept-promotion is pending the operator's batch approval, and the only receipt that exists was minted on a scratch copy whose reliance-policy.md had scratch placeholder values filled in. It is a real hash of a real file, but it is NOT the live-root artifact set. After the operator batch, re-run this generator against the real receipt; until then `promotion_id` and `artifact_set_hash` are the two fields to re-read. `validate-work-package` reports the missing receipt separately as a 10.1/info.",
+    "E-010 and E-011 are lifecycle: deferred, so they are in the accepted promotion set as evidence records but assert no constraint; no obligation in this manifest rests on either."
+  ],
+  "scheduling_rule": "reverse-dependency-order",
+  "functions": [
+    "ControlBytes::is_empty",
+    "ControlBytes::is_dead",
+    "ControlBytes::is_full",
+    "ControlBytes::is_empty_or_deleted",
+    "ControlBytes::count_empty",
+    "ControlBytes::set_full",
+    "ControlBytes::set_dead",
+    "ControlBytes::set_empty",
+    "ControlBytes::clear_dead",
+    "GroupProbe::match_full",
+    "GroupProbe::match_empty_or_deleted",
+    "GroupProbe::count_empty",
+    "GroupProbe::load",
+    "HashMix::h1",
+    "HashMix::h2",
+    "HashMix::from_hash",
+    "ProbeSeq::offset",
+    "ProbeSeq::index",
+    "ProbeSeq::offset_at",
+    "ProbeSeq::from_capacity_and_h1",
+    "ProbeSeq::advance",
+    "RawTable::len",
+    "RawTable::capacity",
+    "RawTable::is_full",
+    "RawTable::find",
+    "RawTable::insert",
+    "RawTable::erase",
+    "RawTable::resize",
+    "SwissTable::len",
+    "SwissTable::contains",
+    "SwissTable::insert",
+    "SwissTable::erase",
+    "SwissTable::reserve",
+    "SwissTable::clear",
+    "TableIterator::is_end",
+    "TableIterator::offset",
+    "TableIterator::advance",
+    "TableIterator::rewind_to_full"
+  ],
+  "obligations": [
+    "ControlBytes.C001",
+    "ControlBytes.C002",
+    "ControlBytes.C004",
+    "ControlBytes.C006",
+    "ControlBytes.C007",
+    "ControlBytes.C008",
+    "GroupProbe.C002",
+    "GroupProbe.C003",
+    "GroupProbe.C004",
+    "GroupProbe.C005",
+    "HashMix.C002",
+    "HashMix.C003",
+    "HashMix.C004",
+    "ProbeSeq.C002",
+    "ProbeSeq.C003",
+    "ProbeSeq.C004",
+    "RawTable.C001",
+    "RawTable.C002",
+    "RawTable.C004",
+    "RawTable.C005",
+    "RawTable.C006",
+    "RawTable.C007",
+    "SwissTable.C001",
+    "SwissTable.C002",
+    "SwissTable.C003",
+    "SwissTable.C004",
+    "TableIterator.C001",
+    "TableIterator.C002",
+    "TableIterator.C003",
+    "TableIterator.C004",
+    "ControlBytes.C003",
+    "ControlBytes.C005",
+    "GroupProbe.C001",
+    "HashMix.C001",
+    "ProbeSeq.C001",
+    "RawTable.C003"
+  ],
+  "provenance": {
+    "base_commit": "2065f4ded0558c6f89fee67c8e5228feb4eb960e",
+    "promotion_id": "PROM-SWISSTABLE-VERUS-CORE-001",
+    "artifact_set_hash": "sha256:84009042390a39fefe21e7e4a13cb0a252a7210b49abbafaf21f00bad5e76666",
+    "toolchain": "rustc/cargo/verus",
+    "target": "x86_64-unknown-linux-gnu",
+    "features": [
+      "default"
+    ]
+  },
+  "gate_integrity": [
+    {
+      "runner": "scripts/witness_renderer.py",
+      "hash": "sha256:0b844c7ec904604754e13ba448c5f146cbe4296a7fd617cdfe0085636eb946bd"
+    },
+    {
+      "runner": "scripts/xml_escape.py",
+      "hash": "sha256:09dc6a9258a9bdab7648d3d8d0588bbb4bf2a096457c950e094964aa8d139854"
+    }
+  ],
+  "write_policy": {
+    "allowed_write_set": [
+      "rust/*/src/",
+      "rust/*/tests/",
+      "rust/*/target/**",
+      "rust/*/verif/**",
+      "rust/*/.cargo/**",
+      "rust/*/Cargo.lock",
+      "rust/.gitkeep",
+      "analysis/**",
+      "findings/**",
+      "oracle/**",
+      "tools/**",
+      "upstream/**",
+      "specs/_closure/**",
+      "specs/_promotions/**",
+      "README.md",
+      ".envrc",
+      ".mcp.json"
+    ],
+    "protected_write_set": [
+      "rust/*/specs/**",
+      "ci/manifest/**",
+      "scripts/**",
+      "docs/*-schema.json",
+      "docs/reliance-policy.md",
+      "rust/*/Cargo.toml",
+      "rust/*/build.rs",
+      "tests/harnesses/**",
+      ".github/**",
+      "rust-toolchain.toml"
+    ],
+    "on_conflict": "raise_change_request"
+  },
+  "definition_of_done": {
+    "provided_guarantees": [
+      {
+        "obligation_id": "ControlBytes.C001",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "ControlBytes.C002",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "ControlBytes.C004",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "ControlBytes.C006",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "ControlBytes.C007",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "ControlBytes.C008",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "GroupProbe.C002",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "GroupProbe.C003",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "GroupProbe.C004",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "GroupProbe.C005",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "HashMix.C002",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "HashMix.C003",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "HashMix.C004",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "ProbeSeq.C002",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "ProbeSeq.C003",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "ProbeSeq.C004",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "RawTable.C001",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "RawTable.C002",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "RawTable.C004",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "RawTable.C005",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "RawTable.C006",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "RawTable.C007",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "SwissTable.C001",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "SwissTable.C002",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "SwissTable.C003",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "SwissTable.C004",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "TableIterator.C001",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "TableIterator.C002",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "TableIterator.C003",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      },
+      {
+        "obligation_id": "TableIterator.C004",
+        "required_assurance": {
+          "required_claims": [
+            "postcondition-holds"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        },
+        "harness": "verus"
+      }
+    ],
+    "required_preconditions_to_establish": [
+      {
+        "bridge_id": "BR-CONTROLBYTES-CLEARDEAD-001",
+        "callsite_requirement": "all-discovered-resolved",
+        "required_assurance": {
+          "required_claims": [
+            "callee-precondition-established"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        }
+      },
+      {
+        "bridge_id": "BR-CONTROLBYTES-SETDEAD-001",
+        "callsite_requirement": "all-discovered-resolved",
+        "required_assurance": {
+          "required_claims": [
+            "callee-precondition-established"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        }
+      },
+      {
+        "bridge_id": "BR-GROUPPROBE-FREE-WINDOW-001",
+        "callsite_requirement": "all-discovered-resolved",
+        "required_assurance": {
+          "required_claims": [
+            "callee-precondition-established"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        }
+      },
+      {
+        "bridge_id": "BR-GROUPPROBE-WINDOW-001",
+        "callsite_requirement": "all-discovered-resolved",
+        "required_assurance": {
+          "required_claims": [
+            "callee-precondition-established"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        }
+      },
+      {
+        "bridge_id": "BR-PROBESEQ-MASK-001",
+        "callsite_requirement": "all-discovered-resolved",
+        "required_assurance": {
+          "required_claims": [
+            "callee-precondition-established"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        }
+      },
+      {
+        "bridge_id": "BR-RAWINSERT-NONFULL-001",
+        "callsite_requirement": "all-discovered-resolved",
+        "required_assurance": {
+          "required_claims": [
+            "callee-precondition-established"
+          ],
+          "accepted_evidence_kinds": [
+            "verus-deductive-check"
+          ]
+        }
+      }
+    ],
+    "required_guarantees": [],
+    "trusted_assumptions": []
+  },
+  "gates": [
+    {
+      "id": "g1a",
+      "runner": "ligature",
+      "args": [
+        "validate"
+      ]
+    },
+    {
+      "id": "g1b",
+      "runner": "ligature",
+      "args": [
+        "validate-interaction"
+      ]
+    },
+    {
+      "id": "g2",
+      "runner": "ligature",
+      "args": [
+        "validate-bridge"
+      ]
+    },
+    {
+      "id": "g9",
+      "runner": "ligature",
+      "args": [
+        "gate",
+        "g9"
+      ]
+    },
+    {
+      "id": "g15",
+      "runner": "ligature",
+      "args": [
+        "validate-interaction"
+      ]
+    },
+    {
+      "id": "r2",
+      "runner": "ligature",
+      "args": [
+        "validate-interaction"
+      ]
+    },
+    {
+      "id": "g18",
+      "runner": "ligature",
+      "args": [
+        "gate",
+        "g18"
+      ]
+    },
+    {
+      "id": "g19",
+      "runner": "ligature",
+      "args": [
+        "gate",
+        "g19"
+      ]
+    },
+    {
+      "id": "g20",
+      "runner": "ligature",
+      "args": [
+        "gate",
+        "g20"
+      ]
+    }
+  ],
+  "failure_policy": {
+    "verifier_timeout": "raise_change_request(kind=timeout)",
+    "obligation_unprovable": "raise_change_request(kind=change_request)",
+    "missing_callee_guarantee": "raise_change_request(kind=change_request)",
+    "unintended_call_edge": "raise_change_request(kind=change_request)",
+    "unresolved_callsite": "raise_change_request(kind=change_request)",
+    "forbidden": []
+  },
+  "report": {
+    "emit": "ci/results/WP-SWISSTABLE-VERUS.json",
+    "per_obligation_assurance_record": true
+  }
+}

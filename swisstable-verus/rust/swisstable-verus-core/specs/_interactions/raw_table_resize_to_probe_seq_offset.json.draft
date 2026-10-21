@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "raw_table_resize_to_probe_seq_offset",
+  "caller": {
+    "concept": "RawTable",
+    "method": "resize"
+  },
+  "callee": {
+    "concept": "ProbeSeq",
+    "method": "offset"
+  },
+  "edge_class": [
+    "numeric-domain-boundary"
+  ],
+  "eligibility": "boundary-required",
+  "rationale": "Re-insertion probes with the NEW capacity's mask while carrying an offset read from the OLD table, so the caller must not reuse a stale offset as a probe position.",
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [
+        "default"
+      ],
+      "cfg": []
+    }
+  },
+  "evidence_links": [
+    "E-003"
+  ],
+  "reliances": [
+    {
+      "obligation_id": "ProbeSeq.C002",
+      "required_assurance": {
+        "required_claims": [
+          "callee-precondition-established"
+        ],
+        "accepted_evidence_kinds": [
+          "verus-deductive-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "any capacity of the form two to the n minus one"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,223 @@
+chainlink #28 -- second measurement pass, on ligature 1.2.1
+==========================================================
+
+Why this file exists
+--------------------
+The pilot root was upgraded from ligature 1.2.0 to 1.2.1 while #28 was open, so
+every claim the #28 section of ../../README.md makes was re-measured against
+1.2.1. Nothing here contradicts the #28 section; it extends it.
+
+Pinned binary, verified:
+
+    $ cd swisstable-verus/tools/ligature && cat SHA256SUMS && sha256sum -c SHA256SUMS
+    30e504d388d5fb2acf1185fe3bfc17c96ec82483771d8d59a37fb3749009aacd  ligature.pyz
+    ligature.pyz: OK
+
+    $ python3 tools/ligature/ligature.pyz version | head -1
+    ligature 1.2.1
+
+Scratch copy (the live root was never approved on, here or in the earlier pass):
+
+    rsync -a --delete --exclude 'analysis/codesight/index/' --exclude 'upstream/' \
+          --exclude 'rust/*/target/' --exclude 'rust/*/.why3find/' \
+          ./ /tmp/opencode/s2/v121/
+
+Reviewer name used on the scratch: scratch-grammar-probe. It is a scratch name,
+not a human name and not a claim that a human approved anything.
+
+
+1. All three escalations still reproduce verbatim on 1.2.1
+----------------------------------------------------------
+Approving the staged drafts in order on the scratch (14 boundaries, then 15
+interactions, then 6 bridges) -- every one exit 0:
+
+    ### step 1: the 14 boundary contracts
+    _boundaries/raw_table_erase__to__control_bytes_set_dead.json           exit=0
+    _boundaries/raw_table_erase__to__control_bytes_set_empty.json          exit=0
+    _boundaries/raw_table_find__to__control_bytes_is_empty_or_deleted.json exit=0
+    _boundaries/raw_table_find__to__group_probe_match_empty_or_deleted.json exit=0
+    _boundaries/raw_table_find__to__group_probe_match_full.json            exit=0
+    _boundaries/raw_table_find__to__probe_seq_advance.json                 exit=0
+    _boundaries/raw_table_find__to__probe_seq_offset.json                  exit=0
+    _boundaries/raw_table_resize__to__control_bytes_clear_dead.json        exit=0
+    _boundaries/raw_table_resize__to__probe_seq_offset.json                exit=0
+    _boundaries/swiss_table_erase__to__control_bytes_set_dead.json         exit=0
+    _boundaries/swiss_table_erase__to__raw_table_erase.json                exit=0
+    _boundaries/swiss_table_insert__to__raw_table_insert.json              exit=0
+    _boundaries/swiss_table_reserve__to__raw_table_resize.json             exit=0
+    _boundaries/table_iterator_advance__to__control_bytes_is_empty_or_deleted.json exit=0
+
+    ### step 2: the 15 interactions
+    ... all 15 exit=0
+
+    ### step 3: the 6 bridges
+    ... all 6 exit=0
+
+then G9, on the six promoted bridges:
+
+    $ python3 tools/ligature/ligature.pyz check-bridges ; echo $?
+    FAIL: 6 finding(s)
+      - [G9/error] BR-CONTROLBYTES-CLEARDEAD-001: bridge_logic does not compile for verus: unexpected character '=' at offset 27 in 'self.ctrl(self.capacity()) == SENTINEL' -- the compilable fragment is predicate application only: no operators, literals, quantifiers or negation
+      - [G9/error] BR-CONTROLBYTES-SETDEAD-001: bridge_logic does not compile for verus: unexpected character '<' at offset 5 in 'slot < self.capacity()' -- the compilable fragment is predicate application only: no operators, literals, quantifiers or negation
+      - [G9/error] BR-GROUPPROBE-FREE-WINDOW-001: bridge_logic does not compile for verus: binding name 'GROUP_WIDTH' is not snake_case -- it becomes a harness parameter name
+      - [G9/error] BR-GROUPPROBE-WINDOW-001: bridge_logic does not compile for verus: binding name 'GROUP_WIDTH' is not snake_case -- it becomes a harness parameter name
+      - [G9/error] BR-PROBESEQ-MASK-001: bridge_logic does not compile for verus: unexpected character '+' at offset 14 in 'capacity_mask + 1 == (1usize << capacity_bits)' -- the compilable fragment is predicate application only: no operators, literals, quantifiers or negation
+      - [G9/error] BR-RAWINSERT-NONFULL-001: bridge_logic does not compile for verus: unexpected character '>' at offset 16 in 'self.capacity() >= GROUP_WIDTH' -- the compilable fragment is predicate application only: no operators, literals, quantifiers or negation
+    1
+
+These six lines are byte-identical to ../../README.md:914-919 and to epic #113.
+#110, #112 and #113 are therefore NOT fixed in 1.2.1.
+
+
+2. NEW: re-cutting the premises is necessary but NOT sufficient
+--------------------------------------------------------------
+`project-descriptor.json` declares `verifier_policy.default: "verus"` and no
+`verifier_backends` key at all. Re-cut one bridge to the grammar G9 accepts:
+
+    bridge_logic.bindings  {"self": "RawTable", "slot": "usize"}
+    bridge_logic.premises  ["self.is_full_ctrl(slot)",
+                            "self.is_not_sentinel_ctrl(slot)"]
+    bridge_logic.conclusion.obligation_id  "ControlBytes.C003"
+
+    $ python3 tools/ligature/ligature.pyz check-bridges ; echo $?
+    wrote /tmp/opencode/s2/v121/ci/harness/BR-CONTROLBYTES-SETDEAD-001.verus.rs
+    FAIL: 6 finding(s)
+      - [G9/error] BR-CONTROLBYTES-CLEARDEAD-001: ... '==' ...          (unchanged)
+      - [G9/error] BR-CONTROLBYTES-SETDEAD-001: harness generated for verus at ci/harness/BR-CONTROLBYTES-SETDEAD-001.verus.rs, but the project descriptor configures no verifier_backends.verus command -- nothing was checked, so no result is recorded (the ceiling here is harness-tested, never bridge-checked)
+      - [G9/error] BR-GROUPPROBE-FREE-WINDOW-001: ... 'GROUP_WIDTH' ... (unchanged)
+      - [G9/error] BR-GROUPPROBE-WINDOW-001: ... 'GROUP_WIDTH' ...     (unchanged)
+      - [G9/error] BR-PROBESEQ-MASK-001: ... '+' ...                    (unchanged)
+      - [G9/error] BR-RAWINSERT-NONFULL-001: ... '>=' ...                (unchanged)
+    1
+
+The grammar error is GONE for that bridge and a DIFFERENT G9 error takes its place.
+So there are two independent G9 preconditions, and the README's remediation
+("re-cut the 6 bridges, then require `gate-g9` exit 0") cannot succeed until an
+operator adds `verifier_backends.verus.command` to the descriptor. That file is a
+user-owned protected root, so no agent working this issue can add it.
+
+Cross-checked against epic #113's text: #113 lists exactly two G9 rules (predicate
+application, snake_case bindings) and does not mention `verifier_backends`, the
+generated harness path, or the second failure. This is recorded as a comment on
+#113 rather than as a new subissue, because it is the same gate rejecting the same
+artifacts.
+
+
+3. NEW: the exact grammar G9 accepts
+-------------------------------------
+Probed by rewriting `bridge_logic.premises` in place on the scratch and re-running
+`check-bridges` for each candidate. ACCEPTED:
+
+    ["self"]                        bare declared binding
+    ["slot"]                        bare declared binding
+    ["self.ctrl.len()"]             dotted chain
+    ["self.foo()"]                  chain ending in a call
+    ["self.a.b.c"]                  deeper dotted chain
+    ["self.foo(slot)"]              call argument is a declared binding
+    [""]                            the empty string (so "at least one premise"
+                                    is not enforced by G9)
+
+REJECTED, each with its own message:
+
+    ["x == y"]        unexpected character '=' at offset 2
+    ["x < 16"]        unexpected character '<' at offset 2
+    ["x && y"]        unexpected character '&' at offset 2
+    ["x + y"]         unexpected character '+'
+    ["forall|i: u64| true"]
+                      unexpected character '|' at offset 6
+    ["self.ctrl[0]"]  unexpected character '[' at offset 9
+    ["self.f(0xFF)"]  unexpected character '0' at offset 7   (literal argument)
+    ["Self::f()"]     unexpected character ':' at offset 4   (no paths)
+    ["foo(self)"]     premise[0]: foo is rooted at 'foo', which bridge_logic.bindings
+                      does not declare (declared: ['h', 'i', 'mirror_index_wraps_
+                      inside_the_array', 'self']) -- a harness cannot pass a value it
+                      was never given
+
+The declared set is `bridge_logic.bindings` keys PLUS every
+`required_local_facts[].fact_id`. A binding key that is not snake_case is rejected
+separately: `binding name 'GROUP_WIDTH' is not snake_case -- it becomes a harness
+parameter name`.
+
+
+4. NEW: check-bridges is not read-only, and --workspace is a global flag
+------------------------------------------------------------------------
+`check-bridges` writes a generated harness into the workspace:
+
+    $ cat ci/harness/BR-CONTROLBYTES-SETDEAD-001.verus.rs
+    // GENERATED by scripts/bridge_harness.py -- do not edit.
+    // bridge_id: BR-CONTROLBYTES-SETDEAD-001
+    // boundary_id: raw_table_erase__to__control_bytes_set_dead
+    // verifier: verus
+    // conclusion: ControlBytes.C003
+    // plan.md §8.2: caller preconditions ∧ invariants ∧ path condition ∧ prior call
+    // results ⟹ callee precondition. The premises below are the assumed facts; the
+    // conclusion is what the owning verifier must establish from them.
+    verus! {
+        proof fn bridge_br_controlbytes_setdead_001(self: RawTable, slot: usize)
+            requires
+            self.is_full_ctrl(slot),
+            self.is_not_sentinel_ctrl(slot),
+            ensures
+            ControlBytes::C003(self, slot),
+        {
+        }
+    }
+
+Note what this shows: each premise is pasted verbatim into a Verus `requires`
+clause, so a premise must be a boolean-valued term for the harness to compile. A
+premise written the way the template describes it (`slot < self.capacity()`) is a
+valid boolean and is rejected; one written as a term (`self.ctrl(slot)`) is accepted
+and is not a boolean. The only shape that satisfies G9 is a call to a
+boolean-returning predicate over the bindings -- which means the predicate has to
+actually exist as a method on the ported type.
+
+`write-set-check` stays clean with that generated directory present:
+
+    $ python3 tools/ligature/ligature.pyz write-set-check ; echo $?
+    write set: clean
+    ...exit 0
+
+because `ci/harness/**` is in neither `allowed_roots` nor `protected_roots` of
+`project-descriptor.json`. Same class as WORKER-CONTRACT §0.0's `ci/manifest/`
+observation, one directory over.
+
+`--workspace` is a GLOBAL flag and must precede the subcommand:
+
+    $ python3 tools/ligature/ligature.pyz check-bridges --workspace /abs ; echo $?
+    2                       # argparse usage error
+    $ python3 tools/ligature/ligature.pyz --workspace /abs check-bridges ; echo $?
+    1                       # the real G9 findings
+
+(1.2.1 has the relative-`--workspace` fix from #96, so the absolute form is no
+longer needed for correctness here; it is recorded because WORKER-CONTRACT §0.0
+says "pass an absolute `--workspace`" without saying where in the command line it
+goes, and putting it in the wrong place exits 2 rather than working.)
+
+
+5. One measurement trap worth recording for the next worker
+-----------------------------------------------------------
+This loop prints a WRONG exit code, and it is easy to believe:
+
+    for f in .../*.json.draft; do
+      python3 tools/ligature/ligature.pyz approve "${f%.draft}" --reviewer X >/dev/null 2>&1
+      echo "$(basename "${f%.draft}") approve exit=$?"
+    done
+
+`$(basename ...)` is a command substitution inside the same word as `$?`; bash
+expands left to right, so the substitution runs first and sets `$?` to basename's
+status. Every line reads `exit=0` regardless of what `approve` did. Capture the
+status into a variable before echoing anything else:
+
+    out=$(python3 tools/ligature/ligature.pyz approve "$t" --reviewer X 2>&1); rc=$?
+
+This cost one wrong conclusion in this pass before it was caught: it made six
+failing `approve` calls look like six successes.
+
+
+Scope
+-----
+Nothing outside this directory was written. The live root was not approved on at
+any point; every `approve` in this file ran on `/tmp/opencode/s2/v121`.
+`project-descriptor.json`, `docs/reliance-policy.md`, `ci/manifest/**`,
+`scripts/**` and `rust/*/specs/**` were not edited. `flake.nix` / `flake.lock` at the
+workspace root are byte-identical before and after (md5 verified).

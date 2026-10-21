@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "swiss_table_reserve_to_raw_table_resize",
+  "caller": {
+    "concept": "SwissTable",
+    "method": "reserve"
+  },
+  "callee": {
+    "concept": "RawTable",
+    "method": "resize"
+  },
+  "edge_class": [
+    "stateful"
+  ],
+  "eligibility": "boundary-required",
+  "rationale": "Reserve is only a promise about capacity, and it is kept by the table's own capacity invariant after a rehash rather than by anything the container records.",
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "optional",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [
+        "default"
+      ],
+      "cfg": []
+    }
+  },
+  "evidence_links": [
+    "E-006"
+  ],
+  "reliances": [
+    {
+      "obligation_id": "RawTable.C001",
+      "required_assurance": {
+        "required_claims": [
+          "postcondition-holds"
+        ],
+        "accepted_evidence_kinds": [
+          "verus-deductive-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "any capacity of the form two to the n minus one"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    }
+  ]
+}

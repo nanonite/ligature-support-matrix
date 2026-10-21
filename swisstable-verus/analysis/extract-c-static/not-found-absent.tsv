@@ -1,0 +1,22 @@
+# DERIVED by classify-not-found.py -- do not hand-edit.
+# `git grep -w -F` over the five P2 subset files.
+# hit_kind is a stated heuristic, NOT a parse: it reports
+# `definition` for any top-level occurrence followed by `(`, so a
+# constructor call (`Group(ctrl).MaskEmpty()`) or an argument
+# (`= Group(...)`) can read as `definition`.  Every row therefore
+# also lists every kind found and how many whole-word hits there
+# were, so the evidence line can be checked, not trusted.
+# columns: requested symbol | artefacts that asked | evidence
+EraseImpl	1	zero hits anywhere under absl/
+EraseSingleElement	1	zero hits anywhere under absl/
+EraseWithRehash	1	zero hits anywhere under absl/
+EraseWithoutRehash	1	zero hits anywhere under absl/
+GroupImpl	2	zero hits anywhere under absl/
+MakeDeleted	1	zero hits anywhere under absl/
+MakeEmpty	1	zero hits anywhere under absl/
+MatchEmptyOrDeleted	2	zero hits anywhere under absl/
+MatchFull	2	zero hits anywhere under absl/
+ResizeAllowedWithoutRehash	1	zero hits anywhere under absl/
+ResizeImpl	2	zero hits anywhere under absl/
+ResizeWithoutDeletingOrCreatingNewSlots	2	zero hits anywhere under absl/
+Simd	2	zero hits anywhere under absl/

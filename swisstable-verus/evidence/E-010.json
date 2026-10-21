@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-010",
+  "kind": "source-artifact",
+  "claim": "The SIMD group is a separate implementation selected at compile time (GroupSse2Impl under ABSL_INTERNAL_HAVE_SSE2, with a portable Group otherwise) that computes the same full/empty-or-deleted masks as 128-bit lane compares; whether that half is ported, scope-cut, or given to a second verifier is chainlink #36's open decision, not this record's.",
+  "origin": {
+    "repository": "https://github.com/abseil/abseil-cpp",
+    "commit": "2065f4ded0558c6f89fee67c8e5228feb4eb960e",
+    "symbol": "absl::container_internal::GroupSse2Impl",
+    "path": "absl/container/internal/hashtable_control_bytes.h",
+    "content_hash": "sha256:fd40300b487870c6bbff3e0fe2b8a61d526cb82bc0d5050fe464ea06b0c1a95d",
+    "line_hint": "277-330"
+  },
+  "semantic_disposition": "incidental",
+  "lifecycle": "deferred",
+  "confidence": "high",
+  "mode": "P"
+}

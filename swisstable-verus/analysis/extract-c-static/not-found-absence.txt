@@ -1,0 +1,6 @@
+$ cd ../../upstream/abseil-cpp && for s in ResizeImpl MatchFull EraseImpl MakeDeleted Simd; do printf "%-14s " $s; grep -rn -F -- "$s" absl | wc -l; done
+ResizeImpl     0
+MatchFull      0
+EraseImpl      0
+MakeDeleted    0
+Simd           0

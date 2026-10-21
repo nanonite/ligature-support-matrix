@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "bridge_id": "BR-CONTROLBYTES-CLEARDEAD-001",
+  "boundary_id": "raw_table_resize__to__control_bytes_clear_dead",
+  "callee_requirement": "ControlBytes.C005",
+  "available_contract_facts": [
+    {
+      "obligation_id": "RawTable.C001",
+      "role": "invariant"
+    },
+    {
+      "obligation_id": "RawTable.C007",
+      "role": "caller-precondition"
+    }
+  ],
+  "required_local_facts": [
+    {
+      "fact_id": "new_capacity",
+      "expression": "new_capacity"
+    }
+  ],
+  "target_expression": "ControlBytes::clear_dead()",
+  "protocol_class": "pairwise",
+  "bridge_logic": {
+    "bindings": {
+      "self": "RawTable",
+      "new_capacity": "usize"
+    },
+    "premises": [
+      "self.ctrl(self.capacity()) == SENTINEL",
+      "new_capacity == (1usize << self.capacity_bits()) - 1",
+      "self.capacity() == self.ctrl_len() - 1"
+    ],
+    "conclusion": {
+      "obligation_id": "ControlBytes.C005"
+    }
+  }
+}

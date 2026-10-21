@@ -1,0 +1,170 @@
+{
+  "schema_version": "1.0",
+  "concept": "RawTable",
+  "kind": "struct",
+  "cluster": "table",
+  "english_description": "The open-addressed slot array with its control bytes, holding the table's elements and serving lookup, insertion, erase and rehash.",
+  "verifier": "verus",
+  "queries": [
+    {
+      "english": "give the number of live elements",
+      "rust_sig": "fn len(&self) -> usize",
+      "pure": true,
+      "witness_required": false
+    },
+    {
+      "english": "give the number of slots",
+      "rust_sig": "fn capacity(&self) -> usize",
+      "pure": true,
+      "witness_required": false
+    },
+    {
+      "english": "tell whether the table has no free slot left",
+      "rust_sig": "fn is_full(&self) -> bool",
+      "pure": true,
+      "witness_required": false
+    }
+  ],
+  "commands": [
+    {
+      "english": "find the slot holding a hash or report that it is absent",
+      "rust_sig": "fn find(&mut self, hash: u64) -> Option<usize>"
+    },
+    {
+      "english": "find or open a slot for a hash",
+      "rust_sig": "fn insert(&mut self, hash: u64) -> (usize, bool)"
+    },
+    {
+      "english": "erase the element in a slot",
+      "rust_sig": "fn erase(&mut self, slot: usize)"
+    },
+    {
+      "english": "rehash into a new capacity",
+      "rust_sig": "fn resize(&mut self, new_capacity: usize)"
+    }
+  ],
+  "constraints": [
+    {
+      "english": "The capacity is always two to the n minus one and the sentinel sits at index capacity.",
+      "logic": "self.capacity_ + 1 == (1 << self.capacity_bits) && self.ctrl(self.capacity_) == SENTINEL",
+      "kind": "invariant",
+      "source": "hand",
+      "applies_to": [
+        "capacity",
+        "find",
+        "insert",
+        "erase",
+        "resize"
+      ],
+      "id": "C001"
+    },
+    {
+      "english": "The number of live elements never exceeds the number of full control bytes.",
+      "logic": "self.len_ <= self.count_full_ctrl()",
+      "kind": "invariant",
+      "source": "hand",
+      "applies_to": [
+        "len",
+        "insert",
+        "erase"
+      ],
+      "id": "C002"
+    },
+    {
+      "english": "Inserting is called only when the table has at least one empty or deleted slot.",
+      "logic": "self.count_empty_or_deleted() > 0",
+      "kind": "precondition",
+      "source": "hand",
+      "applies_to": [
+        "insert"
+      ],
+      "id": "C003"
+    },
+    {
+      "english": "After a successful insertion the element count rises by one and the new slot reads as full.",
+      "logic": "self.len_ == self.prev_len_ + 1 && self.is_full_ctrl(self.inserted_slot)",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "insert"
+      ],
+      "id": "C004"
+    },
+    {
+      "english": "After an erase the element count falls by one and the erased slot reads as empty or deleted.",
+      "logic": "self.len_ == self.prev_len_ - 1 && self.is_empty_or_deleted_ctrl(self.erased_slot)",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "erase"
+      ],
+      "id": "C005"
+    },
+    {
+      "english": "A slot reported by a lookup is full and its tag is the top seven bits of the supplied hash.",
+      "logic": "self.is_full_ctrl(slot) && self.tag_ctrl(slot) == (hash >> 57) as u8",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "find"
+      ],
+      "id": "C006"
+    },
+    {
+      "english": "A rehash keeps every live element and the multiset of stored hashes.",
+      "logic": "self.stored_hashes_after() == self.stored_hashes_before() && self.len_ == self.prev_len_",
+      "kind": "postcondition",
+      "source": "hand",
+      "applies_to": [
+        "resize"
+      ],
+      "id": "C007"
+    }
+  ],
+  "adversary_table": [
+    {
+      "scenario": "looking up a hash whose key was erased, leaving only a tombstone",
+      "violates": "C006",
+      "resolution": "report absent, and do not read the tombstoned slot as an element"
+    },
+    {
+      "scenario": "inserting into a table with no empty or deleted slot left",
+      "violates": "C003",
+      "resolution": "reject: the caller must resize first"
+    },
+    {
+      "scenario": "rehashing while a slot marked deleted still holds a stale tag",
+      "violates": "C007",
+      "resolution": "preserve reference behaviour: the reclaimed capacity is reused, not leaked"
+    }
+  ],
+  "source_references": [
+    {
+      "kind": "reference-implementation",
+      "citation_or_path": "absl/container/internal/raw_hash_set.cc",
+      "notes": "find_first_non_full, EraseMetaOnlyLarge, ResizeAllocatedTableWithSeedChange"
+    },
+    {
+      "kind": "reference-implementation",
+      "citation_or_path": "absl/container/internal/raw_hash_set.h",
+      "notes": "CommonFields, capacity invariants"
+    }
+  ],
+  "depends_on": [
+    {
+      "crate": "swisstable-verus-core",
+      "concept": "ControlBytes",
+      "reason": "every slot-state test the table makes is a read of the control byte array, and the never-full flag erase needs is kept beside it"
+    },
+    {
+      "crate": "swisstable-verus-core",
+      "concept": "ProbeSeq",
+      "reason": "lookup and insertion walk the table through a probe sequence whose masking assumes this table's capacity shape"
+    },
+    {
+      "crate": "swisstable-verus-core",
+      "concept": "GroupProbe",
+      "reason": "the table reads sixteen control bytes at a time through a group, so every per-slot answer is only as good as the group's window"
+    }
+  ]
+}

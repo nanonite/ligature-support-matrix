@@ -1,0 +1,34 @@
+# Local environment and agent configuration (never committed)
+/.envrc
+/.mcp.json
+/.aws/
+/.agents/
+/.codex/
+/.vscode/
+/swisstable-verus/.envrc
+/swisstable-verus/.mcp.json
+
+# Pilots with their own nested git repositories. Ligature's work-package
+# generation requires each pilot to be a Git repository root, so they are not
+# folded into this repo; their histories are published as pilot/<name> branches.
+/crypto-mixed/
+/date-creusot/
+
+# Pinned third-party checkouts with their own .git
+/tools/codesight-mcp/
+/swisstable-verus/upstream/abseil-cpp/
+
+# CodeSight-generated query artifacts and source index (keep the README)
+/swisstable-verus/analysis/codesight/**
+!/swisstable-verus/analysis/codesight/README.md
+!/swisstable-verus/analysis/codesight/.gitkeep
+
+# Live SQLite side files for the chainlink database
+/.chainlink/*.db-wal
+/.chainlink/*.db-shm
+/.chainlink/*.db-journal
+
+# Build products and Ligature scratch directories
+target/
+/ligature-data-*/
+/ligature-kani-*/

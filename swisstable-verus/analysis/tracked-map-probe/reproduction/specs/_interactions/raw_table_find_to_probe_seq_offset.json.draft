@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "raw_table_find_to_probe_seq_offset",
+  "caller": {
+    "concept": "RawTable",
+    "method": "find"
+  },
+  "callee": {
+    "concept": "ProbeSeq",
+    "method": "offset"
+  },
+  "edge_class": [
+    "numeric-domain-boundary"
+  ],
+  "eligibility": "boundary-required",
+  "rationale": "The probe start offset is the hash masked by the table's capacity; if the callee is handed a capacity that is not two to the n minus one the mask stops being a whole number of slots and every later read leaves the control array.",
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [
+        "default"
+      ],
+      "cfg": []
+    }
+  },
+  "evidence_links": [
+    "E-001",
+    "E-003"
+  ],
+  "reliances": [
+    {
+      "obligation_id": "ProbeSeq.C002",
+      "required_assurance": {
+        "required_claims": [
+          "postcondition-holds"
+        ],
+        "accepted_evidence_kinds": [
+          "verus-deductive-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "any capacity of the form two to the n minus one"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    }
+  ]
+}

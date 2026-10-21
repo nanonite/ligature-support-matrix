@@ -1,0 +1,36 @@
+== proof 1: drafting ==
+   56 artifacts, # 50/56 drafts staged cleanly; 6 failed
+== proof 2: approving in order ==
+   wrote approval-proof.txt
+== proof 3: order constraints (deliberately wrong orders) ==
+   wrote order-constraints.txt
+== proof 4: which validators collect a staged .draft ==
+   wrote draft-collection.txt
+== proof 5: the post-#111 G2+ outcome (PROBE ONLY) ==
+   wrote post-111-g2plus.txt
+     validate -> exit 0
+     check --json -> exit 1
+done
+Which validator collects a staged <target>.json.draft of its own kind, measured one
+kind at a time from a clean tree (every other pipeline artifact removed first).
+Binary: ligature 1.2.1. Filed as epic #1 #110.
+
+draft kind     validator                      exit   check --json exit
+boundary       validate                       0      1
+      OK (nothing to check: no boundary contracts discovered under .)
+interaction    validate-interaction           0      1
+      OK (nothing to check: no interactions discovered under .)
+bridge         validate-bridge                0      1
+      OK (nothing to check: no bridges discovered under .)
+witness        validate-witness               0      1
+      OK (nothing to check: no witness artifacts discovered under .)
+exemption      validate-exemption             0      1
+      OK (nothing to check: no exemptions discovered under .)
+conflict       validate-conflict-resolution   0      1
+      OK (nothing to check: no conflict-resolution records discovered under .)
+concept        (none: approve has no concept-spec branch) 2      1
+
+Conclusion: validate and validate-interaction SKIP staged drafts (chainlink #97,
+fixed in 1.2.0). validate-bridge, validate-witness, validate-exemption and
+validate-conflict-resolution still COLLECT them, fail closed on the missing
+review block, and turn check --json into exit 3 / human_decision_required.

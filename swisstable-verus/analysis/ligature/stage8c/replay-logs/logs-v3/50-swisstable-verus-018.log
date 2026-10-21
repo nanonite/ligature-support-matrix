@@ -1,0 +1,8 @@
+rust/swisstable-verus-core/src/control_bytes.rs:369:    /// The upper bound is a literal rather than `usize::MAX`, because this Verus
+rust/swisstable-verus-core/src/control_bytes.rs:370:    /// will not name `usize::MAX` at all: `usize::MAX as u64` is neither `0xFFFF_FFFF`
+rust/swisstable-verus-core/src/group_probe.rs:116:    /// The `usize::MAX` in this function's invariant is the one place in the port that
+rust/swisstable-verus-core/src/group_probe.rs:136:                base + GROUP_WIDTH <= usize::MAX,
+error:
+       … while fetching the input 'git+file:///home/goya/storage/full-ligature-port-workspace'
+
+       error: opening Git repository "/home/goya/storage/full-ligature-port-workspace": could not find repository at '/home/goya/storage/full-ligature-port-workspace'

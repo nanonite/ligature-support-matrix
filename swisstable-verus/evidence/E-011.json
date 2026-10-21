@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-011",
+  "kind": "requirement",
+  "claim": "The differential oracle cannot compare hash values across languages, so both sides must be driven with one injected hash function; until chainlink #37 builds that shared driver no oracle case may assert on a hash-derived value.",
+  "origin": {
+    "repository": "https://github.com/abseil/abseil-cpp",
+    "commit": "2065f4ded0558c6f89fee67c8e5228feb4eb960e",
+    "symbol": "plan.md P2 subset, 'Hash values are not comparable across languages'",
+    "path": "upstream/upstream-pin.json",
+    "content_hash": "sha256:c243a10dcd03f6fdf4b12d7020681004f4fd40acdf760e4778b29f1a463dbdf8",
+    "line_hint": "1-45"
+  },
+  "semantic_disposition": "required",
+  "lifecycle": "deferred",
+  "confidence": "high",
+  "mode": "P"
+}

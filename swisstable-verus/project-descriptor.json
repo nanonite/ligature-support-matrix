@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "name": "swisstable-verus",
+    "crate_naming_convention": "^swisstable-verus-[a-z]+"
+  },
+  "mode": "port",
+  "closure_kind": "deductive",
+  "port_source": {
+    "repository": "https://github.com/abseil/abseil-cpp",
+    "language": "cpp",
+    "oracle_build_command": "nix develop ..#swisstable-verus -c bash -lc 'cmake -G Ninja -S upstream/abseil-cpp -B /tmp/opencode/swisstable-verus-abseil-build -DABSL_GOOGLETEST_DOWNLOAD_URL=https://github.com/google/googletest/releases/download/v1.17.0/googletest-1.17.0.tar.gz -DABSL_BUILD_TESTING=ON -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_STANDARD=17 && cmake --build /tmp/opencode/swisstable-verus-abseil-build -j 24'"
+  },
+  "crates": [
+    {
+      "crate_dir": "rust/swisstable-verus-core",
+      "contracts_crate": "verus_contracts",
+      "specs_search_root": "rust"
+    }
+  ],
+  "verifier_policy": {
+    "default": "verus"
+  },
+  "compatibility_policy": {
+    "reliance_policy_path": "docs/reliance-policy.md"
+  },
+  "write_set": {
+    "allowed_roots": [
+      "rust/*/src/",
+      "rust/*/tests/",
+      "rust/*/target/**",
+      "rust/*/verif/**",
+      "rust/*/.cargo/**",
+      "rust/*/Cargo.lock",
+      "rust/.gitkeep",
+      "analysis/**",
+      "findings/**",
+      "oracle/**",
+      "tools/**",
+      "upstream/**",
+      "specs/_closure/**",
+      "specs/_promotions/**",
+      "README.md",
+      ".envrc",
+      ".mcp.json",
+      "PORT-GAPS.md"
+    ],
+    "protected_roots": [
+      "rust/*/specs/**",
+      "ci/manifest/**",
+      "scripts/**",
+      "docs/*-schema.json",
+      "docs/reliance-policy.md",
+      "rust/*/Cargo.toml",
+      "rust/*/build.rs",
+      "tests/harnesses/**",
+      ".github/**",
+      "rust-toolchain.toml"
+    ],
+    "authorized_supervisors": [
+      "opencode-swisstable-t1"
+    ]
+  },
+  "gate_integrity": [
+    {
+      "path": ".codex/skills/ligature/SKILL.md"
+    },
+    {
+      "path": ".ligature/schemas/project-state.schema.json"
+    },
+    {
+      "path": ".ligature/schemas/consolidated-check.schema.json"
+    },
+    {
+      "path": "@adjudicator"
+    }
+  ],
+  "llm_backend": {
+    "kind": "manual"
+  },
+  "review": {
+    "reviewer": "chainlink-reviewer",
+    "reviewed_at": "2026-10-02",
+    "accepted_fixture_values": [
+      {
+        "path": "port_source.language",
+        "value_sha256": "sha256:3eebdcd9e7aa0cc1a0b3f663baa971db6220f7cbc346e34220e744fdc8a07176",
+        "reviewer": "roger-codex-luna6",
+        "accepted_at": "2026-10-18"
+      }
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+Error: /tmp/issue33-replay-85264497f7/runs-v3/74-swisstable-verus-036/tmp/swisstable-verus-oracle-build is not a directory
+/bin/bash: line 3: /tmp/issue33-replay-85264497f7/runs-v3/74-swisstable-verus-036/tmp/swisstable-verus-oracle-build/oracle_driver: No such file or directory
+/bin/bash: line 4: /tmp/issue33-replay-85264497f7/runs-v3/74-swisstable-verus-036/tmp/swisstable-verus-oracle-build/oracle_driver: No such file or directory
+generated 16 nextest cases; mapped 2 of 409 upstream tests
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling autocfg v1.5.1
+   Compiling verus_prettyplease v0.0.0-2026-05-24-0157
+   Compiling hashbrown v0.12.3
+   Compiling vstd v0.0.0-2026-05-24-0157
+   Compiling verus_builtin v0.0.0-2026-05-17-0151
+   Compiling indexmap v1.9.3
+   Compiling verus_syn v0.0.0-2026-05-24-0157
+   Compiling syn v2.0.119
+   Compiling synstructure v0.13.2
+   Compiling verus_state_machines_macros v0.0.0-2026-05-24-0157
+   Compiling verus_builtin_macros v0.0.0-2026-05-24-0157
+   Compiling swisstable-verus-core v0.1.0 (/tmp/issue33-replay-85264497f7/runs-v3/74-swisstable-verus-036/swisstable-verus/rust/swisstable-verus-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.52s
+────────────
+ Nextest run ID 5950455f-6da5-49fe-8ccd-40c604d6e094 with nextest profile: ci
+    Starting 16 tests across 2 binaries
+        PASS [   0.004s] ( 1/16) swisstable-verus-core::generated_cases oracle_upstream_test_flat_hash_map_erase_if_0001
+        PASS [   0.004s] ( 2/16) swisstable-verus-core::generated_cases oracle_random_table_sequence_0003
+        PASS [   0.004s] ( 3/16) swisstable-verus-core::generated_cases oracle_boundary_table_replace_clear_0001
+        PASS [   0.004s] ( 4/16) swisstable-verus-core::generated_cases oracle_random_table_sequence_0004
+        PASS [   0.004s] ( 5/16) swisstable-verus-core::generated_cases oracle_boundary_table_zero_sentinel_0001
+        PASS [   0.004s] ( 6/16) swisstable-verus-core::generated_cases oracle_boundary_map_sequence_reversed_insert_0001
+        PASS [   0.004s] ( 7/16) swisstable-verus-core::generated_cases oracle_random_table_sequence_0001
+        PASS [   0.004s] ( 8/16) swisstable-verus-core::generated_cases oracle_boundary_table_h1_collisions_0001
+        PASS [   0.005s] ( 9/16) swisstable-verus-core::generated_cases oracle_boundary_map_sequence_iteration_pointer_excluded_0001
+        PASS [   0.005s] (10/16) swisstable-verus-core::generated_cases oracle_random_table_sequence_0002
+        PASS [   0.005s] (11/16) swisstable-verus-core::generated_cases oracle_random_table_sequence_0008
+        PASS [   0.021s] (12/16) swisstable-verus-core::generated_cases oracle_random_table_sequence_0005
+        PASS [   0.021s] (13/16) swisstable-verus-core::generated_cases oracle_random_table_sequence_0006
+        PASS [   0.021s] (14/16) swisstable-verus-core::generated_cases oracle_upstream_test_flat_hash_map_reserve_0001
+        PASS [   0.022s] (15/16) swisstable-verus-core::generated_cases oracle_boundary_table_reserve_grow_0001
+        PASS [   0.022s] (16/16) swisstable-verus-core::generated_cases oracle_random_table_sequence_0007
+────────────
+     Summary [   0.022s] 16 tests run: 16 passed, 0 skipped

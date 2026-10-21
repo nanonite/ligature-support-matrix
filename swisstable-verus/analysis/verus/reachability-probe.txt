@@ -1,0 +1,54 @@
+$ PATH=/nix/store/57l94534x07sysi7gjf4zkkpai6cw6vc-verus-tools/bin:/nix/store/7igjywfjlfa7v2sknkd9dbvpv2s5qf6g-z3-4.15.4/bin:/home/goya/.cargo/bin:$PATH verus --crate-type=lib --multiple-errors 200 rust/swisstable-verus-core/verif/reachability_probe.rs
+# cwd: /home/goya/storage/full-ligature-port-workspace/swisstable-verus
+error: postcondition not satisfied
+   --> rust/swisstable-verus-core/verif/reachability_probe.rs:128:13
+    |
+128 |     ensures r == 4
+    |             ^^^^^^ failed this postcondition
+129 | {
+130 |     std::mem::size_of::<usize>() as u64
+    |     ---------------------------- at the end of the function body
+
+error: postcondition not satisfied
+   --> rust/swisstable-verus-core/verif/reachability_probe.rs:139:13
+    |
+139 |     ensures r == 0xFFFF_FFFFu64
+    |             ^^^^^^^^^^^^^^^^^^^ failed this postcondition
+140 | {
+141 |     usize::MAX as u64
+    |     ---------- at the end of the function body
+
+error: postcondition not satisfied
+   --> rust/swisstable-verus-core/verif/reachability_probe.rs:156:13
+    |
+156 |     ensures r as u64 == x
+    |             ^^^^^^^^^^^^^ failed this postcondition
+157 | {
+158 |     x as usize
+    |     - at the end of the function body
+
+note: recommendation not met: value may be out of range of the target type (use `#[verifier::truncate]` on the cast to silence this warning)
+   --> rust/swisstable-verus-core/verif/reachability_probe.rs:158:5
+    |
+158 |     x as usize
+    |     ^
+
+error: postcondition not satisfied
+   --> rust/swisstable-verus-core/verif/reachability_probe.rs:165:13
+    |
+165 |     ensures r as int == x as int
+    |             ^^^^^^^^^^^^^^^^^^^^ failed this postcondition
+166 | {
+167 |     x as usize
+    |     - at the end of the function body
+
+note: recommendation not met: value may be out of range of the target type (use `#[verifier::truncate]` on the cast to silence this warning)
+   --> rust/swisstable-verus-core/verif/reachability_probe.rs:167:5
+    |
+167 |     x as usize
+    |     ^
+
+verification results:: 12 verified, 4 errors
+error: aborting due to 4 previous errors
+
+exit=1

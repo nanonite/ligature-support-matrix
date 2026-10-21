@@ -1,0 +1,8 @@
+[package]
+name = "rdb-divergence-demo"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "rdb_add_divergence"
+path = "src/bin/rdb_add_divergence.rs"

@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "interaction_id": "raw_table_erase_to_control_bytes_set_empty",
+  "caller": {
+    "concept": "RawTable",
+    "method": "erase"
+  },
+  "callee": {
+    "concept": "ControlBytes",
+    "method": "set_empty"
+  },
+  "edge_class": [
+    "stateful"
+  ],
+  "eligibility": "boundary-required",
+  "rationale": "Erasing a slot that was never full reclaims it as empty rather than leaving a tombstone; choosing wrongly in either direction either leaks capacity or breaks the probe chain, and the distinction is the control byte's own state.",
+  "protocol_class": "pairwise",
+  "realization": {
+    "requirement": "required",
+    "config_scope": {
+      "target": "x86_64-unknown-linux-gnu",
+      "features": [
+        "default"
+      ],
+      "cfg": []
+    }
+  },
+  "evidence_links": [
+    "E-005"
+  ],
+  "reliances": [
+    {
+      "obligation_id": "ControlBytes.C008",
+      "required_assurance": {
+        "required_claims": [
+          "postcondition-holds"
+        ],
+        "accepted_evidence_kinds": [
+          "verus-deductive-check"
+        ],
+        "minimum_scope": {
+          "input_domain": "any capacity of the form two to the n minus one"
+        },
+        "trust_policy": {
+          "assumptions_allowed": []
+        }
+      }
+    }
+  ]
+}

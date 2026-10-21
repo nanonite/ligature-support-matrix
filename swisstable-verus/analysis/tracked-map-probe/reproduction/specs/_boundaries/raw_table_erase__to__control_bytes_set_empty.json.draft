@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "boundary_id": "raw_table_erase__to__control_bytes_set_empty",
+  "caller": {
+    "concept": "RawTable",
+    "method": "erase"
+  },
+  "callee": {
+    "concept": "ControlBytes",
+    "method": "set_empty"
+  },
+  "callee_guarantees": [
+    "ControlBytes.C008"
+  ]
+}

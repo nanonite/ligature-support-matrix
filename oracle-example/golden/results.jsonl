@@ -1,0 +1,4 @@
+{"case_id":"boundary-add-negative-002","status":"ok","value":-3}
+{"case_id":"boundary-add-normal-001","status":"ok","value":5}
+{"case_id":"boundary-add-overflow-003","status":"err","err_kind":"integer_overflow"}
+{"case_id":"boundary-iteration-order-004","status":"ok","value":null}

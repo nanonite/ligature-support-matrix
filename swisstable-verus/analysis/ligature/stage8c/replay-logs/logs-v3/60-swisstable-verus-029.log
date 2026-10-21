@@ -1,0 +1,23 @@
+rust/swisstable-verus-core/src/control_bytes.rs:1
+rust/swisstable-verus-core/src/group_probe.rs:7
+rust/swisstable-verus-core/src/hash_mix.rs:0
+rust/swisstable-verus-core/src/lib.rs:0
+rust/swisstable-verus-core/src/probe_seq.rs:0
+rust/swisstable-verus-core/src/raw_table.rs:24
+rust/swisstable-verus-core/src/swiss_table.rs:11
+rust/swisstable-verus-core/src/table_iterator.rs:0
+--- crate
+(no results line: the run did not reach one)
+    ^error lines: 1
+    -> /tmp/issue33-replay-85264497f7/runs-v3/60-swisstable-verus-029/swisstable-verus/analysis/verus/verus-transcript.txt
+--- bitwise probe
+(no results line: the run did not reach one)
+    ^error lines: 1
+    -> /tmp/issue33-replay-85264497f7/runs-v3/60-swisstable-verus-029/swisstable-verus/analysis/verus/reachability-probe.txt
+--- error distribution, crate
+transcript: /tmp/issue33-replay-85264497f7/runs-v3/60-swisstable-verus-029/swisstable-verus/analysis/verus/verus-transcript.txt
+  None
+  primary error locations: 0
+  by file (this crate's code):
+  by kind:
+       1  path '/tmp' is not part of a flake (neither it nor its parent directories contain a 'flake.nix' file)

@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "bridge_id": "BR-GROUPPROBE-WINDOW-001",
+  "boundary_id": "raw_table_find__to__group_probe_match_full",
+  "callee_requirement": "GroupProbe.C001",
+  "available_contract_facts": [
+    {
+      "obligation_id": "RawTable.C001",
+      "role": "invariant"
+    },
+    {
+      "obligation_id": "RawTable.C004",
+      "role": "caller-precondition"
+    }
+  ],
+  "required_local_facts": [
+    {
+      "fact_id": "group_base",
+      "expression": "base"
+    },
+    {
+      "fact_id": "group_width",
+      "expression": "GROUP_WIDTH"
+    }
+  ],
+  "target_expression": "GroupProbe::load(base).match_full(h2)",
+  "protocol_class": "pairwise",
+  "bridge_logic": {
+    "bindings": {
+      "self": "RawTable",
+      "base": "usize",
+      "h2": "u8",
+      "GROUP_WIDTH": "usize"
+    },
+    "premises": [
+      "self.capacity() == capacity_mask + 1",
+      "base % GROUP_WIDTH == 0",
+      "capacity_mask + 1 >= GROUP_WIDTH",
+      "base + GROUP_WIDTH <= capacity_mask + 1"
+    ],
+    "conclusion": {
+      "obligation_id": "GroupProbe.C001"
+    }
+  }
+}

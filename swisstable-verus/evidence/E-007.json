@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "E-007",
+  "kind": "source-artifact",
+  "claim": "Iteration walks the control array in ascending index, skipping empty and deleted bytes and stopping at the sentinel, so the order in which two live elements are enumerated is a function of their slot layout.",
+  "origin": {
+    "repository": "https://github.com/abseil/abseil-cpp",
+    "commit": "2065f4ded0558c6f89fee67c8e5228feb4eb960e",
+    "symbol": "absl::container_internal::raw_hash_set::iterator::operator++ / skip_empty_or_deleted",
+    "path": "absl/container/internal/raw_hash_set.h",
+    "content_hash": "sha256:811f35e12e768f3bc155ce919684d923e3d8995e87de74c21496305c0c586e2c",
+    "line_hint": "2399-2456"
+  },
+  "semantic_disposition": "incidental",
+  "lifecycle": "accepted",
+  "confidence": "high",
+  "mode": "P"
+}
