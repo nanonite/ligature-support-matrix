@@ -5,17 +5,9 @@
 /.agents/
 /.codex/
 /.vscode/
-/swisstable-verus/.envrc
-/swisstable-verus/.mcp.json
 
-# Pinned third-party checkouts with their own .git
+# Pinned third-party checkout with its own .git
 /tools/codesight-mcp/
-/swisstable-verus/upstream/abseil-cpp/
-
-# CodeSight-generated query artifacts and source index (keep the README)
-/swisstable-verus/analysis/codesight/**
-!/swisstable-verus/analysis/codesight/README.md
-!/swisstable-verus/analysis/codesight/.gitkeep
 
 # Live SQLite side files for the chainlink database
 /.chainlink/*.db-wal

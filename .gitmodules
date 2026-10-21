@@ -9,3 +9,7 @@
 	path = date-creusot
 	url = git@github.com:nanonite/ligature-support-matrix.git
 	branch = pilot/date-creusot
+[submodule "swisstable-verus"]
+	path = swisstable-verus
+	url = git@github.com:nanonite/ligature-support-matrix.git
+	branch = pilot/swisstable-verus

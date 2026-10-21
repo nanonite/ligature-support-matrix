@@ -1,2 +1,0 @@
-wrote /tmp/opencode/ecs-probe/ci/results/c_static/rust_swisstable-verus-core.json: 3 discovered, 3 resolved, 0 unresolved (discovered-lower-bound)
-exit=0

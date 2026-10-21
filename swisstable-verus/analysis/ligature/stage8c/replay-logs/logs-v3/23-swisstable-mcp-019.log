@@ -1,4 +1,0 @@
-/bin/bash: line 1: /tmp/issue33-replay-85264497f7/runs-v3/23-swisstable-mcp-019/swisstable-verus/tools/ligature/ligature.pyz: Permission denied
-Expecting value: line 1 column 1 (char 0)
-/bin/bash: line 1: /tmp/issue33-replay-85264497f7/runs-v3/23-swisstable-mcp-019/swisstable-verus/tools/ligature/ligature.pyz: Permission denied
-exit=126

@@ -1,4 +1,0 @@
-no index found under /tmp/issue33-replay-85264497f7/runs-v3/12-swisstable-mcp-012/tmp/opencode/cs-determinism-run1/index
-no index found under /tmp/issue33-replay-85264497f7/runs-v3/12-swisstable-mcp-012/tmp/opencode/cs-determinism-run2/index
-DETERMINISTIC: two independent builds of identical input produced
-identical symbol tables:

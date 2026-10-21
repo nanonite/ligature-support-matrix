@@ -1,2 +1,0 @@
-wrote /tmp/opencode/ecs-subset-port/ci/results/c_static/rust_swisstable-verus-core.json: 43 discovered, 25 resolved, 18 unresolved (discovered-lower-bound)
-exit=0

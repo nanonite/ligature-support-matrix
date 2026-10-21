@@ -1,4 +1,0 @@
-error:
-       … while fetching the input 'git+file:///home/goya/storage/full-ligature-port-workspace'
-
-       error: opening Git repository "/home/goya/storage/full-ligature-port-workspace": could not find repository at '/home/goya/storage/full-ligature-port-workspace'
