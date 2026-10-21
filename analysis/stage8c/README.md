@@ -80,16 +80,20 @@ report, following the P1/P2 practice of not rewriting older entries.
 
 ## New findings
 
-- **crypto-ligature-014 (escalation candidate, epic #1):**
+- **crypto-ligature-014 (by design; the docs overstate it):**
   - What happens: `write-set-check` enforces `protected_roots` only in
-    pipeline-owned locations. Writes to declared protected roots such as
-    `README.md`, `scripts/**`, `analysis/codesight/**`, or `oracle/**` before
-    69645d2 leave it "clean", listed only as audit-only `protected_unvouched`.
-  - Why it matters: #90 (upstream #103) was closed on a probe that only
-    covered `ci/manifest/**` and `rust/*/specs/**`.
-  - What it contradicts: `WORKER-CONTRACT.md` section 0 and
+    pipeline-owned locations (`ci/manifest/**`, crate `specs/**`). Writes to
+    other declared protected roots such as `README.md`, `scripts/**`,
+    `analysis/codesight/**`, or `oracle/**` before 69645d2 leave it "clean",
+    listed only as audit-only `protected_unvouched`.
+  - Operator view (2026-10-20): this is intended. Ligature is open-ended and
+    enforces or suggests the pipeline's phases, not every root a project
+    declares. Protecting other roots is project policy, enforced by review.
+    No epic #1 escalation.
+  - Follow-up for the workspace docs: `WORKER-CONTRACT.md` section 0 and
     `PROTECTED-WRITES.md` describe every ungranted protected write as
-    blocking.
+    blocking, which is more than the tool does. #90 was closed on a probe of
+    pipeline-owned paths only.
 - **crypto-ligature-015 (scope-cut):** a bounded, witness-free pilot gets no
   Stage 8C report beyond G14:
   - `pilot-cluster` is deductive-only;
