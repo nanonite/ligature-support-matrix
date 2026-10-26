@@ -1,6 +1,6 @@
 {
   "previous_archive_sha256": "d3bc1bb6f9d5ec311b940ee7ff34ea32ecfe2b403e9e6b2307e913c7d7f17294",
-  "corrected_archive_sha256": "967e25afb5918195c4dfcb33e6143b7da0741341e2cfbc9875b8d3ff3ecf15b3",
+  "corrected_archive_sha256": "b60289f053f0a0be41fe374841ea72d9d642598af9807712309fa7e5c517455b",
   "changes": [
     {
       "command": "ligature-p160-prototype-20261025/commands/creusot-cached-no-output-control.command.json",
@@ -29,8 +29,19 @@
     {
       "command": "ligature-p160-prototype-20261025/commands/creusot-type-mismatch-control.command.json",
       "status": "references corrected to retained per-control logs"
+    },
+    {
+      "command": "ligature-p160-prototype-20261025/commands/kani-unstable-output-file-control.command.json",
+      "status": "stdout/stderr references corrected to existing kani-unstable-output-file-control logs"
     }
   ],
   "verifier_reruns": false,
-  "missing_control_output": "creusot-proof-second"
+  "missing_control_output": "creusot-proof-second",
+  "archive_revision_history": [
+    {
+      "previous_archive_sha256": "967e25afb5918195c4dfcb33e6143b7da0741341e2cfbc9875b8d3ff3ecf15b3",
+      "corrected_archive_sha256": "b60289f053f0a0be41fe374841ea72d9d642598af9807712309fa7e5c517455b",
+      "reason": "failed Kani unstable-output control now references its own retained logs"
+    }
+  ]
 }
