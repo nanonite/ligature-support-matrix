@@ -1,0 +1,17 @@
+{
+  "root_status": "## main...origin/main\n M .chainlink/issues.db\n M WORKER-CONTRACT.md\n m crypto-mixed\n m date-creusot\n m swisstable-verus\n",
+  "p3_status": "## main\n M .codex/skills/ligature/SKILL.md\n M PORT-GAPS.md\n M ci/manifest/installation.json\n M findings/limitations.jsonl\n M tools/ligature/PROVENANCE.json\n M tools/ligature/SHA256SUMS\n M tools/ligature/ligature.pyz\n?? analysis/p4-verifier-fit/p4-5-probes/\n",
+  "root_diff_names": "M\t.chainlink/issues.db\nM\tWORKER-CONTRACT.md\nM\tcrypto-mixed\nM\tdate-creusot\nM\tswisstable-verus\n",
+  "p3_diff_names": "M\t.codex/skills/ligature/SKILL.md\nM\tPORT-GAPS.md\nM\tci/manifest/installation.json\nM\tfindings/limitations.jsonl\nM\ttools/ligature/PROVENANCE.json\nM\ttools/ligature/SHA256SUMS\nM\ttools/ligature/ligature.pyz\n",
+  "protected_file_sha256": {
+    "flake.nix": "7f631c89297f25fcbbef7e860d6c931539e7236142b5dba7cf148459e3d4ab07",
+    "flake.lock": "a1945f624d7bff521a1742b5cf85b0a94dd44989fcd4c23d29100340cbf45137",
+    "crypto-mixed/.envrc": "7dc84a4d6c630124c3b752b2a2f99ca60587a5e6d552cf15ea795e946fe2693f",
+    "crypto-mixed/project-descriptor.json": "7abadf9168b31918a67c8fe166bc30c982aea0ac55522ed74ea469fdc3e177f1",
+    "crypto-mixed/crates/crypto-mixed-core/Cargo.toml": "032ddddf3b8882484bce8d4be75dacce64228d35ba8dd9793c1a3dda8b5a6183",
+    "crypto-mixed/crates/crypto-mixed-core/Cargo.lock": "500245d4c61242e614363a03597f8c88f7c827d02115ffbc92f8dabd774f5fc1",
+    "crypto-mixed/oracle/rust-check/Cargo.toml": "166ccdc2bc2732b45a1f2207c9db8508fd65b51a9c5ebb41d55f71a83c30718c",
+    "crypto-mixed/oracle/rust-check/Cargo.lock": "a758d98854371b4eef56e5a9dec31c683de620e65f2083a78ea035929ab993eb"
+  },
+  "observed_utc": "2026-10-26T01:28:11.812335+00:00"
+}

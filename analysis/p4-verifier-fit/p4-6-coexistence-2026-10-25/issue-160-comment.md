@@ -1,0 +1,26 @@
+#160 prototype complete — proposed layout for #161
+
+Evidence and replay fixture:
+`crypto-mixed/analysis/p4-verifier-fit/p4-6-coexistence-2026-10-25/README.md`
+Archive SHA-256: `d3bc1bb6f9d5ec311b940ee7ff34ea32ecfe2b403e9e6b2307e913c7d7f17294`.
+
+Demonstrated minimum: two independent Cargo roots, each with its own lock and rust-toolchain pin; Kani overlays the same executable `increment` function in the Creusot crate, with its own `CARGO_TARGET_DIR`. Verus uses its own source crate. Creusot output is separate from its compiler target. A shared Cargo workspace was not tested; this layout is the lowest-ambiguity working arrangement for the tested pins, not a claim that a shared workspace is impossible.
+
+Real results (all obligations synthetic, not P3 production guarantees):
+- Matching Nix Creusot 0.12.0-dev + creusot-std 0.12.0-dev, nightly-2026-04-21: `Proved (verif/p160_creusot_kani_rlib/increment.coma) ✔`, exit 0.
+- Verus 0.2026.05.24.ecee80a / Rust 1.95.0: root `p160_verus::increment`, `success=true`, `verified=1`, `errors=0`; exit 0.
+- Kani 0.67.0 / CBMC 6.8.0 exact harness: `SUMMARY: ** 0 of 3 failed`, `VERIFICATION:- SUCCESSFUL`, one verified harness; exit 0.
+- After Verus and Kani, a real Creusot rerun with fresh target and external output again printed `Proved ... ✔`, exit 0. The subsequent SHA check returned exit 0 with all 27 earlier inputs, manifests, locks, proof outputs, and the Kani GOTO input `OK`. The archive was extracted and independently checked: 247 fixture hashes, all 27 prior-run hashes, and all 4 later-proof hashes passed; there are no `_closure` paths.
+
+The declared shell remains unvalidated for Creusot. Existing `crypto-creusot-002` records the `.14.0-dev` / `creusot-std 0.14.0` mismatch; its recorded fresh-init command exits 1 with `Error: creusot-std is newer than Creusot`. The `.12` control is not a fix or validation of that shell. I separately reported the resolved paths, versions, and version diagnostics to epic #2. The first sandboxed Why3 attempt stalled on its local Unix solver socket; the permitted local-socket rerun proved successfully, so sandbox denial is not classified as a proof failure.
+
+Write-set/Git audit: `write-set-check --issue 160 --json` returned exit 0, `state=clean`, `violations=[]`, `mutated_workspace=false`, `authorized_writes=[]`. Its retained report notes that 1343 of 1370 protected-surface files are audit-only/unattributed and outside pipeline write locations. All eight recorded flake, descriptor, envrc, existing Cargo manifest/lock hashes match before/after. The only new P3 path is the allowed #160 analysis directory. Preexisting dirty root/P3 entries remain; no production source, descriptor, CI, Cargo, policy, toolchain, flake, or lockfile was edited. No grant was issued; no commit or push.
+
+Decisions for #161:
+1. Confirm crate identities and ownership: Kani bytes-layer versus Creusot and Verus roots, and whether any runtime source is to be shared across the two deductive backends.
+2. Approve exact compiler/verifier/std/dependency pins. Keep the 0.14 matching-pair gap as a prerequisite for declared-shell Creusot work.
+3. Choose the descriptor registration and a sanctioned creation route for each manifest, independent lock, and nested rust-toolchain file. Current allowed roots cover `crates/*/src/` and `tests/`, but not new Cargo manifests/locks or nested toolchain pins; `project-descriptor.json` is not a worker-allowed path. `scaffold-crate` requires a declared crate and exact active manifest grant; `configure-crate --profile cargo-verus` is typed for Verus only. There is no Creusot profile or general lock/toolchain writer in the current sanctioned verbs. Do not infer a blanket grant.
+4. Approve per-backend target/proof-output roots and the durable evidence path; require a fresh-tree check for all Creusot companion outputs (`proof.json` included) when `--output-dir` is external.
+5. Decide assurance composition and closure ownership. Mixed Creusot+Verus evidence in one closure still triggers CG1; Kani evidence affects the current workspace-wide CG3 check. A working build layout does not establish deductive closure.
+
+#160 does not implement production P4 ports. #161 and later implementation work remain untouched.

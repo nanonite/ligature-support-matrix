@@ -1,0 +1,8 @@
+{
+  "observed_utc": "2026-10-26T01:32:31.035151+00:00",
+  "root_status": "## main...origin/main\n M .chainlink/issues.db\n M WORKER-CONTRACT.md\n m crypto-mixed\n m date-creusot\n m swisstable-verus\n",
+  "p3_status": "## main\n M .codex/skills/ligature/SKILL.md\n M PORT-GAPS.md\n M ci/manifest/installation.json\n M findings/limitations.jsonl\n M tools/ligature/PROVENANCE.json\n M tools/ligature/SHA256SUMS\n M tools/ligature/ligature.pyz\n?? analysis/p4-verifier-fit/p4-5-probes/\n?? analysis/p4-verifier-fit/p4-6-coexistence-2026-10-25/\n",
+  "root_diff_names": "M\t.chainlink/issues.db\nM\tWORKER-CONTRACT.md\nM\tcrypto-mixed\nM\tdate-creusot\nM\tswisstable-verus\n",
+  "p3_diff_names": "M\t.codex/skills/ligature/SKILL.md\nM\tPORT-GAPS.md\nM\tci/manifest/installation.json\nM\tfindings/limitations.jsonl\nM\ttools/ligature/PROVENANCE.json\nM\ttools/ligature/SHA256SUMS\nM\ttools/ligature/ligature.pyz\n",
+  "interpretation": "Preexisting dirty entries remain. The issue CLI appended a root CHANGELOG line on close; because CHANGELOG.md was clean before #160, that one generated line was restored to HEAD. The only new P3 path is this allowed analysis directory. No production paths changed."
+}

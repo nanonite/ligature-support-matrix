@@ -1,0 +1,2 @@
+Closed issue #160
+Added to CHANGELOG.md under Changed

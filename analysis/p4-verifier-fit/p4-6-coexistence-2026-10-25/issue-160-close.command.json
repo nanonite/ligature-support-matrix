@@ -1,0 +1,16 @@
+{
+  "label": "issue-160-close",
+  "purpose": "Close #160 after the prototype, evidence, write-set audit, and #161 handoff comment were completed.",
+  "cwd": "/home/goya/storage/full-ligature-port-workspace",
+  "argv": [
+    "chainlink",
+    "issue",
+    "close",
+    "160"
+  ],
+  "started_utc": "2026-10-26T01:31:59.171661+00:00",
+  "exit_code": 0,
+  "finished_utc": "2026-10-26T01:31:59.207135+00:00",
+  "stdout_file": "issue-160-close.stdout.txt",
+  "stderr_file": "issue-160-close.stderr.txt"
+}

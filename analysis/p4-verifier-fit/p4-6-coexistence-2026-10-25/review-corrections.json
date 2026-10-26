@@ -1,0 +1,36 @@
+{
+  "previous_archive_sha256": "d3bc1bb6f9d5ec311b940ee7ff34ea32ecfe2b403e9e6b2307e913c7d7f17294",
+  "corrected_archive_sha256": "967e25afb5918195c4dfcb33e6143b7da0741341e2cfbc9875b8d3ff3ecf15b3",
+  "changes": [
+    {
+      "command": "ligature-p160-prototype-20261025/commands/creusot-cached-no-output-control.command.json",
+      "status": "references corrected to retained per-control logs"
+    },
+    {
+      "command": "ligature-p160-prototype-20261025/commands/creusot-explicit-pattern-control.command.json",
+      "status": "references corrected to retained per-control logs"
+    },
+    {
+      "command": "ligature-p160-prototype-20261025/commands/creusot-external-output-dir-control.command.json",
+      "status": "references corrected to retained per-control logs"
+    },
+    {
+      "command": "ligature-p160-prototype-20261025/commands/creusot-feature-gating-failure.command.json",
+      "status": "references corrected to retained per-control logs"
+    },
+    {
+      "command": "ligature-p160-prototype-20261025/commands/creusot-no-default-output-control.command.json",
+      "status": "references corrected to retained per-control logs"
+    },
+    {
+      "command": "ligature-p160-prototype-20261025/commands/creusot-proof-second.command.json",
+      "status": "unavailable: the shared output files were overwritten by a later successful run; only the originally recorded exit code and timing are retained"
+    },
+    {
+      "command": "ligature-p160-prototype-20261025/commands/creusot-type-mismatch-control.command.json",
+      "status": "references corrected to retained per-control logs"
+    }
+  ],
+  "verifier_reruns": false,
+  "missing_control_output": "creusot-proof-second"
+}

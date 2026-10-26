@@ -1,0 +1,47 @@
+{
+  "checked_utc": "2026-10-26T01:32:31.032956+00:00",
+  "all_match": true,
+  "files": {
+    "flake.nix": {
+      "before": "7f631c89297f25fcbbef7e860d6c931539e7236142b5dba7cf148459e3d4ab07",
+      "after": "7f631c89297f25fcbbef7e860d6c931539e7236142b5dba7cf148459e3d4ab07",
+      "match": true
+    },
+    "flake.lock": {
+      "before": "a1945f624d7bff521a1742b5cf85b0a94dd44989fcd4c23d29100340cbf45137",
+      "after": "a1945f624d7bff521a1742b5cf85b0a94dd44989fcd4c23d29100340cbf45137",
+      "match": true
+    },
+    "crypto-mixed/.envrc": {
+      "before": "7dc84a4d6c630124c3b752b2a2f99ca60587a5e6d552cf15ea795e946fe2693f",
+      "after": "7dc84a4d6c630124c3b752b2a2f99ca60587a5e6d552cf15ea795e946fe2693f",
+      "match": true
+    },
+    "crypto-mixed/project-descriptor.json": {
+      "before": "7abadf9168b31918a67c8fe166bc30c982aea0ac55522ed74ea469fdc3e177f1",
+      "after": "7abadf9168b31918a67c8fe166bc30c982aea0ac55522ed74ea469fdc3e177f1",
+      "match": true
+    },
+    "crypto-mixed/crates/crypto-mixed-core/Cargo.toml": {
+      "before": "032ddddf3b8882484bce8d4be75dacce64228d35ba8dd9793c1a3dda8b5a6183",
+      "after": "032ddddf3b8882484bce8d4be75dacce64228d35ba8dd9793c1a3dda8b5a6183",
+      "match": true
+    },
+    "crypto-mixed/crates/crypto-mixed-core/Cargo.lock": {
+      "before": "500245d4c61242e614363a03597f8c88f7c827d02115ffbc92f8dabd774f5fc1",
+      "after": "500245d4c61242e614363a03597f8c88f7c827d02115ffbc92f8dabd774f5fc1",
+      "match": true
+    },
+    "crypto-mixed/oracle/rust-check/Cargo.toml": {
+      "before": "166ccdc2bc2732b45a1f2207c9db8508fd65b51a9c5ebb41d55f71a83c30718c",
+      "after": "166ccdc2bc2732b45a1f2207c9db8508fd65b51a9c5ebb41d55f71a83c30718c",
+      "match": true
+    },
+    "crypto-mixed/oracle/rust-check/Cargo.lock": {
+      "before": "a758d98854371b4eef56e5a9dec31c683de620e65f2083a78ea035929ab993eb",
+      "after": "a758d98854371b4eef56e5a9dec31c683de620e65f2083a78ea035929ab993eb",
+      "match": true
+    }
+  },
+  "changelog_matches_head": true
+}

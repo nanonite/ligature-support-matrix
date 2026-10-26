@@ -1,0 +1,31 @@
+{
+  "checked_utc": "2026-10-26T01:32:31.081498+00:00",
+  "issues": {
+    "2": {
+      "status": "closed",
+      "updated_at": "2026-09-25T04:01:35.517900878Z",
+      "comments_count": 6,
+      "last_comment": {
+        "id": 474,
+        "kind": "observation",
+        "matches_retained_text": true
+      }
+    },
+    "160": {
+      "status": "closed",
+      "updated_at": "2026-10-26T01:31:59.182368640Z",
+      "comments_count": 2,
+      "last_comment": {
+        "id": 475,
+        "kind": "handoff",
+        "matches_retained_text": true
+      }
+    },
+    "161": {
+      "status": "open",
+      "updated_at": "2026-10-21T02:37:42.033908083Z",
+      "comments_count": 2,
+      "unchanged_since_preclose_read": true
+    }
+  }
+}

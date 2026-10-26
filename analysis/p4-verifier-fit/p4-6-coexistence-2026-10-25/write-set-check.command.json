@@ -1,0 +1,21 @@
+{
+  "label": "write-set-check-issue-160-final",
+  "purpose": "Final read-only write-set check after evidence and issue handoff records were retained.",
+  "cwd": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed",
+  "argv": [
+    "python3",
+    "tools/ligature/ligature.pyz",
+    "--workspace",
+    "/home/goya/storage/full-ligature-port-workspace/crypto-mixed",
+    "write-set-check",
+    "--issue",
+    "160",
+    "--json"
+  ],
+  "environment_overrides": {},
+  "started_utc": "2026-10-26T01:32:30.226897+00:00",
+  "exit_code": 0,
+  "finished_utc": "2026-10-26T01:32:31.031496+00:00",
+  "stdout_file": "write-set-check.stdout.txt",
+  "stderr_file": "write-set-check.stderr.txt"
+}

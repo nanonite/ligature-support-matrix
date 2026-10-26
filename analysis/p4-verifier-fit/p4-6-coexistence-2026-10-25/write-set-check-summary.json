@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0",
+  "mutated_workspace": false,
+  "write_set": {
+    "state": "clean",
+    "violations": [],
+    "authorized_writes": [],
+    "details": "write set is clean -- every file is accounted for by allowed_roots, the ownership manifest, a declared user-owned document, a pipeline artifact, an active write grant (chainlink #114), a declared crate's specs/ tree, or a canonical pipeline location; protected surface: 1370 file(s) inside 22 declared protected_roots pattern(s); 1343 of them in locations the pipeline writes nothing into are vouched for by no declaration (audit only -- the check cannot attribute them, so this verdict does not cover them); protected_roots pattern(s) matching no file in this workspace: docs/*-schema.json, Cargo.toml, crates/*/build.rs, tests/harnesses/**, .github/**, rust-toolchain.toml"
+  }
+}
