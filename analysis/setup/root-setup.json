@@ -1,0 +1,260 @@
+{
+  "candidate_edges": [
+    "V->K: DecompressAllTags / AppendFromSelf dispatches IncrementalCopy.",
+    "K->V: IncrementalCopy falls back to IncrementalCopySlow for tight buffers and tails."
+  ],
+  "crates": [
+    {
+      "cargo_config": {
+        "class": "protected/operator-managed",
+        "path": "rust/snappy-verus/.cargo/config.toml",
+        "status": "absent"
+      },
+      "config_root": "/tmp/p4-<issue>-snappy-verus-kani/config/snappy-verus",
+      "lock": {
+        "class": "protected/operator-managed",
+        "path": "rust/snappy-verus/Cargo.lock",
+        "status": "absent"
+      },
+      "manifest": {
+        "class": "protected/operator-managed",
+        "path": "rust/snappy-verus/Cargo.toml",
+        "status": "absent"
+      },
+      "name": "snappy-verus",
+      "nested_toolchain": {
+        "class": "protected/operator-managed",
+        "path": "rust/snappy-verus/rust-toolchain.toml",
+        "status": "absent"
+      },
+      "path": "rust/snappy-verus",
+      "proof_evidence_root": "analysis/verification/<run-id>/snappy-verus",
+      "target_root": "/tmp/p4-<issue>-snappy-verus-kani/snappy-verus/target",
+      "toolchain": {
+        "rust": "1.95.0",
+        "tool": "Verus 0.2026.05.24.ecee80a",
+        "tool_path": "/nix/store/57l94534x07sysi7gjf4zkkpai6cw6vc-verus-tools/bin/verus"
+      },
+      "verifier": "verus"
+    },
+    {
+      "cargo_config": {
+        "class": "protected/operator-managed",
+        "path": "rust/snappy-kani/.cargo/config.toml",
+        "status": "absent"
+      },
+      "config_root": "/tmp/p4-<issue>-snappy-verus-kani/config/snappy-kani",
+      "lock": {
+        "class": "protected/operator-managed",
+        "path": "rust/snappy-kani/Cargo.lock",
+        "status": "absent"
+      },
+      "manifest": {
+        "class": "protected/operator-managed",
+        "path": "rust/snappy-kani/Cargo.toml",
+        "status": "absent"
+      },
+      "name": "snappy-kani",
+      "nested_toolchain": {
+        "class": "protected/operator-managed",
+        "path": "rust/snappy-kani/rust-toolchain.toml",
+        "status": "absent"
+      },
+      "path": "rust/snappy-kani",
+      "proof_evidence_root": "analysis/verification/<run-id>/snappy-kani",
+      "target_root": "/tmp/p4-<issue>-snappy-verus-kani/snappy-kani/target",
+      "toolchain": {
+        "rust": "1.95.0",
+        "tool": "cargo-kani 0.67.0 (CBMC 6.8.0)",
+        "tool_path": "/home/goya/.cargo/bin/cargo-kani"
+      },
+      "verifier": "kani"
+    }
+  ],
+  "created_at": "2026-11-14T19:26:49Z",
+  "git": {
+    "branch": "main",
+    "initial_commit": null,
+    "note": "git init only; no commit by #177"
+  },
+  "initial_exclusions": [
+    "framed/container formats and other codecs",
+    "every architecture/ISA",
+    "throughput parity and unbounded Kani claims",
+    "stubbing an unsupported optimized path and calling it proved"
+  ],
+  "issue": 177,
+  "ligature": {
+    "bundle_installed": false,
+    "descriptor": null,
+    "initialized": false,
+    "reason": "No approved bundle or exact init/descriptor grant in #177; operator-managed."
+  },
+  "name": "Snappy",
+  "oracle": {
+    "build_root": "/tmp/p4-<issue>-snappy-verus-kani/oracle",
+    "comparison": "Cross-decode native and Rust streams; compare decoded bytes, lengths and error outcomes. Compressed bytes are not required to be identical because the raw format has no canonical encoding.",
+    "dependencies": [
+      "native snappy_unittests and shipped corrupted-input tests at the pinned commit",
+      "shipped testdata/ corpus at the pinned commit"
+    ],
+    "name": "Snappy 1.2.2 native oracle"
+  },
+  "ownership_hypothesis": {
+    "kani": "Bounded IncrementalCopy optimized paths, vector shuffle/unaligned access, tail/slop conditions, compared against scalar semantics.",
+    "verus": "Tag/decoder state invariants, portable IncrementalCopySlow implementation/model, and reconstruction/round-trip properties over the selected raw format."
+  },
+  "production_claims": null,
+  "project": "M6",
+  "protected_hashes": {
+    "after": "planning/p4-mixed-2026-10-26/setup/protected-hashes-after.json",
+    "before": "planning/p4-mixed-2026-10-26/setup/protected-hashes-before.json",
+    "comparison": "planning/p4-mixed-2026-10-26/setup/protected-hashes-compare.json"
+  },
+  "protected_paths": [
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "project-descriptor.json",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": ".ligature/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "schemas/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "tools/ligature/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "rust/*/Cargo.toml",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "rust/*/Cargo.lock",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "rust/*/rust-toolchain.toml",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "rust/*/.cargo/config.toml",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "rust/*/build.rs",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "rust/*/specs/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "ci/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "scripts/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "tests/harnesses/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": ".envrc",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": ".mcp.json",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": ".github/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": ".codex/skills/ligature/**",
+      "status": "absent"
+    }
+  ],
+  "root": "snappy-verus-kani",
+  "root_kind": "independent-git-repository",
+  "schema": "p4-root-setup/1",
+  "smoke_check": {
+    "command": "planning/p4-mixed-2026-10-26/setup/p4-root-smoke-check.sh --probe snappy-verus-kani",
+    "evidence": "planning/p4-mixed-2026-10-26/setup/evidence/smoke-snappy-verus-kani.log",
+    "status": "pass",
+    "verifier_probes": {
+      "kani": "pass",
+      "verus": "pass"
+    }
+  },
+  "source_pin": {
+    "checkout_status": "absent",
+    "commit": "6af9287fbdb913f0794d0148c6aa43b58e63c8e3",
+    "intake_issue": 187,
+    "manifest": "SOURCE-PIN.json",
+    "repository": "https://github.com/google/snappy",
+    "tag": "1.2.2"
+  },
+  "verifiers": [
+    "verus",
+    "kani"
+  ],
+  "write_policy_proposal": {
+    "protected_or_operator_managed": [
+      "project-descriptor.json",
+      ".ligature/**",
+      "schemas/**",
+      "tools/ligature/**",
+      "rust/*/Cargo.toml",
+      "rust/*/Cargo.lock",
+      "rust/*/rust-toolchain.toml",
+      "rust/*/.cargo/config.toml",
+      "rust/*/build.rs",
+      "rust/*/specs/**",
+      "ci/**",
+      "scripts/**",
+      "tests/harnesses/**",
+      ".envrc",
+      ".mcp.json",
+      ".github/**",
+      ".codex/skills/ligature/**",
+      "outer-repository submodule registration"
+    ],
+    "status": "proposal-only; descriptor policy is operator-managed",
+    "worker_allowed": [
+      "README.md",
+      "SOURCE-PIN.json",
+      "PORT-GAPS.md",
+      "findings/**",
+      "oracle/**",
+      "analysis/**",
+      "rust/*/src/**",
+      "rust/*/tests/**",
+      "rust/*/verif/**",
+      ".gitignore"
+    ]
+  }
+}
