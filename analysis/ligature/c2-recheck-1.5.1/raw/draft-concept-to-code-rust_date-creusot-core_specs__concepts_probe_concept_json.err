@@ -1,0 +1,1 @@
+error: draft target 'rust/date-creusot-core/specs/_concepts/probe_concept.json' is inside protected_roots pattern 'rust/*/specs/**', but is not a supported pipeline artifact destination; `draft` does not consume generic protected-write grants. Use a supported artifact path or the command that owns the sanctioned protected write

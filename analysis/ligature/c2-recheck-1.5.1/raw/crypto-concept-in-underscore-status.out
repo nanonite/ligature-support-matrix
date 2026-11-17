@@ -1,0 +1,21 @@
+ligature 1.5.1 -- project state
+descriptor: present-valid (project-descriptor.json)
+installation manifest: current
+gate integrity: pinned -- 4 gate path(s) match the installed manifest
+artifacts (31): promoted=25, validated=6
+obligations: 7 declared, 1 with an unmet required dimension
+cluster crypto-kani: blocked (closure_kind=bounded) limitations=['generic_callees_type_universal_or_creusot_owned']
+open findings: 56
+  - [info] r1-g16: CS-CHACHA20POLY1305-ENCRYPT-005: intra-concept call ChaCha20Poly1305::encrypt -> tag is an internal helper, ignored unless architecturally eligible
+  - [info] r1-g16: CS-CHACHA20POLY1305-DEFAULT-001: intra-concept call ChaCha20Poly1305::default -> new is an internal helper, ignored unless architecturally eligible
+  - [info] r1-g16: CS-POLY1305-COMPUTE-TAG-003: intra-concept call Poly1305::compute_tag -> finish is an internal helper, ignored unless architecturally eligible
+  - [info] G2: boundary cross-reference was not checked -- no boundary context was supplied to this validator run
+  - [info] r1-g16: CS-POLY1305-COMPUTE-TAG-002: intra-concept call Poly1305::compute_tag -> absorb is an internal helper, ignored unless architecturally eligible
+  - [high] g14: required by WP-CRYPTO-MIXED-AEAD-001 but resolves to no valid bridge specification in this workspace
+  - [info] r1-g16: CS-POLY1305-COMPUTE-TAG-SEGMENTS-001: intra-concept call Poly1305::compute_tag_segments -> keyed_with is an internal helper, ignored unless architecturally eligible
+  - [info] r1-g16: CS-POLY1305-COMPUTE-TAG-CHUNKED-003: intra-concept call Poly1305::compute_tag_chunked -> absorb is an internal helper, ignored unless architecturally eligible
+  - [high] G2+: 'ChaCha20.C005': applies_to unverifiable -- concept spec candidate(s) for 'ChaCha20' are outside declared specs_search_root '/tmp/opencode/c2-recheck.yp0zEb/crypto2/crates': /tmp/opencode/c2-recheck.yp0zEb/crypto2/crates/crypto-mixed-core/specs/_concepts/cha_cha20.json; move the canonical concept spec under the declared root or update crates[].specs_search_root. The outside candidate is not used as a fallback
+  - [info] r1-g16: CS-CHACHA20POLY1305-VERIFY-001: intra-concept call ChaCha20Poly1305::verify -> decryption_output_length is an internal helper, ignored unless architecturally eligible
+human decisions pending: 0
+change requests: 1
+  - CR-crypto-kani-closure: specs/_closure/crypto-kani.json

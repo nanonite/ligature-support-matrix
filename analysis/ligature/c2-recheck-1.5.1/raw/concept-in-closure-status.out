@@ -1,0 +1,21 @@
+ligature 1.5.1 -- project state
+descriptor: present-valid (project-descriptor.json)
+installation manifest: current
+gate integrity: pinned -- 4 gate path(s) match the installed manifest
+artifacts (39): invalid=1, promoted=34, validated=4
+obligations: 9 declared, 0 with an unmet required dimension
+cluster date-creusot-core: closes (closure_kind=deductive)
+cluster date-creusot-core: closes (closure_kind=unknown)
+open findings: 16
+  - [high] G1a: Additional properties are not allowed ('adversary_table', 'commands', 'concept', 'constraints', 'english_description', 'kind', 'queries', 'source_references', 'verifier' were unexpected)
+  - [high] g14: ignored as invalid and excluded from closure computation -- run `pipeline.py validate-closure` for the detailed finding(s) that invalidated it
+  - [info] r1-g16: CS-YEARMONTHDAY-TO-DAYS-BOUNDED-001: intra-concept call YearMonthDay::to_days_bounded -> to_days is an internal helper, ignored unless architecturally eligible
+  - [info] r1-g16: CS-YEARMONTHDAY-OK-004: intra-concept call YearMonthDay::ok -> last is an internal helper, ignored unless architecturally eligible
+  - [info] r1-g16: interaction 'I-year-month-day-to-days-to-year-month-day-from-days' (YearMonthDay.to_days -> YearMonthDay.from_days) has no realized call in this observation -- intent without realization, not a coverage failure
+  - [high] G1a: 'closure_kind' is a required property
+  - [high] write-set: outside every allowed_roots pattern and not accounted for by the ownership manifest, a declared user-owned document, a pipeline artifact, a declared crate's specs/ tree, or a canonical pipeline location
+  - [info] r1-g16: CS-YEARMONTHDAY-LAST-001: interaction 'I-year-month-day-last-to-year-month-day-last-new' declares features=['default'] cfg=[], observed under features=[] cfg=[]
+  - [high] G1a: 'work_packages' is a required property
+  - [info] r1-g16: CS-YEARMONTHDAY-ROUND-TRIP-002: intra-concept call YearMonthDay::round_trip -> to_days_bounded is an internal helper, ignored unless architecturally eligible
+human decisions pending: 0
+change requests: 0

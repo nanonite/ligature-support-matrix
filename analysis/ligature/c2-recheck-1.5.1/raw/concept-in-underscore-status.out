@@ -1,0 +1,21 @@
+ligature 1.5.1 -- project state
+descriptor: present-valid (project-descriptor.json)
+installation manifest: current
+gate integrity: pinned -- 4 gate path(s) match the installed manifest
+artifacts (38): promoted=34, validated=4
+obligations: 9 declared, 0 with an unmet required dimension
+cluster date-creusot-core: blocked (closure_kind=deductive)
+open findings: 18
+  - [high] G2+: 'Weekday.C001': applies_to unverifiable -- concept spec candidate(s) for 'Weekday' are outside declared specs_search_root '/tmp/opencode/c2-recheck.yp0zEb/concept-in-underscore/rust': /tmp/opencode/c2-recheck.yp0zEb/concept-in-underscore/rust/date-creusot-core/specs/_concepts/weekday.json; move the canonical concept spec under the declared root or update crates[].specs_search_root. The outside candidate is not used as a fallback
+  - [info] r1-g16: CS-YEARMONTHDAY-TO-DAYS-BOUNDED-001: intra-concept call YearMonthDay::to_days_bounded -> to_days is an internal helper, ignored unless architecturally eligible
+  - [info] r1-g16: CS-YEARMONTHDAY-OK-004: intra-concept call YearMonthDay::ok -> last is an internal helper, ignored unless architecturally eligible
+  - [info] r1-g16: interaction 'I-year-month-day-to-days-to-year-month-day-from-days' (YearMonthDay.to_days -> YearMonthDay.from_days) has no realized call in this observation -- intent without realization, not a coverage failure
+  - [high] G2+: 'Weekday.C003': applies_to unverifiable -- concept spec candidate(s) for 'Weekday' are outside declared specs_search_root '/tmp/opencode/c2-recheck.yp0zEb/concept-in-underscore/rust': /tmp/opencode/c2-recheck.yp0zEb/concept-in-underscore/rust/date-creusot-core/specs/_concepts/weekday.json; move the canonical concept spec under the declared root or update crates[].specs_search_root. The outside candidate is not used as a fallback
+  - [high] G2-policy: cannot establish callee verifier policy for concept 'Weekday': concept spec candidate(s) for 'Weekday' are outside declared specs_search_root '/tmp/opencode/c2-recheck.yp0zEb/concept-in-underscore/rust': /tmp/opencode/c2-recheck.yp0zEb/concept-in-underscore/rust/date-creusot-core/specs/_concepts/weekday.json; move the canonical concept spec under the declared root or update crates[].specs_search_root. The outside candidate is not used as a fallback; Ligature will not infer an owner
+  - [high] g14: cannot verify profile membership because promotion receipt /tmp/opencode/c2-recheck.yp0zEb/concept-in-underscore/specs/_promotions/date-creusot-core.json is invalid: [7.1/error] /tmp/opencode/c2-recheck.yp0zEb/concept-in-underscore/specs/_promotions/date-creusot-core.json: artifact_manifest path 'rust/date-creusot-core/specs/weekday.json' does not exist
+  - [high] G2+: 'Weekday.C002': applies_to unverifiable -- concept spec candidate(s) for 'Weekday' are outside declared specs_search_root '/tmp/opencode/c2-recheck.yp0zEb/concept-in-underscore/rust': /tmp/opencode/c2-recheck.yp0zEb/concept-in-underscore/rust/date-creusot-core/specs/_concepts/weekday.json; move the canonical concept spec under the declared root or update crates[].specs_search_root. The outside candidate is not used as a fallback
+  - [high] write-set: outside every allowed_roots pattern and not accounted for by the ownership manifest, a declared user-owned document, a pipeline artifact, a declared crate's specs/ tree, or a canonical pipeline location
+  - [info] r1-g16: CS-YEARMONTHDAY-LAST-001: interaction 'I-year-month-day-last-to-year-month-day-last-new' declares features=['default'] cfg=[], observed under features=[] cfg=[]
+human decisions pending: 0
+change requests: 1
+  - CR-date-creusot-core-closure: specs/_closure/date-creusot-core.json

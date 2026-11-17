@@ -1,0 +1,10 @@
+INFO: 3 non-blocking finding(s)
+  - [G2+/info] crates/crypto-mixed-core/specs/_boundaries/cha_cha20_poly1305_encrypt__to__poly1305_set_key.json: 'Poly1305.C001' is a precondition of Poly1305: a caller obligation the caller must establish before this call, NOT a guarantee the callee provides. It is declared here because a bridge's callee_requirement must be one of these entries (validate-bridge G2) -- the bridge specification is what discharges it
+  - [G2+/info] crates/crypto-mixed-core/specs/_boundaries/cha_cha20_poly1305_decrypt__to__cha_cha20_apply_keystream.json: 'ChaCha20.C003' is a precondition of ChaCha20: a caller obligation the caller must establish before this call, NOT a guarantee the callee provides. It is declared here because a bridge's callee_requirement must be one of these entries (validate-bridge G2) -- the bridge specification is what discharges it
+  - [G2+/info] crates/crypto-mixed-core/specs/_boundaries/cha_cha20_poly1305_encrypt__to__cha_cha20_apply_keystream.json: 'ChaCha20.C003' is a precondition of ChaCha20: a caller obligation the caller must establish before this call, NOT a guarantee the callee provides. It is declared here because a bridge's callee_requirement must be one of these entries (validate-bridge G2) -- the bridge specification is what discharges it
+FAIL: 5 finding(s)
+  - [G1a/error] crates/crypto-mixed-core/specs/_boundaries/cha_cha20.json: 'boundary_id' is a required property
+  - [G1a/error] crates/crypto-mixed-core/specs/_boundaries/cha_cha20.json: 'caller' is a required property
+  - [G1a/error] crates/crypto-mixed-core/specs/_boundaries/cha_cha20.json: 'callee' is a required property
+  - [G1a/error] crates/crypto-mixed-core/specs/_boundaries/cha_cha20.json: 'callee_guarantees' is a required property
+  - [G1a/error] crates/crypto-mixed-core/specs/_boundaries/cha_cha20.json: Additional properties are not allowed ('adversary_table', 'cluster', 'commands', 'concept', 'constraints', 'english_description', 'kind', 'queries', 'source_references', 'verifier' were unexpected)

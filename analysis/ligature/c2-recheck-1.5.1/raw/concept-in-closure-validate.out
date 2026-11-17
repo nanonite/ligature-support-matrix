@@ -1,0 +1,5 @@
+FAIL: 4 finding(s)
+  - [G1a/error] specs/_closure/probe_concept.json: 'closure_kind' is a required property
+  - [G1a/error] specs/_closure/probe_concept.json: 'work_packages' is a required property
+  - [G1a/error] specs/_closure/probe_concept.json: 'conditions' is a required property
+  - [G1a/error] specs/_closure/probe_concept.json: Additional properties are not allowed ('adversary_table', 'commands', 'concept', 'constraints', 'english_description', 'kind', 'queries', 'source_references', 'verifier' were unexpected)

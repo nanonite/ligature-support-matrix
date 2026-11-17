@@ -1,0 +1,6 @@
+FAIL: 5 finding(s)
+  - [G1a/error] rust/date-creusot-core/specs/_boundaries/probe_concept.json: 'boundary_id' is a required property
+  - [G1a/error] rust/date-creusot-core/specs/_boundaries/probe_concept.json: 'caller' is a required property
+  - [G1a/error] rust/date-creusot-core/specs/_boundaries/probe_concept.json: 'callee' is a required property
+  - [G1a/error] rust/date-creusot-core/specs/_boundaries/probe_concept.json: 'callee_guarantees' is a required property
+  - [G1a/error] rust/date-creusot-core/specs/_boundaries/probe_concept.json: Additional properties are not allowed ('adversary_table', 'cluster', 'commands', 'concept', 'constraints', 'english_description', 'kind', 'queries', 'source_references', 'verifier' were unexpected)

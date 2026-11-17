@@ -1,0 +1,111 @@
+{
+  "issue": "chainlink #56 / epic #54 C.2",
+  "upstream_report": "epic #1 #198",
+  "date": "2026-11-17",
+  "pilot": "date-creusot",
+  "cross_check_pilot": "crypto-mixed",
+  "binary": {
+    "path": "date-creusot/tools/ligature/ligature.pyz",
+    "version": "1.5.1",
+    "bundle_sha256": "d704c5a5875d200214310c1fca7854a14a105c1b74cebaa5bc03f6a870bcc030",
+    "content_hash": "sha256:def6b87957ff4e26737e18a469a7df447fdadb5df3eac5180db881c42baccfcb",
+    "source_commit": "29acabdb6c70dbab4213ca73626d3fed78afcbcf",
+    "method": "black box"
+  },
+  "convention": {
+    "source": "ligature contract section 4 target table; .ligature/prompts/stage-3-concept-to-code.md",
+    "concept_spec": "<crate_dir>/specs/<snake_case(concept)>.json (flat; NOT in a _-prefixed subdirectory)",
+    "other_kinds": [
+      "<crate_dir>/specs/_boundaries/<boundary_id>.json",
+      "<crate_dir>/specs/_interactions/<interaction_id>.json",
+      "<crate_dir>/specs/_bridges/<bridge_id>.json",
+      "<crate_dir>/specs/_witnesses/<snake_case(concept)>.<query>.json",
+      "<crate_dir>/specs/_exemptions/<interaction_id>.json",
+      "<crate_dir>/specs/_protocol_debt/<interaction_id>.json",
+      "specs/_closure/<cluster>.json",
+      "specs/_closure/<cluster>.degradation.json",
+      "specs/_conflicts/<id>.json"
+    ]
+  },
+  "result": "still-present (friction): the _-prefixed artifact-directory convention drifts in mislocation diagnostics, kind discrimination, draft target validation, and the _closure status scan",
+  "cases": {
+    "baseline": {
+      "status_artifacts": 38,
+      "status_clusters": [["date-creusot-core", "deductive", "closes"]],
+      "validate_exit": 0,
+      "validate": "OK: all boundary contracts pass G1a/G1b/G2+ (9 discovered)",
+      "check_exit": 1,
+      "check_note": "exit 1 is the two pre-existing out-of-set write-set findings (.gitignore, PORT-GAPS.md)"
+    },
+    "concept_in_unknown_underscore_dir": {
+      "mutation": "move rust/date-creusot-core/specs/weekday.json -> specs/_concepts/weekday.json",
+      "validate_exit": 1,
+      "diagnostic": "G2+/error: concept spec candidate(s) for 'Weekday' are outside declared specs_search_root '<scratch>/rust': <scratch>/rust/date-creusot-core/specs/_concepts/weekday.json",
+      "filesystem_fact": "the named candidate is inside the declared specs_search_root directory tree",
+      "status_exit": 0,
+      "status_findings": "includes the same high G2+ and G2-policy 'outside specs_search_root' findings",
+      "gate_g14_exit": 1
+    },
+    "concept_in_plain_nested_dir": {
+      "mutation": "move rust/date-creusot-core/specs/weekday.json -> specs/nested/weekday.json",
+      "validate_exit": 0,
+      "validate": "OK: all boundary contracts pass G1a/G1b/G2+ (9 discovered)",
+      "status_exit": 0,
+      "status_signal": "no G2+ mislocation finding; only an indirect G14/promotion-receipt error naming the pinned old path",
+      "gate_g14_exit": 1
+    },
+    "concept_in_known_boundaries_dir": {
+      "mutation": "probe concept JSON copied to rust/date-creusot-core/specs/_boundaries/probe_concept.json",
+      "status_artifact": {"kind": "boundary", "lifecycle": "invalid", "artifact_id": "probe_concept"},
+      "validate_exit": 1,
+      "diagnostic": "G1a: 'boundary_id', 'caller', 'callee', 'callee_guarantees' required; concept fields unexpected"
+    },
+    "concept_in_closure_dir": {
+      "mutation": "probe concept JSON copied to specs/_closure/probe_concept.json",
+      "status_artifacts": 39,
+      "status_clusters": [["date-creusot-core", "deductive", "closes"], ["date-creusot-core", "unknown", "closes"]],
+      "status_artifact": {"kind": "closure", "lifecycle": "invalid", "artifact_id": "date-creusot-core"},
+      "validate_closure_exit": 1,
+      "gate_g14_exit": 1
+    },
+    "draft_target_matrix": {
+      "observation": "the target check accepts a known artifact directory for any template; immediate validation then uses the destination kind",
+      "rows": [
+        {"template": "concept-to-code", "target": "specs/probe_concept.json", "target_check": "accepted", "next_error": "undefined variable {{concept}}"},
+        {"template": "concept-to-code", "target": "specs/_boundaries/probe_concept.json", "target_check": "accepted", "full_render_result": "5 boundary-schema errors (boundary_id/caller/callee/callee_guarantees required)"},
+        {"template": "concept-to-code", "target": "specs/_interactions/probe_concept.json", "target_check": "accepted", "next_error": "undefined variable {{concept}}"},
+        {"template": "concept-to-code", "target": "specs/_concepts/probe_concept.json", "target_check": "refused", "error": "not a supported pipeline artifact destination"},
+        {"template": "boundary-drafting", "target": "specs/_boundaries/probe_boundary.json", "target_check": "accepted", "next_error": "undefined variable {{caller_concept}}"},
+        {"template": "boundary-drafting", "target": "specs/probe_boundary_flat.json", "target_check": "accepted", "full_render_result": "9 concept-schema errors (concept/cluster/english_description/verifier/queries/commands/constraints/adversary_table required)"},
+        {"template": "boundary-drafting", "target": "specs/_interactions/probe_boundary.json", "target_check": "accepted", "next_error": "undefined variable {{caller_concept}}"},
+        {"template": "boundary-drafting", "target": "specs/_bridges/probe_boundary.json", "target_check": "accepted", "next_error": "undefined variable {{caller_concept}}"}
+      ]
+    }
+  },
+  "cross_check_crypto_mixed": {
+    "baseline_validate_exit": 0,
+    "concept_in_underscore_dir": {
+      "mutation": "crates/crypto-mixed-core/specs/cha_cha20.json -> specs/_concepts/cha_cha20.json",
+      "status_artifacts": 31,
+      "status_probe_artifact": null,
+      "validate_exit": 1,
+      "diagnostic": "G2+/error: concept spec candidate(s) for 'ChaCha20' are outside declared specs_search_root '<scratch>/crates': <scratch>/crates/crypto-mixed-core/specs/_concepts/cha_cha20.json"
+    },
+    "concept_in_known_boundaries_dir": {
+      "status_artifact": {"kind": "boundary", "lifecycle": "invalid", "artifact_id": "cha_cha20"},
+      "validate_exit": 1,
+      "diagnostic": "G1a: 'boundary_id' is a required property"
+    },
+    "concept_in_closure_dir": {
+      "status_clusters": [["crypto-kani", "unknown", "degraded"], ["crypto-kani", "bounded", "degraded"]],
+      "validate_closure_exit": 1,
+      "diagnostic": "G1a: closure_kind/work_packages/conditions required; concept fields unexpected"
+    }
+  },
+  "scope": [
+    "No Ligature source or pyz contents inspected; black box only.",
+    "All probe roots are under /tmp/opencode, outside the pilot trees; no specs/_closure file was written inside a pilot.",
+    "No protected write, grant, approval, promotion or ruling was made.",
+    "The live pilots were not mutated; only this evidence directory and two findings lines are new in date-creusot."
+  ]
+}
