@@ -1,0 +1,30 @@
+{
+  "checkout": {
+    "intake_issue": 191,
+    "planned_path": "upstream/",
+    "status": "absent"
+  },
+  "commit": "99b3c03b3284f5886f9ef9a4ef703d57373e61be",
+  "commit_url": "https://github.com/google/leveldb/commit/99b3c03b3284f5886f9ef9a4ef703d57373e61be",
+  "issue": 177,
+  "name": "LevelDB storage slice",
+  "note": "Pin declared at setup; #177 does not clone or vendor upstream source.",
+  "project": "M7",
+  "repository": "https://github.com/google/leveldb",
+  "resolution_source": "planning/p4-mixed-2026-10-26/upstream-pins.json",
+  "schema": "p4-source-pin/1",
+  "selected_paths": [
+    "db/write_batch.cc",
+    "db/log_writer.cc",
+    "db/log_reader.cc",
+    "db/log_test.cc",
+    "table/block_builder.cc",
+    "table/block.cc",
+    "table/table_test.cc",
+    "util/coding.cc",
+    "util/crc32c.cc",
+    "doc/log_format.md",
+    "doc/table_format.md"
+  ],
+  "tag": "1.23"
+}

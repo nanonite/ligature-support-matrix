@@ -1,0 +1,8 @@
+# Build products and local verifier caches (targets normally live in /tmp)
+target/
+**/target/
+.why3find/
+**/.why3find/
+
+# Pinned upstream checkout (SOURCE-PIN.json); its own git repo.
+/upstream/
