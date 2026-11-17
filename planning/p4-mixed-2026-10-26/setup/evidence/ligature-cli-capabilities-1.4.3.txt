@@ -1,0 +1,1028 @@
+## top-help
+command: python3 icl-creusot-verus/tools/ligature/ligature.pyz --help
+working_directory: /home/goya/storage/full-ligature-port-workspace
+environment_overrides: none
+exit: 0
+stdout:
+usage: ligature.pyz [-h] [--workspace WORKSPACE] [--descriptor DESCRIPTOR]
+                    {validate,validate-interaction,validate-exemption,validate-protocol-debt,validate-bridge,validate-evidence,validate-conflict-resolution,validate-work-package,validate-promotion,accept-promotion,record-ruling,accept-policy,accept-fixture-value,draft,approve,approve-pair,approve-exemption-pair,promote-evidence,record-assurance,extract-c-static,validate-callsites,gate-r1-g16,render-witness,validate-witness,validate-gold-set,measure-gold-set,check-bridges,gate-g9,validate-closure,gate-g14,select-pilot-cluster,gate-g18,gate-g19,gate-g20,generate-feature-ledger,generate-contact-sheet,init,migrate,doctor,version,schema,contract,status,check,write-set-check,authorize-write,scaffold-crate,configure-crate,configure-cargo-profile,generate-work-package,gate,report}
+                    ...
+
+The pipeline CLI entrypoint (plan.md §6.1, chainlink #37).
+
+One command, invoked against a project workspace, spanning the whole
+pipeline -- not a two-tool split between an LLM-run authoring session and a
+separately-invoked deterministic tool. Reads the project structure
+descriptor for all configuration.
+
+Implemented now, against schemas that actually exist:
+  draft     Stage 0/3 -- render a prompt template, dispatch to the
+            configured one-shot LLM backend, stage the result as a draft.
+            Never calls a backend for anything past this command.
+  approve   The review/approval checkpoint (#39) -- the path that writes a
+            single draft to its target path.
+  approve-pair  The explicit transactional checkpoint for a new non-pairwise
+            interaction and its protocol-debt record, whose cross-references
+            require both artifacts to be accepted together.
+  approve-exemption-pair  The same transactional bootstrap for a new
+            interaction and a reviewed exemption covering it (chainlink #46,
+            R2's exemption route) -- neither can be approved alone, since
+            R2 requires an already-promoted exemption and the exemption's
+            own cross-reference requires an already-promoted interaction.
+  validate  Stage 4 (G1a/G1b/G2+) over boundary contracts (#9/#11) --
+            fully deterministic, no LLM calls, by construction.
+  validate-work-package  Stage 7's own schema + §10.1 checks (#14) over a
+            work-package manifest. Standalone, not routed through
+            draft/approve -- a manifest is machine-generated at Stage 7
+            from already-promoted content, not LLM-drafted and
+            human-reviewed the way a boundary contract is. G13 also
+            requires the witness renderer implementation (chainlink
+            #35, plan.md §16.5): scripts/witness_renderer.py and its
+            direct helper scripts/xml_escape.py each need their own
+            gate_integrity entry, protected_write_set coverage, and no
+            allowed_write_set coverage -- unconditional for every
+            manifest, project-agnostic.
+  validate-promotion  Stage 4.5's schema + §7.1 checks (#15) over a
+            promotion receipt: every artifact_manifest path is workspace-
+            anchored, every declared hash is verified against the real
+            file, the receipt is never in its own manifest, and no listed
+            artifact carries a promotion_id back (references are
+            one-way). A canonical crate-scoped witness spec (chainlink
+            #35) is hashed with its promotion-digest instead -- a
+            rendering-only output.render_hash change never revokes
+            acceptance, a fixture or determinism.value_hash change
+            still does. Standalone, not routed through draft/approve --
+            the receipt's reviewer/accepted_at fields are top-level, not
+            the nested review: {} shape approve() writes.
+  accept-promotion  Stage 4.5's own generator (#45): loads the real
+            project descriptor (--descriptor, same global flag every
+            other command uses) and deterministically computes
+            artifact_manifest (real file hashes), promotion_id (from
+            `cluster` alone), and schema_versions -- the latter only
+            after validating each accepted artifact against its own
+            real per-kind validator WITH real cross-file context
+            (interactions_by_id, R2's boundary/exemption coverage, G15's
+            protocol-debt coverage, evidence ids -- the same context
+            cmd_validate_interaction/cmd_validate_exemption/
+            cmd_validate_protocol_debt build), so G2/G15/R2/G11/etc. run
+            for real, fail-closed, not degraded to non-blocking info
+            findings. Artifact kind is matched against the descriptor's
+            own canonical directories, not merely a directory sharing a
+            kind's basename -- "witness" is a recognized kind too
+            (chainlink #35), and every declared (witness_required: true)
+            feature's own genuinely valid, unambiguous witness spec
+            (reusing G18/G19's own descriptor-backed discovery) must be
+            in the accepted set or generation refuses outright.
+            policy_version is read from the accepted
+            policy document's own content (its exactly-one "Policy
+            version: <name>@<major>.<minor>" marker line,
+            docs/reliance-policy.template.md), not supplied as a
+            free-form argument -- --policy-path names which accepted
+            artifact to read it from. Validates the assembled receipt
+            against validate-promotion's own real checks before writing
+            anything, then appends the audit entry and swaps the receipt
+            into place as one transaction (a failure on either side
+            leaves neither behind) -- the dedicated acceptance operation
+            this schema needs, since approve()'s nested review: {} write
+            is incompatible with this schema's top-level reviewer/
+            accepted_at and additionalProperties: false. Two guards run
+            before anything is written (chainlink #82): a review-
+            provenance check (every accepted artifact's own `review`
+            block must match an entry in the approval audit log
+            ci/results/review_log.jsonl) and the human-ruling gate
+            (every manifest entry must carry a `ratified` human ruling
+            over that exact version in ci/results/human_rulings.jsonl).
+            See scripts/generate_promotion_receipt.py.
+  record-ruling  The human-ruling gate's writer (chainlink #82): records
+            an explicit, named human verdict -- `ratified` or
+            `rejected` -- over an exact accepted-artifact set, with the
+            hashes computed by the SAME manifest routine
+            accept-promotion uses, appended to the workspace's
+            ci/results/human_rulings.jsonl. `accept-promotion` refuses
+            to mint a receipt until every artifact in its accepted set
+            is covered by a `ratified` ruling over its current content
+            -- the Stage 4.5 gate the provenance check cannot be, since
+            an unattended agent can run `approve` itself and artifacts
+            with no review block (evidence promoted outside any tool
+            path) escape provenance entirely. Not a validation pass:
+            kind validators still run at acceptance.
+  validate-interaction  Stage 4's G1a/G1b/G2++/G15 over interaction (I)
+            specs (#16/#17/#19): schema plus COMPUTED eligibility (plan.md
+            §5.2) -- eligibility is derived from edge_class, never
+            hand-set, and disagreement between the derived and stored
+            value is rejected -- plus G15 (fail closed): a non-pairwise
+            interaction with no valid protocol-debt record covering it is
+            rejected, cross-referenced live against the crate's
+            _protocol_debt/ directory.
+  validate-exemption  Stage 4's G1a/G1b over boundary-required exemption
+            objects (#16): schema plus naming (interaction_id == filename
+            stem), plus G2 (chainlink #46): the named interaction must
+            resolve to a real, promoted, boundary-required interaction --
+            a dangling or ineligible reference is rejected outright, and
+            never contributes to validate-interaction's own R2 coverage
+            check either (same mechanism, not two).
+  validate-protocol-debt  Stage 4's G1a/G1b over protocol-debt records
+            (#19): schema plus naming plus interaction cross-reference --
+            a debt record naming a nonexistent interaction, or one whose
+            protocol_class is actually pairwise, is rejected, cross-
+            referenced live against the crate's _interactions/ directory.
+  validate-evidence  Stage 4's G1a/G1b over evidence records (#20):
+            schema plus naming. Workspace-level, not crate-scoped (one
+            evidence/ directory per workspace, not per crate). Never
+            routed through draft/approve -- evidence carries no review
+            block (plan.md §7.2's human-checkpoint list names
+            "evidence-conflict resolution", not evidence itself).
+  validate-conflict-resolution  Stage 4's G1a/G1b/G11 over evidence
+            conflict-resolution records (#20): schema (incl. the
+            status == resolved => resolution + review requirement),
+            selected-authority membership in the record's own evidence
+            list, a live dangling-evidence-reference check, and G11 --
+            "only unresolved conflicts block" (plan.md §11's own words) --
+            enforced directly, not deferred. Also workspace-level; IS
+            routed through draft/approve, since it does carry a review
+            block and is in §7.2's checkpoint list.
+  validate-bridge  Stage 4's G1a/G1b/G2 over bridge specifications
+            (plan.md §8.2/§8.3, chainlink #22): schema (incl. the typed
+            bindings/premises/conclusion bridge_logic form, and the
+            structural exclusion of "caller-postcondition" from
+            available_contract_facts' role enum -- a caller postcondition
+            only holds after the caller returns, so it can never be an
+            available call-site fact) plus naming (bridge_id == filename
+            stem, flat inside a crate's _bridges/ directory) plus
+            self-contained consistency (callee_requirement must equal
+            bridge_logic.conclusion.obligation_id -- the human-readable
+            summary and the machine-checkable conclusion can never
+            silently diverge) plus G2: boundary_id must resolve to a
+            real, promoted boundary contract in the same crate, and
+            callee_requirement must be one of that boundary's own
+            callee_guarantees, plus the compilable fragment
+            bridge_logic must lie inside (chainlink #112: premises
+            are predicate applications only, bindings are
+            snake_case). That last one used to be reachable only
+            through G9's compile, so the swisstable-verus pilot
+            drafted, approved and promoted six bridges G9 then
+            refused; it is enforced here at draft and approve time
+            instead, by the same verifier-independent compiler G9
+            uses. Refusing an artifact is all this gate does with the
+            fragment: RENDERING the harness, dispatching it and
+            recording the verdict remain G9's.
+  extract-c-static  Stage 8A's coarse C_static extractor (plan.md §9,
+            chainlink #24): one report per descriptor crate into
+            ci/results/c_static/<crate>.json -- a generated observation,
+            never a spec under the protected crates/*/specs/**. Requires
+            an explicit --target: C is configuration-relative, and an
+            invented target makes R1's configuration comparison
+            meaningless. Syntactic, so it only ever claims
+            `discovered-lower-bound` -- a claim the schema itself binds
+            to the extractor's backing.
+  validate-callsites  Stage 8A's G1a/G1b over those reports:
+            schema, naming (report_id == filename stem, flat inside
+            c_static/), and RECOMPUTED callsite coverage -- the stored
+            counts are never trusted, the same discipline G1b applies to
+            computed eligibility in I. Workspace-level; carries no
+            review block, so never routed through draft/approve.
+  gate-r1-g16  Stage 8A's R1 + G16 (plan.md §9.1): realized calls
+            reconciled against I within compatible configurations, and
+            unresolved call sites risk-tiered -- critical/high block,
+            medium is a human decision (exit 3, never a silent pass),
+            low is a visible accepted limitation. Reports "all
+            discovered call sites resolved", never "all call sites
+            resolved".
+  render-witness  Dispatch a witness's already-validated canonical
+            result through the renderer contract (plan.md §16.1/§16.2,
+            chainlink #28): scripts/witness_renderer.py either produces
+            an SVG appropriate to the result's kind or raises -- there is
+            no third path, no "degraded fallback" branch anywhere in the
+            renderer code. Writes NOTHING on failure: no partial SVG, no
+            placeholder. renderer_actual is self-reported by the
+            renderer function itself, not echoed from the request, and
+            cross-checked against the registry key it was dispatched
+            under -- an independent observation of what ran, which is
+            what makes G20's later declared/actual comparison (#31)
+            meaningful. Never mutates a witness spec on disk (a reviewed,
+            normative artifact); prints the output block a draft would
+            quote.
+  validate-witness  G1a/G1b over witness specs (plan.md §16.1, chainlink
+            #27) plus G2: the witnessed `query` must resolve to a query
+            declared `pure: true` in the concept's own spec, matched the
+            way validate_boundary_contracts.py matches a constraint (on
+            the spec's own `concept` field, never a filename). Also
+            validates the canonical results under ci/results/witnesses/,
+            recomputing value_domain and value_hash -- the normative
+            determinism artifact `render_hash` deliberately is not.
+            Witness coverage (G18, #29), determinism across a
+            regeneration (G19, #30) and degeneracy against the declared
+            expectation (G20, #31) are separate gates, not this
+            validator. A witness is EVIDENCE, never assurance: nothing
+            here reaches satisfies(), accepted_evidence_kinds or
+            closure_kind.
+  gate-g18  Stage 4's witness coverage gate (plan.md §16.2, chainlink
+            #29): every query marked `witness_required: true` in a
+            concept spec must resolve to a genuinely valid witness spec
+            (validate-witness's own G1a/G1b/G2 bar) whose declared
+            rendering actually exists on disk. Coverage is relative to
+            the DECLARED feature set only -- an undeclared query is
+            invisible to this gate, the same boundary R2 draws against
+            accepted I. The same `(concept, query)` declared true in more
+            than one concept spec, or covered by a genuinely valid
+            witness in more than one crate, is ambiguous and excluded
+            rather than resolved from whichever sorted first.
+  gate-g19  Stage 8A/CI's witness determinism gate (plan.md §16.2,
+            chainlink #30): every genuinely valid witness spec's
+            declared `determinism.value_hash` must match a FRESH
+            regeneration's `value_hash` -- regeneration is unconditional
+            and internal to this gate, dispatched to the project
+            descriptor's `witness_backend` command every run, passing
+            that spec's own current witness_id/concept/query/fixture_id
+            /seed/renderer as arguments so a regenerated result's
+            identity is constructed from the current spec and checked
+            against it before its hash is ever trusted. With no backend
+            configured, nothing was actually re-evaluated this run and
+            the gate blocks -- an earlier version instead trusted
+            whatever canonical result already sat on disk, which an
+            external review found let a stale file outlive a producer's
+            real behavior change and pass regardless. `render_hash` is
+            never read here: a determinism claim is about the measured
+            VALUE, not the rendering, and a changed `render_hash` alone
+            must never block. Reuses validate_witness.py's own G1a/G1b
+            result validation rather than re-hashing anything.
+  gate-g20  Stage 4.5's degenerate-witness gate (plan.md §12's gate
+            table, chainlink #31): `expectation.value_distribution:
+            must-vary` but the current genuinely valid canonical result
+            measures only one distinct value, and `coverage_region`
+            inconsistent with `fixture_family` workspace-wide (reuses
+            validate_witness.py's own check_family_consistency rather
+            than reimplementing it). Both WARN as this gate's own
+            report: not a hard Stage-4/CI block, since `gate-g20` alone
+            is a fresh recomputation with no promotion attached to it;
+            it exits with a THIRD, distinct code, mirroring
+            gate-r1-g16's own EXIT_DECISION_REQUIRED tier, never
+            collapsing into a clean 0 or the same exit code a real
+            block uses. The SAME findings are promoted from WARN to
+            ERROR at `approve()` time for a witness spec promotion --
+            `specs/_witnesses/*.json` is a recognized artifact type
+            there (chainlink #31's own promotion wiring), so "warn
+            early, block at promotion if unresolved" is one mechanism,
+            not two. An ambiguous witness_id (imported from gate-g19's
+            own collection) still blocks outright here regardless --
+            a structural identity problem, not a degeneracy one.
+  generate-feature-ledger  Stage 4.5's feature ledger generator
+            (plan.md §16.4, chainlink #34): a GENERATED, READ-ONLY
+            projection at ci/results/feature_ledger.json, one entry per
+            DECLARED (witness_required: true) feature. Reuses G18/G19/G20
+            for real (including G19's own live regeneration dispatch)
+            rather than re-deriving their dispositions, so this is a
+            fresh recomputation every run, never a cache of a stale one.
+            The two-column discipline plan.md §16.4 names is the whole
+            reason this exists: `implementation_observed` (a weak
+            liveness fact -- the body executed and produced a stable,
+            non-degenerate value) and `assurance_status` (the contract
+            is established) are never inferred from each other.
+            `assurance_status` is currently always `unsupported` -- see
+            scripts/generate_feature_ledger.py's own module docstring
+            for why no mechanical link between a witnessed query and a
+            pipeline obligation exists yet. Refuses to write a
+            schema-invalid result; atomic write, same guarantee
+            chainlink #28 established for a witness rendering.
+  generate-contact-sheet  Stage 4.5's review surface (plan.md §16.3,
+            chainlink #32): a GENERATED, READ-ONLY SVG at
+            docs/witnesses/_contact_sheet.svg, one panel per DECLARED
+            feature, built over a fresh generate-feature-ledger call --
+            never a stale ci/results/feature_ledger.json. Fixed banner
+            ("∃-witness evidence -- not verification.") plus, per
+            panel, the SAME two-axis discipline #34 established: witness
+            /implementation/determinism/degeneracy are drawn as colored
+            traffic-light badges, while assurance_status and
+            closure_kind are drawn in a completely disjoint, never-green
+            palette with an explicit text prefix -- a fully green panel
+            can never be scanned as "assurance established." Each
+            feature's own generated witness SVG is embedded inline as a
+            base64 data URI when its witness is present (never a
+            relative file link, so the sheet stays one self-contained
+            artifact); missing/unavailable renders an explicit dashed
+            placeholder without dropping the panel. Never a promotion
+            input -- not recognized by approve()'s dispatcher. Refuses
+            to build over an ambiguous declaration or a schema-invalid
+            ledger; atomic write, chainlink #28's own guarantee.
+  validate-gold-set  G1a/G1b over human gold sets (plan.md §5.2's
+            independence argument, chainlink #26): schema, naming, and
+            the scope/provenance discipline -- every edge's caller must
+            be in the curated scope, every derived_from must be a method
+            the curator claimed, and no intra-concept edges (which
+            gate-r1-g16 correctly treats as internal helpers). The
+            anti-circularity guard is in the schema: `derived_from` has
+            no value for "read it in the interaction set", because a
+            gold set derived from the artifact it audits makes recall
+            vacuous.
+  measure-gold-set  Precision, recall and OMISSION against a human gold
+            set (chainlink #26). Omission -- gold edges no candidate
+            source proposed at all -- is the number that makes "R2
+            passed, therefore I is complete" unreadable. Every report
+            lists all seven of plan.md §5.2's independent candidate
+            sources with their real status, because an omission count is
+            only interpretable next to how many sources were actually
+            consulted (two exist here; five are not built). Not a gate:
+            omission is a finding to read; what fails is being unable to
+            measure.
+  check-bridges  Stage 8A's bridge harness generation (plan.md §8.3,
+            chainlink #47): compiles a promoted bridge's typed
+            bridge_logic to a harness for the verifier that OWNS its
+            cluster (resolved through the closure profile that names the
+            work package requiring the bridge, then verifier_policy),
+            writes it under ci/harness/, and dispatches it to the
+            configured verifier_backends command, recording the verdict.
+            The compiler is total-or-rejecting over a closed expression
+            fragment -- "compiles to a harness the owning verifier
+            checks" is only a definition if what it cannot compile is
+            refused with a reason. With no backend configured nothing is
+            dispatched and nothing is recorded: a verifier that never ran
+            must never produce a pass.
+  gate-g9  Stage 8A's G9 ("bridge check fails", plan.md §12): recompiles
+            each promoted bridge and checks that the recorded result is
+            about THAT bridge -- the harness on disk matches the
+            recompilation, the recorded harness hash equals the
+            recomputed one, the verifier owns the cluster, the claim
+            passed, and no work package's assurance report asserts a
+            bridge_record that disagrees with the check. This is the
+            machine relation §8.3's temporary "hash-pin the harness and
+            report harness-tested" fallback said did not exist.
+  validate-closure  Stage 8C's G1a/G1b over closure profiles and
+            degradation records (plan.md §4, chainlink #25), plus G17:
+            `deductive` is refused for a Kani-owned cluster, and a
+            cluster's profile and degradation record must agree about
+            which conditions failed -- in both directions, since a stale
+            excuse and an undeclared degradation each hide something.
+            One documented exception (chainlink #86): a record naming
+            generic_callees_type_universal_or_creusot_owned beside a
+            `true` declaration is the CG3 tracking record, not a stale
+            excuse -- gate-g14, which can see closure evidence, decides
+            whether such a record is still needed.
+  gate-g14  Stage 8C's release closure (plan.md §8.5): loads every
+            required-guarantee dependency, computes the TRANSITIVE
+            closure, detects cycles, evaluates satisfies() on every
+            requirement in it, and holds every assumption anywhere in
+            the closure against the cluster's own entry trust policy --
+            §8.5's motivating case is a depth-2 assumption that every
+            direct check passes over. A cycle closes only with an
+            explicit well-foundedness discharge naming exactly its
+            members (CG6). The one condition no artifact can always
+            settle (CG3's generic-callee type universality) is
+            recomputed from the workspace's own work-package artifacts
+            when they determine it -- the closure AND its declared
+            `depends_on` dependencies, per obligation, with
+            Creusot/Verus deductive evidence and harnesses project-wide
+            (chainlink #93) -- and is otherwise a capability gap that
+            blocks without a degradation record naming it and carrying
+            a tracking issue (chainlink #86). Outcome is per cluster and
+            never global: closes / degraded-under-an-accepted-record /
+            blocked.
+
+Not yet implemented:
+  Stage 5 emission and Stage 6 attachment are still unbuilt. Automatic
+  synthesis of a Stage 7 work-package plan from promoted I/O is also not
+  implemented: `generate-work-package` (#122/#134) is the supported,
+  plan-driven manifest generator and requires an explicit validated plan.
+  Stage 8A has C_static extraction/reconciliation (#24), bridge harness
+  generation/dispatch (#47), and G9; Stage 8C has validate-closure/G14
+  (#25). Stage 8B acceptance (#26) remains open. `doctor` reports these
+  remaining capabilities separately from commands that already exist.
+
+positional arguments:
+  {validate,validate-interaction,validate-exemption,validate-protocol-debt,validate-bridge,validate-evidence,validate-conflict-resolution,validate-work-package,validate-promotion,accept-promotion,record-ruling,accept-policy,accept-fixture-value,draft,approve,approve-pair,approve-exemption-pair,promote-evidence,record-assurance,extract-c-static,validate-callsites,gate-r1-g16,render-witness,validate-witness,validate-gold-set,measure-gold-set,check-bridges,gate-g9,validate-closure,gate-g14,select-pilot-cluster,gate-g18,gate-g19,gate-g20,generate-feature-ledger,generate-contact-sheet,init,migrate,doctor,version,schema,contract,status,check,write-set-check,authorize-write,scaffold-crate,configure-crate,configure-cargo-profile,generate-work-package,gate,report}
+    validate            Stage 4: G1a/G1b/G2+ over boundaries; resolves concept
+                        references under each crate's declared
+                        specs_search_root
+    validate-interaction
+                        Stage 4: G1a/G1b + computed eligibility over
+                        interaction (I) specs
+    validate-exemption  Stage 4: G1a/G1b over boundary-required exemption
+                        objects
+    validate-protocol-debt
+                        Stage 4: G1a/G1b over protocol-debt records
+    validate-bridge     Stage 4: G1a/G1b/G2 over bridge specifications
+                        (chainlink #22)
+    validate-evidence   Stage 4: G1a/G1b over evidence records (workspace-
+                        level)
+    validate-conflict-resolution
+                        Stage 4: G1a/G1b/G11 over evidence conflict-resolution
+                        records (workspace-level)
+    validate-work-package
+                        Stage 7: schema + §10.1 checks over a work-package
+                        manifest
+    validate-promotion  Stage 4.5: schema + §7.1 checks over a promotion
+                        receipt
+    accept-promotion    Stage 4.5's own generator: deterministically compute
+                        and write a promotion receipt (chainlink #45)
+    record-ruling       Record an explicit human verdict over an exact
+                        artifact set -- the human-ruling gate accept-promotion
+                        enforces before minting a receipt (chainlink #82)
+    accept-policy       Record a reviewed change to the normative reliance-
+                        policy document (chainlink #78)
+    accept-fixture-value
+                        Record explicit acceptance of an unchanged legitimate
+                        descriptor example value (#145)
+    draft               Stage 0/3: one-shot LLM draft (destination checked
+                        against the write set before generation)
+    approve             Review checkpoint: promote a draft
+    approve-pair        Review and atomically promote a new non-pairwise
+                        interaction plus its protocol-debt record
+    approve-exemption-pair
+                        Review and atomically promote a new interaction plus a
+                        reviewed exemption covering it (R2's exemption
+                        bootstrap, chainlink #46)
+    promote-evidence    Mechanically promote a staged evidence draft to its
+                        target (evidence/*.json) and record the move -- the
+                        Stage 0 promotion path approve() cannot provide
+                        (chainlink #79)
+    record-assurance    Assemble a work package's assurance report from
+                        verifier proof certificates and write it to the
+                        manifest's report.emit path -- the achieved side
+                        gate-g14 reads (chainlink #87)
+    extract-c-static    Stage 8A: extract C_static call sites per crate into
+                        ci/results/c_static (chainlink #24)
+    validate-callsites  Stage 8A: G1a/G1b over C_static reports, incl.
+                        recomputed coverage (workspace-level)
+    gate-r1-g16         Stage 8A: reconcile C_static against I (R1) and apply
+                        G16; --json separates acceptance and completeness
+    render-witness      Dispatch a witness's canonical result through the
+                        renderer contract (chainlink #28)
+    validate-witness    G1a/G1b/G2 over witness specs and canonical results;
+                        query references resolve under each crate's declared
+                        specs_search_root (chainlink #27/#149)
+    validate-gold-set   G1a/G1b over human gold sets (chainlink #26)
+    measure-gold-set    Measure I against a human gold set: precision, recall,
+                        omission (chainlink #26)
+    check-bridges       Stage 8A: compile bridge_logic and dispatch each
+                        harness to its verifier; runtime depends on configured
+                        backends (#47)
+    gate-g9             Stage 8A: G9 -- the recorded bridge check must be
+                        about the bridge it names (#47)
+    validate-closure    Stage 8C: G1a/G1b + G17 over closure profiles and
+                        degradation records (chainlink #25)
+    gate-g14            Stage 8C: G14 transitive closure + CG6 discharge, per
+                        cluster; reruns Kani evidence and can take minutes and
+                        several GB per harness (chainlink #25)
+    select-pilot-cluster
+                        plan.md §14: mechanized, verifier-agnostic first-
+                        pilot-cluster ranking (chainlink #4)
+    gate-g18            Stage 4: G18 -- every witness_required query has a
+                        witness spec and rendering (#29)
+    gate-g19            Stage 8A/CI: G19 -- regenerate and compare a witness's
+                        value_hash, never render_hash (#30)
+    gate-g20            Stage 4.5: G20 -- must-vary vs constant, fixture-
+                        family consistency, warn (#31)
+    generate-feature-ledger
+                        Stage 4.5: generate ci/results/feature_ledger.json
+                        from G18/G19/G20 (#34)
+    generate-contact-sheet
+                        Stage 4.5: generate docs/witnesses/_contact_sheet.svg,
+                        the review surface (#32)
+    init                Install Ligature-owned files into a target repo
+                        (chainlink #58)
+    migrate             Recover managed-file conflicts and version skew
+                        (chainlink #58)
+    doctor              Capability manifest + installed-file/version
+                        diagnostics
+    version             Report the product version and executable build
+                        identity (chainlink #57)
+    schema              Inspect or export JSON Schemas shipped with this
+                        offline Ligature build
+    contract            Print the CLI contract bundled with this executable
+                        (#167)
+    status              Project state and gates; concept references resolve
+                        under each crate's declared specs_search_root
+                        (chainlink #56/#149); recorded Kani state is read
+                        cheaply by default
+    check               Read-only consolidated gate run + next action; concept
+                        references use each crate's declared specs_search_root
+                        (chainlink #56/#149); G14 reruns recorded Kani
+                        harnesses, which can take minutes and several GB per
+                        harness
+    write-set-check     Read-only write-set conformance report: files outside
+                        allowed_roots / inside protected_roots (chainlink #77)
+    authorize-write     Record one issue-scoped capability authorizing a
+                        single sanctioned write into a declared protected root
+                        (chainlink #114) -- a human checkpoint, or an identity
+                        the descriptor whitelists in
+                        write_set.authorized_supervisors
+    scaffold-crate      Write a missing crate's Cargo.toml and canonical
+                        src/lib.rs, deterministically, from the project
+                        descriptor (chainlink #115) -- the generator half of
+                        #114's capability record. The manifest write is
+                        protected and requires an active issue-scoped grant;
+                        the skeleton is inside allowed_roots and needs none
+    configure-crate     apply a declared typed profile to an existing crate
+                        manifest; the cargo-verus profile requires an exact
+                        issue-scoped write grant and runs Verus validation
+    configure-cargo-profile
+                        merge typed Cargo profile settings into the workspace-
+                        root Cargo.toml; requires an exact issue-scoped write
+                        grant
+    generate-work-package
+                        plan-driven Stage 7 manifest generation from an
+                        explicit validated plan; it does not infer package
+                        scope or synthesize plans from promoted I/O
+    gate                Cross-artifact gate runner: `gate <gate-id>`
+                        (docs/cli-contract.md §3); G14 reruns Kani and may
+                        take minutes and several GB per harness
+    report              Reporting commands: `report <report-id>` (docs/cli-
+                        contract.md §6)
+
+options:
+  -h, --help            show this help message and exit
+  --workspace WORKSPACE
+                        workspace root (global option; place before the
+                        subcommand)
+  --descriptor DESCRIPTOR
+                        Defaults to <workspace>/project-descriptor.json
+
+Global options such as --workspace and --descriptor must precede the subcommand.
+Exit codes and JSON support are command-specific. Only commands whose usage lists --json accept it; run ligature contract [--json] for the bundled CLI contract.
+
+stderr:
+
+
+## schema-help
+command: python3 icl-creusot-verus/tools/ligature/ligature.pyz schema show --help
+working_directory: /home/goya/storage/full-ligature-port-workspace
+environment_overrides: none
+exit: 0
+stdout:
+usage: ligature.pyz schema show [-h] [--json] name
+
+Print the exact bundled schema and any related bundled schema documents.
+
+positional arguments:
+  name        schema name printed by schema list, such as closure-profile
+
+options:
+  -h, --help  show this help message and exit
+  --json      emit a versioned schema export envelope
+
+stderr:
+
+
+## descriptor-schema
+command: python3 icl-creusot-verus/tools/ligature/ligature.pyz schema show --json project-descriptor
+working_directory: /home/goya/storage/full-ligature-port-workspace
+environment_overrides: none
+exit: 0
+stdout:
+{
+  "adjudicator": {
+    "content_hash": "sha256:bfc93caff9f5cbcfb62b9d12ab4c3761035589e7c9051683e8f2df474a5927bb",
+    "kind": "zipapp",
+    "source_commit": "89033eee6f0415e32ec1a2287110a1fb828dd0a8",
+    "verified": "true"
+  },
+  "format": "ligature.schema-export.v1",
+  "product_name": "ligature",
+  "product_version": "1.4.3",
+  "related_schemas": [],
+  "schema": {
+    "document": {
+      "$defs": {
+        "cluster_name": {
+          "description": "A cluster name, in the one form every other cluster-naming field in this pipeline already requires: docs/closure-profile-schema.json's `cluster` (which must equal the closure profile's own filename stem, G1b) and schemas/project-state.schema.json's `cluster`. Enforced here on `verifier_policy.clusters`' keys (chainlink #104) so a key that could not name a cluster in any artifact is refused at load rather than accepted as an override nothing will ever read.",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "type": "string"
+        },
+        "review": {
+          "additionalProperties": false,
+          "properties": {
+            "accepted_fixture_values": {
+              "description": "Explicit human acceptance of legitimate shipped fixture values that remain intentional. Each record is bound to the exact JSON value hash; changing the field makes the acceptance stale. Initialization creates no records.",
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "accepted_at": {
+                    "format": "date",
+                    "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+                    "type": "string"
+                  },
+                  "path": {
+                    "enum": [
+                      "review.reviewed_at",
+                      "port_source.language",
+                      "port_source.oracle_build_command",
+                      "verifier_policy.default"
+                    ],
+                    "type": "string"
+                  },
+                  "reviewer": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "value_sha256": {
+                    "pattern": "^sha256:[a-f0-9]{64}$",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "path",
+                  "value_sha256",
+                  "reviewer",
+                  "accepted_at"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "reviewed_at": {
+              "format": "date",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+              "type": "string"
+            },
+            "reviewer": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "reviewer",
+            "reviewed_at"
+          ],
+          "type": "object"
+        },
+        "verifier": {
+          "description": "The verifier systems this pipeline dispatches to: 'creusot' (deductive verification for Rust), 'verus' (deductive verification for Rust), 'kani' (model checking for Rust). Case-sensitive, exact match -- no composition ('verus+kani' is not a value; declare a second verifier under verifier_policy.supporting), no whitespace tolerance.",
+          "enum": [
+            "kani",
+            "creusot",
+            "verus"
+          ],
+          "type": "string"
+        }
+      },
+      "$id": "https://ligature-workspace/schemas/project-descriptor.schema.json",
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "additionalProperties": false,
+      "description": "Stage P0 input contract (plan.md \u00a71.1). One per project workspace. Every later stage reads this instead of hardcoding project shape.",
+      "else": {
+        "not": {
+          "required": [
+            "port_source"
+          ]
+        }
+      },
+      "if": {
+        "properties": {
+          "mode": {
+            "const": "port"
+          }
+        }
+      },
+      "properties": {
+        "closure_kind": {
+          "description": "The project's intended closure_kind for its clusters, declared before any code exists (chainlink #73). plan.md \u00a74's vocabulary: deductive = Creusot/Verus-owned (universal over inputs, modulo SMT completeness and trusted specs); bounded = Kani-owned (holds only within unwind/harness bounds and enumerated monomorphizations); partial = partially verified (chainlink #85) -- a pilot that knows it cannot achieve full deductive closure may declare that intent here instead of being limited to the two uniform claims its clusters can only round to. This records intent only -- each cluster's closure profile (specs/_closure/<cluster>.json) remains the authoritative per-cluster declaration at Stage 8C, and gate g14 recomputes closure_kind from the evidence actually present, rejecting a uniform kind the evidence refutes (a `deductive` claim over a closure containing a Kani result is a G17 hard error). Optional and deliberately absent from the init template: a project that has not chosen an intent yet must not be silently defaulted to 'deductive'.",
+          "enum": [
+            "deductive",
+            "bounded",
+            "partial"
+          ],
+          "type": "string"
+        },
+        "compatibility_policy": {
+          "additionalProperties": false,
+          "properties": {
+            "reliance_policy_path": {
+              "default": "docs/reliance-policy.md",
+              "description": "plan.md \u00a72 semantic policy doc, versioned governance -- not a one-time artifact.",
+              "type": "string"
+            },
+            "witness_policy_path": {
+              "description": "plan.md \u00a716.5 -- optional, only if the project declares feature witnesses.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "reliance_policy_path"
+          ],
+          "type": "object"
+        },
+        "crates": {
+          "description": "concept-to-code binding per crate -- replaces ad hoc --crate-dir/--contracts-crate/--specs-search-root flags (docs/concept-to-code-modifications.md gap #1).",
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "contracts_crate": {
+                "default": "contracts",
+                "description": "Name of the verifier-contracts facade crate this crate's generated stubs depend on.",
+                "type": "string"
+              },
+              "crate_dir": {
+                "description": "Path (workspace-relative) to the crate root containing src/ and tests/. Ligature resolves this path against the project workspace, rejects absolute or parent-traversing roots, and rejects symlinks that resolve outside the workspace; a missing in-scope directory is reported separately as a prerequisite.",
+                "type": "string"
+              },
+              "specs_search_root": {
+                "description": "Root directory searched for another crate's spec JSON when resolving implements/trait_ref/variants.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "crate_dir",
+              "contracts_crate",
+              "specs_search_root"
+            ],
+            "type": "object"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "gate_integrity": {
+          "description": "Gate-implementation paths to hash-pin (G13 validates before any gate runs, plan.md \u00a710/\u00a712).",
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "path": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "path"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "interaction_policy": {
+          "additionalProperties": false,
+          "description": "Optional R1/G16 policy. The default leaves the existing risk-tiered warning/decision/block behavior unchanged; an explicit true value requires every discovered call to reconcile before the gate passes.",
+          "properties": {
+            "require_complete_reconciliation": {
+              "description": "When true, R1/G16 blocks if any syntactically discovered call remains unresolved, undeclared, or configuration-mismatched. Absence or false preserves existing gate acceptance rules.",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "require_complete_reconciliation"
+          ],
+          "type": "object"
+        },
+        "llm_backend": {
+          "additionalProperties": false,
+          "description": "plan.md \u00a76.1 -- pluggable one-shot LLM backend for Stage 0/3 and findings-driven re-entry.",
+          "properties": {
+            "command": {
+              "description": "Override the default invocation (e.g. a non-default claude -p flag set). Ignored when kind == 'manual'.",
+              "type": "string"
+            },
+            "kind": {
+              "description": "manual = print the constructed prompt and wait for the user to run it themselves and hand back the result.",
+              "enum": [
+                "claude",
+                "codex",
+                "opencode",
+                "manual"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "type": "object"
+        },
+        "mode": {
+          "description": "greenfield = Mode R, requirements-governed decomposition (plan.md \u00a711). port = Mode P, a foreign-language source port validated by differential testing against an oracle.",
+          "enum": [
+            "greenfield",
+            "port"
+          ],
+          "type": "string"
+        },
+        "port_source": {
+          "additionalProperties": false,
+          "description": "Required when mode == 'port'; absent when mode == 'greenfield'.",
+          "properties": {
+            "language": {
+              "description": "Origin language, e.g. 'cpp'. Recorded here, not in concept-to-code's schema -- see docs/concept-to-code-modifications.md gap #3.",
+              "type": "string"
+            },
+            "oracle_build_command": {
+              "description": "Command that builds/runs the origin-language oracle used for Mode P differential testing (plan.md \u00a711).",
+              "type": "string"
+            },
+            "repository": {
+              "description": "Path or URL to the source-of-truth repository being ported (e.g. the C++ project).",
+              "type": "string"
+            }
+          },
+          "required": [
+            "repository",
+            "language",
+            "oracle_build_command"
+          ],
+          "type": "object"
+        },
+        "project": {
+          "additionalProperties": false,
+          "properties": {
+            "crate_naming_convention": {
+              "description": "This project's own crate/package naming rule, prose or regex (e.g. '^myproj-[a-z]+'). Never hardcoded by the pipeline itself -- see docs/concept-to-code-modifications.md gap #4.",
+              "type": "string"
+            },
+            "name": {
+              "description": "Project identifier, used as a namespace prefix in generated artifact paths.",
+              "pattern": "^[a-z][a-z0-9-]*$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "crate_naming_convention"
+          ],
+          "type": "object"
+        },
+        "review": {
+          "$ref": "#/$defs/review"
+        },
+        "schema_version": {
+          "const": "1.0",
+          "type": "string"
+        },
+        "verifier_backends": {
+          "additionalProperties": false,
+          "description": "plan.md \u00a78.3 / chainlink #47 -- pluggable verifier dispatch, one command per verifier system, exactly as llm_backend is a pluggable one-shot command for Stage 0/3. `pipeline.py check-bridges` compiles a promoted bridge's bridge_logic to a harness and invokes the command for the verifier that owns the bridge's cluster, appending the generated harness path. The command must print one JSON verdict object on stdout: {result: pass|fail, scope, assumptions, config}. Optional and deliberately absent by default: with no backend configured, no bridge check is recorded and the gate blocks -- a verifier that never ran must never produce a pass, so the ceiling stays harness-tested (never bridge-checked).",
+          "properties": {
+            "creusot": {
+              "additionalProperties": false,
+              "properties": {
+                "command": {
+                  "description": "Invocation, split on whitespace; the harness path is appended as the final argument.",
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "command"
+              ],
+              "type": "object"
+            },
+            "kani": {
+              "additionalProperties": false,
+              "properties": {
+                "command": {
+                  "description": "Invocation, split on whitespace; the harness path is appended as the final argument.",
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "command"
+              ],
+              "type": "object"
+            },
+            "verus": {
+              "additionalProperties": false,
+              "properties": {
+                "command": {
+                  "description": "Invocation, split on whitespace; the harness path is appended as the final argument.",
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "command"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "verifier_policy": {
+          "additionalProperties": false,
+          "description": "Which verifier system owns which cluster (plan.md \u00a74). CLOSED -- exactly three keys: 'default' (required), 'clusters', and 'supporting'. This was the descriptor's only open object until chainlink #104, where 'additionalProperties: {$ref: verifier}' made the whole rule 'any key name, as long as its value is a member of the verifier enum'. That made a misspelling ('defualt', 'fallback') indistinguishable from a real per-cluster override: {\"default\": \"creusot\", \"defualt\": \"kani\"} validated as an override for a cluster literally named 'defualt', 'check' exited 0 with no findings, and nothing would ever read it. Per-cluster overrides live under 'clusters' instead, where a key is either a cluster name or a typo of one, and 'clusters' constrains its own keys with the same ^[a-z0-9]+(?:-[a-z0-9]+)*$ pattern every cluster name in this pipeline already follows (docs/closure-profile-schema.json, schemas/project-state.schema.json) -- so a key that could not name a cluster at all is rejected at load instead of waiting forever to be read. 'supporting' is the declared shape for a second or supporting verifier whose evidence backs the primary one (e.g. a deductive cluster with a model-checking fallback); order is not significant, duplicates are permitted but meaningless. Every value is a member of the verifier enum.",
+          "properties": {
+            "clusters": {
+              "additionalProperties": {
+                "$ref": "#/$defs/verifier"
+              },
+              "description": "Per-cluster verifier overrides, keyed by cluster name -- the documented home for what used to be arbitrary sibling keys of 'default' (chainlink #104). A cluster not listed here uses 'default'; a key that names no cluster in the workspace is simply never read, which is why the key pattern below is enforced rather than left to convention. Optional and absent by default: a single-verifier project declares only 'default'.",
+              "propertyNames": {
+                "$ref": "#/$defs/cluster_name"
+              },
+              "type": "object"
+            },
+            "default": {
+              "$ref": "#/$defs/verifier",
+              "description": "The verifier for every cluster not listed under 'clusters'. Required: without it no cluster has an owner."
+            },
+            "supporting": {
+              "description": "Additional verifiers whose evidence supports the primary one (chainlink #76) -- the real shape for multi-verifier composition, replacing the accident of an arbitrary extra key holding a second enum member (which validated while nothing ever read it). Order is not significant; duplicates are permitted but meaningless.",
+              "items": {
+                "$ref": "#/$defs/verifier"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "default"
+          ],
+          "type": "object"
+        },
+        "witness_backend": {
+          "additionalProperties": false,
+          "description": "plan.md \u00a716.2 / chainlink #30 -- pluggable witness producer dispatch, one command, exactly as verifier_backends is pluggable dispatch for #47. `pipeline.py gate-g19` invokes this command fresh for every genuinely valid witness spec, appending --witness-id, --concept, --query, --fixture-id, --seed and --renderer taken from that spec's OWN current fields -- so a regenerated result's identity cannot silently disagree with what the spec currently declares, it was constructed from those exact values. The command must print one JSON canonical result object on stdout, matching docs/witness-result-schema.json (the same contract tests/fixtures/witnesses/stand_in_producer.py already implements). Optional and deliberately absent by default: with no backend configured, G19 cannot verify a determinism claim against an actual run and blocks -- a query that was never re-evaluated must never produce a pass.",
+          "properties": {
+            "command": {
+              "description": "Invocation, split on whitespace; --witness-id/--concept/--query/--fixture-id/--seed/--renderer are appended.",
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "command"
+          ],
+          "type": "object"
+        },
+        "write_set": {
+          "additionalProperties": false,
+          "description": "The enforcement boundary for where the implementing agent may write (chainlink #77). Enforced read-only by `ligature write-set-check`: a file outside every allowed_roots pattern and not accounted for by the ownership manifest, a declared user-owned document, a pipeline artifact, a declared crate's specs/ tree, a canonical pipeline location, or the pinned upstream checkout is an out-of-set write, reported as a high-severity write-set finding in check --json and as status --json's write_set.state; a file inside a protected_roots pattern with no declaration vouching for it and no active issue-scoped write grant authorizing it is a blocking protected-write. A pattern matching every path (e.g. \"**\") or an empty protected_roots declares no boundary and is itself reported as a violation. `protected_roots` is a category that is enforced, never one that accounts: being inside one is the thing to be enforced (chainlink #103), and the only way a write there becomes sanctioned is a capability record bound to one issue, path, operation and expiry (chainlink #114).",
+          "properties": {
+            "allowed_roots": {
+              "description": "Default allowed_write_set roots (plan.md \u00a710) -- a starting point each work package narrows, never widens.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "authorized_supervisors": {
+              "description": "The identities allowed to issue a write grant in the SUPERVISOR lane (chainlink #114) -- the explicit machine-checkable whitelist `ligature authorize-write --issuer-kind supervisor` is checked against, and which `write-set-check` re-verifies every time it honors a record, so a record naming an identity nobody declared authorizes nothing. A supervisor grant is the automation path for a recurring sanctioned protected-root write; a human issues one with `--issuer-kind human` and a named `--issuer` instead, on the same terms as `approve`/`accept-policy`/`record-ruling`. The scoping beyond identity -- which issue, path, operation and TTL -- is the grant record's own binding, recomputed on read, not a property of this list. Optional and deliberately absent by default, like `closure_kind`: a project that authorizes no automation declares no supervisor, and this stays an empty/absent list until an operator writes one.",
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "protected_roots": {
+              "description": "Default protected_write_set roots (plan.md \u00a710) -- specs, CI manifests, gate scripts, schemas, policy docs, Cargo/build files, harnesses, toolchain pins. ENFORCED, not advisory (chainlink #103): a file inside one of these patterns and outside every allowed_roots pattern is a write into a protected root unless a declaration vouches for that specific file (the ownership manifest's managed set, a declared user-owned document, the ownership manifest itself, or a pipeline artifact the artifact system recognizes), or an active issue-scoped write grant authorizes that exact write (chainlink #114: `ligature authorize-write --issue N --path P --op K`, recorded in ci/results/protected-writes.jsonl, consumed only by write-set-check/status/check run with that same `--issue N`). A grant cannot widen allowed_roots, authorize another operation, outlive its TTL (nor begin before it: a record whose issued_at is still ahead of the consuming run's clock is reported `not-yet-issued` and authorizes nothing), or cover another issue or path; and a workspace whose own protected_roots cover ci/results/ can neither record a grant nor consume one: `authorize-write` refuses to record, and the reader reports every record in such a ledger as `ledger-protected` and honors none, so a capability trail inside a protected root cannot authorize writes there or vouch for its own presence there. A file inside a protected root the pipeline owns that the artifact system does not recognize and that no active grant covers is a `protected-write` violation -- blocking, exit 1, one high-severity write-set finding. A file inside a protected root the pipeline writes nothing into (a project's own Cargo.toml, .github/, scripts/) is reported in `protected_unvouched` and in `write-set-check --json`'s per-pattern `protected_surface`, non-blocking, because nothing in the workspace separates the project's file from an agent's; every declared pattern is reported with its file count, including one matching no file at all.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "allowed_roots",
+            "protected_roots"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "schema_version",
+        "project",
+        "mode",
+        "crates",
+        "verifier_policy",
+        "compatibility_policy",
+        "write_set",
+        "gate_integrity",
+        "review"
+      ],
+      "then": {
+        "required": [
+          "port_source"
+        ]
+      },
+      "title": "Reliance-graph pipeline project structure descriptor",
+      "type": "object"
+    },
+    "name": "project-descriptor",
+    "path": "schemas/project-descriptor.schema.json",
+    "schema_version": "1.0",
+    "sha256": "sha256:a6166c6d70ee97b60e3656133908315c297b3f7470202659fd20731c087c534b"
+  }
+}
+
+stderr:
+
+
+## toolchain-command
+command: python3 icl-creusot-verus/tools/ligature/ligature.pyz toolchain --help
+working_directory: /home/goya/storage/full-ligature-port-workspace
+environment_overrides: none
+exit: 2
+stdout:
+
+stderr:
+usage: ligature.pyz [-h] [--workspace WORKSPACE] [--descriptor DESCRIPTOR]
+                    {validate,validate-interaction,validate-exemption,validate-protocol-debt,validate-bridge,validate-evidence,validate-conflict-resolution,validate-work-package,validate-promotion,accept-promotion,record-ruling,accept-policy,accept-fixture-value,draft,approve,approve-pair,approve-exemption-pair,promote-evidence,record-assurance,extract-c-static,validate-callsites,gate-r1-g16,render-witness,validate-witness,validate-gold-set,measure-gold-set,check-bridges,gate-g9,validate-closure,gate-g14,select-pilot-cluster,gate-g18,gate-g19,gate-g20,generate-feature-ledger,generate-contact-sheet,init,migrate,doctor,version,schema,contract,status,check,write-set-check,authorize-write,scaffold-crate,configure-crate,configure-cargo-profile,generate-work-package,gate,report}
+                    ...
+ligature.pyz: error: argument command: invalid choice: 'toolchain' (choose from 'validate', 'validate-interaction', 'validate-exemption', 'validate-protocol-debt', 'validate-bridge', 'validate-evidence', 'validate-conflict-resolution', 'validate-work-package', 'validate-promotion', 'accept-promotion', 'record-ruling', 'accept-policy', 'accept-fixture-value', 'draft', 'approve', 'approve-pair', 'approve-exemption-pair', 'promote-evidence', 'record-assurance', 'extract-c-static', 'validate-callsites', 'gate-r1-g16', 'render-witness', 'validate-witness', 'validate-gold-set', 'measure-gold-set', 'check-bridges', 'gate-g9', 'validate-closure', 'gate-g14', 'select-pilot-cluster', 'gate-g18', 'gate-g19', 'gate-g20', 'generate-feature-ledger', 'generate-contact-sheet', 'init', 'migrate', 'doctor', 'version', 'schema', 'contract', 'status', 'check', 'write-set-check', 'authorize-write', 'scaffold-crate', 'configure-crate', 'configure-cargo-profile', 'generate-work-package', 'gate', 'report')
+
+
+## verifier-command
+command: python3 icl-creusot-verus/tools/ligature/ligature.pyz verifier --help
+working_directory: /home/goya/storage/full-ligature-port-workspace
+environment_overrides: none
+exit: 2
+stdout:
+
+stderr:
+usage: ligature.pyz [-h] [--workspace WORKSPACE] [--descriptor DESCRIPTOR]
+                    {validate,validate-interaction,validate-exemption,validate-protocol-debt,validate-bridge,validate-evidence,validate-conflict-resolution,validate-work-package,validate-promotion,accept-promotion,record-ruling,accept-policy,accept-fixture-value,draft,approve,approve-pair,approve-exemption-pair,promote-evidence,record-assurance,extract-c-static,validate-callsites,gate-r1-g16,render-witness,validate-witness,validate-gold-set,measure-gold-set,check-bridges,gate-g9,validate-closure,gate-g14,select-pilot-cluster,gate-g18,gate-g19,gate-g20,generate-feature-ledger,generate-contact-sheet,init,migrate,doctor,version,schema,contract,status,check,write-set-check,authorize-write,scaffold-crate,configure-crate,configure-cargo-profile,generate-work-package,gate,report}
+                    ...
+ligature.pyz: error: argument command: invalid choice: 'verifier' (choose from 'validate', 'validate-interaction', 'validate-exemption', 'validate-protocol-debt', 'validate-bridge', 'validate-evidence', 'validate-conflict-resolution', 'validate-work-package', 'validate-promotion', 'accept-promotion', 'record-ruling', 'accept-policy', 'accept-fixture-value', 'draft', 'approve', 'approve-pair', 'approve-exemption-pair', 'promote-evidence', 'record-assurance', 'extract-c-static', 'validate-callsites', 'gate-r1-g16', 'render-witness', 'validate-witness', 'validate-gold-set', 'measure-gold-set', 'check-bridges', 'gate-g9', 'validate-closure', 'gate-g14', 'select-pilot-cluster', 'gate-g18', 'gate-g19', 'gate-g20', 'generate-feature-ledger', 'generate-contact-sheet', 'init', 'migrate', 'doctor', 'version', 'schema', 'contract', 'status', 'check', 'write-set-check', 'authorize-write', 'scaffold-crate', 'configure-crate', 'configure-cargo-profile', 'generate-work-package', 'gate', 'report')
+

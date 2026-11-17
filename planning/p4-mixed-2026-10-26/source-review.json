@@ -1,0 +1,198 @@
+[
+  {
+    "repository": "boostorg/icl",
+    "path": "include/boost/icl/interval_base_set.hpp",
+    "url": "https://raw.githubusercontent.com/boostorg/icl/2741c3a1b7b79f7326360c26c3e1588b385c9e53/include/boost/icl/interval_base_set.hpp",
+    "sha256": "5cb98764627ac043ab0147bce3e9c6971c202c64fb9477b157c8b7e3f5461fb3",
+    "bytes": 22501
+  },
+  {
+    "repository": "boostorg/icl",
+    "path": "include/boost/icl/interval_set.hpp",
+    "url": "https://raw.githubusercontent.com/boostorg/icl/2741c3a1b7b79f7326360c26c3e1588b385c9e53/include/boost/icl/interval_set.hpp",
+    "sha256": "0dd22523e725d3ffe8b26a7f8a02f7d5bdcbd5f0980ba7cefc98df54d0d56900",
+    "bytes": 8124
+  },
+  {
+    "repository": "boostorg/icl",
+    "path": "include/boost/icl/interval_map.hpp",
+    "url": "https://raw.githubusercontent.com/boostorg/icl/2741c3a1b7b79f7326360c26c3e1588b385c9e53/include/boost/icl/interval_map.hpp",
+    "sha256": "148f58970b08a71db186ea2d9533d0b6e0c50b96c15e9eb46bcf5b858d6bf6a6",
+    "bytes": 11872
+  },
+  {
+    "repository": "boostorg/icl",
+    "path": "include/boost/icl/concept/interval.hpp",
+    "url": "https://raw.githubusercontent.com/boostorg/icl/2741c3a1b7b79f7326360c26c3e1588b385c9e53/include/boost/icl/concept/interval.hpp",
+    "sha256": "80273773794672ba913073bc8e033dd441bff5ca3d6ad6fc3989fff86720214d",
+    "bytes": 54214
+  },
+  {
+    "repository": "boostorg/icl",
+    "path": "test/Jamfile.v2",
+    "url": "https://raw.githubusercontent.com/boostorg/icl/2741c3a1b7b79f7326360c26c3e1588b385c9e53/test/Jamfile.v2",
+    "sha256": "4bb97849ea7da0e30bbc1bee6704e409f62e6e354ace084ac2cdf36d862fc4de",
+    "bytes": 6907
+  },
+  {
+    "repository": "leethomason/tinyxml2",
+    "path": "tinyxml2.cpp",
+    "url": "https://raw.githubusercontent.com/leethomason/tinyxml2/9148bdf719e997d1f474be6bcc7943881046dba1/tinyxml2.cpp",
+    "sha256": "95f64e4cb06c9e147d5b12e8860c88898944858dfbc38fed92ebf918f1436554",
+    "bytes": 78553
+  },
+  {
+    "repository": "leethomason/tinyxml2",
+    "path": "tinyxml2.h",
+    "url": "https://raw.githubusercontent.com/leethomason/tinyxml2/9148bdf719e997d1f474be6bcc7943881046dba1/tinyxml2.h",
+    "sha256": "0f3c6e5a91b6d65caca3cc7239926455f21e488cff80ac3d27c74f5262fd2602",
+    "bytes": 74466
+  },
+  {
+    "repository": "leethomason/tinyxml2",
+    "path": "xmltest.cpp",
+    "url": "https://raw.githubusercontent.com/leethomason/tinyxml2/9148bdf719e997d1f474be6bcc7943881046dba1/xmltest.cpp",
+    "sha256": "a49d6825e4a3c06a8b4945bddcc4dd57a026a87305f63e75b71f36cf3037a848",
+    "bytes": 96742
+  },
+  {
+    "repository": "leethomason/tinyxml2",
+    "path": "readme.md",
+    "url": "https://raw.githubusercontent.com/leethomason/tinyxml2/9148bdf719e997d1f474be6bcc7943881046dba1/readme.md",
+    "sha256": "ceb7febab1c54720681a55e0cff79f3e87e10e96c44bcd7fecc4a99337eae017",
+    "bytes": 11667
+  },
+  {
+    "repository": "leethomason/tinyxml2",
+    "path": "LICENSE.txt",
+    "url": "https://raw.githubusercontent.com/leethomason/tinyxml2/9148bdf719e997d1f474be6bcc7943881046dba1/LICENSE.txt",
+    "sha256": "9332252e9b9e46db8285d4a3f0bf25f139bf1dca6781b956d57f2302efca6432",
+    "bytes": 808
+  },
+  {
+    "repository": "google/snappy",
+    "path": "snappy.cc",
+    "url": "https://raw.githubusercontent.com/google/snappy/6af9287fbdb913f0794d0148c6aa43b58e63c8e3/snappy.cc",
+    "sha256": "614766218acd35f7cee9f2e91b56a0890cb218045044ebf026010ffc883cf344",
+    "bytes": 100564
+  },
+  {
+    "repository": "google/snappy",
+    "path": "snappy-internal.h",
+    "url": "https://raw.githubusercontent.com/google/snappy/6af9287fbdb913f0794d0148c6aa43b58e63c8e3/snappy-internal.h",
+    "sha256": "a0337b8596cf7f49caa85dfdcc592261621a3007c800d6d66d95f076b7e1f505",
+    "bytes": 16857
+  },
+  {
+    "repository": "google/snappy",
+    "path": "snappy-sinksource.h",
+    "url": "https://raw.githubusercontent.com/google/snappy/6af9287fbdb913f0794d0148c6aa43b58e63c8e3/snappy-sinksource.h",
+    "sha256": "ba6308f8d64d670fbb068284096e2f4685e3919ed213a6de1a185aa3680203bb",
+    "bytes": 7265
+  },
+  {
+    "repository": "google/snappy",
+    "path": "snappy_unittest.cc",
+    "url": "https://raw.githubusercontent.com/google/snappy/6af9287fbdb913f0794d0148c6aa43b58e63c8e3/snappy_unittest.cc",
+    "sha256": "dd568b8ff6cad7ba7d64828cd527377c9236bace69fbec4ee600715495090ae1",
+    "bytes": 36724
+  },
+  {
+    "repository": "google/snappy",
+    "path": "format_description.txt",
+    "url": "https://raw.githubusercontent.com/google/snappy/6af9287fbdb913f0794d0148c6aa43b58e63c8e3/format_description.txt",
+    "sha256": "66e33c4190e7be39477864d58ad7b581ca0e65e9aca4e97e91db45256ee9a203",
+    "bytes": 4388
+  },
+  {
+    "repository": "google/snappy",
+    "path": "COPYING",
+    "url": "https://raw.githubusercontent.com/google/snappy/6af9287fbdb913f0794d0148c6aa43b58e63c8e3/COPYING",
+    "sha256": "55172044f7e241207117448a4d9d6ba1d0925c8ad66b5d4c08c70adfa9cc3de6",
+    "bytes": 2645
+  },
+  {
+    "repository": "google/leveldb",
+    "path": "db/log_writer.cc",
+    "url": "https://raw.githubusercontent.com/google/leveldb/99b3c03b3284f5886f9ef9a4ef703d57373e61be/db/log_writer.cc",
+    "sha256": "987154bb04f6867d9c8bec49e92d49e8d62711e2af6bfe1c6c353fcdf482705b",
+    "bytes": 3132
+  },
+  {
+    "repository": "google/leveldb",
+    "path": "db/log_reader.cc",
+    "url": "https://raw.githubusercontent.com/google/leveldb/99b3c03b3284f5886f9ef9a4ef703d57373e61be/db/log_reader.cc",
+    "sha256": "8138df3a296a64e17138063b2b431834d615d58edf0196752077a57c9c082c53",
+    "bytes": 8871
+  },
+  {
+    "repository": "google/leveldb",
+    "path": "db/log_test.cc",
+    "url": "https://raw.githubusercontent.com/google/leveldb/99b3c03b3284f5886f9ef9a4ef703d57373e61be/db/log_test.cc",
+    "sha256": "112258d1a98bcfac28b0e54582a5d2465b79fb1fca2571f5cf630146bbb3ef73",
+    "bytes": 15983
+  },
+  {
+    "repository": "google/leveldb",
+    "path": "db/write_batch.cc",
+    "url": "https://raw.githubusercontent.com/google/leveldb/99b3c03b3284f5886f9ef9a4ef703d57373e61be/db/write_batch.cc",
+    "sha256": "426b141167be1929ac22e98fa8314c8a3b2d7733c3507a21781d8ae3875ab70c",
+    "bytes": 4166
+  },
+  {
+    "repository": "google/leveldb",
+    "path": "table/block.cc",
+    "url": "https://raw.githubusercontent.com/google/leveldb/99b3c03b3284f5886f9ef9a4ef703d57373e61be/table/block.cc",
+    "sha256": "0ae1b32f52ca06e650e98d3b91842c615f0348bc190f03c1414c77a2a3d73390",
+    "bytes": 8962
+  },
+  {
+    "repository": "google/leveldb",
+    "path": "table/block_builder.cc",
+    "url": "https://raw.githubusercontent.com/google/leveldb/99b3c03b3284f5886f9ef9a4ef703d57373e61be/table/block_builder.cc",
+    "sha256": "7f2e0fcf9a0757bf004cf2643fdcb91365db852fabaddad429554b3a66c7323e",
+    "bytes": 3620
+  },
+  {
+    "repository": "google/leveldb",
+    "path": "table/table_test.cc",
+    "url": "https://raw.githubusercontent.com/google/leveldb/99b3c03b3284f5886f9ef9a4ef703d57373e61be/table/table_test.cc",
+    "sha256": "43a041c282b2d5c37fb12bfa4df550e2c74541ead7115d9bedcac9c2adda34c2",
+    "bytes": 24279
+  },
+  {
+    "repository": "google/leveldb",
+    "path": "util/coding.cc",
+    "url": "https://raw.githubusercontent.com/google/leveldb/99b3c03b3284f5886f9ef9a4ef703d57373e61be/util/coding.cc",
+    "sha256": "2914955aeaf0adee6806eacf58ec2a672ee05ace83f4a67bc76a76e57ed0cf17",
+    "bytes": 4211
+  },
+  {
+    "repository": "google/leveldb",
+    "path": "util/crc32c.cc",
+    "url": "https://raw.githubusercontent.com/google/leveldb/99b3c03b3284f5886f9ef9a4ef703d57373e61be/util/crc32c.cc",
+    "sha256": "8c1aec67c91907142e22f4eba5b305f748599aa944c7598abf6c80f59846ce2a",
+    "bytes": 21150
+  },
+  {
+    "repository": "google/leveldb",
+    "path": "doc/log_format.md",
+    "url": "https://raw.githubusercontent.com/google/leveldb/99b3c03b3284f5886f9ef9a4ef703d57373e61be/doc/log_format.md",
+    "sha256": "1796ccc965e1ca2fe3479ce7b5bf7afd3afcd9e2c00c5950d6be3fe03b7ffefd",
+    "bytes": 2921
+  },
+  {
+    "repository": "google/leveldb",
+    "path": "doc/table_format.md",
+    "url": "https://raw.githubusercontent.com/google/leveldb/99b3c03b3284f5886f9ef9a4ef703d57373e61be/doc/table_format.md",
+    "sha256": "16f96b651b8ee0a20fbc81da0c76b0e65b7d0981333569e8940770e9a5bc4fc0",
+    "bytes": 3790
+  },
+  {
+    "repository": "google/leveldb",
+    "path": "LICENSE",
+    "url": "https://raw.githubusercontent.com/google/leveldb/99b3c03b3284f5886f9ef9a4ef703d57373e61be/LICENSE",
+    "sha256": "ccc19f1da0798ed666609b65a5b44dd8b3abe6fc08b9c0592eb76e82e174db19",
+    "bytes": 1484
+  }
+]

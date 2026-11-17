@@ -1,0 +1,34 @@
+== P4 root smoke check: snappy-verus-kani ==
+root: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani
+PASS: independent Git root
+PASS: branch is main
+INFO: commits=0 (setup roots are uncommitted until the operator's baseline commit)
+PASS: present: README.md
+PASS: present: SOURCE-PIN.json
+PASS: present: PORT-GAPS.md
+PASS: present: .gitignore
+PASS: present: findings/limitations.jsonl
+PASS: present: analysis/setup/SETUP.md
+PASS: present: analysis/setup/root-setup.json
+PASS: present: oracle/README.md
+PASS: present: oracle/oracle-PROTOCOL.md
+PASS: 2 finding record(s) valid
+PASS: oracle/oracle-PROTOCOL.md matches workspace protocol
+PASS: no protected paths created
+INFO: verifiers=verus kani
+PASS: Verus present: 0.2026.05.24.ecee80a
+PASS: Kani present: cargo-kani 0.67.0
+PASS verus-1.95-probe
+  verus: 0.2026.05.24.ecee80a
+  rustc 1.95.0 (59807616e 2026-04-14)
+  proof: "verified":1,
+  evidence: /tmp/p4-smoke-snappy-verus-kani-3592755/verus/probe-result.json
+PASS: verus probe
+PASS kani-0.67-probe
+  cargo-kani 0.67.0
+  rustc 1.95.0 (59807616e 2026-04-14)
+  summary:  ** 0 of 3 failed
+  evidence: /tmp/p4-smoke-snappy-verus-kani-3592755/kani/probe-result.json
+PASS: kani probe
+INFO: probe workdir: /tmp/p4-smoke-snappy-verus-kani-3592755
+== result: snappy-verus-kani: 0 failure(s) ==

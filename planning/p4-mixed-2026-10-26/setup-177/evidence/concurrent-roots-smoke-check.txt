@@ -1,0 +1,130 @@
+===== icl-creusot-verus =====
+# root: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus
+[PASS] root directory exists: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus
+[PASS] independent Git work-tree root: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus
+[PASS] git work-tree: true
+[FAIL] descriptor exists: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/project-descriptor.json
+[FAIL] root-local Ligature bundle exists: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/tools/ligature
+[FAIL] upstream pin exists: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/upstream/upstream-pin.json
+[FAIL] icl-creusot-verus-creusot: crate directory exists: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/rust/icl-creusot-verus-creusot
+[FAIL] icl-creusot-verus-creusot: Cargo.toml exists: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/rust/icl-creusot-verus-creusot/Cargo.toml
+[FAIL] icl-creusot-verus-creusot: Cargo.lock exists: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/rust/icl-creusot-verus-creusot/Cargo.lock
+[FAIL] icl-creusot-verus-creusot: rust-toolchain.toml exists: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/rust/icl-creusot-verus-creusot/rust-toolchain.toml
+[FAIL] icl-creusot-verus-creusot: .cargo/config.toml exists: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/rust/icl-creusot-verus-creusot/.cargo/config.toml
+[PASS] icl-creusot-verus-creusot: no repository-local target/ tree: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/rust/icl-creusot-verus-creusot/target
+[WARN] icl-creusot-verus-creusot: verif/ is absent before the first proof: created by the first Creusot run
+[FAIL] icl-creusot-verus-verus: crate directory exists: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/rust/icl-creusot-verus-verus
+[FAIL] icl-creusot-verus-verus: Cargo.toml exists: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/rust/icl-creusot-verus-verus/Cargo.toml
+[FAIL] icl-creusot-verus-verus: Cargo.lock exists: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/rust/icl-creusot-verus-verus/Cargo.lock
+[FAIL] icl-creusot-verus-verus: rust-toolchain.toml exists: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/rust/icl-creusot-verus-verus/rust-toolchain.toml
+[FAIL] icl-creusot-verus-verus: .cargo/config.toml exists: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/rust/icl-creusot-verus-verus/.cargo/config.toml
+[PASS] icl-creusot-verus-verus: no repository-local target/ tree: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/rust/icl-creusot-verus-verus/target
+[PASS] no root-level Cargo.toml workspace: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/Cargo.toml
+[PASS] oracle/ exists: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/oracle
+[PASS] findings/limitations.jsonl exists: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/findings/limitations.jsonl
+[PASS] PORT-GAPS.md exists: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/PORT-GAPS.md
+[FAIL] creusot: durable per-tool evidence root exists: missing analysis/*/results-creusot/
+[FAIL] verus: durable per-tool evidence root exists: missing analysis/*/results-verus/
+[PASS] no shared mutable ledger/closure marker: [PosixPath('/home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/ci/ledger'), PosixPath('/home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/specs/_closure/shared')]
+
+10 passed, 1 warnings, 15 failed
+exit=1
+===== tinyxml2-creusot-kani =====
+# root: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani
+[PASS] root directory exists: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani
+[PASS] independent Git work-tree root: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani
+[PASS] git work-tree: true
+[FAIL] descriptor exists: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/project-descriptor.json
+[FAIL] root-local Ligature bundle exists: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/tools/ligature
+[FAIL] upstream pin exists: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/upstream/upstream-pin.json
+[FAIL] tinyxml2-creusot-kani-creusot: crate directory exists: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/rust/tinyxml2-creusot-kani-creusot
+[FAIL] tinyxml2-creusot-kani-creusot: Cargo.toml exists: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/rust/tinyxml2-creusot-kani-creusot/Cargo.toml
+[FAIL] tinyxml2-creusot-kani-creusot: Cargo.lock exists: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/rust/tinyxml2-creusot-kani-creusot/Cargo.lock
+[FAIL] tinyxml2-creusot-kani-creusot: rust-toolchain.toml exists: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/rust/tinyxml2-creusot-kani-creusot/rust-toolchain.toml
+[FAIL] tinyxml2-creusot-kani-creusot: .cargo/config.toml exists: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/rust/tinyxml2-creusot-kani-creusot/.cargo/config.toml
+[PASS] tinyxml2-creusot-kani-creusot: no repository-local target/ tree: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/rust/tinyxml2-creusot-kani-creusot/target
+[WARN] tinyxml2-creusot-kani-creusot: verif/ is absent before the first proof: created by the first Creusot run
+[FAIL] tinyxml2-creusot-kani-kani: crate directory exists: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/rust/tinyxml2-creusot-kani-kani
+[FAIL] tinyxml2-creusot-kani-kani: Cargo.toml exists: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/rust/tinyxml2-creusot-kani-kani/Cargo.toml
+[FAIL] tinyxml2-creusot-kani-kani: Cargo.lock exists: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/rust/tinyxml2-creusot-kani-kani/Cargo.lock
+[FAIL] tinyxml2-creusot-kani-kani: rust-toolchain.toml exists: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/rust/tinyxml2-creusot-kani-kani/rust-toolchain.toml
+[FAIL] tinyxml2-creusot-kani-kani: .cargo/config.toml exists: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/rust/tinyxml2-creusot-kani-kani/.cargo/config.toml
+[PASS] tinyxml2-creusot-kani-kani: no repository-local target/ tree: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/rust/tinyxml2-creusot-kani-kani/target
+[PASS] no root-level Cargo.toml workspace: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/Cargo.toml
+[PASS] oracle/ exists: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/oracle
+[PASS] findings/limitations.jsonl exists: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/findings/limitations.jsonl
+[PASS] PORT-GAPS.md exists: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/PORT-GAPS.md
+[FAIL] creusot: durable per-tool evidence root exists: missing analysis/*/results-creusot/
+[FAIL] kani: durable per-tool evidence root exists: missing analysis/*/results-kani/
+[PASS] no shared mutable ledger/closure marker: [PosixPath('/home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/ci/ledger'), PosixPath('/home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani/specs/_closure/shared')]
+
+10 passed, 1 warnings, 15 failed
+exit=1
+===== snappy-verus-kani =====
+# root: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani
+[PASS] root directory exists: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani
+[PASS] independent Git work-tree root: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani
+[PASS] git work-tree: true
+[FAIL] descriptor exists: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/project-descriptor.json
+[FAIL] root-local Ligature bundle exists: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/tools/ligature
+[FAIL] upstream pin exists: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/upstream/upstream-pin.json
+[FAIL] snappy-verus-kani-verus: crate directory exists: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/rust/snappy-verus-kani-verus
+[FAIL] snappy-verus-kani-verus: Cargo.toml exists: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/rust/snappy-verus-kani-verus/Cargo.toml
+[FAIL] snappy-verus-kani-verus: Cargo.lock exists: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/rust/snappy-verus-kani-verus/Cargo.lock
+[FAIL] snappy-verus-kani-verus: rust-toolchain.toml exists: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/rust/snappy-verus-kani-verus/rust-toolchain.toml
+[FAIL] snappy-verus-kani-verus: .cargo/config.toml exists: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/rust/snappy-verus-kani-verus/.cargo/config.toml
+[PASS] snappy-verus-kani-verus: no repository-local target/ tree: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/rust/snappy-verus-kani-verus/target
+[FAIL] snappy-verus-kani-kani: crate directory exists: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/rust/snappy-verus-kani-kani
+[FAIL] snappy-verus-kani-kani: Cargo.toml exists: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/rust/snappy-verus-kani-kani/Cargo.toml
+[FAIL] snappy-verus-kani-kani: Cargo.lock exists: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/rust/snappy-verus-kani-kani/Cargo.lock
+[FAIL] snappy-verus-kani-kani: rust-toolchain.toml exists: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/rust/snappy-verus-kani-kani/rust-toolchain.toml
+[FAIL] snappy-verus-kani-kani: .cargo/config.toml exists: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/rust/snappy-verus-kani-kani/.cargo/config.toml
+[PASS] snappy-verus-kani-kani: no repository-local target/ tree: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/rust/snappy-verus-kani-kani/target
+[PASS] no root-level Cargo.toml workspace: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/Cargo.toml
+[PASS] oracle/ exists: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/oracle
+[PASS] findings/limitations.jsonl exists: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/findings/limitations.jsonl
+[PASS] PORT-GAPS.md exists: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/PORT-GAPS.md
+[FAIL] verus: durable per-tool evidence root exists: missing analysis/*/results-verus/
+[FAIL] kani: durable per-tool evidence root exists: missing analysis/*/results-kani/
+[PASS] no shared mutable ledger/closure marker: [PosixPath('/home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/ci/ledger'), PosixPath('/home/goya/storage/full-ligature-port-workspace/snappy-verus-kani/specs/_closure/shared')]
+
+10 passed, 0 warnings, 15 failed
+exit=1
+===== leveldb-three-verifiers =====
+# root: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers
+[PASS] root directory exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers
+[PASS] independent Git work-tree root: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers
+[PASS] git work-tree: true
+[FAIL] descriptor exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/project-descriptor.json
+[FAIL] root-local Ligature bundle exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/tools/ligature
+[FAIL] upstream pin exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/upstream/upstream-pin.json
+[FAIL] leveldb-three-verifiers-creusot: crate directory exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/rust/leveldb-three-verifiers-creusot
+[FAIL] leveldb-three-verifiers-creusot: Cargo.toml exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/rust/leveldb-three-verifiers-creusot/Cargo.toml
+[FAIL] leveldb-three-verifiers-creusot: Cargo.lock exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/rust/leveldb-three-verifiers-creusot/Cargo.lock
+[FAIL] leveldb-three-verifiers-creusot: rust-toolchain.toml exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/rust/leveldb-three-verifiers-creusot/rust-toolchain.toml
+[FAIL] leveldb-three-verifiers-creusot: .cargo/config.toml exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/rust/leveldb-three-verifiers-creusot/.cargo/config.toml
+[PASS] leveldb-three-verifiers-creusot: no repository-local target/ tree: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/rust/leveldb-three-verifiers-creusot/target
+[WARN] leveldb-three-verifiers-creusot: verif/ is absent before the first proof: created by the first Creusot run
+[FAIL] leveldb-three-verifiers-verus: crate directory exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/rust/leveldb-three-verifiers-verus
+[FAIL] leveldb-three-verifiers-verus: Cargo.toml exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/rust/leveldb-three-verifiers-verus/Cargo.toml
+[FAIL] leveldb-three-verifiers-verus: Cargo.lock exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/rust/leveldb-three-verifiers-verus/Cargo.lock
+[FAIL] leveldb-three-verifiers-verus: rust-toolchain.toml exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/rust/leveldb-three-verifiers-verus/rust-toolchain.toml
+[FAIL] leveldb-three-verifiers-verus: .cargo/config.toml exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/rust/leveldb-three-verifiers-verus/.cargo/config.toml
+[PASS] leveldb-three-verifiers-verus: no repository-local target/ tree: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/rust/leveldb-three-verifiers-verus/target
+[FAIL] leveldb-three-verifiers-kani: crate directory exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/rust/leveldb-three-verifiers-kani
+[FAIL] leveldb-three-verifiers-kani: Cargo.toml exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/rust/leveldb-three-verifiers-kani/Cargo.toml
+[FAIL] leveldb-three-verifiers-kani: Cargo.lock exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/rust/leveldb-three-verifiers-kani/Cargo.lock
+[FAIL] leveldb-three-verifiers-kani: rust-toolchain.toml exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/rust/leveldb-three-verifiers-kani/rust-toolchain.toml
+[FAIL] leveldb-three-verifiers-kani: .cargo/config.toml exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/rust/leveldb-three-verifiers-kani/.cargo/config.toml
+[PASS] leveldb-three-verifiers-kani: no repository-local target/ tree: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/rust/leveldb-three-verifiers-kani/target
+[PASS] no root-level Cargo.toml workspace: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/Cargo.toml
+[PASS] oracle/ exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/oracle
+[PASS] findings/limitations.jsonl exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/findings/limitations.jsonl
+[PASS] PORT-GAPS.md exists: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/PORT-GAPS.md
+[FAIL] creusot: durable per-tool evidence root exists: missing analysis/*/results-creusot/
+[FAIL] verus: durable per-tool evidence root exists: missing analysis/*/results-verus/
+[FAIL] kani: durable per-tool evidence root exists: missing analysis/*/results-kani/
+[PASS] no shared mutable ledger/closure marker: [PosixPath('/home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/ci/ledger'), PosixPath('/home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers/specs/_closure/shared')]
+
+11 passed, 1 warnings, 21 failed
+exit=1

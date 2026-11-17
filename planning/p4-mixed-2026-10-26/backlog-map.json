@@ -1,0 +1,67 @@
+{
+  "projects": {
+    "M4": {
+      "epic": 178,
+      "root": "icl-creusot-verus",
+      "stages": [
+        179,
+        180,
+        181
+      ]
+    },
+    "M5": {
+      "epic": 182,
+      "root": "tinyxml2-creusot-kani",
+      "stages": [
+        183,
+        184,
+        185
+      ]
+    },
+    "M6": {
+      "epic": 186,
+      "root": "snappy-verus-kani",
+      "stages": [
+        187,
+        188,
+        189
+      ]
+    },
+    "M7": {
+      "epic": 190,
+      "root": "leveldb-three-verifiers",
+      "stages": [
+        191,
+        192,
+        193
+      ]
+    }
+  },
+  "serial_leaf_chain": [
+    177,
+    179,
+    180,
+    181,
+    183,
+    184,
+    185,
+    187,
+    188,
+    189,
+    191,
+    192,
+    193,
+    169,
+    170,
+    171,
+    172,
+    194,
+    173,
+    174,
+    162,
+    55
+  ],
+  "setup": 177,
+  "last_project_stage": 193,
+  "cg6_g15": 194
+}

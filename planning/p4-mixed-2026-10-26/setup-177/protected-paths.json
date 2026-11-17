@@ -1,0 +1,2019 @@
+{
+  "schema_version": "1.0",
+  "issue": 177,
+  "parent_checkpoint": 161,
+  "generated_at_utc": "2026-11-14T19:21:13Z",
+  "workspace_root": "/home/goya/storage/full-ligature-port-workspace",
+  "status": "setup plan and toolchain verification complete; protected creation blocked pending human grants/operator action",
+  "no_path_grants_issued": true,
+  "baseline_roots_preserved": [
+    "date-creusot/",
+    "swisstable-verus/",
+    "crypto-mixed/"
+  ],
+  "planned_roots_not_created": [
+    "icl-creusot-verus",
+    "tinyxml2-creusot-kani",
+    "snappy-verus-kani",
+    "leveldb-three-verifiers"
+  ],
+  "route_catalog": {
+    "operator-git-root": {
+      "tier": "operator",
+      "grant": "none",
+      "description": "Operator creates the directory, runs git init, and makes the initial baseline commit. Workers must not run git init/commit/push in the outer repo; new roots are separate repositories registered in the outer repo only by the operator."
+    },
+    "operator-ligature-bundle": {
+      "tier": "operator",
+      "grant": "exact-path-grant-required",
+      "description": "Install the approved checksum-verified Ligature 1.4.3 bundle into tools/ligature/ (ligature.pyz, SHA256SUMS, PROVENANCE.json). No Ligature sanctioned verb writes this tree; a human grant for tools/ligature/** is required before any worker-assisted copy."
+    },
+    "operator-ligature-init": {
+      "tier": "operator",
+      "grant": "none",
+      "description": "Operator runs the root-local ligature.pyz init and authors the descriptor/write policy (T2 policy). project-descriptor.json, .ligature/**, ci/**, and project-state are operator/Ligature managed."
+    },
+    "operator-managed-file": {
+      "tier": "operator",
+      "grant": "none",
+      "description": "Operator-managed file per the approved write-set design; no worker edit."
+    },
+    "human-policy": {
+      "tier": "human",
+      "grant": "none",
+      "description": "T2 normative policy/spec content; human authoring/review. accept-policy is a human checkpoint."
+    },
+    "sanctioned-scaffold-crate": {
+      "tier": "sanctioned",
+      "grant": "exact-manifest-grant-required",
+      "description": "After the descriptor declares the crate, run ligature.pyz scaffold-crate --issue <stage-id> --crate <name> --grant-id <id> --json under an exact active crates/<name>/Cargo.toml grant. Not a free-form manifest editor."
+    },
+    "sanctioned-configure-crate-verus": {
+      "tier": "sanctioned",
+      "grant": "exact-manifest-grant-required",
+      "description": "For a declared Verus crate only: configure-crate --profile cargo-verus under an exact Cargo.toml grant. Historical vstd-version-unavailable refusal (local escalation #124) must be reported, not hand-edited."
+    },
+    "operator-lockfile": {
+      "tier": "operator",
+      "grant": "none",
+      "description": "No sanctioned Ligature verb writes Cargo.lock. Operator generates/refreshes the independent lock with the pinned toolchain, or issues an exact path grant plus a reviewed manual step. Workers must not hand-edit locks."
+    },
+    "operator-toolchain-file": {
+      "tier": "operator",
+      "grant": "none",
+      "description": "No sanctioned Ligature verb writes nested rust-toolchain.toml or .cargo/config.toml. Operator authors the verifier-specific pin (and creusot-std Nix patch). Workers must not hand-edit these files."
+    },
+    "operator-source-pin": {
+      "tier": "operator",
+      "grant": "exact-path-grant-required",
+      "description": "Intake needs upstream/** at the immutable pin plus upstream/upstream-pin.json. upstream/** is protected in the proposed write set; the checkout is created by the operator or by an intake issue with an exact upstream/** grant. Network fetch is an operator action."
+    },
+    "worker-allowed": {
+      "tier": "worker",
+      "grant": "none",
+      "description": "Inside descriptor allowed_roots; worker authoring is permitted by the approved #177 write-set design."
+    }
+  },
+  "toolchains": {
+    "creusot": {
+      "nix_shell": "nix develop --no-write-lock-file /home/goya/storage/full-ligature-port-workspace#date-creusot",
+      "flake_input_pin": "creusot rev 553a8b732697ae8b8f2b66a64600b0d39e086f9f",
+      "cargo_creusot": "0.12.0-dev",
+      "creusot_std": "0.12.0-dev",
+      "rust_channel": "nightly-2026-04-21",
+      "rustc_observed": "1.97.0-nightly (66da6cae1 2026-04-20)",
+      "why3": "1.8.2+git",
+      "why3find": "1.3.0+dev",
+      "z3": "4.15.3",
+      "cvc5": "1.3.1",
+      "cvc4": "1.8",
+      "alt_ergo": "2.6.3",
+      "wrapper_store_path_observed": "/nix/store/9y9g4kpsppxn6zqmyfkvfcc2234qkdwv-creusot-wrapped",
+      "creusot_std_patch_route": "crate .cargo/config.toml [patch.crates-io] creusot-std = { path = \"<wrapper>/share/creusot-std\" }",
+      "companion_output_supported": {
+        "in_crate_verif": true,
+        "external_output_dir_coma_generation": true,
+        "external_output_dir_proof_replay": false,
+        "external_output_dir_proof_json": false,
+        "note": "0.12.0-dev: proof patterns must resolve under the crate prefix; absolute external .coma is rejected. Keep .coma and proof.json in rust/<crate>/verif/ and archive hashed copies under analysis/<stage>/results-creusot/."
+      }
+    },
+    "verus": {
+      "nix_shell": "nix develop --no-write-lock-file /home/goya/storage/full-ligature-port-workspace#swisstable-verus",
+      "verus": "0.2026.05.24.ecee80a",
+      "rust_channel": "1.95.0",
+      "vstd": "0.0.0-2026-05-24-0157",
+      "invocation": "cargo +1.95.0 verus build --offline --target-dir <tmp target> -- --output-json --log-dir <root>/analysis/<stage>/results-verus/logs"
+    },
+    "kani": {
+      "nix_shell": "nix develop --no-write-lock-file /home/goya/storage/full-ligature-port-workspace#crypto-mixed",
+      "cargo_kani": "0.67.0",
+      "cbmc": "6.8.0",
+      "rust_channel": "1.95.0",
+      "invocation": "cargo +1.95.0 kani --harness <exact> --exact --target-dir <tmp target>"
+    }
+  },
+  "shared_rules": {
+    "independent_roots": "Each root is its own Git repository and Ligature project. No shared mutable manifest, lock, ledger, closure directory, target, or proof output.",
+    "targets": "All Cargo/CBMC native build targets are task-specific under /tmp/opencode/p4-<root>-<stage>/. No repository-local target/ tree.",
+    "proof_outputs": "Per-tool durable outputs stay separate under each root's analysis/<stage>/results-<tool>/; Creusot's raw verif/ stays in-crate and is archived by hash.",
+    "no_flake_edit": "No flake.nix/flake.lock edit and no install outside Nix. Existing shells are reused; missing P4 shells are a toolchain finding, not a worker flake edit.",
+    "no_commit_push": "Workers do not commit or push. New-root initial commits and outer-repo submodule registration are operator actions.",
+    "no_blanket_grant": "Mechanical protected operations require the matching sanctioned verb plus an exact human-issued issue/path grant, or operator action."
+  },
+  "outer_repository_operator_actions": [
+    {
+      "path": ".gitmodules",
+      "action": "add four submodule entries after roots exist",
+      "route": "operator only"
+    },
+    {
+      "path": "<root> (gitlink)",
+      "action": "git submodule add <url> <root> and pin",
+      "route": "operator only"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "action": "operator-maintained",
+      "route": "operator only"
+    }
+  ],
+  "roots": [
+    {
+      "root": "icl-creusot-verus",
+      "project": "M4",
+      "project_name": "Boost.ICL",
+      "upstream": {
+        "repository": "https://github.com/boostorg/icl",
+        "tag": "boost-1.88.0",
+        "commit": "2741c3a1b7b79f7326360c26c3e1588b385c9e53"
+      },
+      "verifiers": [
+        "creusot",
+        "verus"
+      ],
+      "assignment_hypothesis_only": true,
+      "edges": [
+        "C->V: interval_base_set::add calls _add / interval_set segment mutation.",
+        "V->C: _add tests icl::is_empty; mutation uses left_subtract/right_subtract and endpoint algebra."
+      ],
+      "coverage": "Templates/traits and algebraic laws; interval arithmetic across widths; ordered containers; generic proof interfaces; iterator/mutation invariants.",
+      "explicit_exclusions": "Full Boost, continuous/floating endpoints, arbitrary allocator/comparator/codomain policies, ABI/iterator address identity, performance parity.",
+      "proposed_write_set": {
+        "allowed_roots": [
+          "rust/*/src/",
+          "rust/*/tests/",
+          "rust/*/verif/**",
+          "oracle/**",
+          "analysis/**",
+          "findings/limitations.jsonl",
+          "PORT-GAPS.md"
+        ],
+        "protected_roots": [
+          "project-descriptor.json",
+          "Cargo.toml",
+          "rust-toolchain.toml",
+          "rust/*/Cargo.toml",
+          "rust/*/Cargo.lock",
+          "rust/*/rust-toolchain.toml",
+          "rust/*/.cargo/**",
+          "rust/*/build.rs",
+          "rust/*/specs/**",
+          "specs/**",
+          "specs/_closure/**",
+          "ci/**",
+          "scripts/**",
+          "docs/reliance-policy.md",
+          "docs/*-schema.json",
+          "tests/harnesses/**",
+          "tools/**",
+          "upstream/**",
+          "analysis/upstream/**",
+          ".ligature/**",
+          ".github/**",
+          ".gitignore",
+          ".envrc",
+          ".mcp.json",
+          "README.md"
+        ],
+        "authorized_supervisors": []
+      },
+      "crates": [
+        {
+          "crate": "icl-creusot-verus-creusot",
+          "dir": "rust/icl-creusot-verus-creusot",
+          "verifier": "creusot",
+          "ownership": "Endpoint/order/interval algebra and high-level set operations.",
+          "toolchain": {
+            "rust_channel": "nightly-2026-04-21",
+            "verifier_version": "0.12.0-dev",
+            "nix_shell": "nix develop --no-write-lock-file /home/goya/storage/full-ligature-port-workspace#date-creusot"
+          },
+          "independent_cargo_root": true,
+          "files": [
+            {
+              "path": "rust/icl-creusot-verus-creusot/Cargo.toml",
+              "tier": "sanctioned",
+              "route": "sanctioned-scaffold-crate",
+              "grant": "required"
+            },
+            {
+              "path": "rust/icl-creusot-verus-creusot/Cargo.lock",
+              "tier": "operator",
+              "route": "operator-lockfile",
+              "grant": "none"
+            },
+            {
+              "path": "rust/icl-creusot-verus-creusot/rust-toolchain.toml",
+              "tier": "operator",
+              "route": "operator-toolchain-file",
+              "grant": "none"
+            },
+            {
+              "path": "rust/icl-creusot-verus-creusot/.cargo/config.toml",
+              "tier": "operator",
+              "route": "operator-toolchain-file",
+              "grant": "none"
+            },
+            {
+              "path": "rust/icl-creusot-verus-creusot/src/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none"
+            },
+            {
+              "path": "rust/icl-creusot-verus-creusot/tests/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none"
+            },
+            {
+              "path": "rust/icl-creusot-verus-creusot/verif/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none",
+              "note": "Creusot generated .coma/proof.json only; keep out of target dirs and archive hashed copies under analysis/."
+            }
+          ]
+        },
+        {
+          "crate": "icl-creusot-verus-verus",
+          "dir": "rust/icl-creusot-verus-verus",
+          "verifier": "verus",
+          "ownership": "Canonical segment storage, mutation, split/coalesce, iterator/representation invariants.",
+          "toolchain": {
+            "rust_channel": "1.95.0",
+            "verifier_version": "0.2026.05.24.ecee80a",
+            "nix_shell": "nix develop --no-write-lock-file /home/goya/storage/full-ligature-port-workspace#swisstable-verus"
+          },
+          "independent_cargo_root": true,
+          "files": [
+            {
+              "path": "rust/icl-creusot-verus-verus/Cargo.toml",
+              "tier": "sanctioned",
+              "route": "sanctioned-scaffold-crate",
+              "grant": "required"
+            },
+            {
+              "path": "rust/icl-creusot-verus-verus/Cargo.lock",
+              "tier": "operator",
+              "route": "operator-lockfile",
+              "grant": "none"
+            },
+            {
+              "path": "rust/icl-creusot-verus-verus/rust-toolchain.toml",
+              "tier": "operator",
+              "route": "operator-toolchain-file",
+              "grant": "none"
+            },
+            {
+              "path": "rust/icl-creusot-verus-verus/.cargo/config.toml",
+              "tier": "operator",
+              "route": "operator-toolchain-file",
+              "grant": "none"
+            },
+            {
+              "path": "rust/icl-creusot-verus-verus/src/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none"
+            },
+            {
+              "path": "rust/icl-creusot-verus-verus/tests/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none"
+            },
+            {
+              "path": "rust/icl-creusot-verus-verus/verif/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none",
+              "note": "Creusot generated .coma/proof.json only; keep out of target dirs and archive hashed copies under analysis/."
+            }
+          ]
+        }
+      ],
+      "paths": [
+        {
+          "path": ".",
+          "tier": "operator",
+          "route": "operator-git-root",
+          "grant": "none"
+        },
+        {
+          "path": ".git/**",
+          "tier": "operator",
+          "route": "operator-git-root",
+          "grant": "none"
+        },
+        {
+          "path": "project-descriptor.json",
+          "tier": "operator",
+          "route": "operator-ligature-init",
+          "grant": "none"
+        },
+        {
+          "path": ".ligature/**",
+          "tier": "operator",
+          "route": "operator-ligature-init",
+          "grant": "none"
+        },
+        {
+          "path": "ci/**",
+          "tier": "operator",
+          "route": "operator-ligature-init",
+          "grant": "none"
+        },
+        {
+          "path": "tools/ligature/**",
+          "tier": "operator",
+          "route": "operator-ligature-bundle",
+          "grant": "required"
+        },
+        {
+          "path": ".envrc",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": ".mcp.json",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": ".gitignore",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": "README.md",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust-toolchain.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "docs/reliance-policy.md",
+          "tier": "human",
+          "route": "human-policy",
+          "grant": "none"
+        },
+        {
+          "path": "docs/*-schema.json",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": "upstream/**",
+          "tier": "operator",
+          "route": "operator-source-pin",
+          "grant": "required"
+        },
+        {
+          "path": "upstream/upstream-pin.json",
+          "tier": "operator",
+          "route": "operator-source-pin",
+          "grant": "required"
+        },
+        {
+          "path": "specs/**",
+          "tier": "human",
+          "route": "human-policy",
+          "grant": "none"
+        },
+        {
+          "path": "specs/_closure/**",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": "tests/harnesses/**",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": "oracle/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "analysis/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "analysis/upstream/**",
+          "tier": "operator",
+          "route": "operator-source-pin",
+          "grant": "required"
+        },
+        {
+          "path": "findings/limitations.jsonl",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "PORT-GAPS.md",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "rust/icl-creusot-verus-creusot/Cargo.toml",
+          "tier": "sanctioned",
+          "route": "sanctioned-scaffold-crate",
+          "grant": "required"
+        },
+        {
+          "path": "rust/icl-creusot-verus-creusot/Cargo.lock",
+          "tier": "operator",
+          "route": "operator-lockfile",
+          "grant": "none"
+        },
+        {
+          "path": "rust/icl-creusot-verus-creusot/rust-toolchain.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust/icl-creusot-verus-creusot/.cargo/config.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust/icl-creusot-verus-creusot/src/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "rust/icl-creusot-verus-creusot/tests/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "rust/icl-creusot-verus-creusot/verif/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none",
+          "note": "Creusot generated .coma/proof.json only; keep out of target dirs and archive hashed copies under analysis/."
+        },
+        {
+          "path": "rust/icl-creusot-verus-verus/Cargo.toml",
+          "tier": "sanctioned",
+          "route": "sanctioned-scaffold-crate",
+          "grant": "required"
+        },
+        {
+          "path": "rust/icl-creusot-verus-verus/Cargo.lock",
+          "tier": "operator",
+          "route": "operator-lockfile",
+          "grant": "none"
+        },
+        {
+          "path": "rust/icl-creusot-verus-verus/rust-toolchain.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust/icl-creusot-verus-verus/.cargo/config.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust/icl-creusot-verus-verus/src/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "rust/icl-creusot-verus-verus/tests/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        }
+      ],
+      "per_tool_cargo_roots": {
+        "creusot": "rust/icl-creusot-verus-creusot",
+        "verus": "rust/icl-creusot-verus-verus"
+      },
+      "target_roots": {
+        "creusot": "/tmp/opencode/p4-icl-creusot-verus-<stage>/targets/creusot",
+        "verus": "/tmp/opencode/p4-icl-creusot-verus-<stage>/targets/verus"
+      },
+      "proof_output_roots": {
+        "creusot": "rust/icl-creusot-verus-creusot/verif/",
+        "verus": "analysis/<stage>/results-verus/"
+      },
+      "config_roots": {
+        "why3_config": "/tmp/opencode/p4-icl-creusot-verus-<stage>/why3/config",
+        "why3_runtime": "/tmp/opencode/p4-icl-creusot-verus-<stage>/why3/runtime",
+        "oracle_build": "/tmp/opencode/p4-icl-creusot-verus-<stage>/oracle-build"
+      },
+      "durable_evidence_roots": {
+        "creusot": "analysis/<stage>/results-creusot/",
+        "verus": "analysis/<stage>/results-verus/"
+      },
+      "oracle_dependencies": [
+        "Boost 1.88.0 matching dependency distribution (b2/cmake, C++ compiler from the Nix shell); verify the ICL module SHA.",
+        "Pinned test/Jamfile.v2 interval/set/map suites.",
+        "Native ICL operations plus pointwise denotation and canonical segment/iteration comparison."
+      ],
+      "creation_order": [
+        "1 operator: create root directory, git init, initial baseline commit; install verified Ligature bundle",
+        "2 operator/human: ligature.pyz init; author project-descriptor.json, write_set, verifier_policy, closure_kind",
+        "3 operator: place upstream checkout at the immutable pin and record upstream/upstream-pin.json",
+        "4 sanctioned: scaffold-crate per declared crate under exact Cargo.toml grants; configure-crate only for Verus crates",
+        "5 operator: write independent Cargo.lock, nested rust-toolchain.toml and .cargo/config.toml per crate",
+        "6 worker: author src/tests/oracle/analysis/findings/PORT-GAPS inside allowed_roots",
+        "7 operator: verify write-set-check --issue <stage> --json, doctor, and per-root smoke check before stage work"
+      ],
+      "blocking_before_creation": [
+        "No human-issued issue/path grants exist for project-descriptor.json, tools/ligature/**, upstream/**, crate manifests, locks, or nested toolchain files.",
+        "No operator action has created the Git root or initial baseline commit (worker commit/push prohibited).",
+        "Outer-repository submodule registration and .gitmodules changes are operator-only."
+      ]
+    },
+    {
+      "root": "tinyxml2-creusot-kani",
+      "project": "M5",
+      "project_name": "TinyXML2",
+      "upstream": {
+        "repository": "https://github.com/leethomason/tinyxml2",
+        "tag": "11.0.0",
+        "commit": "9148bdf719e997d1f474be6bcc7943881046dba1"
+      },
+      "verifiers": [
+        "creusot",
+        "kani"
+      ],
+      "assignment_hypothesis_only": true,
+      "edges": [
+        "C->K: parser/DOM value access calls StrPair::GetStr and entity processing.",
+        "K->C: XMLUtil::GetCharacterRef calls ConvertUTF32ToUTF8."
+      ],
+      "coverage": "Recursive parsing; UTF-8 and numeric references; aliasing/arena ownership; mutable trees and lifetimes; errors/normalization; bounded buffer checking.",
+      "explicit_exclusions": "DTD/XSL, full XML-standard conformance claims, raw C++ pointer identity, invalid-pointer traces, OS file behavior.",
+      "proposed_write_set": {
+        "allowed_roots": [
+          "rust/*/src/",
+          "rust/*/tests/",
+          "rust/*/verif/**",
+          "oracle/**",
+          "analysis/**",
+          "findings/limitations.jsonl",
+          "PORT-GAPS.md"
+        ],
+        "protected_roots": [
+          "project-descriptor.json",
+          "Cargo.toml",
+          "rust-toolchain.toml",
+          "rust/*/Cargo.toml",
+          "rust/*/Cargo.lock",
+          "rust/*/rust-toolchain.toml",
+          "rust/*/.cargo/**",
+          "rust/*/build.rs",
+          "rust/*/specs/**",
+          "specs/**",
+          "specs/_closure/**",
+          "ci/**",
+          "scripts/**",
+          "docs/reliance-policy.md",
+          "docs/*-schema.json",
+          "tests/harnesses/**",
+          "tools/**",
+          "upstream/**",
+          "analysis/upstream/**",
+          ".ligature/**",
+          ".github/**",
+          ".gitignore",
+          ".envrc",
+          ".mcp.json",
+          "README.md"
+        ],
+        "authorized_supervisors": []
+      },
+      "crates": [
+        {
+          "crate": "tinyxml2-creusot-kani-creusot",
+          "dir": "rust/tinyxml2-creusot-kani-creusot",
+          "verifier": "creusot",
+          "ownership": "Parser progress/recursive structure, DOM parent/sibling ownership, serialization, UTF32->UTF8 contracts.",
+          "toolchain": {
+            "rust_channel": "nightly-2026-04-21",
+            "verifier_version": "0.12.0-dev",
+            "nix_shell": "nix develop --no-write-lock-file /home/goya/storage/full-ligature-port-workspace#date-creusot"
+          },
+          "independent_cargo_root": true,
+          "files": [
+            {
+              "path": "rust/tinyxml2-creusot-kani-creusot/Cargo.toml",
+              "tier": "sanctioned",
+              "route": "sanctioned-scaffold-crate",
+              "grant": "required"
+            },
+            {
+              "path": "rust/tinyxml2-creusot-kani-creusot/Cargo.lock",
+              "tier": "operator",
+              "route": "operator-lockfile",
+              "grant": "none"
+            },
+            {
+              "path": "rust/tinyxml2-creusot-kani-creusot/rust-toolchain.toml",
+              "tier": "operator",
+              "route": "operator-toolchain-file",
+              "grant": "none"
+            },
+            {
+              "path": "rust/tinyxml2-creusot-kani-creusot/.cargo/config.toml",
+              "tier": "operator",
+              "route": "operator-toolchain-file",
+              "grant": "none"
+            },
+            {
+              "path": "rust/tinyxml2-creusot-kani-creusot/src/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none"
+            },
+            {
+              "path": "rust/tinyxml2-creusot-kani-creusot/tests/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none"
+            },
+            {
+              "path": "rust/tinyxml2-creusot-kani-creusot/verif/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none",
+              "note": "Creusot generated .coma/proof.json only; keep out of target dirs and archive hashed copies under analysis/."
+            }
+          ]
+        },
+        {
+          "crate": "tinyxml2-creusot-kani-kani",
+          "dir": "rust/tinyxml2-creusot-kani-kani",
+          "verifier": "kani",
+          "ownership": "Bounded StrPair normalization, entity scanning/GetCharacterRef buffer, length/radix/overflow paths.",
+          "toolchain": {
+            "rust_channel": "1.95.0",
+            "verifier_version": "0.67.0",
+            "nix_shell": "nix develop --no-write-lock-file /home/goya/storage/full-ligature-port-workspace#crypto-mixed"
+          },
+          "independent_cargo_root": true,
+          "files": [
+            {
+              "path": "rust/tinyxml2-creusot-kani-kani/Cargo.toml",
+              "tier": "sanctioned",
+              "route": "sanctioned-scaffold-crate",
+              "grant": "required"
+            },
+            {
+              "path": "rust/tinyxml2-creusot-kani-kani/Cargo.lock",
+              "tier": "operator",
+              "route": "operator-lockfile",
+              "grant": "none"
+            },
+            {
+              "path": "rust/tinyxml2-creusot-kani-kani/rust-toolchain.toml",
+              "tier": "operator",
+              "route": "operator-toolchain-file",
+              "grant": "none"
+            },
+            {
+              "path": "rust/tinyxml2-creusot-kani-kani/.cargo/config.toml",
+              "tier": "operator",
+              "route": "operator-toolchain-file",
+              "grant": "none"
+            },
+            {
+              "path": "rust/tinyxml2-creusot-kani-kani/src/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none"
+            },
+            {
+              "path": "rust/tinyxml2-creusot-kani-kani/tests/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none"
+            },
+            {
+              "path": "rust/tinyxml2-creusot-kani-kani/verif/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none",
+              "note": "Creusot generated .coma/proof.json only; keep out of target dirs and archive hashed copies under analysis/."
+            }
+          ]
+        }
+      ],
+      "paths": [
+        {
+          "path": ".",
+          "tier": "operator",
+          "route": "operator-git-root",
+          "grant": "none"
+        },
+        {
+          "path": ".git/**",
+          "tier": "operator",
+          "route": "operator-git-root",
+          "grant": "none"
+        },
+        {
+          "path": "project-descriptor.json",
+          "tier": "operator",
+          "route": "operator-ligature-init",
+          "grant": "none"
+        },
+        {
+          "path": ".ligature/**",
+          "tier": "operator",
+          "route": "operator-ligature-init",
+          "grant": "none"
+        },
+        {
+          "path": "ci/**",
+          "tier": "operator",
+          "route": "operator-ligature-init",
+          "grant": "none"
+        },
+        {
+          "path": "tools/ligature/**",
+          "tier": "operator",
+          "route": "operator-ligature-bundle",
+          "grant": "required"
+        },
+        {
+          "path": ".envrc",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": ".mcp.json",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": ".gitignore",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": "README.md",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust-toolchain.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "docs/reliance-policy.md",
+          "tier": "human",
+          "route": "human-policy",
+          "grant": "none"
+        },
+        {
+          "path": "docs/*-schema.json",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": "upstream/**",
+          "tier": "operator",
+          "route": "operator-source-pin",
+          "grant": "required"
+        },
+        {
+          "path": "upstream/upstream-pin.json",
+          "tier": "operator",
+          "route": "operator-source-pin",
+          "grant": "required"
+        },
+        {
+          "path": "specs/**",
+          "tier": "human",
+          "route": "human-policy",
+          "grant": "none"
+        },
+        {
+          "path": "specs/_closure/**",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": "tests/harnesses/**",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": "oracle/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "analysis/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "analysis/upstream/**",
+          "tier": "operator",
+          "route": "operator-source-pin",
+          "grant": "required"
+        },
+        {
+          "path": "findings/limitations.jsonl",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "PORT-GAPS.md",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "rust/tinyxml2-creusot-kani-creusot/Cargo.toml",
+          "tier": "sanctioned",
+          "route": "sanctioned-scaffold-crate",
+          "grant": "required"
+        },
+        {
+          "path": "rust/tinyxml2-creusot-kani-creusot/Cargo.lock",
+          "tier": "operator",
+          "route": "operator-lockfile",
+          "grant": "none"
+        },
+        {
+          "path": "rust/tinyxml2-creusot-kani-creusot/rust-toolchain.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust/tinyxml2-creusot-kani-creusot/.cargo/config.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust/tinyxml2-creusot-kani-creusot/src/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "rust/tinyxml2-creusot-kani-creusot/tests/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "rust/tinyxml2-creusot-kani-creusot/verif/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none",
+          "note": "Creusot generated .coma/proof.json only; keep out of target dirs and archive hashed copies under analysis/."
+        },
+        {
+          "path": "rust/tinyxml2-creusot-kani-kani/Cargo.toml",
+          "tier": "sanctioned",
+          "route": "sanctioned-scaffold-crate",
+          "grant": "required"
+        },
+        {
+          "path": "rust/tinyxml2-creusot-kani-kani/Cargo.lock",
+          "tier": "operator",
+          "route": "operator-lockfile",
+          "grant": "none"
+        },
+        {
+          "path": "rust/tinyxml2-creusot-kani-kani/rust-toolchain.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust/tinyxml2-creusot-kani-kani/.cargo/config.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust/tinyxml2-creusot-kani-kani/src/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "rust/tinyxml2-creusot-kani-kani/tests/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        }
+      ],
+      "per_tool_cargo_roots": {
+        "creusot": "rust/tinyxml2-creusot-kani-creusot",
+        "kani": "rust/tinyxml2-creusot-kani-kani"
+      },
+      "target_roots": {
+        "creusot": "/tmp/opencode/p4-tinyxml2-creusot-kani-<stage>/targets/creusot",
+        "kani": "/tmp/opencode/p4-tinyxml2-creusot-kani-<stage>/targets/kani"
+      },
+      "proof_output_roots": {
+        "creusot": "rust/tinyxml2-creusot-kani-creusot/verif/",
+        "kani": "analysis/<stage>/results-kani/"
+      },
+      "config_roots": {
+        "why3_config": "/tmp/opencode/p4-tinyxml2-creusot-kani-<stage>/why3/config",
+        "why3_runtime": "/tmp/opencode/p4-tinyxml2-creusot-kani-<stage>/why3/runtime",
+        "oracle_build": "/tmp/opencode/p4-tinyxml2-creusot-kani-<stage>/oracle-build"
+      },
+      "durable_evidence_roots": {
+        "creusot": "analysis/<stage>/results-creusot/",
+        "kani": "analysis/<stage>/results-kani/"
+      },
+      "oracle_dependencies": [
+        "Pinned tinyxml2.cpp, tinyxml2.h, xmltest.cpp; C++ compiler from the Nix shell.",
+        "Selected resources/ and test/ cases.",
+        "Typed DOM event streams, ordered attributes, mutation traces, serialization bytes, upstream error classes/line numbers."
+      ],
+      "creation_order": [
+        "1 operator: create root directory, git init, initial baseline commit; install verified Ligature bundle",
+        "2 operator/human: ligature.pyz init; author project-descriptor.json, write_set, verifier_policy, closure_kind",
+        "3 operator: place upstream checkout at the immutable pin and record upstream/upstream-pin.json",
+        "4 sanctioned: scaffold-crate per declared crate under exact Cargo.toml grants; configure-crate only for Verus crates",
+        "5 operator: write independent Cargo.lock, nested rust-toolchain.toml and .cargo/config.toml per crate",
+        "6 worker: author src/tests/oracle/analysis/findings/PORT-GAPS inside allowed_roots",
+        "7 operator: verify write-set-check --issue <stage> --json, doctor, and per-root smoke check before stage work"
+      ],
+      "blocking_before_creation": [
+        "No human-issued issue/path grants exist for project-descriptor.json, tools/ligature/**, upstream/**, crate manifests, locks, or nested toolchain files.",
+        "No operator action has created the Git root or initial baseline commit (worker commit/push prohibited).",
+        "Outer-repository submodule registration and .gitmodules changes are operator-only."
+      ]
+    },
+    {
+      "root": "snappy-verus-kani",
+      "project": "M6",
+      "project_name": "Snappy",
+      "upstream": {
+        "repository": "https://github.com/google/snappy",
+        "tag": "1.2.2",
+        "commit": "6af9287fbdb913f0794d0148c6aa43b58e63c8e3"
+      },
+      "verifiers": [
+        "verus",
+        "kani"
+      ],
+      "assignment_hypothesis_only": true,
+      "edges": [
+        "V->K: DecompressAllTags/AppendFromSelf dispatches IncrementalCopy.",
+        "K->V: IncrementalCopy falls back to IncrementalCopySlow for tight buffers and tails."
+      ],
+      "coverage": "Bitvectors, varints, generic writer interfaces, byte sequences, overlapping memory, alignment/slop bounds, SIMD/intrinsics and portable fallbacks.",
+      "explicit_exclusions": "Framed/container formats, other codecs, every ISA, throughput parity, unbounded Kani claims. Unsupported intrinsics are a finding, not a stub-and-claim.",
+      "proposed_write_set": {
+        "allowed_roots": [
+          "rust/*/src/",
+          "rust/*/tests/",
+          "rust/*/verif/**",
+          "oracle/**",
+          "analysis/**",
+          "findings/limitations.jsonl",
+          "PORT-GAPS.md"
+        ],
+        "protected_roots": [
+          "project-descriptor.json",
+          "Cargo.toml",
+          "rust-toolchain.toml",
+          "rust/*/Cargo.toml",
+          "rust/*/Cargo.lock",
+          "rust/*/rust-toolchain.toml",
+          "rust/*/.cargo/**",
+          "rust/*/build.rs",
+          "rust/*/specs/**",
+          "specs/**",
+          "specs/_closure/**",
+          "ci/**",
+          "scripts/**",
+          "docs/reliance-policy.md",
+          "docs/*-schema.json",
+          "tests/harnesses/**",
+          "tools/**",
+          "upstream/**",
+          "analysis/upstream/**",
+          ".ligature/**",
+          ".github/**",
+          ".gitignore",
+          ".envrc",
+          ".mcp.json",
+          "README.md"
+        ],
+        "authorized_supervisors": []
+      },
+      "crates": [
+        {
+          "crate": "snappy-verus-kani-verus",
+          "dir": "rust/snappy-verus-kani-verus",
+          "verifier": "verus",
+          "ownership": "Tag/decoder state invariants, portable scalar IncrementalCopySlow model, reconstruction/round-trip properties.",
+          "toolchain": {
+            "rust_channel": "1.95.0",
+            "verifier_version": "0.2026.05.24.ecee80a",
+            "nix_shell": "nix develop --no-write-lock-file /home/goya/storage/full-ligature-port-workspace#swisstable-verus"
+          },
+          "independent_cargo_root": true,
+          "files": [
+            {
+              "path": "rust/snappy-verus-kani-verus/Cargo.toml",
+              "tier": "sanctioned",
+              "route": "sanctioned-scaffold-crate",
+              "grant": "required"
+            },
+            {
+              "path": "rust/snappy-verus-kani-verus/Cargo.lock",
+              "tier": "operator",
+              "route": "operator-lockfile",
+              "grant": "none"
+            },
+            {
+              "path": "rust/snappy-verus-kani-verus/rust-toolchain.toml",
+              "tier": "operator",
+              "route": "operator-toolchain-file",
+              "grant": "none"
+            },
+            {
+              "path": "rust/snappy-verus-kani-verus/.cargo/config.toml",
+              "tier": "operator",
+              "route": "operator-toolchain-file",
+              "grant": "none"
+            },
+            {
+              "path": "rust/snappy-verus-kani-verus/src/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none"
+            },
+            {
+              "path": "rust/snappy-verus-kani-verus/tests/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none"
+            },
+            {
+              "path": "rust/snappy-verus-kani-verus/verif/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none",
+              "note": "Creusot generated .coma/proof.json only; keep out of target dirs and archive hashed copies under analysis/."
+            }
+          ]
+        },
+        {
+          "crate": "snappy-verus-kani-kani",
+          "dir": "rust/snappy-verus-kani-kani",
+          "verifier": "kani",
+          "ownership": "Bounded optimized IncrementalCopy, vector shuffle/unaligned/tail/slop paths compared against scalar semantics.",
+          "toolchain": {
+            "rust_channel": "1.95.0",
+            "verifier_version": "0.67.0",
+            "nix_shell": "nix develop --no-write-lock-file /home/goya/storage/full-ligature-port-workspace#crypto-mixed"
+          },
+          "independent_cargo_root": true,
+          "files": [
+            {
+              "path": "rust/snappy-verus-kani-kani/Cargo.toml",
+              "tier": "sanctioned",
+              "route": "sanctioned-scaffold-crate",
+              "grant": "required"
+            },
+            {
+              "path": "rust/snappy-verus-kani-kani/Cargo.lock",
+              "tier": "operator",
+              "route": "operator-lockfile",
+              "grant": "none"
+            },
+            {
+              "path": "rust/snappy-verus-kani-kani/rust-toolchain.toml",
+              "tier": "operator",
+              "route": "operator-toolchain-file",
+              "grant": "none"
+            },
+            {
+              "path": "rust/snappy-verus-kani-kani/.cargo/config.toml",
+              "tier": "operator",
+              "route": "operator-toolchain-file",
+              "grant": "none"
+            },
+            {
+              "path": "rust/snappy-verus-kani-kani/src/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none"
+            },
+            {
+              "path": "rust/snappy-verus-kani-kani/tests/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none"
+            },
+            {
+              "path": "rust/snappy-verus-kani-kani/verif/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none",
+              "note": "Creusot generated .coma/proof.json only; keep out of target dirs and archive hashed copies under analysis/."
+            }
+          ]
+        }
+      ],
+      "paths": [
+        {
+          "path": ".",
+          "tier": "operator",
+          "route": "operator-git-root",
+          "grant": "none"
+        },
+        {
+          "path": ".git/**",
+          "tier": "operator",
+          "route": "operator-git-root",
+          "grant": "none"
+        },
+        {
+          "path": "project-descriptor.json",
+          "tier": "operator",
+          "route": "operator-ligature-init",
+          "grant": "none"
+        },
+        {
+          "path": ".ligature/**",
+          "tier": "operator",
+          "route": "operator-ligature-init",
+          "grant": "none"
+        },
+        {
+          "path": "ci/**",
+          "tier": "operator",
+          "route": "operator-ligature-init",
+          "grant": "none"
+        },
+        {
+          "path": "tools/ligature/**",
+          "tier": "operator",
+          "route": "operator-ligature-bundle",
+          "grant": "required"
+        },
+        {
+          "path": ".envrc",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": ".mcp.json",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": ".gitignore",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": "README.md",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust-toolchain.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "docs/reliance-policy.md",
+          "tier": "human",
+          "route": "human-policy",
+          "grant": "none"
+        },
+        {
+          "path": "docs/*-schema.json",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": "upstream/**",
+          "tier": "operator",
+          "route": "operator-source-pin",
+          "grant": "required"
+        },
+        {
+          "path": "upstream/upstream-pin.json",
+          "tier": "operator",
+          "route": "operator-source-pin",
+          "grant": "required"
+        },
+        {
+          "path": "specs/**",
+          "tier": "human",
+          "route": "human-policy",
+          "grant": "none"
+        },
+        {
+          "path": "specs/_closure/**",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": "tests/harnesses/**",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": "oracle/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "analysis/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "analysis/upstream/**",
+          "tier": "operator",
+          "route": "operator-source-pin",
+          "grant": "required"
+        },
+        {
+          "path": "findings/limitations.jsonl",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "PORT-GAPS.md",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "rust/snappy-verus-kani-verus/Cargo.toml",
+          "tier": "sanctioned",
+          "route": "sanctioned-scaffold-crate",
+          "grant": "required"
+        },
+        {
+          "path": "rust/snappy-verus-kani-verus/Cargo.lock",
+          "tier": "operator",
+          "route": "operator-lockfile",
+          "grant": "none"
+        },
+        {
+          "path": "rust/snappy-verus-kani-verus/rust-toolchain.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust/snappy-verus-kani-verus/.cargo/config.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust/snappy-verus-kani-verus/src/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "rust/snappy-verus-kani-verus/tests/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "rust/snappy-verus-kani-kani/Cargo.toml",
+          "tier": "sanctioned",
+          "route": "sanctioned-scaffold-crate",
+          "grant": "required"
+        },
+        {
+          "path": "rust/snappy-verus-kani-kani/Cargo.lock",
+          "tier": "operator",
+          "route": "operator-lockfile",
+          "grant": "none"
+        },
+        {
+          "path": "rust/snappy-verus-kani-kani/rust-toolchain.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust/snappy-verus-kani-kani/.cargo/config.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust/snappy-verus-kani-kani/src/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "rust/snappy-verus-kani-kani/tests/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        }
+      ],
+      "per_tool_cargo_roots": {
+        "verus": "rust/snappy-verus-kani-verus",
+        "kani": "rust/snappy-verus-kani-kani"
+      },
+      "target_roots": {
+        "verus": "/tmp/opencode/p4-snappy-verus-kani-<stage>/targets/verus",
+        "kani": "/tmp/opencode/p4-snappy-verus-kani-<stage>/targets/kani"
+      },
+      "proof_output_roots": {
+        "verus": "analysis/<stage>/results-verus/",
+        "kani": "analysis/<stage>/results-kani/"
+      },
+      "config_roots": {
+        "why3_config": "/tmp/opencode/p4-snappy-verus-kani-<stage>/why3/config",
+        "why3_runtime": "/tmp/opencode/p4-snappy-verus-kani-<stage>/why3/runtime",
+        "oracle_build": "/tmp/opencode/p4-snappy-verus-kani-<stage>/oracle-build"
+      },
+      "durable_evidence_roots": {
+        "verus": "analysis/<stage>/results-verus/",
+        "kani": "analysis/<stage>/results-kani/"
+      },
+      "oracle_dependencies": [
+        "CMake build of snappy_unittests and the shipped testdata/corrupted-input tests; native Compress/Uncompress.",
+        "Cross-decode native/Rust streams; compare decoded bytes, lengths, rejection behavior; do not assume canonical compressed bytes."
+      ],
+      "creation_order": [
+        "1 operator: create root directory, git init, initial baseline commit; install verified Ligature bundle",
+        "2 operator/human: ligature.pyz init; author project-descriptor.json, write_set, verifier_policy, closure_kind",
+        "3 operator: place upstream checkout at the immutable pin and record upstream/upstream-pin.json",
+        "4 sanctioned: scaffold-crate per declared crate under exact Cargo.toml grants; configure-crate only for Verus crates",
+        "5 operator: write independent Cargo.lock, nested rust-toolchain.toml and .cargo/config.toml per crate",
+        "6 worker: author src/tests/oracle/analysis/findings/PORT-GAPS inside allowed_roots",
+        "7 operator: verify write-set-check --issue <stage> --json, doctor, and per-root smoke check before stage work"
+      ],
+      "blocking_before_creation": [
+        "No human-issued issue/path grants exist for project-descriptor.json, tools/ligature/**, upstream/**, crate manifests, locks, or nested toolchain files.",
+        "No operator action has created the Git root or initial baseline commit (worker commit/push prohibited).",
+        "Outer-repository submodule registration and .gitmodules changes are operator-only."
+      ]
+    },
+    {
+      "root": "leveldb-three-verifiers",
+      "project": "M7",
+      "project_name": "LevelDB storage slice",
+      "upstream": {
+        "repository": "https://github.com/google/leveldb",
+        "tag": "1.23",
+        "commit": "99b3c03b3284f5886f9ef9a4ef703d57373e61be"
+      },
+      "verifiers": [
+        "creusot",
+        "verus",
+        "kani"
+      ],
+      "assignment_hypothesis_only": true,
+      "edges": [
+        "Creusot batch/replay orchestration consumes Verus-checked parsing/framing contracts.",
+        "Verus log/block parsing calls Kani-owned coding/CRC helpers.",
+        "WriteBatch::Iterate dispatches to Creusot-owned Handler Put/Delete semantics."
+      ],
+      "coverage": "Three-owner dataflow; ordered models and callbacks; storage encodings; streaming fragments, error effects and temporal traces; real-graph CG6/G15 investigation with labelled synthetic controls only if needed.",
+      "explicit_exclusions": "Full DB API, compaction scheduling, concurrent writers, filesystem durability, crash consistency, snapshots, platform Env implementations. Flush is not Sync.",
+      "proposed_write_set": {
+        "allowed_roots": [
+          "rust/*/src/",
+          "rust/*/tests/",
+          "rust/*/verif/**",
+          "oracle/**",
+          "analysis/**",
+          "findings/limitations.jsonl",
+          "PORT-GAPS.md"
+        ],
+        "protected_roots": [
+          "project-descriptor.json",
+          "Cargo.toml",
+          "rust-toolchain.toml",
+          "rust/*/Cargo.toml",
+          "rust/*/Cargo.lock",
+          "rust/*/rust-toolchain.toml",
+          "rust/*/.cargo/**",
+          "rust/*/build.rs",
+          "rust/*/specs/**",
+          "specs/**",
+          "specs/_closure/**",
+          "ci/**",
+          "scripts/**",
+          "docs/reliance-policy.md",
+          "docs/*-schema.json",
+          "tests/harnesses/**",
+          "tools/**",
+          "upstream/**",
+          "analysis/upstream/**",
+          ".ligature/**",
+          ".github/**",
+          ".gitignore",
+          ".envrc",
+          ".mcp.json",
+          "README.md"
+        ],
+        "authorized_supervisors": []
+      },
+      "crates": [
+        {
+          "crate": "leveldb-three-verifiers-creusot",
+          "dir": "rust/leveldb-three-verifiers-creusot",
+          "verifier": "creusot",
+          "ownership": "Ordered-map/operation-history semantics, batch handler effects, replay/state invariants.",
+          "toolchain": {
+            "rust_channel": "nightly-2026-04-21",
+            "verifier_version": "0.12.0-dev",
+            "nix_shell": "nix develop --no-write-lock-file /home/goya/storage/full-ligature-port-workspace#date-creusot"
+          },
+          "independent_cargo_root": true,
+          "files": [
+            {
+              "path": "rust/leveldb-three-verifiers-creusot/Cargo.toml",
+              "tier": "sanctioned",
+              "route": "sanctioned-scaffold-crate",
+              "grant": "required"
+            },
+            {
+              "path": "rust/leveldb-three-verifiers-creusot/Cargo.lock",
+              "tier": "operator",
+              "route": "operator-lockfile",
+              "grant": "none"
+            },
+            {
+              "path": "rust/leveldb-three-verifiers-creusot/rust-toolchain.toml",
+              "tier": "operator",
+              "route": "operator-toolchain-file",
+              "grant": "none"
+            },
+            {
+              "path": "rust/leveldb-three-verifiers-creusot/.cargo/config.toml",
+              "tier": "operator",
+              "route": "operator-toolchain-file",
+              "grant": "none"
+            },
+            {
+              "path": "rust/leveldb-three-verifiers-creusot/src/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none"
+            },
+            {
+              "path": "rust/leveldb-three-verifiers-creusot/tests/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none"
+            },
+            {
+              "path": "rust/leveldb-three-verifiers-creusot/verif/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none",
+              "note": "Creusot generated .coma/proof.json only; keep out of target dirs and archive hashed copies under analysis/."
+            }
+          ]
+        },
+        {
+          "crate": "leveldb-three-verifiers-verus",
+          "dir": "rust/leveldb-three-verifiers-verus",
+          "verifier": "verus",
+          "ownership": "Prefix-compressed block representation, restart/seek/iteration, log framing/reassembly, parser progress.",
+          "toolchain": {
+            "rust_channel": "1.95.0",
+            "verifier_version": "0.2026.05.24.ecee80a",
+            "nix_shell": "nix develop --no-write-lock-file /home/goya/storage/full-ligature-port-workspace#swisstable-verus"
+          },
+          "independent_cargo_root": true,
+          "files": [
+            {
+              "path": "rust/leveldb-three-verifiers-verus/Cargo.toml",
+              "tier": "sanctioned",
+              "route": "sanctioned-scaffold-crate",
+              "grant": "required"
+            },
+            {
+              "path": "rust/leveldb-three-verifiers-verus/Cargo.lock",
+              "tier": "operator",
+              "route": "operator-lockfile",
+              "grant": "none"
+            },
+            {
+              "path": "rust/leveldb-three-verifiers-verus/rust-toolchain.toml",
+              "tier": "operator",
+              "route": "operator-toolchain-file",
+              "grant": "none"
+            },
+            {
+              "path": "rust/leveldb-three-verifiers-verus/.cargo/config.toml",
+              "tier": "operator",
+              "route": "operator-toolchain-file",
+              "grant": "none"
+            },
+            {
+              "path": "rust/leveldb-three-verifiers-verus/src/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none"
+            },
+            {
+              "path": "rust/leveldb-three-verifiers-verus/tests/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none"
+            },
+            {
+              "path": "rust/leveldb-three-verifiers-verus/verif/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none",
+              "note": "Creusot generated .coma/proof.json only; keep out of target dirs and archive hashed copies under analysis/."
+            }
+          ]
+        },
+        {
+          "crate": "leveldb-three-verifiers-kani",
+          "dir": "rust/leveldb-three-verifiers-kani",
+          "verifier": "kani",
+          "ownership": "Bounded fixed/varint codecs, CRC32C arithmetic/masking, local buffer/fault cases.",
+          "toolchain": {
+            "rust_channel": "1.95.0",
+            "verifier_version": "0.67.0",
+            "nix_shell": "nix develop --no-write-lock-file /home/goya/storage/full-ligature-port-workspace#crypto-mixed"
+          },
+          "independent_cargo_root": true,
+          "files": [
+            {
+              "path": "rust/leveldb-three-verifiers-kani/Cargo.toml",
+              "tier": "sanctioned",
+              "route": "sanctioned-scaffold-crate",
+              "grant": "required"
+            },
+            {
+              "path": "rust/leveldb-three-verifiers-kani/Cargo.lock",
+              "tier": "operator",
+              "route": "operator-lockfile",
+              "grant": "none"
+            },
+            {
+              "path": "rust/leveldb-three-verifiers-kani/rust-toolchain.toml",
+              "tier": "operator",
+              "route": "operator-toolchain-file",
+              "grant": "none"
+            },
+            {
+              "path": "rust/leveldb-three-verifiers-kani/.cargo/config.toml",
+              "tier": "operator",
+              "route": "operator-toolchain-file",
+              "grant": "none"
+            },
+            {
+              "path": "rust/leveldb-three-verifiers-kani/src/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none"
+            },
+            {
+              "path": "rust/leveldb-three-verifiers-kani/tests/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none"
+            },
+            {
+              "path": "rust/leveldb-three-verifiers-kani/verif/**",
+              "tier": "worker",
+              "route": "worker-allowed",
+              "grant": "none",
+              "note": "Creusot generated .coma/proof.json only; keep out of target dirs and archive hashed copies under analysis/."
+            }
+          ]
+        }
+      ],
+      "paths": [
+        {
+          "path": ".",
+          "tier": "operator",
+          "route": "operator-git-root",
+          "grant": "none"
+        },
+        {
+          "path": ".git/**",
+          "tier": "operator",
+          "route": "operator-git-root",
+          "grant": "none"
+        },
+        {
+          "path": "project-descriptor.json",
+          "tier": "operator",
+          "route": "operator-ligature-init",
+          "grant": "none"
+        },
+        {
+          "path": ".ligature/**",
+          "tier": "operator",
+          "route": "operator-ligature-init",
+          "grant": "none"
+        },
+        {
+          "path": "ci/**",
+          "tier": "operator",
+          "route": "operator-ligature-init",
+          "grant": "none"
+        },
+        {
+          "path": "tools/ligature/**",
+          "tier": "operator",
+          "route": "operator-ligature-bundle",
+          "grant": "required"
+        },
+        {
+          "path": ".envrc",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": ".mcp.json",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": ".gitignore",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": "README.md",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust-toolchain.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "docs/reliance-policy.md",
+          "tier": "human",
+          "route": "human-policy",
+          "grant": "none"
+        },
+        {
+          "path": "docs/*-schema.json",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": "upstream/**",
+          "tier": "operator",
+          "route": "operator-source-pin",
+          "grant": "required"
+        },
+        {
+          "path": "upstream/upstream-pin.json",
+          "tier": "operator",
+          "route": "operator-source-pin",
+          "grant": "required"
+        },
+        {
+          "path": "specs/**",
+          "tier": "human",
+          "route": "human-policy",
+          "grant": "none"
+        },
+        {
+          "path": "specs/_closure/**",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": "tests/harnesses/**",
+          "tier": "operator",
+          "route": "operator-managed-file",
+          "grant": "none"
+        },
+        {
+          "path": "oracle/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "analysis/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "analysis/upstream/**",
+          "tier": "operator",
+          "route": "operator-source-pin",
+          "grant": "required"
+        },
+        {
+          "path": "findings/limitations.jsonl",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "PORT-GAPS.md",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "rust/leveldb-three-verifiers-creusot/Cargo.toml",
+          "tier": "sanctioned",
+          "route": "sanctioned-scaffold-crate",
+          "grant": "required"
+        },
+        {
+          "path": "rust/leveldb-three-verifiers-creusot/Cargo.lock",
+          "tier": "operator",
+          "route": "operator-lockfile",
+          "grant": "none"
+        },
+        {
+          "path": "rust/leveldb-three-verifiers-creusot/rust-toolchain.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust/leveldb-three-verifiers-creusot/.cargo/config.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust/leveldb-three-verifiers-creusot/src/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "rust/leveldb-three-verifiers-creusot/tests/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "rust/leveldb-three-verifiers-creusot/verif/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none",
+          "note": "Creusot generated .coma/proof.json only; keep out of target dirs and archive hashed copies under analysis/."
+        },
+        {
+          "path": "rust/leveldb-three-verifiers-verus/Cargo.toml",
+          "tier": "sanctioned",
+          "route": "sanctioned-scaffold-crate",
+          "grant": "required"
+        },
+        {
+          "path": "rust/leveldb-three-verifiers-verus/Cargo.lock",
+          "tier": "operator",
+          "route": "operator-lockfile",
+          "grant": "none"
+        },
+        {
+          "path": "rust/leveldb-three-verifiers-verus/rust-toolchain.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust/leveldb-three-verifiers-verus/.cargo/config.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust/leveldb-three-verifiers-verus/src/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "rust/leveldb-three-verifiers-verus/tests/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "rust/leveldb-three-verifiers-kani/Cargo.toml",
+          "tier": "sanctioned",
+          "route": "sanctioned-scaffold-crate",
+          "grant": "required"
+        },
+        {
+          "path": "rust/leveldb-three-verifiers-kani/Cargo.lock",
+          "tier": "operator",
+          "route": "operator-lockfile",
+          "grant": "none"
+        },
+        {
+          "path": "rust/leveldb-three-verifiers-kani/rust-toolchain.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust/leveldb-three-verifiers-kani/.cargo/config.toml",
+          "tier": "operator",
+          "route": "operator-toolchain-file",
+          "grant": "none"
+        },
+        {
+          "path": "rust/leveldb-three-verifiers-kani/src/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        },
+        {
+          "path": "rust/leveldb-three-verifiers-kani/tests/**",
+          "tier": "worker",
+          "route": "worker-allowed",
+          "grant": "none"
+        }
+      ],
+      "per_tool_cargo_roots": {
+        "creusot": "rust/leveldb-three-verifiers-creusot",
+        "verus": "rust/leveldb-three-verifiers-verus",
+        "kani": "rust/leveldb-three-verifiers-kani"
+      },
+      "target_roots": {
+        "creusot": "/tmp/opencode/p4-leveldb-three-verifiers-<stage>/targets/creusot",
+        "verus": "/tmp/opencode/p4-leveldb-three-verifiers-<stage>/targets/verus",
+        "kani": "/tmp/opencode/p4-leveldb-three-verifiers-<stage>/targets/kani"
+      },
+      "proof_output_roots": {
+        "creusot": "rust/leveldb-three-verifiers-creusot/verif/",
+        "verus": "analysis/<stage>/results-verus/",
+        "kani": "analysis/<stage>/results-kani/"
+      },
+      "config_roots": {
+        "why3_config": "/tmp/opencode/p4-leveldb-three-verifiers-<stage>/why3/config",
+        "why3_runtime": "/tmp/opencode/p4-leveldb-three-verifiers-<stage>/why3/runtime",
+        "oracle_build": "/tmp/opencode/p4-leveldb-three-verifiers-<stage>/oracle-build"
+      },
+      "durable_evidence_roots": {
+        "creusot": "analysis/<stage>/results-creusot/",
+        "verus": "analysis/<stage>/results-verus/",
+        "kani": "analysis/<stage>/results-kani/"
+      },
+      "oracle_dependencies": [
+        "Native db/log_test.cc, table/table_test.cc and a wrapper over selected modules; in-memory Env/handler.",
+        "Compression disabled so the slice is independent of the Snappy Rust port.",
+        "Compare batch/log/read/replay and block-build/seek traces including short writes, truncation, checksum failures, malformed batches, partial handler effects."
+      ],
+      "creation_order": [
+        "1 operator: create root directory, git init, initial baseline commit; install verified Ligature bundle",
+        "2 operator/human: ligature.pyz init; author project-descriptor.json, write_set, verifier_policy, closure_kind",
+        "3 operator: place upstream checkout at the immutable pin and record upstream/upstream-pin.json",
+        "4 sanctioned: scaffold-crate per declared crate under exact Cargo.toml grants; configure-crate only for Verus crates",
+        "5 operator: write independent Cargo.lock, nested rust-toolchain.toml and .cargo/config.toml per crate",
+        "6 worker: author src/tests/oracle/analysis/findings/PORT-GAPS inside allowed_roots",
+        "7 operator: verify write-set-check --issue <stage> --json, doctor, and per-root smoke check before stage work"
+      ],
+      "blocking_before_creation": [
+        "No human-issued issue/path grants exist for project-descriptor.json, tools/ligature/**, upstream/**, crate manifests, locks, or nested toolchain files.",
+        "No operator action has created the Git root or initial baseline commit (worker commit/push prohibited).",
+        "Outer-repository submodule registration and .gitmodules changes are operator-only."
+      ]
+    }
+  ],
+  "concurrent_workflow_observation": {
+    "observed_at_utc": "2026-11-14T19:33:00Z",
+    "workflow": "separate #177 workflow in the same shared worktree",
+    "roots_created_by_other_workflow": [
+      "icl-creusot-verus",
+      "tinyxml2-creusot-kani",
+      "snappy-verus-kani",
+      "leveldb-three-verifiers"
+    ],
+    "content_observed_in_roots": [
+      "SOURCE-PIN.json",
+      "README.md",
+      ".gitignore",
+      "PORT-GAPS.md",
+      "findings/limitations.jsonl",
+      "oracle/README.md",
+      "oracle/oracle-PROTOCOL.md",
+      "analysis/setup/SETUP.md",
+      "analysis/setup/root-setup.json"
+    ],
+    "protected_content_observed_in_roots": [],
+    "competing_setup_tree": "planning/p4-mixed-2026-10-26/setup/",
+    "naming_divergence": {
+      "crates_this_attempt": [
+        "rust/icl-creusot-verus-creusot",
+        "rust/icl-creusot-verus-verus",
+        "rust/tinyxml2-creusot-kani-creusot",
+        "rust/tinyxml2-creusot-kani-kani",
+        "rust/snappy-verus-kani-verus",
+        "rust/snappy-verus-kani-kani",
+        "rust/leveldb-three-verifiers-creusot",
+        "rust/leveldb-three-verifiers-verus",
+        "rust/leveldb-three-verifiers-kani"
+      ],
+      "crates_observed_concurrent": [
+        "rust/icl-creusot",
+        "rust/icl-verus"
+      ],
+      "pin_file_this_attempt": "upstream/upstream-pin.json",
+      "pin_file_observed_concurrent": "SOURCE-PIN.json"
+    },
+    "this_attempt_created_or_edited_any": false,
+    "operator_action": "Reconcile the two setup trees and choose one naming/evidence scheme before issuing protected-creation grants or performing operator-managed creation.",
+    "read_only_check": "evidence/concurrent-roots-smoke-check.txt"
+  }
+}

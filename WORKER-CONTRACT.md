@@ -2,9 +2,46 @@
 
 Read this before starting ANY chainlink issue in this workspace. It holds the rules and gotchas that apply to every issue, so individual issue descriptions don't repeat them. If an issue's own description conflicts with this file, this file wins for process/safety rules; the issue wins for what to actually build.
 
-The master plan is `/home/goya/.claude/plans/based-on-this-preliminary-gleaming-salamander.md`. Read the section relevant to your issue's pilot/phase before starting.
+The current P4 plan is [P4-MIXED-PORT-PLAN.md](P4-MIXED-PORT-PLAN.md), with
+exact project/stage IDs in `planning/p4-mixed-2026-10-26/backlog-map.json`.
+The operator's 2026-10-26 direction preserves three baseline ports and adds
+four DISTINCT C++ projects for the verifier pairs/triple. It supersedes
+the baseline re-port expansion, not existing evidence or risk decisions.
+The historical master-plan path
+`/home/goya/.claude/plans/based-on-this-preliminary-gleaming-salamander.md`
+is missing; do not treat it as the active P4 execution reference or silently
+substitute another plan. Read the current plan and your issue before work.
 
-## 0.0 Current Ligature baseline (1.4.2, verified 2026-10-18)
+## 0.0 Current Ligature baseline (1.4.3, verified 2026-10-25)
+
+Ligature 1.4.3 is installed in all three pilots. Bundle SHA-256:
+`1a7a50eab31584946d8a7035ac3633130b0dc52d473d2587f3cd26e2800fd4e1`.
+Clean source commit: `89033eee6f0415e32ec1a2287110a1fb828dd0a8`;
+content/adjudicator hash:
+`sha256:bfc93caff9f5cbcfb62b9d12ab4c3761035589e7c9051683e8f2df474a5927bb`.
+Checksum/attestation verification, `migrate --upgrade`, and `doctor` pass
+in each pilot, with no migration conflicts or required human action.
+
+The focused scratch reproductions verify the fixes for local #175 and #176
+(upstream #172/#173): the one-obligation P1 Verus slice now closes with CG3
+verified, and P3 intake succeeds with `harness: "verus"`. The old
+`harness: "counter_capacity"` declaration is rejected with a field-specific
+correction. The exact Verus function remains a separate `--verus-function`
+mapping. These are focused results, not completion of the full Verus ports
+or the remaining #159 probes.
+
+P1 and P3 live work-package manifests retain their old managed-skill hash
+and fail G13 after the upgrade; do not hand-edit them. Refresh through the sanctioned
+workflow with the required issue/path grants. P1 retains its `.gitignore`
+and `PORT-GAPS.md` write-set exceptions. Retained `_closure` evidence can
+also be discovered by closure validation; a 1.4.2 scratch control reproduces
+that behavior. Installation health does not imply every live project gate
+passes.
+
+Evidence: `date-creusot/analysis/verification/ligature-1.4.3-2026-10-25/`
+and `crypto-mixed/analysis/p4-verifier-fit/p4-5-probes/verification-1.4.3/`.
+
+### Previous baseline (1.4.2, verified 2026-10-18)
 
 > **Current bundle:** Ligature 1.4.2, SHA-256
 > c4d989f3c72f7c9439cefb9a787b5ce23ad8467204fd61d9e00b761675c5b184.
@@ -143,23 +180,34 @@ policy or work-package semantics. `accept-policy --reviewer HUMAN
 
 ## 0. Picking the next issue (for automation)
 
-Use `chainlink --json issue next` directly and read `.next.id`. `chainlink issue next` used to recommend epic issues themselves (e.g. epic `#9` instead of its real next child `#12`), and `chainlink issue ready` used to silently ignore `--json`. Both were fixed upstream in `chainlink >= 0.2.0+a18285c` (confirmed fixed here: `next` now returns the leaf with explicit "Part of epic #N" framing, and `--json` on both `next`/`ready` now emits real JSON with `is_epic`/`subissue_count`/`open_subissue_count` fields). If `chainlink --version` reports something older, upgrade before relying on this.
+For the current P4 phase, use the explicit chain in
+`planning/p4-mixed-2026-10-26/backlog-map.json`. #161 is still the open human
+checkpoint. #177 is setup; the four project epics #178/#182/#186/#190 each
+have three serial leaf stages, followed by the #169–#174 comparison/roll-up
+chain and the M7 CG6/G15 control #194. #162 is preserved baseline maintenance
+after #174. Old #163–#168 are CLOSED AS SUPERSEDED, not completed ports.
 
-**The remaining open work is one strict linear chain**, verified by simulation against the live dependency graph (no two leaf issues ever become simultaneously unblocked): every pilot's pipeline steps and probes are fully ordered relative to each other (not just relative to the stage they were originally attached to), and the three pilots run one after another (P1 fully done → P2 fully done → P3 fully done), followed by the cross-cutting re-checks (`#54`'s children) and finally the deliverables roll-up (`#67`'s children). `chainlink --json issue next` will therefore always return exactly one id with no ambiguity, all the way to the end — feed it straight to a worker with no judgment call needed. Once it stops returning a `next` (or `.next` is null), everything in the chain is done.
+Before any action, read `chainlink --json issue show <id>` and verify every
+listed blocker is closed. A title, this plan, an epic parent, or a proposed
+scope does not authorize jumping a human checkpoint or writing protected
+files. An unqualified `chainlink issue next` can also surface older work;
+confirm it belongs to the intended phase instead of assuming a historical
+nine-cell queue is still active. Prefer the current graph over old prose.
 
-**Deliberate tradeoff:** the original plan allowed the cross-cutting re-checks (`#55`-`#66`) to start as soon as P1 alone was done, potentially running alongside P2/P3. Making everything strictly sequential pushed them (and the roll-up generator, `#68`) to after all three pilots finish instead, so they no longer run in parallel with anything. This trades earlier discovery of process-level issues for a dead-simple single-file automation loop. If you'd rather they run right after P1, that's a one-line adjustment to `#55`'s blocker (currently `#18, #51` — drop the `#51` part) at the cost of reintroducing a branch point there.
-
-**Epic `#1`** (ligature-upstream reports) is deliberately excluded from this chain — it has no fixed position, since its children get filed ad hoc whenever a worker hits a real ligature defect (§2). It will never be `next-issue.sh`'s answer while it's empty, and shouldn't be treated as a step in the sequence even once it has children.
+Use current JSON-capable Chainlink and inspect `.next.id` if using `issue
+next`. Epic #1 contains ad hoc Ligature escalation reports and is outside
+the execution chain; always retain the `--exclude 1` and `--no-close`
+chainlink-loop rules in §5.5. Do not auto-close human decisions or label an
+unimplemented superseded port as successful verification.
 
 ## 1. Black-box rule for ligature.pyz — the most commonly violated rule
 
-This workspace tests `ligature.pyz` (the pinned release binary, currently
-**1.3.2**, bundle checksum
-`ecd05e3368e20a092102855876012bd24da32fb05595ba3d46f689216d92e197`,
-copied into every pilot root's `tools/ligature/` and verified with
-`sha256sum -c SHA256SUMS`) as a black box, the way a real user would.
-The bundle attestation verifies, but `version` reports dirty-source
-provenance; do not describe this artifact as built from a clean source tree.
+This workspace tests each pilot's pinned release binary as a black box,
+the way a real user would. The current baseline release and checksum are in
+§0.0; 1.4.3 reports clean, attested provenance. Verify the pilot-local
+`tools/ligature/SHA256SUMS` and `version --verify` rather than relying on a
+historical version claim. Planned new roots obtain an approved bundle only
+through their setup issue.
 When a new release is installed, run `migrate --upgrade` only in an
 initialized pilot, then verify status, doctor, write-set-check and the
 current-phase gates. A nonzero project check can be a real project finding;
@@ -183,7 +231,13 @@ This rule does not apply to third-party tools (Creusot, Verus, Kani, codesight-m
 
 ## 3. Standing scope constraints (apply to every issue unless it explicitly says otherwise)
 
-- Touch only your own pilot root's own subdirectories (`date-creusot/`, `swisstable-verus/`, or `crypto-mixed/` — whichever one your issue belongs to). Never touch another pilot root.
+- Touch only the root assigned to your issue. Existing baseline roots are
+  `date-creusot/`, `swisstable-verus/`, and `crypto-mixed/`. Planned mixed roots
+  are `icl-creusot-verus/`, `tinyxml2-creusot-kani/`, `snappy-verus-kani/`, and
+  `leveldb-three-verifiers/`; they are not initialized or worker-writable
+  merely because their names appear here. #161/#177 must establish their
+  exact setup and write policy first. Never change another project's source,
+  manifests, ledger, policy or evidence under an issue scoped to one root.
 - A protected-write grant never widens the worker's allowed_roots. Use only the sanctioned verbs described in §0.1 and PROTECTED-WRITES.md; if a matching grant or authorized command path is absent, stop and request the human checkpoint.
 - Never modify `flake.nix` or `flake.lock` at the workspace root. If something's missing from a Nix shell, report it as a finding on epic **#2**, don't install outside Nix or edit the flake yourself.
 - The workspace root is an **operator-managed git repo** (remote `git@github.com:nanonite/ligature-support-matrix.git`) — never run `git init`, `git commit` or `git push` there. Each pilot (`crypto-mixed/`, `date-creusot/`, `swisstable-verus/`) is its own repo, linked into the root repo as a submodule (Ligature's work-package generation requires the pilot to be a Git repository root); commit inside your pilot as your issue requires, never push, and leave the root's submodule pins to the operator. `swisstable-verus/` keeps its ignore rules in `.git/info/exclude`, not a tracked `.gitignore`, because its write_set does not account for one. Other nested git repos (e.g. `upstream/date/.git`, `tools/codesight-mcp/.git`) are expected; leave their own `.git` alone unless your issue is specifically about that checkout.

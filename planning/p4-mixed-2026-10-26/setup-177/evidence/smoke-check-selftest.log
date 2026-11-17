@@ -1,0 +1,90 @@
+=== smoke check: seeded synthetic root (expect exit 0) ===
+# root: /tmp/opencode/p177-selftest/icl-creusot-verus
+[PASS] root directory exists: /tmp/opencode/p177-selftest/icl-creusot-verus
+[PASS] independent Git work-tree root: /tmp/opencode/p177-selftest/icl-creusot-verus
+[PASS] git work-tree: true
+[PASS] descriptor parses: /tmp/opencode/p177-selftest/icl-creusot-verus/project-descriptor.json
+[PASS] descriptor project name matches root: icl-creusot-verus
+[PASS] descriptor declares every independent Cargo root: declared=['rust/icl-creusot-verus-creusot', 'rust/icl-creusot-verus-verus'] expected=['rust/icl-creusot-verus-creusot', 'rust/icl-creusot-verus-verus']
+[PASS] descriptor has allowed and protected roots: allowed=5 protected=6
+[PASS] declared default verifier is assigned: creusot
+[PASS] root-local Ligature bundle exists: /tmp/opencode/p177-selftest/icl-creusot-verus/tools/ligature
+[PASS] Ligature bundle checksum verifies: ligature.pyz: OK
+[PASS] Ligature version runs: ligature 1.4.3 selftest
+[PASS] upstream pin parses: /tmp/opencode/p177-selftest/icl-creusot-verus/upstream/upstream-pin.json
+[PASS] upstream pin commit matches manifest: 2741c3a1b7b79f7326360c26c3e1588b385c9e53 vs 2741c3a1b7b79f7326360c26c3e1588b385c9e53
+[PASS] upstream pin tag matches manifest: boost-1.88.0 vs boost-1.88.0
+[PASS] icl-creusot-verus-creusot: crate directory exists: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-creusot
+[PASS] icl-creusot-verus-creusot: Cargo.toml exists: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-creusot/Cargo.toml
+[PASS] icl-creusot-verus-creusot: Cargo.lock exists: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-creusot/Cargo.lock
+[PASS] icl-creusot-verus-creusot: rust-toolchain.toml exists: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-creusot/rust-toolchain.toml
+[PASS] icl-creusot-verus-creusot: .cargo/config.toml exists: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-creusot/.cargo/config.toml
+[PASS] icl-creusot-verus-creusot: Cargo package name matches crate: icl-creusot-verus-creusot vs icl-creusot-verus-creusot
+[PASS] icl-creusot-verus-creusot: toolchain channel matches verifier pin: nightly-2026-04-21 vs nightly-2026-04-21
+[PASS] icl-creusot-verus-creusot: .cargo/config.toml has no repository-local target dir: no target-dir override
+[PASS] icl-creusot-verus-creusot: no repository-local target/ tree: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-creusot/target
+[WARN] icl-creusot-verus-creusot: verif/ is absent before the first proof: created by the first Creusot run
+[PASS] icl-creusot-verus-verus: crate directory exists: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-verus
+[PASS] icl-creusot-verus-verus: Cargo.toml exists: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-verus/Cargo.toml
+[PASS] icl-creusot-verus-verus: Cargo.lock exists: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-verus/Cargo.lock
+[PASS] icl-creusot-verus-verus: rust-toolchain.toml exists: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-verus/rust-toolchain.toml
+[PASS] icl-creusot-verus-verus: .cargo/config.toml exists: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-verus/.cargo/config.toml
+[PASS] icl-creusot-verus-verus: Cargo package name matches crate: icl-creusot-verus-verus vs icl-creusot-verus-verus
+[PASS] icl-creusot-verus-verus: toolchain channel matches verifier pin: 1.95.0 vs 1.95.0
+[PASS] icl-creusot-verus-verus: .cargo/config.toml has no repository-local target dir: no target-dir override
+[PASS] icl-creusot-verus-verus: no repository-local target/ tree: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-verus/target
+[PASS] no root-level Cargo.toml workspace: /tmp/opencode/p177-selftest/icl-creusot-verus/Cargo.toml
+[PASS] oracle/ exists: /tmp/opencode/p177-selftest/icl-creusot-verus/oracle
+[PASS] findings/limitations.jsonl exists: /tmp/opencode/p177-selftest/icl-creusot-verus/findings/limitations.jsonl
+[PASS] PORT-GAPS.md exists: /tmp/opencode/p177-selftest/icl-creusot-verus/PORT-GAPS.md
+[PASS] creusot: durable per-tool evidence root exists: analysis/stage/results-creusot
+[PASS] verus: durable per-tool evidence root exists: analysis/stage/results-verus
+[PASS] no shared mutable ledger/closure marker: [PosixPath('/tmp/opencode/p177-selftest/icl-creusot-verus/ci/ledger'), PosixPath('/tmp/opencode/p177-selftest/icl-creusot-verus/specs/_closure/shared')]
+
+39 passed, 1 warnings, 0 failed
+
+=== mutation: repository-local target/ tree and wrong toolchain (expect exit 1) ===
+# root: /tmp/opencode/p177-selftest/icl-creusot-verus
+[PASS] root directory exists: /tmp/opencode/p177-selftest/icl-creusot-verus
+[PASS] independent Git work-tree root: /tmp/opencode/p177-selftest/icl-creusot-verus
+[PASS] git work-tree: true
+[PASS] descriptor parses: /tmp/opencode/p177-selftest/icl-creusot-verus/project-descriptor.json
+[PASS] descriptor project name matches root: icl-creusot-verus
+[PASS] descriptor declares every independent Cargo root: declared=['rust/icl-creusot-verus-creusot', 'rust/icl-creusot-verus-verus'] expected=['rust/icl-creusot-verus-creusot', 'rust/icl-creusot-verus-verus']
+[PASS] descriptor has allowed and protected roots: allowed=5 protected=6
+[PASS] declared default verifier is assigned: creusot
+[PASS] root-local Ligature bundle exists: /tmp/opencode/p177-selftest/icl-creusot-verus/tools/ligature
+[PASS] Ligature bundle checksum verifies: ligature.pyz: OK
+[PASS] Ligature version runs: ligature 1.4.3 selftest
+[PASS] upstream pin parses: /tmp/opencode/p177-selftest/icl-creusot-verus/upstream/upstream-pin.json
+[PASS] upstream pin commit matches manifest: 2741c3a1b7b79f7326360c26c3e1588b385c9e53 vs 2741c3a1b7b79f7326360c26c3e1588b385c9e53
+[PASS] upstream pin tag matches manifest: boost-1.88.0 vs boost-1.88.0
+[PASS] icl-creusot-verus-creusot: crate directory exists: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-creusot
+[PASS] icl-creusot-verus-creusot: Cargo.toml exists: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-creusot/Cargo.toml
+[PASS] icl-creusot-verus-creusot: Cargo.lock exists: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-creusot/Cargo.lock
+[PASS] icl-creusot-verus-creusot: rust-toolchain.toml exists: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-creusot/rust-toolchain.toml
+[PASS] icl-creusot-verus-creusot: .cargo/config.toml exists: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-creusot/.cargo/config.toml
+[PASS] icl-creusot-verus-creusot: Cargo package name matches crate: icl-creusot-verus-creusot vs icl-creusot-verus-creusot
+[PASS] icl-creusot-verus-creusot: toolchain channel matches verifier pin: nightly-2026-04-21 vs nightly-2026-04-21
+[PASS] icl-creusot-verus-creusot: .cargo/config.toml has no repository-local target dir: no target-dir override
+[PASS] icl-creusot-verus-creusot: no repository-local target/ tree: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-creusot/target
+[WARN] icl-creusot-verus-creusot: verif/ is absent before the first proof: created by the first Creusot run
+[PASS] icl-creusot-verus-verus: crate directory exists: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-verus
+[PASS] icl-creusot-verus-verus: Cargo.toml exists: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-verus/Cargo.toml
+[PASS] icl-creusot-verus-verus: Cargo.lock exists: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-verus/Cargo.lock
+[PASS] icl-creusot-verus-verus: rust-toolchain.toml exists: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-verus/rust-toolchain.toml
+[PASS] icl-creusot-verus-verus: .cargo/config.toml exists: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-verus/.cargo/config.toml
+[PASS] icl-creusot-verus-verus: Cargo package name matches crate: icl-creusot-verus-verus vs icl-creusot-verus-verus
+[FAIL] icl-creusot-verus-verus: toolchain channel matches verifier pin: stable vs 1.95.0
+[PASS] icl-creusot-verus-verus: .cargo/config.toml has no repository-local target dir: no target-dir override
+[FAIL] icl-creusot-verus-verus: no repository-local target/ tree: /tmp/opencode/p177-selftest/icl-creusot-verus/rust/icl-creusot-verus-verus/target
+[PASS] no root-level Cargo.toml workspace: /tmp/opencode/p177-selftest/icl-creusot-verus/Cargo.toml
+[PASS] oracle/ exists: /tmp/opencode/p177-selftest/icl-creusot-verus/oracle
+[PASS] findings/limitations.jsonl exists: /tmp/opencode/p177-selftest/icl-creusot-verus/findings/limitations.jsonl
+[PASS] PORT-GAPS.md exists: /tmp/opencode/p177-selftest/icl-creusot-verus/PORT-GAPS.md
+[PASS] creusot: durable per-tool evidence root exists: analysis/stage/results-creusot
+[PASS] verus: durable per-tool evidence root exists: analysis/stage/results-verus
+[PASS] no shared mutable ledger/closure marker: [PosixPath('/tmp/opencode/p177-selftest/icl-creusot-verus/ci/ledger'), PosixPath('/tmp/opencode/p177-selftest/icl-creusot-verus/specs/_closure/shared')]
+
+37 passed, 1 warnings, 2 failed
+SELFTEST OK: seeded=0 mutated=1

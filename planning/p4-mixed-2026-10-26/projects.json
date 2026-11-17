@@ -1,0 +1,126 @@
+[
+  {
+    "key": "M4",
+    "name": "Boost.ICL",
+    "repo": "boostorg/icl",
+    "root": "icl-creusot-verus",
+    "verifiers": [
+      "creusot",
+      "verus"
+    ],
+    "scope": "Discrete interval algebra and canonical interval sets/maps. Cover empty/singleton/open/closed endpoints, union/intersection/difference, insertion/erasure, split/coalesce, membership and segment iteration. Start with i32 and i64 endpoint instantiations and one explicit additive integer map codomain; document overflow/identity-absorption semantics. Generic endpoint/combiner law obligations must be attempted, not silently replaced by one scalar instantiation.",
+    "owners": "Creusot: endpoint/order/interval algebra and high-level set operations. Verus: canonical segment storage, mutation, split/coalesce, iterator/representation invariants. Ownership is a fit hypothesis; freeze the real function map after intake.",
+    "edges": [
+      "C\u2192V: interval_base_set::add calls _add / interval_set segment mutation.",
+      "V\u2192C: _add tests icl::is_empty; mutation uses left_subtract/right_subtract and endpoint algebra."
+    ],
+    "sources": [
+      "include/boost/icl/interval_base_set.hpp",
+      "include/boost/icl/interval_set.hpp",
+      "include/boost/icl/interval_map.hpp",
+      "include/boost/icl/concept/interval.hpp"
+    ],
+    "oracle": "Build the matching Boost 1.88.0 dependency distribution, verify the ICL module commit, and use native ICL operations as the oracle. Derive examples from test/Jamfile.v2 interval/set/map suites. Compare pointwise denotation AND canonical segments/iteration for each selected container style; randomized operation traces plus algebraic laws and boundary mutations.",
+    "exclude": "Full Boost, continuous/floating endpoint semantics, arbitrary allocator/comparator/codomain policies, ABI/iterator address identity and performance parity are not initial claims. Each unsupported generic feature remains a transfer gap; changing source representation does not prove algorithmic complexity.",
+    "coverage": "Templates/traits and algebraic laws; interval arithmetic across widths; ordered containers; generic proof interfaces; iterator/mutation invariants.",
+    "tag": "boost-1.88.0",
+    "commit": "2741c3a1b7b79f7326360c26c3e1588b385c9e53",
+    "url": "https://github.com/boostorg/icl"
+  },
+  {
+    "key": "M5",
+    "name": "TinyXML2",
+    "repo": "leethomason/tinyxml2",
+    "root": "tinyxml2-creusot-kani",
+    "verifiers": [
+      "creusot",
+      "kani"
+    ],
+    "scope": "In-memory UTF-8 XML parsing and DOM operations: elements, attributes, text, comments, declarations, CDATA, predefined/numeric character references, newline/whitespace modes, and an explicitly listed mutation/clone/serialization facade. Preserve pinned upstream error and normalization behavior. Fit may stage features, but every exclusion must be explicit rather than claiming all XML is ported.",
+    "owners": "Creusot: parser progress/recursive structure, DOM ownership and parent/sibling links, serialization and UTF32-to-UTF8 conversion contracts. Kani: bounded StrPair normalization and entity scanning/GetCharacterRef buffer, length, radix and overflow paths.",
+    "edges": [
+      "C\u2192K: parser/DOM value access calls StrPair::GetStr and entity processing.",
+      "K\u2192C: XMLUtil::GetCharacterRef calls ConvertUTF32ToUTF8."
+    ],
+    "sources": [
+      "tinyxml2.cpp",
+      "tinyxml2.h",
+      "xmltest.cpp",
+      "resources/",
+      "test/"
+    ],
+    "oracle": "Compile the two upstream source files and xmltest.cpp at the pin. Compare typed DOM event streams, ordered attributes, selected mutation traces, printed bytes where defined, and upstream error categories/line numbers. Use real resource tests and malformed/truncated/entity/UTF-8/depth mutations. Fix whitespace mode and resource/depth limits in every oracle case.",
+    "exclude": "DTD/XSL, already outside TinyXML2 support, are not promised. Do not claim full XML-standard conformance beyond pinned TinyXML2 behavior. Raw C++ pointer identity, invalid-pointer traces and all operating-system file behavior are outside initial equivalence; Rust handle/lifetime choices and recursion limits must be reported.",
+    "coverage": "Recursive parsing; UTF-8 and numeric references; aliasing/arena ownership; mutable trees and lifetimes; errors/normalization; bounded buffer checking.",
+    "tag": "11.0.0",
+    "commit": "9148bdf719e997d1f474be6bcc7943881046dba1",
+    "url": "https://github.com/leethomason/tinyxml2"
+  },
+  {
+    "key": "M6",
+    "name": "Snappy",
+    "repo": "google/snappy",
+    "root": "snappy-verus-kani",
+    "verifiers": [
+      "verus",
+      "kani"
+    ],
+    "scope": "Raw Snappy block encoding/decoding, length/varint/tag parsing, literals and all three copy-tag forms, overlapping backreferences and malformed stream rejection. Establish a scalar functional path first, then port and attempt Kani checking of at least one actual optimized copy/shuffle path from the pinned source. Keep runtime safety preconditions, slop bytes, offsets and output limits explicit.",
+    "owners": "Verus: tag/decoder state invariants and portable scalar IncrementalCopySlow model/implementation, reconstruction/round-trip properties over selected raw format. Kani: bounded IncrementalCopy optimized paths, vector shuffle/unaligned access/tail/slop conditions, compared against the scalar semantics.",
+    "edges": [
+      "V\u2192K: DecompressAllTags/AppendFromSelf dispatches IncrementalCopy.",
+      "K\u2192V: IncrementalCopy falls back to IncrementalCopySlow for tight buffers and tails."
+    ],
+    "sources": [
+      "snappy.cc",
+      "snappy-internal.h",
+      "snappy-sinksource.h",
+      "snappy_unittest.cc",
+      "format_description.txt",
+      "testdata/"
+    ],
+    "oracle": "Build native snappy_unittests and use pinned C++ Compress/Uncompress plus the shipped corrupted-input tests and testdata. Cross-decode C++-encoded and Rust-encoded streams; compare decoded bytes, lengths and error outcomes. Encodings are not assumed canonical: do not demand identical compressed bytes for every valid compressor implementation.",
+    "exclude": "Framed/container formats, other codecs, every architecture/ISA, throughput parity and unbounded Kani claims are excluded initially. One real optimized variant must be attempted; unsupported intrinsics must be reported and cannot be replaced with stubs while calling the optimized path proved. Other ISA paths remain explicit gaps.",
+    "coverage": "Bitvectors, varints, generic writer interfaces, byte sequences, overlapping memory, alignment/slop bounds, SIMD/intrinsics and portable fallbacks.",
+    "tag": "1.2.2",
+    "commit": "6af9287fbdb913f0794d0148c6aa43b58e63c8e3",
+    "url": "https://github.com/google/snappy"
+  },
+  {
+    "key": "M7",
+    "name": "LevelDB storage slice",
+    "repo": "google/leveldb",
+    "root": "leveldb-three-verifiers",
+    "verifiers": [
+      "creusot",
+      "verus",
+      "kani"
+    ],
+    "scope": "A coherent in-memory storage-format pipeline: WriteBatch Put/Delete and parsing/handler effects, log fragment writer/reader with checksums and truncation/error cases, sorted prefix-compressed block builder/reader and restart-point seek/iteration, and replay of decoded batch operations into a specified logical map. Join real modules end-to-end; this is not a whole LevelDB database port.",
+    "owners": "Creusot: ordered-map/operation-history semantics, batch handler effects and replay/state invariants. Verus: prefix-compressed block representation, restart/seek/iteration, log framing/reassembly and parser progress. Kani: bounded fixed/varint codecs, CRC32C arithmetic/masking and local buffer/fault cases. The final fit map must trace all three evidence kinds into one actual dataflow.",
+    "edges": [
+      "Creusot batch/replay orchestration consumes Verus-checked parsing/framing contracts.",
+      "Verus log/block parsing calls Kani-owned coding/CRC helpers; WriteBatch::Iterate dispatches to Creusot-owned Handler Put/Delete semantics.",
+      "These are assignment hypotheses for real source calls; intake must record exact sites and reject disconnected three-demo designs."
+    ],
+    "sources": [
+      "db/write_batch.cc",
+      "db/log_writer.cc",
+      "db/log_reader.cc",
+      "db/log_test.cc",
+      "table/block_builder.cc",
+      "table/block.cc",
+      "table/table_test.cc",
+      "util/coding.cc",
+      "util/crc32c.cc",
+      "doc/log_format.md",
+      "doc/table_format.md"
+    ],
+    "oracle": "Build native LevelDB format/log tests and a native wrapper over the selected modules. Compare append/read/replay and block-build/seek traces against an in-memory Env/handler, including short writes, truncation, checksum failures and malformed batches. Compare partial handler side effects on corruption; do not assume batch rollback. Keep compression disabled for this initial slice so it is independent of the separate Snappy port.",
+    "exclude": "Full DB API, compaction scheduling, concurrent writers, filesystem durability, real crash consistency, snapshots and all platform Env implementations are not initial proof claims. Flush is not Sync. Bounded in-memory fault models do not establish OS persistence or linearizability. Log/table compatibility applies only to the selected formats/options.",
+    "coverage": "Three-owner dataflow; ordered models and callbacks; storage encodings; streaming fragments, error effects and temporal traces; realistic protocol/SCC investigation plus explicitly synthetic gate controls if needed.",
+    "tag": "1.23",
+    "commit": "99b3c03b3284f5886f9ef9a4ef703d57373e61be",
+    "url": "https://github.com/google/leveldb"
+  }
+]

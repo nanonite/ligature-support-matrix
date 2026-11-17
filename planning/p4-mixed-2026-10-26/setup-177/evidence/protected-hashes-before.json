@@ -1,0 +1,99 @@
+{
+  "root": "/home/goya/storage/full-ligature-port-workspace",
+  "files": {
+    "flake.nix": {
+      "exists": true,
+      "sha256": "7f631c89297f25fcbbef7e860d6c931539e7236142b5dba7cf148459e3d4ab07"
+    },
+    "flake.lock": {
+      "exists": true,
+      "sha256": "a1945f624d7bff521a1742b5cf85b0a94dd44989fcd4c23d29100340cbf45137"
+    },
+    ".gitmodules": {
+      "exists": true,
+      "sha256": "ece2025f17806d2798eee104f1db68919109e9a4de4a75c6004fb7e1975c09d1"
+    },
+    "crypto-mixed/project-descriptor.json": {
+      "exists": true,
+      "sha256": "7abadf9168b31918a67c8fe166bc30c982aea0ac55522ed74ea469fdc3e177f1"
+    },
+    "crypto-mixed/.envrc": {
+      "exists": true,
+      "sha256": "7dc84a4d6c630124c3b752b2a2f99ca60587a5e6d552cf15ea795e946fe2693f"
+    },
+    "crypto-mixed/crates/crypto-mixed-core/Cargo.toml": {
+      "exists": true,
+      "sha256": "032ddddf3b8882484bce8d4be75dacce64228d35ba8dd9793c1a3dda8b5a6183"
+    },
+    "crypto-mixed/crates/crypto-mixed-core/Cargo.lock": {
+      "exists": true,
+      "sha256": "500245d4c61242e614363a03597f8c88f7c827d02115ffbc92f8dabd774f5fc1"
+    },
+    "crypto-mixed/oracle/rust-check/Cargo.toml": {
+      "exists": true,
+      "sha256": "166ccdc2bc2732b45a1f2207c9db8508fd65b51a9c5ebb41d55f71a83c30718c"
+    },
+    "crypto-mixed/oracle/rust-check/Cargo.lock": {
+      "exists": true,
+      "sha256": "a758d98854371b4eef56e5a9dec31c683de620e65f2083a78ea035929ab993eb"
+    },
+    "date-creusot/project-descriptor.json": {
+      "exists": true,
+      "sha256": "7e501157ccde93912556b25e94ebceb8c75a593ee098334f95abdb301fdd0e34"
+    },
+    "date-creusot/.envrc": {
+      "exists": true,
+      "sha256": "d96fedcc4d7ce6d7c34fbaaf45ff5f74406555b34450d1977c50b08649228dd6"
+    },
+    "date-creusot/rust/date-creusot-core/Cargo.toml": {
+      "exists": true,
+      "sha256": "51fbc2b30d26484e8bc07c65f407d6f24660fada8e6ae83cf928ae2bac8091ed"
+    },
+    "date-creusot/rust/date-creusot-core/Cargo.lock": {
+      "exists": true,
+      "sha256": "72aa7f4bccd37da533e8c94e1ca77b825f3dbadee3b3ca2f540427afe3932629"
+    },
+    "date-creusot/oracle/rust-check/Cargo.toml": {
+      "exists": true,
+      "sha256": "a82d1244b3e778743a62d23d39991ccbbc1e78abd44183ccf100576e2afc5a74"
+    },
+    "date-creusot/oracle/rust-check/Cargo.lock": {
+      "exists": true,
+      "sha256": "ef3b3b7491bbbad9e3a555e51de98f7d5dd6981d1f41d9bd5d998bb18a06abfe"
+    },
+    "swisstable-verus/project-descriptor.json": {
+      "exists": true,
+      "sha256": "a95fdb44a59a16fec988500490cc05565cffe57227209ecba28e587e5fbb3ca7"
+    },
+    "swisstable-verus/.envrc": {
+      "exists": true,
+      "sha256": "72a177b6a82dae2a25e5c9e14ca6778b49d5204326bee4e2810e2e990d8c6ff4"
+    },
+    "swisstable-verus/rust/swisstable-verus-core/Cargo.toml": {
+      "exists": true,
+      "sha256": "ccc7fd83f3131f66d926b49ec80008297667b52f9aa255d7cf6df6593a198d54"
+    },
+    "swisstable-verus/rust/swisstable-verus-core/Cargo.lock": {
+      "exists": true,
+      "sha256": "aced43d91cbfc6b486e85741265b9d10269832209ba9b23f022bca39e7154f9a"
+    }
+  },
+  "planned_roots_present": {
+    "icl-creusot-verus/project-descriptor.json": false,
+    "tinyxml2-creusot-kani/project-descriptor.json": false,
+    "snappy-verus-kani/project-descriptor.json": false,
+    "leveldb-three-verifiers/project-descriptor.json": false
+  },
+  "git_status_short": [
+    " M .chainlink/issues.db",
+    " M CHANGELOG.md",
+    " M README.md",
+    " M VERIFIER-MATRIX.md",
+    " M WORKER-CONTRACT.md",
+    " M crypto-mixed",
+    " m date-creusot",
+    " m swisstable-verus",
+    "?? P4-MIXED-PORT-PLAN.md",
+    "?? planning/"
+  ]
+}

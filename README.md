@@ -1,13 +1,28 @@
 # Ligature support matrix
 
-Workspace for porting C++ libraries to verified Rust with Ligature, one pilot
-per verifier, and for planning the mixed-verifier matrix (chainlink epic #154).
+Workspace for porting C++ libraries to verified Rust with Ligature. Preserve
+the three single-verifier baselines and add four distinct mixed-verifier
+projects under [the current P4 plan](P4-MIXED-PORT-PLAN.md) (epic #154).
 
 | Pilot | Upstream | Verifier | Where it lives |
 |---|---|---|---|
 | `date-creusot/` (P1) | Howard Hinnant's `date` | Creusot | submodule, branch `pilot/date-creusot` |
 | `swisstable-verus/` (P2) | Abseil SwissTable | Verus | submodule, branch `pilot/swisstable-verus` |
 | `crypto-mixed/` (P3) | Botan ChaCha20-Poly1305 | Kani | submodule, branch `pilot/crypto-mixed` |
+
+Four additional roots are planned, not yet initialized:
+
+| Planned root | Distinct upstream | Verifiers | Project epic |
+|---|---|---|---|
+| `icl-creusot-verus/` (M4) | Boost.ICL | Creusot + Verus | #178 |
+| `tinyxml2-creusot-kani/` (M5) | TinyXML2 | Creusot + Kani | #182 |
+| `snappy-verus-kani/` (M6) | Snappy | Verus + Kani | #186 |
+| `leveldb-three-verifiers/` (M7) | LevelDB storage-format slice | Creusot + Verus + Kani | #190 |
+
+This is seven project workspaces total, including the three baselines, not
+every port under every verifier combination. #161 remains the human scope,
+toolchain, trust and write-policy checkpoint; #177 owns later setup. The
+plan update itself creates no new repo, submodule, source checkout or port.
 
 Everything is in this one GitHub repo. Each pilot keeps its own git
 repository because Ligature's work-package generation requires each pilot to
@@ -30,7 +45,8 @@ git commit -m "Pin pilot commits"
 git push origin main pilot/crypto-mixed pilot/date-creusot pilot/swisstable-verus
 ```
 
-Shared material at the root: `VERIFIER-MATRIX.md` (the P4 plan),
+Shared material at the root: `P4-MIXED-PORT-PLAN.md` (the current P4 plan),
+`VERIFIER-MATRIX.md` (coverage and measured assurance rules),
 `WORKER-CONTRACT.md`, `PROTECTED-WRITES.md`,
 `oracle-PROTOCOL.md`, `rdb-divergence-workflow.md`, `findings-schema.md`,
 `oracle-example/`, the Nix flake (`nix develop path:.#<pilot>`), and the

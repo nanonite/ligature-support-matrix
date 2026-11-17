@@ -1,0 +1,17 @@
+c94f9cfb59b3a7cfa4909140ad421eccb19f283825c4d601b2c3f5670ffb4f36  P4-MIXED-PORT-PLAN.md
+5d1b8333072201bb52ed3d3e2e9583eeb029d8864b15ecc4375f5a453d344c31  VERIFIER-MATRIX.md
+e9c5c524ea0897dc8379c040a3f7d9b327e22832d06d2d9fb609a5eea92bd25f  README.md
+edbd9f465a2a905791d4e699cef1ead632d02f2eb3990a89ce99b92aca3ca738  WORKER-CONTRACT.md
+9ef411d006125ed3cf4aa822d4d3f0e960956a98e7e48a6823949de176d63bba  planning/p4-mixed-2026-10-26/backlog-after.json
+573de7d8b57e59612135f07d492934f7b6d8be88d30685178fd01e61563faa0e  planning/p4-mixed-2026-10-26/backlog-before.json
+a8022d6358f577bc676ee49d24beb02722360cb8eb845e248c85f4c40c343e7a  planning/p4-mixed-2026-10-26/backlog-map.json
+468fe0941a25540295f3486721653918a6906559b9da0aad00cd0bae8322b114  planning/p4-mixed-2026-10-26/dependency-check.json
+c9f7a97e3f66181e57a4f23335bcdb16c4d8e44a10aad51c67d99338701c9983  planning/p4-mixed-2026-10-26/historical/VERIFIER-MATRIX-before-four-projects.md
+6bc9e5636a14096113cc83509ff0d1bfc4b3a0c9b56282ee02a83f746e2d4b81  planning/p4-mixed-2026-10-26/p3-write-set-check.json
+5fb54f5088e7fe31f987fb9a78a42240cb2e23bdb77808c3e95aacfdc07fbabe  planning/p4-mixed-2026-10-26/projects.json
+4327f8d8fe54abe955dac30034f85e9b53e91d5004277aef6401a3769f8cb49d  planning/p4-mixed-2026-10-26/source-review.json
+f7e123199f8e3934dac81c270674a2db3be3b82604f9a7be74c293304726d1c6  planning/p4-mixed-2026-10-26/upstream-pins.json
+a7caa47b1e2c37bb2c068f645372d7de8b10b618e02934d46502d1d6236b1b65  crypto-mixed/analysis/p4-verifier-fit/p4-7-consensus-2026-10-26/DECISION-PACKAGE.md
+72ae37ea71f4a161791dcc7c412a66bb1f81c4ee162665615c138c0281918b48  crypto-mixed/analysis/p4-verifier-fit/p4-7-consensus-2026-10-26/OPERATOR-DECISIONS.md
+e48d7f480660d942d708dbc488c83aea059a7575dfbbd7196ab75d07ce02aa1b  crypto-mixed/analysis/p4-verifier-fit/p4-7-consensus-2026-10-26/historical/pre-four-projects-DECISION-PACKAGE.md
+b745f9477bae84313dd49be7d17fd0f9538a06408d21bcf7a0c010ed475b33e4  crypto-mixed/analysis/p4-verifier-fit/p4-7-consensus-2026-10-26/historical/pre-four-projects-OPERATOR-DECISIONS.md

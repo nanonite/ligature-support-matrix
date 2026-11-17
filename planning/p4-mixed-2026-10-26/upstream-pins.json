@@ -1,0 +1,34 @@
+[
+  {
+    "repository": "boostorg/icl",
+    "tag": "boost-1.88.0",
+    "commit": "2741c3a1b7b79f7326360c26c3e1588b385c9e53",
+    "tag_refs": {
+      "refs/tags/boost-1.88.0": "2741c3a1b7b79f7326360c26c3e1588b385c9e53"
+    }
+  },
+  {
+    "repository": "leethomason/tinyxml2",
+    "tag": "11.0.0",
+    "commit": "9148bdf719e997d1f474be6bcc7943881046dba1",
+    "tag_refs": {
+      "refs/tags/11.0.0": "9148bdf719e997d1f474be6bcc7943881046dba1"
+    }
+  },
+  {
+    "repository": "google/snappy",
+    "tag": "1.2.2",
+    "commit": "6af9287fbdb913f0794d0148c6aa43b58e63c8e3",
+    "tag_refs": {
+      "refs/tags/1.2.2": "6af9287fbdb913f0794d0148c6aa43b58e63c8e3"
+    }
+  },
+  {
+    "repository": "google/leveldb",
+    "tag": "1.23",
+    "commit": "99b3c03b3284f5886f9ef9a4ef703d57373e61be",
+    "tag_refs": {
+      "refs/tags/1.23": "99b3c03b3284f5886f9ef9a4ef703d57373e61be"
+    }
+  }
+]

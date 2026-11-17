@@ -1,0 +1,39 @@
+{
+  "serial_chain": [
+    161,
+    177,
+    179,
+    180,
+    181,
+    183,
+    184,
+    185,
+    187,
+    188,
+    189,
+    191,
+    192,
+    193,
+    169,
+    170,
+    171,
+    172,
+    194,
+    173,
+    174,
+    162,
+    55
+  ],
+  "acyclic_blocker_ancestry": true,
+  "checked_issue_count": 83,
+  "all_new_leaf_stages_behind_161": true,
+  "planned_root_directories_created": false,
+  "closed_superseded_not_implemented": [
+    163,
+    164,
+    165,
+    166,
+    167,
+    168
+  ]
+}

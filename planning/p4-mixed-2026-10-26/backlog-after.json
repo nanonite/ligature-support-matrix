@@ -1,0 +1,1543 @@
+[
+  {
+    "id": 55,
+    "title": "C.1 tool artifact collision (metadata file where a WP manifest is expected)",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Pilot root for this issue: workspace root (this issue is not scoped to one pilot).\n\nRecord result in the owning root's findings/limitations.jsonl.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 54,
+    "created_at": "2026-09-24T17:03:07.587140236Z",
+    "updated_at": "2026-09-25T11:51:11.504574531Z",
+    "closed_at": null,
+    "labels": [
+      "cross-cutting"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      18,
+      51,
+      174,
+      162
+    ],
+    "blocking": [
+      56
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 67,
+    "title": "EPIC: Final deliverables - LIMITATIONS.md roll-up + tool-reach matrix",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md. Workspace-root deliverable. Roll up the three preserved baseline roots AND the four distinct mixed-project roots (ICL C+V, TinyXML2 C+K, Snappy V+K, LevelDB storage slice C+V+K). Keep baseline evidence separate from new-project evidence and retain original scope/limitations. Include findings/limitations.jsonl, PORT-GAPS categories/generalizable lessons, case counts, source revisions, achieved closure kinds/ceilings and coverage gaps. A not-yet-created project is planned, not zero findings or a successful port. No 21-workspace Cartesian matrix. Publishing remains a separate explicit authorization.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": null,
+    "created_at": "2026-09-24T17:03:08.059952780Z",
+    "updated_at": "2026-10-26T14:44:42.085819032Z",
+    "closed_at": null,
+    "labels": [
+      "deliverables",
+      "epic"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [],
+    "blocking": [],
+    "subissues": [
+      {
+        "id": 68,
+        "title": "Roll-up generator for LIMITATIONS.md",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md. Workspace-root deliverable. Build the LIMITATIONS.md roll-up from the three baseline roots and four planned mixed-project roots listed in planning/p4-mixed-2026-10-26/projects.json. Merge each real root\u2019s findings and PORT-GAPS by existing categories, preserving source/project/configuration identity, evidence links, generalizable lessons and historical fixes. Missing planned roots must be reported as planned/not run, not silently treated as passing with no findings. Keep synthetic CG6/G15 fixtures separate from real production-source claims. Preserve the original cross-cutting dependencies and run after their completion.",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 67,
+        "created_at": "2026-09-24T17:03:08.118316476Z",
+        "updated_at": "2026-10-26T14:44:42.106096951Z",
+        "closed_at": null
+      },
+      {
+        "id": 69,
+        "title": "Tool-reach matrix + per-pilot summaries",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md. Workspace-root deliverable. Produce the tool-reach matrix and seven project/configuration summaries: three preserved single-verifier baselines, Boost.ICL C+V, TinyXML2 C+K, Snappy V+K and the scoped LevelDB C+V+K pipeline. Consume #174 and #68 evidence. Record works/friction/blocker, selected observable API/features and explicit exclusions, immutable source/tool pins, domains/TCB, oracle/mutation results, actual per-cluster closure/CG1/CG3 ceilings, six directed edges and real versus synthetic CG6/G15 coverage. Do not expand to nine baseline re-ports or 21 workspaces; unported/unproved rows stay planned or partial, not green.",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 67,
+        "created_at": "2026-09-24T17:03:08.158031274Z",
+        "updated_at": "2026-10-26T14:44:42.126144246Z",
+        "closed_at": null
+      },
+      {
+        "id": 115,
+        "title": "[deliverables] Backfill <pilot>/PORT-GAPS.md for date-creusot (P1) from its findings and README",
+        "description": "Read WORKER-CONTRACT.md \u00a76.5 first. P1 (date-creusot) finished before PORT-GAPS.md existed. Go through date-creusot/findings/limitations.jsonl, README.md and analysis/ and write date-creusot/PORT-GAPS.md covering every C++->Rust transfer gap found in P1. Examples: Creusot logic-emission limits that forced inlined contracts (cross-module logic twins, bool logic fns opaque), the round_trip missing-ensures diagnosis, const fn reach, era-arithmetic overflow obligations, codesight's C++-header misclassification, subset scope cuts relative to HowardHinnant/date, and oracle coverage limits. Each entry uses the \u00a76.5 fields, links its finding ids, and has a generalizable lesson. Documentation only: touch only date-creusot/PORT-GAPS.md. No ligature pipeline commands that write. Post ONE evidence comment listing the entries. Don't close this issue.",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 67,
+        "created_at": "2026-10-02T21:58:41.394662194Z",
+        "updated_at": "2026-10-02T21:58:41.394662194Z",
+        "closed_at": null
+      }
+    ],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 68,
+    "title": "Roll-up generator for LIMITATIONS.md",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md. Workspace-root deliverable. Build the LIMITATIONS.md roll-up from the three baseline roots and four planned mixed-project roots listed in planning/p4-mixed-2026-10-26/projects.json. Merge each real root\u2019s findings and PORT-GAPS by existing categories, preserving source/project/configuration identity, evidence links, generalizable lessons and historical fixes. Missing planned roots must be reported as planned/not run, not silently treated as passing with no findings. Keep synthetic CG6/G15 fixtures separate from real production-source claims. Preserve the original cross-cutting dependencies and run after their completion.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 67,
+    "created_at": "2026-09-24T17:03:08.118316476Z",
+    "updated_at": "2026-10-26T14:44:42.106096951Z",
+    "closed_at": null,
+    "labels": [
+      "deliverables"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 219,
+        "issue_id": 68,
+        "content": "Added 2026-10-02: the roll-up must also merge each pilot's PORT-GAPS.md (WORKER-CONTRACT \u00a76.5) into a single C++->Rust transfer-gaps section, grouped by category with generalizable lessons, in a form the operator can add to their knowledge repository.",
+        "created_at": "2026-10-02T21:58:41.436529860Z",
+        "kind": "note"
+      }
+    ],
+    "blocked_by": [
+      18,
+      66
+    ],
+    "blocking": [
+      69
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 69,
+    "title": "Tool-reach matrix + per-pilot summaries",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md. Workspace-root deliverable. Produce the tool-reach matrix and seven project/configuration summaries: three preserved single-verifier baselines, Boost.ICL C+V, TinyXML2 C+K, Snappy V+K and the scoped LevelDB C+V+K pipeline. Consume #174 and #68 evidence. Record works/friction/blocker, selected observable API/features and explicit exclusions, immutable source/tool pins, domains/TCB, oracle/mutation results, actual per-cluster closure/CG1/CG3 ceilings, six directed edges and real versus synthetic CG6/G15 coverage. Do not expand to nine baseline re-ports or 21 workspaces; unported/unproved rows stay planned or partial, not green.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 67,
+    "created_at": "2026-09-24T17:03:08.158031274Z",
+    "updated_at": "2026-10-26T14:44:42.126144246Z",
+    "closed_at": null,
+    "labels": [
+      "deliverables"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 220,
+        "issue_id": 69,
+        "content": "Added 2026-10-02: the roll-up must also merge each pilot's PORT-GAPS.md (WORKER-CONTRACT \u00a76.5) into a single C++->Rust transfer-gaps section, grouped by category with generalizable lessons, in a form the operator can add to their knowledge repository.",
+        "created_at": "2026-10-02T21:58:41.456865227Z",
+        "kind": "note"
+      }
+    ],
+    "blocked_by": [
+      49,
+      68
+    ],
+    "blocking": [],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 154,
+    "title": "EPIC: P4 \u2014 four distinct mixed-verifier C++ ports; preserve three baselines",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nOperator direction (2026-10-26): preserve date/Creusot, SwissTable/Verus and Botan/Kani as the three baseline pilots. Add exactly four independent Git/Ligature port roots: Boost.ICL C+V, TinyXML2 C+K, Snappy V+K, LevelDB storage slice C+V+K. No baseline-verifier Cartesian re-port expansion. Canonical plan: P4-MIXED-PORT-PLAN.md; immutable pins/source review/backlog map under planning/p4-mixed-2026-10-26/. Closed planning/probe issues #155\u2013#160 remain evidence. #161 remains the human contract/toolchain/trust/write-policy checkpoint. #163\u2013#168 are superseded cancellations, not completed ports; #162 remains deferred baseline closure maintenance. New project epics have intake/oracle, implementation/assurance, and real-boundary handoff stages. Existing #169\u2013#174 now compare the four projects. CG6/G15 coverage uses M7 real-graph inspection plus separately labelled synthetic controls when needed, not a fifth new project. CG1/global CG3 remain measured limits, not promises of unqualified mixed closure.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": null,
+    "created_at": "2026-10-21T02:37:41.686110628Z",
+    "updated_at": "2026-10-26T14:35:41.378226512Z",
+    "closed_at": null,
+    "labels": [
+      "p4-matrix"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 450,
+        "issue_id": 154,
+        "content": "Correction from P4-3 (#157): the Axis A row 'P2 SwissTable (generics, ghost maps, unsafe, SIMD)' describes Abseil, not the port. The port is monomorphic u64 with initialized Vec storage and scalar 16-byte groups (scope cuts swisstable-verus-008/-001/-002); only the spec-level Map/Seq/Set model is real. VERIFIER-MATRIX.md rows A4-A6 are corrected (root 9b66a39). Kani can verify upstream's SSE2 group masks if a cell adds that implementation; raw MaybeUninit slots cannot be checked for initialization by Kani 0.67 (swisstable-kani-001).",
+        "created_at": "2026-10-21T14:41:53.632587925Z",
+        "kind": "observation"
+      }
+    ],
+    "blocked_by": [],
+    "blocking": [],
+    "subissues": [
+      {
+        "id": 155,
+        "title": "[p4 matrix] P4-1 Draft the verifier matrix spec (Axis A port x owner, Axis B composition)",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nWrite the matrix spec as a reviewable document: every configuration, which port covers it, the expected closure outcome (deductive, bounded, partial, or degraded under CG1), and the evidence that would count as covered. Start from the epic's two-axis table. No code.",
+        "status": "closed",
+        "priority": "high",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:41.726236525Z",
+        "updated_at": "2026-10-21T08:13:06.100626104Z",
+        "closed_at": "2026-10-21T08:13:06.100626104Z"
+      },
+      {
+        "id": 156,
+        "title": "[p4 matrix] P4-2 Verifier-fit analysis for P1 date-creusot",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nMap P1's concepts and obligations to the verifiers that fit them. Creusot is done. For Verus and Kani: which obligations transfer, what new specs or harnesses each needs, likely blockers (nonlinear arithmetic lemmas, bounds), and which crate layout. Read-only analysis; record findings.",
+        "status": "closed",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:41.765704906Z",
+        "updated_at": "2026-10-21T08:29:11.878486475Z",
+        "closed_at": "2026-10-21T08:29:11.878486475Z"
+      },
+      {
+        "id": 157,
+        "title": "[p4 matrix] P4-3 Verifier-fit analysis for P2 swisstable-verus",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nMap P2's concepts to Creusot, Verus and Kani. Cover the incomplete Verus closure (no closure profile), Creusot's reach on the map model, and Kani for the unsafe slots and SIMD probing (#35, #36). Read-only analysis; record findings.",
+        "status": "closed",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:41.823305370Z",
+        "updated_at": "2026-10-21T14:41:51.155885101Z",
+        "closed_at": "2026-10-21T14:41:51.155885101Z"
+      },
+      {
+        "id": 158,
+        "title": "[p4 matrix] P4-4 Verifier-fit analysis for P3 crypto-mixed",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nMap P3's concepts to Creusot and Verus (Kani is done). Start from the original plan's core-functional (quarter-round, block, Poly1305 limbs: deductive) vs bytes-layer (Kani) split and the #43 Verus deferral. Read-only analysis; record findings.",
+        "status": "closed",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:41.880701793Z",
+        "updated_at": "2026-10-21T15:46:40.156964803Z",
+        "closed_at": "2026-10-21T15:46:40.156964803Z"
+      },
+      {
+        "id": 159,
+        "title": "[p4 matrix] P4-5 Ligature capability probes for multi-verifier workspaces (scratch copies)",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nOn scratch copies only, probe Ligature 1.4.2 end to end:\n- a descriptor with several crates and per-cluster owners;\n- whether anything consumes verifier_policy.supporting;\n- check-bridges dispatch when a bridge crosses clusters with different owners;\n- record-assurance for all three verifiers in one workspace;\n- the workspace closure_kind with mixed clusters;\n- G14/G17 behavior for CG1;\n- crate configuration for Creusot and Kani (configure-crate has only cargo-verus).\nRecord each result. File epic #1 reports only for confirmed failures of what Ligature claims to do.",
+        "status": "closed",
+        "priority": "high",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:41.937894155Z",
+        "updated_at": "2026-10-25T17:47:23.262921445Z",
+        "closed_at": "2026-10-25T17:47:23.262921445Z"
+      },
+      {
+        "id": 160,
+        "title": "[p4 matrix] P4-6 Toolchain coexistence layout: Creusot and Verus crates plus Kani overlay in one workspace (scratch prototype)",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nPrototype the smallest workspace where a Creusot crate (nightly-2026-04-21, creusot_std), a Verus crate (1.95.0, vstd) and Kani harnesses all build and verify without interfering: rust-toolchain placement, cargo workspace boundaries, target dirs, and the crypto-mixed Nix shell. Do not edit flake.nix; report shell gaps on epic #2. Propose the layout and write-set rules for P4 (input to the write-set best-practices work).",
+        "status": "closed",
+        "priority": "high",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:41.994707561Z",
+        "updated_at": "2026-10-26T01:31:59.182368640Z",
+        "closed_at": "2026-10-26T01:31:59.182368640Z"
+      },
+      {
+        "id": 161,
+        "title": "[P4] Operator checkpoint: four-project scope, toolchains, trust and workspace setup",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nOperator consensus checkpoint for the revised four-project portfolio. The user explicitly chose four DISTINCT new C++ projects for the three pairs and triple while preserving the three single-verifier baseline ports, not 21 workspaces. Research-selected plan: M4 Boost.ICL C+V; M5 TinyXML2 C+K; M6 Snappy V+K; M7 LevelDB storage slice C+V+K. Read P4-MIXED-PORT-PLAN.md, planning/p4-mixed-2026-10-26/projects.json and backlog-map.json.\n\nStill resolve: exact selected APIs/domains/generic and optimized variants; real function-owner and contract/TCB maps; accepted partial/friction outcomes; exact matching Nix toolchain pins; four independent Git/Ligature roots with separate Cargo/compiler/proof outputs; sanctioned descriptor/manifest/lock/toolchain creation and narrow write sets; genuine production CG1/CG3 ceilings/assumptions; real-graph versus synthetic CG6/G15 cases in M7. Approve/amend the current new project stages and #169\u2013#174 scope. No additional baseline-verifier ports or fifth new project. The old P1 Kani C002, P2 Creusot/Kani, and P3 alternative-owner choices tied only to cancelled #163\u2013#168 are no longer required for this phase. Existing baseline decisions are not reversed. No grant/ruling/promotion is implied. Keep #161 open until the remaining explicit human choices are recorded; all new implementation stages remain blocked through setup.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.033908083Z",
+        "updated_at": "2026-10-26T14:43:25.876664985Z",
+        "closed_at": null
+      },
+      {
+        "id": 162,
+        "title": "[p4 matrix] P4-8 P2 swisstable-verus: complete the Verus-owned deductive closure",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nP2's Stage 8C (#33) found no closure profile, so G14 never compared the declared deductive closure. Author the closure profile through the protected draft/review path, re-check the Verus intake residuals #125-#127, and take P2 through G14. This is the prerequisite for P2's Axis A and B cells.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.090847915Z",
+        "updated_at": "2026-10-21T02:37:42.090847915Z",
+        "closed_at": null
+      },
+      {
+        "id": 163,
+        "title": "[p4 matrix] P4-9 P1 date: Verus-owned cluster",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell. Port P1's selected obligations to a Verus crate per the P4-6 layout and the P4-7 scope, and take the cluster through G14. Record the transfer gaps compared with Creusot.",
+        "status": "closed",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.147733767Z",
+        "updated_at": "2026-10-26T14:35:40.679717237Z",
+        "closed_at": "2026-10-26T14:35:40.679717237Z"
+      },
+      {
+        "id": 164,
+        "title": "[p4 matrix] P4-10 P1 date: Kani-owned cluster",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell. Bounded Kani evidence for P1's selected obligations, then G14 (bounded). Compare with the Creusot and Verus results.",
+        "status": "closed",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.204850719Z",
+        "updated_at": "2026-10-26T14:35:40.763770200Z",
+        "closed_at": "2026-10-26T14:35:40.763770200Z"
+      },
+      {
+        "id": 165,
+        "title": "[p4 matrix] P4-11 P2 SwissTable: Creusot-owned cluster",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell. Creusot for P2's map model and the obligations P4-3 marked feasible, then G14. Record where Creusot stops short of Verus.",
+        "status": "closed",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.261554731Z",
+        "updated_at": "2026-10-26T14:35:40.849683880Z",
+        "closed_at": "2026-10-26T14:35:40.849683880Z"
+      },
+      {
+        "id": 166,
+        "title": "[p4 matrix] P4-12 P2 SwissTable: Kani-owned cluster (unsafe slots, SIMD probing)",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell, from the #35/#36 ideas. Kani for the layers Verus cannot reach (raw or unsafe slots, SIMD group probing), then G14 (bounded).",
+        "status": "closed",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.319033017Z",
+        "updated_at": "2026-10-26T14:35:40.934496376Z",
+        "closed_at": "2026-10-26T14:35:40.934496376Z"
+      },
+      {
+        "id": 167,
+        "title": "[p4 matrix] P4-13 P3 crypto: Creusot-owned cluster",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell. Creusot for the obligations P4-4 marked feasible (core-functional arithmetic), then G14 (deductive).",
+        "status": "closed",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.375744093Z",
+        "updated_at": "2026-10-26T14:35:41.019461468Z",
+        "closed_at": "2026-10-26T14:35:41.019461468Z"
+      },
+      {
+        "id": 168,
+        "title": "[p4 matrix] P4-14 P3 crypto: Verus-owned cluster (the #43-deferred core-functional cluster)",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell. The Verus pass deferred by #43, for the quarter-round, block and Poly1305 limb arithmetic, then G14 (deductive). Revisit the accepted CG3 ceiling (#135) if Verus can settle it.",
+        "status": "closed",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.432813036Z",
+        "updated_at": "2026-10-26T14:35:41.104284214Z",
+        "closed_at": "2026-10-26T14:35:41.104284214Z"
+      },
+      {
+        "id": 169,
+        "title": "[P4] Supporting-evidence configurations across the four distinct mixed ports",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nUse the completed M4\u2013M7 source/assurance handoffs. Measure supported/required evidence selection using actual project obligations for C+V (ICL), C+K (TinyXML2), V+K (Snappy) and the LevelDB triple. Reuse #159 classification controls; only run variations not answered by retained project evidence. Record exact package/closure membership, supporting arrays, kinds, G14/G17 and scopes. Supporting status does not exempt accepted evidence from CG1. Include pair direction where relevant; do not touch baseline pilots.",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.490106217Z",
+        "updated_at": "2026-10-26T14:35:40.491845084Z",
+        "closed_at": null
+      },
+      {
+        "id": 170,
+        "title": "[P4] Same-closure composition and one-ceiling results for the new ports",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nCompare real mixed-closure outcomes from M4\u2013M7; reuse #159 Q3/Q6 rather than restaging identical synthetic examples. Separate CG1, global CG3, closure kind and observed owner behavior. Any new positive degraded result needs its own actual human-approved/ruling-pinned record. One record has one cluster ceiling; the earlier scratch ruling is not production risk acceptance. Link per-project source/oracle evidence, not just label combinations.",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.529012159Z",
+        "updated_at": "2026-10-26T14:35:40.512425158Z",
+        "closed_at": null
+      },
+      {
+        "id": 171,
+        "title": "[P4] Required-guarantee versus trusted-assumption edges in the new pair ports",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nSelect real source boundaries from ICL C/V, TinyXML2 C/K and Snappy V/K. Reuse #159 traversal findings; add project-specific required-edge/assumption controls only where they answer a new contract question. Preserve the distinction between local evaluated closure and workspace-wide CG3. Document exact caller/callee guarantee, trust policy and evidence; no assumption may conceal an unproved required guarantee. Human review is required for actual assumptions.",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.604025174Z",
+        "updated_at": "2026-10-26T14:35:40.533603804Z",
+        "closed_at": null
+      },
+      {
+        "id": 172,
+        "title": "[P4] Six directed verifier edges across ICL, TinyXML2 and Snappy",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nCoverage map: C\u2192V and V\u2192C in ICL; C\u2192K and K\u2192C in TinyXML2; V\u2192K and K\u2192V in Snappy. Verify real source call sites and selected ownership from intake. Use required-guarantee edges as the baseline; record any separately approved assumption comparison. A source ownership hypothesis, reciprocal labels, mock dispatch or disconnected demos are not coverage. Report six per-direction rows with exact source, obligations, records, bridge/callsite results, G14/G17 and ceiling. A genuinely missing direction is a coverage gap needing explicit disposition, not a reason to invent a runtime backedge.",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.679549383Z",
+        "updated_at": "2026-10-26T14:35:40.554131840Z",
+        "closed_at": null
+      },
+      {
+        "id": 173,
+        "title": "[P4 M7] LevelDB: final Creusot + Verus + Kani workspace assessment",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nUse the new independent leveldb-three-verifiers/ root and pinned LevelDB storage-format slice, not the old crypto-mixed port. Consume the real M7 batch/log/block/coding/CRC source and oracle handoff. Check a joined pipeline with Creusot logical state, Verus framing/block invariants and Kani local codec/buffer checks. Run/retain all assurance intakes, real cross-owner bridges, per-cluster G14/status/check and global CG3/CG1 interpretation; reuse identical recent results rather than redundant reruns. Log/table compatibility and bounded in-memory faults do not prove full DB durability, concurrency or compaction. Compression is disabled in this slice to avoid depending on the separate Snappy Rust port. Any accepted degradation is a new genuine human decision.",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.718325232Z",
+        "updated_at": "2026-10-26T14:35:40.574609381Z",
+        "closed_at": null
+      },
+      {
+        "id": 174,
+        "title": "[P4] Four-project mixed-verifier coverage and transfer-gap roll-up",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nRecord one row for M4 ICL C+V, M5 TinyXML2 C+K, M6 Snappy V+K, and M7 LevelDB C+V+K, plus all six directed pair edges and CG6/G15 real/synthetic coverage. Preserve the three baseline summaries without pretending they were re-ported with every verifier. Report works/friction/blocker, exact selected API/features, proof/TCB/bounds, actual closure kind and ceiling, native-oracle results, source revision, mutations, protocol/SCC evidence and every excluded/unproved feature. Research suitability is not verification. No 21-workspace or nine-cell re-port expansion. Feed #69 and the later cross-cutting checks; reconcile superseded old matrix cells explicitly.",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.775520972Z",
+        "updated_at": "2026-10-26T14:35:40.595144300Z",
+        "closed_at": null
+      },
+      {
+        "id": 177,
+        "title": "[P4] Operator setup for four isolated mixed-verifier port workspaces",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nImplement only the setup decisions explicitly recorded at #161. Planned roots: icl-creusot-verus/, tinyxml2-creusot-kani/, snappy-verus-kani/, leveldb-three-verifiers/. Create each as an independent Git/Ligature root with explicit ownership, scoped write set, source pin, oracle dependencies, and per-tool Cargo/target/proof/config roots. Preserve date-creusot/, swisstable-verus/, crypto-mixed/ as baseline records. Resolve/reproducibly pin a matching Creusot/stdlib Nix pair and verify external companion-output placement plus local Why3 socket access. Existing 0.12 compatibility success is not current 0.14 shell validation. Exact descriptor/Cargo/lock/toolchain/flake operations are operator-owned or separately granted sanctioned operations. No blanket authorization. Complete a reusable per-root smoke check and before/after protected hashes; no production port claims. Planning issue only until #161 resolves these choices.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 154,
+        "created_at": "2026-10-26T14:35:39.558380703Z",
+        "updated_at": "2026-10-26T14:35:39.558380703Z",
+        "closed_at": null
+      },
+      {
+        "id": 178,
+        "title": "[P4 M4] Boost.ICL port \u2014 creusot + verus",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nSelected working project: Boost.ICL (https://github.com/boostorg/icl), tag boost-1.88.0, immutable commit 2741c3a1b7b79f7326360c26c3e1588b385c9e53. Root: icl-creusot-verus/. Verifiers: creusot, verus.\n\nIncluded vertical slice: Discrete interval algebra and canonical interval sets/maps. Cover empty/singleton/open/closed endpoints, union/intersection/difference, insertion/erasure, split/coalesce, membership and segment iteration. Start with i32 and i64 endpoint instantiations and one explicit additive integer map codomain; document overflow/identity-absorption semantics. Generic endpoint/combiner law obligations must be attempted, not silently replaced by one scalar instantiation.\n\nProposed ownership: Creusot: endpoint/order/interval algebra and high-level set operations. Verus: canonical segment storage, mutation, split/coalesce, iterator/representation invariants. Ownership is a fit hypothesis; freeze the real function map after intake.\n\nCoverage: Templates/traits and algebraic laws; interval arithmetic across widths; ordered containers; generic proof interfaces; iterator/mutation invariants.\n\nLimits: Full Boost, continuous/floating endpoint semantics, arbitrary allocator/comparator/codomain policies, ABI/iterator address identity and performance parity are not initial claims. Each unsupported generic feature remains a transfer gap; changing source representation does not prove algorithmic complexity.\n\nSource fit and proof feasibility remain untested. The user's decision approves four distinct mixed-project workspaces; it is not approval of final contracts, risk ceilings or protected writes. Use the three child stages.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 154,
+        "created_at": "2026-10-26T14:35:39.618586548Z",
+        "updated_at": "2026-10-26T14:35:39.618586548Z",
+        "closed_at": null
+      },
+      {
+        "id": 182,
+        "title": "[P4 M5] TinyXML2 port \u2014 creusot + kani",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nSelected working project: TinyXML2 (https://github.com/leethomason/tinyxml2), tag 11.0.0, immutable commit 9148bdf719e997d1f474be6bcc7943881046dba1. Root: tinyxml2-creusot-kani/. Verifiers: creusot, kani.\n\nIncluded vertical slice: In-memory UTF-8 XML parsing and DOM operations: elements, attributes, text, comments, declarations, CDATA, predefined/numeric character references, newline/whitespace modes, and an explicitly listed mutation/clone/serialization facade. Preserve pinned upstream error and normalization behavior. Fit may stage features, but every exclusion must be explicit rather than claiming all XML is ported.\n\nProposed ownership: Creusot: parser progress/recursive structure, DOM ownership and parent/sibling links, serialization and UTF32-to-UTF8 conversion contracts. Kani: bounded StrPair normalization and entity scanning/GetCharacterRef buffer, length, radix and overflow paths.\n\nCoverage: Recursive parsing; UTF-8 and numeric references; aliasing/arena ownership; mutable trees and lifetimes; errors/normalization; bounded buffer checking.\n\nLimits: DTD/XSL, already outside TinyXML2 support, are not promised. Do not claim full XML-standard conformance beyond pinned TinyXML2 behavior. Raw C++ pointer identity, invalid-pointer traces and all operating-system file behavior are outside initial equivalence; Rust handle/lifetime choices and recursion limits must be reported.\n\nSource fit and proof feasibility remain untested. The user's decision approves four distinct mixed-project workspaces; it is not approval of final contracts, risk ceilings or protected writes. Use the three child stages.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 154,
+        "created_at": "2026-10-26T14:35:39.836776906Z",
+        "updated_at": "2026-10-26T14:35:39.836776906Z",
+        "closed_at": null
+      },
+      {
+        "id": 186,
+        "title": "[P4 M6] Snappy port \u2014 verus + kani",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nSelected working project: Snappy (https://github.com/google/snappy), tag 1.2.2, immutable commit 6af9287fbdb913f0794d0148c6aa43b58e63c8e3. Root: snappy-verus-kani/. Verifiers: verus, kani.\n\nIncluded vertical slice: Raw Snappy block encoding/decoding, length/varint/tag parsing, literals and all three copy-tag forms, overlapping backreferences and malformed stream rejection. Establish a scalar functional path first, then port and attempt Kani checking of at least one actual optimized copy/shuffle path from the pinned source. Keep runtime safety preconditions, slop bytes, offsets and output limits explicit.\n\nProposed ownership: Verus: tag/decoder state invariants and portable scalar IncrementalCopySlow model/implementation, reconstruction/round-trip properties over selected raw format. Kani: bounded IncrementalCopy optimized paths, vector shuffle/unaligned access/tail/slop conditions, compared against the scalar semantics.\n\nCoverage: Bitvectors, varints, generic writer interfaces, byte sequences, overlapping memory, alignment/slop bounds, SIMD/intrinsics and portable fallbacks.\n\nLimits: Framed/container formats, other codecs, every architecture/ISA, throughput parity and unbounded Kani claims are excluded initially. One real optimized variant must be attempted; unsupported intrinsics must be reported and cannot be replaced with stubs while calling the optimized path proved. Other ISA paths remain explicit gaps.\n\nSource fit and proof feasibility remain untested. The user's decision approves four distinct mixed-project workspaces; it is not approval of final contracts, risk ceilings or protected writes. Use the three child stages.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 154,
+        "created_at": "2026-10-26T14:35:40.054467528Z",
+        "updated_at": "2026-10-26T14:35:40.054467528Z",
+        "closed_at": null
+      },
+      {
+        "id": 190,
+        "title": "[P4 M7] LevelDB storage slice port \u2014 creusot + verus + kani",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nSelected working project: LevelDB storage slice (https://github.com/google/leveldb), tag 1.23, immutable commit 99b3c03b3284f5886f9ef9a4ef703d57373e61be. Root: leveldb-three-verifiers/. Verifiers: creusot, verus, kani.\n\nIncluded vertical slice: A coherent in-memory storage-format pipeline: WriteBatch Put/Delete and parsing/handler effects, log fragment writer/reader with checksums and truncation/error cases, sorted prefix-compressed block builder/reader and restart-point seek/iteration, and replay of decoded batch operations into a specified logical map. Join real modules end-to-end; this is not a whole LevelDB database port.\n\nProposed ownership: Creusot: ordered-map/operation-history semantics, batch handler effects and replay/state invariants. Verus: prefix-compressed block representation, restart/seek/iteration, log framing/reassembly and parser progress. Kani: bounded fixed/varint codecs, CRC32C arithmetic/masking and local buffer/fault cases. The final fit map must trace all three evidence kinds into one actual dataflow.\n\nCoverage: Three-owner dataflow; ordered models and callbacks; storage encodings; streaming fragments, error effects and temporal traces; realistic protocol/SCC investigation plus explicitly synthetic gate controls if needed.\n\nLimits: Full DB API, compaction scheduling, concurrent writers, filesystem durability, real crash consistency, snapshots and all platform Env implementations are not initial proof claims. Flush is not Sync. Bounded in-memory fault models do not establish OS persistence or linearizability. Log/table compatibility applies only to the selected formats/options.\n\nSource fit and proof feasibility remain untested. The user's decision approves four distinct mixed-project workspaces; it is not approval of final contracts, risk ceilings or protected writes. Use the three child stages.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 154,
+        "created_at": "2026-10-26T14:35:40.272639011Z",
+        "updated_at": "2026-10-26T14:35:40.272639011Z",
+        "closed_at": null
+      },
+      {
+        "id": 194,
+        "title": "[P4 M7] CG6/G15 coverage: real storage graph audit and labelled synthetic controls",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nUse leveldb-three-verifiers/ after the pair-direction comparison. Inspect the selected LevelDB callback/streaming/state trace for genuine cross-cluster SCCs and genuinely non-pairwise protocols. Recursion alone is not CG6; three modules or ordinary pairwise calls alone are not G15. If the scoped source lacks either feature, retain that absence and exercise a clearly labelled synthetic overlay/fixture within this same project root, separate from production claims. Include missing/invalid discharge/debt negative controls and a positive case only after the operator personally approves the discharge/protocol-debt/ruling. Do not turn a synthetic backedge into a claim about LevelDB. No fifth C++ project or extra top-level workspace. Archive source maps, fixtures, provenance and gate outcomes for #174.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 154,
+        "created_at": "2026-10-26T14:35:41.168578082Z",
+        "updated_at": "2026-10-26T14:35:41.168578082Z",
+        "closed_at": null
+      }
+    ],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 161,
+    "title": "[P4] Operator checkpoint: four-project scope, toolchains, trust and workspace setup",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nOperator consensus checkpoint for the revised four-project portfolio. The user explicitly chose four DISTINCT new C++ projects for the three pairs and triple while preserving the three single-verifier baseline ports, not 21 workspaces. Research-selected plan: M4 Boost.ICL C+V; M5 TinyXML2 C+K; M6 Snappy V+K; M7 LevelDB storage slice C+V+K. Read P4-MIXED-PORT-PLAN.md, planning/p4-mixed-2026-10-26/projects.json and backlog-map.json.\n\nStill resolve: exact selected APIs/domains/generic and optimized variants; real function-owner and contract/TCB maps; accepted partial/friction outcomes; exact matching Nix toolchain pins; four independent Git/Ligature roots with separate Cargo/compiler/proof outputs; sanctioned descriptor/manifest/lock/toolchain creation and narrow write sets; genuine production CG1/CG3 ceilings/assumptions; real-graph versus synthetic CG6/G15 cases in M7. Approve/amend the current new project stages and #169\u2013#174 scope. No additional baseline-verifier ports or fifth new project. The old P1 Kani C002, P2 Creusot/Kani, and P3 alternative-owner choices tied only to cancelled #163\u2013#168 are no longer required for this phase. Existing baseline decisions are not reversed. No grant/ruling/promotion is implied. Keep #161 open until the remaining explicit human choices are recorded; all new implementation stages remain blocked through setup.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.033908083Z",
+    "updated_at": "2026-10-26T14:43:25.876664985Z",
+    "closed_at": null,
+    "labels": [
+      "human-decision",
+      "p4-matrix"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 452,
+        "issue_id": 161,
+        "content": "Decision items for the consensus checkpoint, from P4-2/P4-3: (1) P1 on Kani (#164): YearMonthDay.C002 is stated over an Int logic function Kani cannot express; choose between comparing from_days with an i64 reference implementation and carrying C002 through C007 plus range checks (date-creusot/analysis/p4-verifier-fit/). (2) P2 on Kani (#166): verify only the current scalar port, or also add a real SSE2 GroupProbe (Kani proves upstream's SSE2 masks equal to scalar) and/or a raw MaybeUninit slot variant (Kani cannot check its initialization, swisstable-kani-001; needs a shadow init map). (3) Whether Kani evidence for P2's Verus scope cuts (-004 probe coverage, -033 slot change) is wanted as supporting evidence in the B1 rows.",
+        "created_at": "2026-10-21T15:27:46.937183218Z",
+        "kind": "decision"
+      },
+      {
+        "id": 461,
+        "issue_id": 161,
+        "content": "More decision items from P4-4 (#158): (4) P3 deductive cells (#167, #168): for std calls without verifier specs (rotate_left, from_le_bytes, to_le_bytes, fill in both; copy_from_slice and slice try_into in Verus; extend_from_slice in Creusot), use trusted specs (assume_specification / extern_spec!, unchecked) or rewrite production code into shifts, masks and loops under the 2580-case oracle. (5) Poly1305 scope for those cells: attempt functional correctness (h = (h + m)*r mod 2^130-5 over 26-bit limbs; deep) or declare the Poly1305 part partial and keep its functional evidence with Kani and the oracle.",
+        "created_at": "2026-10-21T15:44:56.624233636Z",
+        "kind": "decision"
+      },
+      {
+        "id": 478,
+        "issue_id": 161,
+        "content": "Review reminder: this operator checkpoint must cover its FULL issue spec, beyond the #160 layout handoff. Alongside the matrix/verifier assignments, crate ownership/source sharing, exact toolchain pins, write-set/creation routes, output roots, and closure policy, decide (1) a fourth C++ project versus synthetic probes for CG6/G15, and (2) the exact scope of P4-8 through P4-19. These remain pending operator decisions; this comment approves no option and changes no implementation authorization.",
+        "created_at": "2026-10-26T06:42:52.267378239Z",
+        "kind": "handoff"
+      },
+      {
+        "id": 486,
+        "issue_id": 161,
+        "content": "Operator direction recorded from the current request: \u201cidentify 4 existing cpp projects ... distinct cpp projects to port for each verifier(s) test\u201d, preserve the first-phase one-verifier baselines, and do not build 21 workspaces. The updated plan/backlog implements that architecture. Project selection is evidence-backed planning, not proof feasibility, contract acceptance or risk/grant approval. Prior pending decision package is retained as historical; new remaining choices are in P4-MIXED-PORT-PLAN.md. #161 stays open.",
+        "created_at": "2026-10-26T14:35:41.420294631Z",
+        "kind": "decision"
+      },
+      {
+        "id": 488,
+        "issue_id": 161,
+        "content": "Operator hold: wait for the pending AST tool results before proceeding with new mixed-port setup or implementation. Once supplied, review the results and record the supported invocation, tool version/configuration, and relevant coverage/limitations. Do not guess flags or assume the AST result is already accepted. Preserve the four-project plan and baseline evidence meanwhile. #161\u2019s remaining contract/toolchain/trust/write-policy decisions still apply.",
+        "created_at": "2026-10-26T15:40:54.112419581Z",
+        "kind": "blocker"
+      }
+    ],
+    "blocked_by": [
+      160
+    ],
+    "blocking": [
+      177
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 162,
+    "title": "[p4 matrix] P4-8 P2 swisstable-verus: complete the Verus-owned deductive closure",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nP2's Stage 8C (#33) found no closure profile, so G14 never compared the declared deductive closure. Author the closure profile through the protected draft/review path, re-check the Verus intake residuals #125-#127, and take P2 through G14. This is the prerequisite for P2's Axis A and B cells.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.090847915Z",
+    "updated_at": "2026-10-21T02:37:42.090847915Z",
+    "closed_at": null,
+    "labels": [
+      "baseline-maintenance",
+      "p2-swisstable-verus",
+      "p4-matrix"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 453,
+        "issue_id": 162,
+        "content": "Checklist from P4-3 (#157, swisstable-verus/analysis/p4-verifier-fit/): the proof is done (149 verified, 35/36 draft constraints tagged); the closure needs pipeline work. (1) Approve the Stage 3 drafts: 7 concept specs (36 constraints), 14 boundaries, 15 interactions, 6 bridges; fix GroupProbe.C004 first (mis-stated, swisstable-spec-002). (2) Add #![verifier::proof_note(\"ligature:<obligation>\")] to each bound function's ensures for --verus-function intake (none today). (3) Re-run extract-c-static (3 high findings under 1.4.2), then the 462 R1/G16 decisions and 5 missing edges (swisstable-ligature-015). (4) Before keeping -023 as a scope cut, try the standalone Seq-level set lemma with explicit witnesses (swisstable-verus-038). (5) Refresh P2's README; it still describes Ligature 1.3.5.",
+        "created_at": "2026-10-21T15:27:50.182206618Z",
+        "kind": "handoff"
+      },
+      {
+        "id": 485,
+        "issue_id": 162,
+        "content": "Original P2 Verus closure-maintenance scope is preserved. The operator now wants four distinct new mixed C++ projects instead of additional verifier ports of P1/P2/P3. This baseline-only follow-up is deferred until after the four-project roll-up (#174); it does not authorize changing P2\u2019s accepted representation or adding another verifier. The baseline\u2019s existing proof and pipeline limitations must remain honestly reported.",
+        "created_at": "2026-10-26T14:35:41.335773551Z",
+        "kind": "handoff"
+      }
+    ],
+    "blocked_by": [
+      174
+    ],
+    "blocking": [
+      55
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 163,
+    "title": "[p4 matrix] P4-9 P1 date: Verus-owned cluster",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell. Port P1's selected obligations to a Verus crate per the P4-6 layout and the P4-7 scope, and take the cluster through G14. Record the transfer gaps compared with Creusot.",
+    "status": "closed",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.147733767Z",
+    "updated_at": "2026-10-26T14:35:40.679717237Z",
+    "closed_at": "2026-10-26T14:35:40.679717237Z",
+    "labels": [
+      "p1-date-creusot",
+      "p4-matrix",
+      "superseded-scope"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 454,
+        "issue_id": 163,
+        "content": "From P4-2 (#156, date-creusot/analysis/p4-verifier-fit/): all 9 obligations transfer. Restate specs in floor division: Verus spec / is Euclidean, so the C++ era trick must not be copied (date-creusot-067). from_days and round_trip prove with no lemmas at #[verifier::rlimit(200)]; record the budget or add helper lemmas such as year_of_era_exact (date-creusot-068). Separate crate in its own single-verifier workspace; the date-creusot Nix shell has no Verus (swisstable-verus, crypto-mixed and default do). Probe sources: probes/verus/civil_rlimit.rs.",
+        "created_at": "2026-10-21T15:27:52.574142781Z",
+        "kind": "handoff"
+      },
+      {
+        "id": 479,
+        "issue_id": 163,
+        "content": "Superseded by the operator\u2019s 2026-10-26 direction: preserve the three single-verifier baseline ports and use exactly four DISTINCT new C++ projects for C+V, C+K, V+K and C+V+K. This issue\u2019s old extra baseline-verifier port was not implemented or completed. Its original description is retained in planning/p4-mixed-2026-10-26/backlog-before.json. Replacement project epics/stages are mapped in planning/p4-mixed-2026-10-26/backlog-map.json and P4-MIXED-PORT-PLAN.md.",
+        "created_at": "2026-10-26T14:35:40.618038121Z",
+        "kind": "handoff"
+      }
+    ],
+    "blocked_by": [],
+    "blocking": [],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 164,
+    "title": "[p4 matrix] P4-10 P1 date: Kani-owned cluster",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell. Bounded Kani evidence for P1's selected obligations, then G14 (bounded). Compare with the Creusot and Verus results.",
+    "status": "closed",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.204850719Z",
+    "updated_at": "2026-10-26T14:35:40.763770200Z",
+    "closed_at": "2026-10-26T14:35:40.763770200Z",
+    "labels": [
+      "p1-date-creusot",
+      "p4-matrix",
+      "superseded-scope"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 455,
+        "issue_id": 164,
+        "content": "From P4-2 (#156): Kani compiles P1's Creusot crate unchanged and proves the round trip over the full valid domain in ~26 s (loop-free, no unwind). C002's Kani wording is a decision at #161. G14 will still require a CG3 record even though P1 has no generic code; record that as a finding, not an escalation. Use cargo kani --exact --harness <path> (swisstable-kani-002). Probe: date-creusot/analysis/p4-verifier-fit/probes/kani/.",
+        "created_at": "2026-10-21T15:27:54.336267985Z",
+        "kind": "handoff"
+      },
+      {
+        "id": 480,
+        "issue_id": 164,
+        "content": "Superseded by the operator\u2019s 2026-10-26 direction: preserve the three single-verifier baseline ports and use exactly four DISTINCT new C++ projects for C+V, C+K, V+K and C+V+K. This issue\u2019s old extra baseline-verifier port was not implemented or completed. Its original description is retained in planning/p4-mixed-2026-10-26/backlog-before.json. Replacement project epics/stages are mapped in planning/p4-mixed-2026-10-26/backlog-map.json and P4-MIXED-PORT-PLAN.md.",
+        "created_at": "2026-10-26T14:35:40.702503296Z",
+        "kind": "handoff"
+      }
+    ],
+    "blocked_by": [],
+    "blocking": [],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 165,
+    "title": "[p4 matrix] P4-11 P2 SwissTable: Creusot-owned cluster",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell. Creusot for P2's map model and the obligations P4-3 marked feasible, then G14. Record where Creusot stops short of Verus.",
+    "status": "closed",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.261554731Z",
+    "updated_at": "2026-10-26T14:35:40.849683880Z",
+    "closed_at": "2026-10-26T14:35:40.849683880Z",
+    "labels": [
+      "p2-swisstable-verus",
+      "p4-matrix",
+      "superseded-scope"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 456,
+        "issue_id": 165,
+        "content": "From P4-3 (#157): the map model is a Creusot strength; P2's derived-set lemmas (the -023 step) prove unaided. Bit arithmetic needs #[bitwise_proof] on each mask/shift function with specs compared on u64; u64 division is not available in logic, and hash>>7 == hash/128 needs a lemma (swisstable-creusot-001). The cell is a full Pearlite rewrite: 66 requires, 71 ensures, 63 loop invariants, 44 spec fns, 7 proof fns. Probes: swisstable-verus/analysis/p4-verifier-fit/probes/creusot/.",
+        "created_at": "2026-10-21T15:27:56.490283868Z",
+        "kind": "handoff"
+      },
+      {
+        "id": 481,
+        "issue_id": 165,
+        "content": "Superseded by the operator\u2019s 2026-10-26 direction: preserve the three single-verifier baseline ports and use exactly four DISTINCT new C++ projects for C+V, C+K, V+K and C+V+K. This issue\u2019s old extra baseline-verifier port was not implemented or completed. Its original description is retained in planning/p4-mixed-2026-10-26/backlog-before.json. Replacement project epics/stages are mapped in planning/p4-mixed-2026-10-26/backlog-map.json and P4-MIXED-PORT-PLAN.md.",
+        "created_at": "2026-10-26T14:35:40.787331642Z",
+        "kind": "handoff"
+      }
+    ],
+    "blocked_by": [],
+    "blocking": [],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 166,
+    "title": "[p4 matrix] P4-12 P2 SwissTable: Kani-owned cluster (unsafe slots, SIMD probing)",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell, from the #35/#36 ideas. Kani for the layers Verus cannot reach (raw or unsafe slots, SIMD group probing), then G14 (bounded).",
+    "status": "closed",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.319033017Z",
+    "updated_at": "2026-10-26T14:35:40.934496376Z",
+    "closed_at": "2026-10-26T14:35:40.934496376Z",
+    "labels": [
+      "p2-swisstable-verus",
+      "p4-matrix",
+      "superseded-scope"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 457,
+        "issue_id": 166,
+        "content": "From P4-3 (#157): Kani compiles P2's Verus crate unchanged and checks insert/contains/erase for any key at capacity 31 in ~48 s (unwind 50); claims hold only for harnessed capacities. Upstream's SSE2 Match and MaskEmptyOrDeleted are provable equal to scalar (~2 s each). Raw MaybeUninit slots cannot be checked for initialization by Kani 0.67 (swisstable-kani-001). Scope (scalar only vs SSE2 vs raw slots) is a decision at #161. Use --exact with --harness (swisstable-kani-002). Probes: swisstable-verus/analysis/p4-verifier-fit/probes/kani/.",
+        "created_at": "2026-10-21T15:27:58.738172132Z",
+        "kind": "handoff"
+      },
+      {
+        "id": 482,
+        "issue_id": 166,
+        "content": "Superseded by the operator\u2019s 2026-10-26 direction: preserve the three single-verifier baseline ports and use exactly four DISTINCT new C++ projects for C+V, C+K, V+K and C+V+K. This issue\u2019s old extra baseline-verifier port was not implemented or completed. Its original description is retained in planning/p4-mixed-2026-10-26/backlog-before.json. Replacement project epics/stages are mapped in planning/p4-mixed-2026-10-26/backlog-map.json and P4-MIXED-PORT-PLAN.md.",
+        "created_at": "2026-10-26T14:35:40.872814164Z",
+        "kind": "handoff"
+      }
+    ],
+    "blocked_by": [],
+    "blocking": [],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 167,
+    "title": "[p4 matrix] P4-13 P3 crypto: Creusot-owned cluster",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell. Creusot for the obligations P4-4 marked feasible (core-functional arithmetic), then G14 (deductive).",
+    "status": "closed",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.375744093Z",
+    "updated_at": "2026-10-26T14:35:41.019461468Z",
+    "closed_at": "2026-10-26T14:35:41.019461468Z",
+    "labels": [
+      "p3-crypto-mixed",
+      "p4-matrix",
+      "superseded-scope"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 458,
+        "issue_id": 167,
+        "content": "From P4-4 (#158, crypto-mixed/analysis/p4-verifier-fit/): write core-functional obligations first (quarter-round, block, Poly1305 limbs); P3's current 6 obligations and 3 bridges are bytes-layer only. Creusot proves the quarter-round against RFC 8439 in #[bitwise_proof] mode with rotation as shifts, and Poly1305 d0's limb products free of u64 overflow unaided. creusot-std has no contract for rotate_left, from_le_bytes, to_le_bytes, fill, extend_from_slice (crypto-creusot-001): extern_spec! or rewrite (decision at #161). Poly1305 functional correctness mod 2^130-5 is not probed; without it the cell is partial.",
+        "created_at": "2026-10-21T15:44:49.536476628Z",
+        "kind": "handoff"
+      },
+      {
+        "id": 483,
+        "issue_id": 167,
+        "content": "Superseded by the operator\u2019s 2026-10-26 direction: preserve the three single-verifier baseline ports and use exactly four DISTINCT new C++ projects for C+V, C+K, V+K and C+V+K. This issue\u2019s old extra baseline-verifier port was not implemented or completed. Its original description is retained in planning/p4-mixed-2026-10-26/backlog-before.json. Replacement project epics/stages are mapped in planning/p4-mixed-2026-10-26/backlog-map.json and P4-MIXED-PORT-PLAN.md.",
+        "created_at": "2026-10-26T14:35:40.957637229Z",
+        "kind": "handoff"
+      }
+    ],
+    "blocked_by": [],
+    "blocking": [],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 168,
+    "title": "[p4 matrix] P4-14 P3 crypto: Verus-owned cluster (the #43-deferred core-functional cluster)",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell. The Verus pass deferred by #43, for the quarter-round, block and Poly1305 limb arithmetic, then G14 (deductive). Revisit the accepted CG3 ceiling (#135) if Verus can settle it.",
+    "status": "closed",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.432813036Z",
+    "updated_at": "2026-10-26T14:35:41.104284214Z",
+    "closed_at": "2026-10-26T14:35:41.104284214Z",
+    "labels": [
+      "p3-crypto-mixed",
+      "p4-matrix",
+      "superseded-scope"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 459,
+        "issue_id": 168,
+        "content": "From P4-4 (#158, crypto-mixed/analysis/p4-verifier-fit/): write core-functional obligations first. Verus proves the quarter-round against RFC 8439 unaided with rotation as shifts. Poly1305 limb products need one by(nonlinear_arith) per product, 25 across d0-d4 (crypto-verus-002). Verus does not support rotate_left, from_le_bytes, to_le_bytes, copy_from_slice, fill, slice try_into (crypto-verus-001): assume_specification or rewrite (decision at #161). Separate crate (1.95.0, vstd); Kani harnesses can overlay. Under Q1 a CG3 refusal on the pure Verus closure is a Ligature defect. #135's note: do not relabel the Kani per-instantiation records; reopen #135 for P4/Verus work if needed.",
+        "created_at": "2026-10-21T15:44:52.369924096Z",
+        "kind": "handoff"
+      },
+      {
+        "id": 484,
+        "issue_id": 168,
+        "content": "Superseded by the operator\u2019s 2026-10-26 direction: preserve the three single-verifier baseline ports and use exactly four DISTINCT new C++ projects for C+V, C+K, V+K and C+V+K. This issue\u2019s old extra baseline-verifier port was not implemented or completed. Its original description is retained in planning/p4-mixed-2026-10-26/backlog-before.json. Replacement project epics/stages are mapped in planning/p4-mixed-2026-10-26/backlog-map.json and P4-MIXED-PORT-PLAN.md.",
+        "created_at": "2026-10-26T14:35:41.042302159Z",
+        "kind": "handoff"
+      }
+    ],
+    "blocked_by": [],
+    "blocking": [],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 169,
+    "title": "[P4] Supporting-evidence configurations across the four distinct mixed ports",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nUse the completed M4\u2013M7 source/assurance handoffs. Measure supported/required evidence selection using actual project obligations for C+V (ICL), C+K (TinyXML2), V+K (Snappy) and the LevelDB triple. Reuse #159 classification controls; only run variations not answered by retained project evidence. Record exact package/closure membership, supporting arrays, kinds, G14/G17 and scopes. Supporting status does not exempt accepted evidence from CG1. Include pair direction where relevant; do not touch baseline pilots.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.490106217Z",
+    "updated_at": "2026-10-26T14:35:40.491845084Z",
+    "closed_at": null,
+    "labels": [
+      "p4-matrix"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      193
+    ],
+    "blocking": [
+      170
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 170,
+    "title": "[P4] Same-closure composition and one-ceiling results for the new ports",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nCompare real mixed-closure outcomes from M4\u2013M7; reuse #159 Q3/Q6 rather than restaging identical synthetic examples. Separate CG1, global CG3, closure kind and observed owner behavior. Any new positive degraded result needs its own actual human-approved/ruling-pinned record. One record has one cluster ceiling; the earlier scratch ruling is not production risk acceptance. Link per-project source/oracle evidence, not just label combinations.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.529012159Z",
+    "updated_at": "2026-10-26T14:35:40.512425158Z",
+    "closed_at": null,
+    "labels": [
+      "p3-crypto-mixed",
+      "p4-matrix",
+      "probe"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      169
+    ],
+    "blocking": [
+      171
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 171,
+    "title": "[P4] Required-guarantee versus trusted-assumption edges in the new pair ports",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nSelect real source boundaries from ICL C/V, TinyXML2 C/K and Snappy V/K. Reuse #159 traversal findings; add project-specific required-edge/assumption controls only where they answer a new contract question. Preserve the distinction between local evaluated closure and workspace-wide CG3. Document exact caller/callee guarantee, trust policy and evidence; no assumption may conceal an unproved required guarantee. Human review is required for actual assumptions.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.604025174Z",
+    "updated_at": "2026-10-26T14:35:40.533603804Z",
+    "closed_at": null,
+    "labels": [
+      "p3-crypto-mixed",
+      "p4-matrix",
+      "probe"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      170
+    ],
+    "blocking": [
+      172
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 172,
+    "title": "[P4] Six directed verifier edges across ICL, TinyXML2 and Snappy",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nCoverage map: C\u2192V and V\u2192C in ICL; C\u2192K and K\u2192C in TinyXML2; V\u2192K and K\u2192V in Snappy. Verify real source call sites and selected ownership from intake. Use required-guarantee edges as the baseline; record any separately approved assumption comparison. A source ownership hypothesis, reciprocal labels, mock dispatch or disconnected demos are not coverage. Report six per-direction rows with exact source, obligations, records, bridge/callsite results, G14/G17 and ceiling. A genuinely missing direction is a coverage gap needing explicit disposition, not a reason to invent a runtime backedge.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.679549383Z",
+    "updated_at": "2026-10-26T14:35:40.554131840Z",
+    "closed_at": null,
+    "labels": [
+      "p4-matrix"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      171
+    ],
+    "blocking": [
+      194
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 173,
+    "title": "[P4 M7] LevelDB: final Creusot + Verus + Kani workspace assessment",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nUse the new independent leveldb-three-verifiers/ root and pinned LevelDB storage-format slice, not the old crypto-mixed port. Consume the real M7 batch/log/block/coding/CRC source and oracle handoff. Check a joined pipeline with Creusot logical state, Verus framing/block invariants and Kani local codec/buffer checks. Run/retain all assurance intakes, real cross-owner bridges, per-cluster G14/status/check and global CG3/CG1 interpretation; reuse identical recent results rather than redundant reruns. Log/table compatibility and bounded in-memory faults do not prove full DB durability, concurrency or compaction. Compression is disabled in this slice to avoid depending on the separate Snappy Rust port. Any accepted degradation is a new genuine human decision.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.718325232Z",
+    "updated_at": "2026-10-26T14:35:40.574609381Z",
+    "closed_at": null,
+    "labels": [
+      "p3-crypto-mixed",
+      "p4-matrix"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 460,
+        "issue_id": 173,
+        "content": "From P4-4 (#158): suggested split for all three verifiers on P3: ChaCha20 core (quarter-round, block) on Verus, which proves the quarter-round unaided; Poly1305 limbs on Creusot, which proves the limb products unaided; AEAD and keystream bytes layer, with the existing 6 obligations and 3 bridges, on Kani. Both deductive cells first need the std-spec decision from #161.",
+        "created_at": "2026-10-21T15:44:54.127193883Z",
+        "kind": "handoff"
+      }
+    ],
+    "blocked_by": [
+      194
+    ],
+    "blocking": [
+      174
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 174,
+    "title": "[P4] Four-project mixed-verifier coverage and transfer-gap roll-up",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nRecord one row for M4 ICL C+V, M5 TinyXML2 C+K, M6 Snappy V+K, and M7 LevelDB C+V+K, plus all six directed pair edges and CG6/G15 real/synthetic coverage. Preserve the three baseline summaries without pretending they were re-ported with every verifier. Report works/friction/blocker, exact selected API/features, proof/TCB/bounds, actual closure kind and ceiling, native-oracle results, source revision, mutations, protocol/SCC evidence and every excluded/unproved feature. Research suitability is not verification. No 21-workspace or nine-cell re-port expansion. Feed #69 and the later cross-cutting checks; reconcile superseded old matrix cells explicitly.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.775520972Z",
+    "updated_at": "2026-10-26T14:35:40.595144300Z",
+    "closed_at": null,
+    "labels": [
+      "deliverables",
+      "p4-matrix"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      173
+    ],
+    "blocking": [
+      55,
+      162
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 177,
+    "title": "[P4] Operator setup for four isolated mixed-verifier port workspaces",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nImplement only the setup decisions explicitly recorded at #161. Planned roots: icl-creusot-verus/, tinyxml2-creusot-kani/, snappy-verus-kani/, leveldb-three-verifiers/. Create each as an independent Git/Ligature root with explicit ownership, scoped write set, source pin, oracle dependencies, and per-tool Cargo/target/proof/config roots. Preserve date-creusot/, swisstable-verus/, crypto-mixed/ as baseline records. Resolve/reproducibly pin a matching Creusot/stdlib Nix pair and verify external companion-output placement plus local Why3 socket access. Existing 0.12 compatibility success is not current 0.14 shell validation. Exact descriptor/Cargo/lock/toolchain/flake operations are operator-owned or separately granted sanctioned operations. No blanket authorization. Complete a reusable per-root smoke check and before/after protected hashes; no production port claims. Planning issue only until #161 resolves these choices.\n\nAST execution prerequisite: Operator hold: wait for the pending AST tool results before proceeding with new mixed-port setup or implementation. Once supplied, review the results and record the supported invocation, tool version/configuration, and relevant coverage/limitations. Do not guess flags or assume the AST result is already accepted. Preserve the four-project plan and baseline evidence meanwhile. #161\u2019s remaining contract/toolchain/trust/write-policy decisions still apply.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 154,
+    "created_at": "2026-10-26T14:35:39.558380703Z",
+    "updated_at": "2026-10-26T15:40:54.156862470Z",
+    "closed_at": null,
+    "labels": [
+      "p4-mixed"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 489,
+        "issue_id": 177,
+        "content": "Operator hold: wait for the pending AST tool results before proceeding with new mixed-port setup or implementation. Once supplied, review the results and record the supported invocation, tool version/configuration, and relevant coverage/limitations. Do not guess flags or assume the AST result is already accepted. Preserve the four-project plan and baseline evidence meanwhile. #161\u2019s remaining contract/toolchain/trust/write-policy decisions still apply.",
+        "created_at": "2026-10-26T15:40:54.133250908Z",
+        "kind": "blocker"
+      }
+    ],
+    "blocked_by": [
+      161
+    ],
+    "blocking": [
+      179
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 178,
+    "title": "[P4 M4] Boost.ICL port \u2014 creusot + verus",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nSelected working project: Boost.ICL (https://github.com/boostorg/icl), tag boost-1.88.0, immutable commit 2741c3a1b7b79f7326360c26c3e1588b385c9e53. Root: icl-creusot-verus/. Verifiers: creusot, verus.\n\nIncluded vertical slice: Discrete interval algebra and canonical interval sets/maps. Cover empty/singleton/open/closed endpoints, union/intersection/difference, insertion/erasure, split/coalesce, membership and segment iteration. Start with i32 and i64 endpoint instantiations and one explicit additive integer map codomain; document overflow/identity-absorption semantics. Generic endpoint/combiner law obligations must be attempted, not silently replaced by one scalar instantiation.\n\nProposed ownership: Creusot: endpoint/order/interval algebra and high-level set operations. Verus: canonical segment storage, mutation, split/coalesce, iterator/representation invariants. Ownership is a fit hypothesis; freeze the real function map after intake.\n\nCoverage: Templates/traits and algebraic laws; interval arithmetic across widths; ordered containers; generic proof interfaces; iterator/mutation invariants.\n\nLimits: Full Boost, continuous/floating endpoint semantics, arbitrary allocator/comparator/codomain policies, ABI/iterator address identity and performance parity are not initial claims. Each unsupported generic feature remains a transfer gap; changing source representation does not prove algorithmic complexity.\n\nSource fit and proof feasibility remain untested. The user's decision approves four distinct mixed-project workspaces; it is not approval of final contracts, risk ceilings or protected writes. Use the three child stages.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 154,
+    "created_at": "2026-10-26T14:35:39.618586548Z",
+    "updated_at": "2026-10-26T14:35:39.618586548Z",
+    "closed_at": null,
+    "labels": [
+      "p4-mixed"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [],
+    "blocking": [],
+    "subissues": [
+      {
+        "id": 179,
+        "title": "[P4 M4.1] Boost.ICL: intake, scope and native oracle",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nVerify https://github.com/boostorg/icl at 2741c3a1b7b79f7326360c26c3e1588b385c9e53 (tag boost-1.88.0); inventory licenses/build/test dependencies and build the native C++ oracle without changing baseline pilots. Scope: Discrete interval algebra and canonical interval sets/maps. Cover empty/singleton/open/closed endpoints, union/intersection/difference, insertion/erasure, split/coalesce, membership and segment iteration. Start with i32 and i64 endpoint instantiations and one explicit additive integer map codomain; document overflow/identity-absorption semantics. Generic endpoint/combiner law obligations must be attempted, not silently replaced by one scalar instantiation. Source anchors: include/boost/icl/interval_base_set.hpp, include/boost/icl/interval_set.hpp, include/boost/icl/interval_map.hpp, include/boost/icl/concept/interval.hpp. Oracle: Build the matching Boost 1.88.0 dependency distribution, verify the ICL module commit, and use native ICL operations as the oracle. Derive examples from test/Jamfile.v2 interval/set/map suites. Compare pointwise denotation AND canonical segments/iteration for each selected container style; randomized operation traces plus algebraic laws and boundary mutations. Trace proposed ownership: Creusot: endpoint/order/interval algebra and high-level set operations. Verus: canonical segment storage, mutation, split/coalesce, iterator/representation invariants. Ownership is a fit hypothesis; freeze the real function map after intake. Candidate real edges: C\u2192V: interval_base_set::add calls _add / interval_set segment mutation. V\u2192C: _add tests icl::is_empty; mutation uses left_subtract/right_subtract and endpoint algebra. Produce exact selected API/operation, feature/domain/limit and obligation maps, upstream file hashes, baseline corpus, mutant checks, C++\u2192Rust gap ledger, and a concrete contract/TCB/representation proposal. Do not fabricate a reverse call just to fill the matrix; report/reassign actual source ownership if the candidate split does not supply it. Do not silently reduce generics, optimized paths, parser modes or storage semantics. Human review must resolve contracts/exclusions before the proof stage; do not promote on the operator's behalf.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 178,
+        "created_at": "2026-10-26T14:35:39.657427438Z",
+        "updated_at": "2026-10-26T14:35:39.657427438Z",
+        "closed_at": null
+      },
+      {
+        "id": 180,
+        "title": "[P4 M4.2] Boost.ICL: implement owner crates and record real assurance",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nAfter intake's specific contract/representation approvals and exact sanctioned setup, implement the selected source slice in icl-creusot-verus/ using creusot + verus. Creusot: endpoint/order/interval algebra and high-level set operations. Verus: canonical segment storage, mutation, split/coalesce, iterator/representation invariants. Ownership is a fit hypothesis; freeze the real function map after intake. Keep identical executable functions for overlays where supported; if verifier-specific copies are necessary, demonstrate equivalence for the selected observable semantics. Generate fresh per-obligation certificates/results and intake with the pilot-local approved Ligature bundle. Record meaningful mutants, oracle parity, explicit trust assumptions, bounds and source/tool hashes. Follow the scope/exclusions in the parent. No ignored proof failure, fake record, unmodeled intrinsic stub, unapproved extern spec or claim of full upstream equivalence. Record partial/friction outcomes precisely when an approved obligation cannot be proved; scope cuts require human decision.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 178,
+        "created_at": "2026-10-26T14:35:39.717411788Z",
+        "updated_at": "2026-10-26T14:35:39.717411788Z",
+        "closed_at": null
+      },
+      {
+        "id": 181,
+        "title": "[P4 M4.3] Boost.ICL: real boundaries, oracle replay and evidence handoff",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nIntegrate actual components in icl-creusot-verus/ after per-owner assurance exists. Exercise real dataflow and callback/contract edges from the pinned C++ source; preserve native-oracle behavior and error side effects. For pair projects retain both caller/callee directions or explicitly report the uncovered direction; for M7 require a joined three-owner storage pipeline rather than three disconnected demos. Run source-bound callsite/bridge checks and relevant per-cluster validators/G14/status/check; retain actual CG1/CG3 findings and only genuinely reviewed degradations. Archive fixtures without live _closure evidence trees. Add PORT-GAPS/findings and hand off reproducible source/oracle/assurance/call-edge inventories to #169\u2013#174. Do not rerun identical controls merely to fill later issue IDs. M7's final combined-workspace acceptance remains #173; this stage prepares its component and real-boundary evidence.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 178,
+        "created_at": "2026-10-26T14:35:39.777227672Z",
+        "updated_at": "2026-10-26T14:35:39.777227672Z",
+        "closed_at": null
+      }
+    ],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 179,
+    "title": "[P4 M4.1] Boost.ICL: intake, scope and native oracle",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nVerify https://github.com/boostorg/icl at 2741c3a1b7b79f7326360c26c3e1588b385c9e53 (tag boost-1.88.0); inventory licenses/build/test dependencies and build the native C++ oracle without changing baseline pilots. Scope: Discrete interval algebra and canonical interval sets/maps. Cover empty/singleton/open/closed endpoints, union/intersection/difference, insertion/erasure, split/coalesce, membership and segment iteration. Start with i32 and i64 endpoint instantiations and one explicit additive integer map codomain; document overflow/identity-absorption semantics. Generic endpoint/combiner law obligations must be attempted, not silently replaced by one scalar instantiation. Source anchors: include/boost/icl/interval_base_set.hpp, include/boost/icl/interval_set.hpp, include/boost/icl/interval_map.hpp, include/boost/icl/concept/interval.hpp. Oracle: Build the matching Boost 1.88.0 dependency distribution, verify the ICL module commit, and use native ICL operations as the oracle. Derive examples from test/Jamfile.v2 interval/set/map suites. Compare pointwise denotation AND canonical segments/iteration for each selected container style; randomized operation traces plus algebraic laws and boundary mutations. Trace proposed ownership: Creusot: endpoint/order/interval algebra and high-level set operations. Verus: canonical segment storage, mutation, split/coalesce, iterator/representation invariants. Ownership is a fit hypothesis; freeze the real function map after intake. Candidate real edges: C\u2192V: interval_base_set::add calls _add / interval_set segment mutation. V\u2192C: _add tests icl::is_empty; mutation uses left_subtract/right_subtract and endpoint algebra. Produce exact selected API/operation, feature/domain/limit and obligation maps, upstream file hashes, baseline corpus, mutant checks, C++\u2192Rust gap ledger, and a concrete contract/TCB/representation proposal. Do not fabricate a reverse call just to fill the matrix; report/reassign actual source ownership if the candidate split does not supply it. Do not silently reduce generics, optimized paths, parser modes or storage semantics. Human review must resolve contracts/exclusions before the proof stage; do not promote on the operator's behalf.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 178,
+    "created_at": "2026-10-26T14:35:39.657427438Z",
+    "updated_at": "2026-10-26T14:35:39.657427438Z",
+    "closed_at": null,
+    "labels": [
+      "p4-mixed"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      177
+    ],
+    "blocking": [
+      180
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 180,
+    "title": "[P4 M4.2] Boost.ICL: implement owner crates and record real assurance",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nAfter intake's specific contract/representation approvals and exact sanctioned setup, implement the selected source slice in icl-creusot-verus/ using creusot + verus. Creusot: endpoint/order/interval algebra and high-level set operations. Verus: canonical segment storage, mutation, split/coalesce, iterator/representation invariants. Ownership is a fit hypothesis; freeze the real function map after intake. Keep identical executable functions for overlays where supported; if verifier-specific copies are necessary, demonstrate equivalence for the selected observable semantics. Generate fresh per-obligation certificates/results and intake with the pilot-local approved Ligature bundle. Record meaningful mutants, oracle parity, explicit trust assumptions, bounds and source/tool hashes. Follow the scope/exclusions in the parent. No ignored proof failure, fake record, unmodeled intrinsic stub, unapproved extern spec or claim of full upstream equivalence. Record partial/friction outcomes precisely when an approved obligation cannot be proved; scope cuts require human decision.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 178,
+    "created_at": "2026-10-26T14:35:39.717411788Z",
+    "updated_at": "2026-10-26T14:35:39.717411788Z",
+    "closed_at": null,
+    "labels": [
+      "p4-mixed"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      179
+    ],
+    "blocking": [
+      181
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 181,
+    "title": "[P4 M4.3] Boost.ICL: real boundaries, oracle replay and evidence handoff",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nIntegrate actual components in icl-creusot-verus/ after per-owner assurance exists. Exercise real dataflow and callback/contract edges from the pinned C++ source; preserve native-oracle behavior and error side effects. For pair projects retain both caller/callee directions or explicitly report the uncovered direction; for M7 require a joined three-owner storage pipeline rather than three disconnected demos. Run source-bound callsite/bridge checks and relevant per-cluster validators/G14/status/check; retain actual CG1/CG3 findings and only genuinely reviewed degradations. Archive fixtures without live _closure evidence trees. Add PORT-GAPS/findings and hand off reproducible source/oracle/assurance/call-edge inventories to #169\u2013#174. Do not rerun identical controls merely to fill later issue IDs. M7's final combined-workspace acceptance remains #173; this stage prepares its component and real-boundary evidence.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 178,
+    "created_at": "2026-10-26T14:35:39.777227672Z",
+    "updated_at": "2026-10-26T14:35:39.777227672Z",
+    "closed_at": null,
+    "labels": [
+      "p4-mixed"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      180
+    ],
+    "blocking": [
+      183
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 182,
+    "title": "[P4 M5] TinyXML2 port \u2014 creusot + kani",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nSelected working project: TinyXML2 (https://github.com/leethomason/tinyxml2), tag 11.0.0, immutable commit 9148bdf719e997d1f474be6bcc7943881046dba1. Root: tinyxml2-creusot-kani/. Verifiers: creusot, kani.\n\nIncluded vertical slice: In-memory UTF-8 XML parsing and DOM operations: elements, attributes, text, comments, declarations, CDATA, predefined/numeric character references, newline/whitespace modes, and an explicitly listed mutation/clone/serialization facade. Preserve pinned upstream error and normalization behavior. Fit may stage features, but every exclusion must be explicit rather than claiming all XML is ported.\n\nProposed ownership: Creusot: parser progress/recursive structure, DOM ownership and parent/sibling links, serialization and UTF32-to-UTF8 conversion contracts. Kani: bounded StrPair normalization and entity scanning/GetCharacterRef buffer, length, radix and overflow paths.\n\nCoverage: Recursive parsing; UTF-8 and numeric references; aliasing/arena ownership; mutable trees and lifetimes; errors/normalization; bounded buffer checking.\n\nLimits: DTD/XSL, already outside TinyXML2 support, are not promised. Do not claim full XML-standard conformance beyond pinned TinyXML2 behavior. Raw C++ pointer identity, invalid-pointer traces and all operating-system file behavior are outside initial equivalence; Rust handle/lifetime choices and recursion limits must be reported.\n\nSource fit and proof feasibility remain untested. The user's decision approves four distinct mixed-project workspaces; it is not approval of final contracts, risk ceilings or protected writes. Use the three child stages.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 154,
+    "created_at": "2026-10-26T14:35:39.836776906Z",
+    "updated_at": "2026-10-26T14:35:39.836776906Z",
+    "closed_at": null,
+    "labels": [
+      "p4-mixed"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [],
+    "blocking": [],
+    "subissues": [
+      {
+        "id": 183,
+        "title": "[P4 M5.1] TinyXML2: intake, scope and native oracle",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nVerify https://github.com/leethomason/tinyxml2 at 9148bdf719e997d1f474be6bcc7943881046dba1 (tag 11.0.0); inventory licenses/build/test dependencies and build the native C++ oracle without changing baseline pilots. Scope: In-memory UTF-8 XML parsing and DOM operations: elements, attributes, text, comments, declarations, CDATA, predefined/numeric character references, newline/whitespace modes, and an explicitly listed mutation/clone/serialization facade. Preserve pinned upstream error and normalization behavior. Fit may stage features, but every exclusion must be explicit rather than claiming all XML is ported. Source anchors: tinyxml2.cpp, tinyxml2.h, xmltest.cpp, resources/, test/. Oracle: Compile the two upstream source files and xmltest.cpp at the pin. Compare typed DOM event streams, ordered attributes, selected mutation traces, printed bytes where defined, and upstream error categories/line numbers. Use real resource tests and malformed/truncated/entity/UTF-8/depth mutations. Fix whitespace mode and resource/depth limits in every oracle case. Trace proposed ownership: Creusot: parser progress/recursive structure, DOM ownership and parent/sibling links, serialization and UTF32-to-UTF8 conversion contracts. Kani: bounded StrPair normalization and entity scanning/GetCharacterRef buffer, length, radix and overflow paths. Candidate real edges: C\u2192K: parser/DOM value access calls StrPair::GetStr and entity processing. K\u2192C: XMLUtil::GetCharacterRef calls ConvertUTF32ToUTF8. Produce exact selected API/operation, feature/domain/limit and obligation maps, upstream file hashes, baseline corpus, mutant checks, C++\u2192Rust gap ledger, and a concrete contract/TCB/representation proposal. Do not fabricate a reverse call just to fill the matrix; report/reassign actual source ownership if the candidate split does not supply it. Do not silently reduce generics, optimized paths, parser modes or storage semantics. Human review must resolve contracts/exclusions before the proof stage; do not promote on the operator's behalf.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 182,
+        "created_at": "2026-10-26T14:35:39.875700912Z",
+        "updated_at": "2026-10-26T14:35:39.875700912Z",
+        "closed_at": null
+      },
+      {
+        "id": 184,
+        "title": "[P4 M5.2] TinyXML2: implement owner crates and record real assurance",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nAfter intake's specific contract/representation approvals and exact sanctioned setup, implement the selected source slice in tinyxml2-creusot-kani/ using creusot + kani. Creusot: parser progress/recursive structure, DOM ownership and parent/sibling links, serialization and UTF32-to-UTF8 conversion contracts. Kani: bounded StrPair normalization and entity scanning/GetCharacterRef buffer, length, radix and overflow paths. Keep identical executable functions for overlays where supported; if verifier-specific copies are necessary, demonstrate equivalence for the selected observable semantics. Generate fresh per-obligation certificates/results and intake with the pilot-local approved Ligature bundle. Record meaningful mutants, oracle parity, explicit trust assumptions, bounds and source/tool hashes. Follow the scope/exclusions in the parent. No ignored proof failure, fake record, unmodeled intrinsic stub, unapproved extern spec or claim of full upstream equivalence. Record partial/friction outcomes precisely when an approved obligation cannot be proved; scope cuts require human decision.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 182,
+        "created_at": "2026-10-26T14:35:39.934556045Z",
+        "updated_at": "2026-10-26T14:35:39.934556045Z",
+        "closed_at": null
+      },
+      {
+        "id": 185,
+        "title": "[P4 M5.3] TinyXML2: real boundaries, oracle replay and evidence handoff",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nIntegrate actual components in tinyxml2-creusot-kani/ after per-owner assurance exists. Exercise real dataflow and callback/contract edges from the pinned C++ source; preserve native-oracle behavior and error side effects. For pair projects retain both caller/callee directions or explicitly report the uncovered direction; for M7 require a joined three-owner storage pipeline rather than three disconnected demos. Run source-bound callsite/bridge checks and relevant per-cluster validators/G14/status/check; retain actual CG1/CG3 findings and only genuinely reviewed degradations. Archive fixtures without live _closure evidence trees. Add PORT-GAPS/findings and hand off reproducible source/oracle/assurance/call-edge inventories to #169\u2013#174. Do not rerun identical controls merely to fill later issue IDs. M7's final combined-workspace acceptance remains #173; this stage prepares its component and real-boundary evidence.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 182,
+        "created_at": "2026-10-26T14:35:39.994115539Z",
+        "updated_at": "2026-10-26T14:35:39.994115539Z",
+        "closed_at": null
+      }
+    ],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 183,
+    "title": "[P4 M5.1] TinyXML2: intake, scope and native oracle",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nVerify https://github.com/leethomason/tinyxml2 at 9148bdf719e997d1f474be6bcc7943881046dba1 (tag 11.0.0); inventory licenses/build/test dependencies and build the native C++ oracle without changing baseline pilots. Scope: In-memory UTF-8 XML parsing and DOM operations: elements, attributes, text, comments, declarations, CDATA, predefined/numeric character references, newline/whitespace modes, and an explicitly listed mutation/clone/serialization facade. Preserve pinned upstream error and normalization behavior. Fit may stage features, but every exclusion must be explicit rather than claiming all XML is ported. Source anchors: tinyxml2.cpp, tinyxml2.h, xmltest.cpp, resources/, test/. Oracle: Compile the two upstream source files and xmltest.cpp at the pin. Compare typed DOM event streams, ordered attributes, selected mutation traces, printed bytes where defined, and upstream error categories/line numbers. Use real resource tests and malformed/truncated/entity/UTF-8/depth mutations. Fix whitespace mode and resource/depth limits in every oracle case. Trace proposed ownership: Creusot: parser progress/recursive structure, DOM ownership and parent/sibling links, serialization and UTF32-to-UTF8 conversion contracts. Kani: bounded StrPair normalization and entity scanning/GetCharacterRef buffer, length, radix and overflow paths. Candidate real edges: C\u2192K: parser/DOM value access calls StrPair::GetStr and entity processing. K\u2192C: XMLUtil::GetCharacterRef calls ConvertUTF32ToUTF8. Produce exact selected API/operation, feature/domain/limit and obligation maps, upstream file hashes, baseline corpus, mutant checks, C++\u2192Rust gap ledger, and a concrete contract/TCB/representation proposal. Do not fabricate a reverse call just to fill the matrix; report/reassign actual source ownership if the candidate split does not supply it. Do not silently reduce generics, optimized paths, parser modes or storage semantics. Human review must resolve contracts/exclusions before the proof stage; do not promote on the operator's behalf.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 182,
+    "created_at": "2026-10-26T14:35:39.875700912Z",
+    "updated_at": "2026-10-26T14:35:39.875700912Z",
+    "closed_at": null,
+    "labels": [
+      "p4-mixed"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      181
+    ],
+    "blocking": [
+      184
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 184,
+    "title": "[P4 M5.2] TinyXML2: implement owner crates and record real assurance",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nAfter intake's specific contract/representation approvals and exact sanctioned setup, implement the selected source slice in tinyxml2-creusot-kani/ using creusot + kani. Creusot: parser progress/recursive structure, DOM ownership and parent/sibling links, serialization and UTF32-to-UTF8 conversion contracts. Kani: bounded StrPair normalization and entity scanning/GetCharacterRef buffer, length, radix and overflow paths. Keep identical executable functions for overlays where supported; if verifier-specific copies are necessary, demonstrate equivalence for the selected observable semantics. Generate fresh per-obligation certificates/results and intake with the pilot-local approved Ligature bundle. Record meaningful mutants, oracle parity, explicit trust assumptions, bounds and source/tool hashes. Follow the scope/exclusions in the parent. No ignored proof failure, fake record, unmodeled intrinsic stub, unapproved extern spec or claim of full upstream equivalence. Record partial/friction outcomes precisely when an approved obligation cannot be proved; scope cuts require human decision.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 182,
+    "created_at": "2026-10-26T14:35:39.934556045Z",
+    "updated_at": "2026-10-26T14:35:39.934556045Z",
+    "closed_at": null,
+    "labels": [
+      "p4-mixed"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      183
+    ],
+    "blocking": [
+      185
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 185,
+    "title": "[P4 M5.3] TinyXML2: real boundaries, oracle replay and evidence handoff",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nIntegrate actual components in tinyxml2-creusot-kani/ after per-owner assurance exists. Exercise real dataflow and callback/contract edges from the pinned C++ source; preserve native-oracle behavior and error side effects. For pair projects retain both caller/callee directions or explicitly report the uncovered direction; for M7 require a joined three-owner storage pipeline rather than three disconnected demos. Run source-bound callsite/bridge checks and relevant per-cluster validators/G14/status/check; retain actual CG1/CG3 findings and only genuinely reviewed degradations. Archive fixtures without live _closure evidence trees. Add PORT-GAPS/findings and hand off reproducible source/oracle/assurance/call-edge inventories to #169\u2013#174. Do not rerun identical controls merely to fill later issue IDs. M7's final combined-workspace acceptance remains #173; this stage prepares its component and real-boundary evidence.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 182,
+    "created_at": "2026-10-26T14:35:39.994115539Z",
+    "updated_at": "2026-10-26T14:35:39.994115539Z",
+    "closed_at": null,
+    "labels": [
+      "p4-mixed"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      184
+    ],
+    "blocking": [
+      187
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 186,
+    "title": "[P4 M6] Snappy port \u2014 verus + kani",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nSelected working project: Snappy (https://github.com/google/snappy), tag 1.2.2, immutable commit 6af9287fbdb913f0794d0148c6aa43b58e63c8e3. Root: snappy-verus-kani/. Verifiers: verus, kani.\n\nIncluded vertical slice: Raw Snappy block encoding/decoding, length/varint/tag parsing, literals and all three copy-tag forms, overlapping backreferences and malformed stream rejection. Establish a scalar functional path first, then port and attempt Kani checking of at least one actual optimized copy/shuffle path from the pinned source. Keep runtime safety preconditions, slop bytes, offsets and output limits explicit.\n\nProposed ownership: Verus: tag/decoder state invariants and portable scalar IncrementalCopySlow model/implementation, reconstruction/round-trip properties over selected raw format. Kani: bounded IncrementalCopy optimized paths, vector shuffle/unaligned access/tail/slop conditions, compared against the scalar semantics.\n\nCoverage: Bitvectors, varints, generic writer interfaces, byte sequences, overlapping memory, alignment/slop bounds, SIMD/intrinsics and portable fallbacks.\n\nLimits: Framed/container formats, other codecs, every architecture/ISA, throughput parity and unbounded Kani claims are excluded initially. One real optimized variant must be attempted; unsupported intrinsics must be reported and cannot be replaced with stubs while calling the optimized path proved. Other ISA paths remain explicit gaps.\n\nSource fit and proof feasibility remain untested. The user's decision approves four distinct mixed-project workspaces; it is not approval of final contracts, risk ceilings or protected writes. Use the three child stages.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 154,
+    "created_at": "2026-10-26T14:35:40.054467528Z",
+    "updated_at": "2026-10-26T14:35:40.054467528Z",
+    "closed_at": null,
+    "labels": [
+      "p4-mixed"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [],
+    "blocking": [],
+    "subissues": [
+      {
+        "id": 187,
+        "title": "[P4 M6.1] Snappy: intake, scope and native oracle",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nVerify https://github.com/google/snappy at 6af9287fbdb913f0794d0148c6aa43b58e63c8e3 (tag 1.2.2); inventory licenses/build/test dependencies and build the native C++ oracle without changing baseline pilots. Scope: Raw Snappy block encoding/decoding, length/varint/tag parsing, literals and all three copy-tag forms, overlapping backreferences and malformed stream rejection. Establish a scalar functional path first, then port and attempt Kani checking of at least one actual optimized copy/shuffle path from the pinned source. Keep runtime safety preconditions, slop bytes, offsets and output limits explicit. Source anchors: snappy.cc, snappy-internal.h, snappy-sinksource.h, snappy_unittest.cc, format_description.txt, testdata/. Oracle: Build native snappy_unittests and use pinned C++ Compress/Uncompress plus the shipped corrupted-input tests and testdata. Cross-decode C++-encoded and Rust-encoded streams; compare decoded bytes, lengths and error outcomes. Encodings are not assumed canonical: do not demand identical compressed bytes for every valid compressor implementation. Trace proposed ownership: Verus: tag/decoder state invariants and portable scalar IncrementalCopySlow model/implementation, reconstruction/round-trip properties over selected raw format. Kani: bounded IncrementalCopy optimized paths, vector shuffle/unaligned access/tail/slop conditions, compared against the scalar semantics. Candidate real edges: V\u2192K: DecompressAllTags/AppendFromSelf dispatches IncrementalCopy. K\u2192V: IncrementalCopy falls back to IncrementalCopySlow for tight buffers and tails. Produce exact selected API/operation, feature/domain/limit and obligation maps, upstream file hashes, baseline corpus, mutant checks, C++\u2192Rust gap ledger, and a concrete contract/TCB/representation proposal. Do not fabricate a reverse call just to fill the matrix; report/reassign actual source ownership if the candidate split does not supply it. Do not silently reduce generics, optimized paths, parser modes or storage semantics. Human review must resolve contracts/exclusions before the proof stage; do not promote on the operator's behalf.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 186,
+        "created_at": "2026-10-26T14:35:40.093574927Z",
+        "updated_at": "2026-10-26T14:35:40.093574927Z",
+        "closed_at": null
+      },
+      {
+        "id": 188,
+        "title": "[P4 M6.2] Snappy: implement owner crates and record real assurance",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nAfter intake's specific contract/representation approvals and exact sanctioned setup, implement the selected source slice in snappy-verus-kani/ using verus + kani. Verus: tag/decoder state invariants and portable scalar IncrementalCopySlow model/implementation, reconstruction/round-trip properties over selected raw format. Kani: bounded IncrementalCopy optimized paths, vector shuffle/unaligned access/tail/slop conditions, compared against the scalar semantics. Keep identical executable functions for overlays where supported; if verifier-specific copies are necessary, demonstrate equivalence for the selected observable semantics. Generate fresh per-obligation certificates/results and intake with the pilot-local approved Ligature bundle. Record meaningful mutants, oracle parity, explicit trust assumptions, bounds and source/tool hashes. Follow the scope/exclusions in the parent. No ignored proof failure, fake record, unmodeled intrinsic stub, unapproved extern spec or claim of full upstream equivalence. Record partial/friction outcomes precisely when an approved obligation cannot be proved; scope cuts require human decision.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 186,
+        "created_at": "2026-10-26T14:35:40.153332893Z",
+        "updated_at": "2026-10-26T14:35:40.153332893Z",
+        "closed_at": null
+      },
+      {
+        "id": 189,
+        "title": "[P4 M6.3] Snappy: real boundaries, oracle replay and evidence handoff",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nIntegrate actual components in snappy-verus-kani/ after per-owner assurance exists. Exercise real dataflow and callback/contract edges from the pinned C++ source; preserve native-oracle behavior and error side effects. For pair projects retain both caller/callee directions or explicitly report the uncovered direction; for M7 require a joined three-owner storage pipeline rather than three disconnected demos. Run source-bound callsite/bridge checks and relevant per-cluster validators/G14/status/check; retain actual CG1/CG3 findings and only genuinely reviewed degradations. Archive fixtures without live _closure evidence trees. Add PORT-GAPS/findings and hand off reproducible source/oracle/assurance/call-edge inventories to #169\u2013#174. Do not rerun identical controls merely to fill later issue IDs. M7's final combined-workspace acceptance remains #173; this stage prepares its component and real-boundary evidence.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 186,
+        "created_at": "2026-10-26T14:35:40.212670491Z",
+        "updated_at": "2026-10-26T14:35:40.212670491Z",
+        "closed_at": null
+      }
+    ],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 187,
+    "title": "[P4 M6.1] Snappy: intake, scope and native oracle",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nVerify https://github.com/google/snappy at 6af9287fbdb913f0794d0148c6aa43b58e63c8e3 (tag 1.2.2); inventory licenses/build/test dependencies and build the native C++ oracle without changing baseline pilots. Scope: Raw Snappy block encoding/decoding, length/varint/tag parsing, literals and all three copy-tag forms, overlapping backreferences and malformed stream rejection. Establish a scalar functional path first, then port and attempt Kani checking of at least one actual optimized copy/shuffle path from the pinned source. Keep runtime safety preconditions, slop bytes, offsets and output limits explicit. Source anchors: snappy.cc, snappy-internal.h, snappy-sinksource.h, snappy_unittest.cc, format_description.txt, testdata/. Oracle: Build native snappy_unittests and use pinned C++ Compress/Uncompress plus the shipped corrupted-input tests and testdata. Cross-decode C++-encoded and Rust-encoded streams; compare decoded bytes, lengths and error outcomes. Encodings are not assumed canonical: do not demand identical compressed bytes for every valid compressor implementation. Trace proposed ownership: Verus: tag/decoder state invariants and portable scalar IncrementalCopySlow model/implementation, reconstruction/round-trip properties over selected raw format. Kani: bounded IncrementalCopy optimized paths, vector shuffle/unaligned access/tail/slop conditions, compared against the scalar semantics. Candidate real edges: V\u2192K: DecompressAllTags/AppendFromSelf dispatches IncrementalCopy. K\u2192V: IncrementalCopy falls back to IncrementalCopySlow for tight buffers and tails. Produce exact selected API/operation, feature/domain/limit and obligation maps, upstream file hashes, baseline corpus, mutant checks, C++\u2192Rust gap ledger, and a concrete contract/TCB/representation proposal. Do not fabricate a reverse call just to fill the matrix; report/reassign actual source ownership if the candidate split does not supply it. Do not silently reduce generics, optimized paths, parser modes or storage semantics. Human review must resolve contracts/exclusions before the proof stage; do not promote on the operator's behalf.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 186,
+    "created_at": "2026-10-26T14:35:40.093574927Z",
+    "updated_at": "2026-10-26T14:35:40.093574927Z",
+    "closed_at": null,
+    "labels": [
+      "p4-mixed"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      185
+    ],
+    "blocking": [
+      188
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 188,
+    "title": "[P4 M6.2] Snappy: implement owner crates and record real assurance",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nAfter intake's specific contract/representation approvals and exact sanctioned setup, implement the selected source slice in snappy-verus-kani/ using verus + kani. Verus: tag/decoder state invariants and portable scalar IncrementalCopySlow model/implementation, reconstruction/round-trip properties over selected raw format. Kani: bounded IncrementalCopy optimized paths, vector shuffle/unaligned access/tail/slop conditions, compared against the scalar semantics. Keep identical executable functions for overlays where supported; if verifier-specific copies are necessary, demonstrate equivalence for the selected observable semantics. Generate fresh per-obligation certificates/results and intake with the pilot-local approved Ligature bundle. Record meaningful mutants, oracle parity, explicit trust assumptions, bounds and source/tool hashes. Follow the scope/exclusions in the parent. No ignored proof failure, fake record, unmodeled intrinsic stub, unapproved extern spec or claim of full upstream equivalence. Record partial/friction outcomes precisely when an approved obligation cannot be proved; scope cuts require human decision.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 186,
+    "created_at": "2026-10-26T14:35:40.153332893Z",
+    "updated_at": "2026-10-26T14:35:40.153332893Z",
+    "closed_at": null,
+    "labels": [
+      "p4-mixed"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      187
+    ],
+    "blocking": [
+      189
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 189,
+    "title": "[P4 M6.3] Snappy: real boundaries, oracle replay and evidence handoff",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nIntegrate actual components in snappy-verus-kani/ after per-owner assurance exists. Exercise real dataflow and callback/contract edges from the pinned C++ source; preserve native-oracle behavior and error side effects. For pair projects retain both caller/callee directions or explicitly report the uncovered direction; for M7 require a joined three-owner storage pipeline rather than three disconnected demos. Run source-bound callsite/bridge checks and relevant per-cluster validators/G14/status/check; retain actual CG1/CG3 findings and only genuinely reviewed degradations. Archive fixtures without live _closure evidence trees. Add PORT-GAPS/findings and hand off reproducible source/oracle/assurance/call-edge inventories to #169\u2013#174. Do not rerun identical controls merely to fill later issue IDs. M7's final combined-workspace acceptance remains #173; this stage prepares its component and real-boundary evidence.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 186,
+    "created_at": "2026-10-26T14:35:40.212670491Z",
+    "updated_at": "2026-10-26T14:35:40.212670491Z",
+    "closed_at": null,
+    "labels": [
+      "p4-mixed"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      188
+    ],
+    "blocking": [
+      191
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 190,
+    "title": "[P4 M7] LevelDB storage slice port \u2014 creusot + verus + kani",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nSelected working project: LevelDB storage slice (https://github.com/google/leveldb), tag 1.23, immutable commit 99b3c03b3284f5886f9ef9a4ef703d57373e61be. Root: leveldb-three-verifiers/. Verifiers: creusot, verus, kani.\n\nIncluded vertical slice: A coherent in-memory storage-format pipeline: WriteBatch Put/Delete and parsing/handler effects, log fragment writer/reader with checksums and truncation/error cases, sorted prefix-compressed block builder/reader and restart-point seek/iteration, and replay of decoded batch operations into a specified logical map. Join real modules end-to-end; this is not a whole LevelDB database port.\n\nProposed ownership: Creusot: ordered-map/operation-history semantics, batch handler effects and replay/state invariants. Verus: prefix-compressed block representation, restart/seek/iteration, log framing/reassembly and parser progress. Kani: bounded fixed/varint codecs, CRC32C arithmetic/masking and local buffer/fault cases. The final fit map must trace all three evidence kinds into one actual dataflow.\n\nCoverage: Three-owner dataflow; ordered models and callbacks; storage encodings; streaming fragments, error effects and temporal traces; realistic protocol/SCC investigation plus explicitly synthetic gate controls if needed.\n\nLimits: Full DB API, compaction scheduling, concurrent writers, filesystem durability, real crash consistency, snapshots and all platform Env implementations are not initial proof claims. Flush is not Sync. Bounded in-memory fault models do not establish OS persistence or linearizability. Log/table compatibility applies only to the selected formats/options.\n\nSource fit and proof feasibility remain untested. The user's decision approves four distinct mixed-project workspaces; it is not approval of final contracts, risk ceilings or protected writes. Use the three child stages.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 154,
+    "created_at": "2026-10-26T14:35:40.272639011Z",
+    "updated_at": "2026-10-26T14:35:40.272639011Z",
+    "closed_at": null,
+    "labels": [
+      "p4-mixed"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [],
+    "blocking": [],
+    "subissues": [
+      {
+        "id": 191,
+        "title": "[P4 M7.1] LevelDB storage slice: intake, scope and native oracle",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nVerify https://github.com/google/leveldb at 99b3c03b3284f5886f9ef9a4ef703d57373e61be (tag 1.23); inventory licenses/build/test dependencies and build the native C++ oracle without changing baseline pilots. Scope: A coherent in-memory storage-format pipeline: WriteBatch Put/Delete and parsing/handler effects, log fragment writer/reader with checksums and truncation/error cases, sorted prefix-compressed block builder/reader and restart-point seek/iteration, and replay of decoded batch operations into a specified logical map. Join real modules end-to-end; this is not a whole LevelDB database port. Source anchors: db/write_batch.cc, db/log_writer.cc, db/log_reader.cc, db/log_test.cc, table/block_builder.cc, table/block.cc, table/table_test.cc, util/coding.cc, util/crc32c.cc, doc/log_format.md, doc/table_format.md. Oracle: Build native LevelDB format/log tests and a native wrapper over the selected modules. Compare append/read/replay and block-build/seek traces against an in-memory Env/handler, including short writes, truncation, checksum failures and malformed batches. Compare partial handler side effects on corruption; do not assume batch rollback. Keep compression disabled for this initial slice so it is independent of the separate Snappy port. Trace proposed ownership: Creusot: ordered-map/operation-history semantics, batch handler effects and replay/state invariants. Verus: prefix-compressed block representation, restart/seek/iteration, log framing/reassembly and parser progress. Kani: bounded fixed/varint codecs, CRC32C arithmetic/masking and local buffer/fault cases. The final fit map must trace all three evidence kinds into one actual dataflow. Candidate real edges: Creusot batch/replay orchestration consumes Verus-checked parsing/framing contracts. Verus log/block parsing calls Kani-owned coding/CRC helpers; WriteBatch::Iterate dispatches to Creusot-owned Handler Put/Delete semantics. These are assignment hypotheses for real source calls; intake must record exact sites and reject disconnected three-demo designs. Produce exact selected API/operation, feature/domain/limit and obligation maps, upstream file hashes, baseline corpus, mutant checks, C++\u2192Rust gap ledger, and a concrete contract/TCB/representation proposal. Do not fabricate a reverse call just to fill the matrix; report/reassign actual source ownership if the candidate split does not supply it. Do not silently reduce generics, optimized paths, parser modes or storage semantics. Human review must resolve contracts/exclusions before the proof stage; do not promote on the operator's behalf.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 190,
+        "created_at": "2026-10-26T14:35:40.311856648Z",
+        "updated_at": "2026-10-26T14:35:40.311856648Z",
+        "closed_at": null
+      },
+      {
+        "id": 192,
+        "title": "[P4 M7.2] LevelDB storage slice: implement owner crates and record real assurance",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nAfter intake's specific contract/representation approvals and exact sanctioned setup, implement the selected source slice in leveldb-three-verifiers/ using creusot + verus + kani. Creusot: ordered-map/operation-history semantics, batch handler effects and replay/state invariants. Verus: prefix-compressed block representation, restart/seek/iteration, log framing/reassembly and parser progress. Kani: bounded fixed/varint codecs, CRC32C arithmetic/masking and local buffer/fault cases. The final fit map must trace all three evidence kinds into one actual dataflow. Keep identical executable functions for overlays where supported; if verifier-specific copies are necessary, demonstrate equivalence for the selected observable semantics. Generate fresh per-obligation certificates/results and intake with the pilot-local approved Ligature bundle. Record meaningful mutants, oracle parity, explicit trust assumptions, bounds and source/tool hashes. Follow the scope/exclusions in the parent. No ignored proof failure, fake record, unmodeled intrinsic stub, unapproved extern spec or claim of full upstream equivalence. Record partial/friction outcomes precisely when an approved obligation cannot be proved; scope cuts require human decision.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 190,
+        "created_at": "2026-10-26T14:35:40.372342919Z",
+        "updated_at": "2026-10-26T14:35:40.372342919Z",
+        "closed_at": null
+      },
+      {
+        "id": 193,
+        "title": "[P4 M7.3] LevelDB storage slice: real boundaries, oracle replay and evidence handoff",
+        "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nIntegrate actual components in leveldb-three-verifiers/ after per-owner assurance exists. Exercise real dataflow and callback/contract edges from the pinned C++ source; preserve native-oracle behavior and error side effects. For pair projects retain both caller/callee directions or explicitly report the uncovered direction; for M7 require a joined three-owner storage pipeline rather than three disconnected demos. Run source-bound callsite/bridge checks and relevant per-cluster validators/G14/status/check; retain actual CG1/CG3 findings and only genuinely reviewed degradations. Archive fixtures without live _closure evidence trees. Add PORT-GAPS/findings and hand off reproducible source/oracle/assurance/call-edge inventories to #169\u2013#174. Do not rerun identical controls merely to fill later issue IDs. M7's final combined-workspace acceptance remains #173; this stage prepares its component and real-boundary evidence.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 190,
+        "created_at": "2026-10-26T14:35:40.431926808Z",
+        "updated_at": "2026-10-26T14:35:40.431926808Z",
+        "closed_at": null
+      }
+    ],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 191,
+    "title": "[P4 M7.1] LevelDB storage slice: intake, scope and native oracle",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nVerify https://github.com/google/leveldb at 99b3c03b3284f5886f9ef9a4ef703d57373e61be (tag 1.23); inventory licenses/build/test dependencies and build the native C++ oracle without changing baseline pilots. Scope: A coherent in-memory storage-format pipeline: WriteBatch Put/Delete and parsing/handler effects, log fragment writer/reader with checksums and truncation/error cases, sorted prefix-compressed block builder/reader and restart-point seek/iteration, and replay of decoded batch operations into a specified logical map. Join real modules end-to-end; this is not a whole LevelDB database port. Source anchors: db/write_batch.cc, db/log_writer.cc, db/log_reader.cc, db/log_test.cc, table/block_builder.cc, table/block.cc, table/table_test.cc, util/coding.cc, util/crc32c.cc, doc/log_format.md, doc/table_format.md. Oracle: Build native LevelDB format/log tests and a native wrapper over the selected modules. Compare append/read/replay and block-build/seek traces against an in-memory Env/handler, including short writes, truncation, checksum failures and malformed batches. Compare partial handler side effects on corruption; do not assume batch rollback. Keep compression disabled for this initial slice so it is independent of the separate Snappy port. Trace proposed ownership: Creusot: ordered-map/operation-history semantics, batch handler effects and replay/state invariants. Verus: prefix-compressed block representation, restart/seek/iteration, log framing/reassembly and parser progress. Kani: bounded fixed/varint codecs, CRC32C arithmetic/masking and local buffer/fault cases. The final fit map must trace all three evidence kinds into one actual dataflow. Candidate real edges: Creusot batch/replay orchestration consumes Verus-checked parsing/framing contracts. Verus log/block parsing calls Kani-owned coding/CRC helpers; WriteBatch::Iterate dispatches to Creusot-owned Handler Put/Delete semantics. These are assignment hypotheses for real source calls; intake must record exact sites and reject disconnected three-demo designs. Produce exact selected API/operation, feature/domain/limit and obligation maps, upstream file hashes, baseline corpus, mutant checks, C++\u2192Rust gap ledger, and a concrete contract/TCB/representation proposal. Do not fabricate a reverse call just to fill the matrix; report/reassign actual source ownership if the candidate split does not supply it. Do not silently reduce generics, optimized paths, parser modes or storage semantics. Human review must resolve contracts/exclusions before the proof stage; do not promote on the operator's behalf.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 190,
+    "created_at": "2026-10-26T14:35:40.311856648Z",
+    "updated_at": "2026-10-26T14:35:40.311856648Z",
+    "closed_at": null,
+    "labels": [
+      "p4-mixed"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      189
+    ],
+    "blocking": [
+      192
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 192,
+    "title": "[P4 M7.2] LevelDB storage slice: implement owner crates and record real assurance",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nAfter intake's specific contract/representation approvals and exact sanctioned setup, implement the selected source slice in leveldb-three-verifiers/ using creusot + verus + kani. Creusot: ordered-map/operation-history semantics, batch handler effects and replay/state invariants. Verus: prefix-compressed block representation, restart/seek/iteration, log framing/reassembly and parser progress. Kani: bounded fixed/varint codecs, CRC32C arithmetic/masking and local buffer/fault cases. The final fit map must trace all three evidence kinds into one actual dataflow. Keep identical executable functions for overlays where supported; if verifier-specific copies are necessary, demonstrate equivalence for the selected observable semantics. Generate fresh per-obligation certificates/results and intake with the pilot-local approved Ligature bundle. Record meaningful mutants, oracle parity, explicit trust assumptions, bounds and source/tool hashes. Follow the scope/exclusions in the parent. No ignored proof failure, fake record, unmodeled intrinsic stub, unapproved extern spec or claim of full upstream equivalence. Record partial/friction outcomes precisely when an approved obligation cannot be proved; scope cuts require human decision.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 190,
+    "created_at": "2026-10-26T14:35:40.372342919Z",
+    "updated_at": "2026-10-26T14:35:40.372342919Z",
+    "closed_at": null,
+    "labels": [
+      "p4-mixed"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      191
+    ],
+    "blocking": [
+      193
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 193,
+    "title": "[P4 M7.3] LevelDB storage slice: real boundaries, oracle replay and evidence handoff",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nIntegrate actual components in leveldb-three-verifiers/ after per-owner assurance exists. Exercise real dataflow and callback/contract edges from the pinned C++ source; preserve native-oracle behavior and error side effects. For pair projects retain both caller/callee directions or explicitly report the uncovered direction; for M7 require a joined three-owner storage pipeline rather than three disconnected demos. Run source-bound callsite/bridge checks and relevant per-cluster validators/G14/status/check; retain actual CG1/CG3 findings and only genuinely reviewed degradations. Archive fixtures without live _closure evidence trees. Add PORT-GAPS/findings and hand off reproducible source/oracle/assurance/call-edge inventories to #169\u2013#174. Do not rerun identical controls merely to fill later issue IDs. M7's final combined-workspace acceptance remains #173; this stage prepares its component and real-boundary evidence.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 190,
+    "created_at": "2026-10-26T14:35:40.431926808Z",
+    "updated_at": "2026-10-26T14:35:40.431926808Z",
+    "closed_at": null,
+    "labels": [
+      "p4-mixed"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      192
+    ],
+    "blocking": [
+      169
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 194,
+    "title": "[P4 M7] CG6/G15 coverage: real storage graph audit and labelled synthetic controls",
+    "description": "Read WORKER-CONTRACT.md and P4-MIXED-PORT-PLAN.md first. Scope is one assigned workspace; preserve the three baseline pilots. Ligature is a black box. Human approvals/rulings/grants remain human. No live protected write, flake edit, commit, push, or source-scope weakening is implied by this issue. Report tool gaps under the Worker Contract.\n\nUse leveldb-three-verifiers/ after the pair-direction comparison. Inspect the selected LevelDB callback/streaming/state trace for genuine cross-cluster SCCs and genuinely non-pairwise protocols. Recursion alone is not CG6; three modules or ordinary pairwise calls alone are not G15. If the scoped source lacks either feature, retain that absence and exercise a clearly labelled synthetic overlay/fixture within this same project root, separate from production claims. Include missing/invalid discharge/debt negative controls and a positive case only after the operator personally approves the discharge/protocol-debt/ruling. Do not turn a synthetic backedge into a claim about LevelDB. No fifth C++ project or extra top-level workspace. Archive source maps, fixtures, provenance and gate outcomes for #174.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 154,
+    "created_at": "2026-10-26T14:35:41.168578082Z",
+    "updated_at": "2026-10-26T14:35:41.168578082Z",
+    "closed_at": null,
+    "labels": [
+      "p4-mixed"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      172
+    ],
+    "blocking": [
+      173
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  }
+]

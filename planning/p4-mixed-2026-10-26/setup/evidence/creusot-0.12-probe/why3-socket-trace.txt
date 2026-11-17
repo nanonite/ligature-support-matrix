@@ -1,0 +1,12 @@
+# Why3 local Unix-socket trace (strace -f -e trace=network)
+# Command: cargo-creusot creusot --only prove --no-cache verif/p4_setup_creusot_probe_rlib/increment.coma
+# Result: Proved; private TMPDIR/XDG_RUNTIME_DIR; exit 0
+
+3637908 socketpair(AF_UNIX, SOCK_STREAM|SOCK_CLOEXEC|SOCK_NONBLOCK, 0, [3, 5]) = 0
+3637917 socket(AF_UNIX, SOCK_STREAM, 0) = 3
+3637917 connect(3, {sa_family=AF_UNIX, sun_path="why3server028131sock"}, 22) = -1 ECONNREFUSED (Connection refused)
+3637944 socket(AF_UNIX, SOCK_STREAM, 0) = 4
+3637944 bind(4, {sa_family=AF_UNIX, sun_path="why3server028131sock"}, 110) = 0
+3637917 socket(AF_UNIX, SOCK_STREAM, 0) = 4
+3637917 connect(4, {sa_family=AF_UNIX, sun_path="why3server028131sock"}, 22) = 0
+3637944 accept(4, {sa_family=AF_UNIX}, [110 => 2]) = 6

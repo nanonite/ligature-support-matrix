@@ -1,0 +1,203 @@
+{
+  "snapshot_status": "historical_pre_init_setup_status_superseded_by_post_init_reconciliation",
+  "superseded_by": "planning/p4-mixed-2026-10-26/setup/post-init-reconciliation-2026-11-14.md",
+  "attempt": "1/5",
+  "baseline_preservation": {
+    "flake_lock_unchanged": true,
+    "flake_nix_unchanged": true,
+    "gitmodules_unchanged": true,
+    "preexisting_dirty_state_preserved": true,
+    "roots": [
+      "date-creusot",
+      "swisstable-verus",
+      "crypto-mixed"
+    ],
+    "unmodified_by_this_run": true
+  },
+  "decision_gate": {
+    "ast_report_review": "planning/p4-mixed-2026-10-26/ast-tool-review.md",
+    "ast_wait_satisfied": true,
+    "issue_161": "closed",
+    "path_specific_grants_issued": false
+  },
+  "generated_at": "2026-11-14T20:15:00Z",
+  "issue": 177,
+  "next_operator_actions": [
+    "Install the approved Ligature bundle in each root and run the approved init.",
+    "Create the descriptor with the root-specific write policy and issue exact grants for protected manifests/locks/toolchains.",
+    "Register the four roots as submodules/pins in the outer repository and make the initial baseline commit in each root.",
+    "Resolve the 0.14 shell mismatch on epic #2 before relying on the declared shell for Creusot.",
+    "Adopt the companion-output copy/allowlist procedure before production proof evidence."
+  ],
+  "protected_hashes": {
+    "after": "planning/p4-mixed-2026-10-26/setup/protected-hashes-after.json",
+    "after_label": "after-final-2026-11-14T2015Z",
+    "before": "planning/p4-mixed-2026-10-26/setup/protected-hashes-before.json",
+    "comparison": "planning/p4-mixed-2026-10-26/setup/protected-hashes-compare.json",
+    "entry_count": 174,
+    "new_root_protected_targets_absent": true,
+    "unchanged": true
+  },
+  "protected_writes": {
+    "all_absent": true,
+    "enumeration": "planning/p4-mixed-2026-10-26/setup/protected-write-enumeration.json",
+    "exact_entry_count": 98,
+    "grants_issued": 0,
+    "protected_writes_performed": 0
+  },
+  "roots": {
+    "icl-creusot-verus": {
+      "branch": "main",
+      "commits": 0,
+      "git_root": true,
+      "ligature_initialized": false,
+      "name": "Boost.ICL",
+      "probes": {
+        "creusot": "pass",
+        "verus": "pass"
+      },
+      "project": "M4",
+      "smoke_check": "pass",
+      "source_pin": {
+        "commit": "2741c3a1b7b79f7326360c26c3e1588b385c9e53",
+        "tag": "boost-1.88.0"
+      },
+      "verifiers": [
+        "creusot",
+        "verus"
+      ]
+    },
+    "leveldb-three-verifiers": {
+      "branch": "main",
+      "commits": 0,
+      "git_root": true,
+      "ligature_initialized": false,
+      "name": "LevelDB storage slice",
+      "probes": {
+        "creusot": "pass",
+        "kani": "pass",
+        "verus": "pass"
+      },
+      "project": "M7",
+      "smoke_check": "pass",
+      "source_pin": {
+        "commit": "99b3c03b3284f5886f9ef9a4ef703d57373e61be",
+        "tag": "1.23"
+      },
+      "verifiers": [
+        "creusot",
+        "verus",
+        "kani"
+      ]
+    },
+    "snappy-verus-kani": {
+      "branch": "main",
+      "commits": 0,
+      "git_root": true,
+      "ligature_initialized": false,
+      "name": "Snappy",
+      "probes": {
+        "kani": "pass",
+        "verus": "pass"
+      },
+      "project": "M6",
+      "smoke_check": "pass",
+      "source_pin": {
+        "commit": "6af9287fbdb913f0794d0148c6aa43b58e63c8e3",
+        "tag": "1.2.2"
+      },
+      "verifiers": [
+        "verus",
+        "kani"
+      ]
+    },
+    "tinyxml2-creusot-kani": {
+      "branch": "main",
+      "commits": 0,
+      "git_root": true,
+      "ligature_initialized": false,
+      "name": "TinyXML2",
+      "probes": {
+        "creusot": "pass",
+        "kani": "pass"
+      },
+      "project": "M5",
+      "smoke_check": "pass",
+      "source_pin": {
+        "commit": "9148bdf719e997d1f474be6bcc7943881046dba1",
+        "tag": "11.0.0"
+      },
+      "verifiers": [
+        "creusot",
+        "kani"
+      ]
+    }
+  },
+  "schema": "p4-setup-status/1",
+  "scope": {
+    "created": [
+      "four independent Git roots (git init -b main, no commits)",
+      "per-root setup README, source pin, findings, PORT-GAPS, oracle plan, analysis setup record",
+      "reproducible Creusot/Verus/Kani probes and a reusable per-root smoke check",
+      "exact protected-path enumeration and before/after protected hashes"
+    ],
+    "no_commit": true,
+    "no_external_contact": true,
+    "no_push": true,
+    "no_tool_install_outside_nix": true,
+    "not_created": [
+      "project-descriptor.json / .ligature / schemas in any root",
+      "approved Ligature bundle in any root",
+      "Cargo.toml / Cargo.lock / rust-toolchain.toml / .cargo/config.toml in any root",
+      "upstream source checkout in any root",
+      "outer-repository submodule registration or pins",
+      "proof, port, closure, risk acceptance or production claim"
+    ]
+  },
+  "toolchain": {
+    "declared_shell_creusot": {
+      "finding": "epic #2; repeated as <root>-003 in Creusot roots",
+      "resolved": "cargo-creusot 0.14.0-dev / rustc 1.99.0-nightly",
+      "validated_for_p4": false
+    },
+    "external_companion_output": {
+      "coma_external": true,
+      "external_only_coma_prove": "No files to prove",
+      "proof_json_external": false,
+      "required_workaround": "fresh crate/target plus explicit copy/allowlist of proof.json and .why3find into durable per-tool analysis evidence",
+      "why3find_cache_external": false
+    },
+    "kani": {
+      "rust": "1.95.0",
+      "synthetic_proof": "SUMMARY: 0 of 3 failed; VERIFICATION:- SUCCESSFUL",
+      "version": "cargo-kani 0.67.0 / CBMC 6.8.0"
+    },
+    "p4_creusot_pair": {
+      "creusot": "0.12.0-dev",
+      "creusot_std": "0.12.0-dev",
+      "creusot_std_source": "/nix/store/22j5g9088m140fgx2l6vbskkmg5ra5pp-creusot-source/creusot-std",
+      "creusot_std_source_nar_hash": "sha256-fflYrng0knZwLc57qGVZz3bZXEaLmWC1FsQBIPyZ8eI=",
+      "nix_path_info": "evidence/creusot-0.12-probe/nix-path-info.json",
+      "provers": [
+        "alt-ergo 2.6.3",
+        "z3 4.15.3",
+        "cvc4 1.8",
+        "cvc5 1.3.1"
+      ],
+      "rust": "nightly-2026-04-21",
+      "synthetic_proof": "Proved",
+      "why3": "1.8.2+git",
+      "why3_local_socket_access": "verified by completed proof under private TMPDIR/XDG_RUNTIME_DIR",
+      "why3_local_socket_trace": "evidence/creusot-0.12-probe/why3-socket-trace.txt",
+      "why3find": "1.3.0+dev",
+      "wrapper": "/nix/store/9y9g4kpsppxn6zqmyfkvfcc2234qkdwv-creusot-wrapped",
+      "wrapper_nar_hash": "sha256-JwDDUiHsS6SLOdIDI92hx92XY+Zqz+zxrtMJyRD0B4I="
+    },
+    "verus": {
+      "rust": "1.95.0",
+      "synthetic_proof": "success=true, verified=1, errors=0",
+      "version": "0.2026.05.24.ecee80a"
+    }
+  },
+  "workflow": "chainlink_ue5ls"
+}

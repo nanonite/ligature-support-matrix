@@ -1,0 +1,39 @@
+== P4 root smoke check: icl-creusot-verus ==
+root: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus
+PASS: independent Git root
+PASS: branch is main
+INFO: commits=0 (setup roots are uncommitted until the operator's baseline commit)
+PASS: present: README.md
+PASS: present: SOURCE-PIN.json
+PASS: present: PORT-GAPS.md
+PASS: present: .gitignore
+PASS: present: findings/limitations.jsonl
+PASS: present: analysis/setup/SETUP.md
+PASS: present: analysis/setup/root-setup.json
+PASS: present: oracle/README.md
+PASS: present: oracle/oracle-PROTOCOL.md
+PASS: 4 finding record(s) valid
+PASS: oracle/oracle-PROTOCOL.md matches workspace protocol
+PASS: no protected paths created
+INFO: verifiers=creusot verus
+PASS: Creusot wrapper present: /nix/store/9y9g4kpsppxn6zqmyfkvfcc2234qkdwv-creusot-wrapped
+PASS: rustc nightly-2026-04-21 present
+PASS: Verus present: 0.2026.05.24.ecee80a
+PASS creusot-0.12-probe
+  version: cargo-creusot 0.12.0-dev
+  proof: Proved (verif/p4_setup_creusot_probe_rlib/increment.coma) ✔
+  external coma: /tmp/p4-smoke-icl-creusot-verus-3604358/creusot/external-out/verif/p4_setup_creusot_probe_rlib/increment.coma
+  proof.json: crate-local:/tmp/p4-smoke-icl-creusot-verus-3604358/creusot/crate/verif/p4_setup_creusot_probe_rlib/increment/proof.json
+  external proof.json: absent
+  why3find cache: crate-local:/tmp/p4-smoke-icl-creusot-verus-3604358/creusot/crate/.why3find
+  why3 provers: 14
+  evidence: /tmp/p4-smoke-icl-creusot-verus-3604358/creusot/probe-result.json
+PASS: creusot probe
+PASS verus-1.95-probe
+  verus: 0.2026.05.24.ecee80a
+  rustc 1.95.0 (59807616e 2026-04-14)
+  proof: "verified":1,
+  evidence: /tmp/p4-smoke-icl-creusot-verus-3604358/verus/probe-result.json
+PASS: verus probe
+INFO: probe workdir: /tmp/p4-smoke-icl-creusot-verus-3604358
+== result: icl-creusot-verus: 0 failure(s) ==

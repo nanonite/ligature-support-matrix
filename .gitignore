@@ -18,3 +18,10 @@
 target/
 /ligature-data-*/
 /ligature-kani-*/
+
+# P4 mixed-verifier project roots: their own repos, not yet committed.
+# #177 registers them as submodules; remove these lines then.
+/icl-creusot-verus/
+/tinyxml2-creusot-kani/
+/snappy-verus-kani/
+/leveldb-three-verifiers/

@@ -1,0 +1,16 @@
+purpose: record the identity reported by the installed Ligature CLI.
+working_directory: /home/goya/storage/full-ligature-port-workspace
+command: python3 icl-creusot-verus/tools/ligature/ligature.pyz version
+environment_overrides: none
+exit: 0
+stdout:
+ligature 1.4.3
+  adjudicator: zipapp (attested: true)
+  content hash: sha256:bfc93caff9f5cbcfb62b9d12ab4c3761035589e7c9051683e8f2df474a5927bb
+  bundle: 116 file(s)
+  bundled schemas: 34
+  required python: >= 3.10 (running 3.12.3)
+  platform: Linux/x86_64 (required: any)
+  artifact: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus/tools/ligature/ligature.pyz
+  source: 89033eee6f0415e32ec1a2287110a1fb828dd0a8 (clean working tree)
+

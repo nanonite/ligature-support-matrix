@@ -1,0 +1,19 @@
+# Verus proof-result extract from verus-build.log
+    "success": true,
+    "verified": 1690,
+    "errors": 0,
+    "is-verifying-entire-crate": true
+    "version": "0.2026.05.24.ecee80a",
+    "toolchain": "1.95.0-x86_64-unknown-linux-gnu",
+    "commit": "ecee80a2139923d503338e6989f79fb690ec7847"
+    "success": true,
+    "verified": 1,
+    "errors": 0,
+    "is-verifying-entire-crate": true
+    "version": "0.2026.05.24.ecee80a",
+    "toolchain": "1.95.0-x86_64-unknown-linux-gnu",
+    "commit": "ecee80a2139923d503338e6989f79fb690ec7847"
+# last lines
+  }
+}
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 21.08s

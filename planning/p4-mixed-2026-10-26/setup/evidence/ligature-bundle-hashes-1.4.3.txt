@@ -1,0 +1,11 @@
+purpose: verify that every independent P4 root contains the approved Ligature 1.4.3 zipapp.
+working_directory: /home/goya/storage/full-ligature-port-workspace
+command: sha256sum icl-creusot-verus/tools/ligature/ligature.pyz tinyxml2-creusot-kani/tools/ligature/ligature.pyz snappy-verus-kani/tools/ligature/ligature.pyz leveldb-three-verifiers/tools/ligature/ligature.pyz
+environment_overrides: none
+exit: 0
+stdout:
+1a7a50eab31584946d8a7035ac3633130b0dc52d473d2587f3cd26e2800fd4e1  icl-creusot-verus/tools/ligature/ligature.pyz
+1a7a50eab31584946d8a7035ac3633130b0dc52d473d2587f3cd26e2800fd4e1  tinyxml2-creusot-kani/tools/ligature/ligature.pyz
+1a7a50eab31584946d8a7035ac3633130b0dc52d473d2587f3cd26e2800fd4e1  snappy-verus-kani/tools/ligature/ligature.pyz
+1a7a50eab31584946d8a7035ac3633130b0dc52d473d2587f3cd26e2800fd4e1  leveldb-three-verifiers/tools/ligature/ligature.pyz
+

@@ -1,0 +1,121 @@
+# Final checks for #177 (2026-11-14T19:54:50Z)
+
+## Script syntax
+ok planning/p4-mixed-2026-10-26/setup/p4-root-smoke-check.sh
+ok planning/p4-mixed-2026-10-26/setup/probes/creusot-0.12-probe.sh
+ok planning/p4-mixed-2026-10-26/setup/probes/kani-0.67-probe.sh
+ok planning/p4-mixed-2026-10-26/setup/probes/verus-1.95-probe.sh
+ok python compile
+
+## JSON validity
+ok icl-creusot-verus/SOURCE-PIN.json
+ok icl-creusot-verus/analysis/setup/root-setup.json
+ok leveldb-three-verifiers/SOURCE-PIN.json
+ok leveldb-three-verifiers/analysis/setup/root-setup.json
+ok planning/p4-mixed-2026-10-26/setup/evidence/creusot-0.12-probe/nix-path-info.json
+ok planning/p4-mixed-2026-10-26/setup/evidence/creusot-0.12-probe/probe-result.json
+ok planning/p4-mixed-2026-10-26/setup/evidence/kani-0.67-probe/probe-result.json
+ok planning/p4-mixed-2026-10-26/setup/evidence/verus-1.95-probe/probe-result.json
+ok planning/p4-mixed-2026-10-26/setup/protected-hashes-after.json
+ok planning/p4-mixed-2026-10-26/setup/protected-hashes-before.json
+ok planning/p4-mixed-2026-10-26/setup/protected-hashes-compare.json
+ok planning/p4-mixed-2026-10-26/setup/protected-write-enumeration.json
+ok planning/p4-mixed-2026-10-26/setup/setup-status.json
+ok snappy-verus-kani/SOURCE-PIN.json
+ok snappy-verus-kani/analysis/setup/root-setup.json
+ok tinyxml2-creusot-kani/SOURCE-PIN.json
+ok tinyxml2-creusot-kani/analysis/setup/root-setup.json
+
+## Per-root smoke checks
+== P4 root smoke check: icl-creusot-verus ==
+root: /home/goya/storage/full-ligature-port-workspace/icl-creusot-verus
+PASS: independent Git root
+PASS: branch is main
+INFO: commits=0 (setup roots are uncommitted until the operator's baseline commit)
+PASS: present: README.md
+PASS: present: SOURCE-PIN.json
+PASS: present: PORT-GAPS.md
+PASS: present: .gitignore
+PASS: present: findings/limitations.jsonl
+PASS: present: analysis/setup/SETUP.md
+PASS: present: analysis/setup/root-setup.json
+PASS: present: oracle/README.md
+PASS: present: oracle/oracle-PROTOCOL.md
+PASS: 4 finding record(s) valid
+PASS: oracle/oracle-PROTOCOL.md matches workspace protocol
+PASS: no protected paths created
+INFO: verifiers=creusot verus
+PASS: Creusot wrapper present: /nix/store/9y9g4kpsppxn6zqmyfkvfcc2234qkdwv-creusot-wrapped
+PASS: rustc nightly-2026-04-21 present
+PASS: Verus present: 0.2026.05.24.ecee80a
+== result: icl-creusot-verus: 0 failure(s) ==
+exit=0
+== P4 root smoke check: tinyxml2-creusot-kani ==
+root: /home/goya/storage/full-ligature-port-workspace/tinyxml2-creusot-kani
+PASS: independent Git root
+PASS: branch is main
+INFO: commits=0 (setup roots are uncommitted until the operator's baseline commit)
+PASS: present: README.md
+PASS: present: SOURCE-PIN.json
+PASS: present: PORT-GAPS.md
+PASS: present: .gitignore
+PASS: present: findings/limitations.jsonl
+PASS: present: analysis/setup/SETUP.md
+PASS: present: analysis/setup/root-setup.json
+PASS: present: oracle/README.md
+PASS: present: oracle/oracle-PROTOCOL.md
+PASS: 4 finding record(s) valid
+PASS: oracle/oracle-PROTOCOL.md matches workspace protocol
+PASS: no protected paths created
+INFO: verifiers=creusot kani
+PASS: Creusot wrapper present: /nix/store/9y9g4kpsppxn6zqmyfkvfcc2234qkdwv-creusot-wrapped
+PASS: rustc nightly-2026-04-21 present
+PASS: Kani present: cargo-kani 0.67.0
+== result: tinyxml2-creusot-kani: 0 failure(s) ==
+exit=0
+== P4 root smoke check: snappy-verus-kani ==
+root: /home/goya/storage/full-ligature-port-workspace/snappy-verus-kani
+PASS: independent Git root
+PASS: branch is main
+INFO: commits=0 (setup roots are uncommitted until the operator's baseline commit)
+PASS: present: README.md
+PASS: present: SOURCE-PIN.json
+PASS: present: PORT-GAPS.md
+PASS: present: .gitignore
+PASS: present: findings/limitations.jsonl
+PASS: present: analysis/setup/SETUP.md
+PASS: present: analysis/setup/root-setup.json
+PASS: present: oracle/README.md
+PASS: present: oracle/oracle-PROTOCOL.md
+PASS: 2 finding record(s) valid
+PASS: oracle/oracle-PROTOCOL.md matches workspace protocol
+PASS: no protected paths created
+INFO: verifiers=verus kani
+PASS: Verus present: 0.2026.05.24.ecee80a
+PASS: Kani present: cargo-kani 0.67.0
+== result: snappy-verus-kani: 0 failure(s) ==
+exit=0
+== P4 root smoke check: leveldb-three-verifiers ==
+root: /home/goya/storage/full-ligature-port-workspace/leveldb-three-verifiers
+PASS: independent Git root
+PASS: branch is main
+INFO: commits=0 (setup roots are uncommitted until the operator's baseline commit)
+PASS: present: README.md
+PASS: present: SOURCE-PIN.json
+PASS: present: PORT-GAPS.md
+PASS: present: .gitignore
+PASS: present: findings/limitations.jsonl
+PASS: present: analysis/setup/SETUP.md
+PASS: present: analysis/setup/root-setup.json
+PASS: present: oracle/README.md
+PASS: present: oracle/oracle-PROTOCOL.md
+PASS: 4 finding record(s) valid
+PASS: oracle/oracle-PROTOCOL.md matches workspace protocol
+PASS: no protected paths created
+INFO: verifiers=creusot verus kani
+PASS: Creusot wrapper present: /nix/store/9y9g4kpsppxn6zqmyfkvfcc2234qkdwv-creusot-wrapped
+PASS: rustc nightly-2026-04-21 present
+PASS: Verus present: 0.2026.05.24.ecee80a
+PASS: Kani present: cargo-kani 0.67.0
+== result: leveldb-three-verifiers: 0 failure(s) ==
+exit=0

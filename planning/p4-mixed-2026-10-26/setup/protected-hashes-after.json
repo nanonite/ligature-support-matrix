@@ -1,0 +1,1333 @@
+{
+  "entries": [
+    {
+      "bytes": 627,
+      "path": ".gitmodules",
+      "sha256": "ece2025f17806d2798eee104f1db68919109e9a4de4a75c6004fb7e1975c09d1"
+    },
+    {
+      "bytes": 19935,
+      "path": "crypto-mixed/.codex/skills/ligature/SKILL.md",
+      "sha256": "ee39e9e64d510dbb918eb1cab6185aae8df5f4054f84a5f09766a2033df39735"
+    },
+    {
+      "bytes": 26,
+      "path": "crypto-mixed/.envrc",
+      "sha256": "7dc84a4d6c630124c3b752b2a2f99ca60587a5e6d552cf15ea795e946fe2693f"
+    },
+    {
+      "bytes": 383,
+      "path": "crypto-mixed/.gitignore",
+      "sha256": "ef3275e218d76f027de867df703083e5320ad724eeabedb660cf585d68721e4d"
+    },
+    {
+      "bytes": 5636,
+      "path": "crypto-mixed/.ligature/prompts/stage-0-evidence-intake.md",
+      "sha256": "a53a5f4fc1dcccec3e7e6bec4488cf82a9bbc851c1e43cfd3a11e70cfcee1e84"
+    },
+    {
+      "bytes": 8275,
+      "path": "crypto-mixed/.ligature/prompts/stage-3-boundary-drafting.md",
+      "sha256": "b34060c0c5484345c60583a6d1421247305575bf95d90dc04efa4bbb1f0b928b"
+    },
+    {
+      "bytes": 10852,
+      "path": "crypto-mixed/.ligature/prompts/stage-3-bridge-drafting.md",
+      "sha256": "b1b71c3767fc11b8645ca380c548cbb5746d2c2db649b5c1c8845dac5e180816"
+    },
+    {
+      "bytes": 9195,
+      "path": "crypto-mixed/.ligature/prompts/stage-3-closure-profile-drafting.md",
+      "sha256": "ac4a2b4a4f70a52c422b2826d795cceedd0ea180191799f95f4447f5c785d395"
+    },
+    {
+      "bytes": 11339,
+      "path": "crypto-mixed/.ligature/prompts/stage-3-concept-to-code.md",
+      "sha256": "6fb9c5435ec6ed42d9dbad81df75d0f37bea53da1a274df0c91594bcdc7b4560"
+    },
+    {
+      "bytes": 6050,
+      "path": "crypto-mixed/.ligature/prompts/stage-3-conflict-resolution-drafting.md",
+      "sha256": "984c9463cda5f3f3dbdd93bc54ebbfcedf8c8c781917ff9a61e3dc5e9bc54471"
+    },
+    {
+      "bytes": 8554,
+      "path": "crypto-mixed/.ligature/prompts/stage-3-degradation-drafting.md",
+      "sha256": "899aa9ee06eb1c947c78ad9f9d6ef92a7d003f06a685d1c0b357db182d904953"
+    },
+    {
+      "bytes": 4745,
+      "path": "crypto-mixed/.ligature/prompts/stage-3-exemption-drafting.md",
+      "sha256": "498325b083cd38bfa9cf9ca97d7337784c35bbd55f4f634a8e936e17e1f9066c"
+    },
+    {
+      "bytes": 13285,
+      "path": "crypto-mixed/.ligature/prompts/stage-3-interaction-drafting.md",
+      "sha256": "45523bf786d241c0129f58d0deee204c1b6856156aa2f1e6c9554c7e68b8f39b"
+    },
+    {
+      "bytes": 5773,
+      "path": "crypto-mixed/.ligature/prompts/stage-3-protocol-debt-drafting.md",
+      "sha256": "73ad673f3402e5ad4184288f8703d9e2c6258909d5b4fd69ff13b1c4f03e4d38"
+    },
+    {
+      "bytes": 8501,
+      "path": "crypto-mixed/.ligature/prompts/stage-3-witness-drafting.md",
+      "sha256": "0adc5f796e4679c80ce2f07edffd73391f1ccc6e44ff06883f3bb921c338f72d"
+    },
+    {
+      "bytes": 12108,
+      "path": "crypto-mixed/.ligature/schemas/consolidated-check.schema.json",
+      "sha256": "410dd4820f6b4ac5110653f2c310e13212eb311cd47e0d6c85ce9b715bbfffcf"
+    },
+    {
+      "bytes": 21819,
+      "path": "crypto-mixed/.ligature/schemas/project-descriptor.schema.json",
+      "sha256": "a6166c6d70ee97b60e3656133908315c297b3f7470202659fd20731c087c534b"
+    },
+    {
+      "bytes": 18172,
+      "path": "crypto-mixed/.ligature/schemas/project-state.schema.json",
+      "sha256": "f5f974e4e0a733af2599053087d3f5769d5bbca8cf101664994415b08db25371"
+    },
+    {
+      "bytes": 515,
+      "path": "crypto-mixed/.mcp.json",
+      "sha256": "6eaadd98b6aa8ed77f769d6d37e8071b44249a70cd56e4bd17bb5912f9cf073a"
+    },
+    {
+      "bytes": 918,
+      "path": "crypto-mixed/ci/harness/BR-CRYPTO-MIXED-001.kani.rs",
+      "sha256": "fc30f6244fd710e267e5fa09e738ae9c98c876fdf950f6743830f83cf3d4d69c"
+    },
+    {
+      "bytes": 1077,
+      "path": "crypto-mixed/ci/harness/BR-CRYPTO-MIXED-002.kani.rs",
+      "sha256": "3832d82f855b2606e524aca7b79ecdd5bc85ee728dd17e04c1883cd0c3c39649"
+    },
+    {
+      "bytes": 1078,
+      "path": "crypto-mixed/ci/harness/BR-CRYPTO-MIXED-003.kani.rs",
+      "sha256": "44d72b422d0b95a684434b9ab4ca06ea1b2386a9e36da68471bcebc0ae8fffa4"
+    },
+    {
+      "bytes": 9893,
+      "path": "crypto-mixed/ci/manifest/WP-CRYPTO-MIXED-AEAD-001.json",
+      "sha256": "722d6521f069a80e2baa364b1d0b964abbdad24863fc3a57e7635ac1b26f8998"
+    },
+    {
+      "bytes": 8516,
+      "path": "crypto-mixed/ci/manifest/WP-CRYPTO-MIXED-PRIMITIVES-001.json",
+      "sha256": "6f28effcf9cdd2d9e0d014f33d48edfd461dd2ab85268420c09bd60ffded14a9"
+    },
+    {
+      "bytes": 7756,
+      "path": "crypto-mixed/ci/manifest/installation.json",
+      "sha256": "db7d1361a30f41c7b3ed903844eb15d3706eba2f71e70f3e1a8ff85135b0480b"
+    },
+    {
+      "bytes": 3700,
+      "path": "crypto-mixed/ci/results/WP-CRYPTO-MIXED-AEAD-001.json",
+      "sha256": "9555443ca55e770084f6439cd42e5c916c40ae9262a462c056e0fb7602d1d90d"
+    },
+    {
+      "bytes": 12315,
+      "path": "crypto-mixed/ci/results/WP-CRYPTO-MIXED-PRIMITIVES-001.json",
+      "sha256": "98bc69727940ab49f6a1d206c5af4d6e2338a20d3dd27cfdf76962f38dd20c8a"
+    },
+    {
+      "bytes": 1575,
+      "path": "crypto-mixed/ci/results/bridge_checks/BR-CRYPTO-MIXED-001.json",
+      "sha256": "14c994d36ac0670ed079f3b0f40beb6c0fc39c1c758911d2dd11169e71d45a17"
+    },
+    {
+      "bytes": 1569,
+      "path": "crypto-mixed/ci/results/bridge_checks/BR-CRYPTO-MIXED-002.json",
+      "sha256": "86d532741c9271b5993d65140e428ac1b4ec67b02803682906ee6d85eecc302f"
+    },
+    {
+      "bytes": 1569,
+      "path": "crypto-mixed/ci/results/bridge_checks/BR-CRYPTO-MIXED-003.json",
+      "sha256": "35049ff553c77c85b246e5524312d1dd4d15e9516f27cd1ed1284fc794869775"
+    },
+    {
+      "bytes": 12357,
+      "path": "crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "sha256": "098548ae4614b3d1a964cc4933052c89abf05ed99c673870e15da2c79314141c"
+    },
+    {
+      "bytes": 1992,
+      "path": "crypto-mixed/ci/results/evidence_promotions.jsonl",
+      "sha256": "e3dc264fe4ad6287bf5dbd7ce291b8933b19d4786e5216d52f540af566972364"
+    },
+    {
+      "bytes": 381,
+      "path": "crypto-mixed/ci/results/feature_ledger.json",
+      "sha256": "f8ca29edbbd74f6cd9b65a26a4227744cd7418d8fc768b1f8021167d95503b2a"
+    },
+    {
+      "bytes": 9829,
+      "path": "crypto-mixed/ci/results/human_rulings.jsonl",
+      "sha256": "e33574efa63aca5b381fa77c0e55eaea20fa6f4f1da33453af3e0dc2f1c5d19d"
+    },
+    {
+      "bytes": 17957,
+      "path": "crypto-mixed/ci/results/protected-writes.jsonl",
+      "sha256": "f640cef78c562ef768ffb6fae4f227950f1bd5f56b580153d7a49a6af943f39f"
+    },
+    {
+      "bytes": 9400,
+      "path": "crypto-mixed/ci/results/review_log.jsonl",
+      "sha256": "31cf723168d431032bcab74b2c1f612669cfcc5c957d5e2c315ef56efe75bead"
+    },
+    {
+      "bytes": 161,
+      "path": "crypto-mixed/crates/crypto-mixed-core/Cargo.lock",
+      "sha256": "500245d4c61242e614363a03597f8c88f7c827d02115ffbc92f8dabd774f5fc1"
+    },
+    {
+      "bytes": 683,
+      "path": "crypto-mixed/crates/crypto-mixed-core/Cargo.toml",
+      "sha256": "032ddddf3b8882484bce8d4be75dacce64228d35ba8dd9793c1a3dda8b5a6183"
+    },
+    {
+      "bytes": 5102,
+      "path": "crypto-mixed/docs/reliance-policy.md",
+      "sha256": "dab83f2594d27ef74f82b99ee1d6573dc1a9207c472d79d45b00a1d3bafa0c2a"
+    },
+    {
+      "bytes": 2475,
+      "path": "crypto-mixed/project-descriptor.json",
+      "sha256": "7abadf9168b31918a67c8fe166bc30c982aea0ac55522ed74ea469fdc3e177f1"
+    },
+    {
+      "bytes": 12120,
+      "path": "crypto-mixed/scripts/witness_renderer.py",
+      "sha256": "0b844c7ec904604754e13ba448c5f146cbe4296a7fd617cdfe0085636eb946bd"
+    },
+    {
+      "bytes": 676,
+      "path": "crypto-mixed/scripts/xml_escape.py",
+      "sha256": "09dc6a9258a9bdab7648d3d8d0588bbb4bf2a096457c950e094964aa8d139854"
+    },
+    {
+      "bytes": 19935,
+      "path": "date-creusot/.codex/skills/ligature/SKILL.md",
+      "sha256": "ee39e9e64d510dbb918eb1cab6185aae8df5f4054f84a5f09766a2033df39735"
+    },
+    {
+      "bytes": 26,
+      "path": "date-creusot/.envrc",
+      "sha256": "d96fedcc4d7ce6d7c34fbaaf45ff5f74406555b34450d1977c50b08649228dd6"
+    },
+    {
+      "bytes": 138,
+      "path": "date-creusot/.gitignore",
+      "sha256": "c7ae3609ab03c9f99bb10ca72411dff5592874e59c0d38107f043fe9365f1390"
+    },
+    {
+      "bytes": 5636,
+      "path": "date-creusot/.ligature/prompts/stage-0-evidence-intake.md",
+      "sha256": "a53a5f4fc1dcccec3e7e6bec4488cf82a9bbc851c1e43cfd3a11e70cfcee1e84"
+    },
+    {
+      "bytes": 8275,
+      "path": "date-creusot/.ligature/prompts/stage-3-boundary-drafting.md",
+      "sha256": "b34060c0c5484345c60583a6d1421247305575bf95d90dc04efa4bbb1f0b928b"
+    },
+    {
+      "bytes": 10852,
+      "path": "date-creusot/.ligature/prompts/stage-3-bridge-drafting.md",
+      "sha256": "b1b71c3767fc11b8645ca380c548cbb5746d2c2db649b5c1c8845dac5e180816"
+    },
+    {
+      "bytes": 9195,
+      "path": "date-creusot/.ligature/prompts/stage-3-closure-profile-drafting.md",
+      "sha256": "ac4a2b4a4f70a52c422b2826d795cceedd0ea180191799f95f4447f5c785d395"
+    },
+    {
+      "bytes": 11339,
+      "path": "date-creusot/.ligature/prompts/stage-3-concept-to-code.md",
+      "sha256": "6fb9c5435ec6ed42d9dbad81df75d0f37bea53da1a274df0c91594bcdc7b4560"
+    },
+    {
+      "bytes": 6050,
+      "path": "date-creusot/.ligature/prompts/stage-3-conflict-resolution-drafting.md",
+      "sha256": "984c9463cda5f3f3dbdd93bc54ebbfcedf8c8c781917ff9a61e3dc5e9bc54471"
+    },
+    {
+      "bytes": 8554,
+      "path": "date-creusot/.ligature/prompts/stage-3-degradation-drafting.md",
+      "sha256": "899aa9ee06eb1c947c78ad9f9d6ef92a7d003f06a685d1c0b357db182d904953"
+    },
+    {
+      "bytes": 4745,
+      "path": "date-creusot/.ligature/prompts/stage-3-exemption-drafting.md",
+      "sha256": "498325b083cd38bfa9cf9ca97d7337784c35bbd55f4f634a8e936e17e1f9066c"
+    },
+    {
+      "bytes": 13285,
+      "path": "date-creusot/.ligature/prompts/stage-3-interaction-drafting.md",
+      "sha256": "45523bf786d241c0129f58d0deee204c1b6856156aa2f1e6c9554c7e68b8f39b"
+    },
+    {
+      "bytes": 5773,
+      "path": "date-creusot/.ligature/prompts/stage-3-protocol-debt-drafting.md",
+      "sha256": "73ad673f3402e5ad4184288f8703d9e2c6258909d5b4fd69ff13b1c4f03e4d38"
+    },
+    {
+      "bytes": 8501,
+      "path": "date-creusot/.ligature/prompts/stage-3-witness-drafting.md",
+      "sha256": "0adc5f796e4679c80ce2f07edffd73391f1ccc6e44ff06883f3bb921c338f72d"
+    },
+    {
+      "bytes": 12108,
+      "path": "date-creusot/.ligature/schemas/consolidated-check.schema.json",
+      "sha256": "410dd4820f6b4ac5110653f2c310e13212eb311cd47e0d6c85ce9b715bbfffcf"
+    },
+    {
+      "bytes": 21819,
+      "path": "date-creusot/.ligature/schemas/project-descriptor.schema.json",
+      "sha256": "a6166c6d70ee97b60e3656133908315c297b3f7470202659fd20731c087c534b"
+    },
+    {
+      "bytes": 18172,
+      "path": "date-creusot/.ligature/schemas/project-state.schema.json",
+      "sha256": "f5f974e4e0a733af2599053087d3f5769d5bbca8cf101664994415b08db25371"
+    },
+    {
+      "bytes": 515,
+      "path": "date-creusot/.mcp.json",
+      "sha256": "5f34a69fdef29a8b7aa4b7e6f2fa79ab04afb8bab89d6057fa06832500c013dd"
+    },
+    {
+      "bytes": 10497,
+      "path": "date-creusot/ci/manifest/WP-DATE-CREUSOT.json",
+      "sha256": "b8f64abac3310c40f2fa243b54c660790017cd157260921f3121449c6dcc3e3d"
+    },
+    {
+      "bytes": 7756,
+      "path": "date-creusot/ci/manifest/installation.json",
+      "sha256": "16c20dccfdec18b21fc7d40735b77bb9e74b8f69752c23d51176b6fa4c2aef14"
+    },
+    {
+      "bytes": 8284,
+      "path": "date-creusot/ci/results/WP-DATE-CREUSOT.json",
+      "sha256": "90c2603a1f29194bfd3b4390c46334c4e2a1679aa36450c03ddcac10f1a07f60"
+    },
+    {
+      "bytes": 8887,
+      "path": "date-creusot/ci/results/c_static/rust_date-creusot-core.json",
+      "sha256": "ac9165829531ee8494a22271687774a4eac24e74f727b2c5daff6f2da527a775"
+    },
+    {
+      "bytes": 381,
+      "path": "date-creusot/ci/results/feature_ledger.json",
+      "sha256": "f937c6890488183804d3b1825f26e0bfdf6cf8add5f940fb4e93beda7f6a4830"
+    },
+    {
+      "bytes": 8905,
+      "path": "date-creusot/ci/results/human_rulings.jsonl",
+      "sha256": "fe6b7afc540542321a205c20cf9d86a6d451a8464115d5f4923229d2c6614326"
+    },
+    {
+      "bytes": 6027,
+      "path": "date-creusot/ci/results/protected-writes.jsonl",
+      "sha256": "c984df2439656e47120d9c01ef06059d6d583d95283c1303b7f0cf838789f40f"
+    },
+    {
+      "bytes": 10101,
+      "path": "date-creusot/ci/results/review_log.jsonl",
+      "sha256": "d7b7a6d17b0c20d10d6980af714c6997e9c5bd462919fad0e92833b370d8cd62"
+    },
+    {
+      "bytes": 4364,
+      "path": "date-creusot/docs/reliance-policy.md",
+      "sha256": "d81e6628a1a89e7fd3c2536b7762d445bede2f1ed0f7e7588630ed233323e70b"
+    },
+    {
+      "bytes": 2427,
+      "path": "date-creusot/project-descriptor.json",
+      "sha256": "7e501157ccde93912556b25e94ebceb8c75a593ee098334f95abdb301fdd0e34"
+    },
+    {
+      "bytes": 188,
+      "path": "date-creusot/rust/date-creusot-core/.cargo/config.toml",
+      "sha256": "28dc7aee8165861d0dfe007198f72ce9d483a3f6e56998c640d33be1ef7b2684"
+    },
+    {
+      "bytes": 5801,
+      "path": "date-creusot/rust/date-creusot-core/Cargo.lock",
+      "sha256": "72aa7f4bccd37da533e8c94e1ca77b825f3dbadee3b3ca2f540427afe3932629"
+    },
+    {
+      "bytes": 384,
+      "path": "date-creusot/rust/date-creusot-core/Cargo.toml",
+      "sha256": "51fbc2b30d26484e8bc07c65f407d6f24660fada8e6ae83cf928ae2bac8091ed"
+    },
+    {
+      "bytes": 393,
+      "path": "date-creusot/rust/date-creusot-core/specs/_boundaries/iso_week_weekday__to__weekday_iso_encoding.json",
+      "sha256": "2d03a974415641242b305896719d7ae0403e0f042f455524433dcd91c75f328d"
+    },
+    {
+      "bytes": 366,
+      "path": "date-creusot/rust/date-creusot-core/specs/_boundaries/year_month_day_last_day__to__year_is_leap.json",
+      "sha256": "0c49cdac0dc6596442b1e135156f376aa1047e1dcbc88d355136d6642100ad41"
+    },
+    {
+      "bytes": 357,
+      "path": "date-creusot/rust/date-creusot-core/specs/_boundaries/year_month_day_last_ok__to__month_ok.json",
+      "sha256": "a1ac803844d0992b4f2f2112fe17c77ef6d4cb57121b187c9660ca932ebdf247"
+    },
+    {
+      "bytes": 354,
+      "path": "date-creusot/rust/date-creusot-core/specs/_boundaries/year_month_day_last_ok__to__year_ok.json",
+      "sha256": "66e8bc2877adb859ff2c82863fac3a8b6349055f10f17f015ea689f51397db81"
+    },
+    {
+      "bytes": 348,
+      "path": "date-creusot/rust/date-creusot-core/specs/_boundaries/year_month_day_ok__to__month_ok.json",
+      "sha256": "a4307b2491719997961e97dfcb4de161a0e7846ad4a70e2749bc229b40a61639"
+    },
+    {
+      "bytes": 386,
+      "path": "date-creusot/rust/date-creusot-core/specs/_boundaries/year_month_day_ok__to__year_month_day_last_day.json",
+      "sha256": "ba12cf06510d4ba448bba9f975c97972e5c33f3871cf3712c67efc56b5113568"
+    },
+    {
+      "bytes": 345,
+      "path": "date-creusot/rust/date-creusot-core/specs/_boundaries/year_month_day_ok__to__year_ok.json",
+      "sha256": "6cf886310de99b4ea67a57612bbf5a37fb2def379a50299d3dee03a15914b193"
+    },
+    {
+      "bytes": 414,
+      "path": "date-creusot/rust/date-creusot-core/specs/_boundaries/year_month_day_to_days__to__weekday_weekday_from_days.json",
+      "sha256": "09b47f18c403db954e21654f980c1fabf602605b0ee167fe762bb4bb5c31d901"
+    },
+    {
+      "bytes": 395,
+      "path": "date-creusot/rust/date-creusot-core/specs/_boundaries/year_month_day_to_days__to__year_month_day_from_days.json",
+      "sha256": "ed64d87163738176123efeb31b6513b3dc92b2ab8280be7680e3d02941b08642"
+    },
+    {
+      "bytes": 1895,
+      "path": "date-creusot/rust/date-creusot-core/specs/_interactions/I-iso-week-weekday-to-weekday-iso-encoding.json",
+      "sha256": "2ca004a72e5475ce65021f62acd3339eb9fb9c72c8f9d70d196cef511c3b2f36"
+    },
+    {
+      "bytes": 1324,
+      "path": "date-creusot/rust/date-creusot-core/specs/_interactions/I-year-month-day-last-day-to-year-is-leap.json",
+      "sha256": "3b9c25c7d666fab951cb7bca8e044f5333e6d3f20f87816c20a7551836bdd5b3"
+    },
+    {
+      "bytes": 1283,
+      "path": "date-creusot/rust/date-creusot-core/specs/_interactions/I-year-month-day-last-ok-to-month-ok.json",
+      "sha256": "72e80cb7357b1bb73e305a888354b1421a6ff89072ff43b13508659f938e3d20"
+    },
+    {
+      "bytes": 1277,
+      "path": "date-creusot/rust/date-creusot-core/specs/_interactions/I-year-month-day-last-ok-to-year-ok.json",
+      "sha256": "0c0b88d31f0861fde8f03dea3e754c8c7a3721ab6cfd6e37e9f6419f1325c64f"
+    },
+    {
+      "bytes": 954,
+      "path": "date-creusot/rust/date-creusot-core/specs/_interactions/I-year-month-day-last-to-year-month-day-last-new.json",
+      "sha256": "b79b908ef2e8b95cd5dea806f0afb0fa2274df90ef4287e658ea4891c9e87ba9"
+    },
+    {
+      "bytes": 1302,
+      "path": "date-creusot/rust/date-creusot-core/specs/_interactions/I-year-month-day-ok-to-month-ok.json",
+      "sha256": "e8b2d3c7f8830f77be6d0af486e159996e5da1686161a8cd29c1d083b41acf5e"
+    },
+    {
+      "bytes": 1338,
+      "path": "date-creusot/rust/date-creusot-core/specs/_interactions/I-year-month-day-ok-to-year-month-day-last-day.json",
+      "sha256": "e704e0a8a3bf3af5534f80316fd407ead409eaa9967b72afede1162b13787d57"
+    },
+    {
+      "bytes": 1303,
+      "path": "date-creusot/rust/date-creusot-core/specs/_interactions/I-year-month-day-ok-to-year-ok.json",
+      "sha256": "e052dc47d36aae7c279c38b35be5e572628f1003ed0038f7f06612f784a81f23"
+    },
+    {
+      "bytes": 1856,
+      "path": "date-creusot/rust/date-creusot-core/specs/_interactions/I-year-month-day-to-days-to-weekday-weekday-from-days.json",
+      "sha256": "b2d9ff50edf6258ed6749bc33349723917886181424c463e276ebc5e04c4e397"
+    },
+    {
+      "bytes": 1378,
+      "path": "date-creusot/rust/date-creusot-core/specs/_interactions/I-year-month-day-to-days-to-year-month-day-from-days.json",
+      "sha256": "c6af8b6b81f743f0021fc79a8fcc306eb9382425625d429bd6d9bf03d42cceba"
+    },
+    {
+      "bytes": 1702,
+      "path": "date-creusot/rust/date-creusot-core/specs/month.json",
+      "sha256": "31d7c1826f54218beae795e57d8c988f78b722a8eadcc876feeb09281336747b"
+    },
+    {
+      "bytes": 2744,
+      "path": "date-creusot/rust/date-creusot-core/specs/weekday.json",
+      "sha256": "3d92770a8f5397d62c3afa44b88634afcb28b1b1eac33bb37a664a14a534d8d5"
+    },
+    {
+      "bytes": 2351,
+      "path": "date-creusot/rust/date-creusot-core/specs/year.json",
+      "sha256": "dde846d9edb06f7c91009d19ccd9116d04f700368927bdccfb28655b6e3d6ec4"
+    },
+    {
+      "bytes": 5316,
+      "path": "date-creusot/rust/date-creusot-core/specs/year_month_day.json",
+      "sha256": "737ed3fb7bb2b3827f3594a158d785238c3c2dc654cc6fe1a1d95074a51e32fd"
+    },
+    {
+      "bytes": 2433,
+      "path": "date-creusot/rust/date-creusot-core/specs/year_month_day_last.json",
+      "sha256": "617054e44883662250ddcbd9105b197425773d24cf25d113dd1d564dec5993d8"
+    },
+    {
+      "bytes": 12120,
+      "path": "date-creusot/scripts/witness_renderer.py",
+      "sha256": "0b844c7ec904604754e13ba448c5f146cbe4296a7fd617cdfe0085636eb946bd"
+    },
+    {
+      "bytes": 676,
+      "path": "date-creusot/scripts/xml_escape.py",
+      "sha256": "09dc6a9258a9bdab7648d3d8d0588bbb4bf2a096457c950e094964aa8d139854"
+    },
+    {
+      "bytes": 3567,
+      "path": "flake.lock",
+      "sha256": "a1945f624d7bff521a1742b5cf85b0a94dd44989fcd4c23d29100340cbf45137"
+    },
+    {
+      "bytes": 6060,
+      "path": "flake.nix",
+      "sha256": "7f631c89297f25fcbbef7e860d6c931539e7236142b5dba7cf148459e3d4ab07"
+    },
+    {
+      "bytes": 19935,
+      "path": "swisstable-verus/.codex/skills/ligature/SKILL.md",
+      "sha256": "ee39e9e64d510dbb918eb1cab6185aae8df5f4054f84a5f09766a2033df39735"
+    },
+    {
+      "bytes": 30,
+      "path": "swisstable-verus/.envrc",
+      "sha256": "72a177b6a82dae2a25e5c9e14ca6778b49d5204326bee4e2810e2e990d8c6ff4"
+    },
+    {
+      "bytes": 5636,
+      "path": "swisstable-verus/.ligature/prompts/stage-0-evidence-intake.md",
+      "sha256": "a53a5f4fc1dcccec3e7e6bec4488cf82a9bbc851c1e43cfd3a11e70cfcee1e84"
+    },
+    {
+      "bytes": 8275,
+      "path": "swisstable-verus/.ligature/prompts/stage-3-boundary-drafting.md",
+      "sha256": "b34060c0c5484345c60583a6d1421247305575bf95d90dc04efa4bbb1f0b928b"
+    },
+    {
+      "bytes": 10852,
+      "path": "swisstable-verus/.ligature/prompts/stage-3-bridge-drafting.md",
+      "sha256": "b1b71c3767fc11b8645ca380c548cbb5746d2c2db649b5c1c8845dac5e180816"
+    },
+    {
+      "bytes": 9195,
+      "path": "swisstable-verus/.ligature/prompts/stage-3-closure-profile-drafting.md",
+      "sha256": "ac4a2b4a4f70a52c422b2826d795cceedd0ea180191799f95f4447f5c785d395"
+    },
+    {
+      "bytes": 11339,
+      "path": "swisstable-verus/.ligature/prompts/stage-3-concept-to-code.md",
+      "sha256": "6fb9c5435ec6ed42d9dbad81df75d0f37bea53da1a274df0c91594bcdc7b4560"
+    },
+    {
+      "bytes": 6050,
+      "path": "swisstable-verus/.ligature/prompts/stage-3-conflict-resolution-drafting.md",
+      "sha256": "984c9463cda5f3f3dbdd93bc54ebbfcedf8c8c781917ff9a61e3dc5e9bc54471"
+    },
+    {
+      "bytes": 8554,
+      "path": "swisstable-verus/.ligature/prompts/stage-3-degradation-drafting.md",
+      "sha256": "899aa9ee06eb1c947c78ad9f9d6ef92a7d003f06a685d1c0b357db182d904953"
+    },
+    {
+      "bytes": 4745,
+      "path": "swisstable-verus/.ligature/prompts/stage-3-exemption-drafting.md",
+      "sha256": "498325b083cd38bfa9cf9ca97d7337784c35bbd55f4f634a8e936e17e1f9066c"
+    },
+    {
+      "bytes": 13285,
+      "path": "swisstable-verus/.ligature/prompts/stage-3-interaction-drafting.md",
+      "sha256": "45523bf786d241c0129f58d0deee204c1b6856156aa2f1e6c9554c7e68b8f39b"
+    },
+    {
+      "bytes": 5773,
+      "path": "swisstable-verus/.ligature/prompts/stage-3-protocol-debt-drafting.md",
+      "sha256": "73ad673f3402e5ad4184288f8703d9e2c6258909d5b4fd69ff13b1c4f03e4d38"
+    },
+    {
+      "bytes": 8501,
+      "path": "swisstable-verus/.ligature/prompts/stage-3-witness-drafting.md",
+      "sha256": "0adc5f796e4679c80ce2f07edffd73391f1ccc6e44ff06883f3bb921c338f72d"
+    },
+    {
+      "bytes": 12108,
+      "path": "swisstable-verus/.ligature/schemas/consolidated-check.schema.json",
+      "sha256": "410dd4820f6b4ac5110653f2c310e13212eb311cd47e0d6c85ce9b715bbfffcf"
+    },
+    {
+      "bytes": 21819,
+      "path": "swisstable-verus/.ligature/schemas/project-descriptor.schema.json",
+      "sha256": "a6166c6d70ee97b60e3656133908315c297b3f7470202659fd20731c087c534b"
+    },
+    {
+      "bytes": 18172,
+      "path": "swisstable-verus/.ligature/schemas/project-state.schema.json",
+      "sha256": "f5f974e4e0a733af2599053087d3f5769d5bbca8cf101664994415b08db25371"
+    },
+    {
+      "bytes": 527,
+      "path": "swisstable-verus/.mcp.json",
+      "sha256": "fe7bd16f518660edef757807b45931934796c980dfeca00d2c760278938ee458"
+    },
+    {
+      "bytes": 20445,
+      "path": "swisstable-verus/ci/manifest/WP-SWISSTABLE-VERUS.json",
+      "sha256": "aa9742e86d1194e7b4da847b0297aa1d4ca1d8a44dddbe5cba111638ffb63f5f"
+    },
+    {
+      "bytes": 7760,
+      "path": "swisstable-verus/ci/manifest/installation.json",
+      "sha256": "e8698b0ddaa00a24725f9368689b17b06b8b5283d9526df09dd6e83c87622e88"
+    },
+    {
+      "bytes": 170233,
+      "path": "swisstable-verus/ci/results/c_static/rust_swisstable-verus-core.json",
+      "sha256": "3bd92f9127a08f86e0fec9de742adb22b14efe3ddfcbabf88e6ef7720215d75c"
+    },
+    {
+      "bytes": 4620,
+      "path": "swisstable-verus/ci/results/evidence_promotions.jsonl",
+      "sha256": "a6867729efc19d22d429cfbcb58a19f877e8ea540078c5dffbd71a8ed5e8da2f"
+    },
+    {
+      "bytes": 3713,
+      "path": "swisstable-verus/ci/results/protected-writes.jsonl",
+      "sha256": "3065fdfe9221fcb4a91dd596bdaef2cbef15d3fa447d25d0366476b4b60be545"
+    },
+    {
+      "bytes": 2862,
+      "path": "swisstable-verus/docs/reliance-policy.md",
+      "sha256": "e9ec56e11ac44d799f2f763bf166869b029ca3e284f75c15d6004b4928bb0c1b"
+    },
+    {
+      "bytes": 2534,
+      "path": "swisstable-verus/project-descriptor.json",
+      "sha256": "a95fdb44a59a16fec988500490cc05565cffe57227209ecba28e587e5fbb3ca7"
+    },
+    {
+      "bytes": 3650,
+      "path": "swisstable-verus/rust/swisstable-verus-core/Cargo.lock",
+      "sha256": "aced43d91cbfc6b486e85741265b9d10269832209ba9b23f022bca39e7154f9a"
+    },
+    {
+      "bytes": 1605,
+      "path": "swisstable-verus/rust/swisstable-verus-core/Cargo.toml",
+      "sha256": "ccc7fd83f3131f66d926b49ec80008297667b52f9aa255d7cf6df6593a198d54"
+    },
+    {
+      "bytes": 316,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_boundaries/raw_table_erase__to__control_bytes_set_dead.json.draft",
+      "sha256": "b7e05d5940b51e5295dfcfc3aa9d080bfe1ee4dc702516a5d82c8e401fd55276"
+    },
+    {
+      "bytes": 293,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_boundaries/raw_table_erase__to__control_bytes_set_empty.json.draft",
+      "sha256": "1207e9bcaa24ddf502ae4179dea686f61df8598462693de1c442dd49198ddb46"
+    },
+    {
+      "bytes": 311,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_boundaries/raw_table_find__to__control_bytes_is_empty_or_deleted.json.draft",
+      "sha256": "3582338cdc23dc5c71a5710dad846d80d9c697345b1ce6d2b96a8c43d0ad0339"
+    },
+    {
+      "bytes": 334,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_boundaries/raw_table_find__to__group_probe_match_empty_or_deleted.json.draft",
+      "sha256": "544308435c817e29e52316415ca7c7dcee4484f657b0a424a403b6da321d7d1b"
+    },
+    {
+      "bytes": 310,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_boundaries/raw_table_find__to__group_probe_match_full.json.draft",
+      "sha256": "0cf4aaf764ffbdb0c54c6529152dc40eeb4c220c858ec49d02d91430adc32c37"
+    },
+    {
+      "bytes": 275,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_boundaries/raw_table_find__to__probe_seq_advance.json.draft",
+      "sha256": "e1fd7c9b0d8e51d0e9e6c5fa425d01c7f5659ac7768b7aacdf8d8e3510d9b67c"
+    },
+    {
+      "bytes": 294,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_boundaries/raw_table_find__to__probe_seq_offset.json.draft",
+      "sha256": "43ff98eb3757b31e95a82bc97d161ec9fb0dd7774d78e0764cd1f0f2b82026ae"
+    },
+    {
+      "bytes": 322,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_boundaries/raw_table_resize__to__control_bytes_clear_dead.json.draft",
+      "sha256": "63a9dd865c71e1427ace16bf6170b25d31a846149bcdde700af49ceb82442688"
+    },
+    {
+      "bytes": 277,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_boundaries/raw_table_resize__to__probe_seq_offset.json.draft",
+      "sha256": "8f60b15443d43c8e5237516b580d09cd2f94a59d7f0934716e3be4a5fd742497"
+    },
+    {
+      "bytes": 295,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_boundaries/swiss_table_erase__to__control_bytes_set_dead.json.draft",
+      "sha256": "7071e8b4733e236426a9a11ba63db3f141f8d70d1cd221f88e312130a335f57f"
+    },
+    {
+      "bytes": 277,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_boundaries/swiss_table_erase__to__raw_table_erase.json.draft",
+      "sha256": "685b31e2be279bd0a8b356df16034540e2bcb64aa9bdebc5c58e3e3c419a6257"
+    },
+    {
+      "bytes": 302,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_boundaries/swiss_table_insert__to__raw_table_insert.json.draft",
+      "sha256": "e848624055c5e74e9f96159dcfc4b584d1a69aee727889006dcbf51193d13073"
+    },
+    {
+      "bytes": 283,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_boundaries/swiss_table_reserve__to__raw_table_resize.json.draft",
+      "sha256": "4c89eb4359010c20ba3d08100d57d0f6042705e0a422add090db822a04639521"
+    },
+    {
+      "bytes": 327,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_boundaries/table_iterator_advance__to__control_bytes_is_empty_or_deleted.json.draft",
+      "sha256": "9c3c74618dd6868e54e08258344eb7750c8a5596c2430d55267b633d2712776e"
+    },
+    {
+      "bytes": 949,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_bridges/BR-CONTROLBYTES-CLEARDEAD-001.json.draft",
+      "sha256": "171cd8dc6c380418fb9f6a212178111354a8c375b318b93b86805e2b598e279e"
+    },
+    {
+      "bytes": 836,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_bridges/BR-CONTROLBYTES-SETDEAD-001.json.draft",
+      "sha256": "ef2f2403fdf3ee35418165233586d5e6f205eceed446f9cd4acf4f6a221b8a7b"
+    },
+    {
+      "bytes": 1066,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_bridges/BR-GROUPPROBE-FREE-WINDOW-001.json.draft",
+      "sha256": "4b0fe52c35572e0dba140783c119b7e5dc2207e6a497823a0063c622fbbd0a89"
+    },
+    {
+      "bytes": 1068,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_bridges/BR-GROUPPROBE-WINDOW-001.json.draft",
+      "sha256": "6c7990c7178eb56e273eb6ac52516c1318caa599c70cbf00f595426283c96bcb"
+    },
+    {
+      "bytes": 1084,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_bridges/BR-PROBESEQ-MASK-001.json.draft",
+      "sha256": "1c7d06ea7d9e410477a6c3f589c8298047eed362eff717088bdc22bdc71ec0d6"
+    },
+    {
+      "bytes": 899,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_bridges/BR-RAWINSERT-NONFULL-001.json.draft",
+      "sha256": "300cde58538c936084d364b7e427b442074c089a1bb17adc9a37ee2cf63b4053"
+    },
+    {
+      "bytes": 1276,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_interactions/raw_table_erase_to_control_bytes_set_dead.json.draft",
+      "sha256": "7d45cb54a9868d1dfd14a067faa14af68a5fd2dee2d5d9d1468bd3e103be02ba"
+    },
+    {
+      "bytes": 1279,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_interactions/raw_table_erase_to_control_bytes_set_empty.json.draft",
+      "sha256": "a1529b80a9259ebeb94e198661a4a6eb74e304eb7722a41c5330590cf510cbec"
+    },
+    {
+      "bytes": 1274,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_interactions/raw_table_find_to_control_bytes_is_empty_or_deleted.json.draft",
+      "sha256": "5c4764c3292ef5f77f0d4bddd2f9595217f3760c436a94b88ee9722cec9e42a0"
+    },
+    {
+      "bytes": 1285,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_interactions/raw_table_find_to_group_probe_match_empty_or_deleted.json.draft",
+      "sha256": "024da829c02da82f4ef2901de0c30973d58fd777e9460dd532ac460a2553432e"
+    },
+    {
+      "bytes": 1248,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_interactions/raw_table_find_to_group_probe_match_full.json.draft",
+      "sha256": "3c9a3d4b44feaa376957f183c52e931647a6920c032ce7d0d470c5cd87825706"
+    },
+    {
+      "bytes": 775,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_interactions/raw_table_find_to_hash_mix_h2.json.draft",
+      "sha256": "f9860a1ebf1372d4cde6766a29fbc48e43af4911de1562a7acb43b581cc76a73"
+    },
+    {
+      "bytes": 1248,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_interactions/raw_table_find_to_probe_seq_advance.json.draft",
+      "sha256": "d8611b699c730d27466014fec21f8be06f7e8ba300c1d405169f4e2d28682e11"
+    },
+    {
+      "bytes": 1288,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_interactions/raw_table_find_to_probe_seq_offset.json.draft",
+      "sha256": "f416f81e8091737a4cd71b5b602d79e6a3c2a5c525ccc733d54e0015e595d485"
+    },
+    {
+      "bytes": 1279,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_interactions/raw_table_resize_to_control_bytes_clear_dead.json.draft",
+      "sha256": "ed4066cb40fca608f92904ce909380920e3ea8849ba33a76858ed42a822cd730"
+    },
+    {
+      "bytes": 1226,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_interactions/raw_table_resize_to_probe_seq_offset.json.draft",
+      "sha256": "17f42e1db338e485abcaf511e98f275b7faaed2112e25164ec06fb8ee81e9f41"
+    },
+    {
+      "bytes": 1223,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_interactions/swiss_table_erase_to_control_bytes_set_dead.json.draft",
+      "sha256": "0ca18b5fb84fbb7499e3d6bdeaa9350db3cce72536b0df6e09451e2a782d1ec6"
+    },
+    {
+      "bytes": 1222,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_interactions/swiss_table_erase_to_raw_table_erase.json.draft",
+      "sha256": "fe3db5d9fa19be5e26c3e10bca330a59f97720e2359bebd9b631bf61c80c38b9"
+    },
+    {
+      "bytes": 1221,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_interactions/swiss_table_insert_to_raw_table_insert.json.draft",
+      "sha256": "a65b8c698172ff6d8cfedb6f16d81e3daa0865b14e56e89010132afe572cf57d"
+    },
+    {
+      "bytes": 1198,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_interactions/swiss_table_reserve_to_raw_table_resize.json.draft",
+      "sha256": "b5782f39a7f2ea5d06941bf75acca8b04f4b48b418b524ef78e4e7af870d3d4c"
+    },
+    {
+      "bytes": 1282,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_interactions/table_iterator_advance_to_control_bytes_is_empty_or_deleted.json.draft",
+      "sha256": "08062f716a2e08bd0a986162906f6d55af271295e84b2343cde35ae291b159ea"
+    },
+    {
+      "bytes": 1026,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_witnesses/control_bytes.count_empty.json.draft",
+      "sha256": "326e5ac7649e6e5be90d045e6d08ed7678a75255a059c1aa58d76d2cb2aa8418"
+    },
+    {
+      "bytes": 987,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/_witnesses/group_probe.match_full.json.draft",
+      "sha256": "45825ac388059916f67f57e7dc1248d32413191fecabd973798a763a21e841d9"
+    },
+    {
+      "bytes": 5376,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/control_bytes.json.draft",
+      "sha256": "d894cd516c73ccd87389eaa3fd279e4356c036ce3c07b26263e590f0b92573ff"
+    },
+    {
+      "bytes": 3987,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/group_probe.json.draft",
+      "sha256": "f83f7e2c9c1abaee52c790350dab0b3bb3d1535efde5e54a16e57abf698a818d"
+    },
+    {
+      "bytes": 2700,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/hash_mix.json.draft",
+      "sha256": "8ef67801d3e78dfba45036905176a26395d5977965b7f35418ce349a3efbf589"
+    },
+    {
+      "bytes": 3170,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/probe_seq.json.draft",
+      "sha256": "cb9a0b48d3fccca76b18d75f00358b1fd2c55de3bcb1aba960fef9b126f368cc"
+    },
+    {
+      "bytes": 5481,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/raw_table.json.draft",
+      "sha256": "ecef642aae786beabf4196b6b699df48936d98d92c39300309a265f7f66c8658"
+    },
+    {
+      "bytes": 3619,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/swiss_table.json.draft",
+      "sha256": "b8c970e24b68f20320acbf4f473cde3e2bd5ffc5b77d1d889dca56b4b9647649"
+    },
+    {
+      "bytes": 3098,
+      "path": "swisstable-verus/rust/swisstable-verus-core/specs/table_iterator.json.draft",
+      "sha256": "23c53fe2b12e87c6a968c6163a9ea3af4e1b1486ca3386fa621f1405cc4d28d5"
+    },
+    {
+      "bytes": 1049,
+      "path": "swisstable-verus/scripts/__pycache__/xml_escape.cpython-312.pyc",
+      "sha256": "43904a9e8f18244f407f884151778e8a437c0d11e107887ffd16d7506c9cb364"
+    },
+    {
+      "bytes": 12120,
+      "path": "swisstable-verus/scripts/witness_renderer.py",
+      "sha256": "0b844c7ec904604754e13ba448c5f146cbe4296a7fd617cdfe0085636eb946bd"
+    },
+    {
+      "bytes": 676,
+      "path": "swisstable-verus/scripts/xml_escape.py",
+      "sha256": "09dc6a9258a9bdab7648d3d8d0588bbb4bf2a096457c950e094964aa8d139854"
+    }
+  ],
+  "entry_count": 174,
+  "generated_at": "2026-11-14T19:56:01Z",
+  "label": "after-final-2026-11-14T2015Z",
+  "new_root_protected_targets": [
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/project-descriptor.json"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/.ligature"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/.envrc"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/.mcp.json"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/schemas"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/ci"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/scripts"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/docs/reliance-policy.md"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/docs/project-descriptor.schema.json"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/.codex/skills/ligature/SKILL.md"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/tools/ligature/ligature.pyz"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/tools/ligature/SHA256SUMS"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/tools/ligature/PROVENANCE.json"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/tools/ligature/NOTICE"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/tools/ligature/THIRD_PARTY_NOTICES.txt"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/ci/manifest"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/tests/harnesses"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/rust/icl-creusot/Cargo.toml"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/rust/icl-creusot/Cargo.lock"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/rust/icl-creusot/rust-toolchain.toml"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/rust/icl-creusot/.cargo/config.toml"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/rust/icl-creusot/build.rs"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/rust/icl-verus/Cargo.toml"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/rust/icl-verus/Cargo.lock"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/rust/icl-verus/rust-toolchain.toml"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/rust/icl-verus/.cargo/config.toml"
+    },
+    {
+      "exists": false,
+      "path": "icl-creusot-verus/rust/icl-verus/build.rs"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/project-descriptor.json"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/.ligature"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/.envrc"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/.mcp.json"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/schemas"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/ci"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/scripts"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/docs/reliance-policy.md"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/docs/project-descriptor.schema.json"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/.codex/skills/ligature/SKILL.md"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/tools/ligature/ligature.pyz"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/tools/ligature/SHA256SUMS"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/tools/ligature/PROVENANCE.json"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/tools/ligature/NOTICE"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/tools/ligature/THIRD_PARTY_NOTICES.txt"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/ci/manifest"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/tests/harnesses"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/rust/tinyxml2-creusot/Cargo.toml"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/rust/tinyxml2-creusot/Cargo.lock"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/rust/tinyxml2-creusot/rust-toolchain.toml"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/rust/tinyxml2-creusot/.cargo/config.toml"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/rust/tinyxml2-creusot/build.rs"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/rust/tinyxml2-kani/Cargo.toml"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/rust/tinyxml2-kani/Cargo.lock"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/rust/tinyxml2-kani/rust-toolchain.toml"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/rust/tinyxml2-kani/.cargo/config.toml"
+    },
+    {
+      "exists": false,
+      "path": "tinyxml2-creusot-kani/rust/tinyxml2-kani/build.rs"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/project-descriptor.json"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/.ligature"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/.envrc"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/.mcp.json"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/schemas"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/ci"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/scripts"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/docs/reliance-policy.md"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/docs/project-descriptor.schema.json"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/.codex/skills/ligature/SKILL.md"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/tools/ligature/ligature.pyz"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/tools/ligature/SHA256SUMS"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/tools/ligature/PROVENANCE.json"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/tools/ligature/NOTICE"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/tools/ligature/THIRD_PARTY_NOTICES.txt"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/ci/manifest"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/tests/harnesses"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/rust/snappy-verus/Cargo.toml"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/rust/snappy-verus/Cargo.lock"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/rust/snappy-verus/rust-toolchain.toml"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/rust/snappy-verus/.cargo/config.toml"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/rust/snappy-verus/build.rs"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/rust/snappy-kani/Cargo.toml"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/rust/snappy-kani/Cargo.lock"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/rust/snappy-kani/rust-toolchain.toml"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/rust/snappy-kani/.cargo/config.toml"
+    },
+    {
+      "exists": false,
+      "path": "snappy-verus-kani/rust/snappy-kani/build.rs"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/project-descriptor.json"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/.ligature"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/.envrc"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/.mcp.json"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/schemas"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/ci"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/scripts"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/docs/reliance-policy.md"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/docs/project-descriptor.schema.json"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/.codex/skills/ligature/SKILL.md"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/tools/ligature/ligature.pyz"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/tools/ligature/SHA256SUMS"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/tools/ligature/PROVENANCE.json"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/tools/ligature/NOTICE"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/tools/ligature/THIRD_PARTY_NOTICES.txt"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/ci/manifest"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/tests/harnesses"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/rust/leveldb-creusot/Cargo.toml"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/rust/leveldb-creusot/Cargo.lock"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/rust/leveldb-creusot/rust-toolchain.toml"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/rust/leveldb-creusot/.cargo/config.toml"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/rust/leveldb-creusot/build.rs"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/rust/leveldb-verus/Cargo.toml"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/rust/leveldb-verus/Cargo.lock"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/rust/leveldb-verus/rust-toolchain.toml"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/rust/leveldb-verus/.cargo/config.toml"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/rust/leveldb-verus/build.rs"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/rust/leveldb-kani/Cargo.toml"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/rust/leveldb-kani/Cargo.lock"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/rust/leveldb-kani/rust-toolchain.toml"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/rust/leveldb-kani/.cargo/config.toml"
+    },
+    {
+      "exists": false,
+      "path": "leveldb-three-verifiers/rust/leveldb-kani/build.rs"
+    }
+  ],
+  "workspace_head": "9c1a4addb4646e291a998d2304fc0bbc769bab1d",
+  "workspace_root": "/home/goya/storage/full-ligature-port-workspace"
+}

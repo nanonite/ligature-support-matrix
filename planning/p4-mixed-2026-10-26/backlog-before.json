@@ -1,0 +1,851 @@
+[
+  {
+    "id": 154,
+    "title": "EPIC: P4 verifier matrix - Creusot, Verus and Kani per port and combined in one workspace",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAgreed 2026-10-20 after P3 Stage 8C (#49). Plan the verifier matrix and reach consensus on it (P4-1 to P4-7) before any multi-verifier implementation starts.\n\nWhat Ligature 1.4.2 already models (from its bundled schemas, not its source):\n- verifier_policy.clusters (per-cluster owner) and verifier_policy.supporting (verifiers whose evidence backs the primary one);\n- crates[] (several crates per workspace);\n- verifier_backends for creusot, verus and kani (bridge checks);\n- record-assurance intake for all three (--proof, --verus-json, --kani-crate; Verus residuals #125-#127).\n- Gap seen so far: configure-crate has only a cargo-verus profile.\nUpstream tickets are filed only for gaps the P4-5 probes confirm.\n\nLimits independent of Ligature:\n- single_verifier_system: a cluster whose closure spans two verifiers is CG1 (\"cross-verifier composition has no soundness theorem\") and can only be released degraded at the harness-tested ceiling. Three verifiers can share a workspace in separate clusters, but any cross-verifier dependency comes out degraded by design.\n- Creusot (nightly-2026-04-21, creusot_std) and Verus (1.95.0, vstd, verus!) need separate crates. Kani harnesses (#[cfg(kani)]) overlay either.\n\nAxis A, which verifier proves which port:\n\n| Port | Creusot | Verus | Kani |\n|---|---|---|---|\n| P1 date (integer arithmetic) | done | P4-9 | P4-10 |\n| P2 SwissTable (generics, ghost maps, unsafe, SIMD) | P4-11 | P4-8 (complete the closure) | P4-12 |\n| P3 crypto (bit arithmetic, byte buffers) | P4-13 | P4-14 | done |\n\nAxis B, combining verifiers:\n- supporting verifiers (P4-15);\n- verifiers mixed inside one closure (P4-16, supersedes #50);\n- a cluster split with a boundary contract (P4-17, supersedes #51);\n- all six directed cross-cluster pairs (P4-18);\n- all three verifiers in one workspace (P4-19).\nAlready done: Kani inside a deductive Creusot closure (#23).\n\nOpen question for P4-7: whether a fourth C++ project, or a synthetic probe, is needed for CG6 (dependency cycles between clusters) and G15 (non-pairwise protocols), which no current port exercises. Results feed #69 through P4-20.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": null,
+    "created_at": "2026-10-21T02:37:41.686110628Z",
+    "updated_at": "2026-10-21T02:37:41.686110628Z",
+    "closed_at": null,
+    "labels": [
+      "p4-matrix"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 450,
+        "issue_id": 154,
+        "content": "Correction from P4-3 (#157): the Axis A row 'P2 SwissTable (generics, ghost maps, unsafe, SIMD)' describes Abseil, not the port. The port is monomorphic u64 with initialized Vec storage and scalar 16-byte groups (scope cuts swisstable-verus-008/-001/-002); only the spec-level Map/Seq/Set model is real. VERIFIER-MATRIX.md rows A4-A6 are corrected (root 9b66a39). Kani can verify upstream's SSE2 group masks if a cell adds that implementation; raw MaybeUninit slots cannot be checked for initialization by Kani 0.67 (swisstable-kani-001).",
+        "created_at": "2026-10-21T14:41:53.632587925Z",
+        "kind": "observation"
+      }
+    ],
+    "blocked_by": [],
+    "blocking": [],
+    "subissues": [
+      {
+        "id": 155,
+        "title": "[p4 matrix] P4-1 Draft the verifier matrix spec (Axis A port x owner, Axis B composition)",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nWrite the matrix spec as a reviewable document: every configuration, which port covers it, the expected closure outcome (deductive, bounded, partial, or degraded under CG1), and the evidence that would count as covered. Start from the epic's two-axis table. No code.",
+        "status": "closed",
+        "priority": "high",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:41.726236525Z",
+        "updated_at": "2026-10-21T08:13:06.100626104Z",
+        "closed_at": "2026-10-21T08:13:06.100626104Z"
+      },
+      {
+        "id": 156,
+        "title": "[p4 matrix] P4-2 Verifier-fit analysis for P1 date-creusot",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nMap P1's concepts and obligations to the verifiers that fit them. Creusot is done. For Verus and Kani: which obligations transfer, what new specs or harnesses each needs, likely blockers (nonlinear arithmetic lemmas, bounds), and which crate layout. Read-only analysis; record findings.",
+        "status": "closed",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:41.765704906Z",
+        "updated_at": "2026-10-21T08:29:11.878486475Z",
+        "closed_at": "2026-10-21T08:29:11.878486475Z"
+      },
+      {
+        "id": 157,
+        "title": "[p4 matrix] P4-3 Verifier-fit analysis for P2 swisstable-verus",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nMap P2's concepts to Creusot, Verus and Kani. Cover the incomplete Verus closure (no closure profile), Creusot's reach on the map model, and Kani for the unsafe slots and SIMD probing (#35, #36). Read-only analysis; record findings.",
+        "status": "closed",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:41.823305370Z",
+        "updated_at": "2026-10-21T14:41:51.155885101Z",
+        "closed_at": "2026-10-21T14:41:51.155885101Z"
+      },
+      {
+        "id": 158,
+        "title": "[p4 matrix] P4-4 Verifier-fit analysis for P3 crypto-mixed",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nMap P3's concepts to Creusot and Verus (Kani is done). Start from the original plan's core-functional (quarter-round, block, Poly1305 limbs: deductive) vs bytes-layer (Kani) split and the #43 Verus deferral. Read-only analysis; record findings.",
+        "status": "closed",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:41.880701793Z",
+        "updated_at": "2026-10-21T15:46:40.156964803Z",
+        "closed_at": "2026-10-21T15:46:40.156964803Z"
+      },
+      {
+        "id": 159,
+        "title": "[p4 matrix] P4-5 Ligature capability probes for multi-verifier workspaces (scratch copies)",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nOn scratch copies only, probe Ligature 1.4.2 end to end:\n- a descriptor with several crates and per-cluster owners;\n- whether anything consumes verifier_policy.supporting;\n- check-bridges dispatch when a bridge crosses clusters with different owners;\n- record-assurance for all three verifiers in one workspace;\n- the workspace closure_kind with mixed clusters;\n- G14/G17 behavior for CG1;\n- crate configuration for Creusot and Kani (configure-crate has only cargo-verus).\nRecord each result. File epic #1 reports only for confirmed failures of what Ligature claims to do.",
+        "status": "closed",
+        "priority": "high",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:41.937894155Z",
+        "updated_at": "2026-10-25T17:47:23.262921445Z",
+        "closed_at": "2026-10-25T17:47:23.262921445Z"
+      },
+      {
+        "id": 160,
+        "title": "[p4 matrix] P4-6 Toolchain coexistence layout: Creusot and Verus crates plus Kani overlay in one workspace (scratch prototype)",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nPrototype the smallest workspace where a Creusot crate (nightly-2026-04-21, creusot_std), a Verus crate (1.95.0, vstd) and Kani harnesses all build and verify without interfering: rust-toolchain placement, cargo workspace boundaries, target dirs, and the crypto-mixed Nix shell. Do not edit flake.nix; report shell gaps on epic #2. Propose the layout and write-set rules for P4 (input to the write-set best-practices work).",
+        "status": "closed",
+        "priority": "high",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:41.994707561Z",
+        "updated_at": "2026-10-26T01:31:59.182368640Z",
+        "closed_at": "2026-10-26T01:31:59.182368640Z"
+      },
+      {
+        "id": 161,
+        "title": "[p4 matrix] P4-7 Consensus checkpoint: approve the matrix, the workspace layout and the fourth-project decision",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nOperator decision, using P4-1 to P4-6:\n- approve or amend the matrix and each port's verifier assignments;\n- approve the workspace layout and write-set rules;\n- decide whether CG6/G15 need a fourth C++ project or a synthetic probe;\n- fix the scope of P4-8 to P4-19.\nImplementation issues stay blocked until this closes.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.033908083Z",
+        "updated_at": "2026-10-21T02:37:42.033908083Z",
+        "closed_at": null
+      },
+      {
+        "id": 162,
+        "title": "[p4 matrix] P4-8 P2 swisstable-verus: complete the Verus-owned deductive closure",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nP2's Stage 8C (#33) found no closure profile, so G14 never compared the declared deductive closure. Author the closure profile through the protected draft/review path, re-check the Verus intake residuals #125-#127, and take P2 through G14. This is the prerequisite for P2's Axis A and B cells.",
+        "status": "open",
+        "priority": "high",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.090847915Z",
+        "updated_at": "2026-10-21T02:37:42.090847915Z",
+        "closed_at": null
+      },
+      {
+        "id": 163,
+        "title": "[p4 matrix] P4-9 P1 date: Verus-owned cluster",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell. Port P1's selected obligations to a Verus crate per the P4-6 layout and the P4-7 scope, and take the cluster through G14. Record the transfer gaps compared with Creusot.",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.147733767Z",
+        "updated_at": "2026-10-21T02:37:42.147733767Z",
+        "closed_at": null
+      },
+      {
+        "id": 164,
+        "title": "[p4 matrix] P4-10 P1 date: Kani-owned cluster",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell. Bounded Kani evidence for P1's selected obligations, then G14 (bounded). Compare with the Creusot and Verus results.",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.204850719Z",
+        "updated_at": "2026-10-21T02:37:42.204850719Z",
+        "closed_at": null
+      },
+      {
+        "id": 165,
+        "title": "[p4 matrix] P4-11 P2 SwissTable: Creusot-owned cluster",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell. Creusot for P2's map model and the obligations P4-3 marked feasible, then G14. Record where Creusot stops short of Verus.",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.261554731Z",
+        "updated_at": "2026-10-21T02:37:42.261554731Z",
+        "closed_at": null
+      },
+      {
+        "id": 166,
+        "title": "[p4 matrix] P4-12 P2 SwissTable: Kani-owned cluster (unsafe slots, SIMD probing)",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell, from the #35/#36 ideas. Kani for the layers Verus cannot reach (raw or unsafe slots, SIMD group probing), then G14 (bounded).",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.319033017Z",
+        "updated_at": "2026-10-21T02:37:42.319033017Z",
+        "closed_at": null
+      },
+      {
+        "id": 167,
+        "title": "[p4 matrix] P4-13 P3 crypto: Creusot-owned cluster",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell. Creusot for the obligations P4-4 marked feasible (core-functional arithmetic), then G14 (deductive).",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.375744093Z",
+        "updated_at": "2026-10-21T02:37:42.375744093Z",
+        "closed_at": null
+      },
+      {
+        "id": 168,
+        "title": "[p4 matrix] P4-14 P3 crypto: Verus-owned cluster (the #43-deferred core-functional cluster)",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell. The Verus pass deferred by #43, for the quarter-round, block and Poly1305 limb arithmetic, then G14 (deductive). Revisit the accepted CG3 ceiling (#135) if Verus can settle it.",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.432813036Z",
+        "updated_at": "2026-10-21T02:37:42.432813036Z",
+        "closed_at": null
+      },
+      {
+        "id": 169,
+        "title": "[p4 matrix] P4-15 Supporting-verifier configurations",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis B. A supporting verifier backing a primary one: Verus + Kani (P2), Creusot + Kani (P1), and one deductive + deductive pair. Record what verifier_policy.supporting changes in G14/G17, if anything (see P4-5).",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.490106217Z",
+        "updated_at": "2026-10-21T02:37:42.490106217Z",
+        "closed_at": null
+      },
+      {
+        "id": 170,
+        "title": "[p4 matrix] P4-16 Mixed verifiers in one closure: single_verifier_system and G14 behaviour (supersedes #50)",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis B, from #50. Put two verifiers in one cluster on purpose, observe single_verifier_system, G14 and G17, and record what the CG1 degradation record needs (harness-tested ceiling).",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.529012159Z",
+        "updated_at": "2026-10-21T02:37:42.529012159Z",
+        "closed_at": null
+      },
+      {
+        "id": 171,
+        "title": "[p4 matrix] P4-17 Per-verifier cluster split with a boundary contract on the cross-verifier edge (supersedes #51)",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis B, from #51. Split P4-16's cluster into per-verifier clusters with a boundary contract on the cross-verifier edge. Record which variant Ligature accepts and what the degradation record needs.",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.604025174Z",
+        "updated_at": "2026-10-21T02:37:42.604025174Z",
+        "closed_at": null
+      },
+      {
+        "id": 172,
+        "title": "[p4 matrix] P4-18 Cross-cluster dependencies for all six directed verifier pairs",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis B. Exercise each direction (C->V, V->C, C->K, K->C, V->K, K->V) of a cluster relying on a cluster owned by another verifier, in the port P4-7 assigns to each pair. Record G14/G17 outcomes and degradation needs.",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.679549383Z",
+        "updated_at": "2026-10-21T02:37:42.679549383Z",
+        "closed_at": null
+      },
+      {
+        "id": 173,
+        "title": "[p4 matrix] P4-19 P3 crypto: all three verifiers in one workspace",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis B. One workspace with a Verus cluster (ChaCha), a Creusot cluster (Poly1305) and a Kani cluster (byte layer), per the P4-6 layout. Take every cluster through G14, run check-bridges and record-assurance for all three, and record how the clusters interact.",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.718325232Z",
+        "updated_at": "2026-10-21T02:37:42.718325232Z",
+        "closed_at": null
+      },
+      {
+        "id": 174,
+        "title": "[p4 matrix] P4-20 Record matrix results per configuration (input to #69)",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nFill the P4-1 matrix with observed outcomes (works / friction / blocker, closure kind reached, degradation records), with links to findings. This is the input to the tool-reach matrix in #69.",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 154,
+        "created_at": "2026-10-21T02:37:42.775520972Z",
+        "updated_at": "2026-10-21T02:37:42.775520972Z",
+        "closed_at": null
+      }
+    ],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 161,
+    "title": "[p4 matrix] P4-7 Consensus checkpoint: approve the matrix, the workspace layout and the fourth-project decision",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nOperator decision, using P4-1 to P4-6:\n- approve or amend the matrix and each port's verifier assignments;\n- approve the workspace layout and write-set rules;\n- decide whether CG6/G15 need a fourth C++ project or a synthetic probe;\n- fix the scope of P4-8 to P4-19.\nImplementation issues stay blocked until this closes.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.033908083Z",
+    "updated_at": "2026-10-21T02:37:42.033908083Z",
+    "closed_at": null,
+    "labels": [
+      "human-decision",
+      "p4-matrix"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 452,
+        "issue_id": 161,
+        "content": "Decision items for the consensus checkpoint, from P4-2/P4-3: (1) P1 on Kani (#164): YearMonthDay.C002 is stated over an Int logic function Kani cannot express; choose between comparing from_days with an i64 reference implementation and carrying C002 through C007 plus range checks (date-creusot/analysis/p4-verifier-fit/). (2) P2 on Kani (#166): verify only the current scalar port, or also add a real SSE2 GroupProbe (Kani proves upstream's SSE2 masks equal to scalar) and/or a raw MaybeUninit slot variant (Kani cannot check its initialization, swisstable-kani-001; needs a shadow init map). (3) Whether Kani evidence for P2's Verus scope cuts (-004 probe coverage, -033 slot change) is wanted as supporting evidence in the B1 rows.",
+        "created_at": "2026-10-21T15:27:46.937183218Z",
+        "kind": "decision"
+      },
+      {
+        "id": 461,
+        "issue_id": 161,
+        "content": "More decision items from P4-4 (#158): (4) P3 deductive cells (#167, #168): for std calls without verifier specs (rotate_left, from_le_bytes, to_le_bytes, fill in both; copy_from_slice and slice try_into in Verus; extend_from_slice in Creusot), use trusted specs (assume_specification / extern_spec!, unchecked) or rewrite production code into shifts, masks and loops under the 2580-case oracle. (5) Poly1305 scope for those cells: attempt functional correctness (h = (h + m)*r mod 2^130-5 over 26-bit limbs; deep) or declare the Poly1305 part partial and keep its functional evidence with Kani and the oracle.",
+        "created_at": "2026-10-21T15:44:56.624233636Z",
+        "kind": "decision"
+      },
+      {
+        "id": 478,
+        "issue_id": 161,
+        "content": "Review reminder: this operator checkpoint must cover its FULL issue spec, beyond the #160 layout handoff. Alongside the matrix/verifier assignments, crate ownership/source sharing, exact toolchain pins, write-set/creation routes, output roots, and closure policy, decide (1) a fourth C++ project versus synthetic probes for CG6/G15, and (2) the exact scope of P4-8 through P4-19. These remain pending operator decisions; this comment approves no option and changes no implementation authorization.",
+        "created_at": "2026-10-26T06:42:52.267378239Z",
+        "kind": "handoff"
+      }
+    ],
+    "blocked_by": [
+      160
+    ],
+    "blocking": [
+      162
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 162,
+    "title": "[p4 matrix] P4-8 P2 swisstable-verus: complete the Verus-owned deductive closure",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nP2's Stage 8C (#33) found no closure profile, so G14 never compared the declared deductive closure. Author the closure profile through the protected draft/review path, re-check the Verus intake residuals #125-#127, and take P2 through G14. This is the prerequisite for P2's Axis A and B cells.",
+    "status": "open",
+    "priority": "high",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.090847915Z",
+    "updated_at": "2026-10-21T02:37:42.090847915Z",
+    "closed_at": null,
+    "labels": [
+      "p2-swisstable-verus",
+      "p4-matrix"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 453,
+        "issue_id": 162,
+        "content": "Checklist from P4-3 (#157, swisstable-verus/analysis/p4-verifier-fit/): the proof is done (149 verified, 35/36 draft constraints tagged); the closure needs pipeline work. (1) Approve the Stage 3 drafts: 7 concept specs (36 constraints), 14 boundaries, 15 interactions, 6 bridges; fix GroupProbe.C004 first (mis-stated, swisstable-spec-002). (2) Add #![verifier::proof_note(\"ligature:<obligation>\")] to each bound function's ensures for --verus-function intake (none today). (3) Re-run extract-c-static (3 high findings under 1.4.2), then the 462 R1/G16 decisions and 5 missing edges (swisstable-ligature-015). (4) Before keeping -023 as a scope cut, try the standalone Seq-level set lemma with explicit witnesses (swisstable-verus-038). (5) Refresh P2's README; it still describes Ligature 1.3.5.",
+        "created_at": "2026-10-21T15:27:50.182206618Z",
+        "kind": "handoff"
+      }
+    ],
+    "blocked_by": [
+      161
+    ],
+    "blocking": [
+      163
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 163,
+    "title": "[p4 matrix] P4-9 P1 date: Verus-owned cluster",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell. Port P1's selected obligations to a Verus crate per the P4-6 layout and the P4-7 scope, and take the cluster through G14. Record the transfer gaps compared with Creusot.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.147733767Z",
+    "updated_at": "2026-10-21T02:37:42.147733767Z",
+    "closed_at": null,
+    "labels": [
+      "p1-date-creusot",
+      "p4-matrix"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 454,
+        "issue_id": 163,
+        "content": "From P4-2 (#156, date-creusot/analysis/p4-verifier-fit/): all 9 obligations transfer. Restate specs in floor division: Verus spec / is Euclidean, so the C++ era trick must not be copied (date-creusot-067). from_days and round_trip prove with no lemmas at #[verifier::rlimit(200)]; record the budget or add helper lemmas such as year_of_era_exact (date-creusot-068). Separate crate in its own single-verifier workspace; the date-creusot Nix shell has no Verus (swisstable-verus, crypto-mixed and default do). Probe sources: probes/verus/civil_rlimit.rs.",
+        "created_at": "2026-10-21T15:27:52.574142781Z",
+        "kind": "handoff"
+      }
+    ],
+    "blocked_by": [
+      162
+    ],
+    "blocking": [
+      164
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 164,
+    "title": "[p4 matrix] P4-10 P1 date: Kani-owned cluster",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell. Bounded Kani evidence for P1's selected obligations, then G14 (bounded). Compare with the Creusot and Verus results.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.204850719Z",
+    "updated_at": "2026-10-21T02:37:42.204850719Z",
+    "closed_at": null,
+    "labels": [
+      "p1-date-creusot",
+      "p4-matrix"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 455,
+        "issue_id": 164,
+        "content": "From P4-2 (#156): Kani compiles P1's Creusot crate unchanged and proves the round trip over the full valid domain in ~26 s (loop-free, no unwind). C002's Kani wording is a decision at #161. G14 will still require a CG3 record even though P1 has no generic code; record that as a finding, not an escalation. Use cargo kani --exact --harness <path> (swisstable-kani-002). Probe: date-creusot/analysis/p4-verifier-fit/probes/kani/.",
+        "created_at": "2026-10-21T15:27:54.336267985Z",
+        "kind": "handoff"
+      }
+    ],
+    "blocked_by": [
+      163
+    ],
+    "blocking": [
+      165
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 165,
+    "title": "[p4 matrix] P4-11 P2 SwissTable: Creusot-owned cluster",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell. Creusot for P2's map model and the obligations P4-3 marked feasible, then G14. Record where Creusot stops short of Verus.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.261554731Z",
+    "updated_at": "2026-10-21T02:37:42.261554731Z",
+    "closed_at": null,
+    "labels": [
+      "p2-swisstable-verus",
+      "p4-matrix"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 456,
+        "issue_id": 165,
+        "content": "From P4-3 (#157): the map model is a Creusot strength; P2's derived-set lemmas (the -023 step) prove unaided. Bit arithmetic needs #[bitwise_proof] on each mask/shift function with specs compared on u64; u64 division is not available in logic, and hash>>7 == hash/128 needs a lemma (swisstable-creusot-001). The cell is a full Pearlite rewrite: 66 requires, 71 ensures, 63 loop invariants, 44 spec fns, 7 proof fns. Probes: swisstable-verus/analysis/p4-verifier-fit/probes/creusot/.",
+        "created_at": "2026-10-21T15:27:56.490283868Z",
+        "kind": "handoff"
+      }
+    ],
+    "blocked_by": [
+      164
+    ],
+    "blocking": [
+      166
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 166,
+    "title": "[p4 matrix] P4-12 P2 SwissTable: Kani-owned cluster (unsafe slots, SIMD probing)",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell, from the #35/#36 ideas. Kani for the layers Verus cannot reach (raw or unsafe slots, SIMD group probing), then G14 (bounded).",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.319033017Z",
+    "updated_at": "2026-10-21T02:37:42.319033017Z",
+    "closed_at": null,
+    "labels": [
+      "p2-swisstable-verus",
+      "p4-matrix"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 457,
+        "issue_id": 166,
+        "content": "From P4-3 (#157): Kani compiles P2's Verus crate unchanged and checks insert/contains/erase for any key at capacity 31 in ~48 s (unwind 50); claims hold only for harnessed capacities. Upstream's SSE2 Match and MaskEmptyOrDeleted are provable equal to scalar (~2 s each). Raw MaybeUninit slots cannot be checked for initialization by Kani 0.67 (swisstable-kani-001). Scope (scalar only vs SSE2 vs raw slots) is a decision at #161. Use --exact with --harness (swisstable-kani-002). Probes: swisstable-verus/analysis/p4-verifier-fit/probes/kani/.",
+        "created_at": "2026-10-21T15:27:58.738172132Z",
+        "kind": "handoff"
+      }
+    ],
+    "blocked_by": [
+      165
+    ],
+    "blocking": [
+      167
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 167,
+    "title": "[p4 matrix] P4-13 P3 crypto: Creusot-owned cluster",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell. Creusot for the obligations P4-4 marked feasible (core-functional arithmetic), then G14 (deductive).",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.375744093Z",
+    "updated_at": "2026-10-21T02:37:42.375744093Z",
+    "closed_at": null,
+    "labels": [
+      "p3-crypto-mixed",
+      "p4-matrix"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 458,
+        "issue_id": 167,
+        "content": "From P4-4 (#158, crypto-mixed/analysis/p4-verifier-fit/): write core-functional obligations first (quarter-round, block, Poly1305 limbs); P3's current 6 obligations and 3 bridges are bytes-layer only. Creusot proves the quarter-round against RFC 8439 in #[bitwise_proof] mode with rotation as shifts, and Poly1305 d0's limb products free of u64 overflow unaided. creusot-std has no contract for rotate_left, from_le_bytes, to_le_bytes, fill, extend_from_slice (crypto-creusot-001): extern_spec! or rewrite (decision at #161). Poly1305 functional correctness mod 2^130-5 is not probed; without it the cell is partial.",
+        "created_at": "2026-10-21T15:44:49.536476628Z",
+        "kind": "handoff"
+      }
+    ],
+    "blocked_by": [
+      166
+    ],
+    "blocking": [
+      168
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 168,
+    "title": "[p4 matrix] P4-14 P3 crypto: Verus-owned cluster (the #43-deferred core-functional cluster)",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis A cell. The Verus pass deferred by #43, for the quarter-round, block and Poly1305 limb arithmetic, then G14 (deductive). Revisit the accepted CG3 ceiling (#135) if Verus can settle it.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.432813036Z",
+    "updated_at": "2026-10-21T02:37:42.432813036Z",
+    "closed_at": null,
+    "labels": [
+      "p3-crypto-mixed",
+      "p4-matrix"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 459,
+        "issue_id": 168,
+        "content": "From P4-4 (#158, crypto-mixed/analysis/p4-verifier-fit/): write core-functional obligations first. Verus proves the quarter-round against RFC 8439 unaided with rotation as shifts. Poly1305 limb products need one by(nonlinear_arith) per product, 25 across d0-d4 (crypto-verus-002). Verus does not support rotate_left, from_le_bytes, to_le_bytes, copy_from_slice, fill, slice try_into (crypto-verus-001): assume_specification or rewrite (decision at #161). Separate crate (1.95.0, vstd); Kani harnesses can overlay. Under Q1 a CG3 refusal on the pure Verus closure is a Ligature defect. #135's note: do not relabel the Kani per-instantiation records; reopen #135 for P4/Verus work if needed.",
+        "created_at": "2026-10-21T15:44:52.369924096Z",
+        "kind": "handoff"
+      }
+    ],
+    "blocked_by": [
+      167
+    ],
+    "blocking": [
+      169
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 169,
+    "title": "[p4 matrix] P4-15 Supporting-verifier configurations",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis B. A supporting verifier backing a primary one: Verus + Kani (P2), Creusot + Kani (P1), and one deductive + deductive pair. Record what verifier_policy.supporting changes in G14/G17, if anything (see P4-5).",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.490106217Z",
+    "updated_at": "2026-10-21T02:37:42.490106217Z",
+    "closed_at": null,
+    "labels": [
+      "p4-matrix"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      168
+    ],
+    "blocking": [
+      170
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 170,
+    "title": "[p4 matrix] P4-16 Mixed verifiers in one closure: single_verifier_system and G14 behaviour (supersedes #50)",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis B, from #50. Put two verifiers in one cluster on purpose, observe single_verifier_system, G14 and G17, and record what the CG1 degradation record needs (harness-tested ceiling).",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.529012159Z",
+    "updated_at": "2026-10-21T02:37:42.529012159Z",
+    "closed_at": null,
+    "labels": [
+      "p3-crypto-mixed",
+      "p4-matrix",
+      "probe"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      169
+    ],
+    "blocking": [
+      171
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 171,
+    "title": "[p4 matrix] P4-17 Per-verifier cluster split with a boundary contract on the cross-verifier edge (supersedes #51)",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis B, from #51. Split P4-16's cluster into per-verifier clusters with a boundary contract on the cross-verifier edge. Record which variant Ligature accepts and what the degradation record needs.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.604025174Z",
+    "updated_at": "2026-10-21T02:37:42.604025174Z",
+    "closed_at": null,
+    "labels": [
+      "p3-crypto-mixed",
+      "p4-matrix",
+      "probe"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      170
+    ],
+    "blocking": [
+      172
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 172,
+    "title": "[p4 matrix] P4-18 Cross-cluster dependencies for all six directed verifier pairs",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis B. Exercise each direction (C->V, V->C, C->K, K->C, V->K, K->V) of a cluster relying on a cluster owned by another verifier, in the port P4-7 assigns to each pair. Record G14/G17 outcomes and degradation needs.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.679549383Z",
+    "updated_at": "2026-10-21T02:37:42.679549383Z",
+    "closed_at": null,
+    "labels": [
+      "p4-matrix"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      171
+    ],
+    "blocking": [
+      173
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 173,
+    "title": "[p4 matrix] P4-19 P3 crypto: all three verifiers in one workspace",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nAxis B. One workspace with a Verus cluster (ChaCha), a Creusot cluster (Poly1305) and a Kani cluster (byte layer), per the P4-6 layout. Take every cluster through G14, run check-bridges and record-assurance for all three, and record how the clusters interact.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.718325232Z",
+    "updated_at": "2026-10-21T02:37:42.718325232Z",
+    "closed_at": null,
+    "labels": [
+      "p3-crypto-mixed",
+      "p4-matrix"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 460,
+        "issue_id": 173,
+        "content": "From P4-4 (#158): suggested split for all three verifiers on P3: ChaCha20 core (quarter-round, block) on Verus, which proves the quarter-round unaided; Poly1305 limbs on Creusot, which proves the limb products unaided; AEAD and keystream bytes layer, with the existing 6 obligations and 3 bridges, on Kani. Both deductive cells first need the std-spec decision from #161.",
+        "created_at": "2026-10-21T15:44:54.127193883Z",
+        "kind": "handoff"
+      }
+    ],
+    "blocked_by": [
+      172
+    ],
+    "blocking": [
+      174
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 174,
+    "title": "[p4 matrix] P4-20 Record matrix results per configuration (input to #69)",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Human checkpoints (approve, record-ruling, accept-promotion, authorize-write grants) are run by the operator. Ligature is open-ended: file an epic #1 report only when Ligature fails at what it claims to do; record by-design limits as findings.\n\nFill the P4-1 matrix with observed outcomes (works / friction / blocker, closure kind reached, degradation records), with links to findings. This is the input to the tool-reach matrix in #69.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 154,
+    "created_at": "2026-10-21T02:37:42.775520972Z",
+    "updated_at": "2026-10-21T02:37:42.775520972Z",
+    "closed_at": null,
+    "labels": [
+      "deliverables",
+      "p4-matrix"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      173
+    ],
+    "blocking": [
+      55
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 55,
+    "title": "C.1 tool artifact collision (metadata file where a WP manifest is expected)",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Pilot root for this issue: workspace root (this issue is not scoped to one pilot).\n\nRecord result in the owning root's findings/limitations.jsonl.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 54,
+    "created_at": "2026-09-24T17:03:07.587140236Z",
+    "updated_at": "2026-09-25T11:51:11.504574531Z",
+    "closed_at": null,
+    "labels": [
+      "cross-cutting"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [
+      18,
+      51,
+      174
+    ],
+    "blocking": [
+      56
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 67,
+    "title": "EPIC: Final deliverables - LIMITATIONS.md roll-up + tool-reach matrix",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Pilot root for this issue: workspace root (this issue is not scoped to one pilot).\n\nRoll up the three findings/limitations.jsonl into top-level LIMITATIONS.md grouped by chain A/B/C; per-pilot summary (capabilities, case counts, exclusions w/ revisit triggers, achieved closure_kind); tool-reach matrix {ligature stage x Creusot/Verus/Kani/nextest/rdb/MCP}. Offer to publish as a shareable page.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": null,
+    "created_at": "2026-09-24T17:03:08.059952780Z",
+    "updated_at": "2026-09-25T11:51:12.418414216Z",
+    "closed_at": null,
+    "labels": [
+      "deliverables",
+      "epic"
+    ],
+    "milestone": null,
+    "comments": [],
+    "blocked_by": [],
+    "blocking": [],
+    "subissues": [
+      {
+        "id": 68,
+        "title": "Roll-up generator for LIMITATIONS.md",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Pilot root for this issue: workspace root (this issue is not scoped to one pilot).\n\nScript that merges each root's findings into LIMITATIONS.md; re-run after each pilot.",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 67,
+        "created_at": "2026-09-24T17:03:08.118316476Z",
+        "updated_at": "2026-09-25T11:51:12.492580479Z",
+        "closed_at": null
+      },
+      {
+        "id": 69,
+        "title": "Tool-reach matrix + per-pilot summaries",
+        "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Pilot root for this issue: workspace root (this issue is not scoped to one pilot).\n\nworks / friction / blocker per cell.",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 67,
+        "created_at": "2026-09-24T17:03:08.158031274Z",
+        "updated_at": "2026-09-25T11:51:12.559371411Z",
+        "closed_at": null
+      },
+      {
+        "id": 115,
+        "title": "[deliverables] Backfill <pilot>/PORT-GAPS.md for date-creusot (P1) from its findings and README",
+        "description": "Read WORKER-CONTRACT.md \u00a76.5 first. P1 (date-creusot) finished before PORT-GAPS.md existed. Go through date-creusot/findings/limitations.jsonl, README.md and analysis/ and write date-creusot/PORT-GAPS.md covering every C++->Rust transfer gap found in P1. Examples: Creusot logic-emission limits that forced inlined contracts (cross-module logic twins, bool logic fns opaque), the round_trip missing-ensures diagnosis, const fn reach, era-arithmetic overflow obligations, codesight's C++-header misclassification, subset scope cuts relative to HowardHinnant/date, and oracle coverage limits. Each entry uses the \u00a76.5 fields, links its finding ids, and has a generalizable lesson. Documentation only: touch only date-creusot/PORT-GAPS.md. No ligature pipeline commands that write. Post ONE evidence comment listing the entries. Don't close this issue.",
+        "status": "open",
+        "priority": "medium",
+        "parent_id": 67,
+        "created_at": "2026-10-02T21:58:41.394662194Z",
+        "updated_at": "2026-10-02T21:58:41.394662194Z",
+        "closed_at": null
+      }
+    ],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 68,
+    "title": "Roll-up generator for LIMITATIONS.md",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Pilot root for this issue: workspace root (this issue is not scoped to one pilot).\n\nScript that merges each root's findings into LIMITATIONS.md; re-run after each pilot.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 67,
+    "created_at": "2026-09-24T17:03:08.118316476Z",
+    "updated_at": "2026-09-25T11:51:12.492580479Z",
+    "closed_at": null,
+    "labels": [
+      "deliverables"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 219,
+        "issue_id": 68,
+        "content": "Added 2026-10-02: the roll-up must also merge each pilot's PORT-GAPS.md (WORKER-CONTRACT \u00a76.5) into a single C++->Rust transfer-gaps section, grouped by category with generalizable lessons, in a form the operator can add to their knowledge repository.",
+        "created_at": "2026-10-02T21:58:41.436529860Z",
+        "kind": "note"
+      }
+    ],
+    "blocked_by": [
+      18,
+      66
+    ],
+    "blocking": [
+      69
+    ],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  },
+  {
+    "id": 69,
+    "title": "Tool-reach matrix + per-pilot summaries",
+    "description": "Read WORKER-CONTRACT.md (workspace root) before starting. Pilot root for this issue: workspace root (this issue is not scoped to one pilot).\n\nworks / friction / blocker per cell.",
+    "status": "open",
+    "priority": "medium",
+    "parent_id": 67,
+    "created_at": "2026-09-24T17:03:08.158031274Z",
+    "updated_at": "2026-09-25T11:51:12.559371411Z",
+    "closed_at": null,
+    "labels": [
+      "deliverables"
+    ],
+    "milestone": null,
+    "comments": [
+      {
+        "id": 220,
+        "issue_id": 69,
+        "content": "Added 2026-10-02: the roll-up must also merge each pilot's PORT-GAPS.md (WORKER-CONTRACT \u00a76.5) into a single C++->Rust transfer-gaps section, grouped by category with generalizable lessons, in a form the operator can add to their knowledge repository.",
+        "created_at": "2026-10-02T21:58:41.456865227Z",
+        "kind": "note"
+      }
+    ],
+    "blocked_by": [
+      49,
+      68
+    ],
+    "blocking": [],
+    "subissues": [],
+    "related": [],
+    "relations": []
+  }
+]

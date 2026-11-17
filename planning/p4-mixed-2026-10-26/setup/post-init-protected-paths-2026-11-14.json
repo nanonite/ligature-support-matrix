@@ -1,0 +1,1132 @@
+{
+  "authorization_note": "Observation only. It creates no grant and authorizes no further protected write.",
+  "observed_at": "2026-11-14T22:18:07.606875+00:00",
+  "roots": {
+    "icl-creusot-verus": {
+      "absent_entries": 16,
+      "entry_count": 23,
+      "paths": [
+        {
+          "creation_route": "Operator runs the approved `ligature.pyz init` in this root (T2/operator action); no path-specific grant exists in #177.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": "project-descriptor.json",
+              "sha256": "9019d93c9b2fd7527f4b8a685bf99a7fed65cfee60b1444641dbb63968bc8994",
+              "type": "file"
+            }
+          ],
+          "observed_status": "present",
+          "path": "project-descriptor.json",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Created by the approved `ligature.pyz init`; operator-managed.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": ".ligature",
+              "type": "directory"
+            },
+            {
+              "path": ".ligature/prompts",
+              "type": "directory"
+            },
+            {
+              "path": ".ligature/schemas",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": ".ligature/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Supplied by the approved Ligature install/init; operator-managed.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": "schemas",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": "schemas/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator installs the approved bundle (1.4.3, SHA-256 1a7a50eab31584946d8a7035ac3633130b0dc52d473d2587f3cd26e2800fd4e1) with SHA256SUMS/PROVENANCE; no copy performed by #177.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": "tools/ligature",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": "tools/ligature/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "`ligature.pyz scaffold-crate --issue <N> --crate <name> --grant-id <id> --json` under an exact active manifest grant, or operator exact-path write.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/icl-creusot/Cargo.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "`ligature.pyz scaffold-crate --issue <N> --crate <name> --grant-id <id> --json` under an exact active manifest grant, or operator exact-path write.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/icl-verus/Cargo.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "No sanctioned general lock writer in Ligature 1.4.3; operator exact-path action under an exact issue/path grant.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/icl-creusot/Cargo.lock",
+          "status": "absent"
+        },
+        {
+          "creation_route": "No sanctioned general lock writer in Ligature 1.4.3; operator exact-path action under an exact issue/path grant.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/icl-verus/Cargo.lock",
+          "status": "absent"
+        },
+        {
+          "creation_route": "No sanctioned nested-toolchain writer; operator exact-path action under an exact issue/path grant.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/icl-creusot/rust-toolchain.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "No sanctioned nested-toolchain writer; operator exact-path action under an exact issue/path grant.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/icl-verus/rust-toolchain.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator exact-path action; carries verifier-specific config/patch.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/icl-creusot/.cargo/config.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator exact-path action; carries verifier-specific config/patch.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/icl-verus/.cargo/config.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator exact-path action; protected by policy proposal.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/icl-creusot/build.rs",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator exact-path action; protected by policy proposal.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/icl-verus/build.rs",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Ligature `draft`/promotion workflow under issue-specific grants; never hand-written.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/icl-creusot/specs/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Ligature `draft`/promotion workflow under issue-specific grants; never hand-written.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/icl-verus/specs/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator/sanctioned exact-path action; no grant in #177.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": "ci",
+              "type": "directory"
+            },
+            {
+              "path": "ci/manifest",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": "ci/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator/sanctioned exact-path action; no grant in #177.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": "scripts",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": "scripts/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator/sanctioned exact-path action; no grant in #177.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "tests/harnesses/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator-managed local environment file.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": ".envrc",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator-managed local MCP configuration.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": ".mcp.json",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator-managed CI configuration.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": ".github/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Managed with the approved Ligature install.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": ".codex/skills/ligature",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": ".codex/skills/ligature/**",
+          "status": "absent"
+        }
+      ],
+      "present_entries": 7,
+      "project": "M4",
+      "verifiers": [
+        "creusot",
+        "verus"
+      ]
+    },
+    "leveldb-three-verifiers": {
+      "absent_entries": 22,
+      "entry_count": 29,
+      "paths": [
+        {
+          "creation_route": "Operator runs the approved `ligature.pyz init` in this root (T2/operator action); no path-specific grant exists in #177.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": "project-descriptor.json",
+              "sha256": "19960904d8165dfa7208b747c1a92901e1706fabecd0ebdf321532cf907e74b2",
+              "type": "file"
+            }
+          ],
+          "observed_status": "present",
+          "path": "project-descriptor.json",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Created by the approved `ligature.pyz init`; operator-managed.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": ".ligature",
+              "type": "directory"
+            },
+            {
+              "path": ".ligature/prompts",
+              "type": "directory"
+            },
+            {
+              "path": ".ligature/schemas",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": ".ligature/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Supplied by the approved Ligature install/init; operator-managed.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": "schemas",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": "schemas/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator installs the approved bundle (1.4.3, SHA-256 1a7a50eab31584946d8a7035ac3633130b0dc52d473d2587f3cd26e2800fd4e1) with SHA256SUMS/PROVENANCE; no copy performed by #177.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": "tools/ligature",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": "tools/ligature/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "`ligature.pyz scaffold-crate --issue <N> --crate <name> --grant-id <id> --json` under an exact active manifest grant, or operator exact-path write.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/leveldb-creusot/Cargo.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "`ligature.pyz scaffold-crate --issue <N> --crate <name> --grant-id <id> --json` under an exact active manifest grant, or operator exact-path write.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/leveldb-verus/Cargo.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "`ligature.pyz scaffold-crate --issue <N> --crate <name> --grant-id <id> --json` under an exact active manifest grant, or operator exact-path write.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/leveldb-kani/Cargo.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "No sanctioned general lock writer in Ligature 1.4.3; operator exact-path action under an exact issue/path grant.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/leveldb-creusot/Cargo.lock",
+          "status": "absent"
+        },
+        {
+          "creation_route": "No sanctioned general lock writer in Ligature 1.4.3; operator exact-path action under an exact issue/path grant.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/leveldb-verus/Cargo.lock",
+          "status": "absent"
+        },
+        {
+          "creation_route": "No sanctioned general lock writer in Ligature 1.4.3; operator exact-path action under an exact issue/path grant.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/leveldb-kani/Cargo.lock",
+          "status": "absent"
+        },
+        {
+          "creation_route": "No sanctioned nested-toolchain writer; operator exact-path action under an exact issue/path grant.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/leveldb-creusot/rust-toolchain.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "No sanctioned nested-toolchain writer; operator exact-path action under an exact issue/path grant.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/leveldb-verus/rust-toolchain.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "No sanctioned nested-toolchain writer; operator exact-path action under an exact issue/path grant.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/leveldb-kani/rust-toolchain.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator exact-path action; carries verifier-specific config/patch.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/leveldb-creusot/.cargo/config.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator exact-path action; carries verifier-specific config/patch.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/leveldb-verus/.cargo/config.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator exact-path action; carries verifier-specific config/patch.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/leveldb-kani/.cargo/config.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator exact-path action; protected by policy proposal.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/leveldb-creusot/build.rs",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator exact-path action; protected by policy proposal.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/leveldb-verus/build.rs",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator exact-path action; protected by policy proposal.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/leveldb-kani/build.rs",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Ligature `draft`/promotion workflow under issue-specific grants; never hand-written.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/leveldb-creusot/specs/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Ligature `draft`/promotion workflow under issue-specific grants; never hand-written.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/leveldb-verus/specs/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Ligature `draft`/promotion workflow under issue-specific grants; never hand-written.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/leveldb-kani/specs/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator/sanctioned exact-path action; no grant in #177.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": "ci",
+              "type": "directory"
+            },
+            {
+              "path": "ci/manifest",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": "ci/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator/sanctioned exact-path action; no grant in #177.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": "scripts",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": "scripts/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator/sanctioned exact-path action; no grant in #177.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "tests/harnesses/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator-managed local environment file.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": ".envrc",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator-managed local MCP configuration.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": ".mcp.json",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator-managed CI configuration.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": ".github/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Managed with the approved Ligature install.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": ".codex/skills/ligature",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": ".codex/skills/ligature/**",
+          "status": "absent"
+        }
+      ],
+      "present_entries": 7,
+      "project": "M7",
+      "verifiers": [
+        "creusot",
+        "verus",
+        "kani"
+      ]
+    },
+    "snappy-verus-kani": {
+      "absent_entries": 16,
+      "entry_count": 23,
+      "paths": [
+        {
+          "creation_route": "Operator runs the approved `ligature.pyz init` in this root (T2/operator action); no path-specific grant exists in #177.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": "project-descriptor.json",
+              "sha256": "8281ed887eb3e6153546dcf276542a7f982e349b033c40decb80ab24478ec55e",
+              "type": "file"
+            }
+          ],
+          "observed_status": "present",
+          "path": "project-descriptor.json",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Created by the approved `ligature.pyz init`; operator-managed.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": ".ligature",
+              "type": "directory"
+            },
+            {
+              "path": ".ligature/prompts",
+              "type": "directory"
+            },
+            {
+              "path": ".ligature/schemas",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": ".ligature/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Supplied by the approved Ligature install/init; operator-managed.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": "schemas",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": "schemas/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator installs the approved bundle (1.4.3, SHA-256 1a7a50eab31584946d8a7035ac3633130b0dc52d473d2587f3cd26e2800fd4e1) with SHA256SUMS/PROVENANCE; no copy performed by #177.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": "tools/ligature",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": "tools/ligature/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "`ligature.pyz scaffold-crate --issue <N> --crate <name> --grant-id <id> --json` under an exact active manifest grant, or operator exact-path write.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/snappy-verus/Cargo.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "`ligature.pyz scaffold-crate --issue <N> --crate <name> --grant-id <id> --json` under an exact active manifest grant, or operator exact-path write.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/snappy-kani/Cargo.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "No sanctioned general lock writer in Ligature 1.4.3; operator exact-path action under an exact issue/path grant.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/snappy-verus/Cargo.lock",
+          "status": "absent"
+        },
+        {
+          "creation_route": "No sanctioned general lock writer in Ligature 1.4.3; operator exact-path action under an exact issue/path grant.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/snappy-kani/Cargo.lock",
+          "status": "absent"
+        },
+        {
+          "creation_route": "No sanctioned nested-toolchain writer; operator exact-path action under an exact issue/path grant.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/snappy-verus/rust-toolchain.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "No sanctioned nested-toolchain writer; operator exact-path action under an exact issue/path grant.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/snappy-kani/rust-toolchain.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator exact-path action; carries verifier-specific config/patch.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/snappy-verus/.cargo/config.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator exact-path action; carries verifier-specific config/patch.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/snappy-kani/.cargo/config.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator exact-path action; protected by policy proposal.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/snappy-verus/build.rs",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator exact-path action; protected by policy proposal.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/snappy-kani/build.rs",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Ligature `draft`/promotion workflow under issue-specific grants; never hand-written.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/snappy-verus/specs/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Ligature `draft`/promotion workflow under issue-specific grants; never hand-written.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/snappy-kani/specs/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator/sanctioned exact-path action; no grant in #177.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": "ci",
+              "type": "directory"
+            },
+            {
+              "path": "ci/manifest",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": "ci/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator/sanctioned exact-path action; no grant in #177.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": "scripts",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": "scripts/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator/sanctioned exact-path action; no grant in #177.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "tests/harnesses/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator-managed local environment file.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": ".envrc",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator-managed local MCP configuration.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": ".mcp.json",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator-managed CI configuration.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": ".github/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Managed with the approved Ligature install.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": ".codex/skills/ligature",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": ".codex/skills/ligature/**",
+          "status": "absent"
+        }
+      ],
+      "present_entries": 7,
+      "project": "M6",
+      "verifiers": [
+        "verus",
+        "kani"
+      ]
+    },
+    "tinyxml2-creusot-kani": {
+      "absent_entries": 16,
+      "entry_count": 23,
+      "paths": [
+        {
+          "creation_route": "Operator runs the approved `ligature.pyz init` in this root (T2/operator action); no path-specific grant exists in #177.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": "project-descriptor.json",
+              "sha256": "cefc5dc5785a510cea6e4421058a55f4a9178cec6f859df87b04cab3d4357ade",
+              "type": "file"
+            }
+          ],
+          "observed_status": "present",
+          "path": "project-descriptor.json",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Created by the approved `ligature.pyz init`; operator-managed.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": ".ligature",
+              "type": "directory"
+            },
+            {
+              "path": ".ligature/prompts",
+              "type": "directory"
+            },
+            {
+              "path": ".ligature/schemas",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": ".ligature/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Supplied by the approved Ligature install/init; operator-managed.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": "schemas",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": "schemas/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator installs the approved bundle (1.4.3, SHA-256 1a7a50eab31584946d8a7035ac3633130b0dc52d473d2587f3cd26e2800fd4e1) with SHA256SUMS/PROVENANCE; no copy performed by #177.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": "tools/ligature",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": "tools/ligature/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "`ligature.pyz scaffold-crate --issue <N> --crate <name> --grant-id <id> --json` under an exact active manifest grant, or operator exact-path write.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/tinyxml2-creusot/Cargo.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "`ligature.pyz scaffold-crate --issue <N> --crate <name> --grant-id <id> --json` under an exact active manifest grant, or operator exact-path write.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/tinyxml2-kani/Cargo.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "No sanctioned general lock writer in Ligature 1.4.3; operator exact-path action under an exact issue/path grant.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/tinyxml2-creusot/Cargo.lock",
+          "status": "absent"
+        },
+        {
+          "creation_route": "No sanctioned general lock writer in Ligature 1.4.3; operator exact-path action under an exact issue/path grant.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/tinyxml2-kani/Cargo.lock",
+          "status": "absent"
+        },
+        {
+          "creation_route": "No sanctioned nested-toolchain writer; operator exact-path action under an exact issue/path grant.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/tinyxml2-creusot/rust-toolchain.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "No sanctioned nested-toolchain writer; operator exact-path action under an exact issue/path grant.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/tinyxml2-kani/rust-toolchain.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator exact-path action; carries verifier-specific config/patch.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/tinyxml2-creusot/.cargo/config.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator exact-path action; carries verifier-specific config/patch.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/tinyxml2-kani/.cargo/config.toml",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator exact-path action; protected by policy proposal.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/tinyxml2-creusot/build.rs",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator exact-path action; protected by policy proposal.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/tinyxml2-kani/build.rs",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Ligature `draft`/promotion workflow under issue-specific grants; never hand-written.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/tinyxml2-creusot/specs/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Ligature `draft`/promotion workflow under issue-specific grants; never hand-written.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "rust/tinyxml2-kani/specs/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator/sanctioned exact-path action; no grant in #177.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": "ci",
+              "type": "directory"
+            },
+            {
+              "path": "ci/manifest",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": "ci/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator/sanctioned exact-path action; no grant in #177.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": "scripts",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": "scripts/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator/sanctioned exact-path action; no grant in #177.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": "tests/harnesses/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator-managed local environment file.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": ".envrc",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator-managed local MCP configuration.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": ".mcp.json",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Operator-managed CI configuration.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [],
+          "observed_status": "absent",
+          "path": ".github/**",
+          "status": "absent"
+        },
+        {
+          "creation_route": "Managed with the approved Ligature install.",
+          "grant_issued_in_177": false,
+          "grant_required": true,
+          "observed_matches": [
+            {
+              "path": ".codex/skills/ligature",
+              "type": "directory"
+            }
+          ],
+          "observed_status": "present",
+          "path": ".codex/skills/ligature/**",
+          "status": "absent"
+        }
+      ],
+      "present_entries": 7,
+      "project": "M5",
+      "verifiers": [
+        "creusot",
+        "kani"
+      ]
+    }
+  },
+  "schema": "p4-post-init-protected-path-observation/1",
+  "source_entry_count": 98,
+  "source_snapshot": "planning/p4-mixed-2026-10-26/setup/protected-write-enumeration.json"
+}
