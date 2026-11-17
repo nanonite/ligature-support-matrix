@@ -1,0 +1,4 @@
+ligature 1.5.1
+  content hash: sha256:def6b87957ff4e26737e18a469a7df447fdadb5df3eac5180db881c42baccfcb
+  bundle: 133 file(s)
+  source: 29acabdb6c70dbab4213ca73626d3fed78afcbcf (clean working tree)

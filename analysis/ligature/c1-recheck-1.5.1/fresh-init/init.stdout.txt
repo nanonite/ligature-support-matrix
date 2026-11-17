@@ -1,0 +1,24 @@
+installation: current
+mode: port  project: c1-fresh
+skill authority hash: verified
+     create  .codex/skills/ligature/SKILL.md
+     create  .ligature/prompts/stage-0-evidence-intake.md
+     create  .ligature/prompts/stage-3-boundary-drafting.md
+     create  .ligature/prompts/stage-3-bridge-drafting.md
+     create  .ligature/prompts/stage-3-closure-profile-drafting.md
+     create  .ligature/prompts/stage-3-concept-to-code.md
+     create  .ligature/prompts/stage-3-conflict-resolution-drafting.md
+     create  .ligature/prompts/stage-3-degradation-drafting.md
+     create  .ligature/prompts/stage-3-exemption-drafting.md
+     create  .ligature/prompts/stage-3-interaction-drafting.md
+     create  .ligature/prompts/stage-3-protocol-debt-drafting.md
+     create  .ligature/prompts/stage-3-witness-drafting.md
+     create  .ligature/schemas/consolidated-check.schema.json
+     create  .ligature/schemas/project-descriptor.schema.json
+     create  .ligature/schemas/project-state.schema.json
+     create  docs/reliance-policy.md  (the policy document's `Policy version:` line carries no `<name>@<major>.<minor>` value (the template `init` ships the placeholder `<policy-name>@<major>.<minor>`); stamp it with `ligature accept-policy --reviewer <name> --version <name>@<major>.<minor>`)
+     create  project-descriptor.json
+     create  schemas/project-descriptor.schema.json
+     create  scripts/witness_renderer.py
+     create  scripts/xml_escape.py
+ownership manifest: ci/manifest/installation.json

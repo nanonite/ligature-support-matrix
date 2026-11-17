@@ -1,0 +1,5 @@
+Installation:
+  installation: current
+  mode: port  project: c1-fresh
+  skill authority hash: verified
+    unchanged  .codex/skills/ligature/SKILL.md

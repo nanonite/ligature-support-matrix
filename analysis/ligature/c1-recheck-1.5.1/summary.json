@@ -1,0 +1,61 @@
+{
+  "crypto-mixed": {
+    "artifact_count": 31,
+    "installation_manifest_artifact": [],
+    "installation_manifest_state": "current",
+    "product": {
+      "name": "ligature",
+      "version": "1.5.1"
+    },
+    "work_package_artifacts": [
+      {
+        "lifecycle": "validated",
+        "path": "ci/manifest/WP-CRYPTO-MIXED-AEAD-001.json"
+      },
+      {
+        "lifecycle": "validated",
+        "path": "ci/manifest/WP-CRYPTO-MIXED-PRIMITIVES-001.json"
+      }
+    ]
+  },
+  "date-creusot": {
+    "artifact_count": 38,
+    "installation_manifest_artifact": [],
+    "installation_manifest_state": "current",
+    "product": {
+      "name": "ligature",
+      "version": "1.5.1"
+    },
+    "work_package_artifacts": [
+      {
+        "lifecycle": "validated",
+        "path": "ci/manifest/WP-DATE-CREUSOT.json"
+      }
+    ]
+  },
+  "fresh-init": {
+    "artifact_count": 0,
+    "installation_manifest_artifact": [],
+    "installation_manifest_state": "current",
+    "product": {
+      "name": "ligature",
+      "version": "1.5.1"
+    },
+    "work_package_artifacts": []
+  },
+  "swisstable-verus": {
+    "artifact_count": 13,
+    "installation_manifest_artifact": [],
+    "installation_manifest_state": "current",
+    "product": {
+      "name": "ligature",
+      "version": "1.5.1"
+    },
+    "work_package_artifacts": [
+      {
+        "lifecycle": "validated",
+        "path": "ci/manifest/WP-SWISSTABLE-VERUS.json"
+      }
+    ]
+  }
+}
