@@ -1,0 +1,262 @@
+{
+  "candidate_edges": [
+    "C->K: DOM value access calls StrPair::GetStr / entity processing.",
+    "K->C: XMLUtil::GetCharacterRef calls ConvertUTF32ToUTF8."
+  ],
+  "crates": [
+    {
+      "cargo_config": {
+        "class": "protected/operator-managed",
+        "path": "rust/tinyxml2-creusot/.cargo/config.toml",
+        "status": "absent"
+      },
+      "config_root": "/tmp/p4-<issue>-tinyxml2-creusot-kani/config/tinyxml2-creusot",
+      "lock": {
+        "class": "protected/operator-managed",
+        "path": "rust/tinyxml2-creusot/Cargo.lock",
+        "status": "absent"
+      },
+      "manifest": {
+        "class": "protected/operator-managed",
+        "path": "rust/tinyxml2-creusot/Cargo.toml",
+        "status": "absent"
+      },
+      "name": "tinyxml2-creusot",
+      "nested_toolchain": {
+        "class": "protected/operator-managed",
+        "path": "rust/tinyxml2-creusot/rust-toolchain.toml",
+        "status": "absent"
+      },
+      "path": "rust/tinyxml2-creusot",
+      "proof_evidence_root": "analysis/verification/<run-id>/tinyxml2-creusot",
+      "target_root": "/tmp/p4-<issue>-tinyxml2-creusot-kani/tinyxml2-creusot/target",
+      "toolchain": {
+        "rust": "nightly-2026-04-21 (rustc 1.97.0-nightly 66da6cae1 2026-04-20)",
+        "std_source": "/nix/store/22j5g9088m140fgx2l6vbskkmg5ra5pp-creusot-source/creusot-std",
+        "tool": "cargo-creusot 0.12.0-dev",
+        "tool_path": "/nix/store/9y9g4kpsppxn6zqmyfkvfcc2234qkdwv-creusot-wrapped/bin/cargo-creusot",
+        "why3": "Why3 1.8.2+git / why3find 1.3.0+dev; alt-ergo 2.6.3, z3 4.15.3, cvc4 1.8, cvc5 1.3.1"
+      },
+      "verifier": "creusot"
+    },
+    {
+      "cargo_config": {
+        "class": "protected/operator-managed",
+        "path": "rust/tinyxml2-kani/.cargo/config.toml",
+        "status": "absent"
+      },
+      "config_root": "/tmp/p4-<issue>-tinyxml2-creusot-kani/config/tinyxml2-kani",
+      "lock": {
+        "class": "protected/operator-managed",
+        "path": "rust/tinyxml2-kani/Cargo.lock",
+        "status": "absent"
+      },
+      "manifest": {
+        "class": "protected/operator-managed",
+        "path": "rust/tinyxml2-kani/Cargo.toml",
+        "status": "absent"
+      },
+      "name": "tinyxml2-kani",
+      "nested_toolchain": {
+        "class": "protected/operator-managed",
+        "path": "rust/tinyxml2-kani/rust-toolchain.toml",
+        "status": "absent"
+      },
+      "path": "rust/tinyxml2-kani",
+      "proof_evidence_root": "analysis/verification/<run-id>/tinyxml2-kani",
+      "target_root": "/tmp/p4-<issue>-tinyxml2-creusot-kani/tinyxml2-kani/target",
+      "toolchain": {
+        "rust": "1.95.0",
+        "tool": "cargo-kani 0.67.0 (CBMC 6.8.0)",
+        "tool_path": "/home/goya/.cargo/bin/cargo-kani"
+      },
+      "verifier": "kani"
+    }
+  ],
+  "created_at": "2026-11-14T19:26:49Z",
+  "git": {
+    "branch": "main",
+    "initial_commit": null,
+    "note": "git init only; no commit by #177"
+  },
+  "initial_exclusions": [
+    "DTD/XSL (outside upstream TinyXML2's stated support)",
+    "claims of complete XML-standard conformance",
+    "raw C++ pointer identity and invalid-pointer traces",
+    "all operating-system file behavior"
+  ],
+  "issue": 177,
+  "ligature": {
+    "bundle_installed": false,
+    "descriptor": null,
+    "initialized": false,
+    "reason": "No approved bundle or exact init/descriptor grant in #177; operator-managed."
+  },
+  "name": "TinyXML2",
+  "oracle": {
+    "build_root": "/tmp/p4-<issue>-tinyxml2-creusot-kani/oracle",
+    "comparison": "Typed DOM event streams, ordered attributes, selected mutation traces, serialization bytes where defined, upstream error classes and line numbers. Fix whitespace mode and depth/resource limits in every case.",
+    "dependencies": [
+      "tinyxml2.cpp and tinyxml2.h at the pinned commit",
+      "xmltest.cpp and selected resources/ and test/ cases at the same commit"
+    ],
+    "name": "TinyXML2 11.0.0 native oracle"
+  },
+  "ownership_hypothesis": {
+    "creusot": "Parser progress/recursive structure, DOM parent/sibling/ownership invariants, serialization, UTF32->UTF8 conversion.",
+    "kani": "Bounded StrPair normalization, entity scanning, length/radix/overflow buffer paths and XMLUtil::GetCharacterRef."
+  },
+  "production_claims": null,
+  "project": "M5",
+  "protected_hashes": {
+    "after": "planning/p4-mixed-2026-10-26/setup/protected-hashes-after.json",
+    "before": "planning/p4-mixed-2026-10-26/setup/protected-hashes-before.json",
+    "comparison": "planning/p4-mixed-2026-10-26/setup/protected-hashes-compare.json"
+  },
+  "protected_paths": [
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "project-descriptor.json",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": ".ligature/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "schemas/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "tools/ligature/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "rust/*/Cargo.toml",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "rust/*/Cargo.lock",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "rust/*/rust-toolchain.toml",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "rust/*/.cargo/config.toml",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "rust/*/build.rs",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "rust/*/specs/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "ci/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "scripts/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "tests/harnesses/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": ".envrc",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": ".mcp.json",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": ".github/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": ".codex/skills/ligature/**",
+      "status": "absent"
+    }
+  ],
+  "root": "tinyxml2-creusot-kani",
+  "root_kind": "independent-git-repository",
+  "schema": "p4-root-setup/1",
+  "smoke_check": {
+    "command": "planning/p4-mixed-2026-10-26/setup/p4-root-smoke-check.sh --probe tinyxml2-creusot-kani",
+    "evidence": "planning/p4-mixed-2026-10-26/setup/evidence/smoke-tinyxml2-creusot-kani.log",
+    "status": "pass",
+    "verifier_probes": {
+      "creusot": "pass",
+      "kani": "pass"
+    }
+  },
+  "source_pin": {
+    "checkout_status": "absent",
+    "commit": "9148bdf719e997d1f474be6bcc7943881046dba1",
+    "intake_issue": 183,
+    "manifest": "SOURCE-PIN.json",
+    "repository": "https://github.com/leethomason/tinyxml2",
+    "tag": "11.0.0"
+  },
+  "verifiers": [
+    "creusot",
+    "kani"
+  ],
+  "write_policy_proposal": {
+    "protected_or_operator_managed": [
+      "project-descriptor.json",
+      ".ligature/**",
+      "schemas/**",
+      "tools/ligature/**",
+      "rust/*/Cargo.toml",
+      "rust/*/Cargo.lock",
+      "rust/*/rust-toolchain.toml",
+      "rust/*/.cargo/config.toml",
+      "rust/*/build.rs",
+      "rust/*/specs/**",
+      "ci/**",
+      "scripts/**",
+      "tests/harnesses/**",
+      ".envrc",
+      ".mcp.json",
+      ".github/**",
+      ".codex/skills/ligature/**",
+      "outer-repository submodule registration"
+    ],
+    "status": "proposal-only; descriptor policy is operator-managed",
+    "worker_allowed": [
+      "README.md",
+      "SOURCE-PIN.json",
+      "PORT-GAPS.md",
+      "findings/**",
+      "oracle/**",
+      "analysis/**",
+      "rust/*/src/**",
+      "rust/*/tests/**",
+      "rust/*/verif/**",
+      ".gitignore"
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "checkout": {
+    "intake_issue": 183,
+    "planned_path": "upstream/",
+    "status": "absent"
+  },
+  "commit": "9148bdf719e997d1f474be6bcc7943881046dba1",
+  "commit_url": "https://github.com/leethomason/tinyxml2/commit/9148bdf719e997d1f474be6bcc7943881046dba1",
+  "issue": 177,
+  "name": "TinyXML2",
+  "note": "Pin declared at setup; #177 does not clone or vendor upstream source.",
+  "project": "M5",
+  "repository": "https://github.com/leethomason/tinyxml2",
+  "resolution_source": "planning/p4-mixed-2026-10-26/upstream-pins.json",
+  "schema": "p4-source-pin/1",
+  "selected_paths": [
+    "tinyxml2.cpp",
+    "tinyxml2.h",
+    "xmltest.cpp",
+    "resources/",
+    "test/"
+  ],
+  "tag": "11.0.0"
+}
