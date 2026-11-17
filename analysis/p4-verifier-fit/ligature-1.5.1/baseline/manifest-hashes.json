@@ -1,0 +1,21 @@
+{
+  "captured": "2026-11-17",
+  "note": "Pre-fix state for chainlink #196; manifests are tracked at HEAD and were not modified by this issue.",
+  "manifests": [
+    {
+      "path": "ci/manifest/WP-CRYPTO-MIXED-AEAD-001.json",
+      "sha256": "sha256:722d6521f069a80e2baa364b1d0b964abbdad24863fc3a57e7635ac1b26f8998",
+      "declared_managed_skill_hash": "sha256:431a8179e9364591db288c707b6b5c8a3f28bd6799db5932482e14ca83bf588a",
+      "actual_managed_skill_hash": "sha256:ee39e9e64d510dbb918eb1cab6185aae8df5f4054f84a5f09766a2033df39735",
+      "g13": "error"
+    },
+    {
+      "path": "ci/manifest/WP-CRYPTO-MIXED-PRIMITIVES-001.json",
+      "sha256": "sha256:6f28effcf9cdd2d9e0d014f33d48edfd461dd2ab85268420c09bd60ffded14a9",
+      "declared_managed_skill_hash": "sha256:431a8179e9364591db288c707b6b5c8a3f28bd6799db5932482e14ca83bf588a",
+      "actual_managed_skill_hash": "sha256:ee39e9e64d510dbb918eb1cab6185aae8df5f4054f84a5f09766a2033df39735",
+      "g13": "error"
+    }
+  ],
+  "protected_writes_ledger_sha256": "sha256:f640cef78c562ef768ffb6fae4f227950f1bd5f56b580153d7a49a6af943f39f"
+}

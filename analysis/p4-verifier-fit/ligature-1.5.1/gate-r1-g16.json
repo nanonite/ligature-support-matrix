@@ -1,0 +1,224 @@
+{
+  "exit_code": 0,
+  "findings": [
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-CHACHA20POLY1305-DEFAULT-001: intra-concept call ChaCha20Poly1305::default -> new is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-CHACHA20POLY1305-ENCRYPT-001: intra-concept call ChaCha20Poly1305::encrypt -> encryption_output_length is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-CHACHA20POLY1305-ENCRYPT-005: intra-concept call ChaCha20Poly1305::encrypt -> tag is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-CHACHA20POLY1305-DECRYPT-001: intra-concept call ChaCha20Poly1305::decrypt -> decryption_output_length is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-CHACHA20POLY1305-DECRYPT-002: intra-concept call ChaCha20Poly1305::decrypt -> tag is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-CHACHA20POLY1305-VERIFY-001: intra-concept call ChaCha20Poly1305::verify -> decryption_output_length is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-CHACHA20POLY1305-VERIFY-002: intra-concept call ChaCha20Poly1305::verify -> tag is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-CHACHA20-NEW-001: intra-concept call ChaCha20::new -> with_counter is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-CHACHA20-APPLY-KEYSTREAM-001: intra-concept call ChaCha20::apply_keystream -> bytes_remaining is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-POLY1305-DEFAULT-001: intra-concept call Poly1305::default -> new is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-POLY1305-SET-KEY-001: intra-concept call Poly1305::set_key -> load_key is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-POLY1305-UPDATE-001: intra-concept call Poly1305::update -> absorb is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-POLY1305-FINALIZE-001: intra-concept call Poly1305::finalize -> finish is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-POLY1305-FINALIZE-002: intra-concept call Poly1305::finalize -> new is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-POLY1305-COMPUTE-TAG-001: intra-concept call Poly1305::compute_tag -> keyed_with is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-POLY1305-COMPUTE-TAG-002: intra-concept call Poly1305::compute_tag -> absorb is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-POLY1305-COMPUTE-TAG-003: intra-concept call Poly1305::compute_tag -> finish is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-POLY1305-COMPUTE-TAG-CHUNKED-001: intra-concept call Poly1305::compute_tag_chunked -> keyed_with is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-POLY1305-COMPUTE-TAG-CHUNKED-002: intra-concept call Poly1305::compute_tag_chunked -> absorb is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-POLY1305-COMPUTE-TAG-CHUNKED-003: intra-concept call Poly1305::compute_tag_chunked -> absorb is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-POLY1305-COMPUTE-TAG-CHUNKED-004: intra-concept call Poly1305::compute_tag_chunked -> finish is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-POLY1305-COMPUTE-TAG-SEGMENTS-001: intra-concept call Poly1305::compute_tag_segments -> keyed_with is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-POLY1305-COMPUTE-TAG-SEGMENTS-002: intra-concept call Poly1305::compute_tag_segments -> absorb is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-POLY1305-COMPUTE-TAG-SEGMENTS-003: intra-concept call Poly1305::compute_tag_segments -> finish is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-POLY1305-KEYED-WITH-001: intra-concept call Poly1305::keyed_with -> new is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-POLY1305-KEYED-WITH-002: intra-concept call Poly1305::keyed_with -> load_key is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-POLY1305-ABSORB-001: intra-concept call Poly1305::absorb -> process_block is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-POLY1305-ABSORB-002: intra-concept call Poly1305::absorb -> process_block is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "CS-POLY1305-FINISH-001: intra-concept call Poly1305::finish -> process_block is an internal helper, ignored unless architecturally eligible",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "interaction 'I-CRYPTO-MIXED-001' (ChaCha20Poly1305.encrypt -> Poly1305.finalize) has no realized call in this observation -- intent without realization, not a coverage failure",
+      "severity": "info"
+    },
+    {
+      "gate": "R1",
+      "path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "reason": "interaction 'I-CRYPTO-MIXED-003' (ChaCha20Poly1305.encrypt -> Poly1305.set_key) has no realized call in this observation -- intent without realization, not a coverage failure",
+      "severity": "info"
+    }
+  ],
+  "format": "ligature.r1-g16-report.v1",
+  "gate_acceptance": "accepted",
+  "reports": [
+    {
+      "counts": {
+        "checked": 35,
+        "configuration_mismatches": 0,
+        "discovered": 35,
+        "reports": 1,
+        "undeclared_blocking": 0,
+        "undeclared_warnings": 0,
+        "unresolved": 0
+      },
+      "crate_dir": "crates/crypto-mixed-core",
+      "interaction_reconciliation": "complete",
+      "report_path": "/home/goya/storage/full-ligature-port-workspace/crypto-mixed/ci/results/c_static/crates_crypto-mixed-core.json",
+      "source_resolution": "complete"
+    }
+  ],
+  "summary": {
+    "counts": {
+      "checked": 35,
+      "configuration_mismatches": 0,
+      "discovered": 35,
+      "reports": 1,
+      "undeclared_blocking": 0,
+      "undeclared_warnings": 0,
+      "unresolved": 0
+    },
+    "discovery_completeness": "syntactic-lower-bound",
+    "interaction_reconciliation": "complete",
+    "source_resolution": "complete"
+  }
+}

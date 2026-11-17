@@ -1,0 +1,73 @@
+ligature 1.5.1
+  adjudicator: zipapp (attested: true)
+  content hash: sha256:def6b87957ff4e26737e18a469a7df447fdadb5df3eac5180db881c42baccfcb
+  bundle: 133 file(s)
+  bundled schemas: 36
+  required python: >= 3.10 (running 3.12.3)
+  platform: Linux/x86_64 (required: any)
+  artifact: /home/goya/storage/full-ligature-port-workspace/crypto-mixed/tools/ligature/ligature.pyz
+  source: 29acabdb6c70dbab4213ca73626d3fed78afcbcf (clean working tree)
+  verifier matrix: ligature.verifier-compatibility-matrix.v1 (matrix 1.0, 3/4 tested, sha256:435d0f1dfc9e63ae7c554399f609d52093449ac82b98ec11e5e8e02bd82418e6)
+    creusot-0.12.0-dev-nightly-2026-04-21-x86_64-linux: creusot 0.12.0-dev + creusot-std 0.12.0-dev, why3find 1.3.0+dev, Alt-Ergo 2.6.3, Z3 4.15.3, cvc4 1.8, cvc5 1.3.1; rust nightly-2026-04-21; linux/x86_64; status=tested pair=compatible; selectable=true; coverage=intake:true,synthetic:true,project-level:false
+      evidence: synthetic (creusot-synthetic-probe: docs/verifier-compatibility-evidence/creusot-0.12-probe/probe-result.json), synthetic (creusot-proof-log: docs/verifier-compatibility-evidence/creusot-0.12-probe/prove.log), intake-only (creusot-version: docs/verifier-compatibility-evidence/creusot-0.12-probe/creusot-version.txt), intake-only (creusot-nix-identity: docs/verifier-compatibility-evidence/creusot-0.12-probe/nix-path-info.json), intake-only (creusot-pilot-record: docs/verifier-compatibility-evidence/LIGATURE-VERIFIER-COMPATIBILITY.md), intake-only (creusot-compile-placement: docs/verifier-compatibility-evidence/creusot-0.12-probe/compile-local.log), intake-only (pilot-machine-record: docs/verifier-compatibility-evidence/ligature-verifier-compatibility.json)
+      source identity: sha256:542c3f916cf471726358c3e72de9defc02f7ea79ea5bb14ed96b7d8dad703b21; nix lock: sha256:707d678219fd2a622f456ff86e4b0cd3de48ddf8bd3e5b3b5036ed53e86bfec6
+      exclusion: The synthetic obligation is not production source proof coverage.
+      exclusion: No portable flake revision is retained for this 0.12 control; the content-addressed store/source identity is the reproducible identity.
+      exclusion: The measured 1.4.3 artifact did not publish this matrix; the publishing release carries the measurements rather than relabelling that artifact.
+      exclusion: The unresolved cargo-creusot 0.14.0-dev / creusot-std 0.14.0 declared shell is a separate unverified entry.
+    verus-0.2026.05.24.ecee80a-rust-1.95.0-x86_64-linux: verus 0.2026.05.24.ecee80a; rust 1.95.0; linux/x86_64; status=tested; selectable=true; coverage=intake:true,synthetic:true,project-level:false
+      evidence: synthetic (verus-synthetic-probe: docs/verifier-compatibility-evidence/verus-1.95-probe/probe-result.json), intake-only (verus-pilot-record: docs/verifier-compatibility-evidence/LIGATURE-VERIFIER-COMPATIBILITY.md)
+      source identity: sha256:1ae400675b4b141bc393a710f1af8986922f7698ac4add4157e6a2b6b2da4309; nix lock: sha256:87fbdee2d13f20a224aa8794e39cbe32d2545e360908c1bc9cdc1d6973f23c91
+      exclusion: Synthetic and intake-path evidence only; no production source proof.
+      exclusion: The measurement was made with Ligature 1.4.3, not the publishing release.
+    kani-0.67.0-cbmc-6.8.0-rust-1.95.0-x86_64-linux: kani 0.67.0 + CBMC 6.8.0; rust 1.95.0; linux/x86_64; status=tested; selectable=true; coverage=intake:true,synthetic:true,project-level:false
+      evidence: synthetic (kani-synthetic-probe: docs/verifier-compatibility-evidence/kani-0.67-probe/probe-result.json), synthetic (kani-synthetic-log: docs/verifier-compatibility-evidence/kani-0.67-probe/kani.log), intake-only (kani-pilot-record: docs/verifier-compatibility-evidence/LIGATURE-VERIFIER-COMPATIBILITY.md)
+      source identity: sha256:d2c36c2dbace72bdad88ffc8c68ef87745dd719f9875e0f96d57b1aa49402e52; nix lock: none
+      exclusion: Bounded harness evidence only; not deductive coverage or production source proof.
+      exclusion: No portable Nix lock is published for the cargo-kani/CBMC pair in this matrix revision.
+      exclusion: The measurement was made with Ligature 1.4.3, not the publishing release.
+    creusot-0.14.0-dev-declared-shell-x86_64-linux: creusot 0.14.0-dev + creusot-std 0.14.0, Alt-Ergo 2.6.2, Z3 5.1.0, cvc4 1.8, cvc5 1.4.1; rust nightly-2026-08-03; linux/x86_64; status=unverified pair=mismatch; selectable=false; coverage=intake:false,synthetic:false,project-level:false
+      evidence: intake-only (creusot-declared-shell: docs/verifier-compatibility-evidence/declared-shell-creusot.txt), intake-only (creusot-pilot-mismatch: docs/verifier-compatibility-evidence/LIGATURE-VERIFIER-COMPATIBILITY.md)
+      source identity: sha256:c97222a3ef4685ca609b9a25e093a382fb94fcd300d88f8f5a7e2fb522056f1b; nix lock: none
+      exclusion: No synthetic or production proof coverage: the shell was observed to launch only.
+      exclusion: Creates no Cargo file, flake, lock, descriptor selection or acceptance.
+      exclusion: Does not resolve epic #2 or approve any 0.14 toolchain.
+      exclusion: Not selectable: cargo-creusot 0.14.0-dev and creusot-std 0.14.0 are not an exact tested pair.
+  bundled schemas:
+    docs/achieved-assurance-schema.json: 1.0
+    docs/assumption-registry-schema.json: 1.0
+    docs/assurance-report-schema.json: 1.0
+    docs/boundary-contract-schema.json: 1.0
+    docs/bridge-check-schema.json: 1.0
+    docs/bridge-schema.json: 1.0
+    docs/callsite-schema.json: unknown
+    docs/cargo-profile-audit-schema.json: 1.0
+    docs/cargo-verus-profile-audit-schema.json: 1.0
+    docs/closure-profile-schema.json: 1.0
+    docs/concept-to-code-constraint-id-schema.json: unknown
+    docs/concept-to-code-witness-required-schema.json: unknown
+    docs/conflict-resolution-schema.json: 1.0
+    docs/degradation-record-schema.json: 1.0
+    docs/evidence-schema.json: 1.0
+    docs/exemption-schema.json: 1.0
+    docs/external-evidence-result-schema.json: unknown
+    docs/feature-ledger-schema.json: 1.0
+    docs/g14-report-schema.json: unknown
+    docs/gold-set-measurement-schema.json: 1.0
+    docs/gold-set-schema.json: 1.0
+    docs/interaction-schema.json: 1.0
+    docs/promotion-receipt-schema.json: unknown
+    docs/protocol-debt-schema.json: 1.0
+    docs/r1-g16-report-schema.json: unknown
+    docs/scaffold-receipt-schema.json: 1.0
+    docs/verifier-compatibility-matrix-schema.json: unknown
+    docs/witness-result-schema.json: 1.0
+    docs/witness-spec-schema.json: 1.0
+    docs/work-package-generation-audit-schema.json: 1.0
+    docs/work-package-manifest-schema.json: unknown
+    docs/write-grant-schema.json: 1.0
+    schemas/consolidated-check.schema.json: 1.0
+    schemas/project-descriptor.schema.json: 1.0
+    schemas/project-state.schema.json: 1.1
+    vendor/concept-to-code/schemas/spec.schema.json: 1.0
+OK: executable identity verified against its embedded build attestation

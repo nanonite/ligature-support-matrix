@@ -1,0 +1,21 @@
+$ ./tools/ligature/ligature.pyz extract-c-static --target x86_64-unknown-linux-gnu   # 1.5.1, NO --feature default
+exit 0
+wrote /tmp/opencode/ligature151-probe-cstatic/ci/results/c_static/crates_crypto-mixed-core.json: 35 discovered, 35 resolved, 0 unresolved (discovered-lower-bound)
+config_scope.features = []
+source_binding.digest = sha256:e730a1319373e0e01957a527aa613911f2b1f6f4c8da54bb973c79c4f72a6f03
+3f4096aec359914fd0c74a5e0cfec874c01fbe2256051fd6978466b7f8b3dea8  ci/results/c_static/crates_crypto-mixed-core.json
+
+$ ./tools/ligature/ligature.pyz validate-closure   # clean scratch copy, no stray specs/_closure
+OK: all closure artifacts pass G1a/G1b and G17 profile/record consistency (2 discovered)
+exit 0
+
+# add a stray directory named specs/_closure under analysis/ with arbitrary contents
+$ ./tools/ligature/ligature.pyz validate-closure
+FAIL: 2 finding(s)
+  - [G1b/error] analysis/probe/specs/_closure/notes.txt: closure artifact is not directly under the canonical directory /tmp/opencode/ligature151-probe-cstatic/specs/_closure -- found under /tmp/opencode/ligature151-probe-cstatic/analysis/probe/specs/_closure
+  - [G1b/error] analysis/probe/specs/_closure/stray.json: closure artifact is not directly under the canonical directory /tmp/opencode/ligature151-probe-cstatic/specs/_closure -- found under /tmp/opencode/ligature151-probe-cstatic/analysis/probe/specs/_closure
+exit 1
+
+# remove the stray directory again
+OK: all closure artifacts pass G1a/G1b and G17 profile/record consistency (2 discovered)
+exit 0
