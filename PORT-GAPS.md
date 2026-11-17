@@ -1,10 +1,14 @@
 # Howard Hinnant/date → Rust/Creusot port gaps
 
 Pinned upstream: `upstream/date` v3.0.5, commit
-`179a6b921ccd6179b5b04dce812a89f71a51b4df`. The current Ligature recheck is
-1.3.11, bundle SHA-256
-`446c87f93aa84c3f538710385706fcf753cd242a1282ba88faa1ad6722cb351f`. Detailed
-per-finding evidence is in
+`179a6b921ccd6179b5b04dce812a89f71a51b4df`. The current Ligature baseline is
+1.5.1, bundle SHA-256
+`d704c5a5875d200214310c1fca7854a14a105c1b74cebaa5bc03f6a870bcc030`; the live
+re-check for this pilot is in
+[`analysis/verification/ligature-1.5.1/README.md`](analysis/verification/ligature-1.5.1/README.md).
+The P1 findings below were recorded against cargo-creusot 0.12.0-dev, which
+Ligature 1.5.1's verifier compatibility matrix still lists as the measured
+compatible version. Detailed per-finding evidence is in
 [`analysis/ligature/reverify-VERDICTS.md`](analysis/ligature/reverify-VERDICTS.md).
 
 This file separates source scope cuts, Codesight limits, Creusot proof and
@@ -121,6 +125,293 @@ pilot operator.
 - **Generalizable lesson:** Keep proof-language syntax inside the verifier's
   supported parsing boundary and test both ordinary Rust compilation and
   verifier emission when changing proof encodings.
+
+## P1 transfer gaps backfilled from the initial port
+
+The entries above were written during the later recheck. The entries in this
+section are the C++→Rust gaps the initial port (P1) found before this file
+existed, reconstructed from `findings/limitations.jsonl`, `README.md`, the Rust
+source, and `analysis/`. Finding ids are the original P1 records; where a later
+record corrected an earlier diagnosis, both are listed. The two P1 gaps that
+already had entries above are the subset scope cut and the Codesight header
+misclassification.
+
+### Era arithmetic is specified only inside C++'s non-overflow domain
+
+- **Category:** Cut or simplified behaviour.
+- **C++ construct / upstream location:** `include/date/date.h:2979-2993`
+  (`year_month_day::to_days`) and `:3093-3109`
+  (`year_month_day::from_days`) add the 719468 epoch shift and multiply an era
+  by 146097 in `int`; `year` is stored in `short`, and `month`/`day` in
+  `unsigned char` (`date.h:401-427`, `:1420-1435`, `:1545-1570`). Outside the
+  representable year range those signed operations overflow, which is
+  undefined behavior in C++.
+- **What the Rust port does instead:**
+  [`rust/date-creusot-core/src/year_month_day.rs`](rust/date-creusot-core/src/year_month_day.rs)
+  mirrors the C++ widths (`Year(i16)`, `Month(u8)`, `Day(u8)`, `Days(i32)`) and
+  makes the defined domain explicit: `from_days` requires
+  `-12687428 <= dp <= 11248737`, and `to_days_bounded` requires a year in
+  `[-32767, 32767]`, a month in `[1, 12]`, and a day in `[1, 31]`. The oracle
+  uses the same domains in `oracle/operations.md`.
+- **Why:** There is no defined C++ behavior to port outside the type widths and
+  the day-count range in which the era arithmetic does not overflow. Evidence
+  E-12 fixes the domain and E-15 records the total, normalizing behavior of
+  `to_days`.
+- **Impact:** `from_days` is unavailable outside its stated range, and the
+  oracle cannot compare values there because upstream would invoke UB.
+  `to_days` remains total so that the C++ normalization quirk is preserved.
+- **Status:** ruled-scope-cut.
+- **Finding IDs:** `date-creusot-001`, `date-creusot-035`; the range is also
+  recorded in `evidence/E-12.json`, `evidence/E-15.json`, and
+  `oracle/operations.md`.
+- **Generalizable lesson:** When upstream relies on signed overflow outside its
+  type widths, define and document the domain where the transfer is meaningful
+  instead of claiming to port undefined behavior, and test only that domain.
+
+### Narrowing casts in the era arithmetic generate range obligations
+
+- **Category:** Unprovable or costly obligations.
+- **C++ construct / upstream location:** `include/date/date.h:3093-3109`
+  (`year_month_day::from_days`) constructs `year{y + (m <= 2)}`,
+  `month(m)`, and `day(d)`, narrowing the recovered `int` values to `short`
+  and `unsigned char`; `date.h:2979-2993` performs the reverse widening.
+- **What the Rust port does instead:** `from_days` ends with
+  `Year((y + if m <= 2 { 1 } else { 0 }) as i16)`, `Month(m as u8)`, and
+  `Day(d as u8)`. Its contract states the recovered month and day ranges and
+  the postcondition against `civil_from_days`, so each narrowing cast has a
+  lower and upper bound to prove.
+- **Why:** Creusot emits `Int16.of_int`/`Int32.to_int` boundary goals for each
+  cast. The provers could not connect the inline month/day computation to the
+  `month_day_from_doy` range fact, and the year cast needed the era-recovery
+  reasoning. A `proof_assert!` experiment inside `civil_from_days` made this
+  worse and was reverted.
+- **Impact:** At P1 `vc_from_days` stood at 55/61 goals. The root cause was
+  later found to be the false logic-twin postcondition in
+  `date-creusot-038`, not missing cast lemmas; after that fix `vc_from_days`
+  was fully proved. The explicit range facts remain in the contracts because
+  the casts still need them.
+- **Status:** fixed (after `date-creusot-038`; the range contracts remain).
+- **Finding IDs:** `date-creusot-001`, `date-creusot-035`,
+  `date-creusot-038`.
+- **Generalizable lesson:** Narrow C++ integer types create a proof obligation
+  at every cast. When those obligations fail, check the specification and its
+  proof twin for a false statement before writing range lemmas; a cast failure
+  can be a symptom rather than the cause.
+
+### A proof-only logic twin silently diverged from the program body
+
+- **Category:** No faithful Rust or verifier equivalent.
+- **C++ construct / upstream location:** `include/date/date.h:2979-2993`
+  (`year_month_day::to_days`) and `:3093-3109`
+  (`year_month_day::from_days`), the two directions of the epoch-day
+  conversion.
+- **What the Rust port does instead:** The contract-facing inverse is the
+  `#[logic]` function `civil_from_days` in
+  [`year_month_day.rs`](rust/date-creusot-core/src/year_month_day.rs), a
+  hand-written twin of the executable `from_days`. Its first version omitted
+  `let z = z + 719468;`, the epoch shift the program performs. The twin was
+  corrected to mirror the program body.
+- **Why:** Creusot contracts cannot call program functions in a logic context,
+  so the inverse has to be restated as a separate proof-only body. That body is
+  stripped from ordinary builds, so neither `rustc` nor the oracle executes it;
+  there is no automatic refinement check tying the twin to the program.
+- **Impact:** The stated postcondition was false for nearly all inputs, so the
+  prover was correctly refusing to prove it. A 50,000-case brute-force
+  comparison of the twin with the executable function failed 100% before the
+  fix and passed afterwards. The 143-case oracle suite was unaffected before
+  and after because it calls only the executable function.
+- **Status:** fixed.
+- **Finding IDs:** `date-creusot-038` (corrects the diagnosis in
+  `date-creusot-035`/`date-creusot-036`).
+- **Generalizable lesson:** Every proof-only twin needs a differential test
+  against the executable function it models. A passing runtime oracle says
+  nothing about code that is stripped from runtime builds.
+
+### `round_trip` was unprovable because a callee contract omitted an identity
+
+- **Category:** Unprovable or costly obligations.
+- **C++ construct / upstream location:** `include/date/date.h:2998-3000`
+  (`year_month_day::operator sys_days`) and `:3093-3109`
+  (`year_month_day::from_days`); the round trip is
+  `from_days(to_days(ymd)) == ymd`.
+- **What the Rust port does instead:** `YearMonthDay::round_trip` states the
+  composition over the logic functions (`civil_from_days(days_from_civil(...))`)
+  and calls the wrapper `to_days_bounded`. That wrapper's contract originally
+  stated only the day-count range `[-12687428, 11248737]`, not the
+  `days_from_civil` identity its one-line body computes. A second `#[ensures]`
+  restating that identity was added.
+- **Why:** A callee exposes only its own contract; a VC never sees the callee's
+  body. With only the range in scope, the postcondition and the computed day
+  count were unrelated terms, so the goal was unprovable in principle rather
+  than merely hard for search.
+- **Impact:** P1 recorded 5/7, then 6/10, sub-goals and suspected a missing
+  lemma; raising the search budget made the split worse. After the missing
+  `#[ensures]` was added, `vc_round_trip` closed 5/5 under the default
+  `time 1 / depth 6` budget and the whole crate reported `Proved (93 files)`.
+  `date-creusot-051` also claimed a resolution but did not match the tree that
+  `date-creusot-059` measured from scratch; `059` supersedes it.
+- **Status:** fixed.
+- **Finding IDs:** `date-creusot-001`, `date-creusot-036`,
+  `date-creusot-039`, `date-creusot-051`, `date-creusot-059`.
+- **Generalizable lesson:** A missing postcondition on a wrapper is
+  indistinguishable from a missing lemma. Dump the VC and read its hypotheses
+  before writing lemmas, and make every wrapper restate the identity its body
+  computes.
+
+### The era-arithmetic inverse identities need explicit exactness lemmas
+
+- **Category:** Unprovable or costly obligations.
+- **C++ construct / upstream location:** `include/date/date.h:2979-2993`
+  (`year_month_day::to_days`) and `:3093-3109`
+  (`year_month_day::from_days`). Both directions invert nested truncating
+  divisions: `doe` into `era`/`yoe`/`doy`, and `doy` into month/day.
+- **What the Rust port does instead:** The proof composes named `#[logic]`
+  lemmas in [`year_month_day.rs`](rust/date-creusot-core/src/year_month_day.rs):
+  `year_of_era_from_doe_exact` with the mixed-radix helpers
+  `century_of_era_year` and `era_quotients`, plus
+  `month_day_from_doy_exact`, `era_of_days`, `civil_parts`, `valid_era_day`,
+  `doe_bounds`, and the composite `days_civil_round_trip` exposed through the
+  boolean wrapper `civil_round_trip_holds`.
+- **Why:** Integer division does not distribute over addition, so the
+  automatic provers cannot invert the formula. Raising `why3find.json` from
+  `time 1 / depth 6` to `time 5 / depth 12` made the split worse, ruling out
+  "more search budget" as the fix. The first suggested year-of-era lemma was
+  false over the full `[0, 399] × [0, 365]` box because the forward map is not
+  injective there; the proved side condition `valid_era_day(yoe, doy)` selects
+  exactly the 146,097 real days of a 400-year era.
+- **Impact:** P1 left `round_trip` open (`date-creusot-036`/`039`/`049`). The
+  later certificate proves 93/93 proof files and 270/270 leaf goals, with
+  `vc_round_trip` at 5/5 sub-goals under the default budget. The 143-case
+  oracle suite also passes, so the gap was proof coverage, not observed
+  behavior.
+- **Status:** fixed (closed later under chainlink #88).
+- **Finding IDs:** `date-creusot-001`, `date-creusot-036`,
+  `date-creusot-039`, `date-creusot-049`, `date-creusot-059`.
+- **Generalizable lesson:** Calendar-era inversion is a mixed-radix exactness
+  argument, not a search-budget problem. State the tight side condition that
+  makes the recovery injective, then give the prover the digit split
+  explicitly.
+
+### Cross-module logic twins and bool predicates are opaque in Creusot
+
+- **Category:** Unprovable or costly obligations.
+- **C++ construct / upstream location:** `include/date/date.h:1700-1715`
+  (`year::is_leap`, `year::ok`), `:1570` (`month::ok`), and `:2743-2756`
+  (`year_month_day_last::day`), whose contracts are used by
+  `year_month_day::ok` and the day bound.
+- **What the Rust port does instead:** The contracts inline the domain
+  constraints (year != -32768, month in `[1, 12]`, day in `[1, 31]`, and the
+  leap rule) instead of naming the `ok_logic`/`is_leap_logic` twins.
+  `month_length` takes the year as `Int` and computes the leap rule internally
+  so it returns `Int` and stays transparent; its `#[ensures]` restates the
+  month table across the module boundary.
+- **Why:** In Creusot 0.12 a `#[logic]` twin is emitted as an opaque predicate
+  in every module except its home module. A `bool`-returning logic function is
+  also forced to an opaque predicate (`retty` is `None`), so a contract cannot
+  compute with it. A scratch crate reproduced the same-module-succeeds,
+  cross-module-fails pattern.
+- **Impact:** The first version of the port failed `vc_day`, `vc_ok`, and
+  `vc_to_days_bounded` when the contracts named the twins and the boolean
+  `is_leap_year`. Inlining fixed all of them, at the cost of duplicating the
+  domain expressions in code and contracts, where they can drift apart.
+- **Status:** worked-around.
+- **Finding IDs:** `date-creusot-050`; `date-creusot-059` records the later
+  `month_length` contract restatement.
+- **Generalizable lesson:** Do not name a cross-module logic twin or a
+  bool-returning logic predicate in a contract unless the verifier emits it
+  transparently. Prefer a transparent `Int`-returning function or inline the
+  fact, and keep the inlined copy under review.
+
+### Tuple and record equality in the deep model blocks `eq` refinement
+
+- **Category:** Unprovable or costly obligations.
+- **C++ construct / upstream location:** `include/date/date.h:3022-3026`
+  (`operator==` for `year_month_day`) and `:2781-2785` (`operator==` for
+  `year_month_day_last`), which compare the year/month/day fields directly.
+- **What the Rust port does instead:** The `PartialEq::eq` contracts are spelled
+  over field views (`self.0@ == other.0@`, or the component-wise conjunction)
+  rather than the canonical
+  `result == (self.deep_model() == other.deep_model())`. The deep models are
+  named records (`YearMonthDayView`, `YearMonthDayLastView`, `CivilView`)
+  rather than generated tuples, and `round_trip` compares fields instead of
+  using `==`.
+- **Why:** The trait's refinement goal is a tuple/record equality, and the
+  provers cannot decompose a record equality on a generated tuple type when
+  the hypothesis speaks about component `deep_model` functions that are opaque
+  outside their home module. The canonical spelling therefore leaves
+  `eq__refines` undecomposable.
+- **Impact:** The canonical spelling failed the two `eq__refines` goals for
+  `YearMonthDay` and `YearMonthDayLast`; the field-view spelling proves both.
+  The port deliberately deviates from the canonical Creusot `eq` spec, and
+  the deviation is documented at each site.
+- **Status:** worked-around.
+- **Finding IDs:** `date-creusot-037`, `date-creusot-059`.
+- **Generalizable lesson:** A verifier's internal representation shapes the
+  specification style. When generated tuple equality is opaque, state
+  refinement field-wise and give the model a named record instead of forcing
+  the canonical spelling.
+
+### `const fn` is within Creusot's reach, but const-eval-only code is untested
+
+- **Category:** Tooling blind spots in the transfer.
+- **C++ construct / upstream location:** The `CONSTCD14`/`CONSTCD11`
+  annotations on the ported calendar functions, for example
+  `include/date/date.h:473` (`weekday_from_days`), `:706-727`
+  (`year_month_day` constructors and `from_days`), `:2743`
+  (`year_month_day_last::day`), `:2979` (`to_days`), and `:3093`
+  (`from_days`).
+- **What the Rust port does instead:** Every ported operation is a `const fn`
+  mirroring the C++ annotation, and Creusot emits and discharges verification
+  conditions for them. A probe also compiled const-fn versions of the era
+  arithmetic (`const_days_from_civil`, `const_civil_from_days`) that are only
+  evaluated at compile time; those inherited the same 33/37 and 55/61
+  era-arithmetic gap as their non-const counterparts.
+- **Why:** Creusot 0.12 supports contracts on `const fn`, including const-eval
+  contexts. The residual failures were the shared era-arithmetic lemma gap,
+  not a const-fn limitation: the `Int32` truncating division in a const body
+  still has to be connected to the `Int` division in the `#[logic]` twin.
+- **Impact:** `const fn` reach is not a proof gap for this port; it did not
+  restrict what could be verified. Const-eval-only variants have no runtime
+  callers and therefore no oracle coverage, so their behavior rests on the
+  corresponding executable functions.
+- **Status:** worked-around (the era gap is tracked separately).
+- **Finding IDs:** `date-creusot-041`.
+- **Generalizable lesson:** Test whether the verifier accepts `const fn`
+  contracts instead of assuming it does not; C++ `constexpr` does not force a
+  scope cut. Const-eval-only code still needs its own proof and a differential
+  check against an executable path.
+
+### The oracle covers five operations and one mapped upstream test
+
+- **Category:** Tooling blind spots in the transfer.
+- **C++ construct / upstream location:** The pinned Howard Hinnant/date ctest
+  suite under `upstream/date/test/`, and the five operations in
+  `oracle/operations.md`: `days_from_civil`, `civil_from_days`,
+  `weekday_from_days`, `ymd_ok`, and `iso_weekday_from_days`.
+- **What the Rust port does instead:** `oracle/cases.jsonl` contains 143
+  differential cases executed by generated nextest tests against
+  `oracle/golden/results.jsonl`. `oracle/test-map.csv` maps exactly one
+  upstream test (`date_test_pass_year_month_day_test`) to case IDs; the other
+  nine subset rows are `unmapped` because they exercise operations the pilot
+  does not port: weekday arithmetic, `last`, and weeknum types. The C++ driver
+  was rewritten with a strict parser and exact field-set validation, and
+  `oracle/rust-check/.config/nextest.toml` gained the protocol's `ci` profile.
+- **Why:** The pilot's scope is a calendar subset, not the whole library, and
+  the inherited driver accepted unknown top-level and input fields instead of
+  rejecting them. Without the `ci` profile, the protocol-required nextest
+  command could not run at all.
+- **Impact:** Parity is established only for the five operations and the input
+  domains in `oracle/operations.md`; it is not evidence for omitted upstream
+  behavior. Before the driver rewrite, a malformed case could enter the golden
+  file silently. The suite has 143 cases; the "150 cases" quoted in
+  `date-creusot-001` is a stale count.
+- **Status:** worked-around; the coverage boundary remains.
+- **Finding IDs:** `date-creusot-044`, `date-creusot-045`; the stale count is
+  noted in `date-creusot-001` and `FUTURE-WORK-round-trip-proof.md`.
+- **Generalizable lesson:** Map upstream tests to oracle cases explicitly and
+  report the mapped and unmapped rows together. A green differential suite is
+  a statement about the encoded operations and domains, not about the upstream
+  library.
 
 ## R1/G16 still needs five operator-reviewed interactions
 
