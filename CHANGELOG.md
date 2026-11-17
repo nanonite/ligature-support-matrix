@@ -11,6 +11,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 ### Changed
+- [ligature 1.5.1] crypto-mixed: G13 manifest refresh, C_static re-extraction, stray P4-5 closure inputs break the CG3 release (#196)
+- C.1 tool artifact collision (metadata file where a WP manifest is expected) (#55)
+- [deliverables] Backfill <pilot>/PORT-GAPS.md for date-creusot (P1) from its findings and README (#115)
+- [P4] Operator setup for four isolated mixed-verifier port workspaces (#177)
+- [ligature 1.5.1] date-creusot: G13 manifest refresh, C_static re-extraction, stray P4-5 closure input (#195)
 - [P4] Operator checkpoint: four-project scope, toolchains, trust and workspace setup (#161)
 - [p4 matrix] P4-4 Verifier-fit analysis for P3 crypto-mixed (#158)
 - [p4 matrix] P4-3 Verifier-fit analysis for P2 swisstable-verus (#157)

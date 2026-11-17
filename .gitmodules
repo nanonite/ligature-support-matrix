@@ -13,3 +13,19 @@
 	path = swisstable-verus
 	url = git@github.com:nanonite/ligature-support-matrix.git
 	branch = pilot/swisstable-verus
+[submodule "icl-creusot-verus"]
+	path = icl-creusot-verus
+	url = git@github.com:nanonite/ligature-support-matrix.git
+	branch = pilot/icl-creusot-verus
+[submodule "tinyxml2-creusot-kani"]
+	path = tinyxml2-creusot-kani
+	url = git@github.com:nanonite/ligature-support-matrix.git
+	branch = pilot/tinyxml2-creusot-kani
+[submodule "snappy-verus-kani"]
+	path = snappy-verus-kani
+	url = git@github.com:nanonite/ligature-support-matrix.git
+	branch = pilot/snappy-verus-kani
+[submodule "leveldb-three-verifiers"]
+	path = leveldb-three-verifiers
+	url = git@github.com:nanonite/ligature-support-matrix.git
+	branch = pilot/leveldb-three-verifiers
