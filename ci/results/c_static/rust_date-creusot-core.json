@@ -4,12 +4,12 @@
   "crate_dir": "rust/date-creusot-core",
   "source_binding": {
     "algorithm": "sha256",
-    "digest": "sha256:be74b63e573566ee73b4d848f2efa4430649b4aac7714a2f40462d078503d0c1",
+    "digest": "sha256:5fe482e43f881cb34e5eb6e99c3a173d7adff7eadb74269262c252f675c4fb66",
     "file_count": 10
   },
   "coverage_scope": {
     "extractor": "coarse-syntactic-callgraph",
-    "extractor_version": "0.2.0",
+    "extractor_version": "0.3.0",
     "extractor_backing": "syntactic",
     "supported_call_forms": [
       "associated-path-call",
