@@ -200,7 +200,7 @@
   ],
   "gate_integrity": [
     {
-      "hash": "sha256:431a8179e9364591db288c707b6b5c8a3f28bd6799db5932482e14ca83bf588a",
+      "hash": "sha256:ee39e9e64d510dbb918eb1cab6185aae8df5f4054f84a5f09766a2033df39735",
       "runner": ".codex/skills/ligature/SKILL.md"
     },
     {
@@ -289,7 +289,7 @@
       "runner": "ligature"
     }
   ],
-  "issue": "chainlink:134",
+  "issue": "chainlink:196",
   "obligations": [
     "BR-CRYPTO-MIXED-001",
     "BR-CRYPTO-MIXED-002",
@@ -297,7 +297,7 @@
   ],
   "provenance": {
     "artifact_set_hash": "sha256:28b2e16d1f368476eb28780cbaf7fab03deb7b25fe14e3c4973c13d9933ff679",
-    "base_commit": "666751057a68634774673f5eadb4f2df0e598c07",
+    "base_commit": "a0f9fe2cd1ce9c0efb1ddd16f5537b674f5a4a94",
     "features": [
       "default"
     ],
