@@ -209,7 +209,7 @@
   ],
   "gate_integrity": [
     {
-      "hash": "sha256:431a8179e9364591db288c707b6b5c8a3f28bd6799db5932482e14ca83bf588a",
+      "hash": "sha256:ee39e9e64d510dbb918eb1cab6185aae8df5f4054f84a5f09766a2033df39735",
       "runner": ".codex/skills/ligature/SKILL.md"
     },
     {
@@ -283,7 +283,7 @@
       "runner": "ligature"
     }
   ],
-  "issue": "chainlink:138",
+  "issue": "chainlink:195",
   "obligations": [
     "Month.C001",
     "Weekday.C001",
@@ -297,7 +297,7 @@
   ],
   "provenance": {
     "artifact_set_hash": "sha256:69548f171e1a4210f0d95233b9592f22fa15acccda8f03e5cf1c7b43d197ce71",
-    "base_commit": "af7463610773f210da961944331e75b2f644d6f3",
+    "base_commit": "302cdf70b68157dedba87d8daf755ecd596b0fff",
     "features": [],
     "promotion_id": "PROM-DATE-CREUSOT-CORE-001",
     "target": "x86_64-unknown-linux-gnu",
