@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "name": "icl-creusot-verus",
+    "crate_naming_convention": "^icl-(creusot|verus|kani)$"
+  },
+  "mode": "port",
+  "port_source": {
+    "repository": "upstream/icl",
+    "language": "cpp",
+    "oracle_build_command": "nix develop path:..#default -c bash oracle/build.sh"
+  },
+  "crates": [
+    {
+      "crate_dir": "rust/icl-creusot",
+      "contracts_crate": "contracts",
+      "specs_search_root": "rust"
+    },
+    {
+      "crate_dir": "rust/icl-verus",
+      "contracts_crate": "contracts",
+      "specs_search_root": "rust"
+    }
+  ],
+  "verifier_policy": {
+    "default": "creusot",
+    "clusters": {
+      "icl-creusot": "creusot",
+      "icl-verus": "verus"
+    }
+  },
+  "closure_kind": "deductive",
+  "compatibility_policy": {
+    "reliance_policy_path": "docs/reliance-policy.md"
+  },
+  "write_set": {
+    "allowed_roots": [
+      "rust/*/src/",
+      "rust/*/tests/",
+      "rust/*/verif/**",
+      "oracle/**",
+      "analysis/**",
+      "findings/**",
+      "README.md",
+      "PORT-GAPS.md",
+      "SOURCE-PIN.json",
+      ".gitignore"
+    ],
+    "protected_roots": [
+      "rust/*/specs/**",
+      "ci/manifest/**",
+      "scripts/**",
+      "docs/*-schema.json",
+      "docs/reliance-policy.md",
+      "rust/*/Cargo.toml",
+      "rust/*/Cargo.lock",
+      "rust/*/rust-toolchain.toml",
+      "rust/*/.cargo/config.toml",
+      "rust/*/build.rs",
+      "tests/harnesses/**",
+      ".github/**",
+      "tools/**"
+    ]
+  },
+  "gate_integrity": [
+    {
+      "path": ".codex/skills/ligature/SKILL.md"
+    },
+    {
+      "path": ".ligature/schemas/project-state.schema.json"
+    },
+    {
+      "path": ".ligature/schemas/consolidated-check.schema.json"
+    },
+    {
+      "path": "@adjudicator"
+    }
+  ],
+  "llm_backend": {
+    "kind": "manual"
+  },
+  "review": {
+    "reviewer": "roger-codex-luna6",
+    "reviewed_at": "2026-11-17",
+    "accepted_fixture_values": [
+      {
+        "path": "port_source.language",
+        "value_sha256": "sha256:3eebdcd9e7aa0cc1a0b3f663baa971db6220f7cbc346e34220e744fdc8a07176",
+        "reviewer": "roger-codex-luna6",
+        "accepted_at": "2026-11-17"
+      }
+    ]
+  },
+  "toolchains": [
+    {
+      "project_root": "rust/icl-creusot",
+      "verifier": "creusot",
+      "matrix_entry": "creusot-0.12.0-dev-nightly-2026-04-21-x86_64-linux"
+    },
+    {
+      "project_root": "rust/icl-verus",
+      "verifier": "verus",
+      "matrix_entry": "verus-0.2026.05.24.ecee80a-rust-1.95.0-x86_64-linux"
+    }
+  ]
+}

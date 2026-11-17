@@ -1,0 +1,23 @@
+{
+  "checkout": {
+    "intake_issue": 179,
+    "planned_path": "upstream/",
+    "status": "absent"
+  },
+  "commit": "2741c3a1b7b79f7326360c26c3e1588b385c9e53",
+  "commit_url": "https://github.com/boostorg/icl/commit/2741c3a1b7b79f7326360c26c3e1588b385c9e53",
+  "issue": 177,
+  "name": "Boost.ICL",
+  "note": "Pin declared at setup; #177 does not clone or vendor upstream source.",
+  "project": "M4",
+  "repository": "https://github.com/boostorg/icl",
+  "resolution_source": "planning/p4-mixed-2026-10-26/upstream-pins.json",
+  "schema": "p4-source-pin/1",
+  "selected_paths": [
+    "include/boost/icl/interval_base_set.hpp",
+    "include/boost/icl/interval_set.hpp",
+    "include/boost/icl/interval_map.hpp",
+    "include/boost/icl/concept/interval.hpp"
+  ],
+  "tag": "boost-1.88.0"
+}

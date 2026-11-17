@@ -1,0 +1,262 @@
+{
+  "candidate_edges": [
+    "C->V: interval_base_set::add calls _add; interval_set delegates to segment mutation.",
+    "V->C: _add consults icl::is_empty; mutation uses left_subtract/right_subtract and endpoint algebra."
+  ],
+  "crates": [
+    {
+      "cargo_config": {
+        "class": "protected/operator-managed",
+        "path": "rust/icl-creusot/.cargo/config.toml",
+        "status": "absent"
+      },
+      "config_root": "/tmp/p4-<issue>-icl-creusot-verus/config/icl-creusot",
+      "lock": {
+        "class": "protected/operator-managed",
+        "path": "rust/icl-creusot/Cargo.lock",
+        "status": "absent"
+      },
+      "manifest": {
+        "class": "protected/operator-managed",
+        "path": "rust/icl-creusot/Cargo.toml",
+        "status": "absent"
+      },
+      "name": "icl-creusot",
+      "nested_toolchain": {
+        "class": "protected/operator-managed",
+        "path": "rust/icl-creusot/rust-toolchain.toml",
+        "status": "absent"
+      },
+      "path": "rust/icl-creusot",
+      "proof_evidence_root": "analysis/verification/<run-id>/icl-creusot",
+      "target_root": "/tmp/p4-<issue>-icl-creusot-verus/icl-creusot/target",
+      "toolchain": {
+        "rust": "nightly-2026-04-21 (rustc 1.97.0-nightly 66da6cae1 2026-04-20)",
+        "std_source": "/nix/store/22j5g9088m140fgx2l6vbskkmg5ra5pp-creusot-source/creusot-std",
+        "tool": "cargo-creusot 0.12.0-dev",
+        "tool_path": "/nix/store/9y9g4kpsppxn6zqmyfkvfcc2234qkdwv-creusot-wrapped/bin/cargo-creusot",
+        "why3": "Why3 1.8.2+git / why3find 1.3.0+dev; alt-ergo 2.6.3, z3 4.15.3, cvc4 1.8, cvc5 1.3.1"
+      },
+      "verifier": "creusot"
+    },
+    {
+      "cargo_config": {
+        "class": "protected/operator-managed",
+        "path": "rust/icl-verus/.cargo/config.toml",
+        "status": "absent"
+      },
+      "config_root": "/tmp/p4-<issue>-icl-creusot-verus/config/icl-verus",
+      "lock": {
+        "class": "protected/operator-managed",
+        "path": "rust/icl-verus/Cargo.lock",
+        "status": "absent"
+      },
+      "manifest": {
+        "class": "protected/operator-managed",
+        "path": "rust/icl-verus/Cargo.toml",
+        "status": "absent"
+      },
+      "name": "icl-verus",
+      "nested_toolchain": {
+        "class": "protected/operator-managed",
+        "path": "rust/icl-verus/rust-toolchain.toml",
+        "status": "absent"
+      },
+      "path": "rust/icl-verus",
+      "proof_evidence_root": "analysis/verification/<run-id>/icl-verus",
+      "target_root": "/tmp/p4-<issue>-icl-creusot-verus/icl-verus/target",
+      "toolchain": {
+        "rust": "1.95.0",
+        "tool": "Verus 0.2026.05.24.ecee80a",
+        "tool_path": "/nix/store/57l94534x07sysi7gjf4zkkpai6cw6vc-verus-tools/bin/verus"
+      },
+      "verifier": "verus"
+    }
+  ],
+  "created_at": "2026-11-14T19:26:49Z",
+  "git": {
+    "branch": "main",
+    "initial_commit": null,
+    "note": "git init only; no commit by #177"
+  },
+  "initial_exclusions": [
+    "All of Boost outside the selected ICL slice",
+    "continuous/floating endpoint semantics",
+    "arbitrary allocator/comparator/codomain policies",
+    "pointer/iterator address identity and performance parity"
+  ],
+  "issue": 177,
+  "ligature": {
+    "bundle_installed": false,
+    "descriptor": null,
+    "initialized": false,
+    "reason": "No approved bundle or exact init/descriptor grant in #177; operator-managed."
+  },
+  "name": "Boost.ICL",
+  "oracle": {
+    "build_root": "/tmp/p4-<issue>-icl-creusot-verus/oracle",
+    "comparison": "Pointwise denotation AND canonical segment/iteration results for each selected container style; seeded operation traces, algebraic laws, extreme endpoints and split/join mutants.",
+    "dependencies": [
+      "Boost ICL module at the pinned commit plus the matching Boost 1.88.0 dependency distribution",
+      "pinned test/Jamfile.v2 interval/set/map suites"
+    ],
+    "name": "Boost 1.88.0 ICL native oracle"
+  },
+  "ownership_hypothesis": {
+    "creusot": "Endpoint/order/interval algebra and high-level set operations.",
+    "verus": "Canonical segment storage, mutation, split/coalesce, and representation/iterator invariants."
+  },
+  "production_claims": null,
+  "project": "M4",
+  "protected_hashes": {
+    "after": "planning/p4-mixed-2026-10-26/setup/protected-hashes-after.json",
+    "before": "planning/p4-mixed-2026-10-26/setup/protected-hashes-before.json",
+    "comparison": "planning/p4-mixed-2026-10-26/setup/protected-hashes-compare.json"
+  },
+  "protected_paths": [
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "project-descriptor.json",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": ".ligature/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "schemas/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "tools/ligature/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "rust/*/Cargo.toml",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "rust/*/Cargo.lock",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "rust/*/rust-toolchain.toml",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "rust/*/.cargo/config.toml",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "rust/*/build.rs",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "rust/*/specs/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "ci/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "scripts/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": "tests/harnesses/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": ".envrc",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": ".mcp.json",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": ".github/**",
+      "status": "absent"
+    },
+    {
+      "creation": "operator-managed or sanctioned command with an exact issue/path grant",
+      "path": ".codex/skills/ligature/**",
+      "status": "absent"
+    }
+  ],
+  "root": "icl-creusot-verus",
+  "root_kind": "independent-git-repository",
+  "schema": "p4-root-setup/1",
+  "smoke_check": {
+    "command": "planning/p4-mixed-2026-10-26/setup/p4-root-smoke-check.sh --probe icl-creusot-verus",
+    "evidence": "planning/p4-mixed-2026-10-26/setup/evidence/smoke-icl-creusot-verus.log",
+    "status": "pass",
+    "verifier_probes": {
+      "creusot": "pass",
+      "verus": "pass"
+    }
+  },
+  "source_pin": {
+    "checkout_status": "absent",
+    "commit": "2741c3a1b7b79f7326360c26c3e1588b385c9e53",
+    "intake_issue": 179,
+    "manifest": "SOURCE-PIN.json",
+    "repository": "https://github.com/boostorg/icl",
+    "tag": "boost-1.88.0"
+  },
+  "verifiers": [
+    "creusot",
+    "verus"
+  ],
+  "write_policy_proposal": {
+    "protected_or_operator_managed": [
+      "project-descriptor.json",
+      ".ligature/**",
+      "schemas/**",
+      "tools/ligature/**",
+      "rust/*/Cargo.toml",
+      "rust/*/Cargo.lock",
+      "rust/*/rust-toolchain.toml",
+      "rust/*/.cargo/config.toml",
+      "rust/*/build.rs",
+      "rust/*/specs/**",
+      "ci/**",
+      "scripts/**",
+      "tests/harnesses/**",
+      ".envrc",
+      ".mcp.json",
+      ".github/**",
+      ".codex/skills/ligature/**",
+      "outer-repository submodule registration"
+    ],
+    "status": "proposal-only; descriptor policy is operator-managed",
+    "worker_allowed": [
+      "README.md",
+      "SOURCE-PIN.json",
+      "PORT-GAPS.md",
+      "findings/**",
+      "oracle/**",
+      "analysis/**",
+      "rust/*/src/**",
+      "rust/*/tests/**",
+      "rust/*/verif/**",
+      ".gitignore"
+    ]
+  }
+}
